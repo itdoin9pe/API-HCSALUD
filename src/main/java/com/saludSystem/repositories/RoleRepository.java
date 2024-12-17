@@ -1,7 +1,7 @@
-package com.saludSystem.auth.repositories;
+package com.saludSystem.repositories;
 
-import com.saludSystem.auth.entities.Role;
-import com.saludSystem.auth.enums.UserRole;
+import com.saludSystem.entities.Role;
+import com.saludSystem.enums.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

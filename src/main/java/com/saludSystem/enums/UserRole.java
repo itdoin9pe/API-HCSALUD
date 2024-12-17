@@ -1,4 +1,4 @@
-package com.saludSystem.auth.enums;
+package com.saludSystem.enums;
 
 public enum UserRole {
     //vemtage

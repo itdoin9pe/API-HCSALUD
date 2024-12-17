@@ -1,4 +1,4 @@
-package com.saludSystem.auth.dtos;
+package com.saludSystem.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
