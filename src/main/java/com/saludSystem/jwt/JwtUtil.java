@@ -31,6 +31,24 @@ public class JwtUtil {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
+    
+    // Borrar si es posible
+    /*
+    public String generateToken(Authentication authentication) {
+        String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+        return generateToken(username); // Reutilizamos el método existente
+    }
+    
+    public String generateToken(String username) {
+        SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime() + expiration * 1000L))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }*/
+
 
     public Boolean validateToken(String token, UserDetails userDetails){
         final String username = extractUsername(token);

@@ -10,18 +10,24 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 	
     private final AuthService authService;
+    
+    //private final JwtUtil jwtUtil;
 
     @Autowired
     public AuthController(AuthService authService) {
         this.authService = authService;
+        //this.jwtUtil = jwtUtil;
     }
 
+    /*
     @PostMapping("/login")
     public ResponseEntity<String> login(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
@@ -33,6 +39,24 @@ public class AuthController {
             return ResponseEntity.ok(jwt);
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Check your credentials!!");
+        }
+    }*/
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return ResponseEntity.badRequest().body(Map.of("message", "Check your credentials!!"));
+        }
+        
+        try {
+            String jwt = authService.authenticate(loginUserDto.getUsername(), loginUserDto.getPassword());
+            
+            // Crear un mapa con el token para devolverlo en formato JSON
+            Map<String, String> response = new HashMap<>();
+            response.put("token", jwt);
+            
+            return ResponseEntity.ok(response);  // Devolver el token envuelto en un JSON
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Check your credentials!!"));
         }
     }
 
@@ -53,4 +77,20 @@ public class AuthController {
     public ResponseEntity<String> checkAuth(){
         return ResponseEntity.ok().body("Authenticated");
     }
+    
+    /*
+    @PostMapping("/refresh-token")
+    public ResponseEntity<String> refreshToken(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            if (jwtUtil.isTokenExpired(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token expired");
+            }
+            String refreshedToken = jwtUtil.generateToken(jwtUtil.extractUsername(token));
+            return ResponseEntity.ok(refreshedToken);
+        }
+        return ResponseEntity.badRequest().body("Invalid token");
+    }*/
+
 }
