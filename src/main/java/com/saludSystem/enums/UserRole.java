@@ -2,6 +2,8 @@ package com.saludSystem.enums;
 
 public enum UserRole {
     //vemtage
+    ADMIN,
+
     USER,
 
     DENTIST,
@@ -13,6 +15,4 @@ public enum UserRole {
     VETERINARIAN,
 
     CARDIOLOGIST,
-
-    ADMIN,
 }

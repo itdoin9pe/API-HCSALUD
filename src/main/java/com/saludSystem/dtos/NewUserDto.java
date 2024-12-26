@@ -1,5 +1,6 @@
 package com.saludSystem.dtos;
 
+import com.saludSystem.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,4 +11,6 @@ import lombok.NoArgsConstructor;
 public class NewUserDto {
     public String username;
     public String password;
+    private UserRole role;
+    //private int roleId;
 }

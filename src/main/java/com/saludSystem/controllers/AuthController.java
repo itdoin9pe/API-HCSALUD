@@ -18,29 +18,12 @@ import java.util.Map;
 public class AuthController {
 	
     private final AuthService authService;
-    
-    //private final JwtUtil jwtUtil;
 
     @Autowired
     public AuthController(AuthService authService) {
         this.authService = authService;
-        //this.jwtUtil = jwtUtil;
     }
 
-    /*
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
-            return ResponseEntity.badRequest().body("Check your credentials!!");
-        }
-        
-        try {
-            String jwt = authService.authenticate(loginUserDto.getUsername(), loginUserDto.getPassword());
-            return ResponseEntity.ok(jwt);
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("Check your credentials!!");
-        }
-    }*/
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
@@ -49,48 +32,37 @@ public class AuthController {
         
         try {
             String jwt = authService.authenticate(loginUserDto.getUsername(), loginUserDto.getPassword());
-            
-            // Crear un mapa con el token para devolverlo en formato JSON
             Map<String, String> response = new HashMap<>();
             response.put("token", jwt);
             
-            return ResponseEntity.ok(response);  // Devolver el token envuelto en un JSON
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("message", "Check your credentials!!"));
         }
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@Valid @RequestBody NewUserDto newUserDto, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
-            return ResponseEntity.badRequest().body("Check the fields!!");
+    public ResponseEntity<Map<String, Object>> register(@Valid @RequestBody NewUserDto newUserDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Check the fields!!"));
         }
+
         try {
             authService.registerUser(newUserDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Registered");
-        } catch (IllegalArgumentException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "User registered successfully");
+            response.put("username", newUserDto.getUsername());
+            response.put("role", newUserDto.getRole().name());
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }
     }
+
 
     @GetMapping("/check-auth")
     public ResponseEntity<String> checkAuth(){
         return ResponseEntity.ok().body("Authenticated");
     }
-    
-    /*
-    @PostMapping("/refresh-token")
-    public ResponseEntity<String> refreshToken(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-            if (jwtUtil.isTokenExpired(token)) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token expired");
-            }
-            String refreshedToken = jwtUtil.generateToken(jwtUtil.extractUsername(token));
-            return ResponseEntity.ok(refreshedToken);
-        }
-        return ResponseEntity.badRequest().body("Invalid token");
-    }*/
-
 }

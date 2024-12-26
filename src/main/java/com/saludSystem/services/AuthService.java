@@ -48,4 +48,10 @@ public class AuthService {
         User user = new User(newUserDto.getUsername(), passwordEncoder.encode(newUserDto.getPassword()),roleUser);
         userService.save(user);
     }
+
+    public UserRole getAuthenticatedUserRole(String username) {
+        User user = userService.findEntityByUsername(username);
+        return user.getRole().getName();
+    }
+
 }
