@@ -15,13 +15,7 @@ public class PacienteService {
         this.pacienteRepository = pacienteRepository;
     }
 
-    /*
-    public Paciente createPaciente(PacienteRequest request, User user){
-        if (!user.getRole().equals(request.getEspeciality())){
-            throw new AccessDeniedException("You can only create patients for your speciality");
-        }
-        Paciente paciente = new Paciente();
-
+    public Paciente createPaciente(Paciente paciente) {
         return pacienteRepository.save(paciente);
-    }*/
+    }
 }
