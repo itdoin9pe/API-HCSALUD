@@ -8,8 +8,8 @@ import com.saludSystem.entities.configuracion.Sede;
 import com.saludSystem.entities.configuracion.TipoDocumento;
 import com.saludSystem.repositories.modules.Configuration.SedeRepository;
 import com.saludSystem.repositories.modules.Configuration.TipoDocumentoRepository;
+import com.saludSystem.repositories.modules.Generals.PaisRepository;
 import com.saludSystem.repositories.modules.Paciente.PacienteRepository;
-import com.saludSystem.repositories.modules.PaisRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

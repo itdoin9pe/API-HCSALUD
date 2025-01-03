@@ -12,11 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "estudios")
 public class Estudio {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
-    @NotBlank
-    @Column(name = "descripcion", nullable = false)
+    @NotBlank(message = "The description field can't be blank")
+    @Column(nullable = false)
     private String descripcion;
+
 }

@@ -20,4 +20,7 @@ public class Aseguradora {
     @NotBlank
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
+
+    @Column(name = "estado", nullable = false)
+    private boolean estado; // 0 para inactivo, 1 para activo
 }
