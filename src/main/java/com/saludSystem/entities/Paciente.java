@@ -1,6 +1,5 @@
 package com.saludSystem.entities;
 
-import com.saludSystem.entities.configuracion.InformacionClinica;
 import com.saludSystem.entities.configuracion.Sede;
 import com.saludSystem.entities.configuracion.TipoDocumento;
 import jakarta.persistence.*;

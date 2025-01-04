@@ -3,7 +3,7 @@ package com.saludSystem.services.modules.Paciente;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.entities.*;
 
-import com.saludSystem.entities.configuracion.InformacionClinica;
+import com.saludSystem.entities.InformacionClinica;
 import com.saludSystem.entities.configuracion.Sede;
 import com.saludSystem.entities.configuracion.TipoDocumento;
 import com.saludSystem.repositories.modules.Configuration.SedeRepository;

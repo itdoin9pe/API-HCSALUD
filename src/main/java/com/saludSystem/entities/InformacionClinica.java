@@ -1,4 +1,4 @@
-package com.saludSystem.entities.configuracion;
+package com.saludSystem.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -15,13 +15,13 @@ public class InformacionClinica {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @NotBlank
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @Column(name = "estado", nullable = false)
-    private Integer estado;
+    private boolean estado;
 
 }

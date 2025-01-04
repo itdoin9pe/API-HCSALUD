@@ -31,7 +31,7 @@ public class CrearPacienteDTO {
     private byte[] fotoPaciente;
     private String titulo;
     private String observacion;
-    private Long informacionClinicaId;
+    private Integer informacionClinicaId;
     private Integer estudioId;
     private Long sedeId;
     private String celular;

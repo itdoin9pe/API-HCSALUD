@@ -21,5 +21,5 @@ public class Empresa {
     private String descripcion;
 
     @Column(name = "estado", nullable = false)
-    private Integer estado;
+    private boolean estado;
 }
