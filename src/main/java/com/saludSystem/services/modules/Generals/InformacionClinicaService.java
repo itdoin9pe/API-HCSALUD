@@ -49,7 +49,7 @@ public class InformacionClinicaService {
 
         InformacionClinica updatedInformacionClinica = informacionClinicaRepository.save(informacionClinica);
 
-        return convertToDTO(informacionClinica);
+        return convertToDTO(updatedInformacionClinica);
     }
 
     private InformacionClinicaDTO convertToDTO(InformacionClinica informacionClinica) {
