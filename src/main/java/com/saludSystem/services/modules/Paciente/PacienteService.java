@@ -13,6 +13,9 @@ import com.saludSystem.repositories.modules.Paciente.PacienteRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 @Service
@@ -29,7 +32,7 @@ public class PacienteService {
     @Autowired
     private SedeRepository sedeRepository;
 
-    public Paciente savePaciente(CrearPacienteDTO crearPacienteDTO) {
+    public Paciente savePaciente(CrearPacienteDTO crearPacienteDTO, MultipartFile fotoPaciente) {
         // Validar entidades relacionadas
         TipoDocumento tipoDocumento = tipoDocumentoRepository.findById(crearPacienteDTO.getTipoDocumentoId())
                 .orElseThrow(() -> new IllegalArgumentException("Tipo de documento no válido"));
@@ -59,7 +62,6 @@ public class PacienteService {
         paciente.setNombreContacto(crearPacienteDTO.getNombreContacto());
         paciente.setTipoHistoria(crearPacienteDTO.getTipoHistoria());
         paciente.setEmail(crearPacienteDTO.getEmail());
-        paciente.setFotoPaciente(crearPacienteDTO.getFotoPaciente());
         paciente.setTitulo(crearPacienteDTO.getTitulo());
         paciente.setObservacion(crearPacienteDTO.getObservacion());
         paciente.setSede(sede);
@@ -88,6 +90,15 @@ public class PacienteService {
             Empresa empresa = new Empresa();
             empresa.setId(crearPacienteDTO.getEmpresaId());
             paciente.setEmpresa(empresa);
+        }
+
+        // Convertir la imagen a bytes y asignarla
+        try {
+            if (!fotoPaciente.isEmpty()) {
+                paciente.setFotoPaciente(fotoPaciente.getBytes());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error al procesar la imagen", e);
         }
 
 

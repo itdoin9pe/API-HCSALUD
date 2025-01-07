@@ -6,22 +6,23 @@ import com.saludSystem.services.modules.Paciente.PacienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
-@RequestMapping("/auth/Pacientes")
+@RequestMapping("/api/Pacientes")
 public class PacienteController {
 
     @Autowired
     private PacienteService pacienteService;
 
     @PostMapping("/SavePaciente")
-    public ResponseEntity<Paciente> savePaciente(@RequestBody @Valid CrearPacienteDTO crearPacienteDTO) {
-        Paciente paciente = pacienteService.savePaciente(crearPacienteDTO);
+    public ResponseEntity<Paciente> savePaciente(
+            @RequestPart("data") @Valid CrearPacienteDTO crearPacienteDTO,
+            @RequestPart("fotoPaciente") MultipartFile fotoPaciente
+    ) {
+        Paciente paciente = pacienteService.savePaciente(crearPacienteDTO, fotoPaciente);
         return ResponseEntity.ok(paciente);
     }
 }
