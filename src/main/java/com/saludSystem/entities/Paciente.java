@@ -104,8 +104,8 @@ public class Paciente {
     private String email;
 
     @Lob
-    @Column(name = "foto_paciente")
-    private byte[] fotoPaciente;
+    @Column(name = "foto_paciente", columnDefinition = "MEDIUMBLOB")
+    private String fotoPaciente;
 
     @Column(name = "titulo")
     private String titulo;

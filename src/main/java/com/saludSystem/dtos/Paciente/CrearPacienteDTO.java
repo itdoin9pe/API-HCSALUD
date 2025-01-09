@@ -57,7 +57,9 @@ public class CrearPacienteDTO {
     @Email(message = "El email debe ser válido")
     private String email;
 
-    private byte[] fotoPaciente;
+    //private byte[] fotoPaciente;
+
+    private String fotoPaciente;
 
     private String titulo;
 
