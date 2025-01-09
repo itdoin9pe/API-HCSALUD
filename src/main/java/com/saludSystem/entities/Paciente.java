@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Blob;
 import java.util.Date;
 
 @Entity
@@ -26,9 +27,15 @@ public class Paciente {
     @Column(name = "id", updatable = false, nullable = false, unique = true)
     private Long id;
 
+    /*
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "tipo_documento_id", nullable = false)
     private TipoDocumento tipoDocumento;
+    */
+
+    @NotBlank(message = "El tipo documento no puede estar vacio")
+    @Column(name = "tipo_documento", nullable = false)
+    private String tipoDocumentoId;
 
     @NotBlank(message = "El número de documento no puede estar vacío")
     @Column(name = "numero_documento", unique = true, nullable = false)
@@ -63,14 +70,14 @@ public class Paciente {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pais_id", nullable = false)
-    private Pais pais;
+    private Pais paisId;
 
     @Column(name = "ubigeo")
     private String ubigeo;
 
-    @NotNull(message = "El tipo de paciente no puede estar vacío")
-    @Column(name = "tipo_paciente_id", nullable = false)
-    private Integer tipoPacienteId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "tipos_paciente_id")
+    private TipoPaciente tipoPacienteId;
 
     @Column(name = "estado_civil")
     private String estadoCivil;
@@ -86,11 +93,11 @@ public class Paciente {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "aseguradora_id")
-    private Aseguradora aseguradora;
+    private Aseguradora aseguradoraId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "empresa_id")
-    private Empresa empresa;
+    private Empresa empresaId;
 
     @Email(message = "El email debe ser válido")
     @Column(name = "email", unique = true)
@@ -108,15 +115,15 @@ public class Paciente {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "informacion_clinica_id")
-    private InformacionClinica informacionClinica;
+    private InformacionClinica informacionClinicaId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "estudio_id")
-    private Estudio estudio;
+    private Estudio estudioId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "sede_id")
-    private Sede sede;
+    private Sede sedeId;
 
     @NotBlank(message = "El número de celular no puede estar vacío")
     @Column(name = "celular", nullable = false)

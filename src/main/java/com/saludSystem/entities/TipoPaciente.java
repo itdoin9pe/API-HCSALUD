@@ -18,4 +18,5 @@ public class TipoPaciente {
 
     @Column(name = "nombres", nullable = false)
     public String nombre;
+
 }

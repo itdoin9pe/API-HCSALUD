@@ -5,49 +5,70 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.sql.Blob;
 import java.util.Date;
 
 @Data
 public class CrearPacienteDTO {
-    @NotNull
-    private Long tipoDocumentoId;
 
-    @NotBlank
+    @NotBlank(message = "El tipo documento no puede estar vacío")
+    private String tipoDocumentoId;
+
+    @NotBlank(message = "El número de documento no puede estar vacío")
     private String numeroDocumento;
 
-    @NotBlank
+    @NotBlank(message = "Los apellidos del paciente no pueden estar vacíos")
     private String apellidos;
 
-    @NotBlank
+    @NotBlank(message = "Los nombres del paciente no pueden estar vacíos")
     private String nombres;
 
-    @NotNull
+    @NotNull(message = "La fecha de nacimiento no puede estar vacía")
     private Date fechaNacimiento;
 
     private Integer edad;
+
+    @NotNull(message = "El estado no puede estar vacío")
     private Integer estado;
+
     private String ocupacion;
+
     private String direccion;
 
-    @NotNull
     private Long paisId;
 
     private String ubigeo;
-    private Integer tipoPacienteId;
-    private String estadoCivil;
-    private String sexo;
-    private String nombreContacto;
-    private String tipoHistoria;
-    private Integer aseguradoraId;
-    private Integer empresaId;
 
-    @Email
+    @NotNull(message = "El tipo de paciente no puede estar vacío")
+    private int tipoPacienteId;
+
+    private String estadoCivil;
+
+    private String sexo;
+
+    private String nombreContacto;
+
+    private String tipoHistoria;
+
+    private int aseguradoraId;
+
+    private int empresaId;
+
+    @Email(message = "El email debe ser válido")
     private String email;
 
+    private byte[] fotoPaciente;
+
     private String titulo;
+
     private String observacion;
-    private Integer informacionClinicaId;
+
+    private int informacionClinicaId;
+
     private Integer estudioId;
+
     private Long sedeId;
+
+    @NotBlank(message = "El número de celular no puede estar vacío")
     private String celular;
 }

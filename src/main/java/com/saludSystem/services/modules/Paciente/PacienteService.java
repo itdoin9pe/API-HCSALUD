@@ -8,7 +8,7 @@ import com.saludSystem.entities.configuracion.Sede;
 import com.saludSystem.entities.configuracion.TipoDocumento;
 import com.saludSystem.repositories.modules.Configuration.SedeRepository;
 import com.saludSystem.repositories.modules.Configuration.TipoDocumentoRepository;
-import com.saludSystem.repositories.modules.Generals.PaisRepository;
+import com.saludSystem.repositories.modules.Generals.*;
 import com.saludSystem.repositories.modules.Paciente.PacienteRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Base64;
+import java.util.Optional;
 
 
 @Service
@@ -24,28 +26,32 @@ public class PacienteService {
     private PacienteRepository pacienteRepository;
 
     @Autowired
-    private TipoDocumentoRepository tipoDocumentoRepository;
-
-    @Autowired
     private PaisRepository paisRepository;
 
     @Autowired
     private SedeRepository sedeRepository;
 
-    public Paciente savePaciente(CrearPacienteDTO crearPacienteDTO, MultipartFile fotoPaciente) {
-        // Validar entidades relacionadas
-        TipoDocumento tipoDocumento = tipoDocumentoRepository.findById(crearPacienteDTO.getTipoDocumentoId())
-                .orElseThrow(() -> new IllegalArgumentException("Tipo de documento no válido"));
+    @Autowired
+    private EmpresaRepository empresaRepository;
 
-        Pais pais = paisRepository.findById(crearPacienteDTO.getPaisId())
-                .orElseThrow(() -> new IllegalArgumentException("País no válido"));
+    @Autowired
+    private AseguradoraRepository aseguradoraRepository;
 
-        Sede sede = sedeRepository.findById(crearPacienteDTO.getSedeId())
-                .orElseThrow(() -> new IllegalArgumentException("Sede no válida"));
+    @Autowired
+    private EstudioRepository estudioRepository;
 
-        // Mapear DTO a entidad
+    @Autowired
+    private TipoPacienteRepository tipoPacienteRepository;
+
+    @Autowired
+    private InformacionClinicaRepository informacionClinicaRepository;
+
+    public Paciente savePaciente(CrearPacienteDTO crearPacienteDTO, String fotoPacienteBase64) {
+
+        byte[] fotoPaciente = convertirBase64ABytes(fotoPacienteBase64);
+
         Paciente paciente = new Paciente();
-        paciente.setTipoDocumento(tipoDocumento);
+        paciente.setTipoDocumentoId(crearPacienteDTO.getTipoDocumentoId());
         paciente.setNumeroDocumento(crearPacienteDTO.getNumeroDocumento());
         paciente.setApellidos(crearPacienteDTO.getApellidos());
         paciente.setNombres(crearPacienteDTO.getNombres());
@@ -54,54 +60,39 @@ public class PacienteService {
         paciente.setEstado(crearPacienteDTO.getEstado());
         paciente.setOcupacion(crearPacienteDTO.getOcupacion());
         paciente.setDireccion(crearPacienteDTO.getDireccion());
-        paciente.setPais(pais);
-        paciente.setUbigeo(crearPacienteDTO.getUbigeo());
-        paciente.setTipoPacienteId(crearPacienteDTO.getTipoPacienteId());
-        paciente.setEstadoCivil(crearPacienteDTO.getEstadoCivil());
-        paciente.setSexo(crearPacienteDTO.getSexo());
-        paciente.setNombreContacto(crearPacienteDTO.getNombreContacto());
-        paciente.setTipoHistoria(crearPacienteDTO.getTipoHistoria());
+        paciente.setCelular(crearPacienteDTO.getCelular());
         paciente.setEmail(crearPacienteDTO.getEmail());
+        paciente.setFotoPaciente(fotoPaciente);  // Asignar la foto convertida en Base64
         paciente.setTitulo(crearPacienteDTO.getTitulo());
         paciente.setObservacion(crearPacienteDTO.getObservacion());
-        paciente.setSede(sede);
-        paciente.setCelular(crearPacienteDTO.getCelular());
 
-        // Asignar directamente las relaciones opcionales con IDs proporcionados
-        if (crearPacienteDTO.getInformacionClinicaId() != null) {
-            InformacionClinica informacionClinica = new InformacionClinica();
-            informacionClinica.setId(crearPacienteDTO.getInformacionClinicaId());
-            paciente.setInformacionClinica(informacionClinica);
-        }
+        Pais pais = paisRepository.findById(crearPacienteDTO.getPaisId()).orElseThrow(() -> new RuntimeException("País no encontrado"));
+        paciente.setPaisId(pais);
 
-        if (crearPacienteDTO.getEstudioId() != null) {
-            Estudio estudio = new Estudio();
-            estudio.setId(crearPacienteDTO.getEstudioId());
-            paciente.setEstudio(estudio);
-        }
+        Sede sede = sedeRepository.findById(crearPacienteDTO.getSedeId()).orElseThrow(() -> new RuntimeException("Sede no encontrada"));
+        paciente.setSedeId(sede);
 
-        if (crearPacienteDTO.getAseguradoraId() != null) {
-            Aseguradora aseguradora = new Aseguradora();
-            aseguradora.setId(crearPacienteDTO.getAseguradoraId());
-            paciente.setAseguradora(aseguradora);
-        }
+        Empresa empresa = empresaRepository.findById(crearPacienteDTO.getEmpresaId()).orElseThrow(() ->new RuntimeException("Empresa no encontrada"));
+        paciente.setEmpresaId(empresa);
 
-        if (crearPacienteDTO.getEmpresaId() != null) {
-            Empresa empresa = new Empresa();
-            empresa.setId(crearPacienteDTO.getEmpresaId());
-            paciente.setEmpresa(empresa);
-        }
+        Aseguradora aseguradora = aseguradoraRepository.findById(crearPacienteDTO.getEmpresaId()).orElseThrow(() -> new RuntimeException("Aseguradora no encontrada"));
+        paciente.setAseguradoraId(aseguradora);
 
-        // Convertir la imagen a bytes y asignarla
-        try {
-            if (!fotoPaciente.isEmpty()) {
-                paciente.setFotoPaciente(fotoPaciente.getBytes());
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Error al procesar la imagen", e);
-        }
+        Estudio estudio = estudioRepository.findById(crearPacienteDTO.getEstudioId()).orElseThrow(() -> new RuntimeException("Estudio no encontrado"));
+        paciente.setEstudioId(estudio);
 
+        TipoPaciente tipoPaciente = tipoPacienteRepository.findById(crearPacienteDTO.getTipoPacienteId()).orElseThrow(() -> new RuntimeException("Tipo de Paciente no encontrado"));
+        paciente.setTipoPacienteId(tipoPaciente);
+
+        InformacionClinica informacionClinica = informacionClinicaRepository.findById(crearPacienteDTO.getInformacionClinicaId()).orElseThrow(() -> new RuntimeException("Informacion de la Clinica no encontrada"));
+        paciente.setInformacionClinicaId(informacionClinica);
 
         return pacienteRepository.save(paciente);
     }
+
+    // Método de utilidad para convertir base64 a byte[]
+    public byte[] convertirBase64ABytes(String base64String) {
+        return Base64.getDecoder().decode(base64String);
+    }
+
 }
