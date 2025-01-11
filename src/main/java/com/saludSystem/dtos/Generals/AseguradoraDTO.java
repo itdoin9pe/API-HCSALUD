@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class AseguradoraDTO {
+    private int aseguradoraId;
     private String descripcion;
-    private boolean estado;
+    private Boolean estado;
 }

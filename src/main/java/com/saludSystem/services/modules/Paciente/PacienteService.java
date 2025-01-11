@@ -1,6 +1,5 @@
 package com.saludSystem.services.modules.Paciente;
 
-import com.saludSystem.dtos.Generals.AseguradoraDTO;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.entities.*;
 import com.saludSystem.entities.InformacionClinica;
@@ -14,9 +13,9 @@ import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 public class PacienteService {
+
     @Autowired
     private PacienteRepository pacienteRepository;
 
@@ -47,7 +46,6 @@ public class PacienteService {
 
         String fotoPacienteBase64String = Base64.getEncoder().encodeToString(fotoPaciente);
 
-        // Aquí asignamos los valores de DTO a la entidad paciente
         Paciente paciente = new Paciente();
         paciente.setTipoDocumentoId(crearPacienteDTO.getTipoDocumentoId());
         paciente.setNumeroDocumento(crearPacienteDTO.getNumeroDocumento());
@@ -66,13 +64,12 @@ public class PacienteService {
         paciente.setEstadoCivil(crearPacienteDTO.getEstadoCivil());
         paciente.setSexo(crearPacienteDTO.getSexo());
 
-        paciente.setFotoPaciente(fotoPacienteBase64);  // Guardando como base64 en el String
+        paciente.setFotoPaciente(fotoPacienteBase64);
 
         //paciente.setFotoPaciente(crearPacienteDTO.getFotoPaciente());
         paciente.setTitulo(crearPacienteDTO.getTitulo());
         paciente.setObservacion(crearPacienteDTO.getObservacion());
 
-        // Asignar el país
         Pais pais = paisRepository.findById(crearPacienteDTO.getPaisId()).orElseThrow(() -> new RuntimeException("País no encontrado"));
         paciente.setPaisId(pais);
 
@@ -104,7 +101,7 @@ public class PacienteService {
         return pacienteRepository.findAll().
                 stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());// Recupera todos los pacientes de la base de datos
+                .collect(Collectors.toList());
     }
 
     public byte[] convertirBase64ABytes(String base64String) {

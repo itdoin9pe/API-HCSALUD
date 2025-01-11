@@ -1,12 +1,15 @@
 package com.saludSystem.controllers.Generals;
 
+import com.saludSystem.dtos.ApiResponse;
 import com.saludSystem.dtos.Generals.AseguradoraDTO;
 import com.saludSystem.services.modules.Generals.AseguradoraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/Aseguradoras")
@@ -21,8 +24,25 @@ public class AseguradoraController {
     }
 
     @GetMapping("/GetAllAseguradora")
-    public ResponseEntity<List<AseguradoraDTO>> getAllAseguradoras() {
-        return ResponseEntity.ok(aseguradoraService.getAllAseguradoras());
+    public ResponseEntity<Map<String, Object>> getAllAseguradora(
+            @RequestParam(name = "Page", defaultValue = "1") int page,
+            @RequestParam(name = "Rows", defaultValue = "10") int rows
+    ) {
+        List<AseguradoraDTO> aseguradoras = aseguradoraService.getAllAseguradoras(page, rows);
+        long totalData = aseguradoraService.getTotalCount();
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("data", aseguradoras);
+        response.put("totalData", totalData);
+
+        return ResponseEntity.ok(response);
+    }
+
+
+    // Endpoint para obtener la lista simplificada
+    @GetMapping("/GetAseguradoraList")
+    public ResponseEntity<List<AseguradoraDTO>> getAseguradoraList() {
+        return ResponseEntity.ok(aseguradoraService.getAseguradoraList());
     }
 
     @GetMapping("/GetAseguradora/{aseguradoraId}")
@@ -36,12 +56,14 @@ public class AseguradoraController {
     public ResponseEntity<AseguradoraDTO> updateAseguradora(
             @PathVariable int aseguradoraId,
             @RequestBody AseguradoraDTO aseguradoraDTO) {
-        return ResponseEntity.ok(aseguradoraService.updateAseguradora(aseguradoraId, aseguradoraDTO));
+        AseguradoraDTO updatedAseguradora = aseguradoraService.updateAseguradora(aseguradoraId, aseguradoraDTO);
+        return ResponseEntity.ok(updatedAseguradora);
     }
 
     @DeleteMapping("/DeleteAseguradora/{aseguradoraId}")
-    public ResponseEntity<Void> deleteAseguradora(@PathVariable int aseguradoraId) {
+    public ResponseEntity<?> deleteAseguradora(@PathVariable int aseguradoraId) {
         aseguradoraService.deleteAseguradora(aseguradoraId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(new
+                ApiResponse(true, "Aseguradora eliminado con exito"));
     }
 }
