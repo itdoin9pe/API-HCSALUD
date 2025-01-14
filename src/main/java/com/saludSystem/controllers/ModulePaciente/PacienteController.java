@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.saludSystem.dtos.ApiResponse;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.services.modules.Paciente.PacienteService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 
+@Tag(name = "Pacientes")
 @RestController
 @RequestMapping("/api/Pacientes")
 public class PacienteController {

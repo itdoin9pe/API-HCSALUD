@@ -22,16 +22,11 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "pacientes")
 public class Paciente {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false, unique = true)
     private Long id;
-
-    /*
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "tipo_documento_id", nullable = false)
-    private TipoDocumento tipoDocumento;
-    */
 
     @NotBlank(message = "El tipo documento no puede estar vacio")
     @Column(name = "tipo_documento", nullable = false)
@@ -68,14 +63,14 @@ public class Paciente {
     @Column(name = "direccion")
     private String direccion;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pais_id", nullable = false)
     private Pais paisId;
 
     @Column(name = "ubigeo")
     private String ubigeo;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipos_paciente_id")
     private TipoPaciente tipoPacienteId;
 
@@ -91,11 +86,11 @@ public class Paciente {
     @Column(name = "tipo_historia")
     private String tipoHistoria;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aseguradora_id")
     private Aseguradora aseguradoraId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empresa_id")
     private Empresa empresaId;
 
@@ -113,15 +108,15 @@ public class Paciente {
     @Column(name = "observacion")
     private String observacion;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "informacion_clinica_id")
     private InformacionClinica informacionClinicaId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estudio_id")
     private Estudio estudioId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sede_id")
     private Sede sedeId;
 
@@ -138,4 +133,5 @@ public class Paciente {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "actualizado_en")
     private Date updatedAt;
+
 }

@@ -3,6 +3,7 @@ package com.saludSystem.controllers.Generals;
 import com.saludSystem.dtos.ApiResponse;
 import com.saludSystem.dtos.Generals.AseguradoraDTO;
 import com.saludSystem.services.modules.Generals.AseguradoraService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+@Tag(name = "Aseguradoras")
 @RestController
 @RequestMapping("/api/Aseguradoras")
 public class AseguradoraController {

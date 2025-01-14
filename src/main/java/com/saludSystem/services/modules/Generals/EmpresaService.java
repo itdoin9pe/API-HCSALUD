@@ -32,16 +32,16 @@ public class EmpresaService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<EmpresaDTO> getEmpresaById(int id){
+    public Optional<EmpresaDTO> getEmpresaById(Long id){
         return empresaRepository.findById(id)
                 .map(this::convertToDTO);
     }
 
-    public void deleteEmpresa(int id){
+    public void deleteEmpresa(Long id){
         empresaRepository.deleteById(id);
     }
 
-    public EmpresaDTO updateEmpresa(int id, EmpresaDTO empresaDTO){
+    public EmpresaDTO updateEmpresa(Long id, EmpresaDTO empresaDTO){
         Empresa empresa = empresaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Empresa no encontrada" + id));
         empresa.setDescripcion(empresaDTO.getDescripcion());

@@ -2,6 +2,7 @@ package com.saludSystem.controllers.Generals;
 
 import com.saludSystem.dtos.Generals.EmpresaDTO;
 import com.saludSystem.services.modules.Generals.EmpresaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Empresas")
 @RestController
 @RequestMapping("/api/Empresas")
 public class EmpresaController {
@@ -23,7 +25,7 @@ public class EmpresaController {
     }
 
     @GetMapping("/GetEmpresa/{id}")
-    public ResponseEntity<EmpresaDTO> getEmpresaById(@PathVariable int id){
+    public ResponseEntity<EmpresaDTO> getEmpresaById(@PathVariable Long id){
         return empresaService.getEmpresaById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -37,7 +39,7 @@ public class EmpresaController {
 
     @PutMapping("/UpdateEmpresa")
     public ResponseEntity<EmpresaDTO> updateEmpresa(
-            @PathVariable int id,
+            @PathVariable Long id,
             @RequestBody EmpresaDTO empresaDTO
     ){
         EmpresaDTO updatedEmpresa = empresaService.updateEmpresa(id, empresaDTO);
@@ -45,8 +47,9 @@ public class EmpresaController {
     }
 
     @DeleteMapping("/DeleteEmpresa/{id}")
-    public ResponseEntity<Void> deleteEmpresa(@PathVariable int id){
+    public ResponseEntity<Void> deleteEmpresa(@PathVariable Long id){
         empresaService.deleteEmpresa(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }

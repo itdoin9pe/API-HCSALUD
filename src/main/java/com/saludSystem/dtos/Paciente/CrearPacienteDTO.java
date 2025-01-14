@@ -52,7 +52,7 @@ public class CrearPacienteDTO {
 
     private int aseguradoraId;
 
-    private int empresaId;
+    private Long empresaId;
 
     @Email(message = "El email debe ser válido")
     private String email;
@@ -73,4 +73,5 @@ public class CrearPacienteDTO {
 
     @NotBlank(message = "El número de celular no puede estar vacío")
     private String celular;
+
 }

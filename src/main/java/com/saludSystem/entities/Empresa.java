@@ -12,9 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "empresas")
 public class Empresa {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @NotBlank
     @Column(name = "descripcion", nullable = false)
@@ -22,4 +23,5 @@ public class Empresa {
 
     @Column(name = "estado", nullable = false)
     private boolean estado;
+
 }
