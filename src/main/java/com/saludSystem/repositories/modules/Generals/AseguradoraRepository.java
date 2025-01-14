@@ -1,9 +1,42 @@
 package com.saludSystem.repositories.modules.Generals;
 
 import com.saludSystem.entities.Aseguradora;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface AseguradoraRepository extends JpaRepository<Aseguradora, Integer> {
+
+    // Búsqueda por descripción (ignorar mayúsculas/minúsculas)
+    List<Aseguradora> findByDescripcionIgnoreCase(String descripcion);
+
+    // Búsqueda por estado (activo/inactivo)
+    List<Aseguradora> findByEstado(boolean estado);
+
+    // Búsqueda por descripción parcial
+    List<Aseguradora> findByDescripcionContainingIgnoreCase(String keyword);
+
+    // Contar aseguradoras por estado
+    long countByEstado(boolean estado);
+
+    // Consultas personalizadas
+    /*
+    @Query("SELECT a FROM aseguradoras a WHERE a.estado = true ORDER BY a.descripcion ASC")
+    List<Aseguradora> findActiveAseguradorasOrderedByDescripcion();
+
+    @Query("SELECT a FROM aseguradoras a WHERE LOWER(a.descripcion) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    List<Aseguradora> searchByKeyword(@Param("keyword") String keyword);
+    */
+
+    // Paginación y ordenación personalizada
+    Page<Aseguradora> findByEstado(boolean estado, Pageable pageable);
+
+    // Filtros combinados
+    List<Aseguradora> findByDescripcionContainingIgnoreCaseAndEstado(String descripcion, boolean estado);
 }

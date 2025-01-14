@@ -15,7 +15,7 @@ public class InformacionClinica {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @NotBlank
     @Column(name = "nombre", nullable = false)

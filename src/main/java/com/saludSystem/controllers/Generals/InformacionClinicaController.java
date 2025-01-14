@@ -23,13 +23,13 @@ public class InformacionClinicaController {
     }
 
     @GetMapping("/GetInformacionClinica/{id}")
-    public ResponseEntity<InformacionClinicaDTO> getInformacionClinicaById(@PathVariable int id){
+    public ResponseEntity<InformacionClinicaDTO> getInformacionClinicaById(@PathVariable Long id){
         return informacionClinicaService.getInformacionClinicaById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/SaveInformacionCLinica")
+    @PostMapping("/SaveInformacionClinica")
     public ResponseEntity<InformacionClinicaDTO> createInformacionClinica(@RequestBody InformacionClinicaDTO informacionClinicaDTO){
         InformacionClinicaDTO savedInformacionClinica = informacionClinicaService.saveInformacionClinica(informacionClinicaDTO);
         return ResponseEntity.ok(savedInformacionClinica);
@@ -37,7 +37,7 @@ public class InformacionClinicaController {
 
     @PutMapping("/UpdateInformacionClinica/{id}")
     public ResponseEntity<InformacionClinicaDTO> updateInformacionClinica(
-            @PathVariable int id,
+            @PathVariable Long id,
             @RequestBody InformacionClinicaDTO informacionClinicaDTO
     ){
         InformacionClinicaDTO updatedInformacionClinica = informacionClinicaService.updateInformacionClinica(id, informacionClinicaDTO);
@@ -45,7 +45,7 @@ public class InformacionClinicaController {
     }
 
     @DeleteMapping("/DeleteInformacionClinica/{id}")
-    public ResponseEntity<Void> deleteInformacionClinica(@PathVariable int id){
+    public ResponseEntity<Void> deleteInformacionClinica(@PathVariable Long id){
         informacionClinicaService.deleteInformacionClinica(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

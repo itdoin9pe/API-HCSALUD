@@ -96,7 +96,6 @@ public class PacienteService {
         return pacienteRepository.save(paciente);
     }
 
-    // Nuevo método para obtener todos los pacientes
     public List<CrearPacienteDTO> getAllPacientes() {
         return pacienteRepository.findAll().
                 stream()
@@ -108,7 +107,6 @@ public class PacienteService {
         return Base64.getDecoder().decode(base64String);
     }
 
-    // Conversión de entidad a DTO
     private CrearPacienteDTO convertToDTO(Paciente paciente) {
         CrearPacienteDTO crearPacienteDTO = new CrearPacienteDTO();
         crearPacienteDTO.setTipoDocumentoId(paciente.getTipoDocumentoId());

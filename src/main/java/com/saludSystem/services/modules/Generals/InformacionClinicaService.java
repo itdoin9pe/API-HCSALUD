@@ -32,16 +32,16 @@ public class InformacionClinicaService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<InformacionClinicaDTO> getInformacionClinicaById(int id){
+    public Optional<InformacionClinicaDTO> getInformacionClinicaById(Long id){
         return informacionClinicaRepository.findById(id)
                 .map(this::convertToDTO);
     }
 
-    public void deleteInformacionClinica(int id){
+    public void deleteInformacionClinica(Long id){
         informacionClinicaRepository.deleteById(id);
     }
 
-    public InformacionClinicaDTO updateInformacionClinica(int id, InformacionClinicaDTO informacionClinicaDTO){
+    public InformacionClinicaDTO updateInformacionClinica(Long id, InformacionClinicaDTO informacionClinicaDTO){
         InformacionClinica informacionClinica = informacionClinicaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Informacion de Clinica no encontrada" + id));
         informacionClinica.setNombre(informacionClinicaDTO.getNombre());

@@ -23,7 +23,7 @@ public class PacienteController {
     @PostMapping("/SavePaciente")
     public ResponseEntity<?> savePaciente(
             @RequestParam("data") String pacienteData,
-            @RequestParam(value = "fotoPaciente", required = false) MultipartFile fotoPaciente // Mantener como MultipartFile
+            @RequestParam(value = "fotoPaciente", required = false) MultipartFile fotoPaciente
     ) throws IOException {
         // Convertir el JSON del parámetro 'data' a CrearPacienteDTO
         ObjectMapper objectMapper = new ObjectMapper();

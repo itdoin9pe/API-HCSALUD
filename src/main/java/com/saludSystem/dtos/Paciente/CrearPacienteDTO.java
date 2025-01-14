@@ -65,7 +65,7 @@ public class CrearPacienteDTO {
 
     private String observacion;
 
-    private int informacionClinicaId;
+    private Long informacionClinicaId;
 
     private Integer estudioId;
 

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class InformacionClinicaDTO {
-    private int id;
+    private Long id;
     private String nombre;
     private boolean estado;
 }

@@ -38,8 +38,6 @@ public class AseguradoraController {
         return ResponseEntity.ok(response);
     }
 
-
-    // Endpoint para obtener la lista simplificada
     @GetMapping("/GetAseguradoraList")
     public ResponseEntity<List<AseguradoraDTO>> getAseguradoraList() {
         return ResponseEntity.ok(aseguradoraService.getAseguradoraList());
