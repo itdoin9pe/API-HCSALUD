@@ -22,5 +22,5 @@ public class Aseguradora {
     private String descripcion;
 
     @Column(name = "estado", nullable = false)
-    private boolean estado; // 0 para inactivo, 1 para activo
+    private boolean estado;
 }

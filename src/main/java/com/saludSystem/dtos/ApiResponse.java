@@ -1,7 +1,10 @@
 package com.saludSystem.dtos;
 
+import lombok.Getter;
+
 public class ApiResponse {
     private boolean isSuccess;
+    @Getter
     private String message;
 
     public ApiResponse(boolean isSuccess, String message) {
@@ -13,7 +16,4 @@ public class ApiResponse {
         return isSuccess;
     }
 
-    public String getMessage() {
-        return message;
-    }
 }

@@ -2,9 +2,9 @@ package com.saludSystem.controllers.Generals;
 
 import com.saludSystem.dtos.ApiResponse;
 import com.saludSystem.dtos.Generals.AseguradoraDTO;
-import com.saludSystem.services.modules.Generals.AseguradoraService;
+import com.saludSystem.services.modules.Generals.Aseguradoras.AseguradoraService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,16 +12,19 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@Tag(name = "Aseguradoras")
 @RestController
 @RequestMapping("/api/Aseguradoras")
+@Tag(name = "Aseguradoras")
 public class AseguradoraController {
 
-    @Autowired
-    AseguradoraService aseguradoraService;
+    private final AseguradoraService aseguradoraService;
+
+    public AseguradoraController(AseguradoraService aseguradoraService) {
+        this.aseguradoraService = aseguradoraService;
+    }
 
     @PostMapping("/SaveAseguradora")
-    public ResponseEntity<AseguradoraDTO> saveAseguradora(@RequestBody AseguradoraDTO aseguradoraDTO) {
+    public ResponseEntity<AseguradoraDTO> saveAseguradora(@Valid @RequestBody AseguradoraDTO aseguradoraDTO) {
         return ResponseEntity.ok(aseguradoraService.saveAseguradora(aseguradoraDTO));
     }
 
