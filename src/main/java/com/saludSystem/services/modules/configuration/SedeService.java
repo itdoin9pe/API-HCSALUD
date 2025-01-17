@@ -36,16 +36,16 @@ public class SedeService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<SedeDTO> getSedeById(Long id){
+    public Optional<SedeDTO> getSedeById(Integer id){
         return sedeRepository.findById(id)
                 .map(this::convertToDTO);
     }
 
-    public void deleteSede(Long id){
+    public void deleteSede(Integer id){
         sedeRepository.deleteById(id);
     }
 
-    public SedeDTO updateSede(Long id, SedeDTO sedeDTO){
+    public SedeDTO updateSede(Integer id, SedeDTO sedeDTO){
         Sede sede = sedeRepository.findById(id)
                 .orElseThrow( () -> new RuntimeException("Sede no encontrada" + id));
         sede.setCodigo(sedeDTO.getCodigo());

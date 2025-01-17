@@ -100,7 +100,7 @@ public class Paciente {
 
     @Lob
     @Column(name = "foto_paciente", columnDefinition = "MEDIUMBLOB")
-    private String fotoPaciente;
+    private byte[] fotoPaciente;
 
     @Column(name = "titulo")
     private String titulo;

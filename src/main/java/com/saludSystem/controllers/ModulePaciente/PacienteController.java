@@ -1,66 +1,103 @@
 package com.saludSystem.controllers.ModulePaciente;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.saludSystem.dtos.ApiResponse;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.services.modules.Paciente.PacienteService;
+import com.saludSystem.util.Util;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
-import java.util.Base64;
-import java.util.List;
+import java.util.Date;
+
 
 @Tag(name = "Pacientes")
 @RestController
 @RequestMapping("/api/Pacientes")
 public class PacienteController {
 
+    private final PacienteService pacienteService;
+
     @Autowired
-    private PacienteService pacienteService;
+    public PacienteController(PacienteService pacienteService) {
+        this.pacienteService = pacienteService;
+    }
 
     @PostMapping("/SavePaciente")
-    public ResponseEntity<?> savePaciente(
-            @RequestParam("data") String pacienteData,
-            @RequestParam(value = "fotoPaciente", required = false) MultipartFile fotoPaciente
-    ) throws IOException {
-        // Convertir el JSON del parámetro 'data' a CrearPacienteDTO
-        ObjectMapper objectMapper = new ObjectMapper();
-        CrearPacienteDTO crearPacienteDTO = objectMapper.readValue(pacienteData, CrearPacienteDTO.class);
+    public ResponseEntity<CrearPacienteDTO> savePaciente(
+            @RequestParam("fotoPaciente") MultipartFile fotoPaciente,
+            @RequestParam("tipoDocumentoId") String tipoDocumentoId,
+            @RequestParam("numeroDocumento") String numeroDocumento,
+            @RequestParam("apellidos") String apellidos,
+            @RequestParam("nombres") String nombres,
+            @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date fechaNacimiento,
+            @RequestParam("edad") int edad,
+            @RequestParam("estado") Integer estado,
+            @RequestParam("ocupacion") String ocupacion,
+            @RequestParam("direccion") String direccion,
+            @RequestParam("paisId") Integer paisId,
+            @RequestParam("ubigeo") String ubigeo,
+            @RequestParam("tipoPacienteId") int tipoPacienteId,
+            @RequestParam("estadoCivil") String estadoCivil,
+            @RequestParam("sexo") String sexo,
+            @RequestParam("nombreContacto") String nombreContacto,
+            @RequestParam("tipoHistoria") String tipoHistoria,
+            @RequestParam("aseguradoraId") Integer aseguradoraId,
+            @RequestParam("empresaId") Integer empresaId,
+            @RequestParam("email") String email,
+            @RequestParam("titulo") String titulo,
+            @RequestParam("observacion") String observacion,
+            @RequestParam("informacionClinicaId") Integer informacionClinicaId,
+            @RequestParam("estudioId") Integer estudioId,
+            @RequestParam("sedeId") Integer sedeId,
+            @RequestParam("celular") String celular) throws IOException {
 
-        String fotoPacienteBase64 = null;
+        // Crear el DTO con los parámetros recibidos
+        CrearPacienteDTO crearPacienteDTO = new CrearPacienteDTO();
+        crearPacienteDTO.setTipoDocumentoId(tipoDocumentoId);
+        crearPacienteDTO.setNumeroDocumento(numeroDocumento);
+        crearPacienteDTO.setApellidos(apellidos);
+        crearPacienteDTO.setNombres(nombres);
+        crearPacienteDTO.setFechaNacimiento(fechaNacimiento);
+        crearPacienteDTO.setEdad(edad);
+        crearPacienteDTO.setEstado(estado);
+        crearPacienteDTO.setOcupacion(ocupacion);
+        crearPacienteDTO.setDireccion(direccion);
+        crearPacienteDTO.setPaisId(paisId);
+        crearPacienteDTO.setUbigeo(ubigeo);
+        crearPacienteDTO.setTipoPacienteId(tipoPacienteId);
+        crearPacienteDTO.setEstadoCivil(estadoCivil);
+        crearPacienteDTO.setSexo(sexo);
+        crearPacienteDTO.setNombreContacto(nombreContacto);
+        crearPacienteDTO.setTipoHistoria(tipoHistoria);
+        crearPacienteDTO.setAseguradoraId(aseguradoraId);
+        crearPacienteDTO.setEmpresaId(empresaId);
+        crearPacienteDTO.setEmail(email);
+        crearPacienteDTO.setFotoPaciente(Util.compressZLib(fotoPaciente.getBytes()));
+        crearPacienteDTO.setTitulo(titulo);
+        crearPacienteDTO.setObservacion(observacion);
+        crearPacienteDTO.setInformacionClinicaId(informacionClinicaId);
+        crearPacienteDTO.setEstudioId(estudioId);
+        crearPacienteDTO.setSedeId(sedeId);
+        crearPacienteDTO.setCelular(celular);
 
-        // Solo convertir a Base64 si fotoPaciente no es nulo
-        if (fotoPaciente != null && !fotoPaciente.isEmpty()) {
-            fotoPacienteBase64 = convertirArchivoAStringBase64(fotoPaciente);
-        }
+        pacienteService.savePaciente(crearPacienteDTO);
 
-        // Llamar al servicio para guardar el paciente
-        pacienteService.savePaciente(crearPacienteDTO, fotoPacienteBase64);
-
-        return ResponseEntity.ok().body(
-                new ApiResponse(true, "Paciente registrado correctamente")
-        );
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/GetListPaciente")
-    public ResponseEntity<List<CrearPacienteDTO>> getListPaciente() {
-        return ResponseEntity.ok(pacienteService.getAllPacientes());
+    public ResponseEntity<Page<CrearPacienteDTO>> getListPaciente(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size); // Crear objeto Pageable con paginación
+        return ResponseEntity.ok(pacienteService.getAllPacientes(pageable));
     }
 
-    private String convertirArchivoAStringBase64(MultipartFile fotoPaciente) throws IOException {
-        if (fotoPaciente == null || fotoPaciente.isEmpty()) {
-            throw new IllegalArgumentException("El archivo no puede estar vacío.");
-        }
-
-        try {
-            byte[] bytes = fotoPaciente.getBytes();
-            return Base64.getEncoder().encodeToString(bytes);
-        } catch (IOException e) {
-            throw new RuntimeException("Error al convertir el archivo a Base64", e);
-        }
-    }
 }

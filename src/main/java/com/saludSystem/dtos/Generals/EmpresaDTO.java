@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class EmpresaDTO {
-    private Long id;
+    private Integer id;
     private String descripcion;
     private boolean estado;
 }

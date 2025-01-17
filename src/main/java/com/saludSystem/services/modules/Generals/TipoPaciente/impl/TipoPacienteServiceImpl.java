@@ -1,8 +1,9 @@
-package com.saludSystem.services.modules.Generals;
+package com.saludSystem.services.modules.Generals.TipoPaciente.impl;
 
 import com.saludSystem.dtos.Generals.TipoPacienteDTO;
 import com.saludSystem.entities.TipoPaciente;
 import com.saludSystem.repositories.modules.Generals.TipoPacienteRepository;
+import com.saludSystem.services.modules.Generals.TipoPaciente.TipoPacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,30 +12,38 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class TipoPacienteService {
+public class TipoPacienteServiceImpl implements TipoPacienteService {
+
+    private final TipoPacienteRepository tipoPacienteRepository;
 
     @Autowired
-    TipoPacienteRepository tipoPacienteRepository;
+    public TipoPacienteServiceImpl(TipoPacienteRepository tipoPacienteRepository) {
+        this.tipoPacienteRepository = tipoPacienteRepository;
+    }
 
-    public List<TipoPacienteDTO> getAllTipoPaciente(){
+    @Override
+    public List<TipoPacienteDTO> getAllTipoPaciente() {
         return tipoPacienteRepository.findAll()
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public Optional<TipoPacienteDTO> getTipoPacienteById(int tipoPacienteId){
+    @Override
+    public Optional<TipoPacienteDTO> getTipoPacienteById(int tipoPacienteId) {
         return tipoPacienteRepository.findById(tipoPacienteId)
                 .map(this::convertToDTO);
     }
 
-    public void deleteTipoPaciente(int tipoPacienteId){
+    @Override
+    public void deleteTipoPaciente(int tipoPacienteId) {
         tipoPacienteRepository.deleteById(tipoPacienteId);
     }
 
-    private TipoPacienteDTO updateTipoPaciente(int tipoPacienteId, TipoPacienteDTO tipoPacienteDTO){
+    @Override
+    public TipoPacienteDTO updateTipoPaciente(int tipoPacienteId, TipoPacienteDTO tipoPacienteDTO) {
         TipoPaciente tipoPaciente = tipoPacienteRepository.findById(tipoPacienteId)
-                .orElseThrow(() -> new RuntimeException("Tipo Paciente no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Tipo Paciente no encontrado con ID: " + tipoPacienteId));
 
         tipoPaciente.setNombre(tipoPacienteDTO.getNombre());
 
@@ -47,7 +56,7 @@ public class TipoPacienteService {
         TipoPacienteDTO tipoPacienteDTO = new TipoPacienteDTO();
         tipoPacienteDTO.setTipoPacienteId(tipoPaciente.getTipoPacienteId());
         tipoPacienteDTO.setNombre(tipoPaciente.getNombre());
-
         return tipoPacienteDTO;
     }
+
 }

@@ -15,7 +15,7 @@ public class Sede {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @NotBlank
     @Column(name = "codigo", nullable = false)

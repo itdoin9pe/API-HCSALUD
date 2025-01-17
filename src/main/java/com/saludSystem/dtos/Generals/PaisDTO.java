@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class PaisDTO {
-    private Long id;
+    private Integer id;
     private String iso;
     private String nombre;
     private String gentilicio;

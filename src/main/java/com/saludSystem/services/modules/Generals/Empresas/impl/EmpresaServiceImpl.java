@@ -1,8 +1,10 @@
-package com.saludSystem.services.modules.Generals;
+package com.saludSystem.services.modules.Generals.Empresas.impl;
 
 import com.saludSystem.dtos.Generals.EmpresaDTO;
 import com.saludSystem.entities.Empresa;
+import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.modules.Generals.EmpresaRepository;
+import com.saludSystem.services.modules.Generals.Empresas.EmpresaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,44 +13,50 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class EmpresaService {
+public class EmpresaServiceImpl implements EmpresaService {
+
+    private final EmpresaRepository empresaRepository;
 
     @Autowired
-    EmpresaRepository empresaRepository;
+    public EmpresaServiceImpl(EmpresaRepository empresaRepository){
+        this.empresaRepository = empresaRepository;
+    }
 
+    @Override
     public EmpresaDTO saveEmpresa(EmpresaDTO empresaDTO){
         Empresa empresa = new Empresa();
         empresa.setDescripcion(empresaDTO.getDescripcion());
         empresa.setEstado(empresaDTO.isEstado());
         Empresa savedEmpresa = empresaRepository.save(empresa);
-
         return convertToDTO(savedEmpresa);
     }
 
-    public List<EmpresaDTO> getAllEmpresa(){
+    @Override
+    public List<EmpresaDTO> getAllEmpresa() {
         return empresaRepository.findAll()
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public Optional<EmpresaDTO> getEmpresaById(Long id){
+    @Override
+    public Optional<EmpresaDTO> getEmpresaById(Integer id) {
         return empresaRepository.findById(id)
                 .map(this::convertToDTO);
     }
 
-    public void deleteEmpresa(Long id){
+    @Override
+    public void deleteEmpresa(Integer id) {
         empresaRepository.deleteById(id);
     }
 
-    public EmpresaDTO updateEmpresa(Long id, EmpresaDTO empresaDTO){
+    @Override
+    public EmpresaDTO updateEmpresa(Integer id, EmpresaDTO empresaDTO) {
         Empresa empresa = empresaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Empresa no encontrada" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con ID: " + id));
         empresa.setDescripcion(empresaDTO.getDescripcion());
         empresa.setEstado(empresaDTO.isEstado());
-
         Empresa updatedEmpresa = empresaRepository.save(empresa);
-
         return convertToDTO(updatedEmpresa);
     }
 

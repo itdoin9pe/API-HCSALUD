@@ -1,8 +1,10 @@
-package com.saludSystem.services.modules.Generals;
+package com.saludSystem.services.modules.Generals.InformacionClinica.impl;
 
 import com.saludSystem.dtos.Generals.InformacionClinicaDTO;
 import com.saludSystem.entities.InformacionClinica;
+import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.modules.Generals.InformacionClinicaRepository;
+import com.saludSystem.services.modules.Generals.InformacionClinica.InformacionClinicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,20 +13,25 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class InformacionClinicaService {
+public class InformacionClinicaServiceImpl implements InformacionClinicaService {
+
+    private final InformacionClinicaRepository informacionClinicaRepository;
 
     @Autowired
-    private InformacionClinicaRepository informacionClinicaRepository;
+    public InformacionClinicaServiceImpl(InformacionClinicaRepository informacionClinicaRepository) {
+        this.informacionClinicaRepository = informacionClinicaRepository;
+    }
 
-    public InformacionClinicaDTO saveInformacionClinica(InformacionClinicaDTO informacionClinicaDTO){
+    @Override
+    public InformacionClinicaDTO saveInformacionClinica(InformacionClinicaDTO informacionClinicaDTO) {
         InformacionClinica informacionClinica = new InformacionClinica();
         informacionClinica.setNombre(informacionClinicaDTO.getNombre());
         informacionClinica.setEstado(informacionClinicaDTO.isEstado());
         InformacionClinica savedInformacionClinica = informacionClinicaRepository.save(informacionClinica);
-
         return convertToDTO(savedInformacionClinica);
     }
 
+    @Override
     public List<InformacionClinicaDTO> getAllInformacionClinica() {
         return informacionClinicaRepository.findAll()
                 .stream()
@@ -32,23 +39,24 @@ public class InformacionClinicaService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<InformacionClinicaDTO> getInformacionClinicaById(Long id){
+    @Override
+    public Optional<InformacionClinicaDTO> getInformacionClinicaById(Integer id) {
         return informacionClinicaRepository.findById(id)
                 .map(this::convertToDTO);
     }
 
-    public void deleteInformacionClinica(Long id){
+    @Override
+    public void deleteInformacionClinica(Integer id) {
         informacionClinicaRepository.deleteById(id);
     }
 
-    public InformacionClinicaDTO updateInformacionClinica(Long id, InformacionClinicaDTO informacionClinicaDTO){
+    @Override
+    public InformacionClinicaDTO updateInformacionClinica(Integer id, InformacionClinicaDTO informacionClinicaDTO) {
         InformacionClinica informacionClinica = informacionClinicaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Informacion de Clinica no encontrada" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("InformacionClinica no encontrada con ID: " + id));
         informacionClinica.setNombre(informacionClinicaDTO.getNombre());
         informacionClinica.setEstado(informacionClinicaDTO.isEstado());
-
         InformacionClinica updatedInformacionClinica = informacionClinicaRepository.save(informacionClinica);
-
         return convertToDTO(updatedInformacionClinica);
     }
 

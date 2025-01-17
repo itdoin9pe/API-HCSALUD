@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class AseguradoraServiceImpl implements AseguradoraService {
+    
     private final AseguradoraRepository aseguradoraRepository;
     private final ModelMapper modelMapper;
 
