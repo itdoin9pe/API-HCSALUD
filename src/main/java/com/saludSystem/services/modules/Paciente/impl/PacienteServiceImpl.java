@@ -7,13 +7,13 @@ import com.saludSystem.repositories.modules.Configuration.SedeRepository;
 import com.saludSystem.repositories.modules.Generals.*;
 import com.saludSystem.repositories.modules.Paciente.PacienteRepository;
 import com.saludSystem.services.modules.Paciente.PacienteService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,13 +27,16 @@ public class PacienteServiceImpl implements PacienteService {
     private final EstudioRepository estudioRepository;
     private final TipoPacienteRepository tipoPacienteRepository;
     private final InformacionClinicaRepository informacionClinicaRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public PacienteServiceImpl(
             PacienteRepository pacienteRepository, PaisRepository paisRepository,
             SedeRepository sedeRepository, EmpresaRepository empresaRepository,
             AseguradoraRepository aseguradoraRepository, EstudioRepository estudioRepository,
-            TipoPacienteRepository tipoPacienteRepository, InformacionClinicaRepository informacionClinicaRepository)
+            TipoPacienteRepository tipoPacienteRepository, InformacionClinicaRepository informacionClinicaRepository,
+            ModelMapper modelMapper
+    )
     {
         this.pacienteRepository = pacienteRepository;
         this.paisRepository = paisRepository;
@@ -43,6 +46,7 @@ public class PacienteServiceImpl implements PacienteService {
         this.estudioRepository = estudioRepository;
         this.tipoPacienteRepository = tipoPacienteRepository;
         this.informacionClinicaRepository = informacionClinicaRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -72,8 +76,8 @@ public class PacienteServiceImpl implements PacienteService {
         paciente.setNombreContacto(crearPacienteDTO.getNombreContacto());
         paciente.setTipoHistoria(crearPacienteDTO.getTipoHistoria());
 
-        Optional<Aseguradora> aseguradora = aseguradoraRepository.findById(crearPacienteDTO.getAseguradoraId());
-        aseguradora.ifPresent(paciente::setAseguradoraId);
+        //Optional<Aseguradora> aseguradora = aseguradoraRepository.findById(crearPacienteDTO.getAseguradoraId());
+        //aseguradora.ifPresent(paciente::setAseguradoraId);
 
         Optional<Empresa> empresa = empresaRepository.findById(crearPacienteDTO.getEmpresaId());
         empresa.ifPresent(paciente::setEmpresaId);
@@ -98,54 +102,17 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
-    public Page<CrearPacienteDTO> getAllPacientes(Pageable pageable) {
-        // Convierte entidades a DTOs para devolver al controlador
-        return pacienteRepository.findAll(pageable)
-                .map(paciente -> new CrearPacienteDTO());
+    public List<CrearPacienteDTO> getAllPaciente(int page, int rows)
+    {
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<Paciente> pacientePage = pacienteRepository.findAll(pageable);
+        return pacientePage.getContent().stream()
+                .map(paciente -> modelMapper.map(paciente, CrearPacienteDTO.class))
+                .toList();
     }
 
-    private <T> T findEntityById(JpaRepository<T, Integer> repository, Integer id, String entityName) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException(entityName + " no encontrado"));
-    }
-
-    public byte[] convertirBase64ABytes(String base64) {
-        if (base64 == null || base64.isEmpty()) {
-            throw new IllegalArgumentException("La cadena Base64 no puede ser nula o vacía");
-        }
-        return Base64.getDecoder().decode(base64);
-    }
-
-    private CrearPacienteDTO convertToDTO(Paciente paciente) {
-        CrearPacienteDTO dto = new CrearPacienteDTO();
-
-        dto.setTipoDocumentoId(paciente.getTipoDocumentoId());
-        dto.setNumeroDocumento(paciente.getNumeroDocumento());
-        dto.setApellidos(paciente.getApellidos());
-        dto.setNombres(paciente.getNombres());
-        dto.setFechaNacimiento(paciente.getFechaNacimiento());
-        dto.setEdad(paciente.getEdad());
-        dto.setEstado(paciente.getEstado());
-        dto.setOcupacion(paciente.getOcupacion());
-        dto.setDireccion(paciente.getDireccion());
-        dto.setPaisId(paciente.getPaisId().getId());
-        dto.setUbigeo(paciente.getUbigeo());
-        dto.setTipoPacienteId(paciente.getTipoPacienteId().getTipoPacienteId());
-        dto.setEstadoCivil(paciente.getEstadoCivil());
-        dto.setSexo(paciente.getSexo());
-        dto.setNombreContacto(paciente.getNombreContacto());
-        dto.setTipoHistoria(paciente.getTipoHistoria());
-        dto.setAseguradoraId(paciente.getAseguradoraId().getId());
-        dto.setEmpresaId(paciente.getEmpresaId().getId());
-        dto.setEmail(paciente.getEmail());
-        dto.setFotoPaciente( paciente.getFotoPaciente());
-        dto.setTitulo(paciente.getTitulo());
-        dto.setObservacion(paciente.getObservacion());
-        dto.setInformacionClinicaId(paciente.getInformacionClinicaId().getId());
-        dto.setEstudioId(paciente.getEstudioId().getId());
-        dto.setSedeId(paciente.getSedeId().getId());
-        dto.setCelular(paciente.getCelular());
-
-        return dto;
+    @Override
+    public long getTotalCount() {
+        return pacienteRepository.count();
     }
 }

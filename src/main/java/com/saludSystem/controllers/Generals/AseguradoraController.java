@@ -1,8 +1,12 @@
 package com.saludSystem.controllers.Generals;
 
-import com.saludSystem.dtos.ApiResponse;
+import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.Generals.AseguradoraDTO;
+import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
 import com.saludSystem.services.modules.Generals.Aseguradoras.AseguradoraService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+@Tag(name = "Aseguradoras")
 @RestController
 @RequestMapping("/api/Aseguradoras")
-@Tag(name = "Aseguradoras")
 public class AseguradoraController {
 
     private final AseguradoraService aseguradoraService;
@@ -24,11 +29,17 @@ public class AseguradoraController {
     }
 
     @PostMapping("/SaveAseguradora")
-    public ResponseEntity<AseguradoraDTO> saveAseguradora(@Valid @RequestBody AseguradoraDTO aseguradoraDTO) {
-        return ResponseEntity.ok(aseguradoraService.saveAseguradora(aseguradoraDTO));
+    public ResponseEntity<ApiResponse> saveAseguradora(@Valid @RequestBody AseguradoraDTO aseguradoraDTO) {
+        aseguradoraService.saveAseguradora(aseguradoraDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Aseguradora creada con éxito"));
     }
 
     @GetMapping("/GetAllAseguradora")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AseguradoraResponse.class)))
+    })
     public ResponseEntity<Map<String, Object>> getAllAseguradora(
             @RequestParam(name = "Page", defaultValue = "1") int page,
             @RequestParam(name = "Rows", defaultValue = "10") int rows
@@ -49,7 +60,7 @@ public class AseguradoraController {
     }
 
     @GetMapping("/GetAseguradora/{aseguradoraId}")
-    public ResponseEntity<AseguradoraDTO> getAseguradoraById(@PathVariable int aseguradoraId) {
+    public ResponseEntity<AseguradoraDTO> getAseguradoraById(@PathVariable UUID aseguradoraId) {
         return aseguradoraService.getAseguradoraById(aseguradoraId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -57,14 +68,14 @@ public class AseguradoraController {
 
     @PutMapping("/UpdateAseguradora/{aseguradoraId}")
     public ResponseEntity<AseguradoraDTO> updateAseguradora(
-            @PathVariable int aseguradoraId,
+            @PathVariable UUID aseguradoraId,
             @RequestBody AseguradoraDTO aseguradoraDTO) {
         AseguradoraDTO updatedAseguradora = aseguradoraService.updateAseguradora(aseguradoraId, aseguradoraDTO);
         return ResponseEntity.ok(updatedAseguradora);
     }
 
     @DeleteMapping("/DeleteAseguradora/{aseguradoraId}")
-    public ResponseEntity<?> deleteAseguradora(@PathVariable int aseguradoraId) {
+    public ResponseEntity<?> deleteAseguradora(@PathVariable UUID aseguradoraId) {
         aseguradoraService.deleteAseguradora(aseguradoraId);
         return ResponseEntity.ok().body(new
                 ApiResponse(true, "Aseguradora eliminado con exito"));

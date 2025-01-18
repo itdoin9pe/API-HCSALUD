@@ -1,4 +1,4 @@
-package com.saludSystem.dtos;
+package com.saludSystem.dtos.responses;
 
 import lombok.Getter;
 

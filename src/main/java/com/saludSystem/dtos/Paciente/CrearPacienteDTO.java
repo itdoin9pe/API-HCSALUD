@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.sql.Blob;
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 public class CrearPacienteDTO {
@@ -50,7 +51,7 @@ public class CrearPacienteDTO {
 
     private String tipoHistoria;
 
-    private int aseguradoraId;
+    private UUID aseguradoraId;
 
     private Integer empresaId;
 

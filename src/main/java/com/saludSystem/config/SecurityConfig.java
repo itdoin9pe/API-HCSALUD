@@ -31,17 +31,6 @@ public class SecurityConfig {
         this.userService = userService;
     }
 
-    /*
-    @Bean
-    public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder)
-            throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(userService)
-                .passwordEncoder(passwordEncoder)
-                .and()
-                .build();
-    }*/
-
     @Bean
     public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder)
             throws Exception {
@@ -58,14 +47,8 @@ public class SecurityConfig {
         http.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // Permitir acceso público a los endpoints de Swagger
-                        .requestMatchers(
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/swagger-resources/**",
-                                "/webjars/**"
-                        ).permitAll()
+                        // Permiso para errores y mostrarlos
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .requestMatchers( "/auth/login").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())

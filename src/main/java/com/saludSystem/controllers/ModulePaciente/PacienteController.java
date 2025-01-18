@@ -4,9 +4,6 @@ import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.services.modules.Paciente.PacienteService;
 import com.saludSystem.util.Util;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Tag(name = "Pacientes")
@@ -23,7 +23,6 @@ public class PacienteController {
 
     private final PacienteService pacienteService;
 
-    @Autowired
     public PacienteController(PacienteService pacienteService) {
         this.pacienteService = pacienteService;
     }
@@ -57,7 +56,6 @@ public class PacienteController {
             @RequestParam("sedeId") Integer sedeId,
             @RequestParam("celular") String celular) throws IOException {
 
-        // Crear el DTO con los parámetros recibidos
         CrearPacienteDTO crearPacienteDTO = new CrearPacienteDTO();
         crearPacienteDTO.setTipoDocumentoId(tipoDocumentoId);
         crearPacienteDTO.setNumeroDocumento(numeroDocumento);
@@ -75,7 +73,7 @@ public class PacienteController {
         crearPacienteDTO.setSexo(sexo);
         crearPacienteDTO.setNombreContacto(nombreContacto);
         crearPacienteDTO.setTipoHistoria(tipoHistoria);
-        crearPacienteDTO.setAseguradoraId(aseguradoraId);
+        //crearPacienteDTO.setAseguradoraId(aseguradoraId);
         crearPacienteDTO.setEmpresaId(empresaId);
         crearPacienteDTO.setEmail(email);
         crearPacienteDTO.setFotoPaciente(Util.compressZLib(fotoPaciente.getBytes()));
@@ -91,13 +89,19 @@ public class PacienteController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/GetListPaciente")
-    public ResponseEntity<Page<CrearPacienteDTO>> getListPaciente(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+    @GetMapping("/GetAllPaciente")
+    public ResponseEntity<Map<String, Object>> getAllAseguradora(
+            @RequestParam(name = "Page", defaultValue = "1") int page,
+            @RequestParam(name = "Rows", defaultValue = "10") int rows
     ) {
-        Pageable pageable = PageRequest.of(page, size); // Crear objeto Pageable con paginación
-        return ResponseEntity.ok(pacienteService.getAllPacientes(pageable));
+        List<CrearPacienteDTO> pacientes = pacienteService.getAllPaciente(page, rows);
+        long totalData = pacienteService.getTotalCount();
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("data", pacientes);
+        response.put("totalData", totalData);
+
+        return ResponseEntity.ok(response);
     }
 
 }

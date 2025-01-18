@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,9 +19,16 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
     @Bean
-    public OpenAPI openAPI(){
-        return new OpenAPI().info(new Info().title("Spring boot REST API - SysSalud").description("Software SysSalud")
-                .contact(new Contact().name("V1 API - A")).version("1.0.1"));
+    public OpenAPI notifOpenAPI() {
+        OpenAPI openAPI = new OpenAPI();
+        openAPI.info(new io.swagger.v3.oas.models.info.Info()
+                .title("Sample Service API")
+                .contact(new io.swagger.v3.oas.models.info.Contact()
+                        .name("Giancarlo Silva - Software Engineer / Alfonso Valencia - Software Engineer")
+                        .email("giancarlosilvagutierrez55@gmail.com"))
+                .termsOfService("TOC")
+                .license(new io.swagger.v3.oas.models.info.License().name("License")));
+        return openAPI;
     }
 
 }

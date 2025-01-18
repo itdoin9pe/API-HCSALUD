@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -14,13 +16,13 @@ import lombok.NoArgsConstructor;
 public class Aseguradora {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @NotBlank
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
     @Column(name = "estado", nullable = false)
-    private boolean estado;
+    private Integer estado;
 }

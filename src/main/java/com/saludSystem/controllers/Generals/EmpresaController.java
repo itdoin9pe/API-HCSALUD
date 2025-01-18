@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Empresas")
 @RestController
 @RequestMapping("/api/Empresas")
-@Tag(name = "Empresas")
 public class EmpresaController {
 
     private final EmpresaService empresaService;

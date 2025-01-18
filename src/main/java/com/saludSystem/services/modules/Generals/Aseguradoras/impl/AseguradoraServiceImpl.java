@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,14 +55,14 @@ public class AseguradoraServiceImpl implements AseguradoraService {
     }
 
     @Override
-    public Optional<AseguradoraDTO> getAseguradoraById(int aseguradoraId) {
+    public Optional<AseguradoraDTO> getAseguradoraById(UUID aseguradoraId) {
         return Optional.ofNullable(aseguradoraRepository.findById(aseguradoraId)
                 .map(this::convertToDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("Aseguradora no encontrada con ID" + aseguradoraId)));
     }
 
     @Override
-    public AseguradoraDTO updateAseguradora(int aseguradoraId, AseguradoraDTO aseguradoraDTO) {
+    public AseguradoraDTO updateAseguradora(UUID aseguradoraId, AseguradoraDTO aseguradoraDTO) {
         Aseguradora aseguradora = aseguradoraRepository.findById(aseguradoraId)
                 .orElseThrow(() -> new ResourceNotFoundException("Aseguradora no encontrada con ID: " + aseguradoraId));
 
@@ -77,7 +78,7 @@ public class AseguradoraServiceImpl implements AseguradoraService {
     }
 
     @Override
-    public void deleteAseguradora(int aseguradoraId) {
+    public void deleteAseguradora(UUID aseguradoraId) {
         Aseguradora aseguradora = aseguradoraRepository.findById(aseguradoraId)
                 .orElseThrow(() -> new RuntimeException("Aseguradora no encontrada con ID: " + aseguradoraId));
         aseguradoraRepository.delete(aseguradora);
@@ -92,7 +93,7 @@ public class AseguradoraServiceImpl implements AseguradoraService {
         AseguradoraDTO dto = new AseguradoraDTO();
         dto.setAseguradoraId(aseguradora.getId());
         dto.setDescripcion(aseguradora.getDescripcion());
-        dto.setEstado(aseguradora.isEstado());
+        dto.setEstado(aseguradora.getEstado());
         return dto;
     }
 }

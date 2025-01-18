@@ -1,11 +1,10 @@
 package com.saludSystem.controllers.Generals;
 
-import com.saludSystem.dtos.ApiResponse;
+import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.Generals.InformacionClinicaDTO;
 import com.saludSystem.services.modules.Generals.InformacionClinica.InformacionClinicaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

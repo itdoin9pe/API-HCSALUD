@@ -9,21 +9,22 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface AseguradoraRepository extends JpaRepository<Aseguradora, Integer> {
+public interface AseguradoraRepository extends JpaRepository<Aseguradora, UUID> {
 
     // Búsqueda por descripción (ignorar mayúsculas/minúsculas)
     List<Aseguradora> findByDescripcionIgnoreCase(String descripcion);
 
     // Búsqueda por estado (activo/inactivo)
-    List<Aseguradora> findByEstado(boolean estado);
+    List<Aseguradora> findByEstado(Integer estado);
 
     // Búsqueda por descripción parcial
     List<Aseguradora> findByDescripcionContainingIgnoreCase(String keyword);
 
     // Contar aseguradoras por estado
-    long countByEstado(boolean estado);
+    long countByEstado(Integer estado);
 
     // Consultas personalizadas
     /*
@@ -35,8 +36,8 @@ public interface AseguradoraRepository extends JpaRepository<Aseguradora, Intege
     */
 
     // Paginación y ordenación personalizada
-    Page<Aseguradora> findByEstado(boolean estado, Pageable pageable);
+    Page<Aseguradora> findByEstado(Integer estado, Pageable pageable);
 
     // Filtros combinados
-    List<Aseguradora> findByDescripcionContainingIgnoreCaseAndEstado(String descripcion, boolean estado);
+    List<Aseguradora> findByDescripcionContainingIgnoreCaseAndEstado(String descripcion, Integer estado);
 }
