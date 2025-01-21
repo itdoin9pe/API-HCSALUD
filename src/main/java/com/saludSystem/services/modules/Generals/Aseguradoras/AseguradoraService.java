@@ -12,8 +12,6 @@ public interface AseguradoraService extends PaginatedService {
 
     CrearAseguradoraDTO saveAseguradora(CrearAseguradoraDTO crearAseguradoraDTO);
 
-    //List<AseguradoraDTO> getAllAseguradoras(UUID hospitalId, int page, int rows);
-
     List<AseguradoraDTO> getAseguradoraList();
 
     Optional<AseguradoraDTO> getAseguradoraById(UUID aseguradoraId);
