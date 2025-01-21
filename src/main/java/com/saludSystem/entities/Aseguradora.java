@@ -27,8 +27,4 @@ public class Aseguradora {
     @Column(name = "estado", nullable = false)
     private Integer estado;
 
-    @ManyToOne
-    @JoinColumn(name = "hospital_id", nullable = false)
-    private SysSalud sysSalud;
-
 }

@@ -1,6 +1,6 @@
 package com.saludSystem.dtos.responses.Generals;
 
-import com.saludSystem.dtos.Generals.AseguradoraDTO;
+import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,7 @@
 package com.saludSystem.services.modules.Generals.Aseguradoras.impl;
 
-import com.saludSystem.dtos.Generals.AseguradoraDTO;
+import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
+import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
 import com.saludSystem.entities.Aseguradora;
 import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.modules.Generals.AseguradoraRepository;
@@ -28,14 +29,15 @@ public class AseguradoraServiceImpl implements AseguradoraService {
     }
 
     @Override
-    public AseguradoraDTO saveAseguradora(AseguradoraDTO aseguradoraDTO) {
+    public CrearAseguradoraDTO saveAseguradora(CrearAseguradoraDTO crearAseguradoraDTO) {
         Aseguradora aseguradora = new Aseguradora();
-        aseguradora.setDescripcion(aseguradoraDTO.getDescripcion());
-        aseguradora.setEstado(aseguradoraDTO.getEstado());
+        aseguradora.setDescripcion(crearAseguradoraDTO.getDescripcion());
+        aseguradora.setEstado(crearAseguradoraDTO.getEstado());
         Aseguradora savedAseguradora = aseguradoraRepository.save(aseguradora);
-        return convertToDTO(savedAseguradora);
+        return convertToCrearAseguradoraDTO(savedAseguradora);
     }
 
+    /*
     @Override
     public List<AseguradoraDTO> getAllAseguradoras(UUID hospitalId,int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
@@ -43,7 +45,7 @@ public class AseguradoraServiceImpl implements AseguradoraService {
         return aseguradorasPage.getContent().stream()
                 .map(aseguradora -> modelMapper.map(aseguradora, AseguradoraDTO.class))
                 .toList();
-    }
+    }*/
 
     @Override
     public List<AseguradoraDTO> getAseguradoraList() {
@@ -87,6 +89,15 @@ public class AseguradoraServiceImpl implements AseguradoraService {
         return aseguradoraRepository.count();
     }
 
+    @Override
+    public List<AseguradoraDTO> getPagedResults(UUID hospitalId, int page, int rows) {
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<Aseguradora> aseguradorasPage = aseguradoraRepository.findAll(pageable);
+        return aseguradorasPage.getContent().stream()
+                .map(aseguradora -> modelMapper.map(aseguradora, AseguradoraDTO.class))
+                .toList();
+    }
+
     private AseguradoraDTO convertToDTO(Aseguradora aseguradora) {
         AseguradoraDTO dto = new AseguradoraDTO();
         dto.setAseguradoraId(aseguradora.getId());
@@ -94,4 +105,12 @@ public class AseguradoraServiceImpl implements AseguradoraService {
         dto.setEstado(aseguradora.getEstado());
         return dto;
     }
+
+    private CrearAseguradoraDTO convertToCrearAseguradoraDTO(Aseguradora aseguradora) {
+        CrearAseguradoraDTO dto = new CrearAseguradoraDTO();
+        dto.setDescripcion(aseguradora.getDescripcion());
+        dto.setEstado(aseguradora.getEstado());
+        return dto;
+    }
+
 }

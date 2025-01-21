@@ -1,4 +1,4 @@
-package com.saludSystem.dtos.Generals;
+package com.saludSystem.dtos.Generals.Aseguradora;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
@@ -8,9 +8,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class AseguradoraDTO {
-
-    private UUID aseguradoraId;
+public class CrearAseguradoraDTO {
 
     private String descripcion;
 

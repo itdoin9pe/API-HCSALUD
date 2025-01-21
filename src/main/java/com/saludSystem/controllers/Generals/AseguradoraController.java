@@ -1,7 +1,8 @@
 package com.saludSystem.controllers.Generals;
 
+import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.Generals.AseguradoraDTO;
+import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
 import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
 import com.saludSystem.services.modules.Generals.Aseguradoras.AseguradoraService;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -29,8 +30,8 @@ public class AseguradoraController {
     }
 
     @PostMapping("/SaveAseguradora")
-    public ResponseEntity<ApiResponse> store(@Valid @RequestBody AseguradoraDTO aseguradoraDTO) {
-        aseguradoraService.saveAseguradora(aseguradoraDTO);
+    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearAseguradoraDTO crearAseguradoraDTO) {
+        aseguradoraService.saveAseguradora(crearAseguradoraDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Aseguradora creada con éxito"));
     }
 
@@ -45,7 +46,7 @@ public class AseguradoraController {
             @RequestParam(name = "Page", defaultValue = "1") int page,
             @RequestParam(name = "Rows", defaultValue = "10") int rows
     ) {
-        List<AseguradoraDTO> aseguradoras = aseguradoraService.getAllAseguradoras(hospitalId, page, rows);
+        List<AseguradoraDTO> aseguradoras = aseguradoraService.getPagedResults(hospitalId, page, rows);
         long totalData = aseguradoraService.getTotalCount();
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("data", aseguradoras);
