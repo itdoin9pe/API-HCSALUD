@@ -1,5 +1,6 @@
 package com.saludSystem.entities;
 
+import com.saludSystem.entities.configuracion.SysSalud;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -25,4 +26,9 @@ public class Aseguradora {
 
     @Column(name = "estado", nullable = false)
     private Integer estado;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private SysSalud sysSalud;
+
 }

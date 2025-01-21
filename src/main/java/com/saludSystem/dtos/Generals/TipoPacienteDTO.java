@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class TipoPacienteDTO {
-    private int tipoPacienteId;
+    private Integer tipoPacienteId;
     private String nombre;
 }

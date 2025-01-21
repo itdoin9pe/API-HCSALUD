@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -14,14 +16,14 @@ import lombok.NoArgsConstructor;
 public class InformacionClinica {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @NotBlank
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @Column(name = "estado", nullable = false)
-    private boolean estado;
+    private Integer estado;
 
 }

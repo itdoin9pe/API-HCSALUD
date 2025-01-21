@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,34 +21,10 @@ public class TipoPacienteServiceImpl implements TipoPacienteService {
     }
 
     @Override
-    public List<TipoPacienteDTO> getAllTipoPaciente() {
-        return tipoPacienteRepository.findAll()
-                .stream()
+    public List<TipoPacienteDTO> getTipoPacienteList() {
+        return tipoPacienteRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public Optional<TipoPacienteDTO> getTipoPacienteById(int tipoPacienteId) {
-        return tipoPacienteRepository.findById(tipoPacienteId)
-                .map(this::convertToDTO);
-    }
-
-    @Override
-    public void deleteTipoPaciente(int tipoPacienteId) {
-        tipoPacienteRepository.deleteById(tipoPacienteId);
-    }
-
-    @Override
-    public TipoPacienteDTO updateTipoPaciente(int tipoPacienteId, TipoPacienteDTO tipoPacienteDTO) {
-        TipoPaciente tipoPaciente = tipoPacienteRepository.findById(tipoPacienteId)
-                .orElseThrow(() -> new RuntimeException("Tipo Paciente no encontrado con ID: " + tipoPacienteId));
-
-        tipoPaciente.setNombre(tipoPacienteDTO.getNombre());
-
-        TipoPaciente updatedTipoPaciente = tipoPacienteRepository.save(tipoPaciente);
-
-        return convertToDTO(updatedTipoPaciente);
     }
 
     private TipoPacienteDTO convertToDTO(TipoPaciente tipoPaciente) {

@@ -6,12 +6,6 @@ import java.util.Optional;
 
 public interface TipoPacienteService {
 
-    List<TipoPacienteDTO> getAllTipoPaciente();
-
-    Optional<TipoPacienteDTO> getTipoPacienteById(int tipoPacienteId);
-
-    void deleteTipoPaciente(int tipoPacienteId);
-
-    TipoPacienteDTO updateTipoPaciente(int tipoPacienteId, TipoPacienteDTO tipoPacienteDTO);
+    List<TipoPacienteDTO> getTipoPacienteList();
 
 }

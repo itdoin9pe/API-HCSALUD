@@ -1,14 +1,23 @@
 package com.saludSystem.controllers.Generals;
 
 import com.saludSystem.dtos.Generals.EstudioDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
+import com.saludSystem.dtos.responses.Generals.EstudioResponse;
 import com.saludSystem.services.modules.Generals.Estudios.EstudioService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Tag(name = "Estudios")
 @RestController
@@ -21,36 +30,55 @@ public class EstudioController {
         this.estudioService = estudioService;
     }
 
+    @PostMapping("/SaveEstudio")
+    public ResponseEntity<ApiResponse> store(@Valid @RequestBody EstudioDTO estudioDTO)
+    {
+        estudioService.saveEstudio(estudioDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Estudio creado con exito"));
+    }
+
     @GetMapping("/GetAllEstudio")
-    public ResponseEntity<List<EstudioDTO>> getAllEstudios() {
-        List<EstudioDTO> estudios = estudioService.getAllEstudios();
-        return new ResponseEntity<>(estudios, HttpStatus.OK);
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = EstudioResponse.class)))
+    })
+    public ResponseEntity<Map<String, Object>> getAllPage(
+            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
+            @RequestParam(name = "Page", defaultValue = "1") int page,
+            @RequestParam(name = "Rows", defaultValue = "10") int rows
+    )
+    {
+        List<EstudioDTO> estudios = estudioService.getAllEstudios(hospitalId, page, rows);
+        long totalData = estudioService.getTotalCount();
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("data", estudios);
+        response.put("totalData", totalData);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("GetEstudio/{id}")
-    public ResponseEntity<EstudioDTO> getEstudioById(@PathVariable int id) {
+    public ResponseEntity<EstudioDTO> getEstudioById(@PathVariable Integer id)
+    {
         return estudioService.getEstudioById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/SaveEstudio")
-    public ResponseEntity<EstudioDTO> createEstudio(@RequestBody EstudioDTO estudioDTO) {
-        EstudioDTO savedEstudio = estudioService.saveEstudio(estudioDTO);
-        return ResponseEntity.ok(savedEstudio);
-    }
-
     @PutMapping("/UpdateEstudio/{id}")
     public ResponseEntity<EstudioDTO> updateEstudio(
-            @PathVariable int id,
-            @RequestBody EstudioDTO estudioDTO) {
+            @PathVariable Integer id,
+            @RequestBody EstudioDTO estudioDTO)
+    {
         EstudioDTO updatedEstudio = estudioService.updateEstudio(id, estudioDTO);
         return new ResponseEntity<>(updatedEstudio, HttpStatus.OK);
     }
 
     @DeleteMapping("/DeleteEstudio/{id}")
-    public ResponseEntity<Void> deleteEstudio(@PathVariable int id) {
+    public ResponseEntity<Void> deleteEstudio(@PathVariable Integer id)
+    {
         estudioService.deleteEstudio(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }

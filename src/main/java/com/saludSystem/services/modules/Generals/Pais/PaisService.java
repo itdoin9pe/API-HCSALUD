@@ -8,8 +8,9 @@ public interface PaisService {
 
     PaisDTO savePais(PaisDTO paisDTO);
 
-    List<PaisDTO> getAllPais();
+    List<PaisDTO> getAllPais(int page, int rows);
 
-    List<String> getPaisList();
+    List<PaisDTO> getPaisList();
 
+    long getTotalCount();
 }

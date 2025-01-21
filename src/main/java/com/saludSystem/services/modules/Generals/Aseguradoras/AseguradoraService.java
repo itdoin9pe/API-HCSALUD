@@ -7,9 +7,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface AseguradoraService {
+
     AseguradoraDTO saveAseguradora(AseguradoraDTO aseguradoraDTO);
 
-    List<AseguradoraDTO> getAllAseguradoras(int page, int rows);
+    List<AseguradoraDTO> getAllAseguradoras(UUID hospitalId, int page, int rows);
 
     List<AseguradoraDTO> getAseguradoraList();
 
@@ -20,4 +21,5 @@ public interface AseguradoraService {
     void deleteAseguradora(UUID aseguradoraId);
 
     long getTotalCount();
+
 }

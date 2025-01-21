@@ -22,7 +22,6 @@ public class TipoPacienteController {
 
     @GetMapping("/GetTipoPacienteList")
     public ResponseEntity<List<TipoPacienteDTO>> getTipoPacienteList(){
-        List<TipoPacienteDTO> tipoPacientes = tipoPacienteService.getAllTipoPaciente();
-        return new ResponseEntity<>(tipoPacientes, HttpStatus.OK);
+        return ResponseEntity.ok(tipoPacienteService.getTipoPacienteList());
     }
 }

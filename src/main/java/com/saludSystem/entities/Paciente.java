@@ -1,6 +1,7 @@
 package com.saludSystem.entities;
 
 import com.saludSystem.entities.configuracion.Sede;
+import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.entities.configuracion.TipoDocumento;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -15,6 +16,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Blob;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -24,9 +26,9 @@ import java.util.Date;
 public class Paciente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false, unique = true)
-    private Long id;
+    private UUID pacienteId;
 
     @NotBlank(message = "El tipo documento no puede estar vacio")
     @Column(name = "tipo_documento", nullable = false)
@@ -123,6 +125,10 @@ public class Paciente {
     @NotBlank(message = "El número de celular no puede estar vacío")
     @Column(name = "celular", nullable = false)
     private String celular;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private SysSalud sysSalud;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,16 +24,7 @@ public class InformacionClinicaServiceImpl implements InformacionClinicaService 
     }
 
     @Override
-    public InformacionClinicaDTO saveInformacionClinica(InformacionClinicaDTO informacionClinicaDTO) {
-        InformacionClinica informacionClinica = new InformacionClinica();
-        informacionClinica.setNombre(informacionClinicaDTO.getNombre());
-        informacionClinica.setEstado(informacionClinicaDTO.isEstado());
-        InformacionClinica savedInformacionClinica = informacionClinicaRepository.save(informacionClinica);
-        return convertToDTO(savedInformacionClinica);
-    }
-
-    @Override
-    public List<InformacionClinicaDTO> getAllInformacionClinica() {
+    public List<InformacionClinicaDTO> getInformacionClinicaList() {
         return informacionClinicaRepository.findAll()
                 .stream()
                 .map(this::convertToDTO)
@@ -40,22 +32,31 @@ public class InformacionClinicaServiceImpl implements InformacionClinicaService 
     }
 
     @Override
-    public Optional<InformacionClinicaDTO> getInformacionClinicaById(Integer id) {
+    public InformacionClinicaDTO saveInformacionClinica(InformacionClinicaDTO informacionClinicaDTO) {
+        InformacionClinica informacionClinica = new InformacionClinica();
+        informacionClinica.setNombre(informacionClinicaDTO.getNombre());
+        informacionClinica.setEstado(informacionClinicaDTO.getEstado());
+        InformacionClinica savedInformacionClinica = informacionClinicaRepository.save(informacionClinica);
+        return convertToDTO(savedInformacionClinica);
+    }
+
+    @Override
+    public Optional<InformacionClinicaDTO> getInformacionClinicaById(UUID id) {
         return informacionClinicaRepository.findById(id)
                 .map(this::convertToDTO);
     }
 
     @Override
-    public void deleteInformacionClinica(Integer id) {
+    public void deleteInformacionClinica(UUID id) {
         informacionClinicaRepository.deleteById(id);
     }
 
     @Override
-    public InformacionClinicaDTO updateInformacionClinica(Integer id, InformacionClinicaDTO informacionClinicaDTO) {
+    public InformacionClinicaDTO updateInformacionClinica(UUID id, InformacionClinicaDTO informacionClinicaDTO) {
         InformacionClinica informacionClinica = informacionClinicaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("InformacionClinica no encontrada con ID: " + id));
         informacionClinica.setNombre(informacionClinicaDTO.getNombre());
-        informacionClinica.setEstado(informacionClinicaDTO.isEstado());
+        informacionClinica.setEstado(informacionClinicaDTO.getEstado());
         InformacionClinica updatedInformacionClinica = informacionClinicaRepository.save(informacionClinica);
         return convertToDTO(updatedInformacionClinica);
     }
@@ -64,7 +65,7 @@ public class InformacionClinicaServiceImpl implements InformacionClinicaService 
         InformacionClinicaDTO informacionClinicaDTO = new InformacionClinicaDTO();
         informacionClinicaDTO.setId(informacionClinica.getId());
         informacionClinicaDTO.setNombre(informacionClinica.getNombre());
-        informacionClinicaDTO.setEstado(informacionClinica.isEstado());
+        informacionClinicaDTO.setEstado(informacionClinica.getEstado());
         return informacionClinicaDTO;
     }
 

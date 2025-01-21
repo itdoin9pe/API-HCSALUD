@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Tag(name = "InformacionClinicas")
 @RestController
@@ -22,36 +23,37 @@ public class InformacionClinicaController {
         this.informacionClinicaService = informacionClinicaService;
     }
 
-    @GetMapping("/GetAllInformacionClinica")
-    public ResponseEntity<List<InformacionClinicaDTO>> getAllInformacionClinicas(){
-        List<InformacionClinicaDTO> informacionClinicas = informacionClinicaService.getAllInformacionClinica();
-        return new ResponseEntity<>(informacionClinicas, HttpStatus.OK);
-    }
-
-    @GetMapping("/GetInformacionClinica/{id}")
-    public ResponseEntity<InformacionClinicaDTO> getInformacionClinicaById(@PathVariable Integer id){
-        return informacionClinicaService.getInformacionClinicaById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/GetInformacionClinicaList")
+    public ResponseEntity<List<InformacionClinicaDTO>> getAllList(){
+        return ResponseEntity.ok(informacionClinicaService.getInformacionClinicaList());
     }
 
     @PostMapping("/SaveInformacionClinica")
-    public ResponseEntity<InformacionClinicaDTO> createInformacionClinica(@Valid @RequestBody InformacionClinicaDTO informacionClinicaDTO){
-        return ResponseEntity.ok(informacionClinicaService.saveInformacionClinica(informacionClinicaDTO));
+    public ResponseEntity<ApiResponse> store(@Valid @RequestBody InformacionClinicaDTO informacionClinicaDTO){
+        informacionClinicaService.saveInformacionClinica(informacionClinicaDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Informacion Clinica creada con exito"));
+    }
+
+    @DeleteMapping("/DeleteInformacionClinica/{id}")
+    public ResponseEntity<ApiResponse> destroy(@PathVariable UUID id){
+        informacionClinicaService.deleteInformacionClinica(id);
+        return ResponseEntity.ok().body(new ApiResponse(true, "Informacion Clinica eliminado con exito"));
     }
 
     @PutMapping("/UpdateInformacionClinica/{id}")
-    public ResponseEntity<InformacionClinicaDTO> updateInformacionClinica(
-            @PathVariable Integer id,
+    public ResponseEntity<InformacionClinicaDTO> update(
+            @PathVariable UUID id,
             @RequestBody InformacionClinicaDTO informacionClinicaDTO
     ){
         InformacionClinicaDTO updatedInformacionClinica = informacionClinicaService.updateInformacionClinica(id, informacionClinicaDTO);
         return ResponseEntity.ok(updatedInformacionClinica);
     }
 
-    @DeleteMapping("/DeleteInformacionClinica/{id}")
-    public ResponseEntity<?> deleteInformacionClinica(@PathVariable Integer id){
-        informacionClinicaService.deleteInformacionClinica(id);
-        return ResponseEntity.ok().body(new ApiResponse(true, "Informacion Clinica eliminado con exito"));
+    @GetMapping("/GetInformacionClinica/{id}")
+    public ResponseEntity<InformacionClinicaDTO> getById(@PathVariable UUID id){
+        return informacionClinicaService.getInformacionClinicaById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+
 }

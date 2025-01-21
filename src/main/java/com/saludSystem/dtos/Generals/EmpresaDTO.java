@@ -2,9 +2,11 @@ package com.saludSystem.dtos.Generals;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class EmpresaDTO {
-    private Integer id;
+    private UUID id;
     private String descripcion;
-    private boolean estado;
+    private Integer estado;
 }

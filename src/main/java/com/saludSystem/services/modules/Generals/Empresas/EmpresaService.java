@@ -3,15 +3,17 @@ package com.saludSystem.services.modules.Generals.Empresas;
 import com.saludSystem.dtos.Generals.EmpresaDTO;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface EmpresaService {
+
+    List<EmpresaDTO> getEmpresaList();
+
     EmpresaDTO saveEmpresa(EmpresaDTO empresaDTO);
 
-    List<EmpresaDTO> getAllEmpresa();
+    Optional<EmpresaDTO> getEmpresaById(UUID id);
 
-    Optional<EmpresaDTO> getEmpresaById(Integer id);
+    void deleteEmpresa(UUID id);
 
-    void deleteEmpresa(Integer id);
-
-    EmpresaDTO updateEmpresa(Integer id, EmpresaDTO empresaDTO);
+    EmpresaDTO updateEmpresa(UUID id, EmpresaDTO empresaDTO);
 }

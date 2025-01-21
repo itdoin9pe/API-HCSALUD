@@ -76,8 +76,8 @@ public class PacienteServiceImpl implements PacienteService {
         paciente.setNombreContacto(crearPacienteDTO.getNombreContacto());
         paciente.setTipoHistoria(crearPacienteDTO.getTipoHistoria());
 
-        //Optional<Aseguradora> aseguradora = aseguradoraRepository.findById(crearPacienteDTO.getAseguradoraId());
-        //aseguradora.ifPresent(paciente::setAseguradoraId);
+        Optional<Aseguradora> aseguradora = aseguradoraRepository.findById(crearPacienteDTO.getAseguradoraId());
+        aseguradora.ifPresent(paciente::setAseguradoraId);
 
         Optional<Empresa> empresa = empresaRepository.findById(crearPacienteDTO.getEmpresaId());
         empresa.ifPresent(paciente::setEmpresaId);

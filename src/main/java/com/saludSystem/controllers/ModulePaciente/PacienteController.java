@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Tag(name = "Pacientes")
@@ -41,19 +38,19 @@ public class PacienteController {
             @RequestParam("direccion") String direccion,
             @RequestParam("paisId") Integer paisId,
             @RequestParam("ubigeo") String ubigeo,
-            @RequestParam("tipoPacienteId") int tipoPacienteId,
+            @RequestParam("tipoPacienteId") Integer tipoPacienteId,
             @RequestParam("estadoCivil") String estadoCivil,
             @RequestParam("sexo") String sexo,
             @RequestParam("nombreContacto") String nombreContacto,
             @RequestParam("tipoHistoria") String tipoHistoria,
             @RequestParam("aseguradoraId") Integer aseguradoraId,
-            @RequestParam("empresaId") Integer empresaId,
+            @RequestParam("empresaId") UUID empresaId,
             @RequestParam("email") String email,
             @RequestParam("titulo") String titulo,
             @RequestParam("observacion") String observacion,
-            @RequestParam("informacionClinicaId") Integer informacionClinicaId,
+            @RequestParam("informacionClinicaId") UUID informacionClinicaId,
             @RequestParam("estudioId") Integer estudioId,
-            @RequestParam("sedeId") Integer sedeId,
+            @RequestParam("sedeId") UUID sedeId,
             @RequestParam("celular") String celular) throws IOException {
 
         CrearPacienteDTO crearPacienteDTO = new CrearPacienteDTO();

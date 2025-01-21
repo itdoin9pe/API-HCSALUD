@@ -6,7 +6,6 @@ import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.modules.Generals.AseguradoraRepository;
 import com.saludSystem.services.modules.Generals.Aseguradoras.AseguradoraService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +22,6 @@ public class AseguradoraServiceImpl implements AseguradoraService {
     private final AseguradoraRepository aseguradoraRepository;
     private final ModelMapper modelMapper;
 
-    @Autowired
     public AseguradoraServiceImpl(AseguradoraRepository aseguradoraRepository, ModelMapper modelMapper) {
         this.aseguradoraRepository = aseguradoraRepository;
         this.modelMapper = modelMapper;
@@ -39,7 +37,7 @@ public class AseguradoraServiceImpl implements AseguradoraService {
     }
 
     @Override
-    public List<AseguradoraDTO> getAllAseguradoras(int page, int rows) {
+    public List<AseguradoraDTO> getAllAseguradoras(UUID hospitalId,int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<Aseguradora> aseguradorasPage = aseguradoraRepository.findAll(pageable);
         return aseguradorasPage.getContent().stream()

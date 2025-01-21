@@ -14,7 +14,7 @@ public class TipoPaciente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int tipoPacienteId;
+    public Integer tipoPacienteId;
 
     @Column(name = "nombres", nullable = false)
     public String nombre;

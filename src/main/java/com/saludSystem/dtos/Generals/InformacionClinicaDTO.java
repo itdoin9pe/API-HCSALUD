@@ -2,9 +2,13 @@ package com.saludSystem.dtos.Generals;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class InformacionClinicaDTO {
-    private Integer id;
+
+    private UUID id;
     private String nombre;
-    private boolean estado;
+    private Integer estado;
+
 }

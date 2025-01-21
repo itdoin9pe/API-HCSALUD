@@ -41,7 +41,7 @@ public class CrearPacienteDTO {
     private String ubigeo;
 
     @NotNull(message = "El tipo de paciente no puede estar vacío")
-    private int tipoPacienteId;
+    private Integer tipoPacienteId;
 
     private String estadoCivil;
 
@@ -53,24 +53,22 @@ public class CrearPacienteDTO {
 
     private UUID aseguradoraId;
 
-    private Integer empresaId;
+    private UUID empresaId;
 
     @Email(message = "El email debe ser válido")
     private String email;
 
     private byte[] fotoPaciente;
 
-    //private String fotoPaciente;
-
     private String titulo;
 
     private String observacion;
 
-    private Integer informacionClinicaId;
+    private UUID informacionClinicaId;
 
     private Integer estudioId;
 
-    private Integer sedeId;
+    private UUID sedeId;
 
     @NotBlank(message = "El número de celular no puede estar vacío")
     private String celular;
