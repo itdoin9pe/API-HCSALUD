@@ -1,8 +1,8 @@
 package com.saludSystem.controllers.Generals;
 
-import com.saludSystem.dtos.Generals.EstudioDTO;
+import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
+import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
 import com.saludSystem.dtos.responses.Generals.EstudioResponse;
 import com.saludSystem.services.modules.Generals.Estudios.EstudioService;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,9 +30,9 @@ public class EstudioController {
     }
 
     @PostMapping("/SaveEstudio")
-    public ResponseEntity<ApiResponse> store(@Valid @RequestBody EstudioDTO estudioDTO)
+    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearEstudioDTO crearEstudioDTO)
     {
-        estudioService.saveEstudio(estudioDTO);
+        estudioService.saveEstudio(crearEstudioDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Estudio creado con exito"));
     }
 
@@ -49,7 +48,7 @@ public class EstudioController {
             @RequestParam(name = "Rows", defaultValue = "10") int rows
     )
     {
-        List<EstudioDTO> estudios = estudioService.getAllEstudios(hospitalId, page, rows);
+        List<EstudioDTO> estudios = estudioService.getPagedResults(hospitalId, page, rows);
         long totalData = estudioService.getTotalCount();
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("data", estudios);
@@ -71,14 +70,14 @@ public class EstudioController {
             @RequestBody EstudioDTO estudioDTO)
     {
         EstudioDTO updatedEstudio = estudioService.updateEstudio(id, estudioDTO);
-        return new ResponseEntity<>(updatedEstudio, HttpStatus.OK);
+        return ResponseEntity.ok(updatedEstudio);
     }
 
     @DeleteMapping("/DeleteEstudio/{id}")
-    public ResponseEntity<Void> deleteEstudio(@PathVariable Integer id)
+    public ResponseEntity<ApiResponse> deleteEstudio(@PathVariable Integer id)
     {
         estudioService.deleteEstudio(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok(new ApiResponse(true, "Estudio eliminado correctamente"));
     }
 
 }

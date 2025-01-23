@@ -1,6 +1,8 @@
 package com.saludSystem.controllers.Generals;
 
-import com.saludSystem.dtos.Generals.PaisDTO;
+import com.saludSystem.dtos.Generals.Pais.CrearPaisDTO;
+import com.saludSystem.dtos.Generals.Pais.PaisDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
 import com.saludSystem.services.modules.Generals.Pais.PaisService;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,8 +29,9 @@ public class PaisController {
     }
 
     @PostMapping("/SavePais")
-    public ResponseEntity<PaisDTO> store(@Valid @RequestBody PaisDTO paisDTO) {
-        return ResponseEntity.ok(paisService.savePais(paisDTO));
+    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearPaisDTO crearPaisDTO) {
+        paisService.savePais(crearPaisDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Estudio creado correctamente"));
     }
 
     @GetMapping("/GetAllPais")

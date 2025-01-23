@@ -1,15 +1,16 @@
 package com.saludSystem.services.modules.Generals.Estudios;
 
-import com.saludSystem.dtos.Generals.EstudioDTO;
+import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
+import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
+import com.saludSystem.services.PaginatedService;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface EstudioService {
+public interface EstudioService extends PaginatedService {
 
-    EstudioDTO saveEstudio(EstudioDTO estudioDTO);
-
-    List<EstudioDTO> getAllEstudios(UUID hospitalId, int page, int rows);
+    CrearEstudioDTO saveEstudio(CrearEstudioDTO crearEstudioDTO);
 
     Optional<EstudioDTO> getEstudioById(Integer id);
 
@@ -18,7 +19,5 @@ public interface EstudioService {
     EstudioDTO updateEstudio(Integer id, EstudioDTO estudioDTO);
 
     List<EstudioDTO> getEstudioList();
-
-    long getTotalCount();
 
 }

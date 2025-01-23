@@ -1,17 +1,19 @@
 package com.saludSystem.controllers.Generals;
 
-import com.saludSystem.dtos.Generals.EmpresaDTO;
+import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
+import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.Generals.EmpresaResponse;
 import com.saludSystem.services.modules.Generals.Empresas.EmpresaService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Tag(name = "Empresas")
@@ -47,14 +49,20 @@ public class EmpresaController {
     }
 
     @PostMapping("/SaveEmpresa")
-    public ResponseEntity<EmpresaDTO> createEmpresa(@Valid @RequestBody EmpresaDTO empresaDTO){
-        return ResponseEntity.ok(empresaService.saveEmpresa(empresaDTO));
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = EmpresaResponse.class)))
+    })
+    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearEmpresaDTO crearEmpresaDTO){
+        empresaService.saveEmpresa(crearEmpresaDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Empresa creada correctamente"));
     }
 
     @DeleteMapping("/DeleteEmpresa/{id}")
-    public ResponseEntity<Void> deleteEmpresa(@PathVariable UUID id){
+    public ResponseEntity<ApiResponse> deleteEmpresa(@PathVariable UUID id){
         empresaService.deleteEmpresa(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok(new ApiResponse(true, "Empresa eliminado correctamente."));
     }
 
 }

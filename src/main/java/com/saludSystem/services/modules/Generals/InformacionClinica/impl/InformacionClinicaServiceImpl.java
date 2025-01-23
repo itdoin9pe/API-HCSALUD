@@ -1,10 +1,12 @@
 package com.saludSystem.services.modules.Generals.InformacionClinica.impl;
 
-import com.saludSystem.dtos.Generals.InformacionClinicaDTO;
+import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
+import com.saludSystem.dtos.Generals.InformacionClinica.InformacionClinicaDTO;
 import com.saludSystem.entities.InformacionClinica;
 import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.modules.Generals.InformacionClinicaRepository;
 import com.saludSystem.services.modules.Generals.InformacionClinica.InformacionClinicaService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,12 @@ import java.util.stream.Collectors;
 public class InformacionClinicaServiceImpl implements InformacionClinicaService {
 
     private final InformacionClinicaRepository informacionClinicaRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public InformacionClinicaServiceImpl(InformacionClinicaRepository informacionClinicaRepository) {
+    public InformacionClinicaServiceImpl(InformacionClinicaRepository informacionClinicaRepository, ModelMapper modelMapper) {
         this.informacionClinicaRepository = informacionClinicaRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -32,12 +36,10 @@ public class InformacionClinicaServiceImpl implements InformacionClinicaService 
     }
 
     @Override
-    public InformacionClinicaDTO saveInformacionClinica(InformacionClinicaDTO informacionClinicaDTO) {
-        InformacionClinica informacionClinica = new InformacionClinica();
-        informacionClinica.setNombre(informacionClinicaDTO.getNombre());
-        informacionClinica.setEstado(informacionClinicaDTO.getEstado());
-        InformacionClinica savedInformacionClinica = informacionClinicaRepository.save(informacionClinica);
-        return convertToDTO(savedInformacionClinica);
+    public CrearInformacionClinicaDTO saveInformacionClinica(CrearInformacionClinicaDTO crearInformacionClinicaDTO) {
+        InformacionClinica informacionClinica = modelMapper.map(crearInformacionClinicaDTO, InformacionClinica.class);
+        informacionClinicaRepository.save(informacionClinica);
+        return modelMapper.map(informacionClinica, CrearInformacionClinicaDTO.class);
     }
 
     @Override
@@ -55,18 +57,15 @@ public class InformacionClinicaServiceImpl implements InformacionClinicaService 
     public InformacionClinicaDTO updateInformacionClinica(UUID id, InformacionClinicaDTO informacionClinicaDTO) {
         InformacionClinica informacionClinica = informacionClinicaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("InformacionClinica no encontrada con ID: " + id));
-        informacionClinica.setNombre(informacionClinicaDTO.getNombre());
-        informacionClinica.setEstado(informacionClinicaDTO.getEstado());
+        Optional.ofNullable(informacionClinicaDTO.getNombre()).filter(desc -> !desc.isBlank())
+                .ifPresent(informacionClinica::setNombre);
+        Optional.ofNullable(informacionClinicaDTO.getEstado()).ifPresent(informacionClinica::setEstado);
         InformacionClinica updatedInformacionClinica = informacionClinicaRepository.save(informacionClinica);
         return convertToDTO(updatedInformacionClinica);
     }
 
     private InformacionClinicaDTO convertToDTO(InformacionClinica informacionClinica) {
-        InformacionClinicaDTO informacionClinicaDTO = new InformacionClinicaDTO();
-        informacionClinicaDTO.setId(informacionClinica.getId());
-        informacionClinicaDTO.setNombre(informacionClinica.getNombre());
-        informacionClinicaDTO.setEstado(informacionClinica.getEstado());
-        return informacionClinicaDTO;
+        return modelMapper.map(informacionClinica, InformacionClinicaDTO.class);
     }
 
 }

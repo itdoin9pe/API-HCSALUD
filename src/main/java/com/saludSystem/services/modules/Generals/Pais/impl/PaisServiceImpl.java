@@ -1,6 +1,7 @@
 package com.saludSystem.services.modules.Generals.Pais.impl;
 
-import com.saludSystem.dtos.Generals.PaisDTO;
+import com.saludSystem.dtos.Generals.Pais.CrearPaisDTO;
+import com.saludSystem.dtos.Generals.Pais.PaisDTO;
 import com.saludSystem.entities.Pais;
 import com.saludSystem.repositories.modules.Generals.PaisRepository;
 import com.saludSystem.services.modules.Generals.Pais.PaisService;
@@ -28,19 +29,13 @@ public class PaisServiceImpl implements PaisService {
     }
 
     @Override
-    public PaisDTO savePais(PaisDTO paisDTO) {
-        Pais pais = new Pais();
-        pais.setIso(paisDTO.getIso());
-        pais.setNombre(paisDTO.getNombre());
-        pais.setGentilicio(paisDTO.getGentilicio());
-        pais.setOrden(paisDTO.getOrden());
-        Pais savedPais = paisRepository.save(pais);
-        return convertToDTO(savedPais);
+    public CrearPaisDTO savePais(CrearPaisDTO crearPaisDTO) {
+        Pais pais = modelMapper.map(crearPaisDTO, Pais.class);
+        return modelMapper.map(pais, CrearPaisDTO.class);
     }
 
     @Override
-    public List<PaisDTO> getAllPais(int page, int rows)
-    {
+    public List<PaisDTO> getAllPais(int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<Pais> paisPage = paisRepository.findAll(pageable);
         return paisPage.getContent().stream()
@@ -61,13 +56,7 @@ public class PaisServiceImpl implements PaisService {
     }
 
     private PaisDTO convertToDTO(Pais pais) {
-        PaisDTO paisDTO = new PaisDTO();
-        paisDTO.setId(pais.getId());
-        paisDTO.setIso(pais.getIso());
-        paisDTO.setNombre(pais.getNombre());
-        paisDTO.setGentilicio(pais.getGentilicio());
-        paisDTO.setOrden(pais.getOrden());
-        return paisDTO;
+        return modelMapper.map(pais, PaisDTO.class);
     }
 
 }

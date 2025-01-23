@@ -1,11 +1,16 @@
 package com.saludSystem.controllers.Generals;
 
+import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.Generals.InformacionClinicaDTO;
+import com.saludSystem.dtos.Generals.InformacionClinica.InformacionClinicaDTO;
+import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
+import com.saludSystem.dtos.responses.Generals.InformacionClinicaResponse;
 import com.saludSystem.services.modules.Generals.InformacionClinica.InformacionClinicaService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +34,13 @@ public class InformacionClinicaController {
     }
 
     @PostMapping("/SaveInformacionClinica")
-    public ResponseEntity<ApiResponse> store(@Valid @RequestBody InformacionClinicaDTO informacionClinicaDTO){
-        informacionClinicaService.saveInformacionClinica(informacionClinicaDTO);
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = InformacionClinicaResponse.class)))
+    })
+    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearInformacionClinicaDTO crearInformacionClinicaDTO){
+        informacionClinicaService.saveInformacionClinica(crearInformacionClinicaDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Informacion Clinica creada con exito"));
     }
 

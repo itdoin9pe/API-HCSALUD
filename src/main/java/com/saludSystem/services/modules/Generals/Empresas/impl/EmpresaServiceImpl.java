@@ -1,15 +1,13 @@
 package com.saludSystem.services.modules.Generals.Empresas.impl;
 
-import com.saludSystem.dtos.Generals.EmpresaDTO;
+import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
+import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
 import com.saludSystem.entities.Empresa;
 import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.modules.Generals.EmpresaRepository;
 import com.saludSystem.services.modules.Generals.Empresas.EmpresaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,27 +36,27 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     @Override
     public Optional<EmpresaDTO> getEmpresaById(UUID id) {
-        return empresaRepository.findById(id)
-                .map(this::convertToDTO);
+        return Optional.ofNullable(empresaRepository.findById(id)
+                .map(this::convertToDTO)
+                .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con Id" + id)));
     }
 
     @Override
     public EmpresaDTO updateEmpresa(UUID id, EmpresaDTO empresaDTO) {
         Empresa empresa = empresaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con ID: " + id));
-        empresa.setDescripcion(empresaDTO.getDescripcion());
-        empresa.setEstado(empresaDTO.getEstado());
+        Optional.ofNullable(empresaDTO.getDescripcion()).filter(desc -> !desc.isBlank())
+                        .ifPresent(empresa::setDescripcion);
+        Optional.ofNullable(empresaDTO.getEstado()).ifPresent(empresa::setEstado);
         Empresa updatedEmpresa = empresaRepository.save(empresa);
         return convertToDTO(updatedEmpresa);
     }
 
     @Override
-    public EmpresaDTO saveEmpresa(EmpresaDTO empresaDTO){
-        Empresa empresa = new Empresa();
-        empresa.setDescripcion(empresaDTO.getDescripcion());
-        empresa.setEstado(empresaDTO.getEstado());
-        Empresa savedEmpresa = empresaRepository.save(empresa);
-        return convertToDTO(savedEmpresa);
+    public CrearEmpresaDTO saveEmpresa(CrearEmpresaDTO crearEmpresaDTO){
+        Empresa empresa = modelMapper.map(crearEmpresaDTO, Empresa.class);
+        empresaRepository.save(empresa);
+        return modelMapper.map(empresa, CrearEmpresaDTO.class);
     }
 
     @Override
@@ -67,11 +65,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     private EmpresaDTO convertToDTO(Empresa empresa) {
-        EmpresaDTO empresaDTO = new EmpresaDTO();
-        empresaDTO.setId(empresa.getId());
-        empresaDTO.setDescripcion(empresa.getDescripcion());
-        empresaDTO.setEstado(empresa.getEstado());
-        return empresaDTO;
+        return modelMapper.map(empresa, EmpresaDTO.class);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.saludSystem.dtos.Generals;
+package com.saludSystem.dtos.Generals.Pais;
 
 import lombok.Data;
 

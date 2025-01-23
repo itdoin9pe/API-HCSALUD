@@ -43,8 +43,8 @@ public class AseguradoraController {
     })
     public ResponseEntity<Map<String, Object>> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page", defaultValue = "1") int page,
-            @RequestParam(name = "Rows", defaultValue = "10") int rows
+            @RequestParam(name = "Page") int page,
+            @RequestParam(name = "Rows") int rows
     ) {
         List<AseguradoraDTO> aseguradoras = aseguradoraService.getPagedResults(hospitalId, page, rows);
         long totalData = aseguradoraService.getTotalCount();

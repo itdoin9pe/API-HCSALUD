@@ -29,11 +29,9 @@ public class AseguradoraServiceImpl implements AseguradoraService {
 
     @Override
     public CrearAseguradoraDTO saveAseguradora(CrearAseguradoraDTO crearAseguradoraDTO) {
-        Aseguradora aseguradora = new Aseguradora();
-        aseguradora.setDescripcion(crearAseguradoraDTO.getDescripcion());
-        aseguradora.setEstado(crearAseguradoraDTO.getEstado());
-        Aseguradora savedAseguradora = aseguradoraRepository.save(aseguradora);
-        return convertToCrearAseguradoraDTO(savedAseguradora);
+        Aseguradora aseguradora = modelMapper.map(crearAseguradoraDTO, Aseguradora.class);
+        aseguradoraRepository.save(aseguradora);
+        return modelMapper.map(aseguradora, CrearAseguradoraDTO.class);
     }
 
     @Override
@@ -84,10 +82,6 @@ public class AseguradoraServiceImpl implements AseguradoraService {
 
     private AseguradoraDTO convertToDTO(Aseguradora aseguradora) {
         return modelMapper.map(aseguradora, AseguradoraDTO.class);
-    }
-
-    private CrearAseguradoraDTO convertToCrearAseguradoraDTO(Aseguradora aseguradora) {
-        return modelMapper.map(aseguradora, CrearAseguradoraDTO.class);
     }
 
 }

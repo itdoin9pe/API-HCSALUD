@@ -1,6 +1,7 @@
 package com.saludSystem.services.modules.Generals.Estudios.impl;
 
-import com.saludSystem.dtos.Generals.EstudioDTO;
+import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
+import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
 import com.saludSystem.entities.Estudio;
 import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.modules.Generals.EstudioRepository;
@@ -30,20 +31,10 @@ public class EstudioServiceImpl implements EstudioService {
     }
 
     @Override
-    public EstudioDTO saveEstudio(EstudioDTO estudioDTO) {
-        Estudio estudio = new Estudio();
-        estudio.setDescripcion(estudioDTO.getDescripcion());
-        Estudio savedEstudio = estudioRepository.save(estudio);
-        return convertToDTO(savedEstudio);
-    }
-
-    @Override
-    public List<EstudioDTO> getAllEstudios(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<Estudio> estudiosPage = estudioRepository.findAll(pageable);
-        return estudiosPage.getContent().stream()
-                .map(estudio -> modelMapper.map(estudio, EstudioDTO.class))
-                .toList();
+    public CrearEstudioDTO saveEstudio(CrearEstudioDTO crearEstudioDTO) {
+        Estudio estudio = modelMapper.map(crearEstudioDTO, Estudio.class);
+        estudioRepository.save(estudio);
+        return modelMapper.map(estudio, CrearEstudioDTO.class);
     }
 
     @Override
@@ -80,11 +71,17 @@ public class EstudioServiceImpl implements EstudioService {
         return estudioRepository.count();
     }
 
+    @Override
+    public List<EstudioDTO> getPagedResults(UUID hospitalId, int page, int rows) {
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<Estudio> estudiosPage = estudioRepository.findAll(pageable);
+        return estudiosPage.getContent().stream()
+                .map(estudio -> modelMapper.map(estudio, EstudioDTO.class))
+                .toList();
+    }
+
     private EstudioDTO convertToDTO(Estudio estudio) {
-        EstudioDTO estudioDTO = new EstudioDTO();
-        estudioDTO.setId(estudio.getId());
-        estudioDTO.setDescripcion(estudio.getDescripcion());
-        return estudioDTO;
+        return modelMapper.map(estudio, EstudioDTO.class);
     }
 
 }
