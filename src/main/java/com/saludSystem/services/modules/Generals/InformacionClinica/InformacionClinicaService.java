@@ -1,6 +1,8 @@
 package com.saludSystem.services.modules.Generals.InformacionClinica;
 
-import com.saludSystem.dtos.Generals.InformacionClinicaDTO;
+import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
+import com.saludSystem.dtos.Generals.InformacionClinica.InformacionClinicaDTO;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -9,7 +11,7 @@ public interface InformacionClinicaService {
 
     List<InformacionClinicaDTO> getInformacionClinicaList();
 
-    InformacionClinicaDTO saveInformacionClinica(InformacionClinicaDTO informacionClinicaDTO);
+    CrearInformacionClinicaDTO saveInformacionClinica(CrearInformacionClinicaDTO crearInformacionClinicaDTO);
 
     Optional<InformacionClinicaDTO> getInformacionClinicaById(UUID id);
 

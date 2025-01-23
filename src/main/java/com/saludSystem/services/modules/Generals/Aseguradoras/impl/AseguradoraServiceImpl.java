@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,22 +29,10 @@ public class AseguradoraServiceImpl implements AseguradoraService {
 
     @Override
     public CrearAseguradoraDTO saveAseguradora(CrearAseguradoraDTO crearAseguradoraDTO) {
-        Aseguradora aseguradora = new Aseguradora();
-        aseguradora.setDescripcion(crearAseguradoraDTO.getDescripcion());
-        aseguradora.setEstado(crearAseguradoraDTO.getEstado());
-        Aseguradora savedAseguradora = aseguradoraRepository.save(aseguradora);
-        return convertToCrearAseguradoraDTO(savedAseguradora);
+        Aseguradora aseguradora = modelMapper.map(crearAseguradoraDTO, Aseguradora.class);
+        aseguradoraRepository.save(aseguradora);
+        return modelMapper.map(aseguradora, CrearAseguradoraDTO.class);
     }
-
-    /*
-    @Override
-    public List<AseguradoraDTO> getAllAseguradoras(UUID hospitalId,int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<Aseguradora> aseguradorasPage = aseguradoraRepository.findAll(pageable);
-        return aseguradorasPage.getContent().stream()
-                .map(aseguradora -> modelMapper.map(aseguradora, AseguradoraDTO.class))
-                .toList();
-    }*/
 
     @Override
     public List<AseguradoraDTO> getAseguradoraList() {
@@ -65,14 +52,9 @@ public class AseguradoraServiceImpl implements AseguradoraService {
     public AseguradoraDTO updateAseguradora(UUID aseguradoraId, AseguradoraDTO aseguradoraDTO) {
         Aseguradora aseguradora = aseguradoraRepository.findById(aseguradoraId)
                 .orElseThrow(() -> new ResourceNotFoundException("Aseguradora no encontrada con ID: " + aseguradoraId));
-
-        // Actualiza campo descripción si está presente
         Optional.ofNullable(aseguradoraDTO.getDescripcion()).filter(desc -> !desc.isBlank()) // Evita valores vacíos
                 .ifPresent(aseguradora::setDescripcion);
-
-        // Actualiza campo estado si está presente
         Optional.ofNullable(aseguradoraDTO.getEstado()).ifPresent(aseguradora::setEstado);
-
         Aseguradora updatedAseguradora = aseguradoraRepository.save(aseguradora);
         return convertToDTO(updatedAseguradora);
     }
@@ -99,18 +81,7 @@ public class AseguradoraServiceImpl implements AseguradoraService {
     }
 
     private AseguradoraDTO convertToDTO(Aseguradora aseguradora) {
-        AseguradoraDTO dto = new AseguradoraDTO();
-        dto.setAseguradoraId(aseguradora.getId());
-        dto.setDescripcion(aseguradora.getDescripcion());
-        dto.setEstado(aseguradora.getEstado());
-        return dto;
-    }
-
-    private CrearAseguradoraDTO convertToCrearAseguradoraDTO(Aseguradora aseguradora) {
-        CrearAseguradoraDTO dto = new CrearAseguradoraDTO();
-        dto.setDescripcion(aseguradora.getDescripcion());
-        dto.setEstado(aseguradora.getEstado());
-        return dto;
+        return modelMapper.map(aseguradora, AseguradoraDTO.class);
     }
 
 }
