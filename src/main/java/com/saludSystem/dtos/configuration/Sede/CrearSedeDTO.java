@@ -1,12 +1,9 @@
-package com.saludSystem.dtos.configuration;
+package com.saludSystem.dtos.configuration.Sede;
 
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
-public class SedeDTO {
-    private UUID id;
+public class CrearSedeDTO {
     private String codigo;
     private String nombre;
     private String direccion;

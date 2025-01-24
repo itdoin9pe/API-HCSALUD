@@ -1,12 +1,12 @@
 package com.saludSystem.services.modules.configuration.Sede.impl;
 
-import com.saludSystem.dtos.configuration.SedeDTO;
+import com.saludSystem.dtos.configuration.Sede.CrearSedeDTO;
+import com.saludSystem.dtos.configuration.Sede.SedeDTO;
 import com.saludSystem.entities.configuracion.Sede;
 import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.modules.Configuration.SedeRepository;
 import com.saludSystem.services.modules.configuration.Sede.SedeService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,26 +30,10 @@ public class SedeServiceImpl implements SedeService {
     }
 
     @Override
-    public SedeDTO saveSede(SedeDTO sedeDTO)
-    {
-        Sede sede = new Sede();
-        sede.setCodigo(sedeDTO.getCodigo());
-        sede.setNombre(sedeDTO.getNombre());
-        sede.setDireccion(sedeDTO.getDireccion());
-        sede.setUbigeo(sedeDTO.getUbigeo());
-        sede.setEstado(sedeDTO.getEstado());
-        Sede savedSede = sedeRepository.save(sede);
-        return  convertToDTO(savedSede);
-    }
-
-    @Override
-    public List<SedeDTO> getAllSede(int page, int rows)
-    {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<Sede> sedePage = sedeRepository.findAll(pageable);
-        return sedePage.getContent().stream()
-                .map(sede -> modelMapper.map(sede, SedeDTO.class))
-                .toList();
+    public CrearSedeDTO saveSede(CrearSedeDTO crearSedeDTO) {
+        Sede sede = modelMapper.map(crearSedeDTO, Sede.class);
+        sedeRepository.save(sede);
+        return modelMapper.map(sede, CrearSedeDTO.class);
     }
 
     @Override
@@ -79,7 +63,7 @@ public class SedeServiceImpl implements SedeService {
     {
         return Optional.ofNullable(sedeRepository.findById(id)
                 .map(this::convertToDTO)
-                .orElseThrow(() -> new ResourceNotFoundException("Sede no encontrada" + id)));
+                .orElseThrow(() -> new ResourceNotFoundException("Sede no encontrada por ID" + id)));
     }
 
     @Override
@@ -95,16 +79,17 @@ public class SedeServiceImpl implements SedeService {
         return sedeRepository.count();
     }
 
-    private SedeDTO convertToDTO(Sede sede) {
-        SedeDTO sedeDTO = new SedeDTO();
-        sedeDTO.setId(sede.getId());
-        sedeDTO.setCodigo(sede.getCodigo());
-        sedeDTO.setNombre(sede.getNombre());
-        sedeDTO.setDireccion(sede.getDireccion());
-        sedeDTO.setUbigeo(sede.getUbigeo());
-        sedeDTO.setEstado(sede.getEstado());
+    @Override
+    public List<SedeDTO> getPagedResults(UUID hospitalId , int page, int rows) {
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<Sede> sedePage = sedeRepository.findAll(pageable);
+        return sedePage.getContent().stream()
+                .map(sede -> modelMapper.map(sede, SedeDTO.class))
+                .toList();
+    }
 
-        return sedeDTO;
+    private SedeDTO convertToDTO(Sede sede) {
+        return modelMapper.map(sede, SedeDTO.class);
     }
 
 }

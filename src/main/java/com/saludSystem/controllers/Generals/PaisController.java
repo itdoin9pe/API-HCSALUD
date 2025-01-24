@@ -4,6 +4,7 @@ import com.saludSystem.dtos.Generals.Pais.CrearPaisDTO;
 import com.saludSystem.dtos.Generals.Pais.PaisDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
+import com.saludSystem.dtos.responses.Generals.PaisResponse;
 import com.saludSystem.services.modules.Generals.Pais.PaisService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,7 +39,7 @@ public class PaisController {
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AseguradoraResponse.class)))
+                            schema = @Schema(implementation = PaisResponse.class)))
     })
     public ResponseEntity<Map<String, Object>> getAllPage(
             @RequestParam(name = "Page", defaultValue = "1") int page,

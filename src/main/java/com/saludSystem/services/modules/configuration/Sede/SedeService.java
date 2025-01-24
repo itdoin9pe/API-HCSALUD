@@ -1,6 +1,8 @@
 package com.saludSystem.services.modules.configuration.Sede;
 
-import com.saludSystem.dtos.configuration.SedeDTO;
+import com.saludSystem.dtos.configuration.Sede.CrearSedeDTO;
+import com.saludSystem.dtos.configuration.Sede.SedeDTO;
+import com.saludSystem.services.PaginatedService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,11 +10,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public interface SedeService {
+public interface SedeService extends PaginatedService {
 
-    SedeDTO saveSede(SedeDTO sedeDTO);
-
-    List<SedeDTO> getAllSede(int page, int rows);
+    CrearSedeDTO saveSede(CrearSedeDTO crearSedeDTO);
 
     SedeDTO updateSede(UUID id, SedeDTO sedeDTO);
 
@@ -21,7 +21,5 @@ public interface SedeService {
     Optional<SedeDTO> getSedeById(UUID id);
 
     List<SedeDTO> getSedeList();
-
-    long getTotalCount();
 
 }

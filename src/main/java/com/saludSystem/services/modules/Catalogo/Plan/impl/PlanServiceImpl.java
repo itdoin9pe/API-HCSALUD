@@ -1,6 +1,7 @@
 package com.saludSystem.services.modules.Catalogo.Plan.impl;
 
-import com.saludSystem.dtos.catalago.PlanDTO;
+import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
+import com.saludSystem.dtos.catalago.Plan.PlanDTO;
 import com.saludSystem.entities.catalogo.Plan;
 import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.modules.Catalogo.PlanRepository;
@@ -28,22 +29,14 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public PlanDTO savePlan(PlanDTO planDTO)
-    {
-        Plan plan = new Plan();
-        plan.setNombrePlan(planDTO.getNombrePlan());
-        plan.setFechaInicio(planDTO.getFechaInicio());
-        plan.setFechaFin(planDTO.getFechaFin());
-        plan.setMaxPlan(planDTO.getMaxPlan());
-        plan.setUsuMax(planDTO.getUseMax());
-        plan.setCostoPlan(planDTO.getCostoPlan());
-        plan.setEstado(planDTO.getEstado());
-        Plan savedPlan = planRepository.save(plan);
-        return convertToDTO(savedPlan);
+    public CrearPlanDTO savePlan(CrearPlanDTO crearPlanDTO) {
+        Plan plan = modelMapper.map(crearPlanDTO, Plan.class);
+        planRepository.save(plan);
+        return modelMapper.map(plan, CrearPlanDTO.class);
     }
 
     @Override
-    public List<PlanDTO> getAllPlan(UUID hospitalId, int page, int rows) {
+    public List<PlanDTO> getPagedResults(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<Plan> planPage = planRepository.findAll(pageable);
         return planPage.getContent().stream()
@@ -85,16 +78,7 @@ public class PlanServiceImpl implements PlanService {
         return planRepository.count();
     }
 
-    private PlanDTO convertToDTO(Plan plan)
-    {
-        PlanDTO dto = new PlanDTO();
-        dto.setNombrePlan(plan.getNombrePlan());
-        dto.setFechaInicio(plan.getFechaInicio());
-        dto.setFechaFin(plan.getFechaFin());
-        dto.setMaxPlan(plan.getMaxPlan());
-        dto.setUseMax(plan.getUsuMax());
-        dto.setCostoPlan(plan.getCostoPlan());
-        dto.setEstado(plan.getEstado());
-        return dto;
+    private PlanDTO convertToDTO(Plan plan) {
+        return modelMapper.map(plan, PlanDTO.class);
     }
 }

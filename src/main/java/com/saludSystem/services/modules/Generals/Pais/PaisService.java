@@ -14,4 +14,5 @@ public interface PaisService {
     List<PaisDTO> getPaisList();
 
     long getTotalCount();
+
 }

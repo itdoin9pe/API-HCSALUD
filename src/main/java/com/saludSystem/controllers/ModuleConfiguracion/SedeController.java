@@ -1,15 +1,15 @@
 package com.saludSystem.controllers.ModuleConfiguracion;
 
-import com.saludSystem.dtos.configuration.SedeDTO;
+import com.saludSystem.dtos.configuration.Sede.CrearSedeDTO;
+import com.saludSystem.dtos.configuration.Sede.SedeDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
-import com.saludSystem.services.modules.configuration.Sede.impl.SedeServiceImpl;
+import com.saludSystem.dtos.responses.Configuration.SedeResponse;
+import com.saludSystem.services.modules.configuration.Sede.SedeService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +23,15 @@ import java.util.UUID;
 @RequestMapping("/api/Sedes")
 public class SedeController {
 
-    @Autowired
-    private SedeServiceImpl sedeService;
+    private final SedeService sedeService;
+
+    public SedeController(SedeService sedeService){
+        this.sedeService = sedeService;
+    }
 
     @PostMapping("/SaveSede")
-    public ResponseEntity<ApiResponse> store(@Valid @RequestBody SedeDTO sedeDTO){
-        SedeDTO savedSede = sedeService.saveSede(sedeDTO);
+    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearSedeDTO crearSedeDTO){
+        sedeService.saveSede(crearSedeDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Sede registrada con exito"));
     }
 
@@ -36,14 +39,15 @@ public class SedeController {
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AseguradoraResponse.class)))
+                            schema = @Schema(implementation = SedeResponse.class)))
     })
     public ResponseEntity<Map<String, Object>> getAllPage(
-            @RequestParam(name = "Page", defaultValue = "1") int page,
-            @RequestParam(name = "Rows", defaultValue = "10") int rows
+            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
+            @RequestParam(name = "Page") int page,
+            @RequestParam(name = "Rows") int rows
     )
     {
-        List<SedeDTO> sedes = sedeService.getAllSede(page, rows);
+        List<SedeDTO> sedes = sedeService.getPagedResults(hospitalId, page, rows);
         long totalData = sedeService.getTotalCount();
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("data", sedes);

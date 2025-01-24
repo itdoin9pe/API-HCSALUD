@@ -1,7 +1,9 @@
 package com.saludSystem.controllers.ModuleCatalogo;
 
-import com.saludSystem.dtos.catalago.PlanDTO;
+import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
+import com.saludSystem.dtos.catalago.Plan.PlanDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.Catalogo.PlanResponse;
 import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
 import com.saludSystem.services.modules.Catalogo.Plan.PlanService;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -29,24 +31,23 @@ public class PlanController {
     }
 
     @PostMapping("/SavePlan")
-    public ResponseEntity<ApiResponse> store(@Valid @RequestBody PlanDTO planDTO){
-        planService.savePlan(planDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Plan creado con exito"));
+    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearPlanDTO crearPlanDTO){
+        planService.savePlan(crearPlanDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Plan creado correctamente"));
     }
 
     @GetMapping("/GetAllPlan")
-    //Cambiar el response
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AseguradoraResponse.class)))
+                            schema = @Schema(implementation = PlanResponse.class)))
     })
     public ResponseEntity<Map<String, Object>> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows
     ){
-        List<PlanDTO> planes = planService.getAllPlan(hospitalId, page, rows);
+        List<PlanDTO> planes = planService.getPagedResults(hospitalId, page, rows);
         long totalData = planService.getTotalCount();
 
         Map<String, Object> response = new LinkedHashMap<>();
