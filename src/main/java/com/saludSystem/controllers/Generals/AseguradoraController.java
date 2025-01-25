@@ -1,5 +1,6 @@
 package com.saludSystem.controllers.Generals;
 
+import com.saludSystem.dtos.Generals.Aseguradora.ActualizarAseguradoraDTO;
 import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
@@ -67,11 +68,11 @@ public class AseguradoraController {
     }
 
     @PutMapping("/UpdateAseguradora/{aseguradoraId}")
-    public ResponseEntity<AseguradoraDTO> update(
+    public ResponseEntity<ApiResponse> update(
             @PathVariable UUID aseguradoraId,
-            @RequestBody AseguradoraDTO aseguradoraDTO) {
-        AseguradoraDTO updatedAseguradora = aseguradoraService.updateAseguradora(aseguradoraId, aseguradoraDTO);
-        return ResponseEntity.ok(updatedAseguradora);
+            @RequestBody ActualizarAseguradoraDTO actualizarAseguradoraDTO) {
+        aseguradoraService.updateAseguradora(aseguradoraId, actualizarAseguradoraDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Aseguradora actualizado correctamente"));
     }
 
     @DeleteMapping("/DeleteAseguradora/{aseguradoraId}")

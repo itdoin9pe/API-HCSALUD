@@ -1,5 +1,6 @@
 package com.saludSystem.controllers.Generals;
 
+import com.saludSystem.dtos.Generals.Empresa.ActualizarEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
@@ -40,12 +41,12 @@ public class EmpresaController {
     }
 
     @PutMapping("/UpdateEmpresa")
-    public ResponseEntity<EmpresaDTO> updateEmpresa(
-            @PathVariable UUID id,
-            @RequestBody EmpresaDTO empresaDTO
-    ){
-        EmpresaDTO updatedEmpresa = empresaService.updateEmpresa(id, empresaDTO);
-        return ResponseEntity.ok(updatedEmpresa);
+    public ResponseEntity<ApiResponse> updateEmpresa(
+            @PathVariable UUID empresaId,
+            @RequestBody ActualizarEmpresaDTO actualizarEmpresaDTO
+            ){
+        empresaService.updateEmpresa(empresaId, actualizarEmpresaDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Empresa actualizado correctamente"));
     }
 
     @PostMapping("/SaveEmpresa")

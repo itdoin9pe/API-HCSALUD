@@ -1,5 +1,6 @@
 package com.saludSystem.services.modules.configuration.Sede.impl;
 
+import com.saludSystem.dtos.configuration.Sede.ActualizarSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.CrearSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.SedeDTO;
 import com.saludSystem.entities.configuracion.Sede;
@@ -37,33 +38,33 @@ public class SedeServiceImpl implements SedeService {
     }
 
     @Override
-    public SedeDTO updateSede(UUID id, SedeDTO sedeDTO)
+    public ActualizarSedeDTO updateSede(UUID sedeId, ActualizarSedeDTO actualizarSedeDTO)
     {
-        Sede sede = sedeRepository.findById(id)
-                .orElseThrow( () -> new RuntimeException("Sede no encontrada" + id));
-        sede.setCodigo(sedeDTO.getCodigo());
-        sede.setNombre(sedeDTO.getNombre());
-        sede.setDireccion(sedeDTO.getDireccion());
-        sede.setUbigeo(sedeDTO.getUbigeo());
-        sede.setEstado(sedeDTO.getEstado());
-        Sede updatedSede = sedeRepository.save(sede);
-        return convertToDTO(updatedSede);
+        Sede sede = sedeRepository.findById(sedeId)
+                .orElseThrow( () -> new RuntimeException("Sede no encontrada" + sedeId));
+        Optional.ofNullable(actualizarSedeDTO.getCodigo()).filter(desc -> !desc.isBlank()).ifPresent(sede::setCodigo);
+        Optional.ofNullable(actualizarSedeDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(sede::setNombre);
+        Optional.ofNullable(actualizarSedeDTO.getDireccion()).filter(desc -> !desc.isBlank()).ifPresent(sede::setDireccion);
+        Optional.ofNullable(actualizarSedeDTO.getUbigeo()).filter(desc -> !desc.isBlank()).ifPresent(sede::setUbigeo);
+        Optional.ofNullable(actualizarSedeDTO.getEstado()).ifPresent(sede::setEstado);
+        sedeRepository.save(sede);
+        return modelMapper.map(sede, ActualizarSedeDTO.class);
     }
 
     @Override
-    public void deleteSede(UUID id)
+    public void deleteSede(UUID sedeId)
     {
-        Sede sede = sedeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Sede no encontrada con ID" + id));
+        Sede sede = sedeRepository.findById(sedeId)
+                .orElseThrow(() -> new RuntimeException("Sede no encontrada con ID" + sedeId));
         sedeRepository.delete(sede);
     }
 
     @Override
-    public Optional<SedeDTO> getSedeById(UUID id)
+    public Optional<SedeDTO> getSedeById(UUID sedeId)
     {
-        return Optional.ofNullable(sedeRepository.findById(id)
+        return Optional.ofNullable(sedeRepository.findById(sedeId)
                 .map(this::convertToDTO)
-                .orElseThrow(() -> new ResourceNotFoundException("Sede no encontrada por ID" + id)));
+                .orElseThrow(() -> new ResourceNotFoundException("Sede no encontrada por ID" + sedeId)));
     }
 
     @Override

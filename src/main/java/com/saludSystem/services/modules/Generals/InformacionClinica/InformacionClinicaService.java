@@ -1,5 +1,6 @@
 package com.saludSystem.services.modules.Generals.InformacionClinica;
 
+import com.saludSystem.dtos.Generals.InformacionClinica.ActualizarInformacionClinicaDTO;
 import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
 import com.saludSystem.dtos.Generals.InformacionClinica.InformacionClinicaDTO;
 
@@ -13,10 +14,10 @@ public interface InformacionClinicaService {
 
     CrearInformacionClinicaDTO saveInformacionClinica(CrearInformacionClinicaDTO crearInformacionClinicaDTO);
 
-    Optional<InformacionClinicaDTO> getInformacionClinicaById(UUID id);
+    Optional<InformacionClinicaDTO> getInformacionClinicaById(UUID informacionClinicaId);
 
-    void deleteInformacionClinica(UUID id);
+    void deleteInformacionClinica(UUID informacionClinicaId);
 
-    InformacionClinicaDTO updateInformacionClinica(UUID id, InformacionClinicaDTO informacionClinicaDTO);
+    ActualizarInformacionClinicaDTO updateInformacionClinica(UUID informacionClinicaId, ActualizarInformacionClinicaDTO actualizarInformacionClinicaDTO);
 
 }

@@ -17,7 +17,7 @@ public class Sede {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private UUID sedeId;
 
     @NotBlank
     @Column(name = "codigo", nullable = false)

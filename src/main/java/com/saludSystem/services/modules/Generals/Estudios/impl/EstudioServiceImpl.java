@@ -1,5 +1,6 @@
 package com.saludSystem.services.modules.Generals.Estudios.impl;
 
+import com.saludSystem.dtos.Generals.Estudio.ActualizarEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
 import com.saludSystem.entities.Estudio;
@@ -38,23 +39,23 @@ public class EstudioServiceImpl implements EstudioService {
     }
 
     @Override
-    public void deleteEstudio(Integer id) {
-        Estudio estudio = estudioRepository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("Estudio no encontrado con ID: " + id));
-        estudioRepository.deleteById(id);
+    public void deleteEstudio(UUID estudioId) {
+        Estudio estudio = estudioRepository.findById(estudioId)
+                        .orElseThrow(() -> new RuntimeException("Estudio no encontrado con ID: " + estudioId));
+        estudioRepository.deleteById(estudioId);
     }
 
     @Override
-    public EstudioDTO updateEstudio(Integer id, EstudioDTO estudioDTO) {
-        Estudio estudio = estudioRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Estudio no encontrado con ID: " + id));
-        estudio.setDescripcion(estudioDTO.getDescripcion());
-        Estudio updatedEstudio = estudioRepository.save(estudio);
-        return convertToDTO(updatedEstudio);
+    public ActualizarEstudioDTO updateEstudio(UUID estudioId, ActualizarEstudioDTO actualizarEstudioDTO) {
+        Estudio estudio = estudioRepository.findById(estudioId)
+                .orElseThrow(() -> new ResourceNotFoundException("Estudio no encontrado con ID: " + estudioId));
+        Optional.ofNullable(actualizarEstudioDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(estudio::setDescripcion);
+        estudioRepository.save(estudio);
+        return modelMapper.map(estudio, ActualizarEstudioDTO.class);
     }
 
     @Override
-    public Optional<EstudioDTO> getEstudioById(Integer id) {
+    public Optional<EstudioDTO> getEstudioById(UUID id) {
         return estudioRepository.findById(id)
                 .map(this::convertToDTO);
     }

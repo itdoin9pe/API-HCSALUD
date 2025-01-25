@@ -1,5 +1,6 @@
 package com.saludSystem.controllers.ModuleConfiguracion;
 
+import com.saludSystem.dtos.configuration.Sede.ActualizarSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.CrearSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.SedeDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
@@ -45,8 +46,7 @@ public class SedeController {
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows
-    )
-    {
+    ) {
         List<SedeDTO> sedes = sedeService.getPagedResults(hospitalId, page, rows);
         long totalData = sedeService.getTotalCount();
         Map<String, Object> response = new LinkedHashMap<>();
@@ -55,25 +55,25 @@ public class SedeController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/UpdateSede/{id}")
-    public ResponseEntity<SedeDTO> update(
-            @PathVariable UUID id,
-            @RequestBody SedeDTO sedeDTO
+    @PutMapping("/UpdateSede/{sedeId}")
+    public ResponseEntity<ApiResponse> update(
+            @PathVariable UUID sedeId,
+            @RequestBody ActualizarSedeDTO actualizarSedeDTO
     ){
-        SedeDTO updatedSede = sedeService.updateSede(id, sedeDTO);
-        return ResponseEntity.ok(updatedSede);
+        sedeService.updateSede(sedeId, actualizarSedeDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Sede actualizado correctamente"));
     }
 
 
-    @DeleteMapping("/DeleteSede/{id}")
-    public ResponseEntity<ApiResponse> destroy(@PathVariable UUID id){
-        sedeService.deleteSede(id);
+    @DeleteMapping("/DeleteSede/{sedeId}")
+    public ResponseEntity<ApiResponse> destroy(@PathVariable UUID sedeId){
+        sedeService.deleteSede(sedeId);
         return ResponseEntity.ok(new ApiResponse(true, "Sede eliminada con exito"));
     }
 
-    @GetMapping("/GetSede/{id}")
-    public ResponseEntity<SedeDTO> getById(@PathVariable UUID id){
-        return sedeService.getSedeById(id)
+    @GetMapping("/GetSede/{sedeId}")
+    public ResponseEntity<SedeDTO> getById(@PathVariable UUID sedeId){
+        return sedeService.getSedeById(sedeId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

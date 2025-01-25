@@ -42,8 +42,8 @@ public class PaisController {
                             schema = @Schema(implementation = PaisResponse.class)))
     })
     public ResponseEntity<Map<String, Object>> getAllPage(
-            @RequestParam(name = "Page", defaultValue = "1") int page,
-            @RequestParam(name = "Rows", defaultValue = "10") int rows
+            @RequestParam(name = "Page") int page,
+            @RequestParam(name = "Rows") int rows
     ) {
         List<PaisDTO> paises = paisService.getAllPais(page, rows);
         long totalData = paisService.getTotalCount();

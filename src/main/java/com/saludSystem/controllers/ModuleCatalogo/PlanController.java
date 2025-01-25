@@ -1,5 +1,6 @@
 package com.saludSystem.controllers.ModuleCatalogo;
 
+import com.saludSystem.dtos.catalago.Plan.ActualizarPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.PlanDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
@@ -49,27 +50,25 @@ public class PlanController {
     ){
         List<PlanDTO> planes = planService.getPagedResults(hospitalId, page, rows);
         long totalData = planService.getTotalCount();
-
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("data", planes);
         response.put("totalData", totalData);
-
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/DeletePlan")
+    @DeleteMapping("/DeletePlan/{planId}")
     public ResponseEntity<ApiResponse> destroy(@PathVariable UUID planId){
         planService.deletePlan(planId);
         return ResponseEntity.ok(new ApiResponse(true, "Plan eliminado correctamente"));
     }
 
     @PutMapping("/UpdatePlan/{planId}")
-    public ResponseEntity<PlanDTO> update(
+    public ResponseEntity<ApiResponse> update(
             @PathVariable UUID planId,
-            @RequestBody PlanDTO planDTO
-    ){
-        PlanDTO updatedPlan = planService.updatePlan(planId, planDTO);
-        return ResponseEntity.ok(updatedPlan);
+            @RequestBody ActualizarPlanDTO actualizarPlanDTO
+            ){
+        planService.updatePlan(planId, actualizarPlanDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Plan actualizado correctamente"));
     }
 
     @GetMapping("/GetPlan/{planId}")

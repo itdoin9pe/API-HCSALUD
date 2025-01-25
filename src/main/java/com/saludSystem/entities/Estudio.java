@@ -16,8 +16,8 @@ import java.util.UUID;
 public class Estudio {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID estudioId;
 
     @NotBlank(message = "The description field can't be blank")
     @Column(nullable = false)

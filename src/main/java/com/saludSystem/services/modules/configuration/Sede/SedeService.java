@@ -1,5 +1,6 @@
 package com.saludSystem.services.modules.configuration.Sede;
 
+import com.saludSystem.dtos.configuration.Sede.ActualizarSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.CrearSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.SedeDTO;
 import com.saludSystem.services.PaginatedService;
@@ -14,11 +15,11 @@ public interface SedeService extends PaginatedService {
 
     CrearSedeDTO saveSede(CrearSedeDTO crearSedeDTO);
 
-    SedeDTO updateSede(UUID id, SedeDTO sedeDTO);
+    ActualizarSedeDTO updateSede(UUID sedeId, ActualizarSedeDTO actualizarSedeDTO);
 
-    void deleteSede(UUID id);
+    void deleteSede(UUID sedeId);
 
-    Optional<SedeDTO> getSedeById(UUID id);
+    Optional<SedeDTO> getSedeById(UUID sedeId);
 
     List<SedeDTO> getSedeList();
 

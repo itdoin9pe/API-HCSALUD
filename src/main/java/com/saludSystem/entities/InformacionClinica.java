@@ -17,7 +17,7 @@ public class InformacionClinica {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private UUID informacionClinicaId;
 
     @NotBlank
     @Column(name = "nombre", nullable = false)

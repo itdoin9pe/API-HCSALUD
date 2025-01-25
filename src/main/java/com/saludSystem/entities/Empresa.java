@@ -17,7 +17,7 @@ public class Empresa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private UUID empresaId;
 
     @NotBlank
     @Column(name = "descripcion", nullable = false)

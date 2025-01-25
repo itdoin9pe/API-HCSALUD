@@ -9,13 +9,19 @@ import java.util.UUID;
 
 @Data
 public class SedeDTO {
-    private UUID id;
+
+    private UUID sedeId;
+
     private String codigo;
+
     private String nombre;
+
     private String direccion;
+
     private String ubigeo;
+
     @Min(value = 0)
     @Max(value = 1)
-    @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
+    @Schema(description = "Estado de la Sede (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
     private Integer estado;
 }

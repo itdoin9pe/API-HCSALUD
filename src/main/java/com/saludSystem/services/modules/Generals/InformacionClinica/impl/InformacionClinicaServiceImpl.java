@@ -1,5 +1,6 @@
 package com.saludSystem.services.modules.Generals.InformacionClinica.impl;
 
+import com.saludSystem.dtos.Generals.InformacionClinica.ActualizarInformacionClinicaDTO;
 import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
 import com.saludSystem.dtos.Generals.InformacionClinica.InformacionClinicaDTO;
 import com.saludSystem.entities.InformacionClinica;
@@ -43,8 +44,8 @@ public class InformacionClinicaServiceImpl implements InformacionClinicaService 
     }
 
     @Override
-    public Optional<InformacionClinicaDTO> getInformacionClinicaById(UUID id) {
-        return informacionClinicaRepository.findById(id)
+    public Optional<InformacionClinicaDTO> getInformacionClinicaById(UUID informacionClinicaId) {
+        return informacionClinicaRepository.findById(informacionClinicaId)
                 .map(this::convertToDTO);
     }
 
@@ -54,14 +55,13 @@ public class InformacionClinicaServiceImpl implements InformacionClinicaService 
     }
 
     @Override
-    public InformacionClinicaDTO updateInformacionClinica(UUID id, InformacionClinicaDTO informacionClinicaDTO) {
-        InformacionClinica informacionClinica = informacionClinicaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("InformacionClinica no encontrada con ID: " + id));
-        Optional.ofNullable(informacionClinicaDTO.getNombre()).filter(desc -> !desc.isBlank())
-                .ifPresent(informacionClinica::setNombre);
-        Optional.ofNullable(informacionClinicaDTO.getEstado()).ifPresent(informacionClinica::setEstado);
-        InformacionClinica updatedInformacionClinica = informacionClinicaRepository.save(informacionClinica);
-        return convertToDTO(updatedInformacionClinica);
+    public ActualizarInformacionClinicaDTO updateInformacionClinica(UUID informacionClinicaId, ActualizarInformacionClinicaDTO actualizarInformacionClinicaDTO) {
+        InformacionClinica informacionClinica = informacionClinicaRepository.findById(informacionClinicaId)
+                .orElseThrow(() -> new ResourceNotFoundException("InformacionClinica no encontrada con ID: " + informacionClinicaId));
+        Optional.ofNullable(actualizarInformacionClinicaDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(informacionClinica::setNombre);
+        Optional.ofNullable(actualizarInformacionClinicaDTO.getEstado()).ifPresent(informacionClinica::setEstado);
+        informacionClinicaRepository.save(informacionClinica);
+        return modelMapper.map(informacionClinica, ActualizarInformacionClinicaDTO.class);
     }
 
     private InformacionClinicaDTO convertToDTO(InformacionClinica informacionClinica) {

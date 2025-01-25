@@ -9,6 +9,7 @@ import java.util.Date;
 
 @Data
 public class CrearPlanDTO {
+
     private String nombrePlan;
 
     private Date fechaInicio;

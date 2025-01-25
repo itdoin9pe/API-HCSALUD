@@ -1,5 +1,6 @@
 package com.saludSystem.services.modules.Catalogo.Plan;
 
+import com.saludSystem.dtos.catalago.Plan.ActualizarPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.PlanDTO;
 import com.saludSystem.services.PaginatedService;
@@ -14,7 +15,7 @@ public interface PlanService extends PaginatedService {
 
     void deletePlan(UUID planId);
 
-    PlanDTO updatePlan(UUID planId, PlanDTO planDTO);
+    ActualizarPlanDTO updatePlan(UUID planId, ActualizarPlanDTO actualizarPlanDTO);
 
     Optional<PlanDTO> getPlanById(UUID planId);
 

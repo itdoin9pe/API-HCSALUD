@@ -1,5 +1,6 @@
 package com.saludSystem.services.modules.Generals.Empresas.impl;
 
+import com.saludSystem.dtos.Generals.Empresa.ActualizarEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
 import com.saludSystem.entities.Empresa;
@@ -35,21 +36,21 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     @Override
-    public Optional<EmpresaDTO> getEmpresaById(UUID id) {
-        return Optional.ofNullable(empresaRepository.findById(id)
+    public Optional<EmpresaDTO> getEmpresaById(UUID empresaId) {
+        return Optional.ofNullable(empresaRepository.findById(empresaId)
                 .map(this::convertToDTO)
-                .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con Id" + id)));
+                .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con Id" + empresaId)));
     }
 
     @Override
-    public EmpresaDTO updateEmpresa(UUID id, EmpresaDTO empresaDTO) {
-        Empresa empresa = empresaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con ID: " + id));
-        Optional.ofNullable(empresaDTO.getDescripcion()).filter(desc -> !desc.isBlank())
-                        .ifPresent(empresa::setDescripcion);
-        Optional.ofNullable(empresaDTO.getEstado()).ifPresent(empresa::setEstado);
-        Empresa updatedEmpresa = empresaRepository.save(empresa);
-        return convertToDTO(updatedEmpresa);
+    public ActualizarEmpresaDTO updateEmpresa(UUID empresaId, ActualizarEmpresaDTO actualizarEmpresaDTO) {
+        Empresa empresa = empresaRepository.findById(empresaId)
+                .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con ID: " + empresaId));
+        Optional.ofNullable(actualizarEmpresaDTO.getDescripcion()).filter(desc -> !desc.isBlank())
+                .ifPresent(empresa::setDescripcion);
+        Optional.ofNullable(actualizarEmpresaDTO.getEstado()).ifPresent(empresa::setEstado);
+        empresaRepository.save(empresa);
+        return modelMapper.map(empresa, ActualizarEmpresaDTO.class);
     }
 
     @Override

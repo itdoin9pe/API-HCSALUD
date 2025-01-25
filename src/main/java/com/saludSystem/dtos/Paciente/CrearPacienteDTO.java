@@ -66,7 +66,7 @@ public class CrearPacienteDTO {
 
     private UUID informacionClinicaId;
 
-    private Integer estudioId;
+    private UUID estudioId;
 
     private UUID sedeId;
 

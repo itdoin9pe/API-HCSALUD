@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @Data
 public class PlanDTO {
+
     private UUID planId;
 
     private String nombrePlan;

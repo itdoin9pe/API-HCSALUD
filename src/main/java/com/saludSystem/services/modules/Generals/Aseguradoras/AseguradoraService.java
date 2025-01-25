@@ -1,5 +1,6 @@
 package com.saludSystem.services.modules.Generals.Aseguradoras;
 
+import com.saludSystem.dtos.Generals.Aseguradora.ActualizarAseguradoraDTO;
 import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
 import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
 import com.saludSystem.services.PaginatedService;
@@ -16,7 +17,7 @@ public interface AseguradoraService extends PaginatedService {
 
     Optional<AseguradoraDTO> getAseguradoraById(UUID aseguradoraId);
 
-    AseguradoraDTO updateAseguradora(UUID aseguradoraId, AseguradoraDTO aseguradoraDTO);
+    ActualizarAseguradoraDTO updateAseguradora(UUID aseguradoraId, ActualizarAseguradoraDTO actualizarAseguradoraDTO);
 
     void deleteAseguradora(UUID aseguradoraId);
 

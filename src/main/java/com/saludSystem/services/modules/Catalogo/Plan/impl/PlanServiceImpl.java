@@ -1,5 +1,6 @@
 package com.saludSystem.services.modules.Catalogo.Plan.impl;
 
+import com.saludSystem.dtos.catalago.Plan.ActualizarPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.PlanDTO;
 import com.saludSystem.entities.catalogo.Plan;
@@ -52,18 +53,19 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public PlanDTO updatePlan(UUID planId, PlanDTO planDTO) {
+    public ActualizarPlanDTO updatePlan(UUID planId, ActualizarPlanDTO actualizarPlanDTO) {
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(()-> new ResourceNotFoundException("Plan no encontrado con ID" + planId));
 
-        Optional.ofNullable(planDTO.getNombrePlan()).filter(desc -> !desc.isBlank())
-                .ifPresent(planDTO::setNombrePlan);
-        Optional.ofNullable(planDTO.getFechaInicio()).ifPresent(planDTO::setFechaInicio);
-        Optional.ofNullable(planDTO.getFechaFin()).ifPresent(planDTO::setFechaFin);
-        Optional.of(planDTO.getMaxPlan()).ifPresent(planDTO::setMaxPlan);
-        Optional.of(planDTO.getUseMax()).ifPresent(planDTO::setUseMax);
-        Optional.ofNullable(planDTO.getEstado()).ifPresent(plan::setEstado);
-        return null;
+        Optional.ofNullable(actualizarPlanDTO.getNombrePlan()).filter(desc -> !desc.isBlank())
+                .ifPresent(actualizarPlanDTO::setNombrePlan);
+        Optional.ofNullable(actualizarPlanDTO.getFechaInicio()).ifPresent(actualizarPlanDTO::setFechaInicio);
+        Optional.ofNullable(actualizarPlanDTO.getFechaFin()).ifPresent(actualizarPlanDTO::setFechaFin);
+        Optional.of(actualizarPlanDTO.getMaxPlan()).ifPresent(actualizarPlanDTO::setMaxPlan);
+        Optional.of(actualizarPlanDTO.getUseMax()).ifPresent(actualizarPlanDTO::setUseMax);
+        Optional.ofNullable(actualizarPlanDTO.getEstado()).ifPresent(plan::setEstado);
+        planRepository.save(plan);
+        return modelMapper.map(plan, ActualizarPlanDTO.class);
     }
 
     @Override

@@ -49,7 +49,7 @@ public class PacienteController {
             @RequestParam("titulo") String titulo,
             @RequestParam("observacion") String observacion,
             @RequestParam("informacionClinicaId") UUID informacionClinicaId,
-            @RequestParam("estudioId") Integer estudioId,
+            @RequestParam("estudioId") UUID estudioId,
             @RequestParam("sedeId") UUID sedeId,
             @RequestParam("celular") String celular) throws IOException {
 

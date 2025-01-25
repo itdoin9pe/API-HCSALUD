@@ -1,5 +1,6 @@
 package com.saludSystem.services.modules.Generals.Aseguradoras.impl;
 
+import com.saludSystem.dtos.Generals.Aseguradora.ActualizarAseguradoraDTO;
 import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
 import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
 import com.saludSystem.entities.Aseguradora;
@@ -49,14 +50,13 @@ public class AseguradoraServiceImpl implements AseguradoraService {
     }
 
     @Override
-    public AseguradoraDTO updateAseguradora(UUID aseguradoraId, AseguradoraDTO aseguradoraDTO) {
+    public ActualizarAseguradoraDTO updateAseguradora(UUID aseguradoraId, ActualizarAseguradoraDTO actualizarAseguradoraDTO) {
         Aseguradora aseguradora = aseguradoraRepository.findById(aseguradoraId)
                 .orElseThrow(() -> new ResourceNotFoundException("Aseguradora no encontrada con ID: " + aseguradoraId));
-        Optional.ofNullable(aseguradoraDTO.getDescripcion()).filter(desc -> !desc.isBlank()) // Evita valores vacíos
-                .ifPresent(aseguradora::setDescripcion);
-        Optional.ofNullable(aseguradoraDTO.getEstado()).ifPresent(aseguradora::setEstado);
-        Aseguradora updatedAseguradora = aseguradoraRepository.save(aseguradora);
-        return convertToDTO(updatedAseguradora);
+        Optional.ofNullable(actualizarAseguradoraDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(aseguradora::setDescripcion);
+        Optional.ofNullable(actualizarAseguradoraDTO.getEstado()).ifPresent(aseguradora::setEstado);
+        aseguradoraRepository.save(aseguradora);
+        return modelMapper.map(aseguradora, ActualizarAseguradoraDTO.class);
     }
 
     @Override

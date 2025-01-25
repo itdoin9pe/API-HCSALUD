@@ -1,5 +1,6 @@
 package com.saludSystem.controllers.Generals;
 
+import com.saludSystem.dtos.Generals.InformacionClinica.ActualizarInformacionClinicaDTO;
 import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.Generals.InformacionClinica.InformacionClinicaDTO;
@@ -34,34 +35,29 @@ public class InformacionClinicaController {
     }
 
     @PostMapping("/SaveInformacionClinica")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = InformacionClinicaResponse.class)))
-    })
     public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearInformacionClinicaDTO crearInformacionClinicaDTO){
         informacionClinicaService.saveInformacionClinica(crearInformacionClinicaDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Informacion Clinica creada con exito"));
     }
 
-    @DeleteMapping("/DeleteInformacionClinica/{id}")
-    public ResponseEntity<ApiResponse> destroy(@PathVariable UUID id){
-        informacionClinicaService.deleteInformacionClinica(id);
+    @DeleteMapping("/DeleteInformacionClinica/{informacionClinicaId}")
+    public ResponseEntity<ApiResponse> destroy(@PathVariable UUID informacionClinicaId){
+        informacionClinicaService.deleteInformacionClinica(informacionClinicaId);
         return ResponseEntity.ok().body(new ApiResponse(true, "Informacion Clinica eliminado con exito"));
     }
 
-    @PutMapping("/UpdateInformacionClinica/{id}")
-    public ResponseEntity<InformacionClinicaDTO> update(
-            @PathVariable UUID id,
-            @RequestBody InformacionClinicaDTO informacionClinicaDTO
+    @PutMapping("/UpdateInformacionClinica/{informacionClinicaId}")
+    public ResponseEntity<ApiResponse> update(
+            @PathVariable UUID informacionClinicaId,
+            @RequestBody ActualizarInformacionClinicaDTO actualizarInformacionClinicaDTO
     ){
-        InformacionClinicaDTO updatedInformacionClinica = informacionClinicaService.updateInformacionClinica(id, informacionClinicaDTO);
-        return ResponseEntity.ok(updatedInformacionClinica);
+        informacionClinicaService.updateInformacionClinica(informacionClinicaId, actualizarInformacionClinicaDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Informacion Clinica actualizado correctamente"));
     }
 
-    @GetMapping("/GetInformacionClinica/{id}")
-    public ResponseEntity<InformacionClinicaDTO> getById(@PathVariable UUID id){
-        return informacionClinicaService.getInformacionClinicaById(id)
+    @GetMapping("/GetInformacionClinica/{informacionClinicaId}")
+    public ResponseEntity<InformacionClinicaDTO> getById(@PathVariable UUID informacionClinicaId){
+        return informacionClinicaService.getInformacionClinicaById(informacionClinicaId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

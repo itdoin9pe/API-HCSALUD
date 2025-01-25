@@ -1,5 +1,6 @@
 package com.saludSystem.services.modules.Generals.Empresas;
 
+import com.saludSystem.dtos.Generals.Empresa.ActualizarEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
 import java.util.List;
@@ -12,9 +13,10 @@ public interface EmpresaService {
 
     CrearEmpresaDTO saveEmpresa(CrearEmpresaDTO crearEmpresaDTO);
 
-    Optional<EmpresaDTO> getEmpresaById(UUID id);
+    Optional<EmpresaDTO> getEmpresaById(UUID empresaId);
 
-    void deleteEmpresa(UUID id);
+    void deleteEmpresa(UUID empresaId);
 
-    EmpresaDTO updateEmpresa(UUID id, EmpresaDTO empresaDTO);
+    ActualizarEmpresaDTO updateEmpresa(UUID empresaId, ActualizarEmpresaDTO actualizarEmpresaDTO);
+
 }

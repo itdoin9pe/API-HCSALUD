@@ -1,5 +1,6 @@
 package com.saludSystem.controllers.Generals;
 
+import com.saludSystem.dtos.Generals.Estudio.ActualizarEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,8 +46,8 @@ public class EstudioController {
     })
     public ResponseEntity<Map<String, Object>> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page", defaultValue = "1") int page,
-            @RequestParam(name = "Rows", defaultValue = "10") int rows
+            @RequestParam(name = "Page") int page,
+            @RequestParam(name = "Rows") int rows
     )
     {
         List<EstudioDTO> estudios = estudioService.getPagedResults(hospitalId, page, rows);
@@ -56,27 +58,27 @@ public class EstudioController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("GetEstudio/{id}")
-    public ResponseEntity<EstudioDTO> getEstudioById(@PathVariable Integer id)
+    @GetMapping("GetEstudio/{estudioId}")
+    public ResponseEntity<EstudioDTO> getEstudioById(@PathVariable UUID estudioId)
     {
-        return estudioService.getEstudioById(id)
+        return estudioService.getEstudioById(estudioId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/UpdateEstudio/{id}")
-    public ResponseEntity<EstudioDTO> updateEstudio(
-            @PathVariable Integer id,
-            @RequestBody EstudioDTO estudioDTO)
+    @PutMapping("/UpdateEstudio/{estudioId}")
+    public ResponseEntity<ApiResponse> updateEstudio(
+            @PathVariable UUID estudioId,
+            @RequestBody ActualizarEstudioDTO actualizarEstudioDTO)
     {
-        EstudioDTO updatedEstudio = estudioService.updateEstudio(id, estudioDTO);
-        return ResponseEntity.ok(updatedEstudio);
+        estudioService.updateEstudio(estudioId, actualizarEstudioDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Estudio academico actualizado correctamente"));
     }
 
-    @DeleteMapping("/DeleteEstudio/{id}")
-    public ResponseEntity<ApiResponse> deleteEstudio(@PathVariable Integer id)
+    @DeleteMapping("/DeleteEstudio/{estudioId}")
+    public ResponseEntity<ApiResponse> deleteEstudio(@PathVariable UUID estudioId)
     {
-        estudioService.deleteEstudio(id);
+        estudioService.deleteEstudio(estudioId);
         return ResponseEntity.ok(new ApiResponse(true, "Estudio eliminado correctamente"));
     }
 

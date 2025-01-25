@@ -1,5 +1,6 @@
 package com.saludSystem.services.modules.Generals.Estudios;
 
+import com.saludSystem.dtos.Generals.Estudio.ActualizarEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
 import com.saludSystem.services.PaginatedService;
@@ -12,11 +13,11 @@ public interface EstudioService extends PaginatedService {
 
     CrearEstudioDTO saveEstudio(CrearEstudioDTO crearEstudioDTO);
 
-    Optional<EstudioDTO> getEstudioById(Integer id);
+    Optional<EstudioDTO> getEstudioById(UUID estudioId);
 
-    void deleteEstudio(Integer id);
+    void deleteEstudio(UUID estudioId);
 
-    EstudioDTO updateEstudio(Integer id, EstudioDTO estudioDTO);
+    ActualizarEstudioDTO updateEstudio(UUID estudioId, ActualizarEstudioDTO actualizarEstudioDTO);
 
     List<EstudioDTO> getEstudioList();
 
