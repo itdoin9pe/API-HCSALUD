@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 public class InformacionClinicaDTO {
 
-    private UUID id;
+    private UUID informacionClinicaId;
     private String nombre;
     @Min(value = 0)
     @Max(value = 1)

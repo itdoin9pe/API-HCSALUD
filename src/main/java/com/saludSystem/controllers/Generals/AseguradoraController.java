@@ -42,11 +42,8 @@ public class AseguradoraController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = AseguradoraResponse.class)))
     })
-    public ResponseEntity<Map<String, Object>> getAllPage(
-            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page") int page,
-            @RequestParam(name = "Rows") int rows
-    ) {
+    public ResponseEntity<Map<String, Object>> getAllPage(@RequestParam(name = "hospitalId", required = true) UUID hospitalId,
+            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         List<AseguradoraDTO> aseguradoras = aseguradoraService.getPagedResults(hospitalId, page, rows);
         long totalData = aseguradoraService.getTotalCount();
         Map<String, Object> response = new LinkedHashMap<>();
@@ -62,15 +59,11 @@ public class AseguradoraController {
 
     @GetMapping("/GetAseguradora/{aseguradoraId}")
     public ResponseEntity<AseguradoraDTO> getById(@PathVariable UUID aseguradoraId) {
-        return aseguradoraService.getAseguradoraById(aseguradoraId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return aseguradoraService.getAseguradoraById(aseguradoraId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/UpdateAseguradora/{aseguradoraId}")
-    public ResponseEntity<ApiResponse> update(
-            @PathVariable UUID aseguradoraId,
-            @RequestBody ActualizarAseguradoraDTO actualizarAseguradoraDTO) {
+    public ResponseEntity<ApiResponse> update(@PathVariable UUID aseguradoraId, @RequestBody ActualizarAseguradoraDTO actualizarAseguradoraDTO) {
         aseguradoraService.updateAseguradora(aseguradoraId, actualizarAseguradoraDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Aseguradora actualizado correctamente"));
     }

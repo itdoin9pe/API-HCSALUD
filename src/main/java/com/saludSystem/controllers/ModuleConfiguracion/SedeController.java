@@ -78,7 +78,7 @@ public class SedeController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("GetSedeList")
+    @GetMapping("/GetSedeList")
     public ResponseEntity<List<SedeDTO>> getAllList()
     {
         return ResponseEntity.ok(sedeService.getSedeList());

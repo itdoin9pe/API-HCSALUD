@@ -58,6 +58,11 @@ public class EstudioController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/GetEstudioList")
+    public ResponseEntity<List<EstudioDTO>> getAllList(){
+        return ResponseEntity.ok(estudioService.getEstudioList());
+    }
+
     @GetMapping("GetEstudio/{estudioId}")
     public ResponseEntity<EstudioDTO> getEstudioById(@PathVariable UUID estudioId)
     {

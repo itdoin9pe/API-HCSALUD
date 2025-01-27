@@ -44,15 +44,15 @@ public class AseguradoraServiceImpl implements AseguradoraService {
 
     @Override
     public Optional<AseguradoraDTO> getAseguradoraById(UUID aseguradoraId) {
-        return Optional.ofNullable(aseguradoraRepository.findById(aseguradoraId)
-                .map(this::convertToDTO)
+        return Optional.ofNullable(aseguradoraRepository.findById(aseguradoraId).map(this::convertToDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("Aseguradora no encontrada con ID" + aseguradoraId)));
     }
 
+
     @Override
     public ActualizarAseguradoraDTO updateAseguradora(UUID aseguradoraId, ActualizarAseguradoraDTO actualizarAseguradoraDTO) {
-        Aseguradora aseguradora = aseguradoraRepository.findById(aseguradoraId)
-                .orElseThrow(() -> new ResourceNotFoundException("Aseguradora no encontrada con ID: " + aseguradoraId));
+        Aseguradora aseguradora = aseguradoraRepository.findById(aseguradoraId).orElseThrow(
+                () -> new ResourceNotFoundException("Aseguradora no encontrada con ID: " + aseguradoraId));
         Optional.ofNullable(actualizarAseguradoraDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(aseguradora::setDescripcion);
         Optional.ofNullable(actualizarAseguradoraDTO.getEstado()).ifPresent(aseguradora::setEstado);
         aseguradoraRepository.save(aseguradora);

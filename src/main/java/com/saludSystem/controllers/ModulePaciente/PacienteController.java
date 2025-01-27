@@ -1,10 +1,14 @@
 package com.saludSystem.controllers.ModulePaciente;
 
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
+import com.saludSystem.dtos.Paciente.PacienteDTO;
+import com.saludSystem.dtos.responses.Paciente.PacienteResponse;
 import com.saludSystem.services.modules.Paciente.PacienteService;
 import com.saludSystem.util.Util;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +47,7 @@ public class PacienteController {
             @RequestParam("sexo") String sexo,
             @RequestParam("nombreContacto") String nombreContacto,
             @RequestParam("tipoHistoria") String tipoHistoria,
-            @RequestParam("aseguradoraId") Integer aseguradoraId,
+            @RequestParam("aseguradoraId") UUID aseguradoraId,
             @RequestParam("empresaId") UUID empresaId,
             @RequestParam("email") String email,
             @RequestParam("titulo") String titulo,
@@ -70,7 +74,7 @@ public class PacienteController {
         crearPacienteDTO.setSexo(sexo);
         crearPacienteDTO.setNombreContacto(nombreContacto);
         crearPacienteDTO.setTipoHistoria(tipoHistoria);
-        //crearPacienteDTO.setAseguradoraId(aseguradoraId);
+        crearPacienteDTO.setAseguradoraId(aseguradoraId);
         crearPacienteDTO.setEmpresaId(empresaId);
         crearPacienteDTO.setEmail(email);
         crearPacienteDTO.setFotoPaciente(Util.compressZLib(fotoPaciente.getBytes()));
@@ -87,13 +91,18 @@ public class PacienteController {
     }
 
     @GetMapping("/GetAllPaciente")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = PacienteResponse.class)))
+    })
     public ResponseEntity<Map<String, Object>> getAllAseguradora(
-            @RequestParam(name = "Page", defaultValue = "1") int page,
-            @RequestParam(name = "Rows", defaultValue = "10") int rows
+            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
+            @RequestParam(name = "Page") int page,
+            @RequestParam(name = "Rows") int rows
     ) {
-        List<CrearPacienteDTO> pacientes = pacienteService.getAllPaciente(page, rows);
+        List<PacienteDTO> pacientes = pacienteService.getPagedResults(hospitalId, page, rows);
         long totalData = pacienteService.getTotalCount();
-
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("data", pacientes);
         response.put("totalData", totalData);

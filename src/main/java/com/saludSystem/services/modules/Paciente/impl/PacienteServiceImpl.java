@@ -1,6 +1,7 @@
 package com.saludSystem.services.modules.Paciente.impl;
 
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
+import com.saludSystem.dtos.Paciente.PacienteDTO;
 import com.saludSystem.entities.*;
 import com.saludSystem.entities.configuracion.Sede;
 import com.saludSystem.repositories.modules.Configuration.SedeRepository;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PacienteServiceImpl implements PacienteService {
@@ -102,12 +104,11 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
-    public List<CrearPacienteDTO> getAllPaciente(int page, int rows)
-    {
+    public List<PacienteDTO> getPagedResults(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<Paciente> pacientePage = pacienteRepository.findAll(pageable);
         return pacientePage.getContent().stream()
-                .map(paciente -> modelMapper.map(paciente, CrearPacienteDTO.class))
+                .map(paciente -> modelMapper.map(paciente,PacienteDTO.class))
                 .toList();
     }
 
