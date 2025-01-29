@@ -1,11 +1,17 @@
 package com.saludSystem.controllers.ModuleConfiguracion;
 
-import com.saludSystem.dtos.configuration.SysSaludDTO;
-import com.saludSystem.entities.catalogo.Plan;
-import com.saludSystem.exception.ResourceNotFoundException;
+import com.saludSystem.dtos.configuration.SysSaludModule.CrearSysSaludDTO;
+import com.saludSystem.dtos.configuration.SysSaludModule.SysSaludDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.Configuration.ClinicaResponse;
+import com.saludSystem.dtos.responses.ListResponse;
+import com.saludSystem.dtos.responses.Paciente.PacienteResponse;
 import com.saludSystem.repositories.modules.Catalogo.PlanRepository;
 import com.saludSystem.services.modules.configuration.SysSalud.SysSaludService;
 import com.saludSystem.util.Util;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +35,7 @@ public class ClinicaController {
     }
 
     @PostMapping("/SaveClinica")
-    public ResponseEntity<SysSaludDTO> store(
+    public ResponseEntity<ApiResponse> store(
             @RequestParam("nombre") String nombre,
             @RequestParam("direccion") String direccion,
             @RequestParam("celular") String celular,
@@ -40,35 +46,36 @@ public class ClinicaController {
             //@RequestParam("planId") UUID planId,
             @RequestParam("estado") Integer estado
             ) throws IOException {
-        SysSaludDTO sysSaludDTO = new SysSaludDTO();
-        sysSaludDTO.setNombre(nombre);
-        sysSaludDTO.setDireccion(direccion);
-        sysSaludDTO.setCelular(celular);
-        sysSaludDTO.setEmail(email);
-        sysSaludDTO.setRuc(ruc);
-        sysSaludDTO.setFecha(fecha);
-        sysSaludDTO.setFoto(Util.compressZLib(foto.getBytes()));
+        CrearSysSaludDTO crearSysSaludDTO = new CrearSysSaludDTO();
+        crearSysSaludDTO.setNombre(nombre);
+        crearSysSaludDTO.setDireccion(direccion);
+        crearSysSaludDTO.setCelular(celular);
+        crearSysSaludDTO.setEmail(email);
+        crearSysSaludDTO.setRuc(ruc);
+        crearSysSaludDTO.setFecha(fecha);
+        crearSysSaludDTO.setFoto(Util.compressZLib(foto.getBytes()));
         //sysSaludDTO.setPlanId(planId);
-        sysSaludDTO.setEstado(estado);
-
-        sysSaludService.saveClinica(sysSaludDTO);
-
-        return ResponseEntity.ok().build();
+        crearSysSaludDTO.setEstado(estado);
+        sysSaludService.saveClinica(crearSysSaludDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Clinica creada correctamente!!."));
 
     }
 
     @GetMapping("/GetAllClinica")
-    public ResponseEntity<Map<String, Object>> getAllPage(
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ClinicaResponse.class)))
+    })
+    public ResponseEntity<ListResponse<SysSaludDTO>> getAllPage(
             @RequestParam(name = "Page", defaultValue = "1") int page,
             @RequestParam(name = "Rows", defaultValue = "10") int rows
     ){
         List<SysSaludDTO> hospitales = sysSaludService.getAllClinica(page, rows);
         long totalData = sysSaludService.getTotalCount();
-
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("data", hospitales);
-        response.put("totalData", totalData);
-
+        ListResponse<SysSaludDTO> response = new ListResponse<>();
+        response.setData(hospitales);
+        response.setTotalData(totalData);
         return ResponseEntity.ok(response);
     }
 

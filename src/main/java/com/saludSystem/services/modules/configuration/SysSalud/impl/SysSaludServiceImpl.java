@@ -1,6 +1,7 @@
 package com.saludSystem.services.modules.configuration.SysSalud.impl;
 
-import com.saludSystem.dtos.configuration.SysSaludDTO;
+import com.saludSystem.dtos.configuration.SysSaludModule.CrearSysSaludDTO;
+import com.saludSystem.dtos.configuration.SysSaludModule.SysSaludDTO;
 import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.repositories.modules.Catalogo.PlanRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRespository;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SysSaludServiceImpl implements SysSaludService {
@@ -27,16 +29,16 @@ public class SysSaludServiceImpl implements SysSaludService {
     }
 
     @Override
-    public SysSalud saveClinica(SysSaludDTO sysSaludDTO) {
+    public SysSalud saveClinica(CrearSysSaludDTO crearSysSaludDTO) {
         SysSalud sysSalud = new SysSalud();
 
-        sysSalud.setNombre(sysSaludDTO.getNombre());
-        sysSalud.setDireccion(sysSaludDTO.getDireccion());
-        sysSalud.setCelular(sysSaludDTO.getCelular());
-        sysSalud.setEmail(sysSaludDTO.getEmail());
-        sysSalud.setRuc(sysSaludDTO.getRuc());
-        sysSalud.setFecha(sysSaludDTO.getFecha());
-        sysSalud.setFoto(sysSalud.getFoto());
+        sysSalud.setNombre(crearSysSaludDTO.getNombre());
+        sysSalud.setDireccion(crearSysSaludDTO.getDireccion());
+        sysSalud.setCelular(crearSysSaludDTO.getCelular());
+        sysSalud.setEmail(crearSysSaludDTO.getEmail());
+        sysSalud.setRuc(crearSysSaludDTO.getRuc());
+        sysSalud.setFecha(crearSysSaludDTO.getFecha());
+        sysSalud.setFoto(crearSysSaludDTO.getFoto());
         //DESCOMENTAR:
         // Optional<Plan> plan = planRepository.findById(sysSaludDTO.getPlanId());
         // plan.ifPresent(sysSalud::setPlanId);

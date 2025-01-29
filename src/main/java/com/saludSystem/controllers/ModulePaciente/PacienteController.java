@@ -25,11 +25,9 @@ import java.util.*;
 public class PacienteController {
 
     private final PacienteService pacienteService;
-    private final FileUploadServiceImpl fileUploadService;
 
-    public PacienteController(PacienteService pacienteService, FileUploadServiceImpl fileUploadService) {
+    public PacienteController(PacienteService pacienteService) {
         this.pacienteService = pacienteService;
-        this.fileUploadService = fileUploadService;
     }
 
     @PostMapping("/SavePaciente")
