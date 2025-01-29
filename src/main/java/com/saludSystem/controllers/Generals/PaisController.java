@@ -5,6 +5,7 @@ import com.saludSystem.dtos.Generals.Pais.PaisDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
 import com.saludSystem.dtos.responses.Generals.PaisResponse;
+import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.services.modules.Generals.Pais.PaisService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -41,17 +42,15 @@ public class PaisController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = PaisResponse.class)))
     })
-    public ResponseEntity<Map<String, Object>> getAllPage(
+    public ResponseEntity<ListResponse<PaisDTO>> getAllPage(
             @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows
     ) {
         List<PaisDTO> paises = paisService.getAllPais(page, rows);
         long totalData = paisService.getTotalCount();
-
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("data", paises);
-        response.put("totalData", totalData);
-
+        ListResponse<PaisDTO> response = new ListResponse<>();
+        response.setData(paises);
+        response.setTotalData(totalData);
         return ResponseEntity.ok(response);
     }
 

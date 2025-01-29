@@ -3,6 +3,7 @@ package com.saludSystem.controllers.ModulePaciente;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.dtos.Paciente.PacienteDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.dtos.responses.Paciente.PacienteResponse;
 import com.saludSystem.services.modules.Paciente.PacienteService;
 import com.saludSystem.util.Util;
@@ -96,16 +97,16 @@ public class PacienteController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = PacienteResponse.class)))
     })
-    public ResponseEntity<Map<String, Object>> getAllAseguradora(
+    public ResponseEntity<ListResponse<PacienteDTO>> getAllAseguradora(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows
     ) {
         List<PacienteDTO> pacientes = pacienteService.getPagedResults(hospitalId, page, rows);
         long totalData = pacienteService.getTotalCount();
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("data", pacientes);
-        response.put("totalData", totalData);
+        ListResponse<PacienteDTO> response = new ListResponse<>();
+        response.setData(pacientes);
+        response.setTotalData(totalData);
 
         return ResponseEntity.ok(response);
     }

@@ -5,6 +5,7 @@ import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.Generals.EstudioResponse;
+import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.services.modules.Generals.Estudios.EstudioService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -44,7 +45,7 @@ public class EstudioController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = EstudioResponse.class)))
     })
-    public ResponseEntity<Map<String, Object>> getAllPage(
+    public ResponseEntity<ListResponse<EstudioDTO>> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows
@@ -52,9 +53,9 @@ public class EstudioController {
     {
         List<EstudioDTO> estudios = estudioService.getPagedResults(hospitalId, page, rows);
         long totalData = estudioService.getTotalCount();
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("data", estudios);
-        response.put("totalData", totalData);
+        ListResponse<EstudioDTO> response = new ListResponse<>();
+        response.setData(estudios);
+        response.setTotalData(totalData);
         return ResponseEntity.ok(response);
     }
 

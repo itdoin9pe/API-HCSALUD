@@ -68,8 +68,8 @@ public class ClinicaController {
                             schema = @Schema(implementation = ClinicaResponse.class)))
     })
     public ResponseEntity<ListResponse<SysSaludDTO>> getAllPage(
-            @RequestParam(name = "Page", defaultValue = "1") int page,
-            @RequestParam(name = "Rows", defaultValue = "10") int rows
+            @RequestParam(name = "Page") int page,
+            @RequestParam(name = "Rows") int rows
     ){
         List<SysSaludDTO> hospitales = sysSaludService.getAllClinica(page, rows);
         long totalData = sysSaludService.getTotalCount();

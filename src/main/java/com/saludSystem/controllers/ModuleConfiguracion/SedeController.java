@@ -5,6 +5,7 @@ import com.saludSystem.dtos.configuration.Sede.CrearSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.SedeDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.Configuration.SedeResponse;
+import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.services.modules.configuration.Sede.SedeService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -42,16 +43,16 @@ public class SedeController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = SedeResponse.class)))
     })
-    public ResponseEntity<Map<String, Object>> getAllPage(
+    public ResponseEntity<ListResponse<SedeDTO>> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows
     ) {
         List<SedeDTO> sedes = sedeService.getPagedResults(hospitalId, page, rows);
         long totalData = sedeService.getTotalCount();
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("data", sedes);
-        response.put("totalData", totalData);
+        ListResponse<SedeDTO> response = new ListResponse<>();
+        response.setData(sedes);
+        response.setTotalData( totalData);
         return ResponseEntity.ok(response);
     }
 

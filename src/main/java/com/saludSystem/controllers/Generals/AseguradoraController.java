@@ -5,6 +5,7 @@ import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
 import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
+import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.services.modules.Generals.Aseguradoras.AseguradoraService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -42,13 +43,13 @@ public class AseguradoraController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = AseguradoraResponse.class)))
     })
-    public ResponseEntity<Map<String, Object>> getAllPage(@RequestParam(name = "hospitalId", required = true) UUID hospitalId,
+    public ResponseEntity<ListResponse<AseguradoraDTO>> getAllPage(@RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         List<AseguradoraDTO> aseguradoras = aseguradoraService.getPagedResults(hospitalId, page, rows);
         long totalData = aseguradoraService.getTotalCount();
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("data", aseguradoras);
-        response.put("totalData", totalData);
+        ListResponse<AseguradoraDTO> response = new ListResponse<>();
+        response.setData(aseguradoras);
+        response.setTotalData(totalData);
         return ResponseEntity.ok(response);
     }
 

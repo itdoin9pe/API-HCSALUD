@@ -6,6 +6,7 @@ import com.saludSystem.dtos.catalago.Plan.PlanDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.Catalogo.PlanResponse;
 import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
+import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.services.modules.Catalogo.Plan.PlanService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -43,16 +44,16 @@ public class PlanController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = PlanResponse.class)))
     })
-    public ResponseEntity<Map<String, Object>> getAllPage(
+    public ResponseEntity<ListResponse<PlanDTO>> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows
     ){
         List<PlanDTO> planes = planService.getPagedResults(hospitalId, page, rows);
         long totalData = planService.getTotalCount();
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("data", planes);
-        response.put("totalData", totalData);
+        ListResponse<PlanDTO> response = new ListResponse<>();
+        response.setData(planes);
+        response.setTotalData(totalData);
         return ResponseEntity.ok(response);
     }
 
