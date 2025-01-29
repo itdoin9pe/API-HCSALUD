@@ -2,6 +2,7 @@ package com.saludSystem.controllers.ModulePaciente;
 
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.dtos.Paciente.PacienteDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.Paciente.PacienteResponse;
 import com.saludSystem.services.modules.Paciente.PacienteService;
 import com.saludSystem.util.Util;
@@ -9,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +25,15 @@ import java.util.*;
 public class PacienteController {
 
     private final PacienteService pacienteService;
+    private final FileUploadServiceImpl fileUploadService;
 
-    public PacienteController(PacienteService pacienteService) {
+    public PacienteController(PacienteService pacienteService, FileUploadServiceImpl fileUploadService) {
         this.pacienteService = pacienteService;
+        this.fileUploadService = fileUploadService;
     }
 
     @PostMapping("/SavePaciente")
-    public ResponseEntity<CrearPacienteDTO> savePaciente(
+    public ResponseEntity<ApiResponse> savePaciente(@Valid
             @RequestParam("fotoPaciente") MultipartFile fotoPaciente,
             @RequestParam("tipoDocumentoId") String tipoDocumentoId,
             @RequestParam("numeroDocumento") String numeroDocumento,
@@ -84,10 +88,8 @@ public class PacienteController {
         crearPacienteDTO.setEstudioId(estudioId);
         crearPacienteDTO.setSedeId(sedeId);
         crearPacienteDTO.setCelular(celular);
-
         pacienteService.savePaciente(crearPacienteDTO);
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new ApiResponse(true, "Paciente creado correctamente"));
     }
 
     @GetMapping("/GetAllPaciente")

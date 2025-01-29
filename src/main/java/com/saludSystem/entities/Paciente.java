@@ -27,7 +27,7 @@ public class Paciente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false, unique = true)
+    @Column(name = "id_paciente", updatable = false, nullable = false, unique = true)
     private UUID pacienteId;
 
     @NotBlank(message = "El tipo documento no puede estar vacio")
@@ -103,6 +103,7 @@ public class Paciente {
     @Lob
     @Column(name = "foto_paciente", columnDefinition = "MEDIUMBLOB")
     private byte[] fotoPaciente;
+    //private String fotoPaciente;
 
     @Column(name = "titulo")
     private String titulo;
@@ -125,10 +126,6 @@ public class Paciente {
     @NotBlank(message = "El número de celular no puede estar vacío")
     @Column(name = "celular", nullable = false)
     private String celular;
-
-    @ManyToOne
-    @JoinColumn(name = "hospital_id", nullable = false)
-    private SysSalud sysSalud;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
