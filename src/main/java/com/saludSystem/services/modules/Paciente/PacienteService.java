@@ -2,9 +2,12 @@ package com.saludSystem.services.modules.Paciente;
 
 import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
+import com.saludSystem.dtos.Paciente.PacienteDTO;
 import com.saludSystem.entities.*;
 import com.saludSystem.services.PaginatedService;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface PacienteService extends PaginatedService {
@@ -13,6 +16,10 @@ public interface PacienteService extends PaginatedService {
 
     ActualizarPacienteDTO updatePaciente(UUID pacienteId, ActualizarPacienteDTO actualizarPacienteDTO);
 
-    long getTotalCount();
+    Optional<PacienteDTO> getPacienteById(UUID pacienteId);
+
+    List<PacienteDTO> getPacienteList();
+
+    void deletePaciente(UUID pacienteId);
 
 }

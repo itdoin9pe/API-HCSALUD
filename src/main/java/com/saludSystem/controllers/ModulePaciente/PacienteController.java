@@ -151,7 +151,6 @@ public class PacienteController {
         actualizarPacienteDTO.setEstudioId(estudioId);
         actualizarPacienteDTO.setSedeId(sedeId);
         actualizarPacienteDTO.setCelular(celular);
-
         pacienteService.updatePaciente(pacienteId, actualizarPacienteDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Paciente actualizado correctamente"));
     }
@@ -175,5 +174,22 @@ public class PacienteController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/GetPacienteList")
+    public ResponseEntity<List<PacienteDTO>> getAllList(){
+        return ResponseEntity.ok(pacienteService.getPacienteList());
+    }
+
+    @GetMapping("/GetPaciente/{pacienteId}")
+    public ResponseEntity<PacienteDTO> getById(@PathVariable UUID pacienteId){
+        return pacienteService.getPacienteById(pacienteId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/DeletePaciente/{pacienteId}")
+    public ResponseEntity<ApiResponse> destroy(@PathVariable UUID pacienteId){
+        pacienteService.deletePaciente(pacienteId);
+        return ResponseEntity.ok(new ApiResponse(true, "Paciente eliminado correctamente,"));
+    }
+
 
 }
