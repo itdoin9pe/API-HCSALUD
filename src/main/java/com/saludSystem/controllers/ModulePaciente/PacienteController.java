@@ -1,5 +1,6 @@
 package com.saludSystem.controllers.ModulePaciente;
 
+import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.dtos.Paciente.PacienteDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
@@ -89,6 +90,70 @@ public class PacienteController {
         crearPacienteDTO.setCelular(celular);
         pacienteService.savePaciente(crearPacienteDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Paciente creado correctamente"));
+    }
+
+    @PutMapping("/UpdatePaciente/{pacienteId}")
+    public ResponseEntity<ApiResponse> updatePaciente(
+            @PathVariable("pacienteId") UUID pacienteId,
+            @Valid @RequestParam(value = "fotoPaciente", required = false) MultipartFile fotoPaciente,
+            @RequestParam("tipoDocumentoId") String tipoDocumentoId,
+            @RequestParam("numeroDocumento") String numeroDocumento,
+            @RequestParam("apellidos") String apellidos,
+            @RequestParam("nombres") String nombres,
+            @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date fechaNacimiento,
+            @RequestParam("edad") int edad,
+            @RequestParam("estado") Integer estado,
+            @RequestParam("ocupacion") String ocupacion,
+            @RequestParam("direccion") String direccion,
+            @RequestParam("paisId") Integer paisId,
+            @RequestParam("ubigeo") String ubigeo,
+            @RequestParam("tipoPacienteId") Integer tipoPacienteId,
+            @RequestParam("estadoCivil") String estadoCivil,
+            @RequestParam("sexo") String sexo,
+            @RequestParam("nombreContacto") String nombreContacto,
+            @RequestParam("tipoHistoria") String tipoHistoria,
+            @RequestParam("aseguradoraId") UUID aseguradoraId,
+            @RequestParam("empresaId") UUID empresaId,
+            @RequestParam("email") String email,
+            @RequestParam("titulo") String titulo,
+            @RequestParam("observacion") String observacion,
+            @RequestParam("informacionClinicaId") UUID informacionClinicaId,
+            @RequestParam("estudioId") UUID estudioId,
+            @RequestParam("sedeId") UUID sedeId,
+            @RequestParam("celular") String celular) throws IOException {
+
+        ActualizarPacienteDTO actualizarPacienteDTO = new ActualizarPacienteDTO();
+        actualizarPacienteDTO.setTipoDocumentoId(tipoDocumentoId);
+        actualizarPacienteDTO.setNumeroDocumento(numeroDocumento);
+        actualizarPacienteDTO.setApellidos(apellidos);
+        actualizarPacienteDTO.setNombres(nombres);
+        actualizarPacienteDTO.setFechaNacimiento(fechaNacimiento);
+        actualizarPacienteDTO.setEdad(edad);
+        actualizarPacienteDTO.setEstado(estado);
+        actualizarPacienteDTO.setOcupacion(ocupacion);
+        actualizarPacienteDTO.setDireccion(direccion);
+        actualizarPacienteDTO.setPaisId(paisId);
+        actualizarPacienteDTO.setUbigeo(ubigeo);
+        actualizarPacienteDTO.setTipoPacienteId(tipoPacienteId);
+        actualizarPacienteDTO.setEstadoCivil(estadoCivil);
+        actualizarPacienteDTO.setSexo(sexo);
+        actualizarPacienteDTO.setNombreContacto(nombreContacto);
+        actualizarPacienteDTO.setTipoHistoria(tipoHistoria);
+        actualizarPacienteDTO.setAseguradoraId(aseguradoraId);
+        actualizarPacienteDTO.setEmpresaId(empresaId);
+        actualizarPacienteDTO.setEmail(email);
+        if (fotoPaciente != null) {
+            actualizarPacienteDTO.setFotoPaciente(Util.compressZLib(fotoPaciente.getBytes()));
+        }
+        actualizarPacienteDTO.setTitulo(titulo);
+        actualizarPacienteDTO.setObservacion(observacion);
+        actualizarPacienteDTO.setInformacionClinicaId(informacionClinicaId);
+        actualizarPacienteDTO.setEstudioId(estudioId);
+        actualizarPacienteDTO.setSedeId(sedeId);
+        actualizarPacienteDTO.setCelular(celular);
+
+        pacienteService.updatePaciente(pacienteId, actualizarPacienteDTO);
+        return ResponseEntity.ok(new ApiResponse(true, "Paciente actualizado correctamente"));
     }
 
     @GetMapping("/GetAllPaciente")

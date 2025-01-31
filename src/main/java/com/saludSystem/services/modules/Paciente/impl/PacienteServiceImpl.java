@@ -1,9 +1,11 @@
 package com.saludSystem.services.modules.Paciente.impl;
 
+import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.dtos.Paciente.PacienteDTO;
 import com.saludSystem.entities.*;
 import com.saludSystem.entities.configuracion.Sede;
+import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.modules.Configuration.SedeRepository;
 import com.saludSystem.repositories.modules.Generals.*;
 import com.saludSystem.repositories.modules.Paciente.PacienteRepository;
@@ -102,6 +104,60 @@ public class PacienteServiceImpl implements PacienteService {
         paciente.setCelular(crearPacienteDTO.getCelular());
 
         return pacienteRepository.save(paciente);
+    }
+
+    @Override
+    public ActualizarPacienteDTO updatePaciente(UUID pacienteId,ActualizarPacienteDTO actualizarPacienteDTO) {
+        Paciente paciente = pacienteRepository.findById(pacienteId).orElseThrow(
+                () -> new ResourceNotFoundException("Paciente no encontrado con ID" + pacienteId));
+        Optional.ofNullable(actualizarPacienteDTO.getTipoDocumentoId()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setTipoDocumentoId);
+        Optional.ofNullable(actualizarPacienteDTO.getNumeroDocumento()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setNumeroDocumento);
+        Optional.ofNullable(actualizarPacienteDTO.getApellidos()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setApellidos);
+        Optional.ofNullable(actualizarPacienteDTO.getNombres()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setNombres);
+        Optional.ofNullable(actualizarPacienteDTO.getFechaNacimiento()).ifPresent(paciente::setFechaNacimiento);
+        Optional.ofNullable(actualizarPacienteDTO.getEdad()).ifPresent(paciente::setEdad);
+        Optional.ofNullable(actualizarPacienteDTO.getEstado()).ifPresent(paciente::setEstado);
+        Optional.ofNullable(actualizarPacienteDTO.getOcupacion()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setOcupacion);
+        Optional.ofNullable(actualizarPacienteDTO.getDireccion()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setDireccion);
+        Optional.ofNullable(actualizarPacienteDTO.getUbigeo()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setUbigeo);
+        Optional.ofNullable(actualizarPacienteDTO.getEstadoCivil()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setEstadoCivil);
+        Optional.ofNullable(actualizarPacienteDTO.getSexo()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setSexo);
+        Optional.ofNullable(actualizarPacienteDTO.getNombreContacto()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setNombreContacto);
+        Optional.ofNullable(actualizarPacienteDTO.getTipoHistoria()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setTipoHistoria);
+        Optional.ofNullable(actualizarPacienteDTO.getEmail()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setEmail);
+        Optional.ofNullable(actualizarPacienteDTO.getTitulo()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setTitulo);
+        Optional.ofNullable(actualizarPacienteDTO.getObservacion()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setObservacion);
+        Optional.ofNullable(actualizarPacienteDTO.getCelular()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setCelular);
+
+        Optional.ofNullable(actualizarPacienteDTO.getPaisId())
+                .flatMap(paisRepository::findById)
+                .ifPresent(paciente::setPaisId);
+
+        Optional.ofNullable(actualizarPacienteDTO.getTipoPacienteId())
+                .flatMap(tipoPacienteRepository::findById)
+                .ifPresent(paciente::setTipoPacienteId);
+
+        Optional.ofNullable(actualizarPacienteDTO.getAseguradoraId())
+                .flatMap(aseguradoraRepository::findById)
+                .ifPresent(paciente::setAseguradoraId);
+
+        Optional.ofNullable(actualizarPacienteDTO.getEmpresaId())
+                .flatMap(empresaRepository::findById)
+                .ifPresent(paciente::setEmpresaId);
+
+        Optional.ofNullable(actualizarPacienteDTO.getInformacionClinicaId())
+                .flatMap(informacionClinicaRepository::findById)
+                .ifPresent(paciente::setInformacionClinicaId);
+
+        Optional.ofNullable(actualizarPacienteDTO.getEstudioId())
+                .flatMap(estudioRepository::findById)
+                .ifPresent(paciente::setEstudioId);
+
+        Optional.ofNullable(actualizarPacienteDTO.getSedeId())
+                .flatMap(sedeRepository::findById)
+                .ifPresent(paciente::setSedeId);
+        pacienteRepository.save(paciente);
+        return modelMapper.map(paciente, ActualizarPacienteDTO.class);
     }
 
     @Override
