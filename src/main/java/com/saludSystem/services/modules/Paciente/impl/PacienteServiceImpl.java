@@ -56,7 +56,6 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
-
     public Paciente savePaciente(CrearPacienteDTO crearPacienteDTO) {
         Paciente paciente = new Paciente();
 

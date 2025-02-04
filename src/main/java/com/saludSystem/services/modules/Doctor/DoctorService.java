@@ -3,6 +3,7 @@ package com.saludSystem.services.modules.Doctor;
 import com.saludSystem.dtos.Doctor.ActualizarDoctorDTO;
 import com.saludSystem.dtos.Doctor.CrearDoctorDTO;
 import com.saludSystem.dtos.Doctor.DoctorDTO;
+import com.saludSystem.entities.Doctor;
 import com.saludSystem.services.PaginatedService;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +11,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Service
 public interface DoctorService extends PaginatedService {
 
-    CrearDoctorDTO saveDoctor(CrearDoctorDTO crearDoctorDTO);
+    Doctor saveDoctor(CrearDoctorDTO crearDoctorDTO);
 
     List<DoctorDTO> getDoctorList();
 

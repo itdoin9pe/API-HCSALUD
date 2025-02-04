@@ -66,7 +66,7 @@ public class Doctor {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "especialidad_id", nullable = false)
-    private Especialidad especialidad;
+    private Especialidad especialidadId;
 
     @Column(name = "colegiatura", length = 20)
     private String colegiatura;
