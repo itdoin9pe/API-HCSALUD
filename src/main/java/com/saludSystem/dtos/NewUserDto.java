@@ -11,6 +11,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewUserDto {
+    private String lastName;
+    private String firstName;
+    private String phoneNumber;
+    private String address;
+    private String email;
+    private String documentType;
+    private String documentNumber;
+    private String photo;
     public String username;
     public String password;
     private UserRole role;

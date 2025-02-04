@@ -56,7 +56,18 @@ public class AuthService {
                     .orElseThrow(() -> new RuntimeException("Doctor not found"));
         }
 
-        User user = new User(newUserDto.getUsername(), passwordEncoder.encode(newUserDto.getPassword()),roleUser, doctor);
+        User user = new User(
+                newUserDto.getLastName(),
+                newUserDto.getFirstName(),
+                newUserDto.getPhoneNumber(),
+                newUserDto.getAddress(),
+                newUserDto.getEmail(),
+                newUserDto.getDocumentType(),
+                newUserDto.getDocumentNumber(),
+                newUserDto.getPhoto(),
+                newUserDto.getUsername(),
+                passwordEncoder.encode(newUserDto.getPassword()),
+                roleUser, doctor);
         userService.save(user);
     }
 

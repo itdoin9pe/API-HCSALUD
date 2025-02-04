@@ -19,6 +19,37 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
+    @NotBlank(message = "The last name field can't be blank")
+    @Column(nullable = false)
+    private String lastName;
+
+    @NotBlank(message = "The first name field can't be blank")
+    @Column(nullable = false)
+    private String firstName;
+
+    @NotBlank(message = "The phone number field can't be blank")
+    @Column(nullable = false)
+    private String phoneNumber;
+
+    @NotBlank(message = "The address field can't be blank")
+    @Column(nullable = false)
+    private String address;
+
+    @NotBlank(message = "The email field can't be blank")
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @NotBlank(message = "The document type field can't be blank")
+    @Column(nullable = false)
+    private String documentType;
+
+    @NotBlank(message = "The document number field can't be blank")
+    @Column(unique = true, nullable = false)
+    private String documentNumber;
+
+    @Column(nullable = true) // La foto puede ser opcional
+    private String photo;
+
     @NotBlank(message = "The username field can't be blank")
     @Column(unique = true, nullable = false)
     private String username;
@@ -37,7 +68,15 @@ public class User {
     private Doctor doctor;
 
     @Builder
-    public User(String username, String password, Role role, Doctor doctor) {
+    public User(String lastName, String firstName, String phoneNumber, String address, String email, String documentType, String documentNumber, String photo, String username, String password, Role role, Doctor doctor) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.email = email;
+        this.documentType = documentType;
+        this.documentNumber = documentNumber;
+        this.photo = photo;
         this.username = username;
         this.password = password;
         this.role = role;
