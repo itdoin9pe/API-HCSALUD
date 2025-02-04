@@ -32,10 +32,15 @@ public class User {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+    @ManyToOne(fetch = FetchType.LAZY) // Relación opcional con Doctor
+    @JoinColumn(name = "doctor_id", nullable = true) // nullable = true permite que sea opcional
+    private Doctor doctor;
+
     @Builder
-    public User(String username, String password, Role role) {
+    public User(String username, String password, Role role, Doctor doctor) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.doctor = doctor;
     }
 }
