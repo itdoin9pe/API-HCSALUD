@@ -4,8 +4,12 @@ import com.saludSystem.dtos.catalago.Especialidad.ActualizarEspecialidadDTO;
 import com.saludSystem.dtos.catalago.Especialidad.CrearEspecialidadDTO;
 import com.saludSystem.dtos.catalago.Especialidad.EspecialidadDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.Catalogo.EspecialidadResponse;
 import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.services.modules.Catalogo.Especialidad.EspecialidadService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +36,11 @@ public class EspecialidadController {
     }
 
     @GetMapping("/GetAllEspecialidad")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = EspecialidadResponse.class)))
+    })
     public ResponseEntity<ListResponse<EspecialidadDTO>> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
