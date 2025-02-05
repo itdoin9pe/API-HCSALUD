@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class AuthService {
@@ -30,6 +32,7 @@ public class AuthService {
     private final DoctorRepository doctorRepository;
     private final JwtUtil jwtUtil;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final Set<String> invalidTokens = ConcurrentHashMap.newKeySet(); // Lista negra en memoria
 
     @Autowired
     public AuthService(UserService userService, RoleRepository roleRepository, DoctorRepository doctorRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, AuthenticationManagerBuilder authenticationManagerBuilder) {
@@ -122,4 +125,11 @@ public class AuthService {
         return user.getRole().getName();
     }
 
+    public void invalidateToken(String token) {
+        invalidTokens.add(token);
+    }
+
+    public boolean isTokenInvalid(String token) {
+        return invalidTokens.contains(token);
+    }
 }

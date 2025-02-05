@@ -6,6 +6,8 @@ import com.saludSystem.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -73,7 +75,6 @@ public class AuthController {
         }
     }
 
-    // Endpoint para refrescar el access token usando el refresh token
     @PostMapping("/refresh-token")
     public ResponseEntity<Map<String, String>> refreshToken(@RequestBody Map<String, String> requestBody) {
         try {
@@ -81,7 +82,6 @@ public class AuthController {
             if (refreshToken == null) {
                 return ResponseEntity.badRequest().body(Map.of("error", "refreshToken is required"));
             }
-
             Map<String, String> tokens = authService.refreshToken(refreshToken);
             return ResponseEntity.ok(tokens);
         } catch (RuntimeException e) {
@@ -90,7 +90,27 @@ public class AuthController {
     }
 
     @GetMapping("/check-auth")
-    public ResponseEntity<String> checkAuth(){
-        return ResponseEntity.ok().body("Authenticated");
+    public ResponseEntity<Map<String, Object>> checkAuth() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("authenticated", false, "message", "User is not authenticated"));
+        }
+        Map<String, Object> response = new HashMap<>();
+        response.put("authenticated", true);
+        response.put("message", "User is authenticated");
+        response.put("username", authentication.getName());
+        return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Map<String, String>> logout(@RequestHeader("Authorization") String token) {
+        if (token == null || !token.startsWith("Bearer ")) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Invalid token format"));
+        }
+        String jwt = token.substring(7);
+        authService.invalidateToken(jwt);
+        return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
+    }
+
 }
