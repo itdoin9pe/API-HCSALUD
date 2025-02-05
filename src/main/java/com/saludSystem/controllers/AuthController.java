@@ -25,6 +25,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    /*
     public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return ResponseEntity.badRequest().body(Map.of("message", "Check your credentials!!"));
@@ -36,6 +37,18 @@ public class AuthController {
             response.put("token", jwt);
             
             return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Check your credentials!!"));
+        }
+    }*/
+    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Check your credentials!!"));
+        }
+
+        try {
+            Map<String, String> tokens = authService.authenticate(loginUserDto.getUsername(), loginUserDto.getPassword());
+            return ResponseEntity.ok(tokens);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("message", "Check your credentials!!"));
         }
@@ -60,6 +73,21 @@ public class AuthController {
         }
     }
 
+    // Endpoint para refrescar el access token usando el refresh token
+    @PostMapping("/refresh-token")
+    public ResponseEntity<Map<String, String>> refreshToken(@RequestBody Map<String, String> requestBody) {
+        try {
+            String refreshToken = requestBody.get("refreshToken");
+            if (refreshToken == null) {
+                return ResponseEntity.badRequest().body(Map.of("error", "refreshToken is required"));
+            }
+
+            Map<String, String> tokens = authService.refreshToken(refreshToken);
+            return ResponseEntity.ok(tokens);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
 
     @GetMapping("/check-auth")
     public ResponseEntity<String> checkAuth(){

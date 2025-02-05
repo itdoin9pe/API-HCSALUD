@@ -9,12 +9,17 @@ import com.saludSystem.jwt.JwtUtil;
 import com.saludSystem.repositories.RoleRepository;
 import com.saludSystem.repositories.modules.Doctor.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class AuthService {
@@ -36,11 +41,29 @@ public class AuthService {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
+    /*
     public String authenticate(String username, String password){
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         Authentication  authResult = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authResult);
         return jwtUtil.generateToken(authResult);
+    }*/
+    public Map<String, String> authenticate(String username, String password) {
+        AuthenticationManager authenticationManager = authenticationManagerBuilder.getObject();
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        // Pasamos UserDetails a los métodos de JwtUtil
+        String jwt = jwtUtil.generateToken(authentication);
+        String refreshToken = jwtUtil.generateRefreshToken(userDetails);
+        Map<String, String> tokens = new HashMap<>();
+        tokens.put("access_token", jwt);
+        tokens.put("refresh_token", refreshToken);
+
+        return tokens;
     }
 
     public void registerUser(NewUserDto newUserDto){
@@ -70,6 +93,29 @@ public class AuthService {
                 roleUser, doctor);
         userService.save(user);
     }
+
+    public Map<String, String> refreshToken(String refreshToken) {
+        try {
+            String username = jwtUtil.extractUsername(refreshToken);
+            UserDetails userDetails = userService.loadUserByUsername(username);
+
+            if (jwtUtil.validateToken(refreshToken, userDetails)) {
+                String newAccessToken = jwtUtil.generateToken(new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()));
+                String newRefreshToken = jwtUtil.generateRefreshToken(userDetails);
+
+                Map<String, String> tokens = new HashMap<>();
+                tokens.put("access_token", newAccessToken);
+                tokens.put("refresh_token", newRefreshToken);
+
+                return tokens;
+            } else {
+                throw new RuntimeException("Invalid refresh token");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Could not refresh token: " + e.getMessage());
+        }
+    }
+
 
     public UserRole getAuthenticatedUserRole(String username) {
         User user = userService.findEntityByUsername(username);
