@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 public class CrearPlanDTO {

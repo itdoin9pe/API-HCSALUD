@@ -7,7 +7,6 @@ import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ActualizarPlanDTO extends CrearPlanDTO{
-    private UUID hospitalId;
-    private UUID planId;
+public class ActualizarPlanDTO extends PlanDTO{
+
 }
