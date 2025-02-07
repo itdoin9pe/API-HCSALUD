@@ -4,8 +4,12 @@ import com.saludSystem.dtos.catalago.Categoria.ActualizarCategoriaDTO;
 import com.saludSystem.dtos.catalago.Categoria.CategoriaDTO;
 import com.saludSystem.dtos.catalago.Categoria.CrearCategoriaDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.Catalogo.CategoriaResponse;
 import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.services.modules.Catalogo.Categoria.CategoriaService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +36,11 @@ public class CategoriaController {
     }
 
     @GetMapping("/GetAllCategoria")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CategoriaResponse.class)))
+    })
     public ResponseEntity<ListResponse<CategoriaDTO>> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {

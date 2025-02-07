@@ -5,7 +5,6 @@ import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.PlanDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.Catalogo.PlanResponse;
-import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
 import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.services.modules.Catalogo.Plan.PlanService;
 import io.swagger.v3.oas.annotations.media.Content;
