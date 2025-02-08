@@ -4,11 +4,16 @@ import com.saludSystem.dtos.Generals.Empresa.ActualizarEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
 import com.saludSystem.entities.Empresa;
+import com.saludSystem.entities.User;
+import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.exception.ResourceNotFoundException;
+import com.saludSystem.repositories.UserRepository;
+import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.repositories.modules.Generals.EmpresaRepository;
 import com.saludSystem.services.modules.Generals.Empresas.EmpresaService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +25,14 @@ import java.util.stream.Collectors;
 public class EmpresaServiceImpl implements EmpresaService {
 
     private final EmpresaRepository empresaRepository;
+    private final SysSaludRepository sysSaludRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    @Autowired
-    public EmpresaServiceImpl(EmpresaRepository empresaRepository, ModelMapper modelMapper){
+    public EmpresaServiceImpl(EmpresaRepository empresaRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.empresaRepository = empresaRepository;
+        this.sysSaludRepository = sysSaludRepository;
+        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -55,14 +63,43 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     @Override
     public CrearEmpresaDTO saveEmpresa(CrearEmpresaDTO crearEmpresaDTO){
-        Empresa empresa = modelMapper.map(crearEmpresaDTO, Empresa.class);
+        /*
+        Empresa empresa = new Empresa();
+        empresa.setDescripcion(crearEmpresaDTO.getDescripcion());
+        empresa.setEstado(crearEmpresaDTO.getEstado());
+        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+        empresa.setUserId(user);
+        SysSalud hospital = sysSaludRepository.findById(crearEmpresaDTO.getHospitalId())
+                .orElseThrow(() -> new ResourceNotFoundException("Hospital no encontrado"));
+        empresa.setHospitalId(hospital);
         empresaRepository.save(empresa);
-        return modelMapper.map(empresa, CrearEmpresaDTO.class);
+        return new CrearEmpresaDTO(hospital.getHospitalId(), empresa.getDescripcion(), empresa.getEstado());
+         */
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+
+        SysSalud sysSalud = sysSaludRepository.findById(user.getHospitalId().getHospitalId())
+                .orElseThrow(() -> new ResourceNotFoundException("Hospital no encontrado"));
+
+        Empresa empresa = new Empresa();
+        empresa.setEmpresaId(UUID.randomUUID());
+        empresa.setDescripcion(crearEmpresaDTO.getDescripcion());
+        empresa.setEstado(crearEmpresaDTO.getEstado());
+        empresa.setHospitalId(sysSalud); // Asigna el objeto SysSalud en lugar del UUID
+
+        empresaRepository.save(empresa);
+
+        return new CrearEmpresaDTO(empresa.getDescripcion(), empresa.getEstado());
     }
 
     @Override
-    public void deleteEmpresa(UUID id) {
-        empresaRepository.deleteById(id);
+    public void deleteEmpresa(UUID empresaId) {
+        Empresa empresa = empresaRepository.findById(empresaId)
+                .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con Id: " + empresaId));
+        empresaRepository.delete(empresa);
     }
 
     private EmpresaDTO convertToDTO(Empresa empresa) {

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface SysSaludRespository extends JpaRepository<SysSalud, UUID> {
+public interface SysSaludRepository extends JpaRepository<SysSalud, UUID> {
 }

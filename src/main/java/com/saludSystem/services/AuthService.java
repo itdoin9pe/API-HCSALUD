@@ -4,9 +4,11 @@ import com.saludSystem.dtos.NewUserDto;
 import com.saludSystem.entities.Doctor;
 import com.saludSystem.entities.Role;
 import com.saludSystem.entities.User;
+import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.enums.UserRole;
 import com.saludSystem.jwt.JwtUtil;
 import com.saludSystem.repositories.RoleRepository;
+import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.repositories.modules.Doctor.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -75,7 +77,6 @@ public class AuthService {
         }
 
         Role roleUser = roleRepository.findByName(UserRole.USER).orElseThrow(()->new RuntimeException("Role not found"));
-        // Si doctorId no es nulo, buscamos al doctor
         Doctor doctor = null;
         if (newUserDto.getDoctorId() != null) {
             doctor = doctorRepository.findById(newUserDto.getDoctorId())

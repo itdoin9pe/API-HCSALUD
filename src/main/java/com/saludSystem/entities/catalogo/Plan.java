@@ -16,7 +16,8 @@ import java.util.UUID;
 public class Plan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_plan", nullable = false, unique = true)
     private UUID planId;
 
     private String nombrePlan;

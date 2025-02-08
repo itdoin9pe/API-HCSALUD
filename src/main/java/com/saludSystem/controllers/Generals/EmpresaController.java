@@ -4,11 +4,7 @@ import com.saludSystem.dtos.Generals.Empresa.ActualizarEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.Generals.EmpresaResponse;
 import com.saludSystem.services.modules.Generals.Empresas.EmpresaService;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -33,14 +29,14 @@ public class EmpresaController {
         return ResponseEntity.ok(empresaService.getEmpresaList());
     }
 
-    @GetMapping("/GetEmpresa/{id}")
-    public ResponseEntity<EmpresaDTO> getEmpresaById(@PathVariable UUID id){
-        return empresaService.getEmpresaById(id)
+    @GetMapping("/GetEmpresa/{empresaId}")
+    public ResponseEntity<EmpresaDTO> getById(@PathVariable UUID empresaId){
+        return empresaService.getEmpresaById(empresaId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/UpdateEmpresa")
+    @PutMapping("/UpdateEmpresa/{empresaId}")
     public ResponseEntity<ApiResponse> updateEmpresa(
             @PathVariable UUID empresaId,
             @RequestBody ActualizarEmpresaDTO actualizarEmpresaDTO
@@ -50,20 +46,16 @@ public class EmpresaController {
     }
 
     @PostMapping("/SaveEmpresa")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EmpresaResponse.class)))
-    })
     public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearEmpresaDTO crearEmpresaDTO){
         empresaService.saveEmpresa(crearEmpresaDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Empresa creada correctamente"));
     }
 
-    @DeleteMapping("/DeleteEmpresa/{id}")
-    public ResponseEntity<ApiResponse> deleteEmpresa(@PathVariable UUID id){
-        empresaService.deleteEmpresa(id);
-        return ResponseEntity.ok(new ApiResponse(true, "Empresa eliminado correctamente."));
+    @DeleteMapping("/DeleteEmpresa/{empresaId}")
+    public ResponseEntity<ApiResponse> deleteEmpresa(@PathVariable UUID empresaId){
+        empresaService.deleteEmpresa(empresaId);
+        return ResponseEntity.ok(new ApiResponse(true, "Empresa eliminada correctamente."));
+
     }
 
 }

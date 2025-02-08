@@ -1,7 +1,9 @@
 package com.saludSystem.services;
 
 import com.saludSystem.entities.User;
+import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.repositories.UserRepository;
+import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Service

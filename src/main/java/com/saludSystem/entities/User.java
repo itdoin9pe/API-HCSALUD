@@ -1,5 +1,6 @@
 package com.saludSystem.entities;
 
+import com.saludSystem.entities.configuracion.SysSalud;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -7,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -16,8 +19,9 @@ import lombok.NoArgsConstructor;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_user", nullable = false, unique = true)
+    private UUID userId;
 
     @NotBlank(message = "The last name field can't be blank")
     @Column(nullable = false)
@@ -66,6 +70,10 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY) // Relación opcional con Doctor
     @JoinColumn(name = "doctor_id", nullable = true) // nullable = true permite que sea opcional
     private Doctor doctor;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "hospital_id", referencedColumnName = "hospital_id", nullable = false)
+    private SysSalud hospitalId;
 
     @Builder
     public User(String lastName, String firstName, String phoneNumber, String address, String email, String documentType, String documentNumber, String photo, String username, String password, Role role, Doctor doctor) {

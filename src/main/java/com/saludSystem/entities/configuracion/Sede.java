@@ -16,7 +16,8 @@ import java.util.UUID;
 public class Sede {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_sede", nullable = false, unique = true)
     private UUID sedeId;
 
     @NotBlank

@@ -14,6 +14,7 @@ public class TipoPaciente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tipoPaciente", nullable = false, unique = true)
     public Integer tipoPacienteId;
 
     @Column(name = "nombres", nullable = false)

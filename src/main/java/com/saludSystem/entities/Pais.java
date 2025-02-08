@@ -15,6 +15,7 @@ public class Pais {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_pais", nullable = false, unique = true)
     private Integer id;
 
     @NotBlank

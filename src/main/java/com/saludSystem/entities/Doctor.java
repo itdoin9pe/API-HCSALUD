@@ -20,7 +20,7 @@ public class Doctor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_doctor", updatable = false, nullable = false, unique = true)
+    @Column(name = "id_doctor", nullable = false, unique = true)
     private UUID doctorId;
 
     @NotBlank(message = "El tipo de documento no puede estar vacío")

@@ -26,8 +26,8 @@ import java.util.UUID;
 public class Paciente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_paciente", updatable = false, nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_paciente", nullable = false, unique = true)
     private UUID pacienteId;
 
     @NotBlank(message = "El tipo documento no puede estar vacio")

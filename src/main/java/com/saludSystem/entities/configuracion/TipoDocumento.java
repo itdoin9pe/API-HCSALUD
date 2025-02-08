@@ -20,6 +20,7 @@ import java.util.Date;
 public class TipoDocumento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tipoDocumento", nullable = false, unique = true)
     private Long id;
 
     @NotBlank(message = "El tipo de comprobante no puede estar vacío")

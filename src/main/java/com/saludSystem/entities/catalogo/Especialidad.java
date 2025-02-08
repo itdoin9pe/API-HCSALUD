@@ -17,6 +17,7 @@ public class Especialidad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_especialidad", nullable = false, unique = true)
     private UUID especialidadId;
 
     @Column(name = "nombre", nullable = false)

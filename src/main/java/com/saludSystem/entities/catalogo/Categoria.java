@@ -17,6 +17,7 @@ public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_categoria", nullable = false, unique = true)
     private UUID categoriaId;
 
     @Column(name = "nombre", nullable = false)

@@ -17,7 +17,7 @@ public class Medida {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "medidaId")
+    @Column(name = "id_medida", nullable = false, unique = true)
     private UUID medidaId;
 
     @Column(name = "nombres")

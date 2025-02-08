@@ -1,5 +1,6 @@
 package com.saludSystem.entities;
 
+import com.saludSystem.entities.configuracion.SysSalud;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,8 @@ import java.util.UUID;
 public class Empresa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_empresa", nullable = false, unique = true)
     private UUID empresaId;
 
     @NotBlank
@@ -25,5 +27,13 @@ public class Empresa {
 
     @Column(name = "estado", nullable = false)
     private Integer estado;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private SysSalud hospitalId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User userId;
 
 }

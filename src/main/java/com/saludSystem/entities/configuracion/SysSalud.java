@@ -17,7 +17,8 @@
     public class SysSalud {
 
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.UUID)
+        @Column(name = "hospital_id", nullable = false)
         private UUID hospitalId;
 
         private String nombre;

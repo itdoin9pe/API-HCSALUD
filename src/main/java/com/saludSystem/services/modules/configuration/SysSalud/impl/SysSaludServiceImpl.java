@@ -4,7 +4,7 @@ import com.saludSystem.dtos.configuration.SysSaludModule.CrearSysSaludDTO;
 import com.saludSystem.dtos.configuration.SysSaludModule.SysSaludDTO;
 import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.repositories.modules.Catalogo.PlanRepository;
-import com.saludSystem.repositories.modules.Configuration.SysSaludRespository;
+import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.services.modules.configuration.SysSalud.SysSaludService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -13,16 +13,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class SysSaludServiceImpl implements SysSaludService {
 
-    private final SysSaludRespository sysSaludRespository;
+    private final SysSaludRepository sysSaludRespository;
     private final PlanRepository planRepository;
     private final ModelMapper modelMapper;
 
-    public SysSaludServiceImpl(SysSaludRespository sysSaludRespository, PlanRepository planRepository, ModelMapper modelMapper){
+    public SysSaludServiceImpl(SysSaludRepository sysSaludRespository, PlanRepository planRepository, ModelMapper modelMapper){
         this.sysSaludRespository = sysSaludRespository;
         this.planRepository = planRepository;
         this.modelMapper = modelMapper;
