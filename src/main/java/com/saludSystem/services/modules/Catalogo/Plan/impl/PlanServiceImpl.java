@@ -47,11 +47,8 @@ public class PlanServiceImpl implements PlanService {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        // Obtener el hospital asignado al usuario
         SysSalud hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-
         Plan plan = new Plan();
         plan.setNombrePlan(crearPlanDTO.getNombrePlan());
         plan.setFechaInicio(crearPlanDTO.getFechaInicio());
@@ -60,8 +57,6 @@ public class PlanServiceImpl implements PlanService {
         plan.setUsuMax(crearPlanDTO.getUseMax());
         plan.setCostoPlan(crearPlanDTO.getCostoPlan());
         plan.setEstado(crearPlanDTO.getEstado());
-
-        // Asignar automáticamente el usuario y hospital
         plan.setUser(user);
         plan.setHospital(hospital);
         planRepository.save(plan);
@@ -80,11 +75,16 @@ public class PlanServiceImpl implements PlanService {
                 .orElseThrow(()-> new ResourceNotFoundException("Plan no encontrado con ID" + planId));
 
         Optional.ofNullable(actualizarPlanDTO.getNombrePlan()).filter(desc -> !desc.isBlank())
-                .ifPresent(actualizarPlanDTO::setNombrePlan);
-        Optional.ofNullable(actualizarPlanDTO.getFechaInicio()).ifPresent(actualizarPlanDTO::setFechaInicio);
-        Optional.ofNullable(actualizarPlanDTO.getFechaFin()).ifPresent(actualizarPlanDTO::setFechaFin);
-        Optional.of(actualizarPlanDTO.getMaxPlan()).ifPresent(actualizarPlanDTO::setMaxPlan);
-        Optional.of(actualizarPlanDTO.getUseMax()).ifPresent(actualizarPlanDTO::setUseMax);
+                .ifPresent(plan::setNombrePlan);
+        Optional.ofNullable(actualizarPlanDTO.getFechaInicio()).ifPresent(plan::setFechaInicio);
+        Optional.ofNullable(actualizarPlanDTO.getFechaFin()).ifPresent(plan::setFechaFin);
+        if (actualizarPlanDTO.getMaxPlan() > 0) {
+            plan.setMaxPlan(actualizarPlanDTO.getMaxPlan());
+        }
+        if (actualizarPlanDTO.getUseMax() > 0) {
+            plan.setUsuMax(actualizarPlanDTO.getUseMax());
+        }
+        Optional.ofNullable(actualizarPlanDTO.getCostoPlan()).ifPresent(plan::setCostoPlan);
         Optional.ofNullable(actualizarPlanDTO.getEstado()).ifPresent(plan::setEstado);
         planRepository.save(plan);
         return new ApiResponse(true, "Plan actualizado correctamente");

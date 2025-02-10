@@ -19,10 +19,10 @@ public class PlanDTO {
 
     private Date fechaFin;
 
-    @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
+    @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0")
     private int maxPlan;
 
-    @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
+    @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0")
     private int useMax;
 
     @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
