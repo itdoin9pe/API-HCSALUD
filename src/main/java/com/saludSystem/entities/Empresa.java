@@ -1,20 +1,18 @@
 package com.saludSystem.entities;
 
-import com.saludSystem.entities.configuracion.SysSalud;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "empresas")
-public class Empresa {
+public class Empresa extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -27,13 +25,5 @@ public class Empresa {
 
     @Column(name = "estado", nullable = false)
     private Integer estado;
-
-    @ManyToOne
-    @JoinColumn(name = "hospital_id", nullable = false)
-    private SysSalud hospitalId;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User userId;
 
 }

@@ -72,6 +72,7 @@ public class CategoriaServiceImpl implements CategoriaService {
         return categoriaRepository.count();
     }
 
+    /*
     @Override
     public List<CategoriaDTO> getPagedResults(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
@@ -79,7 +80,7 @@ public class CategoriaServiceImpl implements CategoriaService {
         return categoriaPage.getContent().stream()
                 .map(categoria -> modelMapper.map(categoria, CategoriaDTO.class))
                 .toList();
-    }
+    }*/
 
     private CategoriaDTO converToDTO(Categoria categoria) {
         return modelMapper.map(categoria, CategoriaDTO.class);

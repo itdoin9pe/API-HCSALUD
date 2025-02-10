@@ -1,25 +1,23 @@
 package com.saludSystem.entities;
 
-import com.saludSystem.entities.configuracion.SysSalud;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "aseguradoras")
-public class Aseguradora {
+public class Aseguradora extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_aseguradora", nullable = false, unique = true)
-    private UUID id;
+    private UUID aseguradoraId;
 
     @NotBlank
     @Column(name = "descripcion", nullable = false)

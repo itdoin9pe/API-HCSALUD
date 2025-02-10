@@ -36,6 +36,7 @@ public class PaisController {
         return ResponseEntity.ok(new ApiResponse(true, "Estudio creado correctamente"));
     }
 
+    /*
     @GetMapping("/GetAllPais")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
@@ -52,7 +53,7 @@ public class PaisController {
         response.setData(paises);
         response.setTotalData(totalData);
         return ResponseEntity.ok(response);
-    }
+    }*/
 
     @GetMapping("/GetPaisList")
     public ResponseEntity<List<PaisDTO>> getAllList() {

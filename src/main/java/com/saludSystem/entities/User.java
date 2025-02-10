@@ -4,14 +4,12 @@ import com.saludSystem.entities.configuracion.SysSalud;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -73,10 +71,10 @@ public class User {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "hospital_id", referencedColumnName = "hospital_id", nullable = false)
-    private SysSalud hospitalId;
+    private SysSalud hospital;
 
     @Builder
-    public User(String lastName, String firstName, String phoneNumber, String address, String email, String documentType, String documentNumber, String photo, String username, String password, Role role, Doctor doctor) {
+    public User(String lastName, String firstName, String phoneNumber, String address, String email, String documentType, String documentNumber, String photo, String username, String password, Role role, Doctor doctor, SysSalud hospital) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
@@ -89,5 +87,6 @@ public class User {
         this.password = password;
         this.role = role;
         this.doctor = doctor;
+        this.hospital = hospital;
     }
 }

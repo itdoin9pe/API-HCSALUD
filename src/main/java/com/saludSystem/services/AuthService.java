@@ -32,15 +32,17 @@ public class AuthService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final DoctorRepository doctorRepository;
+    private final SysSaludRepository sysSaludRepository;
     private final JwtUtil jwtUtil;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final Set<String> invalidTokens = ConcurrentHashMap.newKeySet(); // Lista negra en memoria
 
     @Autowired
-    public AuthService(UserService userService, RoleRepository roleRepository, DoctorRepository doctorRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, AuthenticationManagerBuilder authenticationManagerBuilder) {
+    public AuthService(UserService userService, RoleRepository roleRepository, DoctorRepository doctorRepository, SysSaludRepository sysSaludRepository,PasswordEncoder passwordEncoder, JwtUtil jwtUtil, AuthenticationManagerBuilder authenticationManagerBuilder) {
         this.userService = userService;
         this.roleRepository = roleRepository;
         this.doctorRepository = doctorRepository;
+        this.sysSaludRepository = sysSaludRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
@@ -54,21 +56,25 @@ public class AuthService {
         return jwtUtil.generateToken(authResult);
     }*/
     public Map<String, String> authenticate(String username, String password) {
-        AuthenticationManager authenticationManager = authenticationManagerBuilder.getObject();
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password)
-        );
+        try {
+            AuthenticationManager authenticationManager = authenticationManagerBuilder.getObject();
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password)
+            );
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        // Pasamos UserDetails a los métodos de JwtUtil
-        String jwt = jwtUtil.generateToken(authentication);
-        String refreshToken = jwtUtil.generateRefreshToken(userDetails);
-        Map<String, String> tokens = new HashMap<>();
-        tokens.put("access_token", jwt);
-        tokens.put("refresh_token", refreshToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String jwt = jwtUtil.generateToken(authentication);
+            String refreshToken = jwtUtil.generateRefreshToken(userDetails);
+            Map<String, String> tokens = new HashMap<>();
+            tokens.put("access_token", jwt);
+            tokens.put("refresh_token", refreshToken);
 
-        return tokens;
+            return tokens;
+        } catch (Exception e) {
+            e.printStackTrace(); // Agrega esto para ver la excepción en los logs
+            throw new RuntimeException("Authentication failed: " + e.getMessage());
+        }
     }
 
     public void registerUser(NewUserDto newUserDto){
@@ -76,25 +82,34 @@ public class AuthService {
             throw new IllegalArgumentException("Username already exists!!");
         }
 
-        Role roleUser = roleRepository.findByName(UserRole.USER).orElseThrow(()->new RuntimeException("Role not found"));
+        Role roleUser = roleRepository.findByName(UserRole.ADMIN)
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+
         Doctor doctor = null;
         if (newUserDto.getDoctorId() != null) {
             doctor = doctorRepository.findById(newUserDto.getDoctorId())
                     .orElseThrow(() -> new RuntimeException("Doctor not found"));
         }
 
-        User user = new User(
-                newUserDto.getLastName(),
-                newUserDto.getFirstName(),
-                newUserDto.getPhoneNumber(),
-                newUserDto.getAddress(),
-                newUserDto.getEmail(),
-                newUserDto.getDocumentType(),
-                newUserDto.getDocumentNumber(),
-                newUserDto.getPhoto(),
-                newUserDto.getUsername(),
-                passwordEncoder.encode(newUserDto.getPassword()),
-                roleUser, doctor);
+        SysSalud hospital = sysSaludRepository.findById(newUserDto.getHospitalId())
+                .orElseThrow(() -> new RuntimeException("Hospital not found"));
+
+        User user = User.builder()
+                .lastName(newUserDto.getLastName())
+                .firstName(newUserDto.getFirstName())
+                .phoneNumber(newUserDto.getPhoneNumber())
+                .address(newUserDto.getAddress())
+                .email(newUserDto.getEmail())
+                .documentType(newUserDto.getDocumentType())
+                .documentNumber(newUserDto.getDocumentNumber())
+                .photo(newUserDto.getPhoto())
+                .username(newUserDto.getUsername())
+                .password(passwordEncoder.encode(newUserDto.getPassword()))
+                .role(roleUser)
+                .doctor(doctor)
+                .hospital(hospital)
+                .build();
+
         userService.save(user);
     }
 

@@ -35,6 +35,7 @@ public class EspecialidadController {
         return ResponseEntity.ok(new ApiResponse(true, "Especialidad creada correctamente"));
     }
 
+    /*
     @GetMapping("/GetAllEspecialidad")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
@@ -50,7 +51,7 @@ public class EspecialidadController {
         response.setData(especialidades);
         response.setTotalData(totalData);
         return ResponseEntity.ok(response);
-    }
+    }*/
 
     @GetMapping("/GetEspecialidadList")
     public ResponseEntity<List<EspecialidadDTO>> getAllList() {

@@ -61,6 +61,7 @@ public class ClinicaController {
 
     }
 
+    /*
     @GetMapping("/GetAllClinica")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
@@ -77,6 +78,6 @@ public class ClinicaController {
         response.setData(hospitales);
         response.setTotalData(totalData);
         return ResponseEntity.ok(response);
-    }
+    }*/
 
 }

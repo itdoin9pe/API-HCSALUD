@@ -72,6 +72,7 @@ public class EspecialidadServiceImpl implements EspecialidadService {
         return especialidadRepository.count();
     }
 
+    /*
     @Override
     public List<EspecialidadDTO> getPagedResults(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
@@ -79,7 +80,7 @@ public class EspecialidadServiceImpl implements EspecialidadService {
         return especialidadPage.getContent().stream()
                 .map(especialidad -> modelMapper.map(especialidad, EspecialidadDTO.class))
                 .toList();
-    }
+    }*/
 
     private EspecialidadDTO convertToDTO(Especialidad especialidad){
         return modelMapper.map(especialidad, EspecialidadDTO.class);

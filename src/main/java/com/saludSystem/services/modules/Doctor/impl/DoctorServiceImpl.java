@@ -111,6 +111,7 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepository.count();
     }
 
+    /*
     @Override
     public List<DoctorDTO> getPagedResults(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page -1, rows);
@@ -118,7 +119,7 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorPage.getContent().stream()
                 .map(doctor -> modelMapper.map(doctor, DoctorDTO.class))
                 .toList();
-    }
+    }*/
 
     private DoctorDTO convertToDTO(Doctor doctor) {
         return modelMapper.map(doctor, DoctorDTO.class);

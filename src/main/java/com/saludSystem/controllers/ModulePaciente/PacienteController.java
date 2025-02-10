@@ -155,6 +155,7 @@ public class PacienteController {
         return ResponseEntity.ok(new ApiResponse(true, "Paciente actualizado correctamente"));
     }
 
+    /*
     @GetMapping("/GetAllPaciente")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
@@ -173,7 +174,7 @@ public class PacienteController {
         response.setTotalData(totalData);
 
         return ResponseEntity.ok(response);
-    }
+    }*/
 
     @GetMapping("/GetPacienteList")
     public ResponseEntity<List<PacienteDTO>> getAllList(){

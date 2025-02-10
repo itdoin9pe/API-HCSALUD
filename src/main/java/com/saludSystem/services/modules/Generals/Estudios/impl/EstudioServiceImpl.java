@@ -72,6 +72,7 @@ public class EstudioServiceImpl implements EstudioService {
         return estudioRepository.count();
     }
 
+    /*
     @Override
     public List<EstudioDTO> getPagedResults(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
@@ -79,7 +80,7 @@ public class EstudioServiceImpl implements EstudioService {
         return estudiosPage.getContent().stream()
                 .map(estudio -> modelMapper.map(estudio, EstudioDTO.class))
                 .toList();
-    }
+    }*/
 
     private EstudioDTO convertToDTO(Estudio estudio) {
         return modelMapper.map(estudio, EstudioDTO.class);

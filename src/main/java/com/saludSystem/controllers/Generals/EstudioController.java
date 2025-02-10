@@ -39,6 +39,7 @@ public class EstudioController {
         return ResponseEntity.ok(new ApiResponse(true, "Estudio creado con exito"));
     }
 
+    /*
     @GetMapping("/GetAllEstudio")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
@@ -57,7 +58,7 @@ public class EstudioController {
         response.setData(estudios);
         response.setTotalData(totalData);
         return ResponseEntity.ok(response);
-    }
+    }*/
 
     @GetMapping("/GetEstudioList")
     public ResponseEntity<List<EstudioDTO>> getAllList(){

@@ -1,16 +1,13 @@
-package com.saludSystem.dtos;
+package com.saludSystem.dtos.configuration.User;
 
 import com.saludSystem.enums.UserRole;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class NewUserDto {
+public class UserDTO {
+    private UUID userId;
     private String lastName;
     private String firstName;
     private String phoneNumber;
@@ -24,5 +21,4 @@ public class NewUserDto {
     private UserRole role;
     private UUID doctorId;
     private UUID hospitalId;
-    //private int roleId;
 }

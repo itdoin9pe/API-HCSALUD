@@ -1,19 +1,20 @@
 package com.saludSystem.entities.configuracion;
 
+import com.saludSystem.entities.BaseEntity;
+import com.saludSystem.entities.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sedes")
-public class Sede {
+public class Sede extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

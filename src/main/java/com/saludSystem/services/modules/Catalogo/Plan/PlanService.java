@@ -3,20 +3,24 @@ package com.saludSystem.services.modules.Catalogo.Plan;
 import com.saludSystem.dtos.catalago.Plan.ActualizarPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.PlanDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.services.PaginatedService;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface PlanService extends PaginatedService {
+public interface PlanService {
 
-    CrearPlanDTO savePlan(CrearPlanDTO crearPlanDTO);
+    ApiResponse savePlan(CrearPlanDTO crearPlanDTO);
 
-    void deletePlan(UUID planId);
+    ApiResponse deletePlan(UUID planId);
 
-    ActualizarPlanDTO updatePlan(UUID planId, ActualizarPlanDTO actualizarPlanDTO);
+    ApiResponse updatePlan(UUID planId, ActualizarPlanDTO actualizarPlanDTO);
 
-    Optional<PlanDTO> getPlanById(UUID planId);
+    ListResponse<PlanDTO> getAllPlan(UUID hospitalId, int page, int rows);
+
+    PlanDTO getPlanById(UUID planId);
 
 }

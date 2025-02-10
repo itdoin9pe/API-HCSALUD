@@ -11,8 +11,6 @@ import java.util.UUID;
 @Data
 public class PlanDTO {
 
-    private UUID hospitalId;
-
     private UUID planId;
 
     private String nombrePlan;
@@ -21,18 +19,12 @@ public class PlanDTO {
 
     private Date fechaFin;
 
-    @Min(value = 0)
-    @Max(value = 1)
     @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
     private int maxPlan;
 
-    @Min(value = 0)
-    @Max(value = 1)
     @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
     private int useMax;
 
-    @Min(value = 0)
-    @Max(value = 1)
     @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
     private Double costoPlan;
 

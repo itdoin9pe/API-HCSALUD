@@ -181,6 +181,7 @@ public class PacienteServiceImpl implements PacienteService {
         pacienteRepository.delete(paciente);
     }
 
+    /*
     @Override
     public List<PacienteDTO> getPagedResults(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
@@ -188,7 +189,7 @@ public class PacienteServiceImpl implements PacienteService {
         return pacientePage.getContent().stream()
                 .map(paciente -> modelMapper.map(paciente,PacienteDTO.class))
                 .toList();
-    }
+    }*/
 
     @Override
     public long getTotalCount() {

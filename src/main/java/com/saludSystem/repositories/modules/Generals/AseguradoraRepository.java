@@ -11,6 +11,8 @@ import java.util.UUID;
 @Repository
 public interface AseguradoraRepository extends JpaRepository<Aseguradora, UUID> {
 
+    List<Aseguradora> findByHospital_HospitalId(UUID hospitalId);
+
     // Búsqueda por descripción (ignorar mayúsculas/minúsculas)
     List<Aseguradora> findByDescripcionIgnoreCase(String descripcion);
 

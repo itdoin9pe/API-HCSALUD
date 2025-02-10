@@ -13,5 +13,10 @@ public class ListResponse<T> {
     private List<T> data;
 
     @Schema(description = "Número total de elementos", example = "0")
-    private long totalData;
+    private int totalData;
+
+    public ListResponse(List<T> data, int totalData) {
+        this.data = data;
+        this.totalData = totalData;
+    }
 }

@@ -61,37 +61,22 @@ public class EmpresaServiceImpl implements EmpresaService {
         return modelMapper.map(empresa, ActualizarEmpresaDTO.class);
     }
 
+
     @Override
     public CrearEmpresaDTO saveEmpresa(CrearEmpresaDTO crearEmpresaDTO){
-        /*
-        Empresa empresa = new Empresa();
-        empresa.setDescripcion(crearEmpresaDTO.getDescripcion());
-        empresa.setEstado(crearEmpresaDTO.getEstado());
-        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
-        empresa.setUserId(user);
-        SysSalud hospital = sysSaludRepository.findById(crearEmpresaDTO.getHospitalId())
-                .orElseThrow(() -> new ResourceNotFoundException("Hospital no encontrado"));
-        empresa.setHospitalId(hospital);
-        empresaRepository.save(empresa);
-        return new CrearEmpresaDTO(hospital.getHospitalId(), empresa.getDescripcion(), empresa.getEstado());
-         */
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
 
-        SysSalud sysSalud = sysSaludRepository.findById(user.getHospitalId().getHospitalId())
-                .orElseThrow(() -> new ResourceNotFoundException("Hospital no encontrado"));
+        //SysSalud sysSalud = sysSaludRepository.findById(user.getHospitalId().getHospitalId())
+          //      .orElseThrow(() -> new ResourceNotFoundException("Hospital no encontrado"));
 
         Empresa empresa = new Empresa();
         empresa.setEmpresaId(UUID.randomUUID());
         empresa.setDescripcion(crearEmpresaDTO.getDescripcion());
         empresa.setEstado(crearEmpresaDTO.getEstado());
-        empresa.setHospitalId(sysSalud); // Asigna el objeto SysSalud en lugar del UUID
-
+        //empresa.setHospitalId(sysSalud);
         empresaRepository.save(empresa);
-
         return new CrearEmpresaDTO(empresa.getDescripcion(), empresa.getEstado());
     }
 

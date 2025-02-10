@@ -71,6 +71,7 @@ public class MedidaServiceImpl implements MedidaService {
         return medidaRepository.count();
     }
 
+    /*
     @Override
     public List<MedidaDTO> getPagedResults(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
@@ -78,7 +79,7 @@ public class MedidaServiceImpl implements MedidaService {
         return medidasPage.getContent().stream()
                 .map(medida -> modelMapper.map(medida, MedidaDTO.class))
                 .toList();
-    }
+    }*/
 
     private MedidaDTO convertToDTO(Medida medida) {
         return modelMapper.map(medida, MedidaDTO.class);

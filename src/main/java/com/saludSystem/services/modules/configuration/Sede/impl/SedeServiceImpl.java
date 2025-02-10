@@ -80,6 +80,7 @@ public class SedeServiceImpl implements SedeService {
         return sedeRepository.count();
     }
 
+    /*
     @Override
     public List<SedeDTO> getPagedResults(UUID hospitalId , int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
@@ -87,7 +88,7 @@ public class SedeServiceImpl implements SedeService {
         return sedePage.getContent().stream()
                 .map(sede -> modelMapper.map(sede, SedeDTO.class))
                 .toList();
-    }
+    }*/
 
     private SedeDTO convertToDTO(Sede sede) {
         return modelMapper.map(sede, SedeDTO.class);

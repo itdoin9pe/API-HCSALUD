@@ -37,6 +37,7 @@ public class SedeController {
         return ResponseEntity.ok(new ApiResponse(true, "Sede registrada con exito"));
     }
 
+    /*
     @GetMapping("/GetAllSede")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
@@ -54,7 +55,7 @@ public class SedeController {
         response.setData(sedes);
         response.setTotalData( totalData);
         return ResponseEntity.ok(response);
-    }
+    }*/
 
     @PutMapping("/UpdateSede/{sedeId}")
     public ResponseEntity<ApiResponse> update(

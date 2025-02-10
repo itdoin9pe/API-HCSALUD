@@ -5,5 +5,5 @@ import java.util.UUID;
 
 public interface PaginatedService {
     long getTotalCount();
-    <T> List<T> getPagedResults(UUID hospitalId, int page, int rows);
+    //<T> List<T> getPagedResults(UUID hospitalId, int page, int rows);
 }

@@ -30,9 +30,8 @@ public class AseguradoraController {
     }
 
     @PostMapping("/SaveAseguradora")
-    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearAseguradoraDTO crearAseguradoraDTO) {
-        aseguradoraService.saveAseguradora(crearAseguradoraDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Aseguradora creada con éxito"));
+    public ApiResponse store(@Valid @RequestBody CrearAseguradoraDTO crearAseguradoraDTO) {
+        return aseguradoraService.saveAseguradora(crearAseguradoraDTO);
     }
 
     @GetMapping("/GetAllAseguradora")
@@ -41,14 +40,11 @@ public class AseguradoraController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = AseguradoraResponse.class)))
     })
-    public ResponseEntity<ListResponse<AseguradoraDTO>> getAllPage(@RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
-        List<AseguradoraDTO> aseguradoras = aseguradoraService.getPagedResults(hospitalId, page, rows);
-        long totalData = aseguradoraService.getTotalCount();
-        ListResponse<AseguradoraDTO> response = new ListResponse<>();
-        response.setData(aseguradoras);
-        response.setTotalData(totalData);
-        return ResponseEntity.ok(response);
+    public ListResponse<AseguradoraDTO> getAllAseguradoras(
+            @RequestParam UUID hospitalId,
+            @RequestParam int page,
+            @RequestParam int rows) {
+        return aseguradoraService.getAllAseguradoras(hospitalId, page, rows);
     }
 
     @GetMapping("/GetAseguradoraList")
@@ -57,19 +53,18 @@ public class AseguradoraController {
     }
 
     @GetMapping("/GetAseguradora/{aseguradoraId}")
-    public ResponseEntity<AseguradoraDTO> getById(@PathVariable UUID aseguradoraId) {
-        return aseguradoraService.getAseguradoraById(aseguradoraId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public AseguradoraDTO getById(@PathVariable UUID aseguradoraId) {
+        return aseguradoraService.getAseguradoraById(aseguradoraId);
     }
 
     @PutMapping("/UpdateAseguradora/{aseguradoraId}")
-    public ResponseEntity<ApiResponse> update(@PathVariable UUID aseguradoraId, @RequestBody ActualizarAseguradoraDTO actualizarAseguradoraDTO) {
-        aseguradoraService.updateAseguradora(aseguradoraId, actualizarAseguradoraDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Aseguradora actualizado correctamente"));
+    public ApiResponse update(@PathVariable UUID aseguradoraId, @RequestBody ActualizarAseguradoraDTO actualizarAseguradoraDTO) {
+        return aseguradoraService.updateAseguradora(aseguradoraId, actualizarAseguradoraDTO);
     }
 
     @DeleteMapping("/DeleteAseguradora/{aseguradoraId}")
-    public ResponseEntity<ApiResponse> destroy(@PathVariable UUID aseguradoraId) {
-        aseguradoraService.deleteAseguradora(aseguradoraId);
-        return ResponseEntity.ok(new ApiResponse(true, "Aseguradora eliminada con éxito"));
+    public ApiResponse destroy(@PathVariable UUID aseguradoraId) {
+        return aseguradoraService.deleteAseguradora(aseguradoraId);
     }
+
 }

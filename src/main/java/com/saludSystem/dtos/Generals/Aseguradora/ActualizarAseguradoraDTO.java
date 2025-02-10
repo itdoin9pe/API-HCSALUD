@@ -9,5 +9,6 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 public class ActualizarAseguradoraDTO extends CrearAseguradoraDTO {
     private UUID hospitalId;
+    private UUID userId;
     private UUID aseguradoraId;
 }

@@ -1,23 +1,24 @@
 package com.saludSystem.entities.configuracion;
 
+import com.saludSystem.entities.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 
-@Data
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tipos_documentos")
-public class TipoDocumento {
+public class TipoDocumento extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipoDocumento", nullable = false, unique = true)
@@ -59,4 +60,5 @@ public class TipoDocumento {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "actualizado_en")
     private Date updatedAt;
+
 }
