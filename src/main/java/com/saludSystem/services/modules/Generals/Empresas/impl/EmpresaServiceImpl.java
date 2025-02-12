@@ -78,6 +78,7 @@ public class EmpresaServiceImpl implements EmpresaService {
         Empresa empresa = new Empresa();
         empresa.setDescripcion(crearEmpresaDTO.getDescripcion());
         empresa.setEstado(crearEmpresaDTO.getEstado());
+        empresa.setUser(user);
         empresa.setHospital(sysSalud);
         empresaRepository.save(empresa);
         return new ApiResponse(true, "Empresa registrada correctamente.");
@@ -85,7 +86,7 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     @Override
     public ApiResponse deleteEmpresa(UUID empresaId) {
-        empresaRepository.findById(empresaId);
+        empresaRepository.deleteById(empresaId);
         return new ApiResponse(true, "Empresa eliminada correctamente");
     }
 

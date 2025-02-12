@@ -35,31 +35,23 @@ public class InformacionClinicaController {
     }
 
     @PostMapping("/SaveInformacionClinica")
-    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearInformacionClinicaDTO crearInformacionClinicaDTO){
-        informacionClinicaService.saveInformacionClinica(crearInformacionClinicaDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Informacion Clinica creada con exito"));
+    public ApiResponse store(@Valid @RequestBody CrearInformacionClinicaDTO crearInformacionClinicaDTO){
+        return informacionClinicaService.saveInformacionClinica(crearInformacionClinicaDTO);
     }
 
     @DeleteMapping("/DeleteInformacionClinica/{informacionClinicaId}")
-    public ResponseEntity<ApiResponse> destroy(@PathVariable UUID informacionClinicaId){
-        informacionClinicaService.deleteInformacionClinica(informacionClinicaId);
-        return ResponseEntity.ok().body(new ApiResponse(true, "Informacion Clinica eliminado con exito"));
+    public ApiResponse destroy(@PathVariable UUID informacionClinicaId){
+        return informacionClinicaService.deleteInformacionClinica(informacionClinicaId);
     }
 
     @PutMapping("/UpdateInformacionClinica/{informacionClinicaId}")
-    public ResponseEntity<ApiResponse> update(
-            @PathVariable UUID informacionClinicaId,
-            @RequestBody ActualizarInformacionClinicaDTO actualizarInformacionClinicaDTO
-    ){
-        informacionClinicaService.updateInformacionClinica(informacionClinicaId, actualizarInformacionClinicaDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Informacion Clinica actualizado correctamente"));
+    public ApiResponse update(@PathVariable UUID informacionClinicaId, @RequestBody ActualizarInformacionClinicaDTO actualizarInformacionClinicaDTO){
+        return informacionClinicaService.updateInformacionClinica(informacionClinicaId, actualizarInformacionClinicaDTO);
     }
 
     @GetMapping("/GetInformacionClinica/{informacionClinicaId}")
-    public ResponseEntity<InformacionClinicaDTO> getById(@PathVariable UUID informacionClinicaId){
-        return informacionClinicaService.getInformacionClinicaById(informacionClinicaId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public InformacionClinicaDTO getById(@PathVariable UUID informacionClinicaId){
+        return informacionClinicaService.getInformacionClinicaById(informacionClinicaId);
     }
 
 }

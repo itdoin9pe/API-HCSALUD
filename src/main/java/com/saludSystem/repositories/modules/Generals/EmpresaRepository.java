@@ -9,5 +9,4 @@ import java.util.UUID;
 
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, UUID> {
-    List<Empresa> findByHospital_HospitalId(UUID hospitalId);
 }
