@@ -39,26 +39,18 @@ public class EstudioController {
         return ResponseEntity.ok(new ApiResponse(true, "Estudio creado con exito"));
     }
 
-    /*
     @GetMapping("/GetAllEstudio")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = EstudioResponse.class)))
     })
-    public ResponseEntity<ListResponse<EstudioDTO>> getAllPage(
+    public ListResponse<EstudioDTO> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page,
-            @RequestParam(name = "Rows") int rows
-    )
-    {
-        List<EstudioDTO> estudios = estudioService.getPagedResults(hospitalId, page, rows);
-        long totalData = estudioService.getTotalCount();
-        ListResponse<EstudioDTO> response = new ListResponse<>();
-        response.setData(estudios);
-        response.setTotalData(totalData);
-        return ResponseEntity.ok(response);
-    }*/
+            @RequestParam(name = "Rows") int rows) {
+        return estudioService.getAllEstudios(hospitalId, page, rows);
+    }
 
     @GetMapping("/GetEstudioList")
     public ResponseEntity<List<EstudioDTO>> getAllList(){
@@ -66,27 +58,18 @@ public class EstudioController {
     }
 
     @GetMapping("GetEstudio/{estudioId}")
-    public ResponseEntity<EstudioDTO> getEstudioById(@PathVariable UUID estudioId)
-    {
-        return estudioService.getEstudioById(estudioId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public EstudioDTO getEstudioById(@PathVariable UUID estudioId) {
+        return estudioService.getEstudioById(estudioId);
     }
 
     @PutMapping("/UpdateEstudio/{estudioId}")
-    public ResponseEntity<ApiResponse> updateEstudio(
-            @PathVariable UUID estudioId,
-            @RequestBody ActualizarEstudioDTO actualizarEstudioDTO)
-    {
-        estudioService.updateEstudio(estudioId, actualizarEstudioDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Estudio academico actualizado correctamente"));
+    public ApiResponse updated(@PathVariable UUID estudioId, @RequestBody ActualizarEstudioDTO actualizarEstudioDTO)  {
+        return estudioService.updateEstudio(estudioId, actualizarEstudioDTO);
     }
 
     @DeleteMapping("/DeleteEstudio/{estudioId}")
-    public ResponseEntity<ApiResponse> deleteEstudio(@PathVariable UUID estudioId)
-    {
-        estudioService.deleteEstudio(estudioId);
-        return ResponseEntity.ok(new ApiResponse(true, "Estudio eliminado correctamente"));
+    public ApiResponse destroy(@PathVariable UUID estudioId) {
+        return estudioService.deleteEstudio(estudioId);
     }
 
 }

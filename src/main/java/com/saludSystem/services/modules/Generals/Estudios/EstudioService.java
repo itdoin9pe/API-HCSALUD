@@ -3,21 +3,25 @@ package com.saludSystem.services.modules.Generals.Estudios;
 import com.saludSystem.dtos.Generals.Estudio.ActualizarEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.services.PaginatedService;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface EstudioService extends PaginatedService {
+public interface EstudioService {
 
-    CrearEstudioDTO saveEstudio(CrearEstudioDTO crearEstudioDTO);
+    ApiResponse saveEstudio(CrearEstudioDTO crearEstudioDTO);
 
-    Optional<EstudioDTO> getEstudioById(UUID estudioId);
+    EstudioDTO getEstudioById(UUID estudioId);
 
-    void deleteEstudio(UUID estudioId);
+    ApiResponse deleteEstudio(UUID estudioId);
 
-    ActualizarEstudioDTO updateEstudio(UUID estudioId, ActualizarEstudioDTO actualizarEstudioDTO);
+    ListResponse<EstudioDTO> getAllEstudios(UUID hospitalId, int page, int rows);
+
+    ApiResponse updateEstudio(UUID estudioId, ActualizarEstudioDTO actualizarEstudioDTO);
 
     List<EstudioDTO> getEstudioList();
 

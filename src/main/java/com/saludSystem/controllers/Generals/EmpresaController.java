@@ -30,32 +30,23 @@ public class EmpresaController {
     }
 
     @GetMapping("/GetEmpresa/{empresaId}")
-    public ResponseEntity<EmpresaDTO> getById(@PathVariable UUID empresaId){
-        return empresaService.getEmpresaById(empresaId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public EmpresaDTO getById(@PathVariable UUID empresaId) {
+        return empresaService.getEmpresaById(empresaId);
     }
 
     @PutMapping("/UpdateEmpresa/{empresaId}")
-    public ResponseEntity<ApiResponse> updateEmpresa(
-            @PathVariable UUID empresaId,
-            @RequestBody ActualizarEmpresaDTO actualizarEmpresaDTO
-            ){
-        empresaService.updateEmpresa(empresaId, actualizarEmpresaDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Empresa actualizado correctamente"));
+    public ApiResponse updateEmpresa(@PathVariable UUID empresaId, @RequestBody ActualizarEmpresaDTO actualizarEmpresaDTO) {
+        return empresaService.updateEmpresa(empresaId, actualizarEmpresaDTO);
     }
 
     @PostMapping("/SaveEmpresa")
-    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearEmpresaDTO crearEmpresaDTO){
-        empresaService.saveEmpresa(crearEmpresaDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Empresa creada correctamente"));
+    public ApiResponse store(@Valid @RequestBody CrearEmpresaDTO crearEmpresaDTO){
+        return empresaService.saveEmpresa(crearEmpresaDTO);
     }
 
     @DeleteMapping("/DeleteEmpresa/{empresaId}")
-    public ResponseEntity<ApiResponse> deleteEmpresa(@PathVariable UUID empresaId){
-        empresaService.deleteEmpresa(empresaId);
-        return ResponseEntity.ok(new ApiResponse(true, "Empresa eliminada correctamente."));
-
+    public ApiResponse deleteEmpresa(@PathVariable UUID empresaId){
+        return empresaService.deleteEmpresa(empresaId);
     }
 
 }

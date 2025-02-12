@@ -40,10 +40,10 @@ public class AseguradoraController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = AseguradoraResponse.class)))
     })
-    public ListResponse<AseguradoraDTO> getAllAseguradoras(
-            @RequestParam UUID hospitalId,
-            @RequestParam int page,
-            @RequestParam int rows) {
+    public ListResponse<AseguradoraDTO> getAllPage(
+            @RequestParam(name = "hospitalId") UUID hospitalId,
+            @RequestParam(name = "Page", defaultValue = "") int page,
+            @RequestParam(name = "Rows", defaultValue = "") int rows) {
         return aseguradoraService.getAllAseguradoras(hospitalId, page, rows);
     }
 

@@ -3,6 +3,8 @@ package com.saludSystem.services.modules.Generals.Empresas;
 import com.saludSystem.dtos.Generals.Empresa.ActualizarEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.ListResponse;
 
 import java.security.Principal;
 import java.util.List;
@@ -13,12 +15,12 @@ public interface EmpresaService {
 
     List<EmpresaDTO> getEmpresaList();
 
-    CrearEmpresaDTO saveEmpresa(CrearEmpresaDTO crearEmpresaDTO);
+    ApiResponse saveEmpresa(CrearEmpresaDTO crearEmpresaDTO);
 
-    Optional<EmpresaDTO> getEmpresaById(UUID empresaId);
+    EmpresaDTO getEmpresaById(UUID empresaId);
 
-    void deleteEmpresa(UUID empresaId);
+    ApiResponse deleteEmpresa(UUID empresaId);
 
-    ActualizarEmpresaDTO updateEmpresa(UUID empresaId, ActualizarEmpresaDTO actualizarEmpresaDTO);
+    ApiResponse updateEmpresa(UUID empresaId, ActualizarEmpresaDTO actualizarEmpresaDTO);
 
 }

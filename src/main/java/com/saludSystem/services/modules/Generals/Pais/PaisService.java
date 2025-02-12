@@ -2,17 +2,19 @@ package com.saludSystem.services.modules.Generals.Pais;
 
 import com.saludSystem.dtos.Generals.Pais.CrearPaisDTO;
 import com.saludSystem.dtos.Generals.Pais.PaisDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.ListResponse;
+
 import java.util.List;
+import java.util.UUID;
 
 
 public interface PaisService {
 
-    CrearPaisDTO savePais(CrearPaisDTO crearPaisDTO);
+    ApiResponse savePais(CrearPaisDTO crearPaisDTO);
 
-    List<PaisDTO> getAllPais(int page, int rows);
+    ListResponse<PaisDTO> getAllPais(UUID hospitalId, int page, int rows);
 
     List<PaisDTO> getPaisList();
-
-    long getTotalCount();
 
 }

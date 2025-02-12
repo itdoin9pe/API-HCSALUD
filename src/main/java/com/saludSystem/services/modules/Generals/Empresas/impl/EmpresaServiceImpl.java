@@ -3,6 +3,8 @@ package com.saludSystem.services.modules.Generals.Empresas.impl;
 import com.saludSystem.dtos.Generals.Empresa.ActualizarEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.entities.Empresa;
 import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.SysSalud;
@@ -12,8 +14,8 @@ import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.repositories.modules.Generals.EmpresaRepository;
 import com.saludSystem.services.modules.Generals.Empresas.EmpresaService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,47 +46,47 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     @Override
-    public Optional<EmpresaDTO> getEmpresaById(UUID empresaId) {
-        return Optional.ofNullable(empresaRepository.findById(empresaId)
-                .map(this::convertToDTO)
-                .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con Id" + empresaId)));
+    public EmpresaDTO getEmpresaById(UUID empresaId) {
+        Empresa empresa = empresaRepository.findById(empresaId)
+                .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con Id: " + empresaId));
+        EmpresaDTO dto = new EmpresaDTO();
+        dto.setEmpresaId(empresa.getEmpresaId());
+        dto.setDescripcion(empresa.getDescripcion());
+        dto.setEstado(empresa.getEstado());
+        return dto;
     }
 
     @Override
-    public ActualizarEmpresaDTO updateEmpresa(UUID empresaId, ActualizarEmpresaDTO actualizarEmpresaDTO) {
+    public ApiResponse updateEmpresa(UUID empresaId, ActualizarEmpresaDTO actualizarEmpresaDTO) {
         Empresa empresa = empresaRepository.findById(empresaId)
                 .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con ID: " + empresaId));
         Optional.ofNullable(actualizarEmpresaDTO.getDescripcion()).filter(desc -> !desc.isBlank())
                 .ifPresent(empresa::setDescripcion);
         Optional.ofNullable(actualizarEmpresaDTO.getEstado()).ifPresent(empresa::setEstado);
         empresaRepository.save(empresa);
-        return modelMapper.map(empresa, ActualizarEmpresaDTO.class);
+        return new ApiResponse(true, "Empresa actualizada correctamente.");
     }
 
-
     @Override
-    public CrearEmpresaDTO saveEmpresa(CrearEmpresaDTO crearEmpresaDTO){
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    public ApiResponse saveEmpresa(CrearEmpresaDTO crearEmpresaDTO){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
-
-        //SysSalud sysSalud = sysSaludRepository.findById(user.getHospitalId().getHospitalId())
-          //      .orElseThrow(() -> new ResourceNotFoundException("Hospital no encontrado"));
-
+        SysSalud sysSalud = sysSaludRepository.findById(user.getHospital().getHospitalId())
+                .orElseThrow(() -> new ResourceNotFoundException("Hospital no encontrado"));
         Empresa empresa = new Empresa();
-        empresa.setEmpresaId(UUID.randomUUID());
         empresa.setDescripcion(crearEmpresaDTO.getDescripcion());
         empresa.setEstado(crearEmpresaDTO.getEstado());
-        //empresa.setHospitalId(sysSalud);
+        empresa.setHospital(sysSalud);
         empresaRepository.save(empresa);
-        return new CrearEmpresaDTO(empresa.getDescripcion(), empresa.getEstado());
+        return new ApiResponse(true, "Empresa registrada correctamente.");
     }
 
     @Override
-    public void deleteEmpresa(UUID empresaId) {
-        Empresa empresa = empresaRepository.findById(empresaId)
-                .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con Id: " + empresaId));
-        empresaRepository.delete(empresa);
+    public ApiResponse deleteEmpresa(UUID empresaId) {
+        empresaRepository.findById(empresaId);
+        return new ApiResponse(true, "Empresa eliminada correctamente");
     }
 
     private EmpresaDTO convertToDTO(Empresa empresa) {

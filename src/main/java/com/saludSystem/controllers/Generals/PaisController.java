@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Tag(name = "Paises")
 @RestController
@@ -31,29 +32,22 @@ public class PaisController {
     }
 
     @PostMapping("/SavePais")
-    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearPaisDTO crearPaisDTO) {
-        paisService.savePais(crearPaisDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Estudio creado correctamente"));
+    public ApiResponse store(@Valid @RequestBody CrearPaisDTO crearPaisDTO) {
+        return paisService.savePais(crearPaisDTO);
     }
 
-    /*
     @GetMapping("/GetAllPais")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = PaisResponse.class)))
     })
-    public ResponseEntity<ListResponse<PaisDTO>> getAllPage(
+    public ListResponse<PaisDTO> getAllPage(
+            @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page") int page,
-            @RequestParam(name = "Rows") int rows
-    ) {
-        List<PaisDTO> paises = paisService.getAllPais(page, rows);
-        long totalData = paisService.getTotalCount();
-        ListResponse<PaisDTO> response = new ListResponse<>();
-        response.setData(paises);
-        response.setTotalData(totalData);
-        return ResponseEntity.ok(response);
-    }*/
+            @RequestParam(name = "Rows") int rows) {
+        return paisService.getAllPais(hospitalId, page, rows);
+    }
 
     @GetMapping("/GetPaisList")
     public ResponseEntity<List<PaisDTO>> getAllList() {

@@ -7,10 +7,13 @@ import lombok.EqualsAndHashCode;
 import java.util.UUID;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class ActualizarEstudioDTO extends CrearEstudioDTO{
+public class ActualizarEstudioDTO {
     private UUID hospitalId;
 
     @Schema(description = "ID de estudios educativos", example = "Integer")
     private UUID estudioId;
+
+    @Schema(description = "Descripción de estudio educativo", example = "string")
+    private String descripcion;
+
 }

@@ -6,10 +6,16 @@ import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.entities.Aseguradora;
+import com.saludSystem.entities.User;
+import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.exception.ResourceNotFoundException;
+import com.saludSystem.repositories.UserRepository;
+import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.repositories.modules.Generals.AseguradoraRepository;
 import com.saludSystem.services.modules.Generals.Aseguradoras.AseguradoraService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -20,16 +26,30 @@ import java.util.stream.Collectors;
 public class AseguradoraServiceImpl implements AseguradoraService {
     
     private final AseguradoraRepository aseguradoraRepository;
+    private final UserRepository userRepository;
+    private final SysSaludRepository sysSaludRepository;
     private final ModelMapper modelMapper;
 
-    public AseguradoraServiceImpl(AseguradoraRepository aseguradoraRepository, ModelMapper modelMapper) {
+    public AseguradoraServiceImpl(AseguradoraRepository aseguradoraRepository, UserRepository userRepository, SysSaludRepository sysSaludRepository, ModelMapper modelMapper) {
         this.aseguradoraRepository = aseguradoraRepository;
+        this.userRepository = userRepository;
+        this.sysSaludRepository = sysSaludRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
     public ApiResponse saveAseguradora(CrearAseguradoraDTO crearAseguradoraDTO) {
-        Aseguradora aseguradora = modelMapper.map(crearAseguradoraDTO, Aseguradora.class);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        SysSalud hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+        Aseguradora aseguradora = new Aseguradora();
+        aseguradora.setDescripcion(crearAseguradoraDTO.getDescripcion());
+        aseguradora.setEstado(crearAseguradoraDTO.getEstado());
+        aseguradora.setUser(user);
+        aseguradora.setHospital(hospital);
         aseguradoraRepository.save(aseguradora);
         return new ApiResponse(true, "Aseguradora creada Correctamente");
     }
@@ -51,7 +71,6 @@ public class AseguradoraServiceImpl implements AseguradoraService {
         dto.setEstado(aseguradora.getEstado());
         return dto;
     }
-
 
     @Override
     public ApiResponse updateAseguradora(UUID aseguradoraId, ActualizarAseguradoraDTO actualizarAseguradoraDTO) {
