@@ -3,24 +3,26 @@ package com.saludSystem.services.modules.configuration.Sede;
 import com.saludSystem.dtos.configuration.Sede.ActualizarSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.CrearSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.SedeDTO;
-import com.saludSystem.services.PaginatedService;
+import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.ListResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public interface SedeService extends PaginatedService {
+public interface SedeService  {
 
-    CrearSedeDTO saveSede(CrearSedeDTO crearSedeDTO);
+    ApiResponse saveSede(CrearSedeDTO crearSedeDTO);
 
-    ActualizarSedeDTO updateSede(UUID sedeId, ActualizarSedeDTO actualizarSedeDTO);
+    ApiResponse updateSede(UUID sedeId, ActualizarSedeDTO actualizarSedeDTO);
 
-    void deleteSede(UUID sedeId);
+    ApiResponse deleteSede(UUID sedeId);
 
-    Optional<SedeDTO> getSedeById(UUID sedeId);
+    SedeDTO getSedeById(UUID sedeId);
 
     List<SedeDTO> getSedeList();
+
+    ListResponse<SedeDTO> getAllEmpresa(UUID hospitalId, int page, int rows);
 
 }

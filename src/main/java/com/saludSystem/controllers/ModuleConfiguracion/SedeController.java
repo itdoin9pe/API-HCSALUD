@@ -32,57 +32,42 @@ public class SedeController {
     }
 
     @PostMapping("/SaveSede")
-    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearSedeDTO crearSedeDTO){
-        sedeService.saveSede(crearSedeDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Sede registrada con exito"));
+    public ApiResponse stored(@Valid @RequestBody CrearSedeDTO crearSedeDTO){
+        return sedeService.saveSede(crearSedeDTO);
     }
 
-    /*
+
     @GetMapping("/GetAllSede")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = SedeResponse.class)))
     })
-    public ResponseEntity<ListResponse<SedeDTO>> getAllPage(
+    public ListResponse<SedeDTO> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows
     ) {
-        List<SedeDTO> sedes = sedeService.getPagedResults(hospitalId, page, rows);
-        long totalData = sedeService.getTotalCount();
-        ListResponse<SedeDTO> response = new ListResponse<>();
-        response.setData(sedes);
-        response.setTotalData( totalData);
-        return ResponseEntity.ok(response);
-    }*/
-
-    @PutMapping("/UpdateSede/{sedeId}")
-    public ResponseEntity<ApiResponse> update(
-            @PathVariable UUID sedeId,
-            @RequestBody ActualizarSedeDTO actualizarSedeDTO
-    ){
-        sedeService.updateSede(sedeId, actualizarSedeDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Sede actualizado correctamente"));
+        return sedeService.getAllEmpresa(hospitalId, page, rows);
     }
 
+    @PutMapping("/UpdateSede/{sedeId}")
+    public ApiResponse update(@PathVariable UUID sedeId, @RequestBody ActualizarSedeDTO actualizarSedeDTO) {
+        return sedeService.updateSede(sedeId, actualizarSedeDTO);
+    }
 
     @DeleteMapping("/DeleteSede/{sedeId}")
-    public ResponseEntity<ApiResponse> destroy(@PathVariable UUID sedeId){
-        sedeService.deleteSede(sedeId);
-        return ResponseEntity.ok(new ApiResponse(true, "Sede eliminada con exito"));
+    public ApiResponse destroy(@PathVariable UUID sedeId){
+        return sedeService.deleteSede(sedeId);
     }
 
     @GetMapping("/GetSede/{sedeId}")
-    public ResponseEntity<SedeDTO> getById(@PathVariable UUID sedeId){
-        return sedeService.getSedeById(sedeId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public SedeDTO getById(@PathVariable UUID sedeId){
+        return sedeService.getSedeById(sedeId);
     }
 
     @GetMapping("/GetSedeList")
-    public ResponseEntity<List<SedeDTO>> getAllList()
-    {
+    public ResponseEntity<List<SedeDTO>> getAllList() {
         return ResponseEntity.ok(sedeService.getSedeList());
     }
 
