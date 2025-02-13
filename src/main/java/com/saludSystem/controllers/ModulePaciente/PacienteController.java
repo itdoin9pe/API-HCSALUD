@@ -155,26 +155,20 @@ public class PacienteController {
         return ResponseEntity.ok(new ApiResponse(true, "Paciente actualizado correctamente"));
     }
 
-    /*
+
     @GetMapping("/GetAllPaciente")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = PacienteResponse.class)))
     })
-    public ResponseEntity<ListResponse<PacienteDTO>> getAllAseguradora(
+    public ListResponse<PacienteDTO> getAllAseguradora(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows
     ) {
-        List<PacienteDTO> pacientes = pacienteService.getPagedResults(hospitalId, page, rows);
-        long totalData = pacienteService.getTotalCount();
-        ListResponse<PacienteDTO> response = new ListResponse<>();
-        response.setData(pacientes);
-        response.setTotalData(totalData);
-
-        return ResponseEntity.ok(response);
-    }*/
+        return pacienteService.getAllPaciente(hospitalId, page, rows);
+    }
 
     @GetMapping("/GetPacienteList")
     public ResponseEntity<List<PacienteDTO>> getAllList(){

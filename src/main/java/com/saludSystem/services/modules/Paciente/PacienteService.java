@@ -3,14 +3,14 @@ package com.saludSystem.services.modules.Paciente;
 import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.dtos.Paciente.PacienteDTO;
+import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.entities.*;
-import com.saludSystem.services.PaginatedService;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface PacienteService extends PaginatedService {
+public interface PacienteService {
 
     Paciente savePaciente(CrearPacienteDTO crearPacienteDTO);
 
@@ -19,6 +19,8 @@ public interface PacienteService extends PaginatedService {
     Optional<PacienteDTO> getPacienteById(UUID pacienteId);
 
     List<PacienteDTO> getPacienteList();
+
+    ListResponse<PacienteDTO> getAllPaciente(UUID hospitalId, int page, int rows);
 
     void deletePaciente(UUID pacienteId);
 

@@ -1,9 +1,9 @@
 package com.saludSystem.services.modules.Paciente.impl;
 
-import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
 import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.dtos.Paciente.PacienteDTO;
+import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.entities.*;
 import com.saludSystem.entities.configuracion.Sede;
 import com.saludSystem.exception.ResourceNotFoundException;
@@ -13,9 +13,6 @@ import com.saludSystem.repositories.modules.Paciente.PacienteRepository;
 import com.saludSystem.services.modules.Paciente.PacienteService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -175,25 +172,53 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
+    public ListResponse<PacienteDTO> getAllPaciente(UUID hospitalId, int page, int rows) {
+        List<Paciente> pacientes = pacienteRepository.findByHospital_HospitalId(hospitalId);
+        List<PacienteDTO> data = pacientes.stream().map(paciente -> {
+            PacienteDTO dto = new PacienteDTO();
+            dto.setTipoDocumentoId(paciente.getTipoDocumentoId());
+            dto.setNumeroDocumento(paciente.getNumeroDocumento());
+            dto.setApellidos(paciente.getApellidos());
+            dto.setNombres(paciente.getNombres());
+            dto.setFechaNacimiento(paciente.getFechaNacimiento());
+            dto.setEdad(paciente.getEdad());
+            dto.setEstado(paciente.getEstado());
+            dto.setOcupacion(paciente.getOcupacion());
+            dto.setDireccion(paciente.getDireccion());
+            //dto.setPaisId(paciente.getPaisId());
+            dto.setPaisId(paciente.getPaisId() != null ? paciente.getPaisId().getId() : null);
+            dto.setUbigeo(paciente.getUbigeo());
+            //dto.setTipoPacienteId(paciente.getTipoPacienteId());
+            dto.setTipoPacienteId(paciente.getTipoPacienteId() != null ? paciente.getTipoPacienteId().getTipoPacienteId() : null);
+            dto.setEstadoCivil(paciente.getEstadoCivil());
+            dto.setSexo(paciente.getSexo());
+            dto.setNombreContacto(paciente.getNombreContacto());
+            dto.setTipoHistoria(paciente.getTipoHistoria());
+            //dto.setAseguradoraId(paciente.getAseguradoraId());
+            //dto.setEmpresaId(paciente.getEmpresaId());
+            dto.setAseguradoraId(paciente.getAseguradoraId() != null ? paciente.getAseguradoraId().getAseguradoraId() : null);
+            dto.setEmpresaId(paciente.getEmpresaId() != null ? paciente.getEmpresaId().getEmpresaId() : null);
+            dto.setEmail(paciente.getEmail());
+            dto.setFotoPaciente(paciente.getFotoPaciente());
+            dto.setTitulo(paciente.getTitulo());
+            dto.setObservacion(paciente.getObservacion());
+            //dto.setInformacionClinicaId(paciente.getInformacionClinicaId());
+            //dto.setEstudioId(paciente.getEstudioId());
+            //dto.setSedeId(paciente.getSedeId());
+            dto.setInformacionClinicaId(paciente.getInformacionClinicaId() != null ? paciente.getInformacionClinicaId().getInformacionClinicaId() : null);
+            dto.setEstudioId(paciente.getEstudioId() != null ? paciente.getEstudioId().getEstudioId() : null);
+            dto.setSedeId(paciente.getSedeId() != null ? paciente.getSedeId().getSedeId() : null);
+            dto.setCelular(paciente.getCelular());
+            return dto;
+        }).collect(Collectors.toList());
+        return new ListResponse<>(data, data.size());
+    }
+
+    @Override
     public void deletePaciente(UUID pacienteId) {
         Paciente paciente = pacienteRepository.findById(pacienteId)
                 .orElseThrow(() -> new RuntimeException("Paciente no encontrado con ID: " + pacienteId));
         pacienteRepository.delete(paciente);
-    }
-
-    /*
-    @Override
-    public List<PacienteDTO> getPagedResults(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<Paciente> pacientePage = pacienteRepository.findAll(pageable);
-        return pacientePage.getContent().stream()
-                .map(paciente -> modelMapper.map(paciente,PacienteDTO.class))
-                .toList();
-    }*/
-
-    @Override
-    public long getTotalCount() {
-        return pacienteRepository.count();
     }
 
     private PacienteDTO convertToDTO(Paciente paciente) {
