@@ -7,6 +7,7 @@ import java.util.UUID;
 
 @Data
 public class CrearDoctorDTO {
+
     private String tipoDocumento;
     private String numeroDocumento;
     private String apellidos;
@@ -25,4 +26,5 @@ public class CrearDoctorDTO {
     private Integer estado;
     private byte[] fotoDoctor;
     private byte[] fotoFirma;
+
 }

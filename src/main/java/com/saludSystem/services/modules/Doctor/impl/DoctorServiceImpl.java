@@ -3,16 +3,23 @@ package com.saludSystem.services.modules.Doctor.impl;
 import com.saludSystem.dtos.Doctor.ActualizarDoctorDTO;
 import com.saludSystem.dtos.Doctor.CrearDoctorDTO;
 import com.saludSystem.dtos.Doctor.DoctorDTO;
+import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.entities.Doctor;
+import com.saludSystem.entities.User;
 import com.saludSystem.entities.catalogo.Especialidad;
+import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.exception.ResourceNotFoundException;
+import com.saludSystem.repositories.UserRepository;
 import com.saludSystem.repositories.modules.Catalogo.EspecialidadRepository;
+import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.repositories.modules.Doctor.DoctorRepository;
 import com.saludSystem.services.modules.Doctor.DoctorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,16 +32,26 @@ public class DoctorServiceImpl implements DoctorService {
 
     private final DoctorRepository doctorRepository;
     private final EspecialidadRepository especialidadRepository;
+    private final SysSaludRepository sysSaludRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    public DoctorServiceImpl(DoctorRepository doctorRepository, EspecialidadRepository especialidadRepository, ModelMapper modelMapper) {
+    public DoctorServiceImpl(DoctorRepository doctorRepository, EspecialidadRepository especialidadRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.doctorRepository = doctorRepository;
         this.especialidadRepository = especialidadRepository;
+        this.sysSaludRepository = sysSaludRepository;
+        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
     public Doctor saveDoctor(CrearDoctorDTO crearDoctorDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        SysSalud hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         Doctor doctor = new Doctor();
         doctor.setTipoDocumento(crearDoctorDTO.getTipoDocumento());
         doctor.setNumeroDocumento(crearDoctorDTO.getNumeroDocumento());
@@ -55,6 +72,8 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setEstado(crearDoctorDTO.getEstado());
         doctor.setFotoDoctor(crearDoctorDTO.getFotoDoctor());
         doctor.setFotoFirma(crearDoctorDTO.getFotoFirma());
+        doctor.setHospital(hospital);
+        doctor.setUser(user);
         return doctorRepository.save(doctor);
     }
 
@@ -100,28 +119,42 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public ListResponse<DoctorDTO> getAllDoctor(UUID hospitalId, int page, int rows) {
+        List<Doctor> doctors = doctorRepository.findByHospital_HospitalId(hospitalId);
+        List<DoctorDTO> data = doctors.stream().map(doctor -> {
+            DoctorDTO dto = new DoctorDTO();
+            dto.setTipoDocumento(doctor.getTipoDocumento());
+            dto.setNumeroDocumento(doctor.getNumeroDocumento());
+            dto.setApellidos(doctor.getApellidos());
+            dto.setNombres(doctor.getNombres());
+            dto.setDireccion(doctor.getDireccion());
+            dto.setCorreo(doctor.getCorreo());
+            dto.setAbreviatura(doctor.getAbreviatura());
+            dto.setRne(doctor.getRne());
+            dto.setFechaNacimiento(doctor.getFechaNacimiento());
+            dto.setCelular(doctor.getCelular());
+            dto.setTelefono(doctor.getTelefono());
+            dto.setSexo(doctor.getSexo());
+            dto.setEspecialidadId(doctor.getEspecialidadId() != null ? doctor.getEspecialidadId().getEspecialidadId() : null);
+            dto.setColegiatura(doctor.getColegiatura());
+            dto.setColor(doctor.getColor());
+            dto.setEstado(doctor.getEstado());
+            dto.setFotoDoctor(doctor.getFotoDoctor());
+            dto.setFotoFirma(doctor.getFotoFirma());
+            return dto;
+        }).collect(Collectors.toList());
+        return new ListResponse<>(data, data.size());
+    }
+
+    @Override
     public void deleteDoctor(UUID doctorId) {
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Doctor no encontrado con ID: " + doctorId));
         doctorRepository.delete(doctor);
     }
 
-    @Override
-    public long getTotalCount() {
-        return doctorRepository.count();
-    }
-
-    /*
-    @Override
-    public List<DoctorDTO> getPagedResults(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page -1, rows);
-        Page<Doctor> doctorPage = doctorRepository.findAll(pageable);
-        return doctorPage.getContent().stream()
-                .map(doctor -> modelMapper.map(doctor, DoctorDTO.class))
-                .toList();
-    }*/
-
     private DoctorDTO convertToDTO(Doctor doctor) {
         return modelMapper.map(doctor, DoctorDTO.class);
     }
+
 }
