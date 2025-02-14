@@ -46,7 +46,7 @@ public class Doctor extends BaseEntity {
     @Column(name = "correo", unique = true, length = 100)
     private String correo;
 
-    @Column(name = "abreviatura", length = 10)
+    @Column(name = "abreviatura", length = 20)
     private String abreviatura;
 
     @Column(name = "rne", length = 15)
@@ -79,11 +79,11 @@ public class Doctor extends BaseEntity {
     private Integer estado;
 
     @Lob
-    @Column(name = "foto_doctor")
+    @Column(name = "foto_doctor", columnDefinition = "MEDIUMBLOB")
     private byte[] fotoDoctor;
 
     @Lob
-    @Column(name = "foto_firma")
+    @Column(name = "foto_firma", columnDefinition = "MEDIUMBLOB")
     private byte[] fotoFirma;
 
 }

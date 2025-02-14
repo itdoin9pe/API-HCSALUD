@@ -30,28 +30,19 @@ public class EspecialidadController {
     }
 
     @PostMapping("/SaveEspecialidad")
-    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearEspecialidadDTO crearEspecialidadDTO){
-        especialidadService.saveEspecialidad(crearEspecialidadDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Especialidad creada correctamente"));
+    public ApiResponse store(@Valid @RequestBody CrearEspecialidadDTO crearEspecialidadDTO){
+        return especialidadService.saveEspecialidad(crearEspecialidadDTO);
     }
 
-    /*
     @GetMapping("/GetAllEspecialidad")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = EspecialidadResponse.class)))
     })
-    public ResponseEntity<ListResponse<EspecialidadDTO>> getAllPage(
-            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
-        List<EspecialidadDTO> especialidades = especialidadService.getPagedResults(hospitalId, page, rows);
-        long totalData = especialidadService.getTotalCount();
-        ListResponse<EspecialidadDTO> response = new ListResponse<>();
-        response.setData(especialidades);
-        response.setTotalData(totalData);
-        return ResponseEntity.ok(response);
-    }*/
+    public ListResponse<EspecialidadDTO> getAllPage(@RequestParam(name = "hospitalId", required = true) UUID hospitalId, @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
+        return especialidadService.getAllEspecialidad(hospitalId, page, rows);
+    }
 
     @GetMapping("/GetEspecialidadList")
     public ResponseEntity<List<EspecialidadDTO>> getAllList() {
@@ -59,20 +50,18 @@ public class EspecialidadController {
     }
 
     @GetMapping("/GetEspecialidad/{especialidadId}")
-    public ResponseEntity<EspecialidadDTO> getById(@PathVariable UUID especialidadId) {
-        return especialidadService.getEspecialidadById(especialidadId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public EspecialidadDTO getById(@PathVariable UUID especialidadId) {
+        return especialidadService.getEspecialidadById(especialidadId);
     }
 
     @PutMapping("/UpdateEspecialidad/{especialidadId}")
-    public ResponseEntity<ApiResponse> update(@PathVariable UUID especialidadId, @RequestBody ActualizarEspecialidadDTO actualizarEspecialidadDTO) {
-        especialidadService.updateEspecialidad(especialidadId, actualizarEspecialidadDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Especialidad actualizada correctamente"));
+    public ApiResponse update(@PathVariable UUID especialidadId, @RequestBody ActualizarEspecialidadDTO actualizarEspecialidadDTO) {
+        return especialidadService.updateEspecialidad(especialidadId, actualizarEspecialidadDTO);
     }
 
     @DeleteMapping("/DeleteEspecialidad/{especialidadId}")
-    public ResponseEntity<ApiResponse> destroy(@PathVariable UUID especialidadId) {
-        especialidadService.deleteEspecialidad(especialidadId);
-        return ResponseEntity.ok(new ApiResponse(true, "Especialidad eliminada correctamente"));
+    public ApiResponse destroy(@PathVariable UUID especialidadId) {
+        return especialidadService.deleteEspecialidad(especialidadId);
     }
 
 }

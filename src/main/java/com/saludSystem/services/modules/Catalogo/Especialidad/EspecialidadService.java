@@ -3,22 +3,24 @@ package com.saludSystem.services.modules.Catalogo.Especialidad;
 import com.saludSystem.dtos.catalago.Especialidad.ActualizarEspecialidadDTO;
 import com.saludSystem.dtos.catalago.Especialidad.CrearEspecialidadDTO;
 import com.saludSystem.dtos.catalago.Especialidad.EspecialidadDTO;
-import com.saludSystem.services.PaginatedService;
+import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.ListResponse;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-public interface EspecialidadService extends PaginatedService {
+public interface EspecialidadService {
 
-    CrearEspecialidadDTO saveEspecialidad(CrearEspecialidadDTO crearEspecialidadDTO);
+    ApiResponse saveEspecialidad(CrearEspecialidadDTO crearEspecialidadDTO);
 
-    ActualizarEspecialidadDTO updateEspecialidad(UUID especialidadId, ActualizarEspecialidadDTO actualizarEspecialidadDTO);
+    ApiResponse updateEspecialidad(UUID especialidadId, ActualizarEspecialidadDTO actualizarEspecialidadDTO);
 
-    Optional<EspecialidadDTO> getEspecialidadById(UUID especialidadId);
+    EspecialidadDTO getEspecialidadById(UUID especialidadId);
 
     List<EspecialidadDTO> getEspecialidadList();
 
-    void deleteEspecialidad(UUID especialidadId);
+    ApiResponse deleteEspecialidad(UUID especialidadId);
+
+    ListResponse<EspecialidadDTO> getAllEspecialidad(UUID hospitalId, int page, int rows);
 
 }

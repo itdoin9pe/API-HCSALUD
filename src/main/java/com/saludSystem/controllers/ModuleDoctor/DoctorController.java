@@ -130,26 +130,18 @@ public class DoctorController {
         return ResponseEntity.ok(new ApiResponse(true, "Doctor actualizado correctamente"));
     }
 
-    /*
     @GetMapping("/GetAllDoctor")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = DoctorResponse.class)))
     })
-    public ResponseEntity<ListResponse<DoctorDTO>> getAllDoctor(
+    public ListResponse<DoctorDTO> getAllDoctor(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page,
-            @RequestParam(name = "Rows") int rows
-    ) {
-        List<DoctorDTO> doctores = doctorService.getPagedResults(hospitalId, page, rows);
-        long totalData = doctorService.getTotalCount();
-        ListResponse<DoctorDTO> response = new ListResponse<>();
-        response.setData(doctores);
-        response.setTotalData(totalData);
-
-        return ResponseEntity.ok(response);
-    }*/
+            @RequestParam(name = "Rows") int rows) {
+        return doctorService.getAllDoctor(hospitalId, page, rows);
+    }
 
     @GetMapping("/GetDoctorList")
     public ResponseEntity<List<DoctorDTO>> getAllList() {

@@ -1,8 +1,6 @@
 package com.saludSystem.dtos.Doctor;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -10,6 +8,7 @@ import java.util.UUID;
 
 @Data
 public class DoctorDTO {
+
     private UUID doctorId;
     private String tipoDocumento;
     private String numeroDocumento;
@@ -31,4 +30,5 @@ public class DoctorDTO {
     private Integer estado;
     private byte[] fotoDoctor;
     private byte[] fotoFirma;
+
 }
