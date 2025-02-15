@@ -164,6 +164,7 @@ public class PacienteServiceImpl implements PacienteService {
         List<Paciente> pacientes = pacienteRepository.findByHospital_HospitalId(hospitalId);
         List<PacienteDTO> data = pacientes.stream().map(paciente -> {
             PacienteDTO dto = new PacienteDTO();
+            dto.setPacienteId(paciente.getPacienteId());
             dto.setTipoDocumentoId(paciente.getTipoDocumentoId());
             dto.setNumeroDocumento(paciente.getNumeroDocumento());
             dto.setApellidos(paciente.getApellidos());

@@ -11,6 +11,9 @@ import java.util.UUID;
 
 @Data
 public class PacienteDTO {
+
+    private UUID pacienteId;
+
     @NotBlank(message = "El tipo documento no puede estar vacío")
     private String tipoDocumentoId;
 

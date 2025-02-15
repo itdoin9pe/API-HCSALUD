@@ -155,7 +155,6 @@ public class PacienteController {
         return ResponseEntity.ok(new ApiResponse(true, "Paciente actualizado correctamente"));
     }
 
-
     @GetMapping("/GetAllPaciente")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
@@ -185,6 +184,5 @@ public class PacienteController {
         pacienteService.deletePaciente(pacienteId);
         return ResponseEntity.ok(new ApiResponse(true, "Paciente eliminado correctamente,"));
     }
-
 
 }
