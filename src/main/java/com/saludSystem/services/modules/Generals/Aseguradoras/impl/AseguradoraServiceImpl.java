@@ -75,7 +75,7 @@ public class AseguradoraServiceImpl implements AseguradoraService {
     @Override
     public ApiResponse updateAseguradora(UUID aseguradoraId, ActualizarAseguradoraDTO actualizarAseguradoraDTO) {
         Aseguradora aseguradora = aseguradoraRepository.findById(aseguradoraId).orElseThrow(
-                () -> new ResourceNotFoundException("Aseguradora no encontrada con ID: " + aseguradoraId));
+                () -> new ResourceNotFoundException("Aseguradora no encontrada"));
         Optional.ofNullable(actualizarAseguradoraDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(aseguradora::setDescripcion);
         Optional.ofNullable(actualizarAseguradoraDTO.getEstado()).ifPresent(aseguradora::setEstado);
         aseguradoraRepository.save(aseguradora);

@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -40,10 +39,7 @@ public class AseguradoraController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = AseguradoraResponse.class)))
     })
-    public ListResponse<AseguradoraDTO> getAllPage(
-            @RequestParam(name = "hospitalId") UUID hospitalId,
-            @RequestParam(name = "Page", defaultValue = "") int page,
-            @RequestParam(name = "Rows", defaultValue = "") int rows) {
+    public ListResponse<AseguradoraDTO> getAllPage(@RequestParam(name = "hospitalId") UUID hospitalId, @RequestParam(name = "Page", defaultValue = "") int page, @RequestParam(name = "Rows", defaultValue = "") int rows) {
         return aseguradoraService.getAllAseguradoras(hospitalId, page, rows);
     }
 
