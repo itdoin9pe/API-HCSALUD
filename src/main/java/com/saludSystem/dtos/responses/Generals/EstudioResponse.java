@@ -10,9 +10,11 @@ import java.util.List;
 @Getter
 @Setter
 public class EstudioResponse {
+
     @Schema(description = "Lista de Estudios")
     private List<EstudioDTO> data;
 
     @Schema(description = "Numero total de estudios formativos", example = "0")
     private long totalData;
+
 }

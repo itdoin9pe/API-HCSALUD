@@ -5,10 +5,8 @@ import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.services.PaginatedService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface EstudioService {

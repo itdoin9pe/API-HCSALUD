@@ -14,10 +14,6 @@ import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.repositories.modules.Generals.EstudioRepository;
 import com.saludSystem.services.modules.Generals.Estudios.EstudioService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -79,7 +75,7 @@ public class EstudioServiceImpl implements EstudioService {
     @Override
     public ApiResponse updateEstudio(UUID estudioId, ActualizarEstudioDTO actualizarEstudioDTO) {
         Estudio estudio = estudioRepository.findById(estudioId)
-                .orElseThrow(() -> new ResourceNotFoundException("Estudio no encontrado con ID: " + estudioId));
+                .orElseThrow(() -> new ResourceNotFoundException("Estudio no encontrado"));
         Optional.ofNullable(actualizarEstudioDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(estudio::setDescripcion);
         estudioRepository.save(estudio);
         return new ApiResponse(true, "Estudio actualizado correctamente");
