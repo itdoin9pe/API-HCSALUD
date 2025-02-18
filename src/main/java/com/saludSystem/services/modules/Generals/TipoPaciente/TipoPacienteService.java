@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface TipoPacienteService {
 
+    // Listado sin paginado
     List<TipoPacienteDTO> getTipoPacienteList();
 
 }

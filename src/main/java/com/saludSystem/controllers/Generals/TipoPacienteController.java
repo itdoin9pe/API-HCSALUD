@@ -4,7 +4,6 @@ import com.saludSystem.dtos.Generals.TipoPacienteDTO;
 import com.saludSystem.services.modules.Generals.TipoPaciente.TipoPacienteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

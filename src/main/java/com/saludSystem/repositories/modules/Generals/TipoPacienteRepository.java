@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TipoPacienteRepository extends JpaRepository<TipoPaciente, Integer> {
+    // some methods soon...
 }
