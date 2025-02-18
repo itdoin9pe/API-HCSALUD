@@ -4,10 +4,8 @@ import com.saludSystem.dtos.Generals.Pais.CrearPaisDTO;
 import com.saludSystem.dtos.Generals.Pais.PaisDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.ListResponse;
-
 import java.util.List;
 import java.util.UUID;
-
 
 public interface PaisService {
 

@@ -3,7 +3,6 @@ package com.saludSystem.controllers.Generals;
 import com.saludSystem.dtos.Generals.Pais.CrearPaisDTO;
 import com.saludSystem.dtos.Generals.Pais.PaisDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
 import com.saludSystem.dtos.responses.Generals.PaisResponse;
 import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.services.modules.Generals.Pais.PaisService;
@@ -14,10 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Tag(name = "Paises")

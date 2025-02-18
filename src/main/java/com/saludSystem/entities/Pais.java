@@ -17,14 +17,15 @@ public class Pais extends BaseEntity{
     @Column(name = "id_pais", nullable = false, unique = true)
     private Integer id;
 
-    @NotBlank
+    @NotBlank(message = "this field cant be empty")
     @Column(name = "iso", nullable = false)
     private String iso;
 
-    @NotBlank
+    @NotBlank(message = "this field cant be empty")
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
+    @NotBlank(message = "this field cant be empty")
     @Column(name = "gentilicio")
     private String gentilicio;
 

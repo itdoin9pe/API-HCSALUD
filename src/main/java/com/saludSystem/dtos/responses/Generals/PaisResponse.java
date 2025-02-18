@@ -1,6 +1,5 @@
 package com.saludSystem.dtos.responses.Generals;
 
-import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
 import com.saludSystem.dtos.Generals.Pais.PaisDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -11,9 +10,11 @@ import java.util.List;
 @Getter
 @Setter
 public class PaisResponse {
+
     @Schema(description = "Lista de Paises")
     private List<PaisDTO> data;
 
     @Schema(description = "Numero total de Paises", example = "0")
     private long totalData;
+
 }
