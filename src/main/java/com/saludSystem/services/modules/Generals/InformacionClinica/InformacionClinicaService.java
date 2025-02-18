@@ -4,7 +4,6 @@ import com.saludSystem.dtos.Generals.InformacionClinica.ActualizarInformacionCli
 import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
 import com.saludSystem.dtos.Generals.InformacionClinica.InformacionClinicaDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
-
 import java.util.List;
 import java.util.UUID;
 

@@ -1,15 +1,12 @@
 package com.saludSystem.dtos.Generals.InformacionClinica;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.UUID;
 
 @Data
-public class ActualizarInformacionClinicaDTO{
+public class ActualizarInformacionClinicaDTO {
 
     private UUID hospitalId;
 

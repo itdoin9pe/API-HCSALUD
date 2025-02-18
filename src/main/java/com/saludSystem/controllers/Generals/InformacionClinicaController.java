@@ -4,17 +4,11 @@ import com.saludSystem.dtos.Generals.InformacionClinica.ActualizarInformacionCli
 import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.Generals.InformacionClinica.InformacionClinicaDTO;
-import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
-import com.saludSystem.dtos.responses.Generals.InformacionClinicaResponse;
 import com.saludSystem.services.modules.Generals.InformacionClinica.InformacionClinicaService;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
 
