@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.*;
 
-
 @Tag(name = "Pacientes")
 @RestController
 @RequestMapping("/api/Pacientes")
@@ -34,33 +33,19 @@ public class PacienteController {
 
     @PostMapping("/SavePaciente")
     public ResponseEntity<ApiResponse> savePaciente(@Valid
-            @RequestParam("fotoPaciente") MultipartFile fotoPaciente,
-            @RequestParam("tipoDocumentoId") String tipoDocumentoId,
-            @RequestParam("numeroDocumento") String numeroDocumento,
-            @RequestParam("apellidos") String apellidos,
-            @RequestParam("nombres") String nombres,
-            @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date fechaNacimiento,
-            @RequestParam("edad") int edad,
-            @RequestParam("estado") Integer estado,
-            @RequestParam("ocupacion") String ocupacion,
-            @RequestParam("direccion") String direccion,
-            @RequestParam("paisId") Integer paisId,
-            @RequestParam("ubigeo") String ubigeo,
-            @RequestParam("tipoPacienteId") Integer tipoPacienteId,
-            @RequestParam("estadoCivil") String estadoCivil,
-            @RequestParam("sexo") String sexo,
-            @RequestParam("nombreContacto") String nombreContacto,
-            @RequestParam("tipoHistoria") String tipoHistoria,
-            @RequestParam("aseguradoraId") UUID aseguradoraId,
-            @RequestParam("empresaId") UUID empresaId,
-            @RequestParam("email") String email,
-            @RequestParam("titulo") String titulo,
-            @RequestParam("observacion") String observacion,
-            @RequestParam("informacionClinicaId") UUID informacionClinicaId,
-            @RequestParam("estudioId") UUID estudioId,
-            @RequestParam("sedeId") UUID sedeId,
-            @RequestParam("celular") String celular) throws IOException {
-
+            @RequestParam("fotoPaciente") MultipartFile fotoPaciente, @RequestParam("tipoDocumentoId") String tipoDocumentoId,
+            @RequestParam("numeroDocumento") String numeroDocumento, @RequestParam("apellidos") String apellidos,
+            @RequestParam("nombres") String nombres, @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date fechaNacimiento,
+            @RequestParam("edad") int edad, @RequestParam("estado") Integer estado,
+            @RequestParam("ocupacion") String ocupacion, @RequestParam("direccion") String direccion,
+            @RequestParam("paisId") Integer paisId, @RequestParam("ubigeo") String ubigeo,
+            @RequestParam("tipoPacienteId") Integer tipoPacienteId, @RequestParam("estadoCivil") String estadoCivil,
+            @RequestParam("sexo") String sexo, @RequestParam("nombreContacto") String nombreContacto,
+            @RequestParam("tipoHistoria") String tipoHistoria, @RequestParam("aseguradoraId") UUID aseguradoraId,
+            @RequestParam("empresaId") UUID empresaId, @RequestParam("email") String email,
+            @RequestParam("titulo") String titulo, @RequestParam("observacion") String observacion,
+            @RequestParam("informacionClinicaId") UUID informacionClinicaId, @RequestParam("estudioId") UUID estudioId,
+            @RequestParam("sedeId") UUID sedeId, @RequestParam("celular") String celular) throws IOException {
         CrearPacienteDTO crearPacienteDTO = new CrearPacienteDTO();
         crearPacienteDTO.setTipoDocumentoId(tipoDocumentoId);
         crearPacienteDTO.setNumeroDocumento(numeroDocumento);
@@ -93,35 +78,21 @@ public class PacienteController {
     }
 
     @PutMapping("/UpdatePaciente/{pacienteId}")
-    public ResponseEntity<ApiResponse> updatePaciente(
-            @PathVariable("pacienteId") UUID pacienteId,
+    public ResponseEntity<ApiResponse> updatePaciente(@PathVariable("pacienteId") UUID pacienteId,
             @Valid @RequestParam(value = "fotoPaciente", required = false) MultipartFile fotoPaciente,
-            @RequestParam("tipoDocumentoId") String tipoDocumentoId,
-            @RequestParam("numeroDocumento") String numeroDocumento,
-            @RequestParam("apellidos") String apellidos,
-            @RequestParam("nombres") String nombres,
-            @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date fechaNacimiento,
-            @RequestParam("edad") int edad,
-            @RequestParam("estado") Integer estado,
-            @RequestParam("ocupacion") String ocupacion,
-            @RequestParam("direccion") String direccion,
-            @RequestParam("paisId") Integer paisId,
-            @RequestParam("ubigeo") String ubigeo,
-            @RequestParam("tipoPacienteId") Integer tipoPacienteId,
-            @RequestParam("estadoCivil") String estadoCivil,
-            @RequestParam("sexo") String sexo,
-            @RequestParam("nombreContacto") String nombreContacto,
-            @RequestParam("tipoHistoria") String tipoHistoria,
-            @RequestParam("aseguradoraId") UUID aseguradoraId,
-            @RequestParam("empresaId") UUID empresaId,
-            @RequestParam("email") String email,
-            @RequestParam("titulo") String titulo,
-            @RequestParam("observacion") String observacion,
-            @RequestParam("informacionClinicaId") UUID informacionClinicaId,
-            @RequestParam("estudioId") UUID estudioId,
-            @RequestParam("sedeId") UUID sedeId,
+            @RequestParam("tipoDocumentoId") String tipoDocumentoId, @RequestParam("numeroDocumento") String numeroDocumento,
+            @RequestParam("apellidos") String apellidos, @RequestParam("nombres") String nombres,
+            @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date fechaNacimiento, @RequestParam("edad") int edad,
+            @RequestParam("estado") Integer estado, @RequestParam("ocupacion") String ocupacion,
+            @RequestParam("direccion") String direccion, @RequestParam("paisId") Integer paisId,
+            @RequestParam("ubigeo") String ubigeo, @RequestParam("tipoPacienteId") Integer tipoPacienteId,
+            @RequestParam("estadoCivil") String estadoCivil, @RequestParam("sexo") String sexo,
+            @RequestParam("nombreContacto") String nombreContacto, @RequestParam("tipoHistoria") String tipoHistoria,
+            @RequestParam("aseguradoraId") UUID aseguradoraId, @RequestParam("empresaId") UUID empresaId,
+            @RequestParam("email") String email, @RequestParam("titulo") String titulo,
+            @RequestParam("observacion") String observacion, @RequestParam("informacionClinicaId") UUID informacionClinicaId,
+            @RequestParam("estudioId") UUID estudioId, @RequestParam("sedeId") UUID sedeId,
             @RequestParam("celular") String celular) throws IOException {
-
         ActualizarPacienteDTO actualizarPacienteDTO = new ActualizarPacienteDTO();
         actualizarPacienteDTO.setTipoDocumentoId(tipoDocumentoId);
         actualizarPacienteDTO.setNumeroDocumento(numeroDocumento);
@@ -163,26 +134,23 @@ public class PacienteController {
     })
     public ListResponse<PacienteDTO> getAllAseguradora(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page") int page,
-            @RequestParam(name = "Rows") int rows
-    ) {
+            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return pacienteService.getAllPaciente(hospitalId, page, rows);
     }
 
     @GetMapping("/GetPacienteList")
-    public ResponseEntity<List<PacienteDTO>> getAllList(){
+    public ResponseEntity<List<PacienteDTO>> getAllList() {
         return ResponseEntity.ok(pacienteService.getPacienteList());
     }
 
     @GetMapping("/GetPaciente/{pacienteId}")
-    public ResponseEntity<PacienteDTO> getById(@PathVariable UUID pacienteId){
+    public ResponseEntity<PacienteDTO> getById(@PathVariable UUID pacienteId) {
         return pacienteService.getPacienteById(pacienteId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/DeletePaciente/{pacienteId}")
-    public ResponseEntity<ApiResponse> destroy(@PathVariable UUID pacienteId){
-        pacienteService.deletePaciente(pacienteId);
-        return ResponseEntity.ok(new ApiResponse(true, "Paciente eliminado correctamente,"));
+    public ApiResponse destroy(@PathVariable UUID pacienteId) {
+        return pacienteService.deletePaciente(pacienteId);
     }
 
 }

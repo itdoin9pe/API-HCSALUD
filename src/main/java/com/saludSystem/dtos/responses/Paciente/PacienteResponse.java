@@ -1,6 +1,5 @@
 package com.saludSystem.dtos.responses.Paciente;
 
-import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
 import com.saludSystem.dtos.Paciente.PacienteDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

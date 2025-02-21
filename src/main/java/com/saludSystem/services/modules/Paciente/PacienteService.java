@@ -3,6 +3,7 @@ package com.saludSystem.services.modules.Paciente;
 import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.dtos.Paciente.PacienteDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.entities.*;
 
@@ -22,6 +23,6 @@ public interface PacienteService {
 
     ListResponse<PacienteDTO> getAllPaciente(UUID hospitalId, int page, int rows);
 
-    void deletePaciente(UUID pacienteId);
+    ApiResponse deletePaciente(UUID pacienteId);
 
 }

@@ -3,6 +3,7 @@ package com.saludSystem.services.modules.Paciente.impl;
 import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.dtos.Paciente.PacienteDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.entities.*;
 import com.saludSystem.entities.configuracion.Sede;
@@ -197,10 +198,9 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
-    public void deletePaciente(UUID pacienteId) {
-        Paciente paciente = pacienteRepository.findById(pacienteId)
-                .orElseThrow(() -> new RuntimeException("Paciente no encontrado con ID: " + pacienteId));
-        pacienteRepository.delete(paciente);
+    public ApiResponse deletePaciente(UUID pacienteId) {
+        pacienteRepository.deleteById(pacienteId);
+        return new ApiResponse(true, "Paciente eliminado correctamente");
     }
 
     private PacienteDTO convertToDTO(Paciente paciente) {

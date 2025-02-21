@@ -102,7 +102,6 @@ public class Paciente extends BaseEntity {
     @Lob
     @Column(name = "foto_paciente", columnDefinition = "MEDIUMBLOB")
     private byte[] fotoPaciente;
-    //private String fotoPaciente;
 
     @Column(name = "titulo")
     private String titulo;
