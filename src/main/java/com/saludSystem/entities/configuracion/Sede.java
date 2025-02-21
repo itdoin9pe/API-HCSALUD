@@ -1,7 +1,6 @@
 package com.saludSystem.entities.configuracion;
 
 import com.saludSystem.entities.BaseEntity;
-import com.saludSystem.entities.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

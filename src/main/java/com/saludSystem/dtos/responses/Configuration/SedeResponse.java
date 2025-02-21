@@ -10,9 +10,11 @@ import java.util.List;
 @Getter
 @Setter
 public class SedeResponse {
+
     @Schema(description = "Lista de Sedes")
     private List<SedeDTO> data;
 
     @Schema(description = "Número total de Sedes", example = "0")
     private long totalData;
+
 }

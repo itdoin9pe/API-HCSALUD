@@ -15,9 +15,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Tag(name = "Sedes")
@@ -36,7 +34,6 @@ public class SedeController {
         return sedeService.saveSede(crearSedeDTO);
     }
 
-
     @GetMapping("/GetAllSede")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
@@ -45,9 +42,7 @@ public class SedeController {
     })
     public ListResponse<SedeDTO> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page") int page,
-            @RequestParam(name = "Rows") int rows
-    ) {
+            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return sedeService.getAllEmpresa(hospitalId, page, rows);
     }
 

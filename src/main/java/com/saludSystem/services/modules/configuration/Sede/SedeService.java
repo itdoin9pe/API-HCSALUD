@@ -15,14 +15,14 @@ public interface SedeService  {
 
     ApiResponse saveSede(CrearSedeDTO crearSedeDTO);
 
-    ApiResponse updateSede(UUID sedeId, ActualizarSedeDTO actualizarSedeDTO);
-
-    ApiResponse deleteSede(UUID sedeId);
+    ListResponse<SedeDTO> getAllEmpresa(UUID hospitalId, int page, int rows);
 
     SedeDTO getSedeById(UUID sedeId);
 
     List<SedeDTO> getSedeList();
 
-    ListResponse<SedeDTO> getAllEmpresa(UUID hospitalId, int page, int rows);
+    ApiResponse updateSede(UUID sedeId, ActualizarSedeDTO actualizarSedeDTO);
+
+    ApiResponse deleteSede(UUID sedeId);
 
 }

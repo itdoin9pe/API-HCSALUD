@@ -7,5 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface SedeRepository extends JpaRepository<Sede, UUID> {
+
     List<Sede> findByHospital_HospitalId(UUID hospitalId);
+
+    // more inserts soon...
+
 }

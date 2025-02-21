@@ -8,15 +8,11 @@ import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.Sede;
 import com.saludSystem.entities.configuracion.SysSalud;
-import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.UserRepository;
 import com.saludSystem.repositories.modules.Configuration.SedeRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.services.modules.configuration.Sede.SedeService;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -62,23 +58,19 @@ public class SedeServiceImpl implements SedeService {
     }
 
     @Override
-    public ApiResponse updateSede(UUID sedeId, ActualizarSedeDTO actualizarSedeDTO)
-    {
-        Sede sede = sedeRepository.findById(sedeId)
-                .orElseThrow( () -> new RuntimeException("Sede no encontrada" + sedeId));
-        Optional.ofNullable(actualizarSedeDTO.getCodigo()).filter(desc -> !desc.isBlank()).ifPresent(sede::setCodigo);
-        Optional.ofNullable(actualizarSedeDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(sede::setNombre);
-        Optional.ofNullable(actualizarSedeDTO.getDireccion()).filter(desc -> !desc.isBlank()).ifPresent(sede::setDireccion);
-        Optional.ofNullable(actualizarSedeDTO.getUbigeo()).filter(desc -> !desc.isBlank()).ifPresent(sede::setUbigeo);
-        Optional.ofNullable(actualizarSedeDTO.getEstado()).ifPresent(sede::setEstado);
-        sedeRepository.save(sede);
-        return new ApiResponse(true, "Sede actualizada correctamente");
-    }
-
-    @Override
-    public ApiResponse deleteSede(UUID sedeId) {
-        sedeRepository.deleteById(sedeId);
-        return new ApiResponse(true, "Sede eliminada correctamente");
+    public ListResponse<SedeDTO> getAllEmpresa(UUID hospitalId, int page, int rows) {
+        List<Sede> sedes = sedeRepository.findByHospital_HospitalId(hospitalId);
+        List<SedeDTO> data = sedes.stream().map(sede -> {
+            SedeDTO dto = new SedeDTO();
+            dto.setSedeId(sede.getSedeId());
+            dto.setCodigo(sede.getCodigo());
+            dto.setNombre(sede.getNombre());
+            dto.setDireccion(sede.getDireccion());
+            dto.setUbigeo(sede.getUbigeo());
+            dto.setEstado(sede.getEstado());
+            return dto;
+        }).collect(Collectors.toList());
+        return new ListResponse<>(data, data.size());
     }
 
     @Override
@@ -105,19 +97,23 @@ public class SedeServiceImpl implements SedeService {
     }
 
     @Override
-    public ListResponse<SedeDTO> getAllEmpresa(UUID hospitalId, int page, int rows) {
-        List<Sede> sedes = sedeRepository.findByHospital_HospitalId(hospitalId);
-        List<SedeDTO> data = sedes.stream().map(sede -> {
-            SedeDTO dto = new SedeDTO();
-            dto.setSedeId(sede.getSedeId());
-            dto.setCodigo(sede.getCodigo());
-            dto.setNombre(sede.getNombre());
-            dto.setDireccion(sede.getDireccion());
-            dto.setUbigeo(sede.getUbigeo());
-            dto.setEstado(sede.getEstado());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+    public ApiResponse updateSede(UUID sedeId, ActualizarSedeDTO actualizarSedeDTO)
+    {
+        Sede sede = sedeRepository.findById(sedeId)
+                .orElseThrow( () -> new RuntimeException("Sede no encontrada" + sedeId));
+        Optional.ofNullable(actualizarSedeDTO.getCodigo()).filter(desc -> !desc.isBlank()).ifPresent(sede::setCodigo);
+        Optional.ofNullable(actualizarSedeDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(sede::setNombre);
+        Optional.ofNullable(actualizarSedeDTO.getDireccion()).filter(desc -> !desc.isBlank()).ifPresent(sede::setDireccion);
+        Optional.ofNullable(actualizarSedeDTO.getUbigeo()).filter(desc -> !desc.isBlank()).ifPresent(sede::setUbigeo);
+        Optional.ofNullable(actualizarSedeDTO.getEstado()).ifPresent(sede::setEstado);
+        sedeRepository.save(sede);
+        return new ApiResponse(true, "Sede actualizada correctamente");
+    }
+
+    @Override
+    public ApiResponse deleteSede(UUID sedeId) {
+        sedeRepository.deleteById(sedeId);
+        return new ApiResponse(true, "Sede eliminada correctamente");
     }
 
     private SedeDTO convertToDTO(Sede sede) {

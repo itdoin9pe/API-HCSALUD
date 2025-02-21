@@ -7,8 +7,11 @@ import java.util.UUID;
 
 @Data
 public class ActualizarSedeDTO {
+
     private UUID hospitalId;
+
     private UUID userId;
+
     private UUID sedeId;
 
     private String codigo;
@@ -21,4 +24,5 @@ public class ActualizarSedeDTO {
 
     @Schema(description = "Estado de la sede (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
     private Integer estado;
+
 }
