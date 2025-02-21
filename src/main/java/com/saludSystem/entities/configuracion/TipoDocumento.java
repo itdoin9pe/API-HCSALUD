@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -20,13 +21,13 @@ import java.util.Date;
 public class TipoDocumento extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_tipoDocumento", nullable = false, unique = true)
-    private Long id;
+    private UUID tDocumentoId;
 
     @NotBlank(message = "El tipo de comprobante no puede estar vacío")
     @Column(name = "tipo_comprobante_id", nullable = false)
-    private String tipoComprobanteId;
+    private String tipoComprobante;
 
     @NotBlank(message = "La serie no puede estar vacía")
     @Column(name = "serie", nullable = false)
