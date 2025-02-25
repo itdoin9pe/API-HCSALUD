@@ -1,5 +1,5 @@
 package com.saludSystem.entities.catalogo;
-
+/*
 import com.saludSystem.entities.BaseEntity;
 import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.SysSalud;
@@ -29,4 +29,4 @@ public class Categoria extends BaseEntity {
     @Column(name = "estado", nullable = false)
     private Integer estado;
 
-}
+}*/

@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Generals.Estudios.impl;
-
+/*
 import com.saludSystem.dtos.Generals.Estudio.ActualizarEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
@@ -103,3 +103,5 @@ public class EstudioServiceImpl implements EstudioService {
     }
 
 }
+
+ */

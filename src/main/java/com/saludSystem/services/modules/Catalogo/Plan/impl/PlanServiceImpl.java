@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Catalogo.Plan.impl;
-
+/*
 import com.saludSystem.dtos.catalago.Plan.ActualizarPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.PlanDTO;
@@ -57,8 +57,8 @@ public class PlanServiceImpl implements PlanService {
         plan.setUsuMax(crearPlanDTO.getUseMax());
         plan.setCostoPlan(crearPlanDTO.getCostoPlan());
         plan.setEstado(crearPlanDTO.getEstado());
-        plan.setUser(user);
-        plan.setHospital(hospital);
+        //plan.setUser(user);
+        //plan.setHospital(hospital);
         planRepository.save(plan);
         return new ApiResponse(true, "Plan registrado correctamente");
     }
@@ -125,3 +125,5 @@ public class PlanServiceImpl implements PlanService {
     }
 
 }
+
+ */

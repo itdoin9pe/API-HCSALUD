@@ -1,5 +1,5 @@
 package com.saludSystem.entities;
-
+/*
 import com.saludSystem.entities.configuracion.Sede;
 import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.entities.configuracion.TipoDocumento;
@@ -136,3 +136,5 @@ public class Paciente extends BaseEntity {
     private Date updatedAt;
 
 }
+
+ */

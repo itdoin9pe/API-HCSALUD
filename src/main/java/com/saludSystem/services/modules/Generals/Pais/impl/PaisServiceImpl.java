@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Generals.Pais.impl;
-
+/*
 import com.saludSystem.dtos.Generals.Pais.CrearPaisDTO;
 import com.saludSystem.dtos.Generals.Pais.PaisDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
@@ -80,3 +80,5 @@ public class PaisServiceImpl implements PaisService {
     }
 
 }
+
+ */

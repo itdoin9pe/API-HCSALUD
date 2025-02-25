@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.configuration.Sede;
-
+/*
 import com.saludSystem.dtos.configuration.Sede.ActualizarSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.CrearSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.SedeDTO;
@@ -26,3 +26,5 @@ public interface SedeService  {
     ApiResponse deleteSede(UUID sedeId);
 
 }
+
+ */

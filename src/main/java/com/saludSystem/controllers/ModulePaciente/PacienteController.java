@@ -1,5 +1,5 @@
 package com.saludSystem.controllers.ModulePaciente;
-
+/*
 import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.dtos.Paciente.PacienteDTO;
@@ -154,3 +154,5 @@ public class PacienteController {
     }
 
 }
+
+ */

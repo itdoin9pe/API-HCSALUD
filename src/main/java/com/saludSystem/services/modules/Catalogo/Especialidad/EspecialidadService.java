@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Catalogo.Especialidad;
-
+/*
 import com.saludSystem.dtos.catalago.Especialidad.ActualizarEspecialidadDTO;
 import com.saludSystem.dtos.catalago.Especialidad.CrearEspecialidadDTO;
 import com.saludSystem.dtos.catalago.Especialidad.EspecialidadDTO;
@@ -24,3 +24,6 @@ public interface EspecialidadService {
     ListResponse<EspecialidadDTO> getAllEspecialidad(UUID hospitalId, int page, int rows);
 
 }
+
+
+ */

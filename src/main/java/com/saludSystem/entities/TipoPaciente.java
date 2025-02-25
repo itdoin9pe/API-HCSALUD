@@ -1,5 +1,6 @@
 package com.saludSystem.entities;
 
+/*
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -22,4 +23,4 @@ public class TipoPaciente {
     @Column(name = "nombres", nullable = false)
     public String nombre;
 
-}
+}*/

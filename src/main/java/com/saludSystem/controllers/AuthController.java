@@ -3,6 +3,7 @@ package com.saludSystem.controllers;
 import com.saludSystem.dtos.LoginUserDto;
 import com.saludSystem.dtos.NewUserDto;
 import com.saludSystem.services.AuthService;
+import com.saludSystem.services.modules.configuration.User.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,11 @@ import java.util.Map;
 public class AuthController {
 	
     private final AuthService authService;
+    private final UsuarioService usuarioService;
 
     @Autowired
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
         this.authService = authService;
     }
 
@@ -49,7 +52,7 @@ public class AuthController {
         }
 
         try {
-            Map<String, String> tokens = authService.authenticate(loginUserDto.getUsername(), loginUserDto.getPassword());
+            Map<String, String> tokens = authService.authenticate(loginUserDto.getEmail(), loginUserDto.getPassword());
             return ResponseEntity.ok(tokens);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("message", "Check your credentials!!"));
@@ -63,10 +66,10 @@ public class AuthController {
         }
 
         try {
-            authService.registerUser(newUserDto);
+            usuarioService.saveUsuario(newUserDto);
             Map<String, Object> response = new HashMap<>();
             response.put("message", "User registered successfully");
-            response.put("username", newUserDto.getUsername());
+            response.put("username", newUserDto.getEmail());
             response.put("role", newUserDto.getRole().name());
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);

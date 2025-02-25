@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Generals.TipoPaciente.impl;
-
+/*
 import com.saludSystem.dtos.Generals.TipoPacienteDTO;
 import com.saludSystem.entities.TipoPaciente;
 import com.saludSystem.repositories.modules.Generals.TipoPacienteRepository;
@@ -35,3 +35,5 @@ public class TipoPacienteServiceImpl implements TipoPacienteService {
     }
 
 }
+
+ */

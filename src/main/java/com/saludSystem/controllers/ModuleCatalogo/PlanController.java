@@ -1,5 +1,5 @@
 package com.saludSystem.controllers.ModuleCatalogo;
-
+/*
 import com.saludSystem.dtos.catalago.Plan.ActualizarPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.PlanDTO;
@@ -61,3 +61,5 @@ public class PlanController {
     }
 
 }
+
+ */

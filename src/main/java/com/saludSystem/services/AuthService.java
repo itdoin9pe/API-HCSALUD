@@ -1,7 +1,7 @@
 package com.saludSystem.services;
 
 import com.saludSystem.dtos.NewUserDto;
-import com.saludSystem.entities.Doctor;
+//import com.saludSystem.entities.Doctor;
 import com.saludSystem.entities.Role;
 import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.SysSalud;
@@ -9,7 +9,6 @@ import com.saludSystem.enums.UserRole;
 import com.saludSystem.jwt.JwtUtil;
 import com.saludSystem.repositories.RoleRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
-import com.saludSystem.repositories.modules.Doctor.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,30 +30,21 @@ public class AuthService {
     private final UserService userService;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
-    private final DoctorRepository doctorRepository;
     private final SysSaludRepository sysSaludRepository;
     private final JwtUtil jwtUtil;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final Set<String> invalidTokens = ConcurrentHashMap.newKeySet(); // Lista negra en memoria
 
     @Autowired
-    public AuthService(UserService userService, RoleRepository roleRepository, DoctorRepository doctorRepository, SysSaludRepository sysSaludRepository,PasswordEncoder passwordEncoder, JwtUtil jwtUtil, AuthenticationManagerBuilder authenticationManagerBuilder) {
+    public AuthService(UserService userService, RoleRepository roleRepository, SysSaludRepository sysSaludRepository,PasswordEncoder passwordEncoder, JwtUtil jwtUtil, AuthenticationManagerBuilder authenticationManagerBuilder) {
         this.userService = userService;
         this.roleRepository = roleRepository;
-        this.doctorRepository = doctorRepository;
         this.sysSaludRepository = sysSaludRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
-    /*
-    public String authenticate(String username, String password){
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-        Authentication  authResult = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authResult);
-        return jwtUtil.generateToken(authResult);
-    }*/
     public Map<String, String> authenticate(String username, String password) {
         try {
             AuthenticationManager authenticationManager = authenticationManagerBuilder.getObject();
@@ -77,19 +67,14 @@ public class AuthService {
         }
     }
 
+    /*
     public void registerUser(NewUserDto newUserDto){
-        if (userService.existsByUsername(newUserDto.getUsername())){
+        if (userService.existsByEmail(newUserDto.getEmail())){
             throw new IllegalArgumentException("Username already exists!!");
         }
 
         Role roleUser = roleRepository.findByName(UserRole.ADMIN)
                 .orElseThrow(() -> new RuntimeException("Role not found"));
-
-        Doctor doctor = null;
-        if (newUserDto.getDoctorId() != null) {
-            doctor = doctorRepository.findById(newUserDto.getDoctorId())
-                    .orElseThrow(() -> new RuntimeException("Doctor not found"));
-        }
 
         SysSalud hospital = sysSaludRepository.findById(newUserDto.getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital not found"));
@@ -102,17 +87,18 @@ public class AuthService {
                 .email(newUserDto.getEmail())
                 .documentType(newUserDto.getDocumentType())
                 .documentNumber(newUserDto.getDocumentNumber())
-                .photo(newUserDto.getPhoto())
+                .photo(newUserDto.getPhoto().getBytes())
                 .username(newUserDto.getUsername())
                 .password(passwordEncoder.encode(newUserDto.getPassword()))
-                .role(roleUser)
-                .doctor(doctor)
+                .rol(roleUser)
                 .hospital(hospital)
                 .build();
 
         userService.save(user);
     }
 
+
+     */
     public Map<String, String> refreshToken(String refreshToken) {
         try {
             String username = jwtUtil.extractUsername(refreshToken);
@@ -136,11 +122,6 @@ public class AuthService {
     }
 
 
-    public UserRole getAuthenticatedUserRole(String username) {
-        User user = userService.findEntityByUsername(username);
-        return user.getRole().getName();
-    }
-
     public void invalidateToken(String token) {
         invalidTokens.add(token);
     }
@@ -148,4 +129,5 @@ public class AuthService {
     public boolean isTokenInvalid(String token) {
         return invalidTokens.contains(token);
     }
+
 }

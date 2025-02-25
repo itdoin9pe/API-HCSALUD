@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Generals.Pais;
-
+/*
 import com.saludSystem.dtos.Generals.Pais.CrearPaisDTO;
 import com.saludSystem.dtos.Generals.Pais.PaisDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
@@ -16,3 +16,5 @@ public interface PaisService {
     List<PaisDTO> getPaisList();
 
 }
+
+ */

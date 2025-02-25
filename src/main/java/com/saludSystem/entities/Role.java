@@ -1,22 +1,36 @@
 package com.saludSystem.entities;
 
+import com.saludSystem.entities.configuracion.Permiso;
 import com.saludSystem.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.UUID;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_role", nullable = false, unique = true)
-    private int id;
 
-    @Enumerated
-    @Column(nullable = false, unique = true)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "rol_id", nullable = false, unique = true)
+    private UUID roleId;
+
+    private Integer estado;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private UserRole name;
+
+    @OneToMany(mappedBy = "rol")
+    private List<User> usuarios;
+
+    @OneToMany(mappedBy = "rol")
+    private List<Permiso> permisos;
+
 }

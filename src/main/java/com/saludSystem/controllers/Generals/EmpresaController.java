@@ -1,5 +1,5 @@
 package com.saludSystem.controllers.Generals;
-
+/*
 import com.saludSystem.dtos.Generals.Empresa.ActualizarEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
@@ -50,3 +50,5 @@ public class EmpresaController {
     }
 
 }
+
+ */

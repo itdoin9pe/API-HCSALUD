@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Paciente.impl;
-
+/*
 import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.dtos.Paciente.PacienteDTO;
@@ -208,3 +208,5 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
 }
+
+ */

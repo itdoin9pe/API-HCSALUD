@@ -1,10 +1,12 @@
 package com.saludSystem.entities.catalogo;
 
 import com.saludSystem.entities.BaseEntity;
+import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.SysSalud;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,25 +16,40 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "planes")
-public class Plan extends BaseEntity {
+public class Plan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_plan", nullable = false, unique = true)
     private UUID planId;
 
+    @Column(name = "nombre_plan", nullable = false, length = 100)
     private String nombrePlan;
 
-    private Date fechaInicio;
+    @Column(name = "fecha_inicio", nullable = false)
+    private LocalDateTime fechaInicio;
 
-    private Date fechaFin;
+    @Column(name = "fecha_fin_contrato", nullable = false)
+    private LocalDateTime fechaFinContrato;
 
+    @Column(name = "max_plan", nullable = false)
     private int maxPlan;
 
+    @Column(name = "usu_max", nullable = false)
     private int usuMax;
 
+    @Column(name = "costo_plan", nullable = false)
     private Double costoPlan;
 
+    @Column(name = "estado", nullable = false)
     private Integer estado;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private SysSalud hospital;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private User user;
 
 }

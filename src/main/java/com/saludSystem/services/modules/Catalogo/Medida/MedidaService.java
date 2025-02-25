@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Catalogo.Medida;
-
+/*
 import com.saludSystem.dtos.catalago.Medida.ActualizarMedidaDTO;
 import com.saludSystem.dtos.catalago.Medida.CrearMedidaDTO;
 import com.saludSystem.dtos.catalago.Medida.MedidaDTO;
@@ -22,3 +22,6 @@ public interface MedidaService extends PaginatedService {
     void deleteMedida(UUID medidaId);
 
 }
+
+
+ */

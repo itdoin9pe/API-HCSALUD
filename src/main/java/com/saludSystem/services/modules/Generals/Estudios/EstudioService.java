@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Generals.Estudios;
-
+/*
 import com.saludSystem.dtos.Generals.Estudio.ActualizarEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
 import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
@@ -24,3 +24,5 @@ public interface EstudioService {
     List<EstudioDTO> getEstudioList();
 
 }
+
+ */

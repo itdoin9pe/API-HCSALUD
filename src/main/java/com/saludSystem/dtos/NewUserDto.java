@@ -18,11 +18,12 @@ public class NewUserDto {
     private String email;
     private String documentType;
     private String documentNumber;
-    private String photo;
+    private byte[] photo;
     public String username;
     public String password;
+    private Integer estado;
     private UserRole role;
     private UUID doctorId;
     private UUID hospitalId;
-    //private int roleId;
+    private UUID roleId;
 }

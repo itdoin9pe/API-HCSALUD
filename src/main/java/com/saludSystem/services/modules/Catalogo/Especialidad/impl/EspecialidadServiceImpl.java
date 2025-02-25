@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Catalogo.Especialidad.impl;
-
+/*
 import com.saludSystem.dtos.catalago.Especialidad.ActualizarEspecialidadDTO;
 import com.saludSystem.dtos.catalago.Especialidad.CrearEspecialidadDTO;
 import com.saludSystem.dtos.catalago.Especialidad.EspecialidadDTO;
@@ -111,3 +111,5 @@ public class EspecialidadServiceImpl implements EspecialidadService {
     }
 
 }
+
+ */

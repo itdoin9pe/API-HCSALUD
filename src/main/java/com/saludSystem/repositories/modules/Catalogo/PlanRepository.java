@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface PlanRepository extends JpaRepository<Plan, UUID> {
-    List<Plan> findByHospital_HospitalId(UUID hospitalId);
+    //List<Plan> findByHospital_HospitalId(UUID hospitalId);
 }

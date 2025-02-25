@@ -49,32 +49,32 @@ public class User {
     @Column(unique = true, nullable = false)
     private String documentNumber;
 
-    @Column(nullable = true) // La foto puede ser opcional
-    private String photo;
+    @Lob
+    @Column(nullable = true, columnDefinition = "MEDIUMBLOB")
+    private byte[] photo;
 
     @NotBlank(message = "The username field can't be blank")
     @Column(unique = true, nullable = false)
     private String username;
 
     @NotBlank(message = "The password field can't be blank")
-    @Size(min = 5, message = "The password must have at least 5 characters")
+    @Size(min = 16, message = "The password must have at least 5 characters")
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "estado", nullable = false)
+    private Integer estado;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    @JoinColumn(name = "rol_id", nullable = false)
+    private Role rol;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Relación opcional con Doctor
-    @JoinColumn(name = "doctor_id", nullable = true) // nullable = true permite que sea opcional
-    private Doctor doctor;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "hospital_id", referencedColumnName = "hospital_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "hospital_id", nullable = false)
     private SysSalud hospital;
 
     @Builder
-    public User(String lastName, String firstName, String phoneNumber, String address, String email, String documentType, String documentNumber, String photo, String username, String password, Role role, Doctor doctor, SysSalud hospital) {
+    public User(String lastName, String firstName, String phoneNumber, String address, String email, String documentType, String documentNumber, byte[] photo, String username, String password, Integer estado,Role rol, SysSalud hospital) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
@@ -85,8 +85,9 @@ public class User {
         this.photo = photo;
         this.username = username;
         this.password = password;
-        this.role = role;
-        this.doctor = doctor;
+        this.estado = estado;
+        this.rol = rol;
         this.hospital = hospital;
     }
+
 }

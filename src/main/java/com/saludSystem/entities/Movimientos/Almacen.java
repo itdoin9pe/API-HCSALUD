@@ -1,6 +1,8 @@
 package com.saludSystem.entities.Movimientos;
 
 import com.saludSystem.entities.Sucursal;
+import com.saludSystem.entities.User;
+import com.saludSystem.entities.configuracion.SysSalud;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,14 +19,30 @@ public class Almacen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @Column(name = "almacen_id", nullable = false, unique = true)
+    private UUID almacenId;
 
+    @Column(name = "nombre", nullable = false)
     private String nombre;
+
+    @Column(name = "descripcion", nullable = false)
     private String descripcion;
+
+    @Column(name = "ubicacion", nullable = false)
     private String ubicacion;
+
+    @Column(name = "estado", nullable = false)
+    private Integer estado;
 
     @ManyToOne
     @JoinColumn(name = "sucursal_id", nullable = false)
     private Sucursal sucursal;
 
+    @ManyToOne
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private SysSalud hospital;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private User user;
 }

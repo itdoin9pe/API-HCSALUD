@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Generals.Aseguradoras.impl;
-
+/*
 import com.saludSystem.dtos.Generals.Aseguradora.ActualizarAseguradoraDTO;
 import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
 import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
@@ -106,3 +106,5 @@ public class AseguradoraServiceImpl implements AseguradoraService {
     }
 
 }
+
+ */

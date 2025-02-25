@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.configuration.Sede.impl;
-
+/*
 import com.saludSystem.dtos.configuration.Sede.ActualizarSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.CrearSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.SedeDTO;
@@ -121,3 +121,5 @@ public class SedeServiceImpl implements SedeService {
     }
 
 }
+
+ */

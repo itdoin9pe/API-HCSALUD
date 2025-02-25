@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Paciente;
-
+/*
 import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
 import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
 import com.saludSystem.dtos.Paciente.PacienteDTO;
@@ -26,3 +26,5 @@ public interface PacienteService {
     ApiResponse deletePaciente(UUID pacienteId);
 
 }
+
+ */

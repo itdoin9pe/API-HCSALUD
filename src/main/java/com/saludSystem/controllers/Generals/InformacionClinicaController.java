@@ -1,5 +1,5 @@
 package com.saludSystem.controllers.Generals;
-
+/*
 import com.saludSystem.dtos.Generals.InformacionClinica.ActualizarInformacionClinicaDTO;
 import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
@@ -49,3 +49,5 @@ public class InformacionClinicaController {
     }
 
 }
+
+ */

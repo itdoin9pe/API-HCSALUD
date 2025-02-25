@@ -1,5 +1,5 @@
 package com.saludSystem.entities;
-
+/*
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -32,4 +32,4 @@ public class Pais extends BaseEntity{
     @Column(name = "orden")
     private Integer orden;
 
-}
+}*/

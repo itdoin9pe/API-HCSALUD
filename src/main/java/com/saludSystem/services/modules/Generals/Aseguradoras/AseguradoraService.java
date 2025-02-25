@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Generals.Aseguradoras;
-
+/*
 import com.saludSystem.dtos.Generals.Aseguradora.ActualizarAseguradoraDTO;
 import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
 import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
@@ -24,3 +24,5 @@ public interface AseguradoraService {
     ApiResponse deleteAseguradora(UUID aseguradoraId);
 
 }
+
+ */

@@ -1,5 +1,5 @@
 package com.saludSystem.entities;
-
+/*
 import com.saludSystem.entities.catalogo.Especialidad;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -86,4 +86,4 @@ public class Doctor extends BaseEntity {
     @Column(name = "foto_firma", columnDefinition = "MEDIUMBLOB")
     private byte[] fotoFirma;
 
-}
+}*/

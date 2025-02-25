@@ -19,6 +19,7 @@ public class Sucursal extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "sucursal_id", nullable = false, unique = true)
     private UUID sucursalId;
 
     private String nombre;

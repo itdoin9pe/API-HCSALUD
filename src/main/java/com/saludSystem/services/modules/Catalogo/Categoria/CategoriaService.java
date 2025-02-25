@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Catalogo.Categoria;
-
+/*
 import com.saludSystem.dtos.catalago.Categoria.ActualizarCategoriaDTO;
 import com.saludSystem.dtos.catalago.Categoria.CategoriaDTO;
 import com.saludSystem.dtos.catalago.Categoria.CrearCategoriaDTO;
@@ -22,3 +22,6 @@ public interface CategoriaService extends PaginatedService {
     Optional<CategoriaDTO> getCategoriaById(UUID categoriaId);
 
 }
+
+
+ */

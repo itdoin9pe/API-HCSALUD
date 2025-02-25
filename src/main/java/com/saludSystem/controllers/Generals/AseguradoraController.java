@@ -1,5 +1,5 @@
 package com.saludSystem.controllers.Generals;
-
+/*
 import com.saludSystem.dtos.Generals.Aseguradora.ActualizarAseguradoraDTO;
 import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
@@ -64,3 +64,5 @@ public class AseguradoraController {
     }
 
 }
+
+ */

@@ -1,5 +1,5 @@
 package com.saludSystem.controllers.ModuleDoctor;
-
+/*
 import com.saludSystem.dtos.Doctor.ActualizarDoctorDTO;
 import com.saludSystem.dtos.Doctor.CrearDoctorDTO;
 import com.saludSystem.dtos.Doctor.DoctorDTO;
@@ -160,3 +160,6 @@ public class DoctorController {
     }
 
 }
+
+
+ */

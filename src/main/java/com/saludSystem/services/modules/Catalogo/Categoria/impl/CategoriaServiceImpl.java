@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Catalogo.Categoria.impl;
-
+/*
 import com.saludSystem.dtos.catalago.Categoria.ActualizarCategoriaDTO;
 import com.saludSystem.dtos.catalago.Categoria.CategoriaDTO;
 import com.saludSystem.dtos.catalago.Categoria.CrearCategoriaDTO;
@@ -72,17 +72,11 @@ public class CategoriaServiceImpl implements CategoriaService {
         return categoriaRepository.count();
     }
 
-    /*
-    @Override
-    public List<CategoriaDTO> getPagedResults(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<Categoria> categoriaPage = categoriaRepository.findAll(pageable);
-        return categoriaPage.getContent().stream()
-                .map(categoria -> modelMapper.map(categoria, CategoriaDTO.class))
-                .toList();
-    }*/
 
     private CategoriaDTO converToDTO(Categoria categoria) {
         return modelMapper.map(categoria, CategoriaDTO.class);
     }
 }
+
+
+ */

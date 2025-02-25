@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Generals.InformacionClinica;
-
+/*
 import com.saludSystem.dtos.Generals.InformacionClinica.ActualizarInformacionClinicaDTO;
 import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
 import com.saludSystem.dtos.Generals.InformacionClinica.InformacionClinicaDTO;
@@ -20,3 +20,5 @@ public interface InformacionClinicaService {
     ApiResponse updateInformacionClinica(UUID informacionClinicaId, ActualizarInformacionClinicaDTO actualizarInformacionClinicaDTO);
 
 }
+
+ */

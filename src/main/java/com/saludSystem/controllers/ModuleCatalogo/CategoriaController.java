@@ -1,5 +1,5 @@
 package com.saludSystem.controllers.ModuleCatalogo;
-
+/*
 import com.saludSystem.dtos.catalago.Categoria.ActualizarCategoriaDTO;
 import com.saludSystem.dtos.catalago.Categoria.CategoriaDTO;
 import com.saludSystem.dtos.catalago.Categoria.CrearCategoriaDTO;
@@ -35,7 +35,6 @@ public class CategoriaController {
         return ResponseEntity.ok(new ApiResponse(true, "Categoria creada correctamente."));
     }
 
-    /*
     @GetMapping("/GetAllCategoria")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
@@ -51,7 +50,7 @@ public class CategoriaController {
         response.setData(categorias);
         response.setTotalData(totalData);
         return ResponseEntity.ok(response);
-    }*/
+    }
 
     @GetMapping("/GetCategoriaList")
     public ResponseEntity<List<CategoriaDTO>> getAllList() {
@@ -75,4 +74,5 @@ public class CategoriaController {
         return ResponseEntity.ok(new ApiResponse(true, "Categoria eliminada correctamente,"));
     }
 
-}
+}*/
+

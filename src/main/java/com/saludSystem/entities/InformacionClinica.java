@@ -1,5 +1,5 @@
 package com.saludSystem.entities;
-
+/*
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -25,4 +25,4 @@ public class InformacionClinica extends BaseEntity {
     @Column(name = "estado", nullable = false)
     private Integer estado;
 
-}
+}*/

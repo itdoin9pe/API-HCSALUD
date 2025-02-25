@@ -1,5 +1,5 @@
 package com.saludSystem.controllers.ModuleConfiguracion;
-
+/*
 import com.saludSystem.dtos.configuration.TipoDocumento.ActualizarTipoDocumentoDTO;
 import com.saludSystem.dtos.configuration.TipoDocumento.CrearTipoDocumentoDTO;
 import com.saludSystem.dtos.configuration.TipoDocumento.TipoDocumentoDTO;
@@ -65,3 +65,5 @@ public class TipoDocumentoController {
     }
 
 }
+
+ */

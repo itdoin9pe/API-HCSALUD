@@ -1,5 +1,5 @@
 package com.saludSystem.controllers.ModuleCatalogo;
-
+/*
 import com.saludSystem.dtos.catalago.Especialidad.ActualizarEspecialidadDTO;
 import com.saludSystem.dtos.catalago.Especialidad.CrearEspecialidadDTO;
 import com.saludSystem.dtos.catalago.Especialidad.EspecialidadDTO;
@@ -65,3 +65,6 @@ public class EspecialidadController {
     }
 
 }
+
+
+ */

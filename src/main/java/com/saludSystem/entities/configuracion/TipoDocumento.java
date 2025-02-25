@@ -1,5 +1,5 @@
 package com.saludSystem.entities.configuracion;
-
+/*
 import com.saludSystem.entities.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -62,4 +62,4 @@ public class TipoDocumento extends BaseEntity {
     @Column(name = "actualizado_en")
     private Date updatedAt;
 
-}
+}*/

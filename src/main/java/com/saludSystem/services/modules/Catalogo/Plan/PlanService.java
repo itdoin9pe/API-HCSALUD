@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Catalogo.Plan;
-
+/*
 import com.saludSystem.dtos.catalago.Plan.ActualizarPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
 import com.saludSystem.dtos.catalago.Plan.PlanDTO;
@@ -24,3 +24,5 @@ public interface PlanService {
     PlanDTO getPlanById(UUID planId);
 
 }
+
+ */

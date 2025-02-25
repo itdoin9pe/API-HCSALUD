@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Catalogo.Medida.impl;
-
+/*
 import com.saludSystem.dtos.catalago.Medida.ActualizarMedidaDTO;
 import com.saludSystem.dtos.catalago.Medida.CrearMedidaDTO;
 import com.saludSystem.dtos.catalago.Medida.MedidaDTO;
@@ -71,17 +71,10 @@ public class MedidaServiceImpl implements MedidaService {
         return medidaRepository.count();
     }
 
-    /*
-    @Override
-    public List<MedidaDTO> getPagedResults(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<Medida> medidasPage = medidaRepository.findAll(pageable);
-        return medidasPage.getContent().stream()
-                .map(medida -> modelMapper.map(medida, MedidaDTO.class))
-                .toList();
-    }*/
-
     private MedidaDTO convertToDTO(Medida medida) {
         return modelMapper.map(medida, MedidaDTO.class);
     }
 }
+
+
+ */

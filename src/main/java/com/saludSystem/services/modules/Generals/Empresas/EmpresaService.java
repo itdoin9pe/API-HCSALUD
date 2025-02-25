@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Generals.Empresas;
-
+/*
 import com.saludSystem.dtos.Generals.Empresa.ActualizarEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
 import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
@@ -24,3 +24,5 @@ public interface EmpresaService {
     ApiResponse updateEmpresa(UUID empresaId, ActualizarEmpresaDTO actualizarEmpresaDTO);
 
 }
+
+ */

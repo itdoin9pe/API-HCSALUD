@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Doctor.impl;
-
+/*
 import com.saludSystem.dtos.Doctor.ActualizarDoctorDTO;
 import com.saludSystem.dtos.Doctor.CrearDoctorDTO;
 import com.saludSystem.dtos.Doctor.DoctorDTO;
@@ -155,3 +155,5 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
 }
+
+ */

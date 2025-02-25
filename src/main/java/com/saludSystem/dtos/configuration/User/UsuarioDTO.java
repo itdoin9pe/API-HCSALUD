@@ -6,19 +6,19 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class UserDTO {
+public class UsuarioDTO {
+
     private UUID userId;
     private String lastName;
     private String firstName;
-    private String phoneNumber;
-    private String address;
     private String email;
+    private String address;
+    private String phoneNumber;
     private String documentType;
     private String documentNumber;
-    private String photo;
-    public String username;
-    public String password;
+    private byte[] photo;
+    private String username;
     private UserRole role;
-    private UUID doctorId;
-    private UUID hospitalId;
+    private Integer estado;
+
 }

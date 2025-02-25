@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.Generals.InformacionClinica.impl;
-
+/*
 import com.saludSystem.dtos.Generals.InformacionClinica.ActualizarInformacionClinicaDTO;
 import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
 import com.saludSystem.dtos.Generals.InformacionClinica.InformacionClinicaDTO;
@@ -93,3 +93,5 @@ public class InformacionClinicaServiceImpl implements InformacionClinicaService 
     }
 
 }
+
+ */

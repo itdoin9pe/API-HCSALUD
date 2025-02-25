@@ -1,9 +1,7 @@
 package com.saludSystem.services;
 
 import com.saludSystem.entities.User;
-import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.repositories.UserRepository;
-import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,12 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
 
 @NoArgsConstructor
-@Service
-public class UserService implements UserDetailsService {
+@Service public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
 
@@ -28,13 +23,13 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getName().toString());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRol().getName().toString());
 
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
+                user.getEmail(),
                 user.getPassword(),
                 Collections.singleton(authority)
         );
@@ -47,6 +42,10 @@ public class UserService implements UserDetailsService {
 
     public boolean existsByUsername(String username){
         return userRepository.existsByUsername(username);
+    }
+
+    public boolean existsByEmail(String email){
+        return userRepository.existsByEmail(email);
     }
 
     public void save(User user){

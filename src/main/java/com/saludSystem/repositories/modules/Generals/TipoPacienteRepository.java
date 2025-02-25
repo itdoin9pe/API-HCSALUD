@@ -1,5 +1,5 @@
 package com.saludSystem.repositories.modules.Generals;
-
+/*
 import com.saludSystem.entities.TipoPaciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,3 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface TipoPacienteRepository extends JpaRepository<TipoPaciente, Integer> {
     // some methods soon...
 }
+
+ */

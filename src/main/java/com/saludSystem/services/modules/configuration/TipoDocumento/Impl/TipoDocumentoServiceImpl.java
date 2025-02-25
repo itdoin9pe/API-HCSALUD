@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.configuration.TipoDocumento.Impl;
-
+/*
 import com.saludSystem.dtos.configuration.TipoDocumento.ActualizarTipoDocumentoDTO;
 import com.saludSystem.dtos.configuration.TipoDocumento.CrearTipoDocumentoDTO;
 import com.saludSystem.dtos.configuration.TipoDocumento.TipoDocumentoDTO;
@@ -121,3 +121,5 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
     }
 
 }
+
+ */

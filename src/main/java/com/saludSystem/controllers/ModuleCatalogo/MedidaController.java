@@ -1,5 +1,5 @@
 package com.saludSystem.controllers.ModuleCatalogo;
-
+/*
 import com.saludSystem.dtos.catalago.Medida.ActualizarMedidaDTO;
 import com.saludSystem.dtos.catalago.Medida.CrearMedidaDTO;
 import com.saludSystem.dtos.catalago.Medida.MedidaDTO;
@@ -34,7 +34,6 @@ public class MedidaController {
         return ResponseEntity.ok(new ApiResponse(true, "Medida creada correctamente"));
     }
 
-    /*
     @GetMapping("/GetAllMedida")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
@@ -51,7 +50,7 @@ public class MedidaController {
         response.setData(medidas);
         response.setTotalData(totalData);
         return ResponseEntity.ok(response);
-    }*/
+    }
 
     @GetMapping("/GetMedidaList")
     public ResponseEntity<List<MedidaDTO>> getAllList() {
@@ -76,3 +75,6 @@ public class MedidaController {
     }
 
 }
+
+
+ */

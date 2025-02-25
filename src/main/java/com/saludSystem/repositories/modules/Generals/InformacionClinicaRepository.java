@@ -1,5 +1,5 @@
 package com.saludSystem.repositories.modules.Generals;
-
+/*
 import com.saludSystem.entities.InformacionClinica;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,3 +12,5 @@ public interface InformacionClinicaRepository extends JpaRepository<InformacionC
     List<InformacionClinica> findByHospital_HospitalId(UUID hospitalId);
 
 }
+
+ */
