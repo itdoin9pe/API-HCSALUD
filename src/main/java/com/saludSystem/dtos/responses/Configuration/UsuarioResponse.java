@@ -8,9 +8,11 @@ import java.util.List;
 
 @Data
 public class UsuarioResponse {
+
     @Schema(description = "Lista de Usuarios")
     private List<UsuarioDTO> data;
 
     @Schema(description = "Número total de Usuarios", example = "0")
     private long totalData;
+
 }

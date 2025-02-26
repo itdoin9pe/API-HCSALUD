@@ -1,12 +1,12 @@
 package com.saludSystem.dtos.configuration.User;
 
-import com.saludSystem.enums.UserRole;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
 public class ActualizarUsuarioDTO {
+
     private UUID userId;
     private String lastName;
     private String firstName;
@@ -20,4 +20,5 @@ public class ActualizarUsuarioDTO {
     private String password;
     private Integer estado;
     private UUID roleId;
+
 }

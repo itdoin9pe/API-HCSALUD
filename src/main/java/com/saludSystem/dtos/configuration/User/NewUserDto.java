@@ -10,6 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewUserDto {
+
     private String lastName;
     private String firstName;
     private String phoneNumber;
@@ -22,4 +23,5 @@ public class NewUserDto {
     public String password;
     private Integer estado;
     private UUID roleId;
+
 }

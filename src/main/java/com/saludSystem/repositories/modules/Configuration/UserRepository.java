@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
+
     List<User> findByHospital_HospitalId(UUID hospitalId);
 
     Optional<User> findByUsername(String username);
@@ -19,4 +20,5 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String email);
+
 }

@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
+
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final SysSaludRepository sysSaludRepository;
@@ -114,4 +115,5 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioDTO convertToDTO(User user) {
         return modelMapper.map(user, UsuarioDTO.class);
     }
+
 }

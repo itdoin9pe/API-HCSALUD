@@ -13,6 +13,7 @@ import java.util.Collections;
 
 @NoArgsConstructor
 @Service public class UserService implements UserDetailsService {
+
     private UserRepository userRepository;
 
     @Autowired
@@ -45,4 +46,5 @@ import java.util.Collections;
     public void save(User user){
          userRepository.save(user);
     }
+
 }

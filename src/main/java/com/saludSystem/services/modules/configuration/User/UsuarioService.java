@@ -10,6 +10,7 @@ import com.saludSystem.entities.User;
 import java.util.UUID;
 
 public interface UsuarioService {
+
     ListResponse<UsuarioDTO> getAllUsuario(UUID hospitalId, int page, int rows);
 
     User saveUsuario(NewUserDto newUserDto);
@@ -17,4 +18,5 @@ public interface UsuarioService {
     ActualizarUsuarioDTO updateUsuario(UUID userI, ActualizarUsuarioDTO actualizarUsuarioDTO);
 
     ApiResponse deleteUsuario(UUID userId);
+
 }

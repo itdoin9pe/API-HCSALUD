@@ -14,6 +14,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_user", nullable = false, unique = true)
@@ -87,4 +88,5 @@ public class User {
         this.rol = rol;
         this.hospital = hospital;
     }
+
 }

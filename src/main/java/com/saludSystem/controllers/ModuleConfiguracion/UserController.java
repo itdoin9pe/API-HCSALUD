@@ -24,6 +24,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/Usuarios")
 public class UserController {
+
     private final UsuarioService usuarioService;
 
     public UserController(UsuarioService usuarioService) {
@@ -44,18 +45,12 @@ public class UserController {
 
     @PostMapping("/SaveUsuario")
     public ResponseEntity<ApiResponse> stored(
-            @RequestParam("photo")MultipartFile photo,
-            @RequestParam("lastName") String lastName,
-            @RequestParam("firstName") String firstName,
-            @RequestParam("phoneNumber") String phoneNumber,
-            @RequestParam("address") String address,
-            @RequestParam("email") String email,
-            @RequestParam("documentType") String documentType,
-            @RequestParam("documentNumber") String documentNumber,
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
-            @RequestParam("estado") Integer estado,
-            @RequestParam("roleId") UUID roleId){
+            @RequestParam("photo")MultipartFile photo, @RequestParam("lastName") String lastName,
+            @RequestParam("firstName") String firstName, @RequestParam("phoneNumber") String phoneNumber,
+            @RequestParam("address") String address, @RequestParam("email") String email,
+            @RequestParam("documentType") String documentType, @RequestParam("documentNumber") String documentNumber,
+            @RequestParam("username") String username, @RequestParam("password") String password,
+            @RequestParam("estado") Integer estado, @RequestParam("roleId") UUID roleId) {
         NewUserDto newUserDto = new NewUserDto();
         newUserDto.setLastName(lastName);
         newUserDto.setFirstName(firstName);
@@ -76,18 +71,12 @@ public class UserController {
     public ResponseEntity<ApiResponse> updateUsuario(
             @PathVariable("userId") UUID userId,
             @Valid @RequestParam(value = "photo", required = false) MultipartFile photo,
-            @RequestParam("lastName") String lastName,
-            @RequestParam("firstName") String firstName,
-            @RequestParam("phoneNumber") String phoneNumber,
-            @RequestParam("address") String address,
-            @RequestParam("email") String email,
-            @RequestParam("documentType") String documentType,
-            @RequestParam("documentNumber") String documentNumber,
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
-            @RequestParam("estado") Integer estado,
-            @RequestParam("roleId") UUID roleId
-    ) throws IOException {
+            @RequestParam("lastName") String lastName, @RequestParam("firstName") String firstName,
+            @RequestParam("phoneNumber") String phoneNumber, @RequestParam("address") String address,
+            @RequestParam("email") String email, @RequestParam("documentType") String documentType,
+            @RequestParam("documentNumber") String documentNumber, @RequestParam("username") String username,
+            @RequestParam("password") String password, @RequestParam("estado") Integer estado,
+            @RequestParam("roleId") UUID roleId) throws IOException {
         ActualizarUsuarioDTO actualizarUsuarioDTO = new ActualizarUsuarioDTO();
         actualizarUsuarioDTO.setUserId(userId);
         actualizarUsuarioDTO.setLastName(lastName);
@@ -112,4 +101,5 @@ public class UserController {
     public ApiResponse destroy(@PathVariable UUID userId) {
         return usuarioService.deleteUsuario(userId);
     }
+
 }
