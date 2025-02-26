@@ -1,7 +1,7 @@
 package com.saludSystem.entities;
 
 import com.saludSystem.entities.configuracion.Permiso;
-import com.saludSystem.enums.UserRole;
+import com.saludSystem.entities.configuracion.SysSalud;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,14 +18,18 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "rol_id", nullable = false, unique = true)
+    @Column(name = "rol_id", nullable = false, unique = true, columnDefinition = "BINARY(16)")
     private UUID roleId;
 
+    @Column(name = "estado", nullable = false)
     private Integer estado;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserRole name;
+    @Column(name = "nombre", nullable = false)
+    private String nombre;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private SysSalud hospital;
 
     @OneToMany(mappedBy = "rol")
     private List<User> usuarios;

@@ -18,6 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Permiso {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID permisoId;

@@ -18,7 +18,7 @@ public class UsuarioDTO {
     private String documentNumber;
     private byte[] photo;
     private String username;
-    private UserRole role;
+    private UUID roleId;
     private Integer estado;
 
 }

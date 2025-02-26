@@ -22,7 +22,7 @@ public class NewUserDto {
     public String username;
     public String password;
     private Integer estado;
-    private UserRole role;
+    //private UserRole role;
     private UUID doctorId;
     private UUID hospitalId;
     private UUID roleId;

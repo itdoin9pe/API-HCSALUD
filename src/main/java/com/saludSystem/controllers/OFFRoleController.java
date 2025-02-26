@@ -1,5 +1,5 @@
 package com.saludSystem.controllers;
-
+/*
 import com.saludSystem.enums.UserRole;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +22,5 @@ public class RoleController {
         return orderedRoles;
     }
 
-    /*
-    public Map<String, Integer> getRoles() {
-        UserRole[] roles = UserRole.values();
-        return IntStream.range(0, roles.length)
-                .boxed()
-                .collect(Collectors.toMap(i -> roles[i].name(), i -> i));
-    }*/
 }
+*/

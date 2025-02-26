@@ -10,7 +10,7 @@ import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.enums.UserRole;
 import com.saludSystem.exception.ResourceNotFoundException;
-import com.saludSystem.repositories.RoleRepository;
+import com.saludSystem.repositories.modules.Configuration.RoleRepository;
 import com.saludSystem.repositories.UserRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.services.modules.configuration.User.UsuarioService;
@@ -18,7 +18,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,7 +55,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             dto.setDocumentNumber(user.getDocumentNumber());
             dto.setPhoneNumber(user.getPhoneNumber());
             dto.setUsername(user.getUsername());
-            dto.setRole(user.getRol().getName());
+            dto.setRoleId(user.getRol().getRoleId());
             dto.setEstado(user.getEstado());
             return dto;
         }).collect(Collectors.toList());
@@ -65,7 +64,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public User saveUsuario(NewUserDto newUserDto) {
-        Role role = roleRepository.findByName(UserRole.USER)
+        Role role = roleRepository.findByRoleId(newUserDto.getRoleId())
                 .orElseThrow(() -> new EntityNotFoundException("Rol no encontrado"));
 
         SysSalud hospital = sysSaludRepository.findAll()
@@ -82,7 +81,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .photo(newUserDto.getPhoto())
                 .username(newUserDto.getUsername())
                 .password(passwordEncoder.encode(newUserDto.getPassword())) // Hash the password in real case
-                .estado(Integer.valueOf(newUserDto.getEstado()))
+                .estado(newUserDto.getEstado())
                 .rol(role)
                 .hospital(hospital)
                 .build();

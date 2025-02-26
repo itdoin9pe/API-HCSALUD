@@ -70,7 +70,7 @@ public class AuthController {
             Map<String, Object> response = new HashMap<>();
             response.put("message", "User registered successfully");
             response.put("username", newUserDto.getEmail());
-            response.put("role", newUserDto.getRole().name());
+            response.put("role", newUserDto.getRoleId());
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (IllegalArgumentException e) {

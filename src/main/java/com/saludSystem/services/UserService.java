@@ -26,7 +26,7 @@ import java.util.Collections;
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRol().getName().toString());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRol().getRoleId().toString());
 
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),

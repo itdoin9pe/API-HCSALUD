@@ -1,13 +1,8 @@
 package com.saludSystem.services;
 
-import com.saludSystem.dtos.NewUserDto;
 //import com.saludSystem.entities.Doctor;
-import com.saludSystem.entities.Role;
-import com.saludSystem.entities.User;
-import com.saludSystem.entities.configuracion.SysSalud;
-import com.saludSystem.enums.UserRole;
 import com.saludSystem.jwt.JwtUtil;
-import com.saludSystem.repositories.RoleRepository;
+import com.saludSystem.repositories.modules.Configuration.RoleRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

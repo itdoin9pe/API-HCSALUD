@@ -9,5 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface SysSaludRepository extends JpaRepository<SysSalud, UUID> {
+
     Optional<SysSalud> findByHospitalId(UUID hospitalId);
+
 }
