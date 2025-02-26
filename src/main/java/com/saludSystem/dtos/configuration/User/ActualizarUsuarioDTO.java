@@ -7,8 +7,6 @@ import java.util.UUID;
 
 @Data
 public class ActualizarUsuarioDTO {
-
-    private UUID hospitalId;
     private UUID userId;
     private String lastName;
     private String firstName;
@@ -21,7 +19,5 @@ public class ActualizarUsuarioDTO {
     private String username;
     private String password;
     private Integer estado;
-    private UserRole role;
     private UUID roleId;
-
 }

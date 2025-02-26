@@ -8,7 +8,7 @@ import com.saludSystem.entities.InformacionClinica;
 import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.exception.ResourceNotFoundException;
-import com.saludSystem.repositories.UserRepository;
+import com.saludSystem.repositories.modules.Configuration.UserRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.repositories.modules.Generals.InformacionClinicaRepository;
 import com.saludSystem.services.modules.Generals.InformacionClinica.InformacionClinicaService;

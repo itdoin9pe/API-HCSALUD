@@ -1,6 +1,5 @@
-package com.saludSystem.dtos;
+package com.saludSystem.dtos.configuration.User;
 
-import com.saludSystem.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,8 +21,5 @@ public class NewUserDto {
     public String username;
     public String password;
     private Integer estado;
-    //private UserRole role;
-    private UUID doctorId;
-    private UUID hospitalId;
     private UUID roleId;
 }

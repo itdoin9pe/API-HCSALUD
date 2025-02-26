@@ -9,7 +9,7 @@ import com.saludSystem.entities.*;
 import com.saludSystem.entities.configuracion.Sede;
 import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.exception.ResourceNotFoundException;
-import com.saludSystem.repositories.UserRepository;
+import com.saludSystem.repositories.modules.Configuration.UserRepository;
 import com.saludSystem.repositories.modules.Configuration.SedeRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.repositories.modules.Generals.*;

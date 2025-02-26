@@ -1,4 +1,4 @@
-package com.saludSystem.repositories.modules.Generals;
+package com.saludSystem.repositories.Generals;
 /*
 import com.saludSystem.entities.Estudio;
 import org.springframework.data.jpa.repository.JpaRepository;

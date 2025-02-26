@@ -8,7 +8,6 @@ import java.util.List;
 
 @Data
 public class UsuarioResponse {
-
     @Schema(description = "Lista de Usuarios")
     private List<UsuarioDTO> data;
 

@@ -8,7 +8,7 @@ import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.entities.configuracion.TipoDocumento;
-import com.saludSystem.repositories.UserRepository;
+import com.saludSystem.repositories.modules.Configuration.UserRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.repositories.modules.Configuration.TipoDocumentoRepository;
 import com.saludSystem.services.modules.configuration.TipoDocumento.TipoDocumentoService;

@@ -1,7 +1,6 @@
-package com.saludSystem.repositories;
+package com.saludSystem.repositories.modules.Configuration;
 
 import com.saludSystem.entities.User;
-import com.saludSystem.entities.configuracion.SysSalud;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
-
     List<User> findByHospital_HospitalId(UUID hospitalId);
 
     Optional<User> findByUsername(String username);
@@ -21,5 +19,4 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String email);
-
 }

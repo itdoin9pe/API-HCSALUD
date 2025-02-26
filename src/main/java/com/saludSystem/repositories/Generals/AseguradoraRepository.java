@@ -1,4 +1,4 @@
-package com.saludSystem.repositories.modules.Generals;
+package com.saludSystem.repositories.Generals;
 /*
 import com.saludSystem.entities.Aseguradora;
 import org.springframework.data.domain.Page;

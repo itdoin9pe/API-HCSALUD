@@ -9,7 +9,7 @@ import com.saludSystem.entities.Estudio;
 import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.exception.ResourceNotFoundException;
-import com.saludSystem.repositories.UserRepository;
+import com.saludSystem.repositories.modules.Configuration.UserRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.repositories.modules.Generals.EstudioRepository;
 import com.saludSystem.services.modules.Generals.Estudios.EstudioService;

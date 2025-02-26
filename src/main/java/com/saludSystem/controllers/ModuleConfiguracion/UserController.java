@@ -1,6 +1,6 @@
 package com.saludSystem.controllers.ModuleConfiguracion;
 
-import com.saludSystem.dtos.NewUserDto;
+import com.saludSystem.dtos.configuration.User.NewUserDto;
 import com.saludSystem.dtos.configuration.User.ActualizarUsuarioDTO;
 import com.saludSystem.dtos.configuration.User.UsuarioDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
@@ -24,7 +24,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/Usuarios")
 public class UserController {
-
     private final UsuarioService usuarioService;
 
     public UserController(UsuarioService usuarioService) {
@@ -113,5 +112,4 @@ public class UserController {
     public ApiResponse destroy(@PathVariable UUID userId) {
         return usuarioService.deleteUsuario(userId);
     }
-
 }

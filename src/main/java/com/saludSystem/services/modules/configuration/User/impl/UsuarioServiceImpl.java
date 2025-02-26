@@ -1,6 +1,6 @@
 package com.saludSystem.services.modules.configuration.User.impl;
 
-import com.saludSystem.dtos.NewUserDto;
+import com.saludSystem.dtos.configuration.User.NewUserDto;
 import com.saludSystem.dtos.configuration.User.ActualizarUsuarioDTO;
 import com.saludSystem.dtos.configuration.User.UsuarioDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
@@ -8,17 +8,15 @@ import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.entities.Role;
 import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.SysSalud;
-import com.saludSystem.enums.UserRole;
 import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.modules.Configuration.RoleRepository;
-import com.saludSystem.repositories.UserRepository;
+import com.saludSystem.repositories.modules.Configuration.UserRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.services.modules.configuration.User.UsuarioService;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,7 +24,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
-
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final SysSaludRepository sysSaludRepository;
@@ -66,10 +63,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     public User saveUsuario(NewUserDto newUserDto) {
         Role role = roleRepository.findByRoleId(newUserDto.getRoleId())
                 .orElseThrow(() -> new EntityNotFoundException("Rol no encontrado"));
-
         SysSalud hospital = sysSaludRepository.findAll()
                 .stream().findFirst().orElseThrow( () -> new RuntimeException("Hospital no encontrado"));
-
         User user = User.builder()
                 .lastName(newUserDto.getLastName())
                 .firstName(newUserDto.getFirstName())

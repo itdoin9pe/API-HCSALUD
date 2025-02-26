@@ -9,7 +9,7 @@ import com.saludSystem.entities.Role;
 import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.exception.ResourceNotFoundException;
-import com.saludSystem.repositories.UserRepository;
+import com.saludSystem.repositories.modules.Configuration.UserRepository;
 import com.saludSystem.repositories.modules.Configuration.RoleRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.services.modules.configuration.Rol.RolService;

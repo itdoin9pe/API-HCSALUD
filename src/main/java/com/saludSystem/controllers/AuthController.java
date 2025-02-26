@@ -1,7 +1,7 @@
 package com.saludSystem.controllers;
 
 import com.saludSystem.dtos.LoginUserDto;
-import com.saludSystem.dtos.NewUserDto;
+import com.saludSystem.dtos.configuration.User.NewUserDto;
 import com.saludSystem.services.AuthService;
 import com.saludSystem.services.modules.configuration.User.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
