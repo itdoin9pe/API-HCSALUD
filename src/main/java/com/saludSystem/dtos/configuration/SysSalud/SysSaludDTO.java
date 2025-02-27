@@ -1,4 +1,4 @@
-package com.saludSystem.dtos.configuration.SysSaludModule;
+package com.saludSystem.dtos.configuration.SysSalud;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;

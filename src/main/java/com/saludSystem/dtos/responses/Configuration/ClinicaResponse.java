@@ -1,6 +1,6 @@
 package com.saludSystem.dtos.responses.Configuration;
 
-import com.saludSystem.dtos.configuration.SysSaludModule.SysSaludDTO;
+import com.saludSystem.dtos.configuration.SysSalud.SysSaludDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

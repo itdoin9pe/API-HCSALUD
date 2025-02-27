@@ -1,8 +1,8 @@
 package com.saludSystem.services.modules.configuration.SysSalud.impl;
 
-import com.saludSystem.dtos.configuration.SysSaludModule.ActualizarHospitalDTO;
-import com.saludSystem.dtos.configuration.SysSaludModule.CrearSysSaludDTO;
-import com.saludSystem.dtos.configuration.SysSaludModule.SysSaludDTO;
+import com.saludSystem.dtos.configuration.SysSalud.ActualizarHospitalDTO;
+import com.saludSystem.dtos.configuration.SysSalud.CrearSysSaludDTO;
+import com.saludSystem.dtos.configuration.SysSalud.SysSaludDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.entities.catalogo.Plan;
