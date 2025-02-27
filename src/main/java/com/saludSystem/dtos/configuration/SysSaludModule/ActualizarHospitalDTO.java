@@ -2,13 +2,13 @@ package com.saludSystem.dtos.configuration.SysSaludModule;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
-
 import lombok.Data;
+
 import java.util.Date;
 import java.util.UUID;
 
 @Data
-public class CrearSysSaludDTO {
+public class ActualizarHospitalDTO {
 
     private UUID hospitalId;
     private String nombre;

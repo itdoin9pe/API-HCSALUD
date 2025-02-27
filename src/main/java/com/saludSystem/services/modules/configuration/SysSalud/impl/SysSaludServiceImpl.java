@@ -1,18 +1,23 @@
 package com.saludSystem.services.modules.configuration.SysSalud.impl;
 
+import com.saludSystem.dtos.configuration.SysSaludModule.ActualizarHospitalDTO;
 import com.saludSystem.dtos.configuration.SysSaludModule.CrearSysSaludDTO;
 import com.saludSystem.dtos.configuration.SysSaludModule.SysSaludDTO;
+import com.saludSystem.dtos.responses.ApiResponse;
+import com.saludSystem.dtos.responses.ListResponse;
+import com.saludSystem.entities.catalogo.Plan;
 import com.saludSystem.entities.configuracion.SysSalud;
+import com.saludSystem.exception.ResourceNotFoundException;
 import com.saludSystem.repositories.modules.Catalogo.PlanRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
 import com.saludSystem.services.modules.configuration.SysSalud.SysSaludService;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class SysSaludServiceImpl implements SysSaludService {
@@ -38,25 +43,71 @@ public class SysSaludServiceImpl implements SysSaludService {
         sysSalud.setRuc(crearSysSaludDTO.getRuc());
         sysSalud.setFecha(crearSysSaludDTO.getFecha());
         sysSalud.setFoto(crearSysSaludDTO.getFoto());
-        //DESCOMENTAR:
-        // Optional<Plan> plan = planRepository.findById(sysSaludDTO.getPlanId());
-        // plan.ifPresent(sysSalud::setPlanId);
-        sysSalud.setEstado(sysSalud.getEstado());
+        Optional<Plan> plan = planRepository.findById(crearSysSaludDTO.getPlanId());
+        plan.ifPresent(sysSalud::setPlan);
+        sysSalud.setEstado(crearSysSaludDTO.getEstado());
 
         return sysSaludRespository.save(sysSalud);
     }
 
     @Override
-    public List<SysSaludDTO> getAllClinica(int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<SysSalud> hospitalPage = sysSaludRespository.findAll(pageable);
-        return hospitalPage.getContent().stream()
-                .map(hospital -> modelMapper.map(hospital, SysSaludDTO.class))
-                .toList();
+    public ListResponse<SysSaludDTO> getAllHospital(UUID hospitalId, int page, int rows) {
+        List<SysSalud> hospitals = sysSaludRespository.findByHospitalId(hospitalId);
+        List<SysSaludDTO> data = hospitals.stream().map(sysSalud -> {
+            SysSaludDTO dto = new SysSaludDTO();
+            dto.setHospitalId(sysSalud.getHospitalId());
+            dto.setNombre(sysSalud.getNombre());
+            dto.setDireccion(sysSalud.getDireccion());
+            dto.setCelular(sysSalud.getCelular());
+            dto.setRuc(sysSalud.getRuc());
+            dto.setFecha(sysSalud.getFecha());
+            dto.setFoto(sysSalud.getFoto());
+            dto.setPlanId(sysSalud.getPlan().getPlanId());
+            dto.setEmail(sysSalud.getEmail());
+            dto.setEstado(sysSalud.getEstado());
+            return dto;
+        }).collect(Collectors.toList());
+        return new ListResponse<>(data, data.size());
     }
 
     @Override
-    public long getTotalCount() {
-        return sysSaludRespository.count();
+    public List<SysSaludDTO> getHospitalList() {
+        return sysSaludRespository.findAll().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
+
+    @Override
+    public ActualizarHospitalDTO updateHospital(UUID hospitalId, ActualizarHospitalDTO actualizarHospitalDTO) {
+        SysSalud sysSalud = sysSaludRespository.findById(hospitalId).orElseThrow(
+                () -> new ResourceNotFoundException("Hospital not found"));
+        Optional.ofNullable(actualizarHospitalDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(sysSalud::setNombre);
+        Optional.ofNullable(actualizarHospitalDTO.getDireccion()).filter(desc -> !desc.isBlank()).ifPresent(sysSalud::setDireccion);
+        Optional.ofNullable(actualizarHospitalDTO.getCelular()).filter(desc -> !desc.isBlank()).ifPresent(sysSalud::setCelular);
+        Optional.ofNullable(actualizarHospitalDTO.getRuc()).filter(desc -> !desc.isBlank()).ifPresent(sysSalud::setRuc);
+        Optional.ofNullable(actualizarHospitalDTO.getFecha()).ifPresent(sysSalud::setFecha);
+        Optional.ofNullable(actualizarHospitalDTO.getFoto()).ifPresent(sysSalud::setFoto);
+        Optional.ofNullable(actualizarHospitalDTO.getPlanId()).flatMap(planRepository::findById).ifPresent(sysSalud::setPlan);
+        Optional.ofNullable(actualizarHospitalDTO.getEmail()).filter(desc -> !desc.isBlank()).ifPresent(sysSalud::setEmail);
+        Optional.ofNullable(actualizarHospitalDTO.getEstado()).ifPresent(sysSalud::setEstado);
+        sysSaludRespository.save(sysSalud);
+        return modelMapper.map(sysSalud, ActualizarHospitalDTO.class);
+    }
+
+    @Override
+    public ApiResponse deleteHospital(UUID hospitalId) {
+        sysSaludRespository.deleteById(hospitalId);
+        return new ApiResponse(true, "Hospital eliminado correctamente");
+    }
+
+    @Override
+    public Optional<SysSaludDTO> getHospitalBysId(UUID hospitalId) {
+        return Optional.ofNullable(sysSaludRespository.findById(hospitalId).map(this::convertToDTO)
+                .orElseThrow( () -> new ResourceNotFoundException("Hospital not found")));
+    }
+
+    private SysSaludDTO convertToDTO(SysSalud sysSalud) {
+        return modelMapper.map(sysSalud, SysSaludDTO.class);
+    }
+
 }

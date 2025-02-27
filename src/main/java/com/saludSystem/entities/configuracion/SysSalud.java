@@ -24,14 +24,19 @@ public class SysSalud {
     @Column(name = "hospital_id", nullable = false, unique = true)
     private UUID hospitalId;
 
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
+    @Column(name = "direccion", nullable = false)
     private String direccion;
 
+    @Column(name = "celular", nullable = false)
     private String celular;
 
+    @Column(name = "email", nullable = false)
     private String email;
 
+    @Column(name = "ruc", nullable = false)
     private String ruc;
 
     @Temporal(TemporalType.DATE)
@@ -42,6 +47,7 @@ public class SysSalud {
     @Column(name = "foto", columnDefinition = "MEDIUMBLOB")
     private byte[] foto;
 
+    @Column(name = "estado", nullable = false)
     private Integer estado;
 
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
