@@ -18,7 +18,7 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "rol_id", nullable = false, unique = true, columnDefinition = "BINARY(16)")
+    @Column(name = "rol_id", nullable = false, unique = true)
     private UUID roleId;
 
     @Column(name = "estado", nullable = false)
