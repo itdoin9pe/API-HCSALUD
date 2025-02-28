@@ -17,7 +17,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -56,11 +55,8 @@ public class RolServiceImpl implements RolService {
 
     @Override
     public List<RolDTO> getRoleList() {
-        return roleRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+        return roleRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
-
 
     @Override
     public ListResponse<RolDTO> getAllRole(UUID hospitalId, int page, int rows) {
@@ -77,8 +73,7 @@ public class RolServiceImpl implements RolService {
 
     @Override
     public RolDTO getRoleById(UUID roleId) {
-        Role role = roleRepository.findById(roleId)
-                .orElseThrow( () -> new ResourceNotFoundException("Role no encontrado"));
+        Role role = roleRepository.findById(roleId).orElseThrow( () -> new ResourceNotFoundException("Role no encontrado"));
         RolDTO dto = new RolDTO();
         dto.setRoleId(role.getRoleId());
         dto.setNombre(role.getNombre());
@@ -88,8 +83,7 @@ public class RolServiceImpl implements RolService {
 
     @Override
     public ApiResponse updateRole(UUID roleId, ActualizarRolDTO actualizarRolDTO) {
-        Role role = roleRepository.findById(roleId).orElseThrow(
-                () -> new ResourceNotFoundException("Role not found"));
+        Role role = roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException("Role not found"));
         Optional.ofNullable(actualizarRolDTO.getNombre()).ifPresent(role::setNombre);
         Optional.ofNullable(actualizarRolDTO.getEstado()).ifPresent(role::setEstado);
         roleRepository.save(role);

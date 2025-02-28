@@ -5,7 +5,6 @@ import com.saludSystem.dtos.configuration.Rol.CrearRolDTO;
 import com.saludSystem.dtos.configuration.Rol.RolDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.ListResponse;
-
 import java.util.List;
 import java.util.UUID;
 
