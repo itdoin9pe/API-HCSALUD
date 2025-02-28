@@ -1,6 +1,7 @@
 package com.saludSystem.entities;
 
 import com.saludSystem.entities.configuracion.Permiso;
+import com.saludSystem.entities.configuracion.SysSalud;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,14 @@ public class Menu {
 
     @Column(name = "ruta", nullable = false)
     private String ruta;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private SysSalud hospital;
 
     @OneToMany(mappedBy = "menu")
     private List<Permiso> permisos;
