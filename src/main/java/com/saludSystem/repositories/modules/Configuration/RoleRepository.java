@@ -1,6 +1,6 @@
 package com.saludSystem.repositories.modules.Configuration;
 
-import com.saludSystem.entities.Role;
+import com.saludSystem.entities.configuracion.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
 package com.saludSystem.entities;
 
+import com.saludSystem.entities.configuracion.Role;
 import com.saludSystem.entities.configuracion.SysSalud;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

@@ -1,7 +1,6 @@
 package com.saludSystem.entities.configuracion;
 
 import com.saludSystem.entities.Menu;
-import com.saludSystem.entities.Role;
 import com.saludSystem.entities.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -6,7 +6,7 @@ import com.saludSystem.dtos.configuration.Permiso.PermisoDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.ListResponse;
 import com.saludSystem.entities.Menu;
-import com.saludSystem.entities.Role;
+import com.saludSystem.entities.configuracion.Role;
 import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.Permiso;
 import com.saludSystem.entities.configuracion.SysSalud;

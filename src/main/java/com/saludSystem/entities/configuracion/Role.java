@@ -1,7 +1,6 @@
-package com.saludSystem.entities;
+package com.saludSystem.entities.configuracion;
 
-import com.saludSystem.entities.configuracion.Permiso;
-import com.saludSystem.entities.configuracion.SysSalud;
+import com.saludSystem.entities.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

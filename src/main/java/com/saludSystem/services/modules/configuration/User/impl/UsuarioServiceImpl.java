@@ -5,7 +5,7 @@ import com.saludSystem.dtos.configuration.User.ActualizarUsuarioDTO;
 import com.saludSystem.dtos.configuration.User.UsuarioDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.entities.Role;
+import com.saludSystem.entities.configuracion.Role;
 import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.SysSalud;
 import com.saludSystem.exception.ResourceNotFoundException;
