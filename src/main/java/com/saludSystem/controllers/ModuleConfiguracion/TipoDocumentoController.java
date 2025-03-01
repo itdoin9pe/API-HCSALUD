@@ -1,5 +1,5 @@
 package com.saludSystem.controllers.ModuleConfiguracion;
-/*
+
 import com.saludSystem.dtos.configuration.TipoDocumento.ActualizarTipoDocumentoDTO;
 import com.saludSystem.dtos.configuration.TipoDocumento.CrearTipoDocumentoDTO;
 import com.saludSystem.dtos.configuration.TipoDocumento.TipoDocumentoDTO;
@@ -40,7 +40,8 @@ public class TipoDocumentoController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = TipoDocumentoResponse.class)))
     })
-    public ListResponse<TipoDocumentoDTO> getAllPage(@RequestParam(name = "hospitalId") UUID hospitalId, @RequestParam(name = "Page", defaultValue = "") int page, @RequestParam(name = "Rows", defaultValue = "") int rows) {
+    public ListResponse<TipoDocumentoDTO> getAllPage(@RequestParam(name = "hospitalId") UUID hospitalId,
+            @RequestParam(name = "Page", defaultValue = "") int page, @RequestParam(name = "Rows", defaultValue = "") int rows) {
         return tipoDocumentoService.getAllTipoDocumento(hospitalId, page, rows);
     }
 
@@ -65,5 +66,3 @@ public class TipoDocumentoController {
     }
 
 }
-
- */

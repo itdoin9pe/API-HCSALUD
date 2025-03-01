@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.configuration.TipoDocumento;
-/*
+
 import com.saludSystem.dtos.configuration.TipoDocumento.ActualizarTipoDocumentoDTO;
 import com.saludSystem.dtos.configuration.TipoDocumento.CrearTipoDocumentoDTO;
 import com.saludSystem.dtos.configuration.TipoDocumento.TipoDocumentoDTO;
@@ -24,5 +24,3 @@ public interface TipoDocumentoService {
     ApiResponse deleteTipoDocumento(UUID tDocumentoId);
 
 }
-
- */

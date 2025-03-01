@@ -1,5 +1,5 @@
 package com.saludSystem.services.modules.configuration.TipoDocumento.Impl;
-/*
+
 import com.saludSystem.dtos.configuration.TipoDocumento.ActualizarTipoDocumentoDTO;
 import com.saludSystem.dtos.configuration.TipoDocumento.CrearTipoDocumentoDTO;
 import com.saludSystem.dtos.configuration.TipoDocumento.TipoDocumentoDTO;
@@ -40,8 +40,8 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
     @Override
     public ApiResponse saveTipoDocumento(CrearTipoDocumentoDTO crearTipoDocumentoDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByUsername(username)
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         SysSalud hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
@@ -55,7 +55,7 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
         tipoDocumento.setHospital(hospital);
         tipoDocumento.setUser(user);
         tipoDocumentoRepository.save(tipoDocumento);
-        return new ApiResponse(true, "TIpoDocumento registrado correctamente");
+        return new ApiResponse(true, "TIpo de documento registrado correctamente");
     }
 
     @Override
@@ -78,7 +78,7 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
     @Override
     public TipoDocumentoDTO getTipoDocumentoById(UUID tDocumentoId) {
         TipoDocumento tipoDocumento = tipoDocumentoRepository.findById(tDocumentoId)
-                .orElseThrow( () -> new RuntimeException("Tipo Documento no encontrado"));
+                .orElseThrow( () -> new RuntimeException("Tipo de documento no encontrado"));
         TipoDocumentoDTO dto = new TipoDocumentoDTO();
         dto.setTDocumentoId(tipoDocumento.getTDocumentoId());
         dto.setTipoComprobante(tipoDocumento.getTipoComprobante());
@@ -107,13 +107,13 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
         Optional.ofNullable(actualizarTipoDocumentoDTO.getFin()).ifPresent(tipoDocumento::setFin);
         Optional.ofNullable(actualizarTipoDocumentoDTO.getCorrelativoActual()).ifPresent(tipoDocumento::setCorrelativoActual);
         tipoDocumentoRepository.save(tipoDocumento);
-        return new ApiResponse(true, "Tipo Documento actualizado correctamente");
+        return new ApiResponse(true, "Tipo de documento actualizado correctamente");
     }
 
     @Override
     public ApiResponse deleteTipoDocumento(UUID tDocumentoId) {
         tipoDocumentoRepository.deleteById(tDocumentoId);
-        return new ApiResponse(true, "Tipo Documento eliminado correctamente");
+        return new ApiResponse(true, "Tipo de documento eliminado correctamente");
     }
 
     private TipoDocumentoDTO convertToDTO(TipoDocumento tipoDocumento) {
@@ -121,5 +121,3 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
     }
 
 }
-
- */

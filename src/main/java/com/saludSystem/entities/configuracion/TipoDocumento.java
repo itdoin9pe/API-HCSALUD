@@ -1,5 +1,5 @@
 package com.saludSystem.entities.configuracion;
-/*
+
 import com.saludSystem.entities.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tipos_documentos")
-public class TipoDocumento extends BaseEntity {
+public class TipoDocumento extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -62,4 +62,4 @@ public class TipoDocumento extends BaseEntity {
     @Column(name = "actualizado_en")
     private Date updatedAt;
 
-}*/
+}
