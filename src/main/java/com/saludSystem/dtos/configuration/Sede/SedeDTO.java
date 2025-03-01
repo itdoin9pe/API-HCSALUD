@@ -18,7 +18,7 @@ public class SedeDTO {
 
     private String ubigeo;
 
-    @Schema(description = "Estado de la Sede (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
+    @Schema(description = "Estado de la Sede (0 = inactivo, 1 = activo)", example = "0")
     private Integer estado;
 
 }

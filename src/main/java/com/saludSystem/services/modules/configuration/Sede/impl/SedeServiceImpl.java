@@ -1,13 +1,15 @@
 package com.saludSystem.services.modules.configuration.Sede.impl;
-/*
+
 import com.saludSystem.dtos.configuration.Sede.ActualizarSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.CrearSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.SedeDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.ListResponse;
+import com.saludSystem.entities.Sucursal;
 import com.saludSystem.entities.User;
 import com.saludSystem.entities.configuracion.Sede;
 import com.saludSystem.entities.configuracion.SysSalud;
+import com.saludSystem.repositories.Generals.SucursalRepository;
 import com.saludSystem.repositories.modules.Configuration.UserRepository;
 import com.saludSystem.repositories.modules.Configuration.SedeRepository;
 import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
@@ -28,23 +30,36 @@ public class SedeServiceImpl implements SedeService {
     private final SedeRepository sedeRepository;
     private final SysSaludRepository sysSaludRepository;
     private final UserRepository userRepository;
+    private final SucursalRepository sucursalRepository;
     private final ModelMapper modelMapper;
 
-    public SedeServiceImpl(SedeRepository sedeRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ModelMapper modelMapper) {
+    public SedeServiceImpl(SedeRepository sedeRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, SucursalRepository sucursalRepository, ModelMapper modelMapper) {
         this.sedeRepository = sedeRepository;
         this.sysSaludRepository = sysSaludRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.sucursalRepository = sucursalRepository;
     }
 
     @Override
     public ApiResponse saveSede(CrearSedeDTO crearSedeDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByUsername(username)
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         SysSalud hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+        List<Sucursal> sucursales = sucursalRepository.findByHospital_HospitalId((user.getHospital().getHospitalId()));
+
+        if (sucursales.isEmpty()) {
+            throw new RuntimeException("No hay sucursales registradas para este hospital");
+        }
+
+        if (sucursales.size() > 1) {
+            throw new RuntimeException("Existen múltiples sucursales, debe especificar una");
+        }
+
+        Sucursal sucursal = sucursales.get(0); // Asigna la única sucursal existente
         Sede sede = new Sede();
         sede.setCodigo(crearSedeDTO.getCodigo());
         sede.setNombre(crearSedeDTO.getNombre());
@@ -53,6 +68,7 @@ public class SedeServiceImpl implements SedeService {
         sede.setEstado(crearSedeDTO.getEstado());
         sede.setUser(user);
         sede.setHospital(hospital);
+        sede.setSucursal(sucursal);
         sedeRepository.save(sede);
         return new ApiResponse(true, "Sede registrada correctamente");
     }
@@ -121,5 +137,3 @@ public class SedeServiceImpl implements SedeService {
     }
 
 }
-
- */

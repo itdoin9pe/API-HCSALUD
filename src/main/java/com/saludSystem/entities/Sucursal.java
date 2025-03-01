@@ -1,6 +1,7 @@
 package com.saludSystem.entities;
 
 import com.saludSystem.entities.Movimientos.Almacen;
+import com.saludSystem.entities.configuracion.Sede;
 import com.saludSystem.entities.configuracion.SysSalud;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sucursales")
-public class Sucursal extends BaseEntity{
+public class Sucursal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,7 +27,14 @@ public class Sucursal extends BaseEntity{
     private String direccion;
     private boolean isDefault;
 
+    @ManyToOne
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private SysSalud hospital;
+
     @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL)
     private List<Almacen> almacenes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL)
+    private List<Sede> sedes;
 
 }

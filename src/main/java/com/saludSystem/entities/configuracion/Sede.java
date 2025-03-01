@@ -1,6 +1,7 @@
 package com.saludSystem.entities.configuracion;
 
 import com.saludSystem.entities.Sucursal;
+import com.saludSystem.entities.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -40,6 +41,10 @@ public class Sede {
     @ManyToOne
     @JoinColumn(name = "sucursal_id", nullable = false)
     private Sucursal sucursal;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "hospital_id", nullable = false)

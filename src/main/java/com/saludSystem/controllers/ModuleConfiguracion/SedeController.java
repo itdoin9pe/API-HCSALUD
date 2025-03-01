@@ -1,5 +1,5 @@
 package com.saludSystem.controllers.ModuleConfiguracion;
-/*
+
 import com.saludSystem.dtos.configuration.Sede.ActualizarSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.CrearSedeDTO;
 import com.saludSystem.dtos.configuration.Sede.SedeDTO;
@@ -67,5 +67,3 @@ public class SedeController {
     }
 
 }
-
- */
