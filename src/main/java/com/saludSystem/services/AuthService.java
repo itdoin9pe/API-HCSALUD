@@ -62,38 +62,6 @@ public class AuthService {
         }
     }
 
-    /*
-    public void registerUser(NewUserDto newUserDto){
-        if (userService.existsByEmail(newUserDto.getEmail())){
-            throw new IllegalArgumentException("Username already exists!!");
-        }
-
-        Role roleUser = roleRepository.findByName(UserRole.ADMIN)
-                .orElseThrow(() -> new RuntimeException("Role not found"));
-
-        SysSalud hospital = sysSaludRepository.findById(newUserDto.getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital not found"));
-
-        User user = User.builder()
-                .lastName(newUserDto.getLastName())
-                .firstName(newUserDto.getFirstName())
-                .phoneNumber(newUserDto.getPhoneNumber())
-                .address(newUserDto.getAddress())
-                .email(newUserDto.getEmail())
-                .documentType(newUserDto.getDocumentType())
-                .documentNumber(newUserDto.getDocumentNumber())
-                .photo(newUserDto.getPhoto().getBytes())
-                .username(newUserDto.getUsername())
-                .password(passwordEncoder.encode(newUserDto.getPassword()))
-                .rol(roleUser)
-                .hospital(hospital)
-                .build();
-
-        userService.save(user);
-    }
-
-
-     */
     public Map<String, String> refreshToken(String refreshToken) {
         try {
             String username = jwtUtil.extractUsername(refreshToken);

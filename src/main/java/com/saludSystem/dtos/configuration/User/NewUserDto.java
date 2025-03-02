@@ -18,7 +18,8 @@ public class NewUserDto {
     private String email;
     private String documentType;
     private String documentNumber;
-    private byte[] photo;
+    //private byte[] photo;
+    private String photo;
     public String username;
     public String password;
     private Integer estado;

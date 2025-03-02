@@ -6,6 +6,9 @@ import com.saludSystem.dtos.configuration.User.UsuarioDTO;
 import com.saludSystem.dtos.responses.ApiResponse;
 import com.saludSystem.dtos.responses.Configuration.UsuarioResponse;
 import com.saludSystem.dtos.responses.ListResponse;
+import com.saludSystem.entities.User;
+import com.saludSystem.repositories.modules.Configuration.UserRepository;
+import com.saludSystem.services.FileStorageService;
 import com.saludSystem.services.modules.configuration.User.UsuarioService;
 import com.saludSystem.util.Util;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,9 +29,13 @@ import java.util.UUID;
 public class UserController {
 
     private final UsuarioService usuarioService;
+    private final FileStorageService fileStorageService;
+    private final UserRepository userRepository;
 
-    public UserController(UsuarioService usuarioService) {
+    public UserController(UsuarioService usuarioService, FileStorageService fileStorageService, UserRepository userRepository) {
         this.usuarioService = usuarioService;
+        this.fileStorageService = fileStorageService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/GetAllUsuario")
@@ -50,7 +57,8 @@ public class UserController {
             @RequestParam("address") String address, @RequestParam("email") String email,
             @RequestParam("documentType") String documentType, @RequestParam("documentNumber") String documentNumber,
             @RequestParam("username") String username, @RequestParam("password") String password,
-            @RequestParam("estado") Integer estado, @RequestParam("roleId") UUID roleId) {
+            @RequestParam("estado") Integer estado, @RequestParam("roleId") UUID roleId) throws IOException{
+        String photoPath = fileStorageService.storeFile(photo);
         NewUserDto newUserDto = new NewUserDto();
         newUserDto.setLastName(lastName);
         newUserDto.setFirstName(firstName);
@@ -59,6 +67,7 @@ public class UserController {
         newUserDto.setEmail(email);
         newUserDto.setDocumentType(documentType);
         newUserDto.setDocumentNumber(documentNumber);
+        newUserDto.setPhoto(photoPath);
         newUserDto.setUsername(username);
         newUserDto.setPassword(password);
         newUserDto.setEstado(estado);
@@ -89,9 +98,22 @@ public class UserController {
         actualizarUsuarioDTO.setUsername(username);
         actualizarUsuarioDTO.setPassword(password);
         actualizarUsuarioDTO.setRoleId(roleId);
+        // Si se proporciona una nueva imagen, guardarla y actualizar la ruta
+        if (photo != null && !photo.isEmpty()) {
+            // Eliminar la imagen antigua si existe
+            User existingUser = userRepository.findById(userId).orElseThrow();
+            if (existingUser.getPhoto() != null) {
+                fileStorageService.deleteFile(existingUser.getPhoto());
+            }
+
+            // Guardar la nueva imagen
+            String photoPath = fileStorageService.storeFile(photo);
+            actualizarUsuarioDTO.setPhoto(photoPath);
+        }
+        /*
         if (photo != null) {
             actualizarUsuarioDTO.setPhoto(Util.compressZLib(photo.getBytes()));
-        }
+        }*/
         actualizarUsuarioDTO.setEstado(estado);
         usuarioService.updateUsuario(userId, actualizarUsuarioDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Usuario Actualizado correctamente"));

@@ -52,6 +52,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             dto.setDocumentType(user.getDocumentType());
             dto.setDocumentNumber(user.getDocumentNumber());
             dto.setPhoneNumber(user.getPhoneNumber());
+            dto.setPhoto(user.getPhoto());
             dto.setUsername(user.getUsername());
             dto.setRoleId(user.getRol().getRoleId());
             dto.setEstado(user.getEstado());

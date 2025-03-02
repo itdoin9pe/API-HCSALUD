@@ -49,9 +49,13 @@ public class User {
     @Column(unique = true, nullable = false)
     private String documentNumber;
 
+    /*
     @Lob
     @Column(nullable = true, columnDefinition = "MEDIUMBLOB")
-    private byte[] photo;
+    private byte[] photo;*/
+
+    @Column(nullable = true)
+    private String photo;
 
     @NotBlank(message = "The username field can't be blank")
     @Column(unique = true, nullable = false)
@@ -74,7 +78,7 @@ public class User {
     private SysSalud hospital;
 
     @Builder
-    public User(String lastName, String firstName, String phoneNumber, String address, String email, String documentType, String documentNumber, byte[] photo, String username, String password, Integer estado,Role rol, SysSalud hospital) {
+    public User(String lastName, String firstName, String phoneNumber, String address, String email, String documentType, String documentNumber, String photo, String username, String password, Integer estado,Role rol, SysSalud hospital) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;

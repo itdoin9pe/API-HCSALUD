@@ -15,7 +15,8 @@ public class ActualizarUsuarioDTO {
     private String phoneNumber;
     private String documentType;
     private String documentNumber;
-    private byte[] photo;
+    //private byte[] photo;
+    private String photo;
     private String username;
     private String password;
     private Integer estado;
