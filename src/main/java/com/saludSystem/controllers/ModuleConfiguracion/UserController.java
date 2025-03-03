@@ -10,12 +10,12 @@ import com.saludSystem.entities.User;
 import com.saludSystem.repositories.modules.Configuration.UserRepository;
 import com.saludSystem.services.FileStorageService;
 import com.saludSystem.services.modules.configuration.User.UsuarioService;
-import com.saludSystem.util.Util;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,14 +50,13 @@ public class UserController {
         return usuarioService.getAllUsuario(hospitalId, page, rows);
     }
 
-    @PostMapping("/SaveUsuario")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
+            content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    @PostMapping(value = "/SaveUsuario", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse> stored(
-            @RequestParam("photo")MultipartFile photo, @RequestParam("lastName") String lastName,
-            @RequestParam("firstName") String firstName, @RequestParam("phoneNumber") String phoneNumber,
-            @RequestParam("address") String address, @RequestParam("email") String email,
-            @RequestParam("documentType") String documentType, @RequestParam("documentNumber") String documentNumber,
-            @RequestParam("username") String username, @RequestParam("password") String password,
-            @RequestParam("estado") Integer estado, @RequestParam("roleId") UUID roleId) throws IOException{
+            String lastName, String firstName, String phoneNumber, String address, String email,
+            String documentType, String documentNumber, String username,  String password, Integer estado, MultipartFile photo,
+            UUID roleId) throws IOException{
         String photoPath = fileStorageService.storeFile(photo);
         NewUserDto newUserDto = new NewUserDto();
         newUserDto.setLastName(lastName);
@@ -76,16 +75,13 @@ public class UserController {
         return ResponseEntity.ok(new ApiResponse(true, "Usuario registrado correctamente"));
     }
 
-    @PutMapping("/UpdateUsuario/{userId}")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
+            content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    @PutMapping(value = "/UpdateUsuario/{userId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse> updateUsuario(
-            @PathVariable("userId") UUID userId,
-            @Valid @RequestParam(value = "photo", required = false) MultipartFile photo,
-            @RequestParam("lastName") String lastName, @RequestParam("firstName") String firstName,
-            @RequestParam("phoneNumber") String phoneNumber, @RequestParam("address") String address,
-            @RequestParam("email") String email, @RequestParam("documentType") String documentType,
-            @RequestParam("documentNumber") String documentNumber, @RequestParam("username") String username,
-            @RequestParam("password") String password, @RequestParam("estado") Integer estado,
-            @RequestParam("roleId") UUID roleId) throws IOException {
+            @PathVariable("userId") UUID userId, String lastName, String firstName, String phoneNumber, String address,
+            String email, String documentType, String documentNumber,String username, String password, Integer estado,
+            UUID roleId, MultipartFile photo) throws IOException {
         ActualizarUsuarioDTO actualizarUsuarioDTO = new ActualizarUsuarioDTO();
         actualizarUsuarioDTO.setUserId(userId);
         actualizarUsuarioDTO.setLastName(lastName);
@@ -98,22 +94,14 @@ public class UserController {
         actualizarUsuarioDTO.setUsername(username);
         actualizarUsuarioDTO.setPassword(password);
         actualizarUsuarioDTO.setRoleId(roleId);
-        // Si se proporciona una nueva imagen, guardarla y actualizar la ruta
         if (photo != null && !photo.isEmpty()) {
-            // Eliminar la imagen antigua si existe
             User existingUser = userRepository.findById(userId).orElseThrow();
             if (existingUser.getPhoto() != null) {
                 fileStorageService.deleteFile(existingUser.getPhoto());
             }
-
-            // Guardar la nueva imagen
             String photoPath = fileStorageService.storeFile(photo);
             actualizarUsuarioDTO.setPhoto(photoPath);
         }
-        /*
-        if (photo != null) {
-            actualizarUsuarioDTO.setPhoto(Util.compressZLib(photo.getBytes()));
-        }*/
         actualizarUsuarioDTO.setEstado(estado);
         usuarioService.updateUsuario(userId, actualizarUsuarioDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Usuario Actualizado correctamente"));
