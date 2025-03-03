@@ -1,13 +1,13 @@
 package com.saludSystem.infrastructure.controllers.ModuleConfiguracion;
 
-import com.saludSystem.application.dtos.configuration.SysSalud.ActualizarHospitalDTO;
-import com.saludSystem.application.dtos.configuration.SysSalud.CrearSysSaludDTO;
-import com.saludSystem.application.dtos.configuration.SysSalud.SysSaludDTO;
+import com.saludSystem.application.dtos.Configuracion.SysSalud.ActualizarHospitalDTO;
+import com.saludSystem.application.dtos.Configuracion.SysSalud.CrearSysSaludDTO;
+import com.saludSystem.application.dtos.Configuracion.SysSalud.SysSaludDTO;
 import com.saludSystem.application.dtos.responses.ApiResponse;
-import com.saludSystem.application.dtos.responses.Configuration.ClinicaResponse;
+import com.saludSystem.application.dtos.responses.Configuracion.ClinicaResponse;
 import com.saludSystem.application.dtos.responses.ListResponse;
 import com.saludSystem.infrastructure.repositories.modules.Catalogo.PlanRepository;
-import com.saludSystem.application.services.modules.configuration.SysSalud.SysSaludService;
+import com.saludSystem.application.services.modules.Configuracion.SysSalud.SysSaludService;
 import com.saludSystem.infrastructure.security.util.Util;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -1,7 +1,7 @@
 package com.saludSystem.domain.entities;
 
 import com.saludSystem.domain.entities.Generals.BaseEntity;
-import com.saludSystem.domain.entities.catalogo.Especialidad;
+import com.saludSystem.domain.entities.Catalogo.Especialidad;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

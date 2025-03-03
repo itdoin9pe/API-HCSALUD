@@ -1,8 +1,8 @@
 package com.saludSystem.domain.entities.Generals;
 
 import com.saludSystem.domain.entities.Movimientos.Almacen;
-import com.saludSystem.domain.entities.configuracion.Sede;
-import com.saludSystem.domain.entities.configuracion.SysSalud;
+import com.saludSystem.domain.entities.Configuracion.Sede;
+import com.saludSystem.domain.entities.Configuracion.SysSalud;
 import jakarta.persistence.*;
 import lombok.*;
 

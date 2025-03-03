@@ -1,6 +1,6 @@
 package com.saludSystem.infrastructure.repositories.modules.Catalogo;
 
-import com.saludSystem.domain.entities.catalogo.Plan;
+import com.saludSystem.domain.entities.Catalogo.Plan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

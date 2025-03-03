@@ -1,12 +1,12 @@
 package com.saludSystem.infrastructure.controllers.ModuleConfiguracion;
 
-import com.saludSystem.application.dtos.configuration.Permiso.ActualizarPermisoDTO;
-import com.saludSystem.application.dtos.configuration.Permiso.CrearPermisoDTO;
-import com.saludSystem.application.dtos.configuration.Permiso.PermisoDTO;
+import com.saludSystem.application.dtos.Configuracion.Permiso.ActualizarPermisoDTO;
+import com.saludSystem.application.dtos.Configuracion.Permiso.CrearPermisoDTO;
+import com.saludSystem.application.dtos.Configuracion.Permiso.PermisoDTO;
 import com.saludSystem.application.dtos.responses.ApiResponse;
-import com.saludSystem.application.dtos.responses.Configuration.PermisoResponse;
+import com.saludSystem.application.dtos.responses.Configuracion.PermisoResponse;
 import com.saludSystem.application.dtos.responses.ListResponse;
-import com.saludSystem.application.services.modules.configuration.Permiso.PermisoService;
+import com.saludSystem.application.services.modules.Configuracion.Permiso.PermisoService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

@@ -1,8 +1,8 @@
 package com.saludSystem.domain.entities.Generals;
 
-import com.saludSystem.domain.entities.configuracion.User;
-import com.saludSystem.domain.entities.configuracion.Permiso;
-import com.saludSystem.domain.entities.configuracion.SysSalud;
+import com.saludSystem.domain.entities.Configuracion.User;
+import com.saludSystem.domain.entities.Configuracion.Permiso;
+import com.saludSystem.domain.entities.Configuracion.SysSalud;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

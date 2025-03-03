@@ -1,7 +1,7 @@
 package com.saludSystem.domain.entities.Generals;
 
-import com.saludSystem.domain.entities.configuracion.User;
-import com.saludSystem.domain.entities.configuracion.SysSalud;
+import com.saludSystem.domain.entities.Configuracion.User;
+import com.saludSystem.domain.entities.Configuracion.SysSalud;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;

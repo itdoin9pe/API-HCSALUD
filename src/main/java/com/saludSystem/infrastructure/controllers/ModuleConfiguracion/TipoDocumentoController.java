@@ -1,12 +1,12 @@
 package com.saludSystem.infrastructure.controllers.ModuleConfiguracion;
 
-import com.saludSystem.application.dtos.configuration.TipoDocumento.ActualizarTipoDocumentoDTO;
-import com.saludSystem.application.dtos.configuration.TipoDocumento.CrearTipoDocumentoDTO;
-import com.saludSystem.application.dtos.configuration.TipoDocumento.TipoDocumentoDTO;
+import com.saludSystem.application.dtos.Configuracion.TipoDocumento.ActualizarTipoDocumentoDTO;
+import com.saludSystem.application.dtos.Configuracion.TipoDocumento.CrearTipoDocumentoDTO;
+import com.saludSystem.application.dtos.Configuracion.TipoDocumento.TipoDocumentoDTO;
 import com.saludSystem.application.dtos.responses.ApiResponse;
-import com.saludSystem.application.dtos.responses.Configuration.TipoDocumentoResponse;
+import com.saludSystem.application.dtos.responses.Configuracion.TipoDocumentoResponse;
 import com.saludSystem.application.dtos.responses.ListResponse;
-import com.saludSystem.application.services.modules.configuration.TipoDocumento.TipoDocumentoService;
+import com.saludSystem.application.services.modules.Configuracion.TipoDocumento.TipoDocumentoService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

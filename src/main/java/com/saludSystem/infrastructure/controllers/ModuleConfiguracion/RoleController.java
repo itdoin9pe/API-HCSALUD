@@ -1,12 +1,12 @@
 package com.saludSystem.infrastructure.controllers.ModuleConfiguracion;
 
-import com.saludSystem.application.dtos.configuration.Rol.ActualizarRolDTO;
-import com.saludSystem.application.dtos.configuration.Rol.CrearRolDTO;
-import com.saludSystem.application.dtos.configuration.Rol.RolDTO;
+import com.saludSystem.application.dtos.Configuracion.Rol.ActualizarRolDTO;
+import com.saludSystem.application.dtos.Configuracion.Rol.CrearRolDTO;
+import com.saludSystem.application.dtos.Configuracion.Rol.RolDTO;
 import com.saludSystem.application.dtos.responses.ApiResponse;
-import com.saludSystem.application.dtos.responses.Configuration.RolResponse;
+import com.saludSystem.application.dtos.responses.Configuracion.RolResponse;
 import com.saludSystem.application.dtos.responses.ListResponse;
-import com.saludSystem.application.services.modules.configuration.Rol.RolService;
+import com.saludSystem.application.services.modules.Configuracion.Rol.RolService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

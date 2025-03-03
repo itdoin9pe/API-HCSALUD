@@ -1,9 +1,9 @@
 package com.saludSystem.infrastructure.controllers;
 
 import com.saludSystem.application.dtos.LoginUserDto;
-import com.saludSystem.application.dtos.configuration.User.NewUserDto;
+import com.saludSystem.application.dtos.Configuracion.User.NewUserDto;
 import com.saludSystem.application.services.AuthService;
-import com.saludSystem.application.services.modules.configuration.User.UsuarioService;
+import com.saludSystem.application.services.modules.Configuracion.User.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

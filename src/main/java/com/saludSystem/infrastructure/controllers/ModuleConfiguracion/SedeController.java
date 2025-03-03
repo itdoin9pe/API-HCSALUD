@@ -1,12 +1,12 @@
 package com.saludSystem.infrastructure.controllers.ModuleConfiguracion;
 
-import com.saludSystem.application.dtos.configuration.Sede.ActualizarSedeDTO;
-import com.saludSystem.application.dtos.configuration.Sede.CrearSedeDTO;
-import com.saludSystem.application.dtos.configuration.Sede.SedeDTO;
+import com.saludSystem.application.dtos.Configuracion.Sede.ActualizarSedeDTO;
+import com.saludSystem.application.dtos.Configuracion.Sede.CrearSedeDTO;
+import com.saludSystem.application.dtos.Configuracion.Sede.SedeDTO;
 import com.saludSystem.application.dtos.responses.ApiResponse;
-import com.saludSystem.application.dtos.responses.Configuration.SedeResponse;
+import com.saludSystem.application.dtos.responses.Configuracion.SedeResponse;
 import com.saludSystem.application.dtos.responses.ListResponse;
-import com.saludSystem.application.services.modules.configuration.Sede.SedeService;
+import com.saludSystem.application.services.modules.Configuracion.Sede.SedeService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

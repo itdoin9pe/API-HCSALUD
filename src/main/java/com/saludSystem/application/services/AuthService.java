@@ -2,8 +2,8 @@ package com.saludSystem.application.services;
 
 //import com.saludSystem.entities.Doctor;
 import com.saludSystem.infrastructure.security.jwt.JwtUtil;
-import com.saludSystem.infrastructure.repositories.modules.Configuration.RoleRepository;
-import com.saludSystem.infrastructure.repositories.modules.Configuration.SysSaludRepository;
+import com.saludSystem.infrastructure.repositories.modules.Configuracion.RoleRepository;
+import com.saludSystem.infrastructure.repositories.modules.Configuracion.SysSaludRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

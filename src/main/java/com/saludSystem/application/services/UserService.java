@@ -1,7 +1,7 @@
 package com.saludSystem.application.services;
 
-import com.saludSystem.domain.entities.configuracion.User;
-import com.saludSystem.infrastructure.repositories.modules.Configuration.UserRepository;
+import com.saludSystem.domain.entities.Configuracion.User;
+import com.saludSystem.infrastructure.repositories.modules.Configuracion.UserRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

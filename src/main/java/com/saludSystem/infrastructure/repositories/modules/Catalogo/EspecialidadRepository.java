@@ -1,6 +1,6 @@
 package com.saludSystem.infrastructure.repositories.modules.Catalogo;
 
-import com.saludSystem.domain.entities.catalogo.Especialidad;
+import com.saludSystem.domain.entities.Catalogo.Especialidad;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

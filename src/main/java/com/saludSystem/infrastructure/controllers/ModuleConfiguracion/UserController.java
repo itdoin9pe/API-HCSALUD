@@ -1,15 +1,15 @@
 package com.saludSystem.infrastructure.controllers.ModuleConfiguracion;
 
-import com.saludSystem.application.dtos.configuration.User.NewUserDto;
-import com.saludSystem.application.dtos.configuration.User.ActualizarUsuarioDTO;
-import com.saludSystem.application.dtos.configuration.User.UsuarioDTO;
+import com.saludSystem.application.dtos.Configuracion.User.NewUserDto;
+import com.saludSystem.application.dtos.Configuracion.User.ActualizarUsuarioDTO;
+import com.saludSystem.application.dtos.Configuracion.User.UsuarioDTO;
 import com.saludSystem.application.dtos.responses.ApiResponse;
-import com.saludSystem.application.dtos.responses.Configuration.UsuarioResponse;
+import com.saludSystem.application.dtos.responses.Configuracion.UsuarioResponse;
 import com.saludSystem.application.dtos.responses.ListResponse;
-import com.saludSystem.domain.entities.configuracion.User;
-import com.saludSystem.infrastructure.repositories.modules.Configuration.UserRepository;
+import com.saludSystem.domain.entities.Configuracion.User;
+import com.saludSystem.infrastructure.repositories.modules.Configuracion.UserRepository;
 import com.saludSystem.application.services.FileStorageService;
-import com.saludSystem.application.services.modules.configuration.User.UsuarioService;
+import com.saludSystem.application.services.modules.Configuracion.User.UsuarioService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
