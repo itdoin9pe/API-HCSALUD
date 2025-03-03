@@ -1,4 +1,4 @@
-package com.saludSystem.aplicacion.dtos.responses.Catalogo;
+package com.saludSystem.aplicacion.responses.Catalogo;
 
 import com.saludSystem.aplicacion.dtos.Catalogo.Categoria.CategoriaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;

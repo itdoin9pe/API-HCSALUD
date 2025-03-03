@@ -1,4 +1,4 @@
-package com.saludSystem.aplicacion.dtos.responses.Configuracion;
+package com.saludSystem.aplicacion.responses.Configuracion;
 
 import com.saludSystem.aplicacion.dtos.Configuracion.Permiso.PermisoDTO;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -1,4 +1,4 @@
-package com.saludSystem.aplicacion.dtos.responses;
+package com.saludSystem.aplicacion.responses;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

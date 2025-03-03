@@ -1,4 +1,4 @@
-package com.saludSystem.aplicacion.dtos.responses.Generals;
+package com.saludSystem.aplicacion.responses.Generals;
 
 import com.saludSystem.aplicacion.dtos.Generals.Aseguradora.AseguradoraDTO;
 import io.swagger.v3.oas.annotations.media.Schema;

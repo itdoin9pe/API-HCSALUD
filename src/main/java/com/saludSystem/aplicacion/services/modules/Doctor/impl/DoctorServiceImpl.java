@@ -3,7 +3,7 @@ package com.saludSystem.aplicacion.services.modules.Doctor.impl;
 import com.saludSystem.aplicacion.dtos.Doctor.ActualizarDoctorDTO;
 import com.saludSystem.aplicacion.dtos.Doctor.CrearDoctorDTO;
 import com.saludSystem.aplicacion.dtos.Doctor.DoctorDTO;
-import com.saludSystem.aplicacion.dtos.responses.ListResponse;
+import com.saludSystem.aplicacion.responses.ListResponse;
 import com.saludSystem.dominio.entities.Doctor;
 import com.saludSystem.dominio.entities.Configuracion.User;
 import com.saludSystem.dominio.entities.Catalogo.Especialidad;

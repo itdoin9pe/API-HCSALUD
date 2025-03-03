@@ -1,4 +1,4 @@
-package com.saludSystem.aplicacion.dtos.responses.Doctor;
+package com.saludSystem.aplicacion.responses.Doctor;
 
 import com.saludSystem.aplicacion.dtos.Doctor.DoctorDTO;
 import io.swagger.v3.oas.annotations.media.Schema;

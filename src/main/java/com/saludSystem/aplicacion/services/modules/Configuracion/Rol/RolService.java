@@ -3,8 +3,8 @@ package com.saludSystem.aplicacion.services.modules.Configuracion.Rol;
 import com.saludSystem.aplicacion.dtos.Configuracion.Rol.ActualizarRolDTO;
 import com.saludSystem.aplicacion.dtos.Configuracion.Rol.CrearRolDTO;
 import com.saludSystem.aplicacion.dtos.Configuracion.Rol.RolDTO;
-import com.saludSystem.aplicacion.dtos.responses.ApiResponse;
-import com.saludSystem.aplicacion.dtos.responses.ListResponse;
+import com.saludSystem.aplicacion.responses.ApiResponse;
+import com.saludSystem.aplicacion.responses.ListResponse;
 import java.util.List;
 import java.util.UUID;
 

@@ -3,8 +3,8 @@ package com.saludSystem.aplicacion.services.modules.Configuracion.Permiso;
 import com.saludSystem.aplicacion.dtos.Configuracion.Permiso.ActualizarPermisoDTO;
 import com.saludSystem.aplicacion.dtos.Configuracion.Permiso.CrearPermisoDTO;
 import com.saludSystem.aplicacion.dtos.Configuracion.Permiso.PermisoDTO;
-import com.saludSystem.aplicacion.dtos.responses.ApiResponse;
-import com.saludSystem.aplicacion.dtos.responses.ListResponse;
+import com.saludSystem.aplicacion.responses.ApiResponse;
+import com.saludSystem.aplicacion.responses.ListResponse;
 
 import java.util.UUID;
 

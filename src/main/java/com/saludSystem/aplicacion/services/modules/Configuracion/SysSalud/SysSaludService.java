@@ -3,8 +3,8 @@ package com.saludSystem.aplicacion.services.modules.Configuracion.SysSalud;
 import com.saludSystem.aplicacion.dtos.Configuracion.SysSalud.ActualizarHospitalDTO;
 import com.saludSystem.aplicacion.dtos.Configuracion.SysSalud.CrearSysSaludDTO;
 import com.saludSystem.aplicacion.dtos.Configuracion.SysSalud.SysSaludDTO;
-import com.saludSystem.aplicacion.dtos.responses.ApiResponse;
-import com.saludSystem.aplicacion.dtos.responses.ListResponse;
+import com.saludSystem.aplicacion.responses.ApiResponse;
+import com.saludSystem.aplicacion.responses.ListResponse;
 import com.saludSystem.dominio.entities.Configuracion.SysSalud;
 
 import java.util.List;
