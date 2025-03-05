@@ -4,7 +4,6 @@ import com.saludSystem.dominio.entities.Generals.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
 import java.util.UUID;
 
 @Entity

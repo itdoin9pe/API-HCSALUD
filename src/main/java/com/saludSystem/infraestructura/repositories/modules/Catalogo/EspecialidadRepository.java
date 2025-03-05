@@ -3,7 +3,6 @@ package com.saludSystem.infraestructura.repositories.modules.Catalogo;
 import com.saludSystem.dominio.entities.Catalogo.Especialidad;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.UUID;
 

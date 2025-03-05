@@ -7,6 +7,7 @@ import lombok.Data;
 public class CrearEspecialidadDTO {
 
     private String nombre;
+
     private String descripcion;
 
     @Schema(description = "Estado de Especialidades (0 = inactivo, 1 = activo)", example = "0")
