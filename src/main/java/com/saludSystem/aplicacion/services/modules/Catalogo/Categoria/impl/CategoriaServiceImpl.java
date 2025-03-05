@@ -1,16 +1,21 @@
 package com.saludSystem.aplicacion.services.modules.Catalogo.Categoria.impl;
-/*
-import com.saludSystem.dtos.catalago.Categoria.ActualizarCategoriaDTO;
-import com.saludSystem.dtos.catalago.Categoria.CategoriaDTO;
-import com.saludSystem.dtos.catalago.Categoria.CrearCategoriaDTO;
-import com.saludSystem.entities.catalogo.Categoria;
-import com.saludSystem.exception.ResourceNotFoundException;
-import com.saludSystem.repositories.modules.Catalogo.CategoriaRepository;
-import com.saludSystem.services.modules.Catalogo.Categoria.CategoriaService;
+
+import com.saludSystem.aplicacion.dtos.Catalogo.Categoria.ActualizarCategoriaDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Categoria.CategoriaDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Categoria.CrearCategoriaDTO;
+import com.saludSystem.aplicacion.responses.ApiResponse;
+import com.saludSystem.aplicacion.responses.ListResponse;
+import com.saludSystem.aplicacion.services.modules.Catalogo.Categoria.CategoriaService;
+import com.saludSystem.dominio.entities.Catalogo.Categoria;
+import com.saludSystem.dominio.entities.Configuracion.SysSalud;
+import com.saludSystem.dominio.entities.Configuracion.User;
+import com.saludSystem.infraestructura.repositories.modules.Catalogo.CategoriaRepository;
+import com.saludSystem.infraestructura.repositories.modules.Configuracion.SysSaludRepository;
+import com.saludSystem.infraestructura.repositories.modules.Configuracion.UserRepository;
+import com.saludSystem.infraestructura.security.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,18 +27,32 @@ import java.util.stream.Collectors;
 public class CategoriaServiceImpl implements CategoriaService {
 
     private final CategoriaRepository categoriaRepository;
+    private final SysSaludRepository sysSaludRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    public CategoriaServiceImpl(CategoriaRepository categoriaRepository, ModelMapper modelMapper) {
+    public CategoriaServiceImpl(CategoriaRepository categoriaRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.categoriaRepository = categoriaRepository;
+        this.sysSaludRepository = sysSaludRepository;
+        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public CrearCategoriaDTO saveCategoria(CrearCategoriaDTO crearCategoriaDTO) {
-        Categoria categoria = modelMapper.map(crearCategoriaDTO, Categoria.class);
+    public ApiResponse saveCategoria(CrearCategoriaDTO crearCategoriaDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        SysSalud hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+        Categoria categoria = new Categoria();
+        categoria.setNombre(crearCategoriaDTO.getNombre());
+        categoria.setEstado(crearCategoriaDTO.getEstado());
+        categoria.setHospital(hospital);
+        categoria.setUser(user);
         categoriaRepository.save(categoria);
-        return modelMapper.map(categoria, CrearCategoriaDTO.class);
+        return new ApiResponse(true, "Categoria creada correctamente");
     }
 
     @Override
@@ -44,39 +63,46 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public void deleteCategoria(UUID categoriaId) {
-        Categoria categoria = categoriaRepository.findById(categoriaId)
-                .orElseThrow( () -> new ResourceNotFoundException("Categoria no encontrado con ID" + categoriaId));
-        categoriaRepository.delete(categoria);
+    public ApiResponse deleteCategoria(UUID categoriaId) {
+        categoriaRepository.deleteById(categoriaId);
+        return new ApiResponse(true, "Categoria eliminada correctamente");
     }
 
     @Override
-    public ActualizarCategoriaDTO updateCategoria(UUID categoriaId, ActualizarCategoriaDTO actualizarCategoriaDTO) {
+    public ApiResponse updateCategoria(UUID categoriaId, ActualizarCategoriaDTO actualizarCategoriaDTO) {
         Categoria categoria = categoriaRepository.findById(categoriaId)
                 .orElseThrow(() ->  new ResourceNotFoundException("Categoria no encontrada con ID" + categoriaId));
         Optional.ofNullable(actualizarCategoriaDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(categoria::setNombre);
         Optional.ofNullable(actualizarCategoriaDTO.getEstado()).ifPresent(categoria::setEstado);
         categoriaRepository.save(categoria);
-        return modelMapper.map(categoria, ActualizarCategoriaDTO.class);
+        return new ApiResponse(true, "Categoria actualizada correctamente");
     }
 
     @Override
-    public Optional<CategoriaDTO> getCategoriaById(UUID categoriaId) {
-        return Optional.ofNullable(categoriaRepository.findById(categoriaId)
-                .map(this::converToDTO)
-                .orElseThrow( () -> new ResourceNotFoundException("Categoria no encontrado con Id" + categoriaId)));
+    public CategoriaDTO getCategoriaById(UUID categoriaId) {
+        Categoria categoria = categoriaRepository.findById(categoriaId)
+                .orElseThrow( () -> new ResourceNotFoundException("Categoria no encontrada"));
+        CategoriaDTO dto = new CategoriaDTO();
+        dto.setCategoriaId(categoria.getCategoriaId());
+        dto.setNombre(categoria.getNombre());
+        dto.setEstado(categoria.getEstado());
+        return dto;
     }
 
     @Override
-    public long getTotalCount() {
-        return categoriaRepository.count();
+    public ListResponse<CategoriaDTO> getAllCategoria(UUID hospitalId, int page, int rows) {
+        List<Categoria> categorias = categoriaRepository.findByHospital_HospitalId(hospitalId);
+        List<CategoriaDTO> data = categorias.stream().map(categoria -> {
+            CategoriaDTO dto = new CategoriaDTO();
+            dto.setCategoriaId(categoria.getCategoriaId());
+            dto.setNombre(categoria.getNombre());
+            dto.setEstado(categoria.getEstado());
+            return dto;
+        }).collect(Collectors.toList());
+        return new ListResponse<>(data, data.size());
     }
-
 
     private CategoriaDTO converToDTO(Categoria categoria) {
         return modelMapper.map(categoria, CategoriaDTO.class);
     }
 }
-
-
- */

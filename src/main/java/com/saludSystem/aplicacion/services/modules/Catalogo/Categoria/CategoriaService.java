@@ -1,27 +1,26 @@
 package com.saludSystem.aplicacion.services.modules.Catalogo.Categoria;
-/*
-import com.saludSystem.dtos.catalago.Categoria.ActualizarCategoriaDTO;
-import com.saludSystem.dtos.catalago.Categoria.CategoriaDTO;
-import com.saludSystem.dtos.catalago.Categoria.CrearCategoriaDTO;
-import com.saludSystem.services.PaginatedService;
+
+import com.saludSystem.aplicacion.dtos.Catalogo.Categoria.ActualizarCategoriaDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Categoria.CategoriaDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Categoria.CrearCategoriaDTO;
+import com.saludSystem.aplicacion.responses.ApiResponse;
+import com.saludSystem.aplicacion.responses.ListResponse;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-public interface CategoriaService extends PaginatedService {
+public interface CategoriaService {
 
-    CrearCategoriaDTO saveCategoria(CrearCategoriaDTO crearCategoriaDTO);
+    ApiResponse saveCategoria(CrearCategoriaDTO crearCategoriaDTO);
 
     List<CategoriaDTO> getCategoriaList();
 
-    void deleteCategoria(UUID categoriaId);
+    ApiResponse deleteCategoria(UUID categoriaId);
 
-    ActualizarCategoriaDTO updateCategoria(UUID categoriaId, ActualizarCategoriaDTO actualizarCategoriaDTO);
+    ApiResponse updateCategoria(UUID categoriaId, ActualizarCategoriaDTO actualizarCategoriaDTO);
 
-    Optional<CategoriaDTO> getCategoriaById(UUID categoriaId);
+    CategoriaDTO getCategoriaById(UUID categoriaId);
+
+    ListResponse<CategoriaDTO> getAllCategoria(UUID hospitalId, int page, int rows);
 
 }
-
-
- */

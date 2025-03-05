@@ -1,8 +1,6 @@
 package com.saludSystem.dominio.entities.Catalogo;
-/*
-import com.saludSystem.entities.BaseEntity;
-import com.saludSystem.entities.User;
-import com.saludSystem.entities.configuracion.SysSalud;
+
+import com.saludSystem.dominio.entities.Generals.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -19,7 +17,7 @@ public class Categoria extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_categoria", nullable = false, unique = true)
+    @Column(name = "id_categoria", nullable = false)
     private UUID categoriaId;
 
     @Column(name = "nombre", nullable = false)
@@ -29,4 +27,4 @@ public class Categoria extends BaseEntity {
     @Column(name = "estado", nullable = false)
     private Integer estado;
 
-}*/
+}

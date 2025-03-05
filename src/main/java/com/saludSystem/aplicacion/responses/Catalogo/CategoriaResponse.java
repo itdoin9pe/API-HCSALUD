@@ -10,9 +10,11 @@ import java.util.List;
 @Getter
 @Setter
 public class CategoriaResponse {
+
     @Schema(description = "Lista de Categorias - Catalogo")
     private List<CategoriaDTO> data;
 
     @Schema(description = "Número total de Categorias Registradas", example = "0")
     private long totalData;
+
 }
