@@ -65,8 +65,7 @@ public class MedidaServiceImpl implements MedidaService {
 
     @Override
     public MedidaDTO getMedidaById(UUID medidaId) {
-        Medida medida = medidaRepository.findById(medidaId)
-                .orElseThrow( () -> new ResourceNotFoundException("Medida no encontrada"));
+        Medida medida = medidaRepository.findById(medidaId).orElseThrow( () -> new ResourceNotFoundException("Medida no encontrada"));
         MedidaDTO dto = new MedidaDTO();
         dto.setMedidaId(medida.getMedidaId());
         dto.setNombre(medida.getNombre());
@@ -94,9 +93,7 @@ public class MedidaServiceImpl implements MedidaService {
     public ListResponse<MedidaDTO> getAllMedida(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<Medida> medidasPage = medidaRepository.findByHospital_HospitalId(hospitalId, pageable);
-
         List<MedidaDTO> data = medidasPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-
         return new ListResponse<>(data, medidasPage.getTotalElements(), medidasPage.getTotalPages(), medidasPage.getNumber() + 1);
     }
 

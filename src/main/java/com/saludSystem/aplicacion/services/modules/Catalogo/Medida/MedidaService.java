@@ -5,7 +5,6 @@ import com.saludSystem.aplicacion.dtos.Catalogo.Medida.CrearMedidaDTO;
 import com.saludSystem.aplicacion.dtos.Catalogo.Medida.MedidaDTO;
 import com.saludSystem.aplicacion.responses.ApiResponse;
 import com.saludSystem.aplicacion.responses.ListResponse;
-
 import java.util.List;
 import java.util.UUID;
 

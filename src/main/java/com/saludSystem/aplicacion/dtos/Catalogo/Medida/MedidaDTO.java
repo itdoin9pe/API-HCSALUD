@@ -1,14 +1,12 @@
 package com.saludSystem.aplicacion.dtos.Catalogo.Medida;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.Data;
-
 import java.util.UUID;
 
 @Data
 public class MedidaDTO {
+
     private UUID medidaId;
 
     private String nombre;
