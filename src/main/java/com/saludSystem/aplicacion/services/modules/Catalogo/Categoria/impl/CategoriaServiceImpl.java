@@ -14,6 +14,9 @@ import com.saludSystem.infraestructura.repositories.modules.Configuracion.SysSal
 import com.saludSystem.infraestructura.repositories.modules.Configuracion.UserRepository;
 import com.saludSystem.infraestructura.security.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -58,7 +61,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     public List<CategoriaDTO> getCategoriaList() {
         return categoriaRepository.findAll().stream()
-                .map(this::converToDTO)
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -91,18 +94,13 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public ListResponse<CategoriaDTO> getAllCategoria(UUID hospitalId, int page, int rows) {
-        List<Categoria> categorias = categoriaRepository.findByHospital_HospitalId(hospitalId);
-        List<CategoriaDTO> data = categorias.stream().map(categoria -> {
-            CategoriaDTO dto = new CategoriaDTO();
-            dto.setCategoriaId(categoria.getCategoriaId());
-            dto.setNombre(categoria.getNombre());
-            dto.setEstado(categoria.getEstado());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<Categoria> categoriaPage = categoriaRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<CategoriaDTO> data = categoriaPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, categoriaPage.getTotalElements(), categoriaPage.getTotalPages(), categoriaPage.getNumber() + 1);
     }
 
-    private CategoriaDTO converToDTO(Categoria categoria) {
+    private CategoriaDTO convertToDTO(Categoria categoria) {
         return modelMapper.map(categoria, CategoriaDTO.class);
     }
 }

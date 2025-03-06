@@ -14,6 +14,9 @@ import com.saludSystem.infraestructura.repositories.modules.Configuracion.RoleRe
 import com.saludSystem.infraestructura.repositories.modules.Configuracion.SysSaludRepository;
 import com.saludSystem.aplicacion.services.modules.Configuracion.Rol.RolService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -60,15 +63,10 @@ public class RolServiceImpl implements RolService {
 
     @Override
     public ListResponse<RolDTO> getAllRole(UUID hospitalId, int page, int rows) {
-        List<Role> roles = roleRepository.findByHospital_HospitalId(hospitalId);
-        List<RolDTO> data = roles.stream().map(role ->  {
-            RolDTO dto = new RolDTO();
-            dto.setRoleId(role.getRoleId());
-            dto.setNombre(role.getNombre());
-            dto.setEstado(role.getEstado());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<Role> rolePage = roleRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<RolDTO> data = rolePage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, rolePage.getTotalElements(), rolePage.getTotalPages(), rolePage.getNumber() + 1);
     }
 
     @Override

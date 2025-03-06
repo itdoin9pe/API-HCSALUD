@@ -13,6 +13,9 @@ import com.saludSystem.infraestructura.repositories.modules.Configuracion.SysSal
 import com.saludSystem.infraestructura.repositories.modules.Configuracion.TipoDocumentoRepository;
 import com.saludSystem.aplicacion.services.modules.Configuracion.TipoDocumento.TipoDocumentoService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -55,24 +58,15 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
         tipoDocumento.setHospital(hospital);
         tipoDocumento.setUser(user);
         tipoDocumentoRepository.save(tipoDocumento);
-        return new ApiResponse(true, "TIpo de documento registrado correctamente");
+        return new ApiResponse(true, "Tipo de documento registrado correctamente");
     }
 
     @Override
     public ListResponse<TipoDocumentoDTO> getAllTipoDocumento(UUID hospitalId, int page, int rows) {
-        List<TipoDocumento> tipoDocumentos = tipoDocumentoRepository.findByHospital_HospitalId(hospitalId);
-        List<TipoDocumentoDTO> data = tipoDocumentos.stream().map(tipoDocumento -> {
-            TipoDocumentoDTO dto = new TipoDocumentoDTO();
-            dto.setTDocumentoId(tipoDocumento.getTDocumentoId());
-            dto.setTipoComprobante(tipoDocumento.getTipoComprobante());
-            dto.setSerie(tipoDocumento.getSerie());
-            dto.setInicio(tipoDocumento.getInicio());
-            dto.setFin(tipoDocumento.getFin());
-            dto.setCorrelativoActual(tipoDocumento.getCorrelativoActual());
-            dto.setEstado(tipoDocumento.getEstado());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<TipoDocumento> tipoDocumentoPage = tipoDocumentoRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<TipoDocumentoDTO> data = tipoDocumentoPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, tipoDocumentoPage.getTotalElements(), tipoDocumentoPage.getTotalPages(), tipoDocumentoPage.getNumber() + 1);
     }
 
     @Override
@@ -92,9 +86,7 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
 
     @Override
     public List<TipoDocumentoDTO> getTipoDocumentoList() {
-        return tipoDocumentoRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+        return tipoDocumentoRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override

@@ -15,6 +15,9 @@ import com.saludSystem.infraestructura.repositories.modules.Configuracion.SysSal
 import com.saludSystem.aplicacion.services.modules.Configuracion.User.UsuarioService;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -41,24 +44,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public ListResponse<UsuarioDTO> getAllUsuario(UUID hospitalId, int page, int rows) {
-        List<User> users = userRepository.findByHospital_HospitalId(hospitalId);
-        List<UsuarioDTO> data = users.stream().map(user -> {
-            UsuarioDTO dto = new UsuarioDTO();
-            dto.setUserId(user.getUserId());
-            dto.setLastName(user.getLastName());
-            dto.setFirstName(user.getFirstName());
-            dto.setEmail(user.getEmail());
-            dto.setAddress(user.getAddress());
-            dto.setDocumentType(user.getDocumentType());
-            dto.setDocumentNumber(user.getDocumentNumber());
-            dto.setPhoneNumber(user.getPhoneNumber());
-            dto.setPhoto(user.getPhoto());
-            dto.setUsername(user.getUsername());
-            dto.setRoleId(user.getRol().getRoleId());
-            dto.setEstado(user.getEstado());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<User> userPage = userRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<UsuarioDTO> data = userPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, userPage.getTotalElements(), userPage.getTotalPages(), userPage.getNumber() + 1);
     }
 
     @Override

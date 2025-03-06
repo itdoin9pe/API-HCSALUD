@@ -15,6 +15,9 @@ import com.saludSystem.infraestructura.repositories.modules.Configuracion.SysSal
 import com.saludSystem.infraestructura.repositories.modules.Doctor.DoctorRepository;
 import com.saludSystem.aplicacion.services.modules.Doctor.DoctorService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -76,9 +79,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<DoctorDTO> getDoctorList() {
-        return doctorRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+        return doctorRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -117,31 +118,10 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public ListResponse<DoctorDTO> getAllDoctor(UUID hospitalId, int page, int rows) {
-        List<Doctor> doctors = doctorRepository.findByHospital_HospitalId(hospitalId);
-        List<DoctorDTO> data = doctors.stream().map(doctor -> {
-            DoctorDTO dto = new DoctorDTO();
-            dto.setDoctorId(doctor.getDoctorId());
-            dto.setTipoDocumento(doctor.getTipoDocumento());
-            dto.setNumeroDocumento(doctor.getNumeroDocumento());
-            dto.setApellidos(doctor.getApellidos());
-            dto.setNombres(doctor.getNombres());
-            dto.setDireccion(doctor.getDireccion());
-            dto.setCorreo(doctor.getCorreo());
-            dto.setAbreviatura(doctor.getAbreviatura());
-            dto.setRne(doctor.getRne());
-            dto.setFechaNacimiento(doctor.getFechaNacimiento());
-            dto.setCelular(doctor.getCelular());
-            dto.setTelefono(doctor.getTelefono());
-            dto.setSexo(doctor.getSexo());
-            dto.setEspecialidadId(doctor.getEspecialidadId() != null ? doctor.getEspecialidadId().getEspecialidadId() : null);
-            dto.setColegiatura(doctor.getColegiatura());
-            dto.setColor(doctor.getColor());
-            dto.setEstado(doctor.getEstado());
-            dto.setFotoDoctor(doctor.getFotoDoctor());
-            dto.setFotoFirma(doctor.getFotoFirma());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<Doctor> doctorPage = doctorRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<DoctorDTO> data = doctorPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, doctorPage.getTotalElements(), doctorPage.getTotalPages(), doctorPage.getNumber() + 1);
     }
 
     @Override

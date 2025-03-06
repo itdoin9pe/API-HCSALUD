@@ -14,6 +14,9 @@ import com.saludSystem.infraestructura.repositories.modules.Catalogo.Especialida
 import com.saludSystem.infraestructura.repositories.modules.Configuracion.SysSaludRepository;
 import com.saludSystem.aplicacion.services.modules.Catalogo.Especialidad.EspecialidadService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -80,9 +83,7 @@ public class EspecialidadServiceImpl implements EspecialidadService {
 
     @Override
     public List<EspecialidadDTO> getEspecialidadList() {
-        return especialidadRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+        return especialidadRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -93,16 +94,10 @@ public class EspecialidadServiceImpl implements EspecialidadService {
 
     @Override
     public ListResponse<EspecialidadDTO> getAllEspecialidad(UUID hospitalId, int page, int rows) {
-        List<Especialidad> especialidads = especialidadRepository.findByHospital_HospitalId(hospitalId);
-        List<EspecialidadDTO> data = especialidads.stream().map(especialidad -> {
-            EspecialidadDTO dto = new EspecialidadDTO();
-            dto.setEspecialidadId(especialidad.getEspecialidadId());
-            dto.setDescripcion(especialidad.getDescripcion());
-            dto.setNombre(especialidad.getNombre());
-            dto.setEstado(especialidad.getEstado());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<Especialidad> especialidadPage = especialidadRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<EspecialidadDTO> data = especialidadPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, especialidadPage.getTotalElements(), especialidadPage.getTotalPages(), especialidadPage.getNumber() + 1);
     }
 
     private EspecialidadDTO convertToDTO(Especialidad especialidad){

@@ -15,6 +15,9 @@ import com.saludSystem.infraestructura.repositories.modules.Configuracion.SedeRe
 import com.saludSystem.infraestructura.repositories.modules.Configuracion.SysSaludRepository;
 import com.saludSystem.aplicacion.services.modules.Configuracion.Sede.SedeService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -75,18 +78,10 @@ public class SedeServiceImpl implements SedeService {
 
     @Override
     public ListResponse<SedeDTO> getAllEmpresa(UUID hospitalId, int page, int rows) {
-        List<Sede> sedes = sedeRepository.findByHospital_HospitalId(hospitalId);
-        List<SedeDTO> data = sedes.stream().map(sede -> {
-            SedeDTO dto = new SedeDTO();
-            dto.setSedeId(sede.getSedeId());
-            dto.setCodigo(sede.getCodigo());
-            dto.setNombre(sede.getNombre());
-            dto.setDireccion(sede.getDireccion());
-            dto.setUbigeo(sede.getUbigeo());
-            dto.setEstado(sede.getEstado());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<Sede> sedePage = sedeRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<SedeDTO> data = sedePage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, sedePage.getTotalElements(), sedePage.getTotalPages(), sedePage.getNumber() + 1);
     }
 
     @Override
@@ -105,16 +100,12 @@ public class SedeServiceImpl implements SedeService {
     }
 
     @Override
-    public List<SedeDTO> getSedeList()
-    {
-        return sedeRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public List<SedeDTO> getSedeList() {
+        return sedeRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public ApiResponse updateSede(UUID sedeId, ActualizarSedeDTO actualizarSedeDTO)
-    {
+    public ApiResponse updateSede(UUID sedeId, ActualizarSedeDTO actualizarSedeDTO) {
         Sede sede = sedeRepository.findById(sedeId)
                 .orElseThrow( () -> new RuntimeException("Sede no encontrada" + sedeId));
         Optional.ofNullable(actualizarSedeDTO.getCodigo()).filter(desc -> !desc.isBlank()).ifPresent(sede::setCodigo);

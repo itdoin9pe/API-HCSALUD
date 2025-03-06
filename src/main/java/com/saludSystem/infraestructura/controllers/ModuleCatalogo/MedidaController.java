@@ -1,11 +1,12 @@
 package com.saludSystem.infraestructura.controllers.ModuleCatalogo;
-/*
-import com.saludSystem.dtos.catalago.Medida.ActualizarMedidaDTO;
-import com.saludSystem.dtos.catalago.Medida.CrearMedidaDTO;
-import com.saludSystem.dtos.catalago.Medida.MedidaDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.services.modules.Catalogo.Medida.MedidaService;
+
+import com.saludSystem.aplicacion.dtos.Catalogo.Medida.ActualizarMedidaDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Medida.CrearMedidaDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Medida.MedidaDTO;
+import com.saludSystem.aplicacion.responses.ApiResponse;
+import com.saludSystem.aplicacion.responses.Catalogo.MedidaResponse;
+import com.saludSystem.aplicacion.responses.ListResponse;
+import com.saludSystem.aplicacion.services.modules.Catalogo.Medida.MedidaService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -13,7 +14,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -29,27 +29,21 @@ public class MedidaController {
     }
 
     @PostMapping("/SaveMedida")
-    public ResponseEntity<ApiResponse> store(@Valid @RequestBody CrearMedidaDTO crearMedidaDTO) {
-        medidaService.saveMedida(crearMedidaDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Medida creada correctamente"));
+    public ApiResponse store(@Valid @RequestBody CrearMedidaDTO crearMedidaDTO) {
+        return medidaService.saveMedida(crearMedidaDTO);
     }
 
     @GetMapping("/GetAllMedida")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MedidaDTO.class)))
+                            schema = @Schema(implementation = MedidaResponse.class)))
     })
-    public ResponseEntity<ListResponse<MedidaDTO>> getAllPage(
+    public ListResponse<MedidaDTO> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows) {
-        List<MedidaDTO> medidas = medidaService.getPagedResults(hospitalId, page, rows);
-        long totalData = medidaService.getTotalCount();
-        ListResponse<MedidaDTO> response = new ListResponse<>();
-        response.setData(medidas);
-        response.setTotalData(totalData);
-        return ResponseEntity.ok(response);
+        return medidaService.getAllMedida(hospitalId, page, rows);
     }
 
     @GetMapping("/GetMedidaList")
@@ -58,23 +52,18 @@ public class MedidaController {
     }
 
     @GetMapping("/GetMedida/{medidaId}")
-    public ResponseEntity<MedidaDTO> getById(@PathVariable UUID medidaId) {
-        return medidaService.getMedidaById(medidaId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public MedidaDTO getById(@PathVariable UUID medidaId) {
+        return medidaService.getMedidaById(medidaId);
     }
 
     @PutMapping("/UpdateMedida/{medidaId}")
-    public ResponseEntity<ApiResponse> update(@PathVariable UUID medidaId, @RequestBody ActualizarMedidaDTO actualizarMedidaDTO) {
-        medidaService.updateMedida(medidaId, actualizarMedidaDTO);
-        return ResponseEntity.ok(new ApiResponse(true, "Medida actualizada correctamente"));
+    public ApiResponse update(@PathVariable UUID medidaId, @RequestBody ActualizarMedidaDTO actualizarMedidaDTO) {
+        return medidaService.updateMedida(medidaId, actualizarMedidaDTO);
     }
 
     @DeleteMapping("/DeleteMedida/{medidaId}")
-    public ResponseEntity<ApiResponse> destroy(@PathVariable UUID medidaId) {
-        medidaService.deleteMedida(medidaId);
-        return ResponseEntity.ok(new ApiResponse(true, "Medida eliminada con éxito"));
+    public ApiResponse destroy(@PathVariable UUID medidaId) {
+        return medidaService.deleteMedida(medidaId);
     }
 
 }
-
-
- */

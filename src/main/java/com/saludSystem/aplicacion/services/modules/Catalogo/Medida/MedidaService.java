@@ -1,27 +1,26 @@
 package com.saludSystem.aplicacion.services.modules.Catalogo.Medida;
-/*
-import com.saludSystem.dtos.catalago.Medida.ActualizarMedidaDTO;
-import com.saludSystem.dtos.catalago.Medida.CrearMedidaDTO;
-import com.saludSystem.dtos.catalago.Medida.MedidaDTO;
-import com.saludSystem.services.PaginatedService;
+
+import com.saludSystem.aplicacion.dtos.Catalogo.Medida.ActualizarMedidaDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Medida.CrearMedidaDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Medida.MedidaDTO;
+import com.saludSystem.aplicacion.responses.ApiResponse;
+import com.saludSystem.aplicacion.responses.ListResponse;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-public interface MedidaService extends PaginatedService {
+public interface MedidaService {
 
-    CrearMedidaDTO saveMedida(CrearMedidaDTO crearMedidaDTO);
+    ApiResponse saveMedida(CrearMedidaDTO crearMedidaDTO);
 
     List<MedidaDTO> getMedidaList();
 
-    Optional<MedidaDTO> getMedidaById(UUID medidaId);
+    MedidaDTO getMedidaById(UUID medidaId);
 
-    ActualizarMedidaDTO updateMedida(UUID medidaId, ActualizarMedidaDTO actualizarMedidaDTO);
+    ApiResponse updateMedida(UUID medidaId, ActualizarMedidaDTO actualizarMedidaDTO);
 
-    void deleteMedida(UUID medidaId);
+    ApiResponse deleteMedida(UUID medidaId);
+
+    ListResponse<MedidaDTO> getAllMedida(UUID hospitalId, int page, int rows);
 
 }
-
-
- */

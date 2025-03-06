@@ -14,9 +14,12 @@ import com.saludSystem.infraestructura.security.exception.ResourceNotFoundExcept
 import com.saludSystem.infraestructura.repositories.Generals.MenuRepository;
 import com.saludSystem.infraestructura.repositories.modules.Configuracion.PermisoRepository;
 import com.saludSystem.infraestructura.repositories.modules.Configuracion.RoleRepository;
-import com.saludSystem.infraestructura.repositories.modules.Configuracion.SysSaludRepository;
 import com.saludSystem.infraestructura.repositories.modules.Configuracion.UserRepository;
 import com.saludSystem.aplicacion.services.modules.Configuracion.Permiso.PermisoService;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,18 +34,17 @@ import java.util.stream.Collectors;
 public class PermisoServiceImpl implements PermisoService {
 
     private final PermisoRepository permisoRepository;
-    private final SysSaludRepository sysSaludRepository;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final MenuRepository menuRepository;
+    private final ModelMapper modelMapper;
 
-
-    public PermisoServiceImpl(PermisoRepository permisoRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, RoleRepository roleRepository, MenuRepository menuRepository) {
+    public PermisoServiceImpl(PermisoRepository permisoRepository, UserRepository userRepository, RoleRepository roleRepository, MenuRepository menuRepository, ModelMapper modelMapper) {
         this.permisoRepository = permisoRepository;
-        this.sysSaludRepository = sysSaludRepository;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.menuRepository = menuRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -97,19 +99,10 @@ public class PermisoServiceImpl implements PermisoService {
 
     @Override
     public ListResponse<PermisoDTO> getAllPermisos(UUID hospitalId, int page, int rows) {
-        List<Permiso> permisos = permisoRepository.findByHospitalHospitalId(hospitalId);
-        List<PermisoDTO> data = permisos.stream().map(permiso -> {
-            PermisoDTO dto = new PermisoDTO();
-            dto.setPermisoId(permiso.getPermisoId());
-            dto.setRolId(permiso.getRol().getRoleId());
-            dto.setMenuId(permiso.getMenu().getMenuId());
-            dto.setDelete(permiso.getDelete());
-            dto.setInsert(permiso.getInsert());
-            dto.setRead(permiso.getRead());
-            dto.setUpdate(permiso.getUpdate());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<Permiso> permisoPage = permisoRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<PermisoDTO> data = permisoPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, permisoPage.getTotalElements(), permisoPage.getTotalPages(), permisoPage.getNumber() + 1);
     }
 
     @Override
@@ -123,6 +116,10 @@ public class PermisoServiceImpl implements PermisoService {
         dto.setRead(permiso.getRead());
         dto.setUpdate(permiso.getUpdate());
         return dto;
+    }
+
+    private PermisoDTO convertToDTO(Permiso permiso) {
+        return modelMapper.map(permiso, PermisoDTO.class);
     }
 
 }

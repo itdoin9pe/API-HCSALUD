@@ -1,6 +1,8 @@
 package com.saludSystem.infraestructura.repositories.modules.Configuracion;
 
 import com.saludSystem.dominio.entities.Configuracion.Permiso;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +13,7 @@ import java.util.UUID;
 public interface PermisoRepository extends JpaRepository<Permiso, UUID> {
 
     List<Permiso> findByHospitalHospitalId(UUID hospitalId);
+
+    Page<Permiso> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 
 }

@@ -1,9 +1,16 @@
 package com.saludSystem.aplicacion.dtos.Catalogo.Medida;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.util.UUID;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class ActualizarMedidaDTO extends MedidaDTO {
+public class ActualizarMedidaDTO {
+    private UUID hospitalId;
+
+    private UUID medidaId;
+    private String nombre;
+
+    @Schema(description = "Estado de la medida (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
 }

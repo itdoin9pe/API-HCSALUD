@@ -12,6 +12,9 @@ import com.saludSystem.infraestructura.repositories.modules.Catalogo.PlanReposit
 import com.saludSystem.infraestructura.repositories.modules.Configuracion.SysSaludRepository;
 import com.saludSystem.aplicacion.services.modules.Configuracion.SysSalud.SysSaludService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,29 +55,15 @@ public class SysSaludServiceImpl implements SysSaludService {
 
     @Override
     public ListResponse<SysSaludDTO> getAllHospital(UUID hospitalId, int page, int rows) {
-        List<SysSalud> hospitals = sysSaludRespository.findByHospitalId(hospitalId);
-        List<SysSaludDTO> data = hospitals.stream().map(sysSalud -> {
-            SysSaludDTO dto = new SysSaludDTO();
-            dto.setHospitalId(sysSalud.getHospitalId());
-            dto.setNombre(sysSalud.getNombre());
-            dto.setDireccion(sysSalud.getDireccion());
-            dto.setCelular(sysSalud.getCelular());
-            dto.setRuc(sysSalud.getRuc());
-            dto.setFecha(sysSalud.getFecha());
-            dto.setFoto(sysSalud.getFoto());
-            dto.setPlanId(sysSalud.getPlan().getPlanId());
-            dto.setEmail(sysSalud.getEmail());
-            dto.setEstado(sysSalud.getEstado());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<SysSalud> medidasPage = sysSaludRespository.findByHospitalId(hospitalId, pageable);
+        List<SysSaludDTO> data = medidasPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, medidasPage.getTotalElements(), medidasPage.getTotalPages(), medidasPage.getNumber() + 1);
     }
 
     @Override
     public List<SysSaludDTO> getHospitalList() {
-        return sysSaludRespository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+        return sysSaludRespository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
