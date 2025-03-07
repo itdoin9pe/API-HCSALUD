@@ -103,4 +103,5 @@ public class CategoriaServiceImpl implements CategoriaService {
     private CategoriaDTO convertToDTO(Categoria categoria) {
         return modelMapper.map(categoria, CategoriaDTO.class);
     }
+
 }
