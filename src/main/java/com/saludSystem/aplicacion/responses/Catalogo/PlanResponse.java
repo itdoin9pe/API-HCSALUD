@@ -10,9 +10,11 @@ import java.util.List;
 @Getter
 @Setter
 public class PlanResponse {
+
     @Schema(description = "Lista de Planes")
     private List<PlanDTO> data;
 
     @Schema(description = "Número total de Planes", example = "0")
     private long totalData;
+
 }

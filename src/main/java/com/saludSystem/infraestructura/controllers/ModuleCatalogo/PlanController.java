@@ -1,12 +1,12 @@
 package com.saludSystem.infraestructura.controllers.ModuleCatalogo;
-/*
-import com.saludSystem.dtos.catalago.Plan.ActualizarPlanDTO;
-import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
-import com.saludSystem.dtos.catalago.Plan.PlanDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.Catalogo.PlanResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.services.modules.Catalogo.Plan.PlanService;
+
+import com.saludSystem.aplicacion.dtos.Catalogo.Plan.ActualizarPlanDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Plan.CrearPlanDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Plan.PlanDTO;
+import com.saludSystem.aplicacion.responses.ApiResponse;
+import com.saludSystem.aplicacion.responses.Catalogo.PlanResponse;
+import com.saludSystem.aplicacion.responses.ListResponse;
+import com.saludSystem.aplicacion.services.modules.Catalogo.Plan.PlanService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -38,7 +38,7 @@ public class PlanController {
                             schema = @Schema(implementation = PlanResponse.class)))
     })
     public ListResponse<PlanDTO> getAllPage(
-            @RequestParam(name = "hospitalId") UUID hospitalId,
+            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows
     ){
@@ -61,5 +61,3 @@ public class PlanController {
     }
 
 }
-
- */

@@ -5,7 +5,7 @@ import com.saludSystem.dominio.entities.Configuracion.SysSalud;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -25,10 +25,10 @@ public class Plan {
     private String nombrePlan;
 
     @Column(name = "fecha_inicio", nullable = false)
-    private LocalDateTime fechaInicio;
+    private LocalDate fechaInicio;
 
     @Column(name = "fecha_fin_contrato", nullable = false)
-    private LocalDateTime fechaFinContrato;
+    private LocalDate fechaFinContrato;
 
     @Column(name = "max_plan", nullable = false)
     private int maxPlan;

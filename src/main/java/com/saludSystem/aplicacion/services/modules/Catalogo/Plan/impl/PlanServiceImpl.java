@@ -1,19 +1,21 @@
 package com.saludSystem.aplicacion.services.modules.Catalogo.Plan.impl;
-/*
-import com.saludSystem.dtos.catalago.Plan.ActualizarPlanDTO;
-import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
-import com.saludSystem.dtos.catalago.Plan.PlanDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.entities.User;
-import com.saludSystem.entities.catalogo.Plan;
-import com.saludSystem.entities.configuracion.SysSalud;
-import com.saludSystem.exception.ResourceNotFoundException;
-import com.saludSystem.repositories.modules.Configuration.UserRepository;
-import com.saludSystem.repositories.modules.Catalogo.PlanRepository;
-import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
-import com.saludSystem.services.modules.Catalogo.Plan.PlanService;
+
+import com.saludSystem.aplicacion.dtos.Catalogo.Plan.ActualizarPlanDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Plan.CrearPlanDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Plan.PlanDTO;
+import com.saludSystem.aplicacion.responses.ApiResponse;
+import com.saludSystem.aplicacion.responses.ListResponse;
+import com.saludSystem.aplicacion.services.modules.Catalogo.Plan.PlanService;
+import com.saludSystem.dominio.entities.Catalogo.Plan;
+import com.saludSystem.dominio.entities.Configuracion.SysSalud;
+import com.saludSystem.dominio.entities.Configuracion.User;
+import com.saludSystem.infraestructura.repositories.modules.Catalogo.PlanRepository;
+import com.saludSystem.infraestructura.repositories.modules.Configuracion.SysSaludRepository;
+import com.saludSystem.infraestructura.repositories.modules.Configuracion.UserRepository;
+
+import com.saludSystem.infraestructura.security.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -44,21 +46,21 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public ApiResponse savePlan(CrearPlanDTO crearPlanDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByUsername(username)
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         SysSalud hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         Plan plan = new Plan();
         plan.setNombrePlan(crearPlanDTO.getNombrePlan());
         plan.setFechaInicio(crearPlanDTO.getFechaInicio());
-        plan.setFechaFin(crearPlanDTO.getFechaFin());
+        plan.setFechaFinContrato(crearPlanDTO.getFechaFinContrato());
         plan.setMaxPlan(crearPlanDTO.getMaxPlan());
         plan.setUsuMax(crearPlanDTO.getUseMax());
         plan.setCostoPlan(crearPlanDTO.getCostoPlan());
         plan.setEstado(crearPlanDTO.getEstado());
-        //plan.setUser(user);
-        //plan.setHospital(hospital);
+        plan.setUser(user);
+        plan.setHospital(hospital);
         planRepository.save(plan);
         return new ApiResponse(true, "Plan registrado correctamente");
     }
@@ -77,7 +79,7 @@ public class PlanServiceImpl implements PlanService {
         Optional.ofNullable(actualizarPlanDTO.getNombrePlan()).filter(desc -> !desc.isBlank())
                 .ifPresent(plan::setNombrePlan);
         Optional.ofNullable(actualizarPlanDTO.getFechaInicio()).ifPresent(plan::setFechaInicio);
-        Optional.ofNullable(actualizarPlanDTO.getFechaFin()).ifPresent(plan::setFechaFin);
+        Optional.ofNullable(actualizarPlanDTO.getFechaFinContrato()).ifPresent(plan::setFechaFinContrato);
         if (actualizarPlanDTO.getMaxPlan() > 0) {
             plan.setMaxPlan(actualizarPlanDTO.getMaxPlan());
         }
@@ -92,20 +94,10 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public ListResponse<PlanDTO> getAllPlan(UUID hospitalId, int page, int rows) {
-        List<Plan> plans = planRepository.findByHospital_HospitalId(hospitalId);
-        List<PlanDTO> data = plans.stream().map(plan -> {
-            PlanDTO dto = new PlanDTO();
-            dto.setPlanId(plan.getPlanId());
-            dto.setNombrePlan(plan.getNombrePlan());
-            dto.setFechaInicio(plan.getFechaInicio());
-            dto.setFechaFin(plan.getFechaFin());
-            dto.setMaxPlan(plan.getMaxPlan());
-            dto.setUseMax(plan.getUsuMax());
-            dto.setCostoPlan(plan.getCostoPlan());
-            dto.setEstado(plan.getEstado());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<Plan> planPage = planRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<PlanDTO> data = planPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, planPage.getTotalElements(), planPage.getTotalPages(), planPage.getNumber() + 1);
     }
 
     @Override
@@ -116,7 +108,7 @@ public class PlanServiceImpl implements PlanService {
         dto.setPlanId(plan.getPlanId());
         dto.setNombrePlan(plan.getNombrePlan());
         dto.setFechaInicio(plan.getFechaInicio());
-        dto.setFechaFin(plan.getFechaFin());
+        dto.setFechaFinContrato(plan.getFechaFinContrato());
         dto.setMaxPlan(plan.getMaxPlan());
         dto.setUseMax(plan.getUsuMax());
         dto.setCostoPlan(plan.getCostoPlan());
@@ -124,6 +116,8 @@ public class PlanServiceImpl implements PlanService {
         return dto;
     }
 
-}
+    private PlanDTO convertToDTO(Plan plan) {
+        return modelMapper.map(plan, PlanDTO.class);
+    }
 
- */
+}

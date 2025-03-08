@@ -1,14 +1,11 @@
 package com.saludSystem.aplicacion.services.modules.Catalogo.Plan;
-/*
-import com.saludSystem.dtos.catalago.Plan.ActualizarPlanDTO;
-import com.saludSystem.dtos.catalago.Plan.CrearPlanDTO;
-import com.saludSystem.dtos.catalago.Plan.PlanDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.services.PaginatedService;
 
-import java.util.List;
-import java.util.Optional;
+import com.saludSystem.aplicacion.dtos.Catalogo.Plan.ActualizarPlanDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Plan.CrearPlanDTO;
+import com.saludSystem.aplicacion.dtos.Catalogo.Plan.PlanDTO;
+import com.saludSystem.aplicacion.responses.ApiResponse;
+import com.saludSystem.aplicacion.responses.ListResponse;
+
 import java.util.UUID;
 
 public interface PlanService {
@@ -24,5 +21,3 @@ public interface PlanService {
     PlanDTO getPlanById(UUID planId);
 
 }
-
- */
