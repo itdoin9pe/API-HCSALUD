@@ -75,12 +75,7 @@ public class TipoCitadoServiceImpl implements TipoCitadoService {
     public TipoCitadoDTO getTipoCitadoById(UUID tipoCitadoId) {
         TipoCitado tipoCitado = tipoCitadoRepository.findById(tipoCitadoId)
                 .orElseThrow( () -> new ResourceNotFoundException("Tipo de citado no encontrado"));
-        TipoCitadoDTO dto = new TipoCitadoDTO();
-        dto.setTipoCitadoId(tipoCitado.getTipoCitadoId());
-        dto.setNombre(tipoCitado.getNombre());
-        dto.setColor(tipoCitado.getColor());
-        dto.setEstado(tipoCitado.getEstado());
-        return dto;
+        return convertToDTO(tipoCitado);
     }
 
     @Override
