@@ -27,7 +27,7 @@ public class PlanController {
     }
 
     @PostMapping("/SavePlan")
-    public ApiResponse store(@Valid @RequestBody CrearPlanDTO crearPlanDTO){
+    public ApiResponse store(@Valid @RequestBody CrearPlanDTO crearPlanDTO) {
         return planService.savePlan(crearPlanDTO);
     }
 
@@ -41,7 +41,7 @@ public class PlanController {
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows
-    ){
+    ) {
         return planService.getAllPlan(hospitalId, page, rows);
     }
 

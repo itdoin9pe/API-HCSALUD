@@ -4,16 +4,15 @@ import com.saludSystem.Configuracion.SysSalud.dominio.SysSaludModel;
 import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
+@Table(name = "planes")
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "planes")
+@Getter
+@Setter
 public class PlanModel {
 
     @Id

@@ -14,14 +14,12 @@ import com.saludSystem.Generals.response.ListResponse;
 import com.saludSystem.Catalogo.Plan.aplicacion.services.PlanService;
 import com.saludSystem.Generals.security.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -73,8 +71,7 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public ApiResponse updatePlan(UUID planId, ActualizarPlanDTO actualizarPlanDTO) {
         PlanModel plan = planRepository.findById(planId)
-                .orElseThrow(()-> new ResourceNotFoundException("Plan no encontrado con ID" + planId));
-
+                .orElseThrow(()-> new ResourceNotFoundException("Plan no encontrado con ID"));
         Optional.ofNullable(actualizarPlanDTO.getNombrePlan()).filter(desc -> !desc.isBlank())
                 .ifPresent(plan::setNombrePlan);
         Optional.ofNullable(actualizarPlanDTO.getFechaInicio()).ifPresent(plan::setFechaInicio);
@@ -102,17 +99,8 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public PlanDTO getPlanById(UUID planId) {
         PlanModel plan = planRepository.findById(planId)
-                .orElseThrow( () -> new RuntimeException("Plan no encontrado con Id" + planId));
-        PlanDTO dto = new PlanDTO();
-        dto.setPlanId(plan.getPlanId());
-        dto.setNombrePlan(plan.getNombrePlan());
-        dto.setFechaInicio(plan.getFechaInicio());
-        dto.setFechaFinContrato(plan.getFechaFinContrato());
-        dto.setMaxPlan(plan.getMaxPlan());
-        dto.setUseMax(plan.getUsuMax());
-        dto.setCostoPlan(plan.getCostoPlan());
-        dto.setEstado(plan.getEstado());
-        return dto;
+                .orElseThrow( () -> new RuntimeException("Plan no encontrado con Id"));
+        return convertToDTO(plan);
     }
 
     private PlanDTO convertToDTO(PlanModel plan) {

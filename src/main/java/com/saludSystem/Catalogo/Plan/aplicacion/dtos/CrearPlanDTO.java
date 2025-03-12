@@ -2,7 +2,6 @@ package com.saludSystem.Catalogo.Plan.aplicacion.dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
 import java.time.LocalDate;
 
 @Data

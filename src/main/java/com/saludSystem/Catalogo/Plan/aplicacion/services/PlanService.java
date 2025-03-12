@@ -5,7 +5,6 @@ import com.saludSystem.Catalogo.Plan.aplicacion.dtos.CrearPlanDTO;
 import com.saludSystem.Catalogo.Plan.aplicacion.dtos.PlanDTO;
 import com.saludSystem.Generals.response.ApiResponse;
 import com.saludSystem.Generals.response.ListResponse;
-
 import java.util.UUID;
 
 public interface PlanService {
