@@ -36,4 +36,3 @@ build/
 
 ### environment
 .env
-.prod.env
