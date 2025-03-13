@@ -20,7 +20,7 @@ public class ActualizarHospitalDTO {
 
     private String ruc;
     private Date fecha;
-    private byte[] foto;
+    private String foto;
     private UUID planId;
 
     @Schema(description = "Estado de la Clinica (0 = inactivo, 1 = activo)", example = "0")

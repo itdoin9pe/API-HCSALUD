@@ -21,7 +21,7 @@ public class SysSaludModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "hospital_id", nullable = false, unique = true)
+    @Column(name = "hospital_id", nullable = false)
     private UUID hospitalId;
 
     @Column(name = "nombre", nullable = false)
@@ -43,9 +43,8 @@ public class SysSaludModel {
     @Column(name = "fecha", nullable = false)
     private Date fecha;
 
-    @Lob
-    @Column(name = "foto", columnDefinition = "MEDIUMBLOB")
-    private byte[] foto;
+    @Column(name = "foto", nullable = true)
+    private String foto;
 
     @Column(name = "estado", nullable = false)
     private Integer estado;

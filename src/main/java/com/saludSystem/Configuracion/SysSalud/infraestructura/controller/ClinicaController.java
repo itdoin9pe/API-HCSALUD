@@ -49,7 +49,7 @@ public class ClinicaController {
         crearSysSaludDTO.setEmail(email);
         crearSysSaludDTO.setRuc(ruc);
         crearSysSaludDTO.setFecha(fecha);
-        crearSysSaludDTO.setFoto(Util.compressZLib(foto.getBytes()));
+        //crearSysSaludDTO.setFoto(foto);
         crearSysSaludDTO.setPlanId(planId);
         crearSysSaludDTO.setEstado(estado);
         sysSaludService.saveClinica(crearSysSaludDTO);
@@ -72,9 +72,10 @@ public class ClinicaController {
         actualizarHospitalDTO.setFecha(fecha);
         actualizarHospitalDTO.setPlanId(planId);
         actualizarHospitalDTO.setEstado(estado);
+        /*
         if (foto != null) {
             actualizarHospitalDTO.setFoto(Util.compressZLib(foto.getBytes()));
-        }
+        }*/
         sysSaludService.updateHospital(hospitalId, actualizarHospitalDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Hospital actualizado correctamente"));
     }
