@@ -33,3 +33,7 @@ build/
 !**/src/test/**/build/
 ### VS Code ###
 .vscode/
+
+### environment
+.env
+.prod.env
