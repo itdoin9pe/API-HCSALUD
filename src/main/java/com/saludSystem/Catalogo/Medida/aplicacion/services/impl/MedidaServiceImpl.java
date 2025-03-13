@@ -66,11 +66,7 @@ public class MedidaServiceImpl implements MedidaService {
     @Override
     public MedidaDTO getMedidaById(UUID medidaId) {
         MedidaModel medida = medidaRepository.findById(medidaId).orElseThrow( () -> new ResourceNotFoundException("Medida no encontrada"));
-        MedidaDTO dto = new MedidaDTO();
-        dto.setMedidaId(medida.getMedidaId());
-        dto.setNombre(medida.getNombre());
-        dto.setEstado(medida.getEstado());
-        return dto;
+        return convertToDTO(medida);
     }
 
     @Override

@@ -83,12 +83,8 @@ public class AlergiaServiceImpl implements AlergiaService {
     @Override
     public AlergiaDTO getAlergiaById(UUID alergiaId) {
         AlergiaModel alergia = alergiaRepository.findById(alergiaId)
-                .orElseThrow( () -> new ResourceNotFoundException("Alergia no encontrada"));
-        AlergiaDTO dto = new AlergiaDTO();
-        dto.setAlergiaId(alergia.getAlergiaId());
-        dto.setNombre(alergia.getNombre());
-        dto.setEstado(alergia.getEstado());
-        return dto;
+                .orElseThrow( () -> new ResourceNotFoundException("Alergia no encontrada"));;
+        return convertToDTO(alergia);
     }
 
     @Override

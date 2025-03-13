@@ -1,11 +1,11 @@
-package com.saludSystem.Catalogo.Consentimiento.infraestructura.services.impl;
+package com.saludSystem.Catalogo.Consentimiento.aplicacion.services.impl;
 
 import com.saludSystem.Catalogo.Consentimiento.aplicacion.dtos.ActualizarConsentimientoDTO;
 import com.saludSystem.Catalogo.Consentimiento.aplicacion.dtos.ConsentimientoDTO;
 import com.saludSystem.Catalogo.Consentimiento.aplicacion.dtos.CrearConsentimientoDTO;
-import com.saludSystem.Catalogo.Consentimiento.aplicacion.repository.ConsentimientoRepository;
+import com.saludSystem.Catalogo.Consentimiento.infraestructura.repository.ConsentimientoRepository;
 import com.saludSystem.Catalogo.Consentimiento.dominio.ConsentimientoModel;
-import com.saludSystem.Catalogo.Consentimiento.infraestructura.services.ConsentimientoService;
+import com.saludSystem.Catalogo.Consentimiento.aplicacion.services.ConsentimientoService;
 import com.saludSystem.Configuracion.SysSalud.dominio.SysSaludModel;
 import com.saludSystem.Configuracion.SysSalud.infraestructura.repositories.SysSaludRepository;
 import com.saludSystem.Configuracion.Usuario.dominio.UserModel;

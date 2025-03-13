@@ -1,4 +1,4 @@
-package com.saludSystem.Catalogo.Consentimiento.aplicacion.repository;
+package com.saludSystem.Catalogo.Consentimiento.infraestructura.repository;
 
 import com.saludSystem.Catalogo.Consentimiento.dominio.ConsentimientoModel;
 import org.springframework.data.domain.Page;

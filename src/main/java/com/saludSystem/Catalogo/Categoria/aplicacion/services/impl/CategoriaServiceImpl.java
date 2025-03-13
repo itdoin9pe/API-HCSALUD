@@ -85,11 +85,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     public CategoriaDTO getCategoriaById(UUID categoriaId) {
         CategoriaModel categoria = categoriaRepository.findById(categoriaId)
                 .orElseThrow( () -> new ResourceNotFoundException("Categoria no encontrada"));
-        CategoriaDTO dto = new CategoriaDTO();
-        dto.setCategoriaId(categoria.getCategoriaId());
-        dto.setNombre(categoria.getNombre());
-        dto.setEstado(categoria.getEstado());
-        return dto;
+        return convertToDTO(categoria);
     }
 
     @Override

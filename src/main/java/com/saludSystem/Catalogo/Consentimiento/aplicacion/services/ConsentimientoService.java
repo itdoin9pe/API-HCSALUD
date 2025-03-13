@@ -1,4 +1,4 @@
-package com.saludSystem.Catalogo.Consentimiento.infraestructura.services;
+package com.saludSystem.Catalogo.Consentimiento.aplicacion.services;
 
 import com.saludSystem.Catalogo.Consentimiento.aplicacion.dtos.ActualizarConsentimientoDTO;
 import com.saludSystem.Catalogo.Consentimiento.aplicacion.dtos.ConsentimientoDTO;

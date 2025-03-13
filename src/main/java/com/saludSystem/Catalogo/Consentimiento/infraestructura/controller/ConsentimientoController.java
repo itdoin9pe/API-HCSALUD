@@ -4,7 +4,7 @@ import com.saludSystem.Catalogo.Consentimiento.aplicacion.dtos.ActualizarConsent
 import com.saludSystem.Catalogo.Consentimiento.aplicacion.dtos.ConsentimientoDTO;
 import com.saludSystem.Catalogo.Consentimiento.aplicacion.dtos.CrearConsentimientoDTO;
 import com.saludSystem.Catalogo.Consentimiento.dominio.ConsentimientoResponse;
-import com.saludSystem.Catalogo.Consentimiento.infraestructura.services.ConsentimientoService;
+import com.saludSystem.Catalogo.Consentimiento.aplicacion.services.ConsentimientoService;
 import com.saludSystem.Generals.response.ApiResponse;
 import com.saludSystem.Generals.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;

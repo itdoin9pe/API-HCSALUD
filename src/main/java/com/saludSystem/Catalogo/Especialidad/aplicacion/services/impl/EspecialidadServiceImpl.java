@@ -73,12 +73,7 @@ public class EspecialidadServiceImpl implements EspecialidadService {
     public EspecialidadDTO getEspecialidadById(UUID especialidadId) {
         EspecialidadModel especialidad = especialidadRepository.findById(especialidadId)
                 .orElseThrow( () -> new ResourceNotFoundException("Especialidad no encontrada"));
-        EspecialidadDTO dto = new EspecialidadDTO();
-        dto.setEspecialidadId(especialidad.getEspecialidadId());
-        dto.setDescripcion(especialidad.getDescripcion());
-        dto.setNombre(especialidad.getNombre());
-        dto.setEstado(especialidad.getEstado());
-        return dto;
+        return convertToDTO(especialidad);
     }
 
     @Override
