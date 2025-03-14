@@ -82,8 +82,6 @@ public class DoctorController {
             @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate fechaNacimiento, String celular, String telefono,
             String sexo, UUID especialidadId, String colegiatura, String color, Integer estado,
             MultipartFile fotoDoctor, MultipartFile fotoFirma) throws IOException {
-        DoctorDTO doctorActual = doctorService.getDoctorById(doctorId)
-                .orElseThrow(() -> new ResourceNotFoundException("Doctor no encontrado"));
         ActualizarDoctorDTO actualizarDoctorDTO = new ActualizarDoctorDTO();
         actualizarDoctorDTO.setTipoDocumento(tipoDocumento);
         actualizarDoctorDTO.setNumeroDocumento(numeroDocumento);
@@ -127,10 +125,8 @@ public class DoctorController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = DoctorResponse.class)))
     })
-    public ListResponse<DoctorDTO> getAllDoctor(
-            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page") int page,
-            @RequestParam(name = "Rows") int rows) {
+    public ListResponse<DoctorDTO> getAllDoctor(@RequestParam(name = "hospitalId", required = true) UUID hospitalId,
+            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return doctorService.getAllDoctor(hospitalId, page, rows);
     }
 
