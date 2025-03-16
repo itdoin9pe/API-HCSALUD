@@ -1,5 +1,6 @@
-package com.saludSystem.Generals.adapter.Empresa.dominio;
-/*
+package com.saludSystem.Generals.adapter.Aseguradora.dominio;
+
+import com.saludSystem.Generals.adapter.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -11,13 +12,13 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "empresas")
-public class Empresa extends BaseEntity{
+@Table(name = "aseguradoras")
+public class AseguradoraModel extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_empresa", nullable = false, unique = true)
-    private UUID empresaId;
+    @Column(name = "id_aseguradora", nullable = false)
+    private UUID aseguradoraId;
 
     @NotBlank
     @Column(name = "descripcion", nullable = false)
@@ -26,4 +27,4 @@ public class Empresa extends BaseEntity{
     @Column(name = "estado", nullable = false)
     private Integer estado;
 
-}*/
+}

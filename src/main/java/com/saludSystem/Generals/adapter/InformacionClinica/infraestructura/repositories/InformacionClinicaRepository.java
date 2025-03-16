@@ -1,16 +1,16 @@
 package com.saludSystem.Generals.adapter.InformacionClinica.infraestructura.repositories;
-/*
-import com.saludSystem.entities.InformacionClinica;
+
+import com.saludSystem.Generals.adapter.InformacionClinica.domain.InformacionClinicaModel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import java.util.List;
+
 import java.util.UUID;
 
 @Repository
-public interface InformacionClinicaRepository extends JpaRepository<InformacionClinica, UUID> {
+public interface InformacionClinicaRepository extends JpaRepository<InformacionClinicaModel, UUID> {
 
-    List<InformacionClinica> findByHospital_HospitalId(UUID hospitalId);
+    Page<InformacionClinicaModel> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 
 }
-
- */

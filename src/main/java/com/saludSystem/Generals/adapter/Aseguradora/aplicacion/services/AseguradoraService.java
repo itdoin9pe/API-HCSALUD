@@ -1,10 +1,10 @@
 package com.saludSystem.Generals.adapter.Aseguradora.aplicacion.services;
-/*
-import com.saludSystem.dtos.Generals.Aseguradora.ActualizarAseguradoraDTO;
-import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
-import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
+
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.dtos.ActualizarAseguradoraDTO;
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.dtos.AseguradoraDTO;
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.dtos.CrearAseguradoraDTO;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,5 +24,3 @@ public interface AseguradoraService {
     ApiResponse deleteAseguradora(UUID aseguradoraId);
 
 }
-
- */

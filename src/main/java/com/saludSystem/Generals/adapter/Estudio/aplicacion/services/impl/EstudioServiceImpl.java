@@ -1,19 +1,24 @@
 package com.saludSystem.Generals.adapter.Estudio.aplicacion.services.impl;
-/*
-import com.saludSystem.dtos.Generals.Estudio.ActualizarEstudioDTO;
-import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
-import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.entities.Estudio;
-import com.saludSystem.entities.User;
-import com.saludSystem.entities.configuracion.SysSalud;
-import com.saludSystem.exception.ResourceNotFoundException;
-import com.saludSystem.repositories.modules.Configuration.UserRepository;
-import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
-import com.saludSystem.repositories.modules.Generals.EstudioRepository;
-import com.saludSystem.services.modules.Generals.Estudios.EstudioService;
+
+import com.saludSystem.Configuracion.SysSalud.dominio.SysSaludModel;
+import com.saludSystem.Configuracion.SysSalud.infraestructura.repositories.SysSaludRepository;
+import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
+import com.saludSystem.Configuracion.Usuario.infraestructura.repositories.UserRepository;
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.dtos.AseguradoraDTO;
+import com.saludSystem.Generals.adapter.Aseguradora.dominio.AseguradoraModel;
+import com.saludSystem.Generals.adapter.Estudio.aplicacion.dtos.ActualizarEstudioDTO;
+import com.saludSystem.Generals.adapter.Estudio.aplicacion.dtos.CrearEstudioDTO;
+import com.saludSystem.Generals.adapter.Estudio.aplicacion.dtos.EstudioDTO;
+import com.saludSystem.Generals.adapter.Estudio.aplicacion.services.EstudioService;
+import com.saludSystem.Generals.adapter.Estudio.domain.EstudioModel;
+import com.saludSystem.Generals.adapter.Estudio.infraestructura.repositories.EstudioRepository;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
+import com.saludSystem.Generals.security.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -41,12 +46,12 @@ public class EstudioServiceImpl implements EstudioService {
     @Override
     public ApiResponse saveEstudio(CrearEstudioDTO crearEstudioDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByUsername(username)
+        String email = authentication.getName();
+        UserModel user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSalud hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+        SysSaludModel hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        Estudio estudio = new Estudio();
+        EstudioModel estudio = new EstudioModel();
         estudio.setDescripcion(crearEstudioDTO.getDescripcion());
         estudio.setUser(user);
         estudio.setHospital(hospital);
@@ -62,19 +67,15 @@ public class EstudioServiceImpl implements EstudioService {
 
     @Override
     public ListResponse<EstudioDTO> getAllEstudios(UUID hospitalId, int page, int rows) {
-        List<Estudio> estudios = estudioRepository.findByHospital_HospitalId(hospitalId);
-        List<EstudioDTO> data = estudios.stream().map(estudio -> {
-            EstudioDTO dto = new EstudioDTO();
-            dto.setEstudioId(estudio.getEstudioId());
-            dto.setDescripcion(estudio.getDescripcion());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<EstudioModel> estudioModelPage = estudioRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<EstudioDTO> data = estudioModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, estudioModelPage.getTotalElements(), estudioModelPage.getTotalPages(), estudioModelPage.getNumber() + 1);
     }
 
     @Override
     public ApiResponse updateEstudio(UUID estudioId, ActualizarEstudioDTO actualizarEstudioDTO) {
-        Estudio estudio = estudioRepository.findById(estudioId)
+        EstudioModel estudio = estudioRepository.findById(estudioId)
                 .orElseThrow(() -> new ResourceNotFoundException("Estudio no encontrado"));
         Optional.ofNullable(actualizarEstudioDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(estudio::setDescripcion);
         estudioRepository.save(estudio);
@@ -83,12 +84,9 @@ public class EstudioServiceImpl implements EstudioService {
 
     @Override
     public EstudioDTO getEstudioById(UUID estudioId) {
-        Estudio estudio = estudioRepository.findById(estudioId)
+        EstudioModel estudio = estudioRepository.findById(estudioId)
                 .orElseThrow( () -> new RuntimeException("Estudio no encontrado"));
-        EstudioDTO dto = new EstudioDTO();
-        dto.setEstudioId(estudio.getEstudioId());
-        dto.setDescripcion(estudio.getDescripcion());
-        return dto;
+        return convertToDTO(estudio);
     }
 
     @Override
@@ -98,10 +96,8 @@ public class EstudioServiceImpl implements EstudioService {
                 .collect(Collectors.toList());
     }
 
-    private EstudioDTO convertToDTO(Estudio estudio) {
+    private EstudioDTO convertToDTO(EstudioModel estudio) {
         return modelMapper.map(estudio, EstudioDTO.class);
     }
 
 }
-
- */

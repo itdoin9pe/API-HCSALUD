@@ -1,6 +1,5 @@
 package com.saludSystem.Generals.adapter.TipoPaciente.domain;
 
-/*
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -12,15 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tipos_paciente")
-public class TipoPaciente {
+public class TipoPacienteModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_tipoPaciente", nullable = false, unique = true)
-    public Integer tipoPacienteId;
+    @Column(name = "id_tipoPaciente", nullable = false)
+    public Long tipoPacienteId;
 
     @NotBlank(message = "This fild can't be empty")
-    @Column(name = "nombres", nullable = false)
+    @Column(name = "nombre_tipoPaciente", nullable = false)
     public String nombre;
 
-}*/
+}

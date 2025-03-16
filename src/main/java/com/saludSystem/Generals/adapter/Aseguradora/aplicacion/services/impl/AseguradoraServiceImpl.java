@@ -1,19 +1,22 @@
 package com.saludSystem.Generals.adapter.Aseguradora.aplicacion.services.impl;
-/*
-import com.saludSystem.dtos.Generals.Aseguradora.ActualizarAseguradoraDTO;
-import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
-import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.entities.Aseguradora;
-import com.saludSystem.entities.User;
-import com.saludSystem.entities.configuracion.SysSalud;
-import com.saludSystem.exception.ResourceNotFoundException;
-import com.saludSystem.repositories.modules.Configuration.UserRepository;
-import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
-import com.saludSystem.repositories.modules.Generals.AseguradoraRepository;
-import com.saludSystem.services.modules.Generals.Aseguradoras.AseguradoraService;
+
+import com.saludSystem.Configuracion.SysSalud.dominio.SysSaludModel;
+import com.saludSystem.Configuracion.SysSalud.infraestructura.repositories.SysSaludRepository;
+import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
+import com.saludSystem.Configuracion.Usuario.infraestructura.repositories.UserRepository;
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.dtos.ActualizarAseguradoraDTO;
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.dtos.AseguradoraDTO;
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.dtos.CrearAseguradoraDTO;
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.services.AseguradoraService;
+import com.saludSystem.Generals.adapter.Aseguradora.dominio.AseguradoraModel;
+import com.saludSystem.Generals.adapter.Aseguradora.infraestructura.repositories.AseguradoraRepository;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
+import com.saludSystem.Generals.security.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -40,12 +43,12 @@ public class AseguradoraServiceImpl implements AseguradoraService {
     @Override
     public ApiResponse saveAseguradora(CrearAseguradoraDTO crearAseguradoraDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByUsername(username)
+        String email = authentication.getName();
+        UserModel user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSalud hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+        SysSaludModel hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        Aseguradora aseguradora = new Aseguradora();
+        AseguradoraModel aseguradora = new AseguradoraModel();
         aseguradora.setDescripcion(crearAseguradoraDTO.getDescripcion());
         aseguradora.setEstado(crearAseguradoraDTO.getEstado());
         aseguradora.setUser(user);
@@ -63,18 +66,14 @@ public class AseguradoraServiceImpl implements AseguradoraService {
 
     @Override
     public AseguradoraDTO getAseguradoraById(UUID aseguradoraId) {
-        Aseguradora aseguradora = aseguradoraRepository.findById(aseguradoraId)
+        AseguradoraModel aseguradora = aseguradoraRepository.findById(aseguradoraId)
                 .orElseThrow(() -> new RuntimeException("Aseguradora no encontrada"));
-        AseguradoraDTO dto = new AseguradoraDTO();
-        dto.setAseguradoraId(aseguradora.getAseguradoraId());
-        dto.setDescripcion(aseguradora.getDescripcion());
-        dto.setEstado(aseguradora.getEstado());
-        return dto;
+        return convertToDTO(aseguradora);
     }
 
     @Override
     public ApiResponse updateAseguradora(UUID aseguradoraId, ActualizarAseguradoraDTO actualizarAseguradoraDTO) {
-        Aseguradora aseguradora = aseguradoraRepository.findById(aseguradoraId).orElseThrow(
+        AseguradoraModel aseguradora = aseguradoraRepository.findById(aseguradoraId).orElseThrow(
                 () -> new ResourceNotFoundException("Aseguradora no encontrada"));
         Optional.ofNullable(actualizarAseguradoraDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(aseguradora::setDescripcion);
         Optional.ofNullable(actualizarAseguradoraDTO.getEstado()).ifPresent(aseguradora::setEstado);
@@ -90,21 +89,14 @@ public class AseguradoraServiceImpl implements AseguradoraService {
 
     @Override
     public ListResponse<AseguradoraDTO> getAllAseguradoras(UUID hospitalId, int page, int rows) {
-        List<Aseguradora> aseguradoras = aseguradoraRepository.findByHospital_HospitalId(hospitalId);
-        List<AseguradoraDTO> data = aseguradoras.stream().map(aseguradora -> {
-            AseguradoraDTO dto = new AseguradoraDTO();
-            dto.setAseguradoraId(aseguradora.getAseguradoraId());
-            dto.setDescripcion(aseguradora.getDescripcion());
-            dto.setEstado(aseguradora.getEstado());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data,data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<AseguradoraModel> aseguradoraModelPage = aseguradoraRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<AseguradoraDTO> data = aseguradoraModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, aseguradoraModelPage.getTotalElements(), aseguradoraModelPage.getTotalPages(), aseguradoraModelPage.getNumber() + 1);
     }
 
-    private AseguradoraDTO convertToDTO(Aseguradora aseguradora) {
+    private AseguradoraDTO convertToDTO(AseguradoraModel aseguradora) {
         return modelMapper.map(aseguradora, AseguradoraDTO.class);
     }
 
 }
-
- */

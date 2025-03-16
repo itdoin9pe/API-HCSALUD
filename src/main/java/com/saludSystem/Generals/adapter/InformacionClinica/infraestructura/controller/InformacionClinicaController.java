@@ -1,10 +1,10 @@
 package com.saludSystem.Generals.adapter.InformacionClinica.infraestructura.controller;
-/*
-import com.saludSystem.dtos.Generals.InformacionClinica.ActualizarInformacionClinicaDTO;
-import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.Generals.InformacionClinica.InformacionClinicaDTO;
-import com.saludSystem.services.modules.Generals.InformacionClinica.InformacionClinicaService;
+
+import com.saludSystem.Generals.adapter.InformacionClinica.aplicacion.dtos.ActualizarInformacionClinicaDTO;
+import com.saludSystem.Generals.adapter.InformacionClinica.aplicacion.dtos.CrearInformacionClinicaDTO;
+import com.saludSystem.Generals.adapter.InformacionClinica.aplicacion.dtos.InformacionClinicaDTO;
+import com.saludSystem.Generals.adapter.InformacionClinica.aplicacion.services.InformacionClinicaService;
+import com.saludSystem.Generals.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -49,5 +49,3 @@ public class InformacionClinicaController {
     }
 
 }
-
- */

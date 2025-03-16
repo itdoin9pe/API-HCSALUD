@@ -1,13 +1,11 @@
 package com.saludSystem.Generals.adapter.Empresa.aplicacion.dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 public class EmpresaDTO {
 
     private UUID empresaId;

@@ -1,17 +1,17 @@
 package com.saludSystem.Generals.adapter.InformacionClinica.aplicacion.services.impl;
-/*
-import com.saludSystem.dtos.Generals.InformacionClinica.ActualizarInformacionClinicaDTO;
-import com.saludSystem.dtos.Generals.InformacionClinica.CrearInformacionClinicaDTO;
-import com.saludSystem.dtos.Generals.InformacionClinica.InformacionClinicaDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.entities.InformacionClinica;
-import com.saludSystem.entities.User;
-import com.saludSystem.entities.configuracion.SysSalud;
-import com.saludSystem.exception.ResourceNotFoundException;
-import com.saludSystem.repositories.modules.Configuration.UserRepository;
-import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
-import com.saludSystem.repositories.modules.Generals.InformacionClinicaRepository;
-import com.saludSystem.services.modules.Generals.InformacionClinica.InformacionClinicaService;
+
+import com.saludSystem.Configuracion.SysSalud.dominio.SysSaludModel;
+import com.saludSystem.Configuracion.SysSalud.infraestructura.repositories.SysSaludRepository;
+import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
+import com.saludSystem.Configuracion.Usuario.infraestructura.repositories.UserRepository;
+import com.saludSystem.Generals.adapter.InformacionClinica.aplicacion.dtos.ActualizarInformacionClinicaDTO;
+import com.saludSystem.Generals.adapter.InformacionClinica.aplicacion.dtos.CrearInformacionClinicaDTO;
+import com.saludSystem.Generals.adapter.InformacionClinica.aplicacion.dtos.InformacionClinicaDTO;
+import com.saludSystem.Generals.adapter.InformacionClinica.aplicacion.services.InformacionClinicaService;
+import com.saludSystem.Generals.adapter.InformacionClinica.domain.InformacionClinicaModel;
+import com.saludSystem.Generals.adapter.InformacionClinica.infraestructura.repositories.InformacionClinicaRepository;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.security.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,29 +47,25 @@ public class InformacionClinicaServiceImpl implements InformacionClinicaService 
     @Override
     public ApiResponse saveInformacionClinica(CrearInformacionClinicaDTO crearInformacionClinicaDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByUsername(username)
+        String email = authentication.getName();
+        UserModel user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSalud hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+        SysSaludModel hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        InformacionClinica informacionClinica = new InformacionClinica();
+        InformacionClinicaModel informacionClinica = new InformacionClinicaModel();
         informacionClinica.setNombre(crearInformacionClinicaDTO.getNombre());
         informacionClinica.setEstado(crearInformacionClinicaDTO.getEstado());
         informacionClinica.setUser(user);
         informacionClinica.setHospital(hospital);
         informacionClinicaRepository.save(informacionClinica);
-        return new ApiResponse(true, "Informacion Cliinca registrada correctamente");
+        return new ApiResponse(true, "Informacion Clinica registrada correctamente");
     }
 
     @Override
     public InformacionClinicaDTO getInformacionClinicaById(UUID informacionClinicaId) {
-        InformacionClinica informacionClinica = informacionClinicaRepository.findById(informacionClinicaId)
+        InformacionClinicaModel informacionClinica = informacionClinicaRepository.findById(informacionClinicaId)
                 .orElseThrow( () -> new RuntimeException("Informacion clinica no encontrada"));
-        InformacionClinicaDTO dto = new InformacionClinicaDTO();
-        dto.setInformacionClinicaId(informacionClinica.getInformacionClinicaId());
-        dto.setNombre(informacionClinica.getNombre());
-        dto.setEstado(informacionClinica.getEstado());
-        return dto;
+        return convertToDTO(informacionClinica);
     }
 
     @Override
@@ -80,18 +76,16 @@ public class InformacionClinicaServiceImpl implements InformacionClinicaService 
 
     @Override
     public ApiResponse updateInformacionClinica(UUID informacionClinicaId, ActualizarInformacionClinicaDTO actualizarInformacionClinicaDTO) {
-        InformacionClinica informacionClinica = informacionClinicaRepository.findById(informacionClinicaId)
-                .orElseThrow(() -> new ResourceNotFoundException("InformacionClinica no encontrada con ID: " + informacionClinicaId));
+        InformacionClinicaModel informacionClinica = informacionClinicaRepository.findById(informacionClinicaId)
+                .orElseThrow(() -> new ResourceNotFoundException("InformacionClinica no encontrada con ID"));
         Optional.ofNullable(actualizarInformacionClinicaDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(informacionClinica::setNombre);
         Optional.ofNullable(actualizarInformacionClinicaDTO.getEstado()).ifPresent(informacionClinica::setEstado);
         informacionClinicaRepository.save(informacionClinica);
         return new ApiResponse(true, "Informacion clinica actualizado correctamente");
     }
 
-    private InformacionClinicaDTO convertToDTO(InformacionClinica informacionClinica) {
+    private InformacionClinicaDTO convertToDTO(InformacionClinicaModel informacionClinica) {
         return modelMapper.map(informacionClinica, InformacionClinicaDTO.class);
     }
 
 }
-
- */

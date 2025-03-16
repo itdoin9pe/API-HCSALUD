@@ -1,10 +1,11 @@
 package com.saludSystem.Generals.adapter.Estudio.aplicacion.services;
-/*
-import com.saludSystem.dtos.Generals.Estudio.ActualizarEstudioDTO;
-import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
-import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
+
+
+import com.saludSystem.Generals.adapter.Estudio.aplicacion.dtos.ActualizarEstudioDTO;
+import com.saludSystem.Generals.adapter.Estudio.aplicacion.dtos.CrearEstudioDTO;
+import com.saludSystem.Generals.adapter.Estudio.aplicacion.dtos.EstudioDTO;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,5 +25,3 @@ public interface EstudioService {
     List<EstudioDTO> getEstudioList();
 
 }
-
- */

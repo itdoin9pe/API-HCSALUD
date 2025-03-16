@@ -1,14 +1,12 @@
 package com.saludSystem.Generals.adapter.Empresa.aplicacion.services;
-/*
-import com.saludSystem.dtos.Generals.Empresa.ActualizarEmpresaDTO;
-import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
-import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
 
-import java.security.Principal;
+
+import com.saludSystem.Generals.adapter.Empresa.aplicacion.dtos.ActualizarEmpresaDTO;
+import com.saludSystem.Generals.adapter.Empresa.aplicacion.dtos.CrearEmpresaDTO;
+import com.saludSystem.Generals.adapter.Empresa.aplicacion.dtos.EmpresaDTO;
+import com.saludSystem.Generals.response.ApiResponse;
+
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface EmpresaService {
@@ -24,5 +22,3 @@ public interface EmpresaService {
     ApiResponse updateEmpresa(UUID empresaId, ActualizarEmpresaDTO actualizarEmpresaDTO);
 
 }
-
- */

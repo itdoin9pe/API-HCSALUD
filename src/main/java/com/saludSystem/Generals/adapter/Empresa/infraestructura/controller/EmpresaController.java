@@ -1,10 +1,10 @@
 package com.saludSystem.Generals.adapter.Empresa.infraestructura.controller;
-/*
-import com.saludSystem.dtos.Generals.Empresa.ActualizarEmpresaDTO;
-import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
-import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.services.modules.Generals.Empresas.EmpresaService;
+
+import com.saludSystem.Generals.adapter.Empresa.aplicacion.dtos.ActualizarEmpresaDTO;
+import com.saludSystem.Generals.adapter.Empresa.aplicacion.dtos.CrearEmpresaDTO;
+import com.saludSystem.Generals.adapter.Empresa.aplicacion.dtos.EmpresaDTO;
+import com.saludSystem.Generals.adapter.Empresa.aplicacion.services.EmpresaService;
+import com.saludSystem.Generals.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -50,5 +50,3 @@ public class EmpresaController {
     }
 
 }
-
- */

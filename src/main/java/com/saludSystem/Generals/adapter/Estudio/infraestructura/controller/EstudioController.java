@@ -1,13 +1,12 @@
 package com.saludSystem.Generals.adapter.Estudio.infraestructura.controller;
 
-/*
-import com.saludSystem.dtos.Generals.Estudio.ActualizarEstudioDTO;
-import com.saludSystem.dtos.Generals.Estudio.CrearEstudioDTO;
-import com.saludSystem.dtos.Generals.Estudio.EstudioDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.Generals.EstudioResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.services.modules.Generals.Estudios.EstudioService;
+import com.saludSystem.Generals.adapter.Estudio.aplicacion.dtos.ActualizarEstudioDTO;
+import com.saludSystem.Generals.adapter.Estudio.aplicacion.dtos.CrearEstudioDTO;
+import com.saludSystem.Generals.adapter.Estudio.aplicacion.dtos.EstudioDTO;
+import com.saludSystem.Generals.adapter.Estudio.aplicacion.services.EstudioService;
+import com.saludSystem.Generals.adapter.Estudio.domain.EstudioResponse;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -70,5 +69,3 @@ public class EstudioController {
     }
 
 }
-
- */

@@ -1,12 +1,12 @@
 package com.saludSystem.Generals.adapter.Aseguradora.infraestructura.controller;
-/*
-import com.saludSystem.dtos.Generals.Aseguradora.ActualizarAseguradoraDTO;
-import com.saludSystem.dtos.Generals.Aseguradora.CrearAseguradoraDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.Generals.Aseguradora.AseguradoraDTO;
-import com.saludSystem.dtos.responses.Generals.AseguradoraResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.services.modules.Generals.Aseguradoras.AseguradoraService;
+
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.dtos.ActualizarAseguradoraDTO;
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.dtos.AseguradoraDTO;
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.dtos.CrearAseguradoraDTO;
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.services.AseguradoraService;
+import com.saludSystem.Generals.adapter.Aseguradora.dominio.AseguradoraResponse;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -64,5 +64,3 @@ public class AseguradoraController {
     }
 
 }
-
- */

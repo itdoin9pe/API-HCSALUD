@@ -1,18 +1,17 @@
 package com.saludSystem.Generals.adapter.Empresa.aplicacion.services.impl;
-/*
-import com.saludSystem.dtos.Generals.Empresa.ActualizarEmpresaDTO;
-import com.saludSystem.dtos.Generals.Empresa.CrearEmpresaDTO;
-import com.saludSystem.dtos.Generals.Empresa.EmpresaDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.entities.Empresa;
-import com.saludSystem.entities.User;
-import com.saludSystem.entities.configuracion.SysSalud;
-import com.saludSystem.exception.ResourceNotFoundException;
-import com.saludSystem.repositories.modules.Configuration.UserRepository;
-import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
-import com.saludSystem.repositories.modules.Generals.EmpresaRepository;
-import com.saludSystem.services.modules.Generals.Empresas.EmpresaService;
+
+import com.saludSystem.Configuracion.SysSalud.dominio.SysSaludModel;
+import com.saludSystem.Configuracion.SysSalud.infraestructura.repositories.SysSaludRepository;
+import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
+import com.saludSystem.Configuracion.Usuario.infraestructura.repositories.UserRepository;
+import com.saludSystem.Generals.adapter.Empresa.aplicacion.dtos.ActualizarEmpresaDTO;
+import com.saludSystem.Generals.adapter.Empresa.aplicacion.dtos.CrearEmpresaDTO;
+import com.saludSystem.Generals.adapter.Empresa.aplicacion.dtos.EmpresaDTO;
+import com.saludSystem.Generals.adapter.Empresa.aplicacion.services.EmpresaService;
+import com.saludSystem.Generals.adapter.Empresa.dominio.EmpresaModel;
+import com.saludSystem.Generals.adapter.Empresa.infraestructura.repositories.EmpresaRepository;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.security.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,18 +46,14 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     @Override
     public EmpresaDTO getEmpresaById(UUID empresaId) {
-        Empresa empresa = empresaRepository.findById(empresaId)
+        EmpresaModel empresa = empresaRepository.findById(empresaId)
                 .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con Id: " + empresaId));
-        EmpresaDTO dto = new EmpresaDTO();
-        dto.setEmpresaId(empresa.getEmpresaId());
-        dto.setDescripcion(empresa.getDescripcion());
-        dto.setEstado(empresa.getEstado());
-        return dto;
+        return convertToDTO(empresa);
     }
 
     @Override
     public ApiResponse updateEmpresa(UUID empresaId, ActualizarEmpresaDTO actualizarEmpresaDTO) {
-        Empresa empresa = empresaRepository.findById(empresaId)
+        EmpresaModel empresa = empresaRepository.findById(empresaId)
                 .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con ID: " + empresaId));
         Optional.ofNullable(actualizarEmpresaDTO.getDescripcion()).filter(desc -> !desc.isBlank())
                 .ifPresent(empresa::setDescripcion);
@@ -70,12 +65,12 @@ public class EmpresaServiceImpl implements EmpresaService {
     @Override
     public ApiResponse saveEmpresa(CrearEmpresaDTO crearEmpresaDTO){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByUsername(username)
+        String email = authentication.getName();
+        UserModel user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
-        SysSalud sysSalud = sysSaludRepository.findById(user.getHospital().getHospitalId())
+        SysSaludModel sysSalud = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new ResourceNotFoundException("Hospital no encontrado"));
-        Empresa empresa = new Empresa();
+        EmpresaModel empresa = new EmpresaModel();
         empresa.setDescripcion(crearEmpresaDTO.getDescripcion());
         empresa.setEstado(crearEmpresaDTO.getEstado());
         empresa.setUser(user);
@@ -90,10 +85,8 @@ public class EmpresaServiceImpl implements EmpresaService {
         return new ApiResponse(true, "Empresa eliminada correctamente");
     }
 
-    private EmpresaDTO convertToDTO(Empresa empresa) {
+    private EmpresaDTO convertToDTO(EmpresaModel empresa) {
         return modelMapper.map(empresa, EmpresaDTO.class);
     }
 
 }
-
- */

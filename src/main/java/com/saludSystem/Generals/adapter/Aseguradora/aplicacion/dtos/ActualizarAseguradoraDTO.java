@@ -7,9 +7,8 @@ import java.util.UUID;
 @Data
 public class ActualizarAseguradoraDTO{
 
-    private UUID hospitalId;
-    private UUID userId;
     private UUID aseguradoraId;
+
     private String descripcion;
 
     @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")

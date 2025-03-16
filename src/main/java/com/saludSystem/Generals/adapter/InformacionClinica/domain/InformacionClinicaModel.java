@@ -1,5 +1,6 @@
 package com.saludSystem.Generals.adapter.InformacionClinica.domain;
-/*
+
+import com.saludSystem.Generals.adapter.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -11,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "informacion_clinicas")
-public class InformacionClinica extends BaseEntity {
+public class InformacionClinicaModel extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -25,4 +26,4 @@ public class InformacionClinica extends BaseEntity {
     @Column(name = "estado", nullable = false)
     private Integer estado;
 
-}*/
+}
