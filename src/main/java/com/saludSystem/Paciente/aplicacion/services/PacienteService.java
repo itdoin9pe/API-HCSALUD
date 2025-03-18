@@ -1,11 +1,11 @@
 package com.saludSystem.Paciente.aplicacion.services;
-/*
-import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
-import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
-import com.saludSystem.dtos.Paciente.PacienteDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.entities.*;
+
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
+import com.saludSystem.Paciente.aplicacion.dtos.ActualizarPacienteDTO;
+import com.saludSystem.Paciente.aplicacion.dtos.CrearPacienteDTO;
+import com.saludSystem.Paciente.aplicacion.dtos.PacienteDTO;
+import com.saludSystem.Paciente.dominio.PacienteModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public interface PacienteService {
 
-    Paciente savePaciente(CrearPacienteDTO crearPacienteDTO);
+    PacienteModel savePaciente(CrearPacienteDTO crearPacienteDTO);
 
     ActualizarPacienteDTO updatePaciente(UUID pacienteId, ActualizarPacienteDTO actualizarPacienteDTO);
 
@@ -26,5 +26,3 @@ public interface PacienteService {
     ApiResponse deletePaciente(UUID pacienteId);
 
 }
-
- */

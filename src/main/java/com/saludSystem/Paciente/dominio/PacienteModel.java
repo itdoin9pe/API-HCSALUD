@@ -1,6 +1,13 @@
 package com.saludSystem.Paciente.dominio;
-/*
+
+import com.saludSystem.Configuracion.Sede.dominio.SedeModel;
+import com.saludSystem.Generals.adapter.Aseguradora.dominio.AseguradoraModel;
 import com.saludSystem.Generals.adapter.BaseEntity;
+import com.saludSystem.Generals.adapter.Empresa.dominio.EmpresaModel;
+import com.saludSystem.Generals.adapter.Estudio.domain.EstudioModel;
+import com.saludSystem.Generals.adapter.InformacionClinica.domain.InformacionClinicaModel;
+import com.saludSystem.Generals.adapter.Pais.domain.PaisModel;
+import com.saludSystem.Generals.adapter.TipoPaciente.domain.TipoPacienteModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
@@ -10,6 +17,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,11 +27,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "pacientes")
+@Builder
 public class PacienteModel extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_paciente", nullable = false, unique = true)
+    @Column(name = "id_paciente", nullable = false)
     private UUID pacienteId;
 
     @NotBlank(message = "El tipo documento no puede estar vacio")
@@ -43,80 +52,78 @@ public class PacienteModel extends BaseEntity {
     private String nombres;
 
     @NotNull(message = "La fecha de nacimiento no puede estar vacía")
-    @Temporal(TemporalType.DATE)
     @Column(name = "fecha_nacimiento", nullable = false)
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     @Min(value = 0, message = "La edad debe ser un número positivo")
-    @Column(name = "edad")
+    @Column(name = "edad", nullable = false)
     private Integer edad;
 
     @NotNull(message = "El estado no puede estar vacío")
     @Column(name = "estado", nullable = false)
     private Integer estado;
 
-    @Column(name = "ocupacion")
+    @Column(name = "ocupacion", nullable = false)
     private String ocupacion;
 
-    @Column(name = "direccion")
+    @Column(name = "direccion", nullable = false)
     private String direccion;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "pais_id", nullable = false)
-    private Pais paisId;
+    private PaisModel paisId;
 
-    @Column(name = "ubigeo")
+    @Column(name = "ubigeo", nullable = false)
     private String ubigeo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tipos_paciente_id")
-    private TipoPaciente tipoPacienteId;
+    @ManyToOne
+    @JoinColumn(name = "tipos_paciente_id", nullable = false)
+    private TipoPacienteModel tipoPacienteId;
 
-    @Column(name = "estado_civil")
+    @Column(name = "estado_civil", nullable = false)
     private String estadoCivil;
 
-    @Column(name = "sexo")
+    @Column(name = "sexo", nullable = false)
     private String sexo;
 
-    @Column(name = "nombre_contacto")
+    @Column(name = "nombre_contacto", nullable = false)
     private String nombreContacto;
 
-    @Column(name = "tipo_historia")
+    @Column(name = "tipo_historia", nullable = false)
     private String tipoHistoria;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "aseguradora_id")
-    private Aseguradora aseguradoraId;
+    @ManyToOne
+    @JoinColumn(name = "aseguradora_id", nullable = false)
+    private AseguradoraModel aseguradoraId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "empresa_id")
-    private Empresa empresaId;
+    @ManyToOne
+    @JoinColumn(name = "empresa_id", nullable = false)
+    private EmpresaModel empresaId;
 
     @Email(message = "El email debe ser válido")
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Lob
-    @Column(name = "foto_paciente", columnDefinition = "MEDIUMBLOB")
-    private byte[] fotoPaciente;
+    @Column(name = "foto_paciente", nullable = false)
+    private String fotoPaciente;
 
-    @Column(name = "titulo")
+    @Column(name = "titulo", nullable = false)
     private String titulo;
 
-    @Column(name = "observacion")
+    @Column(name = "observacion", nullable = false)
     private String observacion;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "informacion_clinica_id")
-    private InformacionClinica informacionClinicaId;
+    @ManyToOne
+    @JoinColumn(name = "informacion_clinica_id", nullable = false)
+    private InformacionClinicaModel informacionClinicaId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "estudio_id")
-    private Estudio estudioId;
+    @ManyToOne
+    @JoinColumn(name = "estudio_id", nullable = false)
+    private EstudioModel estudioId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sede_id")
-    private Sede sedeId;
+    @ManyToOne
+    @JoinColumn(name = "sede_id", nullable = false)
+    private SedeModel sedeId;
 
     @NotBlank(message = "El número de celular no puede estar vacío")
     @Column(name = "celular", nullable = false)
@@ -133,4 +140,3 @@ public class PacienteModel extends BaseEntity {
     private Date updatedAt;
 
 }
- */

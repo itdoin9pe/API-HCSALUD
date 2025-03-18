@@ -5,8 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -31,27 +32,28 @@ public class ActualizarPacienteDTO {
     private String nombres;
 
     @NotNull(message = "La fecha de nacimiento no puede estar vacía")
-    private Date fechaNacimiento;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate fechaNacimiento;
 
-    @Schema(description = "Edad (0 = inactivo, 1 = activo)", example = "1", type = "integer", defaultValue = "0")
+    @Schema(description = "Edad (0 = inactivo, 1 = activo)", example = "1", type = "integer")
     private Integer edad;
 
     @NotNull(message = "El estado no puede estar vacío")
-    @Schema(description = "Estado del paciente (0 = inactivo, 1 = activo)", example = "1", type = "integer", defaultValue = "0")
+    @Schema(description = "Estado del paciente (0 = inactivo, 1 = activo)", example = "1", type = "integer")
     private Integer estado;
 
     private String ocupacion;
 
     private String direccion;
 
-    @Schema(description = "ID del país (0 = inactivo, 1 = activo)", example = "1", type = "integer", defaultValue = "0")
+    @Schema(description = "ID del país (0 = inactivo, 1 = activo)", example = "1", type = "integer")
     private Integer paisId;
 
     private String ubigeo;
 
     @NotNull(message = "El tipo de paciente no puede estar vacío")
-    @Schema(description = "tipo paciente (0 = inactivo, 1 = activo)", example = "1", type = "integer", defaultValue = "0")
-    private Integer tipoPacienteId;
+    @Schema(description = "tipo paciente (0 = inactivo, 1 = activo)", example = "1", type = "integer")
+    private Long tipoPacienteId;
 
     private String estadoCivil;
 
@@ -68,7 +70,7 @@ public class ActualizarPacienteDTO {
     @Email(message = "El email debe ser válido")
     private String email;
 
-    private byte[] fotoPaciente;
+    private String fotoPaciente;
 
     private String titulo;
 

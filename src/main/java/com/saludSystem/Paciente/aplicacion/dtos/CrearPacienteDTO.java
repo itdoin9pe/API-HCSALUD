@@ -4,7 +4,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -23,7 +25,8 @@ public class CrearPacienteDTO {
     private String nombres;
 
     @NotNull(message = "La fecha de nacimiento no puede estar vacía")
-    private Date fechaNacimiento;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate fechaNacimiento;
 
     private Integer edad;
 
@@ -39,7 +42,7 @@ public class CrearPacienteDTO {
     private String ubigeo;
 
     @NotNull(message = "El tipo de paciente no puede estar vacío")
-    private Integer tipoPacienteId;
+    private Long tipoPacienteId;
 
     private String estadoCivil;
 
@@ -56,7 +59,7 @@ public class CrearPacienteDTO {
     @Email(message = "El email debe ser válido")
     private String email;
 
-    private byte[] fotoPaciente;
+    private String fotoPaciente;
 
     private String titulo;
 

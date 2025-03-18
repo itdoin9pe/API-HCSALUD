@@ -1,23 +1,27 @@
 package com.saludSystem.Paciente.infraestructura.controller;
-/*
-import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
-import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
-import com.saludSystem.dtos.Paciente.PacienteDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.dtos.responses.Paciente.PacienteResponse;
-import com.saludSystem.services.modules.Paciente.PacienteService;
-import com.saludSystem.util.Util;
+
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
+import com.saludSystem.Generals.security.util.FileStorageService;
+import com.saludSystem.Paciente.aplicacion.dtos.ActualizarPacienteDTO;
+import com.saludSystem.Paciente.aplicacion.dtos.CrearPacienteDTO;
+import com.saludSystem.Paciente.aplicacion.dtos.PacienteDTO;
+import com.saludSystem.Paciente.aplicacion.services.PacienteService;
+
+import com.saludSystem.Paciente.dominio.PacienteModel;
+import com.saludSystem.Paciente.dominio.PacienteResponse;
+import com.saludSystem.Paciente.infraestructura.repositories.PacienteRepository;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 @Tag(name = "Pacientes")
@@ -26,26 +30,25 @@ import java.util.*;
 public class PacienteController {
 
     private final PacienteService pacienteService;
+    private final FileStorageService fileStorageService;
+    private final PacienteRepository pacienteRepository;
 
-    public PacienteController(PacienteService pacienteService) {
+    public PacienteController(PacienteService pacienteService, FileStorageService fileStorageService, PacienteRepository pacienteRepository) {
         this.pacienteService = pacienteService;
+        this.fileStorageService = fileStorageService;
+        this.pacienteRepository = pacienteRepository;
     }
 
-    @PostMapping("/SavePaciente")
-    public ResponseEntity<ApiResponse> savePaciente(@Valid
-            @RequestParam("fotoPaciente") MultipartFile fotoPaciente, @RequestParam("tipoDocumentoId") String tipoDocumentoId,
-            @RequestParam("numeroDocumento") String numeroDocumento, @RequestParam("apellidos") String apellidos,
-            @RequestParam("nombres") String nombres, @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date fechaNacimiento,
-            @RequestParam("edad") int edad, @RequestParam("estado") Integer estado,
-            @RequestParam("ocupacion") String ocupacion, @RequestParam("direccion") String direccion,
-            @RequestParam("paisId") Integer paisId, @RequestParam("ubigeo") String ubigeo,
-            @RequestParam("tipoPacienteId") Integer tipoPacienteId, @RequestParam("estadoCivil") String estadoCivil,
-            @RequestParam("sexo") String sexo, @RequestParam("nombreContacto") String nombreContacto,
-            @RequestParam("tipoHistoria") String tipoHistoria, @RequestParam("aseguradoraId") UUID aseguradoraId,
-            @RequestParam("empresaId") UUID empresaId, @RequestParam("email") String email,
-            @RequestParam("titulo") String titulo, @RequestParam("observacion") String observacion,
-            @RequestParam("informacionClinicaId") UUID informacionClinicaId, @RequestParam("estudioId") UUID estudioId,
-            @RequestParam("sedeId") UUID sedeId, @RequestParam("celular") String celular) throws IOException {
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
+            content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    @PostMapping(value = "/SavePaciente", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse> crearPaciente
+            (String tipoDocumentoId, String numeroDocumento, String apellidos, String nombres, @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate fechaNacimiento,
+            Integer edad, Integer estado, String ocupacion, String direccion, Integer paisId, String ubigeo,
+            Long tipoPacienteId, String estadoCivil, String sexo, String nombreContacto, String tipoHistoria, UUID aseguradoraId,
+            UUID empresaId, String email, String titulo, String observacion, MultipartFile fotoPaciente,
+            UUID informacionClinicaId, UUID estudioId, UUID sedeId, String celular) throws IOException {
+        String photoPaciente = fileStorageService.storeFile(fotoPaciente);
         CrearPacienteDTO crearPacienteDTO = new CrearPacienteDTO();
         crearPacienteDTO.setTipoDocumentoId(tipoDocumentoId);
         crearPacienteDTO.setNumeroDocumento(numeroDocumento);
@@ -66,7 +69,7 @@ public class PacienteController {
         crearPacienteDTO.setAseguradoraId(aseguradoraId);
         crearPacienteDTO.setEmpresaId(empresaId);
         crearPacienteDTO.setEmail(email);
-        crearPacienteDTO.setFotoPaciente(Util.compressZLib(fotoPaciente.getBytes()));
+        crearPacienteDTO.setFotoPaciente(photoPaciente);
         crearPacienteDTO.setTitulo(titulo);
         crearPacienteDTO.setObservacion(observacion);
         crearPacienteDTO.setInformacionClinicaId(informacionClinicaId);
@@ -77,22 +80,15 @@ public class PacienteController {
         return ResponseEntity.ok(new ApiResponse(true, "Paciente creado correctamente"));
     }
 
-    @PutMapping("/UpdatePaciente/{pacienteId}")
-    public ResponseEntity<ApiResponse> updatePaciente(@PathVariable("pacienteId") UUID pacienteId,
-            @Valid @RequestParam(value = "fotoPaciente", required = false) MultipartFile fotoPaciente,
-            @RequestParam("tipoDocumentoId") String tipoDocumentoId, @RequestParam("numeroDocumento") String numeroDocumento,
-            @RequestParam("apellidos") String apellidos, @RequestParam("nombres") String nombres,
-            @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date fechaNacimiento, @RequestParam("edad") int edad,
-            @RequestParam("estado") Integer estado, @RequestParam("ocupacion") String ocupacion,
-            @RequestParam("direccion") String direccion, @RequestParam("paisId") Integer paisId,
-            @RequestParam("ubigeo") String ubigeo, @RequestParam("tipoPacienteId") Integer tipoPacienteId,
-            @RequestParam("estadoCivil") String estadoCivil, @RequestParam("sexo") String sexo,
-            @RequestParam("nombreContacto") String nombreContacto, @RequestParam("tipoHistoria") String tipoHistoria,
-            @RequestParam("aseguradoraId") UUID aseguradoraId, @RequestParam("empresaId") UUID empresaId,
-            @RequestParam("email") String email, @RequestParam("titulo") String titulo,
-            @RequestParam("observacion") String observacion, @RequestParam("informacionClinicaId") UUID informacionClinicaId,
-            @RequestParam("estudioId") UUID estudioId, @RequestParam("sedeId") UUID sedeId,
-            @RequestParam("celular") String celular) throws IOException {
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
+            content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    @PutMapping(value = "/UpdatePaciente/{pacienteId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse> actualizarPaciente
+            (@PathVariable("pacienteId") UUID pacienteId, String tipoDocumentoId, String numeroDocumento, String apellidos,
+             String nombres, @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate fechaNacimiento, Integer edad, Integer estado, String ocupacion, String direccion,
+             Integer paisId, String ubigeo, Long tipoPacienteId, String estadoCivil, String sexo, String nombreContacto,
+             String tipoHistoria, UUID aseguradoraId,  UUID empresaId, String email, String titulo, String observacion,
+             UUID informacionClinicaId, UUID estudioId,  UUID sedeId, MultipartFile fotoPaciente, String celular) throws IOException {
         ActualizarPacienteDTO actualizarPacienteDTO = new ActualizarPacienteDTO();
         actualizarPacienteDTO.setTipoDocumentoId(tipoDocumentoId);
         actualizarPacienteDTO.setNumeroDocumento(numeroDocumento);
@@ -113,8 +109,13 @@ public class PacienteController {
         actualizarPacienteDTO.setAseguradoraId(aseguradoraId);
         actualizarPacienteDTO.setEmpresaId(empresaId);
         actualizarPacienteDTO.setEmail(email);
-        if (fotoPaciente != null) {
-            actualizarPacienteDTO.setFotoPaciente(Util.compressZLib(fotoPaciente.getBytes()));
+        if (fotoPaciente != null && !fotoPaciente.isEmpty()) {
+            PacienteModel pacienteExistente = pacienteRepository.findById(pacienteId).orElseThrow();
+            if (pacienteExistente.getFotoPaciente() != null) {
+                fileStorageService.deleteFile(pacienteExistente.getFotoPaciente());
+            }
+            String nuevaFotoPaciente = fileStorageService.storeFile(fotoPaciente);
+            actualizarPacienteDTO.setFotoPaciente(nuevaFotoPaciente);
         }
         actualizarPacienteDTO.setTitulo(titulo);
         actualizarPacienteDTO.setObservacion(observacion);
@@ -132,27 +133,25 @@ public class PacienteController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = PacienteResponse.class)))
     })
-    public ListResponse<PacienteDTO> getAllAseguradora(
+    public ListResponse<PacienteDTO> obtenerPacientesPaginados(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return pacienteService.getAllPaciente(hospitalId, page, rows);
     }
 
     @GetMapping("/GetPacienteList")
-    public ResponseEntity<List<PacienteDTO>> getAllList() {
+    public ResponseEntity<List<PacienteDTO>> obtenerPacientes() {
         return ResponseEntity.ok(pacienteService.getPacienteList());
     }
 
     @GetMapping("/GetPaciente/{pacienteId}")
-    public ResponseEntity<PacienteDTO> getById(@PathVariable UUID pacienteId) {
+    public ResponseEntity<PacienteDTO> obtenerPacientesPorId(@PathVariable UUID pacienteId) {
         return pacienteService.getPacienteById(pacienteId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/DeletePaciente/{pacienteId}")
-    public ApiResponse destroy(@PathVariable UUID pacienteId) {
+    public ApiResponse eliminarPaciente(@PathVariable UUID pacienteId) {
         return pacienteService.deletePaciente(pacienteId);
     }
 
 }
-
- */

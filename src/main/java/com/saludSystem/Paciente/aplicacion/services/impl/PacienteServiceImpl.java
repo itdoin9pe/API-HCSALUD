@@ -1,21 +1,37 @@
 package com.saludSystem.Paciente.aplicacion.services.impl;
-/*
-import com.saludSystem.dtos.Paciente.ActualizarPacienteDTO;
-import com.saludSystem.dtos.Paciente.CrearPacienteDTO;
-import com.saludSystem.dtos.Paciente.PacienteDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.entities.*;
-import com.saludSystem.entities.configuracion.Sede;
-import com.saludSystem.entities.configuracion.SysSalud;
-import com.saludSystem.exception.ResourceNotFoundException;
-import com.saludSystem.repositories.modules.Configuration.UserRepository;
-import com.saludSystem.repositories.modules.Configuration.SedeRepository;
-import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
-import com.saludSystem.repositories.modules.Generals.*;
-import com.saludSystem.repositories.modules.Paciente.PacienteRepository;
-import com.saludSystem.services.modules.Paciente.PacienteService;
+
+import com.saludSystem.Configuracion.Sede.dominio.SedeModel;
+import com.saludSystem.Configuracion.Sede.infraestructura.repositories.SedeRepository;
+import com.saludSystem.Configuracion.SysSalud.dominio.SysSaludModel;
+import com.saludSystem.Configuracion.SysSalud.infraestructura.repositories.SysSaludRepository;
+import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
+import com.saludSystem.Configuracion.Usuario.infraestructura.repositories.UserRepository;
+import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.dtos.AseguradoraDTO;
+import com.saludSystem.Generals.adapter.Aseguradora.dominio.AseguradoraModel;
+import com.saludSystem.Generals.adapter.Aseguradora.infraestructura.repositories.AseguradoraRepository;
+import com.saludSystem.Generals.adapter.Empresa.dominio.EmpresaModel;
+import com.saludSystem.Generals.adapter.Empresa.infraestructura.repositories.EmpresaRepository;
+import com.saludSystem.Generals.adapter.Estudio.domain.EstudioModel;
+import com.saludSystem.Generals.adapter.Estudio.infraestructura.repositories.EstudioRepository;
+import com.saludSystem.Generals.adapter.InformacionClinica.domain.InformacionClinicaModel;
+import com.saludSystem.Generals.adapter.InformacionClinica.infraestructura.repositories.InformacionClinicaRepository;
+import com.saludSystem.Generals.adapter.Pais.domain.PaisModel;
+import com.saludSystem.Generals.adapter.Pais.infraestructura.repositories.PaisRepository;
+import com.saludSystem.Generals.adapter.TipoPaciente.domain.TipoPacienteModel;
+import com.saludSystem.Generals.adapter.TipoPaciente.infraestructura.repositories.TipoPacienteRepository;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
+import com.saludSystem.Generals.security.exception.ResourceNotFoundException;
+import com.saludSystem.Paciente.aplicacion.dtos.ActualizarPacienteDTO;
+import com.saludSystem.Paciente.aplicacion.dtos.CrearPacienteDTO;
+import com.saludSystem.Paciente.aplicacion.dtos.PacienteDTO;
+import com.saludSystem.Paciente.aplicacion.services.PacienteService;
+import com.saludSystem.Paciente.dominio.PacienteModel;
+import com.saludSystem.Paciente.infraestructura.repositories.PacienteRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -54,14 +70,12 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
-    public Paciente savePaciente(CrearPacienteDTO crearPacienteDTO) {
+    public PacienteModel savePaciente(CrearPacienteDTO crearPacienteDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSalud hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        Paciente paciente = new Paciente();
+        String email = authentication.getName();
+        UserModel user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        SysSaludModel hospital = sysSaludRepository.findById(user.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+        PacienteModel paciente = new PacienteModel();
         paciente.setTipoDocumentoId(crearPacienteDTO.getTipoDocumentoId());
         paciente.setNumeroDocumento(crearPacienteDTO.getNumeroDocumento());
         paciente.setApellidos(crearPacienteDTO.getApellidos());
@@ -71,28 +85,28 @@ public class PacienteServiceImpl implements PacienteService {
         paciente.setEstado(crearPacienteDTO.getEstado());
         paciente.setOcupacion(crearPacienteDTO.getOcupacion());
         paciente.setDireccion(crearPacienteDTO.getDireccion());
-        Optional<Pais> pais = paisRepository.findById(crearPacienteDTO.getPaisId());
+        Optional<PaisModel> pais = paisRepository.findById(crearPacienteDTO.getPaisId());
         pais.ifPresent(paciente::setPaisId);
         paciente.setUbigeo(crearPacienteDTO.getUbigeo());
-        Optional<TipoPaciente> tipoPaciente = tipoPacienteRepository.findById(crearPacienteDTO.getTipoPacienteId());
+        Optional<TipoPacienteModel> tipoPaciente = tipoPacienteRepository.findById(crearPacienteDTO.getTipoPacienteId());
         tipoPaciente.ifPresent(paciente::setTipoPacienteId);
         paciente.setEstadoCivil(crearPacienteDTO.getEstadoCivil());
         paciente.setSexo(crearPacienteDTO.getSexo());
         paciente.setNombreContacto(crearPacienteDTO.getNombreContacto());
         paciente.setTipoHistoria(crearPacienteDTO.getTipoHistoria());
-        Optional<Aseguradora> aseguradora = aseguradoraRepository.findById(crearPacienteDTO.getAseguradoraId());
+        Optional<AseguradoraModel> aseguradora = aseguradoraRepository.findById(crearPacienteDTO.getAseguradoraId());
         aseguradora.ifPresent(paciente::setAseguradoraId);
-        Optional<Empresa> empresa = empresaRepository.findById(crearPacienteDTO.getEmpresaId());
+        Optional<EmpresaModel> empresa = empresaRepository.findById(crearPacienteDTO.getEmpresaId());
         empresa.ifPresent(paciente::setEmpresaId);
         paciente.setEmail(crearPacienteDTO.getEmail());
         paciente.setFotoPaciente(crearPacienteDTO.getFotoPaciente());
         paciente.setTitulo(crearPacienteDTO.getTitulo());
         paciente.setObservacion(crearPacienteDTO.getObservacion());
-        Optional<InformacionClinica> informacionClinica = informacionClinicaRepository.findById(crearPacienteDTO.getInformacionClinicaId());
+        Optional<InformacionClinicaModel> informacionClinica = informacionClinicaRepository.findById(crearPacienteDTO.getInformacionClinicaId());
         informacionClinica.ifPresent(paciente::setInformacionClinicaId);
-        Optional<Estudio> estudio = estudioRepository.findById(crearPacienteDTO.getEstudioId());
+        Optional<EstudioModel> estudio = estudioRepository.findById(crearPacienteDTO.getEstudioId());
         estudio.ifPresent(paciente::setEstudioId);
-        Optional<Sede> sede = sedeRepository.findById(crearPacienteDTO.getSedeId());
+        Optional<SedeModel> sede = sedeRepository.findById(crearPacienteDTO.getSedeId());
         sede.ifPresent(paciente::setSedeId);
         paciente.setCelular(crearPacienteDTO.getCelular());
         paciente.setHospital(hospital);
@@ -101,9 +115,9 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
-    public ActualizarPacienteDTO updatePaciente(UUID pacienteId,ActualizarPacienteDTO actualizarPacienteDTO) {
-        Paciente paciente = pacienteRepository.findById(pacienteId).orElseThrow(
-                () -> new ResourceNotFoundException("Paciente no encontrado con ID" + pacienteId));
+    public ActualizarPacienteDTO updatePaciente(UUID pacienteId, ActualizarPacienteDTO actualizarPacienteDTO) {
+        PacienteModel paciente = pacienteRepository.findById(pacienteId).orElseThrow(
+                () -> new ResourceNotFoundException("Paciente no encontrado con ID"));
         Optional.ofNullable(actualizarPacienteDTO.getTipoDocumentoId()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setTipoDocumentoId);
         Optional.ofNullable(actualizarPacienteDTO.getNumeroDocumento()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setNumeroDocumento);
         Optional.ofNullable(actualizarPacienteDTO.getApellidos()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setApellidos);
@@ -122,27 +136,13 @@ public class PacienteServiceImpl implements PacienteService {
         Optional.ofNullable(actualizarPacienteDTO.getTitulo()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setTitulo);
         Optional.ofNullable(actualizarPacienteDTO.getObservacion()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setObservacion);
         Optional.ofNullable(actualizarPacienteDTO.getCelular()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setCelular);
-        Optional.ofNullable(actualizarPacienteDTO.getPaisId())
-                .flatMap(paisRepository::findById)
-                .ifPresent(paciente::setPaisId);
-        Optional.ofNullable(actualizarPacienteDTO.getTipoPacienteId())
-                .flatMap(tipoPacienteRepository::findById)
-                .ifPresent(paciente::setTipoPacienteId);
-        Optional.ofNullable(actualizarPacienteDTO.getAseguradoraId())
-                .flatMap(aseguradoraRepository::findById)
-                .ifPresent(paciente::setAseguradoraId);
-        Optional.ofNullable(actualizarPacienteDTO.getEmpresaId())
-                .flatMap(empresaRepository::findById)
-                .ifPresent(paciente::setEmpresaId);
-        Optional.ofNullable(actualizarPacienteDTO.getInformacionClinicaId())
-                .flatMap(informacionClinicaRepository::findById)
-                .ifPresent(paciente::setInformacionClinicaId);
-        Optional.ofNullable(actualizarPacienteDTO.getEstudioId())
-                .flatMap(estudioRepository::findById)
-                .ifPresent(paciente::setEstudioId);
-        Optional.ofNullable(actualizarPacienteDTO.getSedeId())
-                .flatMap(sedeRepository::findById)
-                .ifPresent(paciente::setSedeId);
+        Optional.ofNullable(actualizarPacienteDTO.getPaisId()).flatMap(paisRepository::findById).ifPresent(paciente::setPaisId);
+        Optional.ofNullable(actualizarPacienteDTO.getTipoPacienteId()).flatMap(tipoPacienteRepository::findById).ifPresent(paciente::setTipoPacienteId);
+        Optional.ofNullable(actualizarPacienteDTO.getAseguradoraId()).flatMap(aseguradoraRepository::findById).ifPresent(paciente::setAseguradoraId);
+        Optional.ofNullable(actualizarPacienteDTO.getEmpresaId()).flatMap(empresaRepository::findById).ifPresent(paciente::setEmpresaId);
+        Optional.ofNullable(actualizarPacienteDTO.getInformacionClinicaId()).flatMap(informacionClinicaRepository::findById).ifPresent(paciente::setInformacionClinicaId);
+        Optional.ofNullable(actualizarPacienteDTO.getEstudioId()).flatMap(estudioRepository::findById).ifPresent(paciente::setEstudioId);
+        Optional.ofNullable(actualizarPacienteDTO.getSedeId()).flatMap(sedeRepository::findById).ifPresent(paciente::setSedeId);
         pacienteRepository.save(paciente);
         return modelMapper.map(paciente, ActualizarPacienteDTO.class);
     }
@@ -150,51 +150,20 @@ public class PacienteServiceImpl implements PacienteService {
     @Override
     public Optional<PacienteDTO> getPacienteById(UUID pacienteId) {
         return Optional.ofNullable(pacienteRepository.findById(pacienteId).map(this::convertToDTO)
-                .orElseThrow(() -> new ResourceNotFoundException("Paciente no encontrado con ID: " + pacienteId)));
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente no encontrado")));
     }
 
     @Override
     public List<PacienteDTO> getPacienteList() {
-        return pacienteRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+        return pacienteRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
     public ListResponse<PacienteDTO> getAllPaciente(UUID hospitalId, int page, int rows) {
-        List<Paciente> pacientes = pacienteRepository.findByHospital_HospitalId(hospitalId);
-        List<PacienteDTO> data = pacientes.stream().map(paciente -> {
-            PacienteDTO dto = new PacienteDTO();
-            dto.setPacienteId(paciente.getPacienteId());
-            dto.setTipoDocumentoId(paciente.getTipoDocumentoId());
-            dto.setNumeroDocumento(paciente.getNumeroDocumento());
-            dto.setApellidos(paciente.getApellidos());
-            dto.setNombres(paciente.getNombres());
-            dto.setFechaNacimiento(paciente.getFechaNacimiento());
-            dto.setEdad(paciente.getEdad());
-            dto.setEstado(paciente.getEstado());
-            dto.setOcupacion(paciente.getOcupacion());
-            dto.setDireccion(paciente.getDireccion());
-            dto.setPaisId(paciente.getPaisId() != null ? paciente.getPaisId().getId() : null);
-            dto.setUbigeo(paciente.getUbigeo());
-            dto.setTipoPacienteId(paciente.getTipoPacienteId() != null ? paciente.getTipoPacienteId().getTipoPacienteId() : null);
-            dto.setEstadoCivil(paciente.getEstadoCivil());
-            dto.setSexo(paciente.getSexo());
-            dto.setNombreContacto(paciente.getNombreContacto());
-            dto.setTipoHistoria(paciente.getTipoHistoria());
-            dto.setAseguradoraId(paciente.getAseguradoraId() != null ? paciente.getAseguradoraId().getAseguradoraId() : null);
-            dto.setEmpresaId(paciente.getEmpresaId() != null ? paciente.getEmpresaId().getEmpresaId() : null);
-            dto.setEmail(paciente.getEmail());
-            dto.setFotoPaciente(paciente.getFotoPaciente());
-            dto.setTitulo(paciente.getTitulo());
-            dto.setObservacion(paciente.getObservacion());
-            dto.setInformacionClinicaId(paciente.getInformacionClinicaId() != null ? paciente.getInformacionClinicaId().getInformacionClinicaId() : null);
-            dto.setEstudioId(paciente.getEstudioId() != null ? paciente.getEstudioId().getEstudioId() : null);
-            dto.setSedeId(paciente.getSedeId() != null ? paciente.getSedeId().getSedeId() : null);
-            dto.setCelular(paciente.getCelular());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<PacienteModel> pacienteModelPage = pacienteRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<PacienteDTO> data = pacienteModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, pacienteModelPage.getTotalElements(), pacienteModelPage.getTotalPages(), pacienteModelPage.getNumber() + 1);
     }
 
     @Override
@@ -203,10 +172,8 @@ public class PacienteServiceImpl implements PacienteService {
         return new ApiResponse(true, "Paciente eliminado correctamente");
     }
 
-    private PacienteDTO convertToDTO(Paciente paciente) {
+    private PacienteDTO convertToDTO(PacienteModel paciente) {
         return modelMapper.map(paciente, PacienteDTO.class);
     }
 
 }
-
- */
