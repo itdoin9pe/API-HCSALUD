@@ -1,5 +1,6 @@
 package com.saludSystem.Generals.adapter.Pais.domain;
-/*
+
+import com.saludSystem.Generals.adapter.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -10,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "paises")
-public class Pais extends BaseEntity{
+public class PaisModel extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +33,4 @@ public class Pais extends BaseEntity{
     @Column(name = "orden")
     private Integer orden;
 
-}*/
+}

@@ -1,13 +1,10 @@
 package com.saludSystem.Generals.adapter.TipoPaciente.aplicacion.services;
-/*
-import com.saludSystem.dtos.Generals.TipoPacienteDTO;
+
+import com.saludSystem.Generals.adapter.TipoPaciente.aplicacion.TipoPacienteDTO;
 import java.util.List;
 
 public interface TipoPacienteService {
 
-    // Listado sin paginado
     List<TipoPacienteDTO> getTipoPacienteList();
 
 }
-
- */

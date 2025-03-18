@@ -1,8 +1,6 @@
 package com.saludSystem.Paciente.dominio;
 /*
-import com.saludSystem.entities.configuracion.Sede;
-import com.saludSystem.entities.configuracion.SysSalud;
-import com.saludSystem.entities.configuracion.TipoDocumento;
+import com.saludSystem.Generals.adapter.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
@@ -12,7 +10,6 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Blob;
 import java.util.Date;
 import java.util.UUID;
 
@@ -22,7 +19,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "pacientes")
-public class Paciente extends BaseEntity {
+public class PacienteModel extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -136,5 +133,4 @@ public class Paciente extends BaseEntity {
     private Date updatedAt;
 
 }
-
  */

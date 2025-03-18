@@ -1,17 +1,20 @@
 package com.saludSystem.Generals.adapter.Pais.aplicacion.services.impl;
-/*
-import com.saludSystem.dtos.Generals.Pais.CrearPaisDTO;
-import com.saludSystem.dtos.Generals.Pais.PaisDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.entities.Pais;
-import com.saludSystem.entities.User;
-import com.saludSystem.entities.configuracion.SysSalud;
-import com.saludSystem.repositories.modules.Configuration.UserRepository;
-import com.saludSystem.repositories.modules.Configuration.SysSaludRepository;
-import com.saludSystem.repositories.modules.Generals.PaisRepository;
-import com.saludSystem.services.modules.Generals.Pais.PaisService;
+
+import com.saludSystem.Configuracion.SysSalud.dominio.SysSaludModel;
+import com.saludSystem.Configuracion.SysSalud.infraestructura.repositories.SysSaludRepository;
+import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
+import com.saludSystem.Configuracion.Usuario.infraestructura.repositories.UserRepository;
+import com.saludSystem.Generals.adapter.Pais.aplicacion.dtos.CrearPaisDTO;
+import com.saludSystem.Generals.adapter.Pais.aplicacion.dtos.PaisDTO;
+import com.saludSystem.Generals.adapter.Pais.aplicacion.services.PaisService;
+import com.saludSystem.Generals.adapter.Pais.domain.PaisModel;
+import com.saludSystem.Generals.adapter.Pais.infraestructura.repositories.PaisRepository;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -37,12 +40,12 @@ public class PaisServiceImpl implements PaisService {
     @Override
     public ApiResponse savePais(CrearPaisDTO crearPaisDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByUsername(username)
+        String email = authentication.getName();
+        UserModel user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSalud hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+        SysSaludModel hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        Pais pais = new Pais();
+        PaisModel pais = new PaisModel();
         pais.setIso(crearPaisDTO.getIso());
         pais.setNombre(crearPaisDTO.getNombre());
         pais.setGentilicio(crearPaisDTO.getGentilicio());
@@ -55,30 +58,19 @@ public class PaisServiceImpl implements PaisService {
 
     @Override
     public ListResponse<PaisDTO> getAllPais(UUID hospitalId, int page, int rows) {
-        List<Pais> paises = paisRepository.findByHospital_HospitalId(hospitalId);
-        List<PaisDTO> data = paises.stream().map(pais -> {
-            PaisDTO dto = new PaisDTO();
-            dto.setPaisId(pais.getId());
-            dto.setIso(pais.getIso());
-            dto.setNombre(pais.getNombre());
-            dto.setGentilicio(pais.getGentilicio());
-            dto.setOrden(pais.getOrden());
-            return dto;
-        }).collect(Collectors.toList());
-        return new ListResponse<>(data, data.size());
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<PaisModel> paisModelPage = paisRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<PaisDTO> data = paisModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, paisModelPage.getTotalElements(), paisModelPage.getTotalPages(), paisModelPage.getNumber() + 1);
     }
 
     @Override
     public List<PaisDTO> getPaisList() {
-        return paisRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+        return paisRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    private PaisDTO convertToDTO(Pais pais) {
+    private PaisDTO convertToDTO(PaisModel pais) {
         return modelMapper.map(pais, PaisDTO.class);
     }
 
 }
-
- */

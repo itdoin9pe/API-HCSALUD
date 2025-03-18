@@ -1,11 +1,11 @@
 package com.saludSystem.Generals.adapter.Pais.infraestructura.controller;
-/*
-import com.saludSystem.dtos.Generals.Pais.CrearPaisDTO;
-import com.saludSystem.dtos.Generals.Pais.PaisDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.Generals.PaisResponse;
-import com.saludSystem.dtos.responses.ListResponse;
-import com.saludSystem.services.modules.Generals.Pais.PaisService;
+
+import com.saludSystem.Generals.adapter.Pais.aplicacion.dtos.CrearPaisDTO;
+import com.saludSystem.Generals.adapter.Pais.aplicacion.dtos.PaisDTO;
+import com.saludSystem.Generals.adapter.Pais.aplicacion.services.PaisService;
+import com.saludSystem.Generals.adapter.Pais.domain.PaisResponse;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -51,5 +51,3 @@ public class PaisController {
     }
 
 }
-
- */

@@ -1,9 +1,11 @@
 package com.saludSystem.Generals.adapter.Pais.aplicacion.services;
-/*
-import com.saludSystem.dtos.Generals.Pais.CrearPaisDTO;
-import com.saludSystem.dtos.Generals.Pais.PaisDTO;
-import com.saludSystem.dtos.responses.ApiResponse;
-import com.saludSystem.dtos.responses.ListResponse;
+
+
+import com.saludSystem.Generals.adapter.Pais.aplicacion.dtos.CrearPaisDTO;
+import com.saludSystem.Generals.adapter.Pais.aplicacion.dtos.PaisDTO;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -16,5 +18,3 @@ public interface PaisService {
     List<PaisDTO> getPaisList();
 
 }
-
- */
