@@ -6,6 +6,7 @@ import com.saludSystem.Mantenimiento.TipoPago.aplicacion.dtos.ActualizarTipoPago
 import com.saludSystem.Mantenimiento.TipoPago.aplicacion.dtos.CrearTipoPagoDTO;
 import com.saludSystem.Mantenimiento.TipoPago.aplicacion.dtos.TipoPagoDTO;
 import com.saludSystem.Mantenimiento.TipoPago.aplicacion.services.TipoPagoService;
+import com.saludSystem.Mantenimiento.TipoPago.dominio.TipoPagoResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

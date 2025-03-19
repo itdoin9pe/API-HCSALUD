@@ -1,4 +1,4 @@
-package com.saludSystem.Mantenimiento.TipoPago.infraestructura.controller;
+package com.saludSystem.Mantenimiento.TipoPago.dominio;
 
 import com.saludSystem.Mantenimiento.TipoPago.aplicacion.dtos.TipoPagoDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
