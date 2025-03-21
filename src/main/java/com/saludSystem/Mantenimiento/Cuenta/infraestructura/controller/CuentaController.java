@@ -1,0 +1,73 @@
+package com.saludSystem.Mantenimiento.Cuenta.infraestructura.controller;
+
+import com.saludSystem.Catalogo.Alergia.aplicacion.dtos.ActualizarAlergiaDTO;
+import com.saludSystem.Catalogo.Alergia.aplicacion.dtos.AlergiaDTO;
+import com.saludSystem.Catalogo.Alergia.aplicacion.dtos.CrearAlergiaDTO;
+import com.saludSystem.Catalogo.Alergia.dominio.AlergiaResponse;
+import com.saludSystem.Generals.response.ApiResponse;
+import com.saludSystem.Generals.response.ListResponse;
+import com.saludSystem.Mantenimiento.Cuenta.aplicacion.dtos.ActualizarCuentaDTO;
+import com.saludSystem.Mantenimiento.Cuenta.aplicacion.dtos.CrearCuentaDTO;
+import com.saludSystem.Mantenimiento.Cuenta.aplicacion.dtos.CuentaDTO;
+import com.saludSystem.Mantenimiento.Cuenta.aplicacion.services.CuentaService;
+import com.saludSystem.Mantenimiento.Cuenta.dominio.CuentaResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+@Tag(name = "CuentasPagar")
+@RestController
+@RequestMapping("/api/CuentasPagar")
+public class CuentaController {
+
+    private final CuentaService cuentaService;
+
+    public CuentaController(CuentaService cuentaService) {
+        this.cuentaService = cuentaService;
+    }
+
+    @PostMapping("/SaveCuentaPagar")
+    public ApiResponse stored(@Valid @RequestBody CrearCuentaDTO crearCuentaDTO) {
+        return cuentaService.saveCuenta(crearCuentaDTO);
+    }
+
+    @GetMapping("/GetAllCuentaPagar")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CuentaResponse.class)))
+    })
+    public ListResponse<CuentaDTO> getAllPage(
+            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
+            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
+        return cuentaService.getAllCuenta(hospitalId, page, rows);
+    }
+
+    @GetMapping("/GetCuentaPagarList")
+    public ResponseEntity<List<CuentaDTO>> getAllList() {
+        return ResponseEntity.ok(cuentaService.getCuentaList());
+    }
+
+    @GetMapping("/GetCuentaPagar/{cuentaPagarId}")
+    public CuentaDTO getById(@PathVariable UUID cuentaPagarId) {
+        return cuentaService.getCuentaById(cuentaPagarId);
+    }
+
+    @PutMapping("/UpdateCuentaPagar/{cuentaPagarId}")
+    public ApiResponse update(@PathVariable UUID cuentaPagarId, @RequestBody ActualizarCuentaDTO actualizarCuentaDTO) {
+        return cuentaService.updateCuenta(cuentaPagarId, actualizarCuentaDTO);
+    }
+
+    @DeleteMapping("/DeleteCuentaPagar/{cuentaPagarId}")
+    public ApiResponse destroy(@PathVariable UUID cuentaPagarId) {
+        return cuentaService.deleteCuenta(cuentaPagarId);
+    }
+
+}
