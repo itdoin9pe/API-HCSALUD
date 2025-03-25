@@ -1,7 +1,5 @@
 package com.saludSystem.Mantenimiento.Diagnostico.aplicacion.services.impl;
 
-import com.saludSystem.Catalogo.Alergia.aplicacion.dtos.AlergiaDTO;
-import com.saludSystem.Catalogo.Alergia.dominio.AlergiaModel;
 import com.saludSystem.Configuracion.SysSalud.dominio.SysSaludModel;
 import com.saludSystem.Configuracion.SysSalud.infraestructura.repositories.SysSaludRepository;
 import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
@@ -108,4 +106,5 @@ public class DiagnosticoServiceImpl implements DiagnosticoService {
     private DiagnosticoDTO convertToDTO(DiagnosticoModel diagnosticoModel) {
         return modelMapper.map(diagnosticoModel, DiagnosticoDTO.class);
     }
+
 }
