@@ -10,7 +10,7 @@ public class DiagnosticoDTO {
 
     private UUID diagnosticoId;
 
-    private UUID pacienteId;
+    //private UUID pacienteId;
 
     private String enfermedadId;
 

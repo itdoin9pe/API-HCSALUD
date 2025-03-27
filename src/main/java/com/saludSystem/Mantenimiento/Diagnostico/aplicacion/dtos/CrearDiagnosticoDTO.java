@@ -7,7 +7,7 @@ import java.util.UUID;
 @Data
 public class CrearDiagnosticoDTO {
 
-    private UUID pacienteId;
+    //private UUID pacienteId;
 
     private String enfermedadId;
 

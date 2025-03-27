@@ -1,7 +1,10 @@
 package com.saludSystem.Mantenimiento.Diagnostico.aplicacion.services.impl;
 
+import com.saludSystem.Configuracion.Roles.aplicacion.services.RolePrefixResolver;
+import com.saludSystem.Configuracion.Roles.dominio.RoleModel;
 import com.saludSystem.Configuracion.SysSalud.dominio.SysSaludModel;
 import com.saludSystem.Configuracion.SysSalud.infraestructura.repositories.SysSaludRepository;
+import com.saludSystem.Configuracion.Usuario.aplicacion.services.AuthService;
 import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
 import com.saludSystem.Configuracion.Usuario.infraestructura.repositories.UserRepository;
 import com.saludSystem.Generals.response.ApiResponse;
@@ -35,13 +38,17 @@ public class DiagnosticoServiceImpl implements DiagnosticoService {
     private final UserRepository userRepository;
     private final SysSaludRepository sysSaludRepository;
     private final PacienteRepository pacienteRepository;
+    private final RolePrefixResolver rolePrefixResolver;
+    private final AuthService authService;
     private final ModelMapper modelMapper;
 
-    public DiagnosticoServiceImpl(DiagnosticoRepository diagnosticoRepository, UserRepository userRepository, SysSaludRepository sysSaludRepository, PacienteRepository pacienteRepository, ModelMapper modelMapper) {
+    public DiagnosticoServiceImpl(DiagnosticoRepository diagnosticoRepository, UserRepository userRepository, SysSaludRepository sysSaludRepository, PacienteRepository pacienteRepository, RolePrefixResolver rolePrefixResolver, AuthService authService, ModelMapper modelMapper) {
         this.diagnosticoRepository = diagnosticoRepository;
         this.userRepository = userRepository;
         this.sysSaludRepository = sysSaludRepository;
         this.pacienteRepository = pacienteRepository;
+        this.rolePrefixResolver = rolePrefixResolver;
+        this.authService = authService;
         this.modelMapper = modelMapper;
     }
 
@@ -54,11 +61,10 @@ public class DiagnosticoServiceImpl implements DiagnosticoService {
         SysSaludModel hospital = sysSaludRepository.findById(userModel.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         DiagnosticoModel diagnosticoModel = new DiagnosticoModel();
-        Optional<PacienteModel> pacienteModel = pacienteRepository.findById(crearDiagnosticoDTO.getPacienteId());
-        pacienteModel.ifPresent(diagnosticoModel::setPacienteId);
+        //Optional<PacienteModel> pacienteModel = pacienteRepository.findById(crearDiagnosticoDTO.getPacienteId());
+        //pacienteModel.ifPresent(diagnosticoModel::setPacienteId);
         diagnosticoModel.setEnfermedadId(crearDiagnosticoDTO.getEnfermedadId());
         diagnosticoModel.setNombreEnfermedad(crearDiagnosticoDTO.getNombreEnfermedad());
-        diagnosticoModel.setFecha(crearDiagnosticoDTO.getFecha());
         diagnosticoModel.setEstado(crearDiagnosticoDTO.getEstado());
         diagnosticoModel.setUser(userModel);
         diagnosticoModel.setHospital(hospital);
@@ -82,10 +88,9 @@ public class DiagnosticoServiceImpl implements DiagnosticoService {
     @Override
     public ApiResponse updateDiagnostico(UUID diagnosticoId, ActualizarDiagnosticoDTO actualizarDiagnosticoDTO) {
         DiagnosticoModel diagnosticoModel = diagnosticoRepository.findById(diagnosticoId).orElseThrow( () -> new ResourceNotFoundException("Diagnostico no encontrado"));
-        Optional.ofNullable(actualizarDiagnosticoDTO.getPacienteId()).flatMap(pacienteRepository::findById).ifPresent(diagnosticoModel::setPacienteId);
+        //Optional.ofNullable(actualizarDiagnosticoDTO.getPacienteId()).flatMap(pacienteRepository::findById).ifPresent(diagnosticoModel::setPacienteId);
         Optional.ofNullable(actualizarDiagnosticoDTO.getEnfermedadId()).filter(desc -> !desc.isBlank()).ifPresent(diagnosticoModel::setEnfermedadId);
         Optional.ofNullable(actualizarDiagnosticoDTO.getNombreEnfermedad()).filter(desc -> !desc.isBlank()).ifPresent(diagnosticoModel::setNombreEnfermedad);
-        Optional.ofNullable(actualizarDiagnosticoDTO.getFecha()).ifPresent(diagnosticoModel::setFecha);
         Optional.ofNullable(actualizarDiagnosticoDTO.getEstado()).ifPresent(diagnosticoModel::setEstado);
         diagnosticoRepository.save(diagnosticoModel);
         return new ApiResponse(true, "Diagnostico registrado correctamente");
@@ -105,6 +110,23 @@ public class DiagnosticoServiceImpl implements DiagnosticoService {
 
     private DiagnosticoDTO convertToDTO(DiagnosticoModel diagnosticoModel) {
         return modelMapper.map(diagnosticoModel, DiagnosticoDTO.class);
+    }
+
+    public List<DiagnosticoModel> getDiagnosticosFiltradosPorRol() {
+        // 1. Obtener el usuario y su rol
+        UserModel usuario = authService.getCurrentUser();
+        RoleModel rol = usuario.getRol();
+
+        // 2. Obtener el prefijo (ej: "c" para "CARDIOLOGO")
+        String prefix = rolePrefixResolver.resolvePrefixFromRole(rol);
+
+        // 3. Si no es un rol médico, denegar acceso (o retornar vacío)
+        if (prefix == null) {
+            return List.of(); // O lanzar una excepción: throw new AccessDeniedException(...);
+        }
+
+        // 4. Filtrar diagnósticos por prefijo (ej: "c-%")
+        return diagnosticoRepository.findByEnfermedadIdStartingWith(prefix + "-");
     }
 
 }

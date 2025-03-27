@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 
 @NoArgsConstructor
-@Service public class UserService implements UserDetailsService {
+@Service
+public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
 
@@ -24,7 +25,11 @@ import java.util.Collections;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserModel user = userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRol().getRoleId().toString());
+
+        //SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRol().getRoleId().toString());
+        // Usa el NOMBRE del rol (ej: "CARDIOLOGO") en lugar del ID
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRol().getNombre());
+
 
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 Collections.singleton(authority));

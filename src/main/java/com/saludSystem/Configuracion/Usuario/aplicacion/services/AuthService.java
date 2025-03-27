@@ -2,15 +2,17 @@ package com.saludSystem.Configuracion.Usuario.aplicacion.services;
 
 import com.saludSystem.Configuracion.Roles.infraestructura.repositories.RoleRepository;
 import com.saludSystem.Configuracion.SysSalud.infraestructura.repositories.SysSaludRepository;
+import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
+import com.saludSystem.Generals.security.exception.ResourceNotFoundException;
 import com.saludSystem.Generals.security.jwt.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -22,19 +24,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AuthService {
 
     private final UserService userService;
-    private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final SysSaludRepository sysSaludRepository;
     private final JwtUtil jwtUtil;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final Set<String> invalidTokens = ConcurrentHashMap.newKeySet(); // Lista negra en memoria
+    private final Set<String> invalidTokens = ConcurrentHashMap.newKeySet();
 
     @Autowired
-    public AuthService(UserService userService, RoleRepository roleRepository, SysSaludRepository sysSaludRepository,PasswordEncoder passwordEncoder, JwtUtil jwtUtil, AuthenticationManagerBuilder authenticationManagerBuilder) {
+    public AuthService(UserService userService, JwtUtil jwtUtil, AuthenticationManagerBuilder authenticationManagerBuilder) {
         this.userService = userService;
-        this.roleRepository = roleRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
@@ -56,7 +52,7 @@ public class AuthService {
 
             return tokens;
         } catch (Exception e) {
-            e.printStackTrace(); // Agrega esto para ver la excepción en los logs
+            e.printStackTrace();
             throw new RuntimeException("Authentication failed: " + e.getMessage());
         }
     }
@@ -81,6 +77,21 @@ public class AuthService {
         } catch (Exception e) {
             throw new RuntimeException("Could not refresh token: " + e.getMessage());
         }
+    }
+
+    public UserModel getCurrentUser() {
+        // Obtiene el Authentication del contexto de seguridad
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new AccessDeniedException("Usuario no autenticado");
+        }
+
+        // Obtiene el username/email del principal (que en tu caso es el email)
+        String username = authentication.getName();
+
+        // Busca el usuario en la BD usando tu UserService
+        return userService.findEntityByUsername(username);
     }
 
 

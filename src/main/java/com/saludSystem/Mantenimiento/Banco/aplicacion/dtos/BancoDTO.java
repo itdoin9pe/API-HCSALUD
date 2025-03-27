@@ -11,6 +11,6 @@ public class BancoDTO {
 
     private String descripcion;
 
-    private String estado;
+    private Integer estado;
 
 }
