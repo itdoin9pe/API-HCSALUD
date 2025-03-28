@@ -115,7 +115,7 @@ public class DiagnosticoServiceImpl implements DiagnosticoService {
         if (prefix == null) {
             return List.of();
         }
-        // Filtra por prefijo Y por hospital del usuario
+        // Filtra por prefijo y por hospital del usuario
         List<DiagnosticoModel> diagnosticos = diagnosticoRepository.findByRolePrefixAndHospital(
                 prefix + "-",
                 usuario.getHospital().getHospitalId()

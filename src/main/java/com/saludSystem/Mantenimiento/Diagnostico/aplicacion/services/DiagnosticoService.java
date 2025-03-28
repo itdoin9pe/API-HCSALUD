@@ -25,4 +25,4 @@ public interface DiagnosticoService {
 
     List<DiagnosticoDTO> getDiagnosticosFiltradosPorRol();
 
-    }
+}

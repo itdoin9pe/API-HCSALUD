@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Service
 public class RolePrefixResolver {
-    // Mapeo de nombres de rol a prefijos (puedes externalizarlo a BD si lo prefieres)
+    // Mapeo de nombres de rol a prefijos
     private static final Map<String, String> ROLE_TO_PREFIX = Map.of(
             "CARDIOLOGO", "C",
             "ODONTOLOGO", "K",
