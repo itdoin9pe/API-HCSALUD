@@ -16,7 +16,6 @@ import com.saludSystem.Mantenimiento.Diagnostico.aplicacion.dtos.DiagnosticoDTO;
 import com.saludSystem.Mantenimiento.Diagnostico.aplicacion.services.DiagnosticoService;
 import com.saludSystem.Mantenimiento.Diagnostico.dominio.DiagnosticoModel;
 import com.saludSystem.Mantenimiento.Diagnostico.infraestructura.repository.DiagnosticoRepository;
-import com.saludSystem.Paciente.dominio.PacienteModel;
 import com.saludSystem.Paciente.infraestructura.repositories.PacienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -108,25 +107,26 @@ public class DiagnosticoServiceImpl implements DiagnosticoService {
         return new ApiResponse(true, "Diagnostico eliminado correctamente");
     }
 
-    private DiagnosticoDTO convertToDTO(DiagnosticoModel diagnosticoModel) {
-        return modelMapper.map(diagnosticoModel, DiagnosticoDTO.class);
-    }
-
-    public List<DiagnosticoModel> getDiagnosticosFiltradosPorRol() {
-        // 1. Obtener el usuario y su rol
+    @Override
+    public List<DiagnosticoDTO> getDiagnosticosFiltradosPorRol() {
         UserModel usuario = authService.getCurrentUser();
         RoleModel rol = usuario.getRol();
-
-        // 2. Obtener el prefijo (ej: "c" para "CARDIOLOGO")
         String prefix = rolePrefixResolver.resolvePrefixFromRole(rol);
-
-        // 3. Si no es un rol médico, denegar acceso (o retornar vacío)
         if (prefix == null) {
-            return List.of(); // O lanzar una excepción: throw new AccessDeniedException(...);
+            return List.of();
         }
+        // Filtra por prefijo Y por hospital del usuario
+        List<DiagnosticoModel> diagnosticos = diagnosticoRepository.findByRolePrefixAndHospital(
+                prefix + "-",
+                usuario.getHospital().getHospitalId()
+        );
+        return diagnosticos.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 
-        // 4. Filtrar diagnósticos por prefijo (ej: "c-%")
-        return diagnosticoRepository.findByEnfermedadIdStartingWith(prefix + "-");
+    private DiagnosticoDTO convertToDTO(DiagnosticoModel diagnosticoModel) {
+        return modelMapper.map(diagnosticoModel, DiagnosticoDTO.class);
     }
 
 }

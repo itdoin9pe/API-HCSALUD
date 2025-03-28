@@ -6,6 +6,7 @@ import com.saludSystem.Mantenimiento.Diagnostico.aplicacion.dtos.ActualizarDiagn
 import com.saludSystem.Mantenimiento.Diagnostico.aplicacion.dtos.CrearDiagnosticoDTO;
 import com.saludSystem.Mantenimiento.Diagnostico.aplicacion.dtos.DiagnosticoDTO;
 import com.saludSystem.Mantenimiento.Diagnostico.aplicacion.services.DiagnosticoService;
+import com.saludSystem.Mantenimiento.Diagnostico.dominio.DiagnosticoModel;
 import com.saludSystem.Mantenimiento.Diagnostico.dominio.DiagnosticoResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -64,6 +65,11 @@ public class DiagnositcoController {
     @DeleteMapping("/DeleteDiagnostico/{diagnosticoId}")
     public ApiResponse destroy(@PathVariable UUID diagnosticoaId) {
         return diagnosticoService.deleteDiagnostico(diagnosticoaId);
+    }
+
+    @GetMapping("/GetDiagnosticosFiltradosPorRol")
+    public ResponseEntity<List<DiagnosticoDTO>> getDiagnosticosFiltradosPorRol() {
+        return ResponseEntity.ok(diagnosticoService.getDiagnosticosFiltradosPorRol());
     }
 
 }

@@ -1,9 +1,6 @@
 package com.saludSystem.Configuracion.Usuario.aplicacion.services;
 
-import com.saludSystem.Configuracion.Roles.infraestructura.repositories.RoleRepository;
-import com.saludSystem.Configuracion.SysSalud.infraestructura.repositories.SysSaludRepository;
 import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
-import com.saludSystem.Generals.security.exception.ResourceNotFoundException;
 import com.saludSystem.Generals.security.jwt.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -63,7 +60,8 @@ public class AuthService {
             UserDetails userDetails = userService.loadUserByUsername(username);
 
             if (jwtUtil.validateToken(refreshToken, userDetails)) {
-                String newAccessToken = jwtUtil.generateToken(new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()));
+                String newAccessToken = jwtUtil.generateToken
+                        (new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()));
                 String newRefreshToken = jwtUtil.generateRefreshToken(userDetails);
 
                 Map<String, String> tokens = new HashMap<>();
@@ -84,14 +82,14 @@ public class AuthService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
-            throw new AccessDeniedException("Usuario no autenticado");
+            throw new AccessDeniedException("Email no autenticado");
         }
 
         // Obtiene el username/email del principal (que en tu caso es el email)
-        String username = authentication.getName();
+        String email = authentication.getName();
 
         // Busca el usuario en la BD usando tu UserService
-        return userService.findEntityByUsername(username);
+        return userService.findEntityByEmail(email);
     }
 
 

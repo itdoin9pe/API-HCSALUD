@@ -2,6 +2,7 @@ package com.saludSystem.Configuracion.Usuario.aplicacion.services;
 
 import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
 import com.saludSystem.Configuracion.Usuario.infraestructura.repositories.UserRepository;
+import com.saludSystem.Generals.security.exception.ResourceNotFoundException;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,7 +31,6 @@ public class UserService implements UserDetailsService {
         // Usa el NOMBRE del rol (ej: "CARDIOLOGO") en lugar del ID
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRol().getNombre());
 
-
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 Collections.singleton(authority));
     }
@@ -38,6 +38,11 @@ public class UserService implements UserDetailsService {
     public UserModel findEntityByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    public UserModel findEntityByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("email not found"));
     }
 
     public boolean existsByUsername(String username){

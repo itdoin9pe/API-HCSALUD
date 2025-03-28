@@ -23,4 +23,6 @@ public interface DiagnosticoService {
 
     ApiResponse deleteDiagnostico(UUID diagnosticoId);
 
-}
+    List<DiagnosticoDTO> getDiagnosticosFiltradosPorRol();
+
+    }
