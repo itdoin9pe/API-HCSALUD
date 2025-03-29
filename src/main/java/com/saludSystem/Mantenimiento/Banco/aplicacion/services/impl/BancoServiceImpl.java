@@ -4,8 +4,6 @@ import com.saludSystem.Configuracion.SysSalud.dominio.SysSaludModel;
 import com.saludSystem.Configuracion.SysSalud.infraestructura.repositories.SysSaludRepository;
 import com.saludSystem.Configuracion.Usuario.dominio.UserModel;
 import com.saludSystem.Configuracion.Usuario.infraestructura.repositories.UserRepository;
-import com.saludSystem.Generals.adapter.Aseguradora.aplicacion.dtos.AseguradoraDTO;
-import com.saludSystem.Generals.adapter.Aseguradora.dominio.AseguradoraModel;
 import com.saludSystem.Generals.response.ApiResponse;
 import com.saludSystem.Generals.response.ListResponse;
 import com.saludSystem.Generals.security.exception.ResourceNotFoundException;
@@ -99,4 +97,5 @@ public class BancoServiceImpl implements BancoService {
     private BancoDTO convertToDTO(BancoModel bancoModel) {
         return modelMapper.map(bancoModel, BancoDTO.class);
     }
+
 }

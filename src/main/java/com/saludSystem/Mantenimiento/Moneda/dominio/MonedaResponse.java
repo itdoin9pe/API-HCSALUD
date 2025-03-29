@@ -1,20 +1,19 @@
-    package com.saludSystem.Mantenimiento.Moneda.dominio;
+package com.saludSystem.Mantenimiento.Moneda.dominio;
 
-    import com.saludSystem.Mantenimiento.Moneda.aplicacion.dtos.MonedaDTO;
-    import io.swagger.v3.oas.annotations.media.Schema;
-    import lombok.Getter;
-    import lombok.Setter;
+import com.saludSystem.Mantenimiento.Moneda.aplicacion.dtos.MonedaDTO;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+import java.util.List;
 
-    import java.util.List;
+@Getter
+@Setter
+public class MonedaResponse {
 
-    @Getter
-    @Setter
-    public class MonedaResponse {
+    @Schema(description = "Lista de Tipo de Monedas")
+    private List<MonedaDTO> data;
 
-        @Schema(description = "Lista de Tipo de Monedas")
-        private List<MonedaDTO> data;
+    @Schema(description = "Número total de Tipos de Monedas", example = "0")
+    private long totalData;
 
-        @Schema(description = "Número total de Tipos de Monedas", example = "0")
-        private long totalData;
-
-    }
+}

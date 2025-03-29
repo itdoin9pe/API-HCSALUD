@@ -3,8 +3,6 @@ package com.saludSystem.Mantenimiento.TipoTarjeta.aplicacion.dtos;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
 public class CrearTipoTarjetaDTO {
 

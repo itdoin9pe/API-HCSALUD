@@ -1,9 +1,5 @@
 package com.saludSystem.Mantenimiento.Cuenta.infraestructura.controller;
 
-import com.saludSystem.Catalogo.Alergia.aplicacion.dtos.ActualizarAlergiaDTO;
-import com.saludSystem.Catalogo.Alergia.aplicacion.dtos.AlergiaDTO;
-import com.saludSystem.Catalogo.Alergia.aplicacion.dtos.CrearAlergiaDTO;
-import com.saludSystem.Catalogo.Alergia.dominio.AlergiaResponse;
 import com.saludSystem.Generals.response.ApiResponse;
 import com.saludSystem.Generals.response.ListResponse;
 import com.saludSystem.Mantenimiento.Cuenta.aplicacion.dtos.ActualizarCuentaDTO;

@@ -1,7 +1,6 @@
 package com.saludSystem.Mantenimiento.Diagnostico.dominio;
 
 import com.saludSystem.Generals.adapter.BaseEntity;
-import com.saludSystem.Paciente.dominio.PacienteModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
