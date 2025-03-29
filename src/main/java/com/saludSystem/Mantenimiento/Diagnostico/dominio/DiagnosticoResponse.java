@@ -14,7 +14,7 @@ public class DiagnosticoResponse {
     @Schema(description = "Lista de Diagnosticos")
     private List<DiagnosticoDTO> data;
 
-    @Schema(description = "Numero total de Diagnosticos registrados")
+    @Schema(description = "Numero total de Diagnosticos registrados", example = "0")
     private long totalData;
 
 }

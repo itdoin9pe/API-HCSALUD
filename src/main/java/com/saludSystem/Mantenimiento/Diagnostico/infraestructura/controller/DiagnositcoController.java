@@ -63,8 +63,8 @@ public class DiagnositcoController {
     }
 
     @DeleteMapping("/DeleteDiagnostico/{diagnosticoId}")
-    public ApiResponse destroy(@PathVariable UUID diagnosticoaId) {
-        return diagnosticoService.deleteDiagnostico(diagnosticoaId);
+    public ApiResponse destroy(@PathVariable UUID diagnosticoId) {
+        return diagnosticoService.deleteDiagnostico(diagnosticoId);
     }
 
     @GetMapping("/GetDiagnosticosFiltradosPorRol")
