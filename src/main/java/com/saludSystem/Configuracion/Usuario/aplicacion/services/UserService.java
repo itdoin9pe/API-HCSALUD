@@ -31,8 +31,12 @@ public class UserService implements UserDetailsService {
         // Usa el NOMBRE del rol (ej: "CARDIOLOGO") en lugar del ID
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRol().getNombre());
 
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
-                Collections.singleton(authority));
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                //List.of(new SimpleGrantedAuthority(user.getRol().getNombre())) // Asegurar el rol
+                Collections.singleton(authority)
+        );
     }
 
     public UserModel findEntityByUsername(String username) {
