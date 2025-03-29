@@ -12,7 +12,7 @@ import java.util.UUID;
 @Repository
 public interface CategoriaRepository extends JpaRepository<CategoriaModel, UUID> {
 
-    List<CategoriaModel> findByHospital_HospitalId(UUID hospitalId);
+    //List<CategoriaModel> findByHospital_HospitalId(UUID hospitalId);
 
     Page<CategoriaModel> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 
