@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,13 +36,13 @@ public class ClinicaController {
         this.planRepository = planRepository;
     }
 
-    @PostMapping("/SaveHospital")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
+            content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    @PostMapping(value = "/SaveHospital", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse> store(
-            @RequestParam("nombre") String nombre, @RequestParam("direccion") String direccion,
-            @RequestParam("celular") String celular, @RequestParam("email") String email,
-            @RequestParam("ruc") String ruc, @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date fecha,
-            @RequestParam("foto") MultipartFile foto, @RequestParam("planId") UUID planId,
-            @RequestParam("estado") Integer estado) throws IOException {
+            String nombre, String direccion, String celular, String email, String ruc,
+            @DateTimeFormat(pattern = "dd-MM-yyyy") Date fecha, MultipartFile foto, UUID planId, Integer estado)
+            throws IOException {
         CrearSysSaludDTO crearSysSaludDTO = new CrearSysSaludDTO();
         crearSysSaludDTO.setNombre(nombre);
         crearSysSaludDTO.setDireccion(direccion);
@@ -56,13 +57,13 @@ public class ClinicaController {
         return ResponseEntity.ok(new ApiResponse(true, "Hospital creado correctamente!!."));
     }
 
-    @PutMapping("/UpdateHospital/{hospitalId}")
-    public ResponseEntity<ApiResponse> updated(@PathVariable("hospitalId") UUID hospitalId,
-            @Valid @RequestParam(value = "foto", required = false) MultipartFile foto,
-            @RequestParam("nombre") String nombre, @RequestParam("direccion") String direccion,
-            @RequestParam("celular") String celular, @RequestParam("email") String email,
-            @RequestParam("ruc") String ruc, @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") Date fecha,
-            @RequestParam("planId") UUID planId, @RequestParam("estado") Integer estado) throws IOException {
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
+            content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    @PutMapping(value = "/UpdateHospital/{hospitalId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse> updated
+            (@PathVariable("hospitalId") UUID hospitalId, MultipartFile foto, String nombre,  String direccion,
+             String celular,  String email, String ruc,  @DateTimeFormat(pattern = "dd-MM-yyyy") Date fecha,
+             UUID planId,  Integer estado) throws IOException {
         ActualizarHospitalDTO actualizarHospitalDTO = new ActualizarHospitalDTO();
         actualizarHospitalDTO.setNombre(nombre);
         actualizarHospitalDTO.setDireccion(direccion);
@@ -79,7 +80,6 @@ public class ClinicaController {
         sysSaludService.updateHospital(hospitalId, actualizarHospitalDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Hospital actualizado correctamente"));
     }
-
 
     @GetMapping("/GetAllHospital")
     @ApiResponses(value = {
