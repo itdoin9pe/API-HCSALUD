@@ -1,5 +1,6 @@
 package com.saludSystem.Catalogo.Consentimiento.aplicacion.dtos;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.UUID;
@@ -13,8 +14,9 @@ public class ActualizarConsentimientoDTO {
 
     private String observacion;
 
-    private Integer estado;
-
     private String texto;
+
+    @Schema(description = "estado del consentimiento", example = "0")
+    private Integer estado;
 
 }
