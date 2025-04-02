@@ -1,44 +1,44 @@
 # Etapa de construcción
-#FROM eclipse-temurin:17-jdk-jammy as builder
+FROM eclipse-temurin:17-jdk-jammy as builder
 
 # Configura variables de entorno para Maven
-#ENV MAVEN_HOME /usr/share/maven
-#ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+ENV MAVEN_HOME /usr/share/maven
+ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
 # Instala Maven
-#RUN apt-get update && \
-#    apt-get install -y maven && \
-#    apt-get clean && \
-#    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y maven && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Directorio de trabajo
-#WORKDIR /app
+WORKDIR /app
 
 # Copia solo los archivos necesarios para la construcción
-#COPY pom.xml .
-#COPY src ./src
+COPY pom.xml .
+COPY src ./src
 
 # Construye la aplicación (omitimos tests para producción)
-#RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 # Etapa de producción
-#FROM eclipse-temurin:17-jre-jammy
+FROM eclipse-temurin:17-jre-jammy
 
 # Directorio de trabajo
-#WORKDIR /app
+WORKDIR /app
 
 # Copia el JAR construido
-#COPY --from=builder /app/target/sysSalud-*.jar app.jar
+COPY --from=builder /app/target/sysSalud-*.jar app.jar
 
 # Crea directorio para uploads (según tu estructura)
-#RUN mkdir -p /app/uploads
+RUN mkdir -p /app/uploads
 
 # Variables de entorno para la aplicación (se pueden sobrescribir en Render)
-#ENV SPRING_PROFILES_ACTIVE=prod
+ENV SPRING_PROFILES_ACTIVE=prod
 #ENV UPLOAD_DIR=/app/uploads
 
 # Puerto expuesto (debe coincidir con tu server.port)
-#EXPOSE 8081
+EXPOSE 8081
 
 # Comando de arranque
-#ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
