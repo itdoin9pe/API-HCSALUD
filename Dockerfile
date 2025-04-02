@@ -1,4 +1,4 @@
-# Etapa de construcción
+# Etapa de construcción jdk
 FROM eclipse-temurin:17-jdk-jammy as builder
 
 # Configura variables de entorno para Maven
