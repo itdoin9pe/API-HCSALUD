@@ -4,11 +4,9 @@ import com.saludSystem.application.dtos.Operaciones.GET.PresentacionDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
 
-@Getter
-@Setter
+@Getter @Setter
 public class PresentacionResponse {
 
     @Schema(description = "Lista de presentaciones")

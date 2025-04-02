@@ -20,7 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -60,8 +59,7 @@ public class PresentacionServiceImpl implements PresentacionService {
 
     @Override
     public PresentacionDTO getPresentacionById(UUID presentacionId) {
-        PresentacionEntity presentacionEntity = presentacionReposirory.findById(presentacionId)
-                .orElseThrow( () -> new ResourceNotFoundException("Presentacion not found"));
+        PresentacionEntity presentacionEntity = presentacionReposirory.findById(presentacionId).orElseThrow( () -> new ResourceNotFoundException("Presentacion not found"));
         return convertToDTO(presentacionEntity);
     }
 
