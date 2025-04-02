@@ -1,0 +1,13 @@
+.git
+.mvn
+.idea
+target
+*.iml
+*.log
+*.md
+.DS_Store
+bin/
+build/
+dist/
+node_modules/
+.env
