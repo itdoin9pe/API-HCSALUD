@@ -50,7 +50,7 @@ public class SecurityConfig {
             auth
             -> auth.requestMatchers("/v3/api-docs/**", "/swagger-ui/**")
                    .permitAll()
-                   .requestMatchers("/", "/saludo", "/login")
+                   .requestMatchers("/", "/saludo", "/api/login")
                     .permitAll()
                    .anyRequest()
                    .authenticated())
