@@ -16,7 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api")
 public class AuthController {
 
   private final AuthService authService;
@@ -35,28 +35,8 @@ public class AuthController {
   }
 
   @PostMapping("/login")
-  /*
-  public ResponseEntity<Map<String, String>> login(@Valid @RequestBody
-  LoginUserDto loginUserDto, BindingResult bindingResult){ if
-  (bindingResult.hasErrors()){ return
-  ResponseEntity.badRequest().body(Map.of("message", "Check your
-  credentials!!"));
-      }
-
-      try {
-          String jwt = authService.authenticate(loginUserDto.getUsername(),
-  loginUserDto.getPassword()); Map<String, String> response = new HashMap<>();
-          response.put("token", jwt);
-
-          return ResponseEntity.ok(response);
-      } catch (Exception e) {
-          return ResponseEntity.badRequest().body(Map.of("message", "Check your
-  credentials!!"));
-      }
-  }*/
-  public ResponseEntity<Map<String, String>>
-  login(@Valid @RequestBody LoginUserDto loginUserDto,
-        BindingResult bindingResult) {
+  public ResponseEntity<Map<String, String>> login
+          (@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
       return ResponseEntity.badRequest().body(
           Map.of("message", "Check your credentials!!"));
