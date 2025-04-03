@@ -12,7 +12,7 @@ public class CrearUnidadDTO {
 
     private String descripcion;
 
-    @Schema(description = "estado de la unidad", example = "0")
+    @Schema(description = "Estado de la unidad", example = "0")
     private Integer estado;
 
 }

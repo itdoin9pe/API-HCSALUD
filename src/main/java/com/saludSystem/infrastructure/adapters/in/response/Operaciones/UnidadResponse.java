@@ -7,8 +7,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Getter @Setter
 public class UnidadResponse {
 
     @Schema(description = "Lista de unidades")

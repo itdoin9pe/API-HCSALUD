@@ -2,7 +2,6 @@ package com.saludSystem.application.dtos.Operaciones.PUT;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
 import java.util.UUID;
 
 @Data
@@ -20,7 +19,7 @@ public class ActualizarUnidadDTO {
 
     private String descripcion;
 
-    @Schema(description = "estado de la unidad", example = "0")
+    @Schema(description = "Estado de la unidad", example = "0")
     private Integer estado;
 
 }

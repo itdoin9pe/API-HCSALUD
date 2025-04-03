@@ -5,7 +5,6 @@ import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.application.dtos.Operaciones.PUT.ActualizarUnidadDTO;
 import com.saludSystem.application.dtos.Operaciones.POST.CrearUnidadDTO;
 import com.saludSystem.application.dtos.Operaciones.GET.UnidadDTO;
-
 import java.util.List;
 import java.util.UUID;
 
