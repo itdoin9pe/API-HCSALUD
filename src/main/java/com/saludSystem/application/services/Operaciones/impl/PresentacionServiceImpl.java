@@ -17,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -41,11 +42,15 @@ public class PresentacionServiceImpl implements PresentacionService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse savePresentacion(CrearPresentacionDTO crearPresentacionDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         PresentacionEntity presentacionEntity = new PresentacionEntity();
@@ -76,8 +81,16 @@ public class PresentacionServiceImpl implements PresentacionService {
         return presentacionReposirory.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse updatePresentacion(UUID presentacionId, ActualizarPresentacionDTO actualizarPresentacionDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         PresentacionEntity presentacionEntity = presentacionReposirory.findById(presentacionId)
                 .orElseThrow( () -> new ResourceNotFoundException("Presentacion not found"));
         Optional.ofNullable(actualizarPresentacionDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(presentacionEntity::setNombre);
@@ -86,9 +99,17 @@ public class PresentacionServiceImpl implements PresentacionService {
         return new ApiResponse(true, "Presentacion updated successfully");
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse deletePresentacion(UUID presentacionId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         presentacionReposirory.deleteById(presentacionId);
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         return new ApiResponse(true, "Presentacion eliminada correctamente");
     }
 

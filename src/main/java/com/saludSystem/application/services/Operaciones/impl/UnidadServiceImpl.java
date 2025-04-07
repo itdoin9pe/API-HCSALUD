@@ -17,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -40,20 +41,24 @@ public class UnidadServiceImpl implements UnidadService {
         this.modelMapper = modelMapper;
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse saveUnidad(CrearUnidadDTO crearUnidadDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email)
+        UserEntity userEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
+        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         UnidadEntity unidadEntity = new UnidadEntity();
         unidadEntity.setNombre(crearUnidadDTO.getNombre());
         unidadEntity.setSiglas(crearUnidadDTO.getSiglas());
         unidadEntity.setDescripcion(crearUnidadDTO.getDescripcion());
         unidadEntity.setEstado(crearUnidadDTO.getEstado());
-        unidadEntity.setUser(user);
+        unidadEntity.setUser(userEntity);
         unidadEntity.setHospital(hospital);
         unidadRepository.save(unidadEntity);
         return new ApiResponse(true, "Unidad creada correctamente");
@@ -78,8 +83,16 @@ public class UnidadServiceImpl implements UnidadService {
         return new ListResponse<>(data, unidadModelPage.getTotalElements(), unidadModelPage.getTotalPages(), unidadModelPage.getNumber() + 1);
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse updateUnidad(UUID unidadId, ActualizarUnidadDTO actualizarUnidadDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         UnidadEntity unidadEntity = unidadRepository.findById(unidadId).orElseThrow( () -> new ResourceNotFoundException("Unidad no encontrada"));
         Optional.ofNullable(actualizarUnidadDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(unidadEntity::setNombre);
         Optional.ofNullable(actualizarUnidadDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(unidadEntity::setDescripcion);
@@ -89,8 +102,16 @@ public class UnidadServiceImpl implements UnidadService {
         return new ApiResponse(true, "Unidad actualizada correctamente");
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse deleteUnidad(UUID unidadId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         unidadRepository.deleteById(unidadId);
         return new ApiResponse(true, "Unidad eliminado correctamente");
     }

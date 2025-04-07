@@ -1,7 +1,6 @@
 package com.saludSystem.application.services.Operaciones.impl;
 
 import com.saludSystem.application.dtos.Operaciones.GET.ProveedorDTO;
-import com.saludSystem.application.dtos.Operaciones.GET.TipoMaterialDTO;
 import com.saludSystem.application.dtos.Operaciones.POST.CrearProveedorDTO;
 import com.saludSystem.application.dtos.Operaciones.PUT.ActualizarProveedorDTO;
 import com.saludSystem.application.services.Operaciones.ProveedorService;
@@ -9,7 +8,6 @@ import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
 import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.domain.model.Operaciones.ProveedorEntity;
-import com.saludSystem.domain.model.Operaciones.TipoMaterialEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
@@ -19,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -43,12 +42,16 @@ public class ProveedorServiceImpl implements ProveedorService {
         this.modelMapper = modelMapper;
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse saveProveedor(CrearProveedorDTO crearProveedorDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         ProveedorEntity proveedorEntity = new ProveedorEntity();
@@ -84,8 +87,16 @@ public class ProveedorServiceImpl implements ProveedorService {
         return new ListResponse<>(data, proveedorEntityPage.getTotalElements(), proveedorEntityPage.getTotalPages(), proveedorEntityPage.getNumber() +1 );
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse updateProveedor(UUID proveedorId, ActualizarProveedorDTO actualizarProveedorDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         ProveedorEntity proveedorEntity = proveedorRepository.findById(proveedorId).orElseThrow(
                 () -> new ResourceNotFoundException("Proveedor no encontrado"));
         Optional.ofNullable(actualizarProveedorDTO.getRuc()).filter(desc -> !desc.isBlank()).ifPresent(proveedorEntity::setRuc);
@@ -100,6 +111,13 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     @Override
     public ApiResponse deleteProveedor(UUID proveedorId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         proveedorRepository.deleteById(proveedorId);
         return new ApiResponse(true, "Proveedor eliminado correctamente");
     }

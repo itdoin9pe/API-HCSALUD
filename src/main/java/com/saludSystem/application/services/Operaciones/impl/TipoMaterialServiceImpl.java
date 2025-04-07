@@ -1,6 +1,5 @@
 package com.saludSystem.application.services.Operaciones.impl;
 
-import com.saludSystem.application.dtos.Operaciones.GET.PresentacionDTO;
 import com.saludSystem.application.dtos.Operaciones.GET.TipoMaterialDTO;
 import com.saludSystem.application.dtos.Operaciones.POST.CrearTipoMaterialDTO;
 import com.saludSystem.application.dtos.Operaciones.PUT.ActualizarTipoMaterialDTO;
@@ -8,7 +7,6 @@ import com.saludSystem.application.services.Operaciones.TipoMaterialService;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
 import com.saludSystem.domain.model.Configuracion.UserEntity;
-import com.saludSystem.domain.model.Operaciones.PresentacionEntity;
 import com.saludSystem.domain.model.Operaciones.TipoMaterialEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
@@ -19,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -43,12 +42,16 @@ public class TipoMaterialServiceImpl implements TipoMaterialService {
         this.modelMapper = modelMapper;
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse saveTipoMaterial(CrearTipoMaterialDTO crearTipoMaterialDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         TipoMaterialEntity tipoMaterialEntity = new TipoMaterialEntity();
@@ -81,8 +84,16 @@ public class TipoMaterialServiceImpl implements TipoMaterialService {
         return new ListResponse<>(data, tipoMaterialEntityPage.getTotalElements(), tipoMaterialEntityPage.getTotalPages(), tipoMaterialEntityPage.getNumber() +1 );
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse updateTipoMaterial(UUID tipoMaterialId, ActualizarTipoMaterialDTO actualizarTipoMaterialDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         TipoMaterialEntity tipoMaterialEntity = tipoMaterialRepository.findById(tipoMaterialId)
                 .orElseThrow( () -> new ResourceNotFoundException("Tipo material no encontrado"));
         Optional.ofNullable(actualizarTipoMaterialDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(tipoMaterialEntity::setNombre);
@@ -92,8 +103,16 @@ public class TipoMaterialServiceImpl implements TipoMaterialService {
         return new ApiResponse(true, "Tipo material actualizado correctamente");
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse deleteTipoMaterial(UUID tipoMaterialId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         tipoMaterialRepository.deleteById(tipoMaterialId);
         return new ApiResponse(true, "Tipo material eliminado correctamente");
     }

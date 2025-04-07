@@ -17,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -51,12 +52,16 @@ public class ProductoServiceImpl implements ProductoService {
         this.modelMapper = modelMapper;
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse saveProducto(CrearProductoDTO crearProductoDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         ProductoEntity productoEntity = new ProductoEntity();
@@ -103,8 +108,16 @@ public class ProductoServiceImpl implements ProductoService {
         return convertToDTO(productoEntity);
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse updateProducto(UUID productoId, ActualizarProductoDTO actualizarProductoDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         ProductoEntity productoEntity = productoRepository.findById(productoId).orElseThrow(
                 () -> new ResourceNotFoundException("Producto no encontrado"));
         Optional.ofNullable(actualizarProductoDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(productoEntity::setDescripcion);
@@ -128,8 +141,16 @@ public class ProductoServiceImpl implements ProductoService {
         return new ApiResponse(true, "Producto actualizado correctamente");
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse deleteProducto(UUID productoId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
+            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
+        }
         productoRepository.deleteById(productoId);
         return new ApiResponse(true, "Producto eliminado correctamente");
     }
