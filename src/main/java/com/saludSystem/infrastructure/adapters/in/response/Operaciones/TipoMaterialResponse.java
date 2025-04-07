@@ -11,7 +11,7 @@ import java.util.List;
 public class TipoMaterialResponse {
 
     @Schema(description = "Lista de tipo materiales")
-    List<TipoMaterialDTO> data;
+    private List<TipoMaterialDTO> data;
 
     @Schema(description = "Total de registros de Tipos de materiales", example = "0")
     private long totalData;

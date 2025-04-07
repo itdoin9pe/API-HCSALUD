@@ -11,7 +11,7 @@ import java.util.List;
 public class ProveedorResponse {
 
     @Schema(description = "Lista de proveedores")
-    List<ProveedorDTO> data;
+    private List<ProveedorDTO> data;
 
     @Schema(description = "Total de proveedores", example = "0")
     private long totalData;

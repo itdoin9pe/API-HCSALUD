@@ -2,7 +2,7 @@ package com.saludSystem.domain.model;
 
 import com.saludSystem.domain.model.Configuracion.SedeEntity;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.domain.model.Principal.AlmacenEntity;
+import com.saludSystem.domain.model.Movimientos.AlmacenEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

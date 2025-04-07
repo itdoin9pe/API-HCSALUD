@@ -1,4 +1,4 @@
-package com.saludSystem.domain.model.Principal;
+package com.saludSystem.domain.model.Movimientos;
 
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
 import com.saludSystem.domain.model.Configuracion.UserEntity;
@@ -45,4 +45,5 @@ public class AlmacenEntity {
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private UserEntity user;
+
 }

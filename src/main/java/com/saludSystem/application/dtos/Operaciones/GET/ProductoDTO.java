@@ -30,9 +30,9 @@ public class ProductoDTO {
     private Double precioVenta;
     @Schema(description = "Estado del Producto (ACTIVO = 1 / INACTIVO = 0)", example = "0")
     private Integer estadoProducto;
-    @Schema(description = "Estado de la venta del Producto (SI / NO)", example = "0")
+    @Schema(description = "Estado de la venta del Producto (SI / NO)")
     private String estadoVenta;
-    @Schema(description = "Estado de la compra del Producto (SI / NO)", example = "0")
+    @Schema(description = "Estado de la compra del Producto (SI / NO)")
     private String estadoCompra;
 
 }
