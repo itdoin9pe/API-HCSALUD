@@ -3,16 +3,16 @@ package com.saludSystem.application.dtos.Movimientos.POST;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class CrearAlmacenDTO {
 
+    private UUID sedeId;
+
     private String nombre;
 
-    private String descripcion;
-
-    private String ubicacion;
-
-    @Schema(description = "estadoAlmacen", example = "0")
+    @Schema(description = "Estado de almacen", example = "0")
     private Integer estado;
 
 }

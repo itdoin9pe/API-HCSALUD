@@ -1,5 +1,6 @@
 package com.saludSystem.domain.model.Movimientos;
 
+import com.saludSystem.domain.model.Configuracion.SedeEntity;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
 import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.domain.model.SucursalEntity;
@@ -25,14 +26,12 @@ public class AlmacenEntity {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "descripcion", nullable = false)
-    private String descripcion;
-
-    @Column(name = "ubicacion", nullable = false)
-    private String ubicacion;
-
     @Column(name = "estado", nullable = false)
     private Integer estado;
+
+    @ManyToOne
+    @JoinColumn(name = "id_sede", nullable = false)
+    private SedeEntity sedeEntity;
 
     @ManyToOne
     @JoinColumn(name = "sucursal_id", nullable = false)
