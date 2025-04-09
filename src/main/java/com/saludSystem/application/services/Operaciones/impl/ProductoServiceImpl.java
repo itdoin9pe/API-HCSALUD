@@ -102,6 +102,11 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
+    public List<ProductoDTO> getProductoList() {
+        return productoRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    @Override
     public ProductoDTO getProductoById(UUID productoId) {
         ProductoEntity productoEntity = productoRepository.findById(productoId).orElseThrow(
                 () -> new ResourceNotFoundException("Producto no encontrado"));

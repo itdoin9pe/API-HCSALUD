@@ -12,7 +12,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Productos")
@@ -42,6 +45,11 @@ public class ProductoController {
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows) {
         return productoService.getAllProducto(hospitalId, page, rows);
+    }
+
+    @GetMapping("/GetProductoList")
+    public ResponseEntity<List<ProductoDTO>> getAllPage() {
+        return ResponseEntity.ok(productoService.getProductoList());
     }
 
     @GetMapping("/GetProducto/{productoId}")
