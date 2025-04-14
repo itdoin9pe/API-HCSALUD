@@ -1,6 +1,5 @@
-package com.saludSystem.application.dtos.Movimientos.POST;
+package com.saludSystem.application.dtos.Movimientos.GET;
 
-import com.saludSystem.application.dtos.Movimientos.GET.VentaDetalleDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -10,8 +9,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-public class CrearVentaDTO {
+public class VentaByIdDTO {
 
+    private UUID hospitalId;
+    private UUID userId;
+    private UUID ventaId;
     private UUID tdocumentoId;
     private UUID almacenId;
     private UUID beneficiarioId;

@@ -1,7 +1,6 @@
-package com.saludSystem.infrastructure.adapters.in.controllers.Movimiento;
+package com.saludSystem.domain.model.Movimientos;
 
 import com.saludSystem.domain.model.BaseEntity;
-import com.saludSystem.domain.model.Movimientos.VentaEntity;
 import com.saludSystem.domain.model.Operaciones.ProductoEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,6 +22,14 @@ public class VentaDetalleEntity extends BaseEntity {
     @Column(name = "ventaDetalleId", nullable = false)
     private UUID ventaDetalleId;
 
+    @ManyToOne
+    @JoinColumn(name = "venta_id", nullable = false)
+    private VentaEntity ventaEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "producto_id", nullable = false)
+    private ProductoEntity productoEntity;
+
     @Column(name = "codigo_producto", nullable = false)
     private String codigoProducto;
 
@@ -34,13 +41,5 @@ public class VentaDetalleEntity extends BaseEntity {
 
     @Column(name = "subtotal", precision = 10, scale = 2, nullable = false)
     private BigDecimal subtotal;
-
-    @ManyToOne
-    @JoinColumn(name = "venta_id", nullable = false)
-    private VentaEntity ventaEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "producto_id", nullable = false)
-    private ProductoEntity productoEntity;
 
 }

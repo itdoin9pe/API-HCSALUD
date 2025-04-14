@@ -3,9 +3,9 @@ package com.saludSystem.domain.model.Movimientos;
 import com.saludSystem.domain.model.BaseEntity;
 import com.saludSystem.domain.model.Configuracion.TipoDocumentoEntity;
 import com.saludSystem.domain.model.Mantenimiento.MonedaEntity;
+import com.saludSystem.domain.model.Mantenimiento.TipoPagoEntity;
 import com.saludSystem.domain.model.Mantenimiento.TipoTarjetaEntity;
 import com.saludSystem.domain.model.Principal.PacienteEntity;
-import com.saludSystem.infrastructure.adapters.in.controllers.Movimiento.VentaDetalleEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,9 +17,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ventas")
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "venta")
+@NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 public class VentaEntity extends BaseEntity {
 
@@ -40,14 +39,15 @@ public class VentaEntity extends BaseEntity {
     @Column(name = "tipo_beneficiario", nullable = false)
     private String tipoBeneficiario;
 
-    @Column(name = "beneficiario_documento", nullable = false, unique = true)
+    @Column(name = "beneficiario_documento", nullable = false)
     private String beneficiarioDocumento;
 
     @Column(name = "beneficiario_direccion", nullable = false)
     private String beneficiarioDireccion;
 
-    @Column(name = "tipo_pago", nullable = false)
-    private String tipoPago;
+    @ManyToOne
+    @JoinColumn(name = "id_tipoPagos", nullable = false)
+    private TipoPagoEntity tipoPagoEntity;
 
     @Column(name = "observacion", nullable = false)
     private String observacion;
@@ -74,7 +74,7 @@ public class VentaEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "beneficiario_id", nullable = false)
-    private PacienteEntity beneficiarioPaciente;
+    private PacienteEntity beneficiarioId;
 
     @ManyToOne
     @JoinColumn(name = "tipo_tarjeta_id", nullable = false)
@@ -86,5 +86,8 @@ public class VentaEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "ventaEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VentaDetalleEntity> detalle;
+
+    @Column(name = "estado_ventas", nullable = false)
+    private Integer estado;
 
 }
