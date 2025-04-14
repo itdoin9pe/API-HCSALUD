@@ -5,7 +5,6 @@ import com.saludSystem.application.dtos.Movimientos.GET.VentaDTO;
 import com.saludSystem.application.dtos.Movimientos.POST.CrearVentaDTO;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-
 import java.util.List;
 import java.util.UUID;
 

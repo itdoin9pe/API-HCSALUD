@@ -18,7 +18,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "venta")
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter @Setter
 public class VentaEntity extends BaseEntity {
 

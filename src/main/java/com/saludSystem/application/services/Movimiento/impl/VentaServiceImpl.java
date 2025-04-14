@@ -31,7 +31,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -49,7 +48,6 @@ public class VentaServiceImpl implements VentaService {
     private final TipoPagoRepository tipoPagoRepository;
     private final TipoTarjetaRepository tipoTarjetaRepository;
     private final MonedaRepository monedaRepository;
-
     private final ProductoRepository productoRepository;
 
 
@@ -75,8 +73,7 @@ public class VentaServiceImpl implements VentaService {
         if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
             return new ApiResponse(false, "No tienes permisos para realizar esta acción");
         }
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(
-                () -> new RuntimeException("Hospital no encontrado"));
+        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         VentaEntity venta = new VentaEntity();
         venta.setSerie(dto.getSerie());
         venta.setSecuencia(dto.getSecuencia());
@@ -92,22 +89,15 @@ public class VentaServiceImpl implements VentaService {
         venta.setEstado(dto.getEstado());
         venta.setHospital(hospital);
         venta.setUser(userEntity);
-        venta.setTipoDocumentoEntity(tipoDocumentoRepository.findById(dto.getTdocumentoId()).orElseThrow(
-                () -> new ResourceNotFoundException("TipoDocumento con id" + dto.getTdocumentoId() + "no encontrado")));
-        venta.setAlmacenEntity(almacenRepository.findById(dto.getAlmacenId()).orElseThrow(
-                () -> new ResourceNotFoundException("Almacen con  id" + dto.getAlmacenId() + "no encontrado")));
-        venta.setBeneficiarioId(pacienteRepository.findById(dto.getBeneficiarioId()).orElseThrow(
-                () -> new ResourceNotFoundException("Paciente con id" + dto.getBeneficiarioId() + "no encontrad")));
-        venta.setTipoTarjetaEntity(tipoTarjetaRepository.findById(dto.getTipoTarjetaId()).orElseThrow(
-                () -> new ResourceNotFoundException("TipoTarjeta con id" + dto.getTipoTarjetaId() + "no encontrado")));
-        venta.setTipoMonedaEntity(monedaRepository.findById(dto.getTipoMonedaId()).orElseThrow(
-                () -> new ResourceNotFoundException("Moneda con id" + dto.getTipoMonedaId() + "no encontrado")));
-        venta.setTipoPagoEntity(tipoPagoRepository.findById(dto.getTipoPagoId()).orElseThrow(
-                () -> new ResourceNotFoundException("TipoPago con id" + dto.getTipoPagoId() + "no encontrado")));
+        venta.setTipoDocumentoEntity(tipoDocumentoRepository.findById(dto.getTdocumentoId()).orElseThrow(() -> new ResourceNotFoundException("TipoDocumento con id" + dto.getTdocumentoId() + "no encontrado")));
+        venta.setAlmacenEntity(almacenRepository.findById(dto.getAlmacenId()).orElseThrow(() -> new ResourceNotFoundException("Almacen con  id" + dto.getAlmacenId() + "no encontrado")));
+        venta.setBeneficiarioId(pacienteRepository.findById(dto.getBeneficiarioId()).orElseThrow(() -> new ResourceNotFoundException("Paciente con id" + dto.getBeneficiarioId() + "no encontrad")));
+        venta.setTipoTarjetaEntity(tipoTarjetaRepository.findById(dto.getTipoTarjetaId()).orElseThrow(() -> new ResourceNotFoundException("TipoTarjeta con id" + dto.getTipoTarjetaId() + "no encontrado")));
+        venta.setTipoMonedaEntity(monedaRepository.findById(dto.getTipoMonedaId()).orElseThrow(() -> new ResourceNotFoundException("Moneda con id" + dto.getTipoMonedaId() + "no encontrado")));
+        venta.setTipoPagoEntity(tipoPagoRepository.findById(dto.getTipoPagoId()).orElseThrow(() -> new ResourceNotFoundException("TipoPago con id" + dto.getTipoPagoId() + "no encontrado")));
         List<VentaDetalleEntity> detalles = dto.getDetalle().stream().map(det -> {
             VentaDetalleEntity detalle = new VentaDetalleEntity();
-            detalle.setProductoEntity(productoRepository.findById(det.getProductoId()).orElseThrow(
-                    () -> new ResourceNotFoundException("Producto con id" + det.getProductoId())));
+            detalle.setProductoEntity(productoRepository.findById(det.getProductoId()).orElseThrow(() -> new ResourceNotFoundException("Producto con id" + det.getProductoId())));
             detalle.setCodigoProducto(det.getCodigoProducto());
             detalle.setCantidad(det.getCantidad());
             detalle.setPrecio(BigDecimal.valueOf(det.getPrecioUnitario()));
@@ -130,8 +120,7 @@ public class VentaServiceImpl implements VentaService {
     @Transactional(readOnly = true)
     @Override
     public VentaByIdDTO getVentaById(UUID ventaId) {
-        VentaEntity ventaEntity = ventaRepository.findById(ventaId)
-                .orElseThrow(() -> new ResourceNotFoundException("Venta con id " + ventaId + " no encontrada"));
+        VentaEntity ventaEntity = ventaRepository.findById(ventaId).orElseThrow(() -> new ResourceNotFoundException("Venta con id " + ventaId + " no encontrada"));
         return convertToDetailedDTO(ventaEntity);
     }
 

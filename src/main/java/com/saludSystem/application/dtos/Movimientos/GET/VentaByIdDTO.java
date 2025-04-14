@@ -38,7 +38,7 @@ public class VentaByIdDTO {
     @Schema(example = "0")
     private BigDecimal total;
 
-    @Schema(description = "Estado de la venta (0 = inactive / 1 = active)", example = "0")
+    @Schema(description = "Estado de la venta (inactive = 0 / active = 1)", example = "0")
     private Integer estado;
 
     private List<VentaDetalleDTO> detalle;
