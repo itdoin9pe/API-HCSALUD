@@ -1,4 +1,4 @@
-package com.saludSystem.application.dtos.Movimientos.GET;
+package com.saludSystem.application.dtos.Movimientos.PUT;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -6,9 +6,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class VentaDetalleDTO {
-
-    private UUID vemtaDetalleId;
+public class ActualizarVentaDetalleDTO {
 
     private UUID productoId;
 
