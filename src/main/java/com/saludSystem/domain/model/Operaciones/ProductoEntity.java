@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -52,10 +53,10 @@ public class ProductoEntity extends BaseEntity {
     private String descripcion;
 
     @Column(name = "precioCompra_producto", nullable = false)
-    private Double precioCompra;
+    private BigDecimal precioCompra;
 
     @Column(name = "precioVenta_producto", nullable = false)
-    private Double precioVenta;
+    private BigDecimal precioVenta;
 
     @Column(name = "stock_producto", nullable = false)
     private Integer stock;

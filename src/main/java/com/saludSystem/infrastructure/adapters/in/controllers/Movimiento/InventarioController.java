@@ -1,25 +1,25 @@
 package com.saludSystem.infrastructure.adapters.in.controllers.Movimiento;
 
-import com.saludSystem.application.dtos.Movimientos.GET.AlmacenDTO;
 import com.saludSystem.application.dtos.Movimientos.GET.InventarioDTO;
-import com.saludSystem.application.dtos.Movimientos.POST.CrearAlmacenDTO;
 import com.saludSystem.application.dtos.Movimientos.POST.CrearInventarioDTO;
-import com.saludSystem.application.dtos.Movimientos.PUT.ActualizarAlmacenDTO;
 import com.saludSystem.application.dtos.Movimientos.PUT.ActualizarInventarioDTO;
+import com.saludSystem.application.services.Movimiento.InventarioExportService;
 import com.saludSystem.application.services.Movimiento.InventarioService;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.infrastructure.adapters.in.response.Movimientos.AlmacenResponse;
 import com.saludSystem.infrastructure.adapters.in.response.Movimientos.InventarioResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Inventarios")
@@ -28,9 +28,11 @@ import java.util.UUID;
 public class InventarioController {
 
     private final InventarioService inventarioService;
+    private final InventarioExportService inventarioExportServicel;
 
-    public InventarioController(InventarioService inventarioService) {
+    public InventarioController(InventarioService inventarioService, InventarioExportService inventarioExportServicel) {
         this.inventarioService = inventarioService;
+        this.inventarioExportServicel = inventarioExportServicel;
     }
 
     @PostMapping("/SaveInventario")
@@ -64,6 +66,46 @@ public class InventarioController {
     @DeleteMapping("/DeleteInventario/{inventarioId}")
     public ApiResponse destroy(@PathVariable UUID inventarioId) {
         return inventarioService.deleteInventario(inventarioId);
+    }
+
+    @Operation(summary = "Exportar inventario a Excel")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    content = @Content(mediaType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500")
+    })
+    @GetMapping("/ExportExcel")
+    public ResponseEntity<byte[]> exportExcel(
+            @RequestParam UUID hospitalId,
+            HttpServletResponse response) {
+
+        byte[] excelBytes = inventarioExportServicel.exportToExcel(hospitalId);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=inventario.xlsx")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(excelBytes);
+    }
+
+    @Operation(summary = "Exportar inventario a PDF")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    content = @Content(mediaType = "application/pdf")),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500")
+    })
+    @GetMapping("/ExportPdf")
+    public ResponseEntity<byte[]> exportPdf(
+            @RequestParam UUID hospitalId,
+            HttpServletResponse response) {
+
+        byte[] pdfBytes = inventarioExportServicel.exportToPdf(hospitalId);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=inventario.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
     }
 
 }

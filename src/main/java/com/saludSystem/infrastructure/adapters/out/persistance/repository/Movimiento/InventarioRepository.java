@@ -11,6 +11,7 @@ import java.util.UUID;
 @Repository
 public interface InventarioRepository extends JpaRepository<InventarioEntity, UUID> {
 
+    //Page<InventarioEntity> findByAlmacenEntity_Hospital_HospitalId(UUID hospitalId, Pageable pageable);
     Page<InventarioEntity> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 
 }

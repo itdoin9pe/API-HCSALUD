@@ -2,6 +2,8 @@ package com.saludSystem.application.dtos.Operaciones.PUT;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -27,9 +29,9 @@ public class ActualizarProductoDTO {
     @Schema(description = "Estado de la venta del Producto", example = "0")
     private Integer stock;
     @Schema(description = "Estado de la venta del Producto", example = "0")
-    private Double precioCompra;
+    private BigDecimal precioCompra;
     @Schema(description = "Estado de la venta del Producto", example = "0")
-    private Double precioVenta;
+    private BigDecimal precioVenta;
     @Schema(description = "Estado del Producto (ACTIVO = 1 / INACTIVO = 0)", example = "0")
     private Integer estadoProducto;
     @Schema(description = "Estado de la venta del Producto (SI / NO)")

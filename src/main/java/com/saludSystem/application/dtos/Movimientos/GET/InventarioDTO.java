@@ -1,31 +1,25 @@
 package com.saludSystem.application.dtos.Movimientos.GET;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 public class InventarioDTO {
 
-    private UUID inventarioId;
-
-    @Schema(example = "string")
     private String nombreAlmacen;
 
-    @Schema(example = "string")
     private String nombreProducto;
 
-    private UUID tipoInventarioId;
+    private String nombreMarca;
+
+    private String nombreCategoria;
 
     @Schema(example = "0")
     private BigDecimal precioEntrada;
-
-    @Schema(example = "0")
-    private BigDecimal precioSalida;
 
     @Schema(example = "string")
     private String unidad;
@@ -33,9 +27,21 @@ public class InventarioDTO {
     @Schema(example = "0")
     private Integer stock;
 
-    private LocalDate fechaRegistro;
-
-    @Schema(description = "Estado de registro de inventario (active = 1 / inactive = 0)", example = "0")
-    private Integer estado;
+    // Constructor que debe coincidir EXACTAMENTE con el SELECT de la consulta
+    public InventarioDTO(String nombreAlmacen,
+                         String nombreProducto,
+                         String nombreMarca,
+                         String nombreCategoria,
+                         BigDecimal precioEntrada,
+                         String unidad,
+                         Integer stock) {
+        this.nombreAlmacen = nombreAlmacen;
+        this.nombreProducto = nombreProducto;
+        this.nombreMarca = nombreMarca;
+        this.nombreCategoria = nombreCategoria;
+        this.precioEntrada = precioEntrada;
+        this.unidad = unidad;
+        this.stock = stock;
+    }
 
 }

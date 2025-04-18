@@ -4,9 +4,9 @@ import com.saludSystem.application.dtos.Movimientos.GET.AlmacenDTO;
 import com.saludSystem.application.dtos.Movimientos.GET.InventarioDTO;
 import com.saludSystem.application.dtos.Movimientos.POST.CrearInventarioDTO;
 import com.saludSystem.application.dtos.Movimientos.PUT.ActualizarInventarioDTO;
+import com.saludSystem.application.services.Movimiento.InventarioProjection;
 import com.saludSystem.application.services.Movimiento.InventarioService;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
-import com.saludSystem.domain.model.Movimientos.AlmacenEntity;
 import com.saludSystem.domain.model.Movimientos.InventarioEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
@@ -22,7 +22,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -37,9 +37,9 @@ public class InventarioServiceImpl implements InventarioService {
     private final MarcaRepository marcaRepository;
     private final CategoriaMatRepository categoriaMatRepository;
     private final UnidadRepository unidadRepository;
-    private final ModelMapper modelMapperl;
+    private final ModelMapper modelMapper;
 
-    public InventarioServiceImpl(InventarioRepository inventarioRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ProductoRepository productoRepository, MarcaRepository marcaRepository, CategoriaMatRepository categoriaMatRepository, UnidadRepository unidadRepository, ModelMapper modelMapperl) {
+    public InventarioServiceImpl(InventarioRepository inventarioRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ProductoRepository productoRepository, MarcaRepository marcaRepository, CategoriaMatRepository categoriaMatRepository, UnidadRepository unidadRepository, ModelMapper modelMapper) {
         this.inventarioRepository = inventarioRepository;
         this.sysSaludRepository = sysSaludRepository;
         this.userRepository = userRepository;
@@ -47,7 +47,7 @@ public class InventarioServiceImpl implements InventarioService {
         this.marcaRepository = marcaRepository;
         this.categoriaMatRepository = categoriaMatRepository;
         this.unidadRepository = unidadRepository;
-        this.modelMapperl = modelMapperl;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -73,32 +73,33 @@ public class InventarioServiceImpl implements InventarioService {
         return convertToDTO(inventarioEntity);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ListResponse<InventarioDTO> getAllInventario(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<InventarioEntity> inventarioEntityPage = inventarioRepository.findByHospital_HospitalId(hospitalId, pageable);
-
-        List<InventarioDTO> data = inventarioEntityPage.getContent().stream().map(entity -> {
-            InventarioDTO dto = convertToDTO(entity);
-
-            // Obtener y asignar los nombres de las entidades relacionadas
-            dto.setNombreAlmacen(entity.getAlmacenEntity() != null ? entity.getAlmacenEntity().getNombre() : null);
-            dto.setNombreProducto(entity.getProductoEntity() != null ? entity.getProductoEntity().getNombre() : null);
-            dto.setUnidad(entity.getUnidadEntity() != null ? entity.getUnidadEntity().getNombre() : null);
-
-            return dto;
-        }).collect(Collectors.toList());
+        Page<InventarioProjection> projections = productoRepository.findInventarioDataByHospitalId(hospitalId, pageable);
+        List<InventarioDTO> data = projections.getContent().stream()
+                .map(p -> new InventarioDTO(
+                        p.getNombreAlmacen(),
+                        p.getNombreProducto(),
+                        p.getNombreMarca(),
+                        p.getNombreCategoria(),
+                        p.getPrecioEntrada(),
+                        p.getUnidad(),
+                        p.getStock()
+                ))
+                .collect(Collectors.toList());
 
         return new ListResponse<>(
                 data,
-                inventarioEntityPage.getTotalElements(),
-                inventarioEntityPage.getTotalPages(),
-                inventarioEntityPage.getNumber() + 1
+                projections.getTotalElements(),
+                projections.getTotalPages(),
+                projections.getNumber() + 1
         );
     }
 
     private InventarioDTO convertToDTO(InventarioEntity inventarioEntity) {
-        return modelMapperl.map(inventarioEntity, InventarioDTO.class);
+        return modelMapper.map(inventarioEntity, InventarioDTO.class);
     }
 
 }
