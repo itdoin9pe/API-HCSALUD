@@ -57,6 +57,11 @@
 			<version>12.4.2.jre11</version>
 		</dependency>
 		-->
+		<!-- Para Spring Mail
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency> -->
 		<!-- Para Excel -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
