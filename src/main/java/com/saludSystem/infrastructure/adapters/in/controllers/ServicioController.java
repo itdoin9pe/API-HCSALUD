@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/service")
+@RequestMapping("/api/Servicios")
 public class ServicioController {
 
     private final ServicioService servicioService;
@@ -17,12 +17,12 @@ public class ServicioController {
         this.servicioService = servicioService;
     }
 
-    @GetMapping
+    @GetMapping("/GetServicioList")
     public ResponseEntity<List<ServicioEntity>> listarServicios() {
         return ResponseEntity.ok(servicioService.listarTodos());
     }
 
-    @PostMapping
+    @PostMapping("/SaveServicio")
     public ResponseEntity<ServicioEntity> crearServicio(@RequestBody ServicioEntity servicio) {
         return ResponseEntity.ok(servicioService.guardar(servicio));
     }
