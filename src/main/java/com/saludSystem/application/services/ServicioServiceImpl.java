@@ -55,7 +55,7 @@ public class ServicioServiceImpl implements ServicioService{
         Optional.ofNullable(actualizarServicioDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(servicioEntity::setDescripcion);
         Optional.ofNullable(actualizarServicioDTO.getEstado()).ifPresent(servicioEntity::setEstado);
         serviceRepository.save(servicioEntity);
-        return new ApiResponse(true, "Servicio no encontrado");
+        return new ApiResponse(true, "Servicio actualizado correctamente");
     }
 
     @Override
