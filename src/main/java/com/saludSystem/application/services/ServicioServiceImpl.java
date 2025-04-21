@@ -5,6 +5,7 @@ import com.saludSystem.infrastructure.adapters.out.persistance.ServiceRepository
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServicioServiceImpl implements ServicioService{
@@ -23,6 +24,16 @@ public class ServicioServiceImpl implements ServicioService{
     @Override
     public ServicioEntity guardar(ServicioEntity servicio) {
         return serviceRepository.save(servicio);
+    }
+
+    @Override
+    public Optional<ServicioEntity> buscarPorId(Long id) {
+        return serviceRepository.findById(id);
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        serviceRepository.deleteById(id);
     }
 
 }
