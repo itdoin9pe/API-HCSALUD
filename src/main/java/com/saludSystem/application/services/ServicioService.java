@@ -1,13 +1,16 @@
 package com.saludSystem.application.services;
 
-import com.saludSystem.domain.model.ServicioEntity;
+import com.saludSystem.application.dtos.Principal.GET.ServicioDTO;
+import com.saludSystem.application.dtos.Principal.POST.CrearServicioDTO;
+import com.saludSystem.application.dtos.Principal.PUT.ActualizarServicioDTO;
+import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ServicioService {
-    List<ServicioEntity> listarTodos();
-    ServicioEntity guardar(ServicioEntity servicio);
-    Optional<ServicioEntity> buscarPorId(Long id);
-    void eliminar(Long id);
+    List<ServicioDTO> listarTodos();
+    ApiResponse guardar(CrearServicioDTO crearServicioDTO);
+    ServicioDTO buscarPorId(Long id);
+    ApiResponse updateServicio(Long id, ActualizarServicioDTO actualizarServicioDTO);
+    ApiResponse eliminar(Long id);
 }

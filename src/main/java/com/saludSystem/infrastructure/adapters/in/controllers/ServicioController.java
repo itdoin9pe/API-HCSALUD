@@ -1,14 +1,13 @@
 package com.saludSystem.infrastructure.adapters.in.controllers;
 
+import com.saludSystem.application.dtos.Principal.GET.ServicioDTO;
+import com.saludSystem.application.dtos.Principal.POST.CrearServicioDTO;
+import com.saludSystem.application.dtos.Principal.PUT.ActualizarServicioDTO;
 import com.saludSystem.application.services.ServicioService;
-import com.saludSystem.domain.model.ServicioEntity;
+import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Servicios")
@@ -21,40 +20,28 @@ public class ServicioController {
     }
 
     @GetMapping("/GetServicioList")
-    public ResponseEntity<List<ServicioEntity>> listarServicios() {
+    public ResponseEntity<List<ServicioDTO>> listarServicios() {
         return ResponseEntity.ok(servicioService.listarTodos());
     }
 
     @PostMapping("/SaveServicio")
-    public ResponseEntity<ServicioEntity> crearServicio(@RequestBody ServicioEntity servicio) {
-        return ResponseEntity.ok(servicioService.guardar(servicio));
+    public ApiResponse crearServicio(@RequestBody CrearServicioDTO crearServicioDTO) {
+        return servicioService.guardar(crearServicioDTO);
     }
 
     @GetMapping("/GetServicio/{id}")
-    public ResponseEntity<ServicioEntity> obtenerServicioPorId(@PathVariable Long id) {
-        Optional<ServicioEntity> servicio = servicioService.buscarPorId(id);
-        return servicio.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ServicioDTO obtenerServicioPorId(@PathVariable Long id) {
+        return servicioService.buscarPorId(id);
     }
 
     @PutMapping("/UpdateServicio/{id}")
-    public ResponseEntity<ServicioEntity> actualizarServicio(@PathVariable Long id, @RequestBody ServicioEntity servicio) {
-        if (!servicioService.buscarPorId(id).isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        servicio.setId(id);
-        return ResponseEntity.ok(servicioService.guardar(servicio));
+    public ApiResponse actualizarServicio(@PathVariable Long id, @RequestBody ActualizarServicioDTO actualizarServicioDTO) {
+        return servicioService.updateServicio(id, actualizarServicioDTO);
     }
 
     @DeleteMapping("/DeleteServicio/{id}")
-    public ResponseEntity<Map<String, String>> eliminarServicio(@PathVariable Long id) {
-        if (!servicioService.buscarPorId(id).isPresent()) {
-            return ResponseEntity.notFound().build(); // 404
-        }
-        servicioService.eliminar(id);
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Servicio eliminado correctamente");
-        return ResponseEntity.ok(response); // 200 + JSON
+    public ApiResponse eliminarServicio(@PathVariable Long id) {
+        return servicioService.eliminar(id);
     }
 
 }
