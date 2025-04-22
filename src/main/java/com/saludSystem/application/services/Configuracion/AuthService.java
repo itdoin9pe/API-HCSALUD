@@ -32,7 +32,8 @@ public class AuthService {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
-    public Map<String, String> authenticate(String username, String password) {
+    //public Map<String, String> authenticate(String username, String password) {
+    public Map<String, Object> authenticate(String username, String password) {
         try {
             AuthenticationManager authenticationManager = authenticationManagerBuilder.getObject();
             Authentication authentication = authenticationManager.authenticate(
@@ -43,10 +44,11 @@ public class AuthService {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String jwt = jwtUtil.generateToken(authentication);
             String refreshToken = jwtUtil.generateRefreshToken(userDetails);
-            Map<String, String> tokens = new HashMap<>();
+            //Map<String, String> tokens = new HashMap<>();
+            Map<String,Object> tokens = new HashMap<>();
             tokens.put("access_token", jwt);
             tokens.put("refresh_token", refreshToken);
-
+            tokens.put("expires_in", jwtUtil.getAccessTokenExpirationInSeconds());
             return tokens;
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,7 +56,8 @@ public class AuthService {
         }
     }
 
-    public Map<String, String> refreshToken(String refreshToken) {
+    //public Map<String, String> refreshToken(String refreshToken) {
+    public Map<String, Object> refreshToken(String refreshToken) {
         try {
             String username = jwtUtil.extractUsername(refreshToken);
             UserDetails userDetails = userService.loadUserByUsername(username);
@@ -64,10 +67,11 @@ public class AuthService {
                         (new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()));
                 String newRefreshToken = jwtUtil.generateRefreshToken(userDetails);
 
-                Map<String, String> tokens = new HashMap<>();
+                //Map<String, String> tokens = new HashMap<>();
+                Map<String, Object> tokens = new HashMap<>();
                 tokens.put("access_token", newAccessToken);
                 tokens.put("refresh_token", newRefreshToken);
-
+                tokens.put("expires_in", jwtUtil.getAccessTokenExpirationInSeconds());
                 return tokens;
             } else {
                 throw new RuntimeException("Invalid refresh token");

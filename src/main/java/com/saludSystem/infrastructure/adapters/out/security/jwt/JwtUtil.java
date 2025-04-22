@@ -67,6 +67,10 @@ public class JwtUtil {
         		.getBody();
     }
 
+    public int getAccessTokenExpirationInSeconds() {
+        return expiration;
+    }
+
     public String extractUsername(String token){
         return extractAllClaims(token).getSubject();
     }

@@ -35,7 +35,8 @@ public class AuthController {
   }
 
   @PostMapping("/login")
-  public ResponseEntity<Map<String, String>> login
+  //public ResponseEntity<Map<String, String>> login
+  public ResponseEntity<Map<String, Object>> login
           (@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
       return ResponseEntity.badRequest().body(
@@ -43,52 +44,15 @@ public class AuthController {
     }
 
     try {
-      Map<String, String> tokens = authService.authenticate(
-          loginUserDto.getEmail(), loginUserDto.getPassword());
+      //Map<String, String> tokens = authService.authenticate
+      Map<String, Object> tokens = authService.authenticate(
+                      loginUserDto.getEmail(), loginUserDto.getPassword());
       return ResponseEntity.ok(tokens);
     } catch (Exception e) {
       return ResponseEntity.badRequest().body(
           Map.of("message", "Check your credentials!!"));
     }
   }
-
-  /* Solo en producccion
-  @PostMapping("/login")
-  public ResponseEntity<Map<String, Object>> login(
-          @Valid @RequestBody LoginUserDto loginUserDto,
-          BindingResult bindingResult,
-          HttpServletResponse response) {
-
-    if (bindingResult.hasErrors()) {
-      return ResponseEntity.badRequest().body(
-              Map.of("success", false, "message", "Check your credentials!!"));
-    }
-
-    try {
-      Map<String, String> tokens = authService.authenticate(
-              loginUserDto.getEmail(), loginUserDto.getPassword());
-
-      // Configura la cookie para el token de refresco
-      ResponseCookie refreshTokenCookie = ResponseCookie.from("refresh_token", tokens.get("refresh_token"))
-              .httpOnly(true)
-              .secure(true) // Solo en HTTPS
-              .path("/api/refresh-token")
-              .maxAge(7 * 24 * 60 * 60) // 7 días
-              .sameSite("None") // Para cross-site
-              .build();
-
-      response.addHeader(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
-
-      return ResponseEntity.ok(Map.of(
-              "success", true,
-              "access_token", tokens.get("access_token"),
-              "message", "Login successful"
-      ));
-    } catch (Exception e) {
-      return ResponseEntity.badRequest().body(
-              Map.of("success", false, "message", "Check your credentials!!"));
-    }
-  }*/
 
   @PostMapping("/register")
   public ResponseEntity<Map<String, Object>> register(
@@ -113,7 +77,8 @@ public class AuthController {
   }
 
   @PostMapping("/refresh-token")
-  public ResponseEntity<Map<String, String>>
+  //public ResponseEntity<Map<String, String>>
+  public ResponseEntity<Map<String, Object>>
   refreshToken(@RequestBody Map<String, String> requestBody) {
     try {
       String refreshToken = requestBody.get("refreshToken");
@@ -121,7 +86,8 @@ public class AuthController {
         return ResponseEntity.badRequest().body(
             Map.of("error", "refreshToken is required"));
       }
-      Map<String, String> tokens = authService.refreshToken(refreshToken);
+      //Map<String, String> tokens = authService.refreshToken(refreshToken);
+      Map<String, Object> tokens = authService.refreshToken(refreshToken);
       return ResponseEntity.ok(tokens);
     } catch (RuntimeException e) {
       return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
@@ -146,8 +112,7 @@ public class AuthController {
   }
 
   @PostMapping("/logout")
-  public ResponseEntity<Map<String, String>>
-  logout(@RequestHeader("Authorization") String token) {
+  public ResponseEntity<Map<String, String>> logout(@RequestHeader("Authorization") String token) {
     if (token == null || !token.startsWith("Bearer ")) {
       return ResponseEntity.badRequest().body(
           Map.of("message", "Invalid token format"));
