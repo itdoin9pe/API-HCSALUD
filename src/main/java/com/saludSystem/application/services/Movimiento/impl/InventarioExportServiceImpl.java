@@ -28,27 +28,27 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
-@RequiredArgsConstructor
 public class InventarioExportServiceImpl implements InventarioExportService {
 
     private final ProductoRepository productoRepository;
     private final ModelMapper modelMapper;
 
+    public InventarioExportServiceImpl(ProductoRepository productoRepository, ModelMapper modelMapper) {
+        this.productoRepository = productoRepository;
+        this.modelMapper = modelMapper;
+    }
+
     @Override
     public byte[] exportToExcel(UUID hospitalId) {
-        List<InventarioProjection> inventarios = productoRepository
-                .findInventarioDataByHospitalId(hospitalId, Pageable.unpaged()).getContent();
-
+        List<InventarioProjection> inventarios = productoRepository.findInventarioDataByHospitalId(hospitalId, Pageable.unpaged()).getContent();
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Inventario");
-
             // Crear header
             Row headerRow = sheet.createRow(0);
             String[] headers = {"Almacén", "Producto", "Marca", "Categoría", "Precio", "Unidad", "Stock"};
             for (int i = 0; i < headers.length; i++) {
                 headerRow.createCell(i).setCellValue(headers[i]);
             }
-
             // Llenar datos
             int rowNum = 1;
             for (InventarioProjection inv : inventarios) {
@@ -61,7 +61,6 @@ public class InventarioExportServiceImpl implements InventarioExportService {
                 row.createCell(5).setCellValue(inv.getUnidad());
                 row.createCell(6).setCellValue(inv.getStock());
             }
-
             // Convertir a bytes
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);
@@ -73,31 +72,23 @@ public class InventarioExportServiceImpl implements InventarioExportService {
 
     @Override
     public byte[] exportToPdf(UUID hospitalId) {
-        List<InventarioProjection> inventarios = productoRepository
-                .findInventarioDataByHospitalId(hospitalId, Pageable.unpaged()).getContent();
-
+        List<InventarioProjection> inventarios = productoRepository.findInventarioDataByHospitalId(hospitalId, Pageable.unpaged()).getContent();
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             Document document = new Document();
             PdfWriter.getInstance(document, outputStream);
             document.open();
-
             // Título
-            document.add(new Paragraph("Reporte de Inventario" + " ",
-                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18)));
-
+            document.add(new Paragraph("Reporte de Inventario" + " ", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18)));
             // Tabla
             PdfPTable table = new PdfPTable(7);
             table.setWidthPercentage(100);
-
             // Headers
-            Stream.of("Almacén", "Producto", "Marca", "Categoría", "Precio", "Unidad", "Stock")
-                    .forEach(header -> {
+            Stream.of("Almacén", "Producto", "Marca", "Categoría", "Precio", "Unidad", "Stock").forEach(header -> {
                         PdfPCell cell = new PdfPCell();
                         cell.setBackgroundColor(new Color(200, 200, 200));
                         cell.setPhrase(new Phrase(header));
                         table.addCell(cell);
-                    });
-
+            });
             // Datos
             for (InventarioProjection inv : inventarios) {
                 table.addCell(inv.getNombreAlmacen());
@@ -108,7 +99,6 @@ public class InventarioExportServiceImpl implements InventarioExportService {
                 table.addCell(inv.getUnidad());
                 table.addCell(String.valueOf(inv.getStock()));
             }
-
             document.add(table);
             document.close();
             return outputStream.toByteArray();

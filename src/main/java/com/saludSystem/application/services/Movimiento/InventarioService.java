@@ -5,7 +5,6 @@ import com.saludSystem.application.dtos.Movimientos.POST.CrearInventarioDTO;
 import com.saludSystem.application.dtos.Movimientos.PUT.ActualizarInventarioDTO;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-
 import java.util.UUID;
 
 public interface InventarioService {

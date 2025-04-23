@@ -68,9 +68,7 @@ public class InventarioController {
         return inventarioService.deleteInventario(inventarioId);
     }
 
-    @Operation(summary = "Exportar inventario a Excel")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+    @ApiResponses(value = {@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
                     content = @Content(mediaType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500")
     })
@@ -88,7 +86,6 @@ public class InventarioController {
                 .body(excelBytes);
     }
 
-    @Operation(summary = "Exportar inventario a PDF")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
                     content = @Content(mediaType = "application/pdf")),

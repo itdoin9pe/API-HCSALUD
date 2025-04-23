@@ -28,13 +28,9 @@ public class InventarioDTO {
     private Integer stock;
 
     // Constructor que debe coincidir EXACTAMENTE con el SELECT de la consulta
-    public InventarioDTO(String nombreAlmacen,
-                         String nombreProducto,
-                         String nombreMarca,
-                         String nombreCategoria,
-                         BigDecimal precioEntrada,
-                         String unidad,
-                         Integer stock) {
+    public InventarioDTO
+    (String nombreAlmacen, String nombreProducto, String nombreMarca, String nombreCategoria, BigDecimal precioEntrada,
+     String unidad, Integer stock) {
         this.nombreAlmacen = nombreAlmacen;
         this.nombreProducto = nombreProducto;
         this.nombreMarca = nombreMarca;

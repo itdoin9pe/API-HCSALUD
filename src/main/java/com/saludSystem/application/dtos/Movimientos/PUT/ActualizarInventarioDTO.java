@@ -12,6 +12,7 @@ public class ActualizarInventarioDTO {
 
     private UUID productoId;
 
+    @Schema(example = "0")
     private int tipoInventarioId;
 
     private UUID marcaMaterialId;
@@ -20,10 +21,13 @@ public class ActualizarInventarioDTO {
 
     private UUID unidadId;
 
+    @Schema(example = "0")
     private BigDecimal precioEntrada;
 
+    @Schema(example = "0")
     private BigDecimal precioSalida;
 
+    @Schema(example = "0")
     private Integer stock;
 
     private LocalDate fecha;
