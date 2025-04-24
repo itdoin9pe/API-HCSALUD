@@ -2,9 +2,7 @@ package com.saludSystem.application.services.Movimiento.impl;
 
 import com.saludSystem.application.dtos.Movimientos.GET.CompraDTO;
 import com.saludSystem.application.dtos.Movimientos.GET.CompraDetalleDTO;
-import com.saludSystem.application.dtos.Movimientos.GET.VentaDTO;
 import com.saludSystem.application.dtos.Movimientos.POST.CrearCompraDTO;
-import com.saludSystem.application.dtos.Movimientos.PUT.ActualizarCompraDTO;
 import com.saludSystem.application.services.Movimiento.CompraService;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;

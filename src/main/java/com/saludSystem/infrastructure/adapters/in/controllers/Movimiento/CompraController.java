@@ -2,7 +2,6 @@ package com.saludSystem.infrastructure.adapters.in.controllers.Movimiento;
 
 import com.saludSystem.application.dtos.Movimientos.GET.CompraDTO;
 import com.saludSystem.application.dtos.Movimientos.POST.CrearCompraDTO;
-import com.saludSystem.application.dtos.Movimientos.POST.CrearVentaDTO;
 import com.saludSystem.application.services.Movimiento.CompraService;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;

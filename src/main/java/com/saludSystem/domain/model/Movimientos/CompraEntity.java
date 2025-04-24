@@ -1,7 +1,6 @@
 package com.saludSystem.domain.model.Movimientos;
 
 import com.saludSystem.domain.model.BaseEntity;
-import com.saludSystem.domain.model.Configuracion.SedeEntity;
 import com.saludSystem.domain.model.Mantenimiento.TipoPagoEntity;
 import com.saludSystem.domain.model.Operaciones.ProveedorEntity;
 import jakarta.persistence.*;
