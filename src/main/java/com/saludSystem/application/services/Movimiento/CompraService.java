@@ -12,8 +12,10 @@ public interface CompraService {
 
     ApiResponse saveCompra(CrearCompraDTO crearCompraDTO);
 
-    ApiResponse deleteCompra(UUID compraId, ActualizarCompraDTO actualizarCompraDTO);
+    ApiResponse deleteCompra(UUID hospitalId);
 
-    ListResponse<CompraDTO> getAllCompra(UUID compraId, int page, int rows);
+    ListResponse<CompraDTO> getAllCompra(UUID hospitalId, int page, int rows);
+
+    CompraDTO getCompraById(UUID compraId);
 
 }

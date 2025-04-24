@@ -3,6 +3,7 @@ package com.saludSystem.infrastructure.adapters.in.response;
 import lombok.Getter;
 
 public class ApiResponse {
+
     private boolean isSuccess;
     @Getter
     private String message;

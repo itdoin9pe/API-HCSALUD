@@ -2,6 +2,7 @@ package com.saludSystem.domain.model.Movimientos;
 
 import com.saludSystem.domain.model.BaseEntity;
 import com.saludSystem.domain.model.Configuracion.SedeEntity;
+import com.saludSystem.domain.model.Mantenimiento.TipoPagoEntity;
 import com.saludSystem.domain.model.Operaciones.ProveedorEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -40,54 +41,24 @@ public class CompraEntity extends BaseEntity {
     private ProveedorEntity proveedorEntity;
 
     @ManyToOne
+    @JoinColumn(referencedColumnName = "id_tipoPagos", nullable = false)
+    private TipoPagoEntity tipoPagoEntity;
+
+    @ManyToOne
     @JoinColumn(referencedColumnName = "almacen_id", nullable = false)
     private AlmacenEntity almacenEntity;
 
     @Column(name = "efectivo_compra", nullable = false)
-    private BigDecimal efectivo;
-
-    @Column(name = "saldo", nullable = false)
-    private BigDecimal saldoCompra;
-
-    @Column(name = "pago_compra", nullable = false)
-    private String pago;
-
-    @Column(name = "moneda_compra", nullable = false)
-    private String moneda;
+    private BigDecimal efectivo_total;
 
     @Column(name = "guiaRemision", nullable = false)
     private String guiaRemision;
 
     @Column(name = "observacion_compra", nullable = false)
-    private String observaacion;
-
-    @Column(name = "loginUsuario", nullable = false)
-    private String loginUsuario;
-
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "id_sede", nullable = false)
-    private SedeEntity sedeEntity;
-
-    @Column(name = "dias", nullable = false)
-    private int dias;
-
-    @Column(name = "fechaNacimiento_compra", nullable = false)
-    private LocalDate fechaNacimiento;
-
-    @Column(name = "total_compra", nullable = false)
-    private BigDecimal total;
-
-    @Column(name = "igv_compra", nullable = false)
-    private BigDecimal igv;
-
-    @Column(name = "subtotal_compra", nullable = false)
-    private BigDecimal subtotal;
-
-    @Column(name = "pendiente_compra", nullable = false)
-    private int pendiente;
+    private String observacion;
 
     @Column(name = "estado_compra", nullable = false)
-    private String estado;
+    private Integer estado;
 
     @OneToMany(mappedBy = "compraEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CompraDetalleEntity> detalle;
