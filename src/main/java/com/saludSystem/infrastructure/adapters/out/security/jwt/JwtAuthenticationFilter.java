@@ -26,7 +26,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-    	final String authorizationHeader = request.getHeader("Authorization");
+
+        // Verificar si es una solicitud OAuth2
+        if (request.getRequestURI().startsWith("/login/oauth2/")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        final String authorizationHeader = request.getHeader("Authorization");
 
         String username = null;
         String jwt = null;

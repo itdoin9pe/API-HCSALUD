@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -82,6 +84,20 @@ public class AuthService {
     }
 
     public UserEntity getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication instanceof OAuth2AuthenticationToken) {
+            OAuth2User oAuth2User = ((OAuth2AuthenticationToken) authentication).getPrincipal();
+            String email = (String) oAuth2User.getAttributes().get("email");
+            return userService.findEntityByEmail(email);
+        } else {
+            // Tu lógica existente para JWT
+            String email = authentication.getName();
+            return userService.findEntityByEmail(email);
+        }
+    }
+    /*
+    public UserEntity getCurrentUser() {
         // Obtiene el Authentication del contexto de seguridad
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -94,8 +110,7 @@ public class AuthService {
 
         // Busca el usuario en la BD usando tu UserService
         return userService.findEntityByEmail(email);
-    }
-
+    }*/
 
     public void invalidateToken(String token) {
         invalidTokens.add(token);

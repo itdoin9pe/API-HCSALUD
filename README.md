@@ -28,7 +28,7 @@ src/
 │   │   ├── services/     # Servicios de negocio
 │   │   ├── SysSaludApplication.java
 │   ├── resources/
-│   │   ├── application.properties # Configuración de la API
+│   │   ├── application.yml # Configuración de la API
 ├── test/java/com/saludSystem/
 ├── Dockerfile
 ├── pom.xml

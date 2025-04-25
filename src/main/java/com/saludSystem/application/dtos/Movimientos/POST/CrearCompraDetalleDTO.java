@@ -1,4 +1,4 @@
-package com.saludSystem.application.dtos.Movimientos.GET;
+package com.saludSystem.application.dtos.Movimientos.POST;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -7,10 +7,8 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
-public class CompraDetalleDTO {
+public class CrearCompraDetalleDTO {
 
-    private UUID compraDetalleId;
-    private UUID compraId;
     private UUID productoId;
 
     @Schema(example = "0")

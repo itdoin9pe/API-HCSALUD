@@ -1,5 +1,6 @@
 package com.saludSystem.infrastructure.adapters.out.config;
 
+import com.saludSystem.application.services.Configuracion.CustomOAuth2UserService;
 import com.saludSystem.application.services.Configuracion.UserService;
 import com.saludSystem.infrastructure.adapters.out.security.jwt.JwtAuthenticationFilter;
 import com.saludSystem.infrastructure.adapters.out.security.jwt.JwtEntryPoint;
@@ -42,6 +43,28 @@ public class SecurityConfig {
   }
 
   @Bean
+  protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+            .cors(Customizer.withDefaults())
+            .csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                    .requestMatchers("/", "/saludo", "/api/login", "/login/oauth2/**").permitAll()
+                    .anyRequest().authenticated())
+            .oauth2Login(oauth2 -> oauth2
+                    .defaultSuccessUrl("/login-success", true)
+                    .userInfoEndpoint(userInfo -> userInfo
+                            .userService(customOAuth2UserService())))
+            .httpBasic(Customizer.withDefaults())
+            .exceptionHandling(exception -> exception
+                    .authenticationEntryPoint(jwtEntryPoint()))
+            .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
+    return http.build();
+  }
+
+  /*
+  @Bean
   protected SecurityFilterChain filterChain(HttpSecurity http)
       throws Exception {
     http.cors(Customizer.withDefaults())
@@ -61,6 +84,11 @@ public class SecurityConfig {
                          UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
+  }*/
+
+  @Bean
+  public CustomOAuth2UserService customOAuth2UserService() {
+    return new CustomOAuth2UserService();
   }
 
   @Bean

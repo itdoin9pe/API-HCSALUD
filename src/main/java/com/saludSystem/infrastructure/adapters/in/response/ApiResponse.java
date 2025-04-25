@@ -5,6 +5,7 @@ import lombok.Getter;
 public class ApiResponse {
 
     private boolean isSuccess;
+
     @Getter
     private String message;
 

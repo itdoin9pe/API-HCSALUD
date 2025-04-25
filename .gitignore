@@ -35,4 +35,6 @@ build/
 .vscode/
 
 ### environment
+application.properties*
+*.bk
 .env
