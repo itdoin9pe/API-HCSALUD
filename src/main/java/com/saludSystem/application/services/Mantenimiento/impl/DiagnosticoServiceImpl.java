@@ -16,7 +16,7 @@ import com.saludSystem.application.dtos.Mantenimiento.POST.CrearDiagnosticoDTO;
 import com.saludSystem.application.dtos.Mantenimiento.GET.DiagnosticoDTO;
 import com.saludSystem.domain.model.Mantenimiento.DiagnosticoEntity;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Mantenimiento.DiagnosticoRepository;
-import com.saludSystem.infrastructure.adapters.out.persistance.PacienteRepository;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.PacienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

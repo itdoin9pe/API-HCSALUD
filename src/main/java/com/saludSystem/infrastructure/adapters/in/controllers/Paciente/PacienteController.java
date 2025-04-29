@@ -1,16 +1,16 @@
-package com.saludSystem.infrastructure.adapters.in.controllers;
+package com.saludSystem.infrastructure.adapters.in.controllers.Paciente;
 
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.security.util.FileStorageService;
-import com.saludSystem.application.dtos.Paciente.ActualizarPacienteDTO;
-import com.saludSystem.application.dtos.Paciente.CrearPacienteDTO;
-import com.saludSystem.application.dtos.Paciente.PacienteDTO;
+import com.saludSystem.application.dtos.Paciente.PUT.ActualizarPacienteDTO;
+import com.saludSystem.application.dtos.Paciente.POST.CrearPacienteDTO;
+import com.saludSystem.application.dtos.Paciente.GET.PacienteDTO;
 import com.saludSystem.application.services.Paciente.PacienteService;
 
-import com.saludSystem.domain.model.Principal.PacienteEntity;
-import com.saludSystem.infrastructure.adapters.in.response.Principal.PacienteResponse;
-import com.saludSystem.infrastructure.adapters.out.persistance.PacienteRepository;
+import com.saludSystem.domain.model.Paciente.PacienteEntity;
+import com.saludSystem.infrastructure.adapters.in.response.Paciente.PacienteResponse;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.PacienteRepository;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

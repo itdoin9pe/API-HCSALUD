@@ -1,6 +1,6 @@
-package com.saludSystem.infrastructure.adapters.in.response.Principal;
+package com.saludSystem.infrastructure.adapters.in.response.Paciente;
 
-import com.saludSystem.application.dtos.Paciente.PacienteDTO;
+import com.saludSystem.application.dtos.Paciente.GET.PacienteDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

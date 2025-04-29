@@ -2,6 +2,8 @@ package com.saludSystem.application.services.Configuracion;
 
 import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.infrastructure.adapters.out.security.jwt.JwtUtil;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
@@ -34,7 +37,6 @@ public class AuthService {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
-    //public Map<String, String> authenticate(String username, String password) {
     public Map<String, Object> authenticate(String username, String password) {
         try {
             AuthenticationManager authenticationManager = authenticationManagerBuilder.getObject();
@@ -46,7 +48,6 @@ public class AuthService {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String jwt = jwtUtil.generateToken(authentication);
             String refreshToken = jwtUtil.generateRefreshToken(userDetails);
-            //Map<String, String> tokens = new HashMap<>();
             Map<String,Object> tokens = new HashMap<>();
             tokens.put("access_token", jwt);
             tokens.put("refresh_token", refreshToken);
@@ -58,28 +59,51 @@ public class AuthService {
         }
     }
 
-    //public Map<String, String> refreshToken(String refreshToken) {
     public Map<String, Object> refreshToken(String refreshToken) {
         try {
+            // 1. Verificar si el token está invalidado
+            if (isTokenInvalid(refreshToken)) {
+                throw new TokenInvalidatedException("Refresh token has been invalidated");
+            }
+
+            // 2. Extraer username y validar
             String username = jwtUtil.extractUsername(refreshToken);
+            if (username == null) {
+                throw new InvalidTokenException("Invalid refresh token: no username");
+            }
+
+            // 3. Cargar UserDetails
             UserDetails userDetails = userService.loadUserByUsername(username);
 
-            if (jwtUtil.validateToken(refreshToken, userDetails)) {
-                String newAccessToken = jwtUtil.generateToken
-                        (new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()));
-                String newRefreshToken = jwtUtil.generateRefreshToken(userDetails);
-
-                //Map<String, String> tokens = new HashMap<>();
-                Map<String, Object> tokens = new HashMap<>();
-                tokens.put("access_token", newAccessToken);
-                tokens.put("refresh_token", newRefreshToken);
-                tokens.put("expires_in", jwtUtil.getAccessTokenExpirationInSeconds());
-                return tokens;
-            } else {
-                throw new RuntimeException("Invalid refresh token");
+            // 4. Validar token
+            if (!jwtUtil.validateToken(refreshToken, userDetails)) {
+                throw new InvalidTokenException("Invalid refresh token: validation failed");
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Could not refresh token: " + e.getMessage());
+
+            // 5. Invalidar el refresh token anterior (rotación)
+            invalidateToken(refreshToken);
+
+            // 6. Generar nuevos tokens
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    userDetails, null, userDetails.getAuthorities());
+
+            String newAccessToken = jwtUtil.generateToken(authentication);
+            String newRefreshToken = jwtUtil.generateRefreshToken(userDetails);
+
+            // 7. Retornar nuevos tokens
+            Map<String, Object> tokens = new HashMap<>();
+            tokens.put("access_token", newAccessToken);
+            tokens.put("refresh_token", newRefreshToken);
+            tokens.put("expires_in", jwtUtil.getAccessTokenExpirationInSeconds());
+
+            return tokens;
+
+        } catch (ExpiredJwtException ex) {
+            throw new TokenExpiredException("Refresh token expired");
+        } catch (JwtException | IllegalArgumentException ex) {
+            throw new InvalidTokenException("Invalid refresh token");
+        } catch (UsernameNotFoundException ex) {
+            throw new UserNotFoundException("User not found");
         }
     }
 
@@ -118,6 +142,30 @@ public class AuthService {
 
     public boolean isTokenInvalid(String token) {
         return invalidTokens.contains(token);
+    }
+
+    public class TokenInvalidatedException extends RuntimeException {
+        public TokenInvalidatedException(String message) {
+            super(message);
+        }
+    }
+
+    public class InvalidTokenException extends RuntimeException {
+        public InvalidTokenException(String message) {
+            super(message);
+        }
+    }
+
+    public class TokenExpiredException extends RuntimeException {
+        public TokenExpiredException(String message) {
+            super(message);
+        }
+    }
+
+    public class UserNotFoundException extends RuntimeException {
+        public UserNotFoundException(String message) {
+            super(message);
+        }
     }
 
 }

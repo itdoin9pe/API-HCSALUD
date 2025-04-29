@@ -23,19 +23,12 @@ public class AuthController {
   private final UsuarioService usuarioService;
 
   @Autowired
-  public AuthController(AuthService authService,
-                        UsuarioService usuarioService) {
+  public AuthController(AuthService authService, UsuarioService usuarioService) {
     this.usuarioService = usuarioService;
     this.authService = authService;
   }
 
-  @GetMapping("/saludo")
-  public String saludo() {
-    return "Saludos REST";
-  }
-
   @PostMapping("/login")
-  //public ResponseEntity<Map<String, String>> login
   public ResponseEntity<Map<String, Object>> login
           (@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
@@ -44,7 +37,6 @@ public class AuthController {
     }
 
     try {
-      //Map<String, String> tokens = authService.authenticate
       Map<String, Object> tokens = authService.authenticate(
                       loginUserDto.getEmail(), loginUserDto.getPassword());
       return ResponseEntity.ok(tokens);
@@ -77,21 +69,34 @@ public class AuthController {
   }
 
   @PostMapping("/refresh-token")
-  //public ResponseEntity<Map<String, String>>
-  public ResponseEntity<Map<String, Object>>
-  refreshToken(@RequestBody Map<String, String> requestBody) {
+  public ResponseEntity<Map<String, Object>> refreshToken(@RequestBody Map<String, String> requestBody) {
     try {
       String refreshToken = requestBody.get("refreshToken");
-      if (refreshToken == null) {
-        return ResponseEntity.badRequest().body(
-            Map.of("error", "refreshToken is required"));
+      if (refreshToken == null || refreshToken.isBlank()) {
+        return ResponseEntity.badRequest()
+                .body(Map.of("error", "Refresh token is required", "code", "RT001"));
       }
-      //Map<String, String> tokens = authService.refreshToken(refreshToken);
+
       Map<String, Object> tokens = authService.refreshToken(refreshToken);
       return ResponseEntity.ok(tokens);
-    } catch (RuntimeException e) {
-      return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+
+    } catch (AuthService.TokenInvalidatedException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+              .body(Map.of("error", e.getMessage(), "code", "RT002"));
+    } catch (AuthService.TokenExpiredException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+              .body(Map.of("error", e.getMessage(), "code", "RT003"));
+    } catch (AuthService.InvalidTokenException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+              .body(Map.of("error", e.getMessage(), "code", "RT004"));
+    } catch (AuthService.UserNotFoundException e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+              .body(Map.of("error", e.getMessage(), "code", "RT005"));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body(Map.of("error", "Internal server error", "code", "RT500"));
     }
+
   }
 
   @GetMapping("/check-auth")
@@ -121,4 +126,5 @@ public class AuthController {
     authService.invalidateToken(jwt);
     return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
   }
+
 }

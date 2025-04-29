@@ -1,5 +1,6 @@
-package com.saludSystem.application.services.Paciente;
+package com.saludSystem.application.services.Paciente.impl;
 
+import com.saludSystem.application.services.Paciente.PacienteService;
 import com.saludSystem.domain.model.Configuracion.SedeEntity;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SedeRepository;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
@@ -21,11 +22,11 @@ import com.saludSystem.infrastructure.adapters.out.persistance.repository.Princi
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
-import com.saludSystem.application.dtos.Paciente.ActualizarPacienteDTO;
-import com.saludSystem.application.dtos.Paciente.CrearPacienteDTO;
-import com.saludSystem.application.dtos.Paciente.PacienteDTO;
-import com.saludSystem.domain.model.Principal.PacienteEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.PacienteRepository;
+import com.saludSystem.application.dtos.Paciente.PUT.ActualizarPacienteDTO;
+import com.saludSystem.application.dtos.Paciente.POST.CrearPacienteDTO;
+import com.saludSystem.application.dtos.Paciente.GET.PacienteDTO;
+import com.saludSystem.domain.model.Paciente.PacienteEntity;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.PacienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

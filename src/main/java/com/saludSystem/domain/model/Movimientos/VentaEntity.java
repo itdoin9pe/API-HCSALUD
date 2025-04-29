@@ -5,7 +5,7 @@ import com.saludSystem.domain.model.Configuracion.TipoDocumentoEntity;
 import com.saludSystem.domain.model.Mantenimiento.MonedaEntity;
 import com.saludSystem.domain.model.Mantenimiento.TipoPagoEntity;
 import com.saludSystem.domain.model.Mantenimiento.TipoTarjetaEntity;
-import com.saludSystem.domain.model.Principal.PacienteEntity;
+import com.saludSystem.domain.model.Paciente.PacienteEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

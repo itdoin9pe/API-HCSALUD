@@ -1,4 +1,4 @@
-package com.saludSystem.application.dtos.Paciente;
+package com.saludSystem.application.dtos.Paciente.PUT;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
@@ -11,7 +11,11 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
-public class PacienteDTO {
+public class ActualizarPacienteDTO {
+
+    private UUID hospitalId;
+
+    private UUID userId;
 
     private UUID pacienteId;
 

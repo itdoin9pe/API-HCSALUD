@@ -2,10 +2,10 @@ package com.saludSystem.application.services.Paciente;
 
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.application.dtos.Paciente.ActualizarPacienteDTO;
-import com.saludSystem.application.dtos.Paciente.CrearPacienteDTO;
-import com.saludSystem.application.dtos.Paciente.PacienteDTO;
-import com.saludSystem.domain.model.Principal.PacienteEntity;
+import com.saludSystem.application.dtos.Paciente.PUT.ActualizarPacienteDTO;
+import com.saludSystem.application.dtos.Paciente.POST.CrearPacienteDTO;
+import com.saludSystem.application.dtos.Paciente.GET.PacienteDTO;
+import com.saludSystem.domain.model.Paciente.PacienteEntity;
 
 import java.util.List;
 import java.util.Optional;
