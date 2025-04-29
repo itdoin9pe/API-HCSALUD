@@ -49,7 +49,7 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
-                    .requestMatchers("/", "/saludo", "/api/login", "/login/oauth2/**").permitAll()
+                    .requestMatchers("/", "/saludo", "/api/login","/api/refresh-token", "/login/oauth2/**").permitAll()
                     .anyRequest().authenticated())
             .oauth2Login(oauth2 -> oauth2
                     .defaultSuccessUrl("/login-success", true)
