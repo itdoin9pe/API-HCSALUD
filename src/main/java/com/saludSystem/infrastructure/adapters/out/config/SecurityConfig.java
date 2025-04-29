@@ -32,8 +32,7 @@ public class SecurityConfig {
   }
 
   @Bean
-  public AuthenticationManager authManager(HttpSecurity http,
-                                           PasswordEncoder passwordEncoder)
+  public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder)
       throws Exception {
     AuthenticationManagerBuilder authenticationManagerBuilder =
         http.getSharedObject(AuthenticationManagerBuilder.class);
@@ -49,7 +48,7 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
-                    .requestMatchers("/", "/saludo", "/api/login","/api/refresh-token", "/login/oauth2/**").permitAll()
+                    .requestMatchers("/", "/api/login","/api/refresh-token", "/login/oauth2/**").permitAll()
                     .anyRequest().authenticated())
             .oauth2Login(oauth2 -> oauth2
                     .defaultSuccessUrl("/login-success", true)
@@ -106,17 +105,4 @@ public class SecurityConfig {
     return new BCryptPasswordEncoder();
   }
 
-  @Bean
-  CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(List.of("https://re-frontend-cli.vercel.app", "http://localhost:4200"));
-    configuration.setAllowedMethods(
-        List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-    configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-    configuration.setAllowCredentials(true);
-    UrlBasedCorsConfigurationSource source =
-        new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
-    return source;
-  }
 }
