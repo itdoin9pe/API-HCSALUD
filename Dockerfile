@@ -3,11 +3,10 @@ WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
 COPY src ./src
-RUN mvn package -DskipTests
+RUN mvn package -DskipTests && cp target/sysSalud-*.jar app.jar
 
-FROM eclipse-temurin:17-jre-jammy
+FROM gcr.io/distroless/java17-debian11
 WORKDIR /app
-COPY --from=builder /app/target/sysSalud-*.jar app.jar
-RUN mkdir -p /app/uploads
+COPY --from=builder /app/app.jar app.jar
 EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
