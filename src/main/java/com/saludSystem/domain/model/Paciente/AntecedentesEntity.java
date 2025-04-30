@@ -10,7 +10,7 @@ import java.util.UUID;
 @Table(name = "paciente_enfermedades_actuales")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter @Setter @Builder
+@Getter @Setter
 public class AntecedentesEntity extends BaseEntity {
 
     @Id

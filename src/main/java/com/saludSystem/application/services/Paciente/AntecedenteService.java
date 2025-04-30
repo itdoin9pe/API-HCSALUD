@@ -5,8 +5,6 @@ import com.saludSystem.application.dtos.Paciente.POST.CrearAntecedenteDTO;
 import com.saludSystem.application.dtos.Paciente.PUT.ActualizarAntecedenteDTO;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-
-import java.util.List;
 import java.util.UUID;
 
 public interface AntecedenteService {
