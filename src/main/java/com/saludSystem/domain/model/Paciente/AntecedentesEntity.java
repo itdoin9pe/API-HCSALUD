@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "paciente_enfermedades_actuales")
+@Table(name = "pacientes_enfermedades_actuales")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
