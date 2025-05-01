@@ -20,6 +20,7 @@ jwt:
 
 server:
   port: 8081
+  address: ${SERVER_IP}
 
 file:
   upload-dir: ./uploads/
