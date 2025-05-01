@@ -1,7 +1,6 @@
 package com.saludSystem.application.services.Paciente.impl;
 
 import com.saludSystem.application.dtos.Paciente.GET.AnalisisFacialDTO;
-import com.saludSystem.application.dtos.Paciente.GET.AnalisisGeneralDTO;
 import com.saludSystem.application.dtos.Paciente.POST.CrearAnalisisFacialDTO;
 import com.saludSystem.application.dtos.Paciente.PUT.ActualizarAnalisisFacialDTO;
 import com.saludSystem.application.services.Paciente.AnalisisFacialService;
@@ -9,7 +8,6 @@ import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
 import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.domain.model.Paciente.AnalisisFacialEntity;
-import com.saludSystem.domain.model.Paciente.AnalisisGeneralEntity;
 import com.saludSystem.domain.model.Paciente.PacienteEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
@@ -25,7 +23,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -138,7 +135,6 @@ public class AnalisisFacialServiceImpl implements AnalisisFacialService {
         return new ApiResponse(true, "Análisis facial actualizado correctamente");
     }
 
-
     @Override
     public ListResponse<AnalisisFacialDTO> getAllAnalisisFacial(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
@@ -154,8 +150,18 @@ public class AnalisisFacialServiceImpl implements AnalisisFacialService {
         return convertToDTO(analisisFacialEntity);
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse deleteAnalisisFacial(UUID pacienteAnalisisFacialId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+        if (!"ADMINISTRADOR".equals(user.getRol().getNombre())) {
+            throw new RuntimeException("No tienes permisos para realizar esta acción");
+        }
         analisisFacialRepository.deleteById(pacienteAnalisisFacialId);
         return new ApiResponse(true, "Analisis facial eliminado corectamente");
     }

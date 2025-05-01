@@ -5,6 +5,7 @@ import java.util.UUID;
 
 @Data
 public class AnalisisFacialDTO {
+
     private UUID pacienteAnalisisFacialId;
     private UUID pacienteId;
     private String tipoFacial;
@@ -33,4 +34,5 @@ public class AnalisisFacialDTO {
     private String protusion2Mandibular;
     private String retrusion2Maxilar;
     private String caraCorta;
+
 }

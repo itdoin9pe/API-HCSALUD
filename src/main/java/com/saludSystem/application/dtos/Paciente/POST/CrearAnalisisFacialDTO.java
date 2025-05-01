@@ -1,11 +1,11 @@
 package com.saludSystem.application.dtos.Paciente.POST;
 
 import lombok.Data;
-
 import java.util.UUID;
 
 @Data
 public class CrearAnalisisFacialDTO {
+
     private UUID hospitalId;
     private UUID userId;
     private UUID pacienteAnalisisFacialId;
@@ -36,4 +36,5 @@ public class CrearAnalisisFacialDTO {
     private String protusion2Mandibular;
     private String retrusion2Maxilar;
     private String caraCorta;
+
 }

@@ -1,23 +1,18 @@
 package com.saludSystem.infrastructure.adapters.in.controllers.Paciente;
 
 import com.saludSystem.application.dtos.Paciente.GET.AnalisisFacialDTO;
-import com.saludSystem.application.dtos.Paciente.GET.AnalisisGeneralDTO;
 import com.saludSystem.application.dtos.Paciente.POST.CrearAnalisisFacialDTO;
-import com.saludSystem.application.dtos.Paciente.POST.CrearAnalisisGeneralDTO;
 import com.saludSystem.application.dtos.Paciente.PUT.ActualizarAnalisisFacialDTO;
-import com.saludSystem.application.dtos.Paciente.PUT.ActualizarAnalisisGeneralDTO;
 import com.saludSystem.application.services.Paciente.AnalisisFacialService;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.in.response.Paciente.AnalisisFacialResponse;
-import com.saludSystem.infrastructure.adapters.in.response.Paciente.AnalisisGeneralResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.UUID;
 
 @Tag(name = "PacientesAnalisisFaciales")
