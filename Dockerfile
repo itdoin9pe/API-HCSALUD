@@ -1,12 +1,14 @@
 FROM maven:3.8.6-eclipse-temurin-17 AS builder
 WORKDIR /app
 COPY pom.xml .
-RUN mvn dependency:go-offline -B
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn dependency:go-offline
 COPY src ./src
-RUN mvn package -DskipTests && cp target/sysSalud-*.jar app.jar
-
-FROM gcr.io/distroless/java17-debian11
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn clean package -DskipTests
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
-COPY --from=builder /app/app.jar app.jar
+COPY --from=builder /app/target/sysSalud-*.jar app.jar
+RUN mkdir -p /app/uploads
 EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
