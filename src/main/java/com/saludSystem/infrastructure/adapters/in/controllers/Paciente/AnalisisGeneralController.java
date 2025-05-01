@@ -6,6 +6,7 @@ import com.saludSystem.application.dtos.Paciente.PUT.ActualizarAnalisisGeneralDT
 import com.saludSystem.application.services.Paciente.AnalisisGeneralService;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
+import com.saludSystem.infrastructure.adapters.in.response.Paciente.AnalisisGeneralResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -35,7 +36,7 @@ public class AnalisisGeneralController {
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AnalisisGeneralDTO.class)))
+                            schema = @Schema(implementation = AnalisisGeneralResponse.class)))
     })
     public ListResponse<AnalisisGeneralDTO> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
