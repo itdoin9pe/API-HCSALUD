@@ -1,6 +1,6 @@
 package com.saludSystem.domain.model.Configuracion;
 
-import com.saludSystem.domain.model.Principal.MenuEntity;
+import com.saludSystem.domain.model.MenuEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

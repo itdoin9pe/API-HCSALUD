@@ -1,6 +1,6 @@
 package com.saludSystem.infrastructure.adapters.out.persistance;
 
-import com.saludSystem.domain.model.Principal.DoctorEntity;
+import com.saludSystem.domain.model.Medico.DoctorEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

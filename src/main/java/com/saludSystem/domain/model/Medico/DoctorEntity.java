@@ -1,4 +1,4 @@
-package com.saludSystem.domain.model.Principal;
+package com.saludSystem.domain.model.Medico;
 
 import com.saludSystem.domain.model.BaseEntity;
 import com.saludSystem.domain.model.Catalogo.EspecialidadEntity;

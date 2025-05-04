@@ -1,4 +1,4 @@
-package com.saludSystem.domain.model.Principal;
+package com.saludSystem.domain.model;
 
 import com.saludSystem.domain.model.Configuracion.PermisoEntity;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;

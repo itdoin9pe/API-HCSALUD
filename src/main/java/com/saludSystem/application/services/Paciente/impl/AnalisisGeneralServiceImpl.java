@@ -1,7 +1,6 @@
 package com.saludSystem.application.services.Paciente.impl;
 
 import com.saludSystem.application.dtos.Paciente.GET.AnalisisGeneralDTO;
-import com.saludSystem.application.dtos.Paciente.GET.AntecedenteDTO;
 import com.saludSystem.application.dtos.Paciente.POST.CrearAnalisisGeneralDTO;
 import com.saludSystem.application.dtos.Paciente.PUT.ActualizarAnalisisGeneralDTO;
 import com.saludSystem.application.services.Paciente.AnalisisGeneralService;
@@ -10,8 +9,7 @@ import com.saludSystem.domain.model.Catalogo.EspecialidadEntity;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
 import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.domain.model.Paciente.AnalisisGeneralEntity;
-import com.saludSystem.domain.model.Paciente.AntecedentesEntity;
-import com.saludSystem.domain.model.Principal.DoctorEntity;
+import com.saludSystem.domain.model.Medico.DoctorEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.DoctorRepository;

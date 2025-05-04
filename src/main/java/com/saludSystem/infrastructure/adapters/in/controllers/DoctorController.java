@@ -4,7 +4,7 @@ import com.saludSystem.application.dtos.Medico.ActualizarDoctorDTO;
 import com.saludSystem.application.dtos.Medico.CrearDoctorDTO;
 import com.saludSystem.application.dtos.Medico.DoctorDTO;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
-import com.saludSystem.domain.model.Principal.DoctorEntity;
+import com.saludSystem.domain.model.Medico.DoctorEntity;
 import com.saludSystem.infrastructure.adapters.in.response.Principal.DoctorResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.DoctorRepository;

@@ -14,7 +14,7 @@ import com.saludSystem.infrastructure.adapters.out.persistance.repository.Config
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Principal.MenuRepository;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.domain.model.Principal.MenuEntity;
+import com.saludSystem.domain.model.MenuEntity;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;

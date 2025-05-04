@@ -1,6 +1,6 @@
 package com.saludSystem.infrastructure.adapters.out.persistance.repository.Principal;
 
-import com.saludSystem.domain.model.Principal.MenuEntity;
+import com.saludSystem.domain.model.MenuEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
