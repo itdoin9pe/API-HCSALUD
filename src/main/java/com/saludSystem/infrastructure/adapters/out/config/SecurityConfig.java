@@ -41,6 +41,7 @@ public class SecurityConfig {
     return authenticationManagerBuilder.build();
   }
 
+  /*
   @Bean
   protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
@@ -60,9 +61,8 @@ public class SecurityConfig {
             .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
-  }
+  }*/
 
-  /*
   @Bean
   protected SecurityFilterChain filterChain(HttpSecurity http)
       throws Exception {
@@ -83,7 +83,7 @@ public class SecurityConfig {
                          UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
-  }*/
+  }
 
   @Bean
   public CustomOAuth2UserService customOAuth2UserService() {

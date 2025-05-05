@@ -3,4 +3,4 @@ spring:
     name: sysSalud
 
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:local}  # Por defecto "local" si no se define
+    active: ${SPRING_PROFILES_ACTIVE_LOCAL}

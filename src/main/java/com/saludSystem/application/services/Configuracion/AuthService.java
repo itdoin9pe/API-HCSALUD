@@ -107,6 +107,7 @@ public class AuthService {
         }
     }
 
+    /*
     public UserEntity getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -119,8 +120,8 @@ public class AuthService {
             String email = authentication.getName();
             return userService.findEntityByEmail(email);
         }
-    }
-    /*
+    }*/
+
     public UserEntity getCurrentUser() {
         // Obtiene el Authentication del contexto de seguridad
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -134,7 +135,7 @@ public class AuthService {
 
         // Busca el usuario en la BD usando tu UserService
         return userService.findEntityByEmail(email);
-    }*/
+    }
 
     public void invalidateToken(String token) {
         invalidTokens.add(token);
