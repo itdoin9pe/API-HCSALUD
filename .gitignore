@@ -41,5 +41,4 @@ application.properties*
 .env.prod
 
 ### Spring profiles ###
-src/main/resources/application-local.yml
 src/main/resources/application-prod.yml

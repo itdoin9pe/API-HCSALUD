@@ -2,5 +2,39 @@ spring:
   application:
     name: sysSalud
 
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE_LOCAL}
+  output:
+    ansi:
+      enabled: always
+
+    datasource:
+      url: ${DB_URL}
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+      open-in-view: false
+
+  server:
+    port: 8081
+    address: ${SECRET_IP}
+
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration: ${JWT_EXPIRATION}
+    refresh:
+      expiration: ${JWT_REFRESH_EXPIRATION}
+
+  file:
+    upload-dir: ./uploads/
+
+  springdoc:
+    api-docs:
+      enabled: true
+    swagger-ui:
+      enabled: true
+      tags-sorter: alpha
+      operations-sorter: method
