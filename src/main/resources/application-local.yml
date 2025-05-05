@@ -1,10 +1,4 @@
 spring:
-  application:
-    name: sysSalud
-
-  profiles:
-    active: prod
-
   output:
     ansi:
       enabled: always
@@ -32,7 +26,7 @@ jwt:
     expiration: ${JWT_REFRESH_EXPIRATION}
 
 file:
-  upload-dir: ${FILE_UPLOAD_DIR}
+  upload-dir: ./uploads/
 
 springdoc:
   api-docs:
@@ -41,3 +35,4 @@ springdoc:
     enabled: true
     tags-sorter: alpha
     operations-sorter: method
+
