@@ -10,4 +10,4 @@ bin/
 build/
 dist/
 node_modules/
-.env
+.env.local

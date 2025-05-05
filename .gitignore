@@ -37,4 +37,9 @@ build/
 ### environment ###
 application.properties*
 *.bk
-.env
+.env.local
+.env.prod
+
+### Spring profiles ###
+src/main/resources/application-local.yml
+src/main/resources/application-prod.yml

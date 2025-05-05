@@ -2,43 +2,5 @@ spring:
   application:
     name: sysSalud
 
-  output:
-    ansi:
-      enabled: always
-
-  datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    open-in-view: false
-
-jwt:
-  secret: ${JWT_SECRET}
-  expiration: ${JWT_EXPIRATION}
-  refresh:
-    expiration: ${JWT_REFRESH_EXPIRATION}
-
-server:
-  port: 8081
-
-file:
-  upload-dir: ./uploads/
-
-springdoc:
-  api-docs:
-    enabled: true
-  swagger-ui:
-    enabled: true
-    tags-sorter: alpha
-    operations-sorter: method
-
-okta:
-  oauth2:
-    issuer: https://dev-k4z106l5dlsroi2o.us.auth0.com/
-    client-id: QBeoRRSETquQ9QwHCGwo3IIk87sab3Bn
-    client-secret: ${OKTA_CLIENT_SECRET}
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}  # Por defecto "local" si no se define
