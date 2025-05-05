@@ -2,6 +2,9 @@ spring:
   application:
     name: sysSalud
 
+  profiles:
+    active: prod
+
   output:
     ansi:
       enabled: always

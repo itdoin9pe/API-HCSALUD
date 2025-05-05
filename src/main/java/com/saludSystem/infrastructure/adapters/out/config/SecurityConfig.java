@@ -1,10 +1,8 @@
 package com.saludSystem.infrastructure.adapters.out.config;
 
-import com.saludSystem.application.services.Configuracion.CustomOAuth2UserService;
 import com.saludSystem.application.services.Configuracion.UserService;
 import com.saludSystem.infrastructure.adapters.out.security.jwt.JwtAuthenticationFilter;
 import com.saludSystem.infrastructure.adapters.out.security.jwt.JwtEntryPoint;
-import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -85,10 +83,11 @@ public class SecurityConfig {
     return http.build();
   }
 
+  /*
   @Bean
   public CustomOAuth2UserService customOAuth2UserService() {
     return new CustomOAuth2UserService();
-  }
+  }*/
 
   @Bean
   public JwtAuthenticationFilter jwtTokenFilter() {
