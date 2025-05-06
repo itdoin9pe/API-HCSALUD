@@ -68,6 +68,15 @@ public class PacienteEntity extends BaseEntity {
     @JoinColumn(name = "pais_id", nullable = false)
     private PaisEntity paisId;
 
+    @Column(name = "departamento", nullable = false)
+    private String departamento;
+
+    @Column(name = "provincia", nullable = false)
+    private String provincia;
+
+    @Column(name = "distrito", nullable = false)
+    private String distrito;
+
     @Column(name = "ubigeo", nullable = false)
     private String ubigeo;
 

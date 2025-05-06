@@ -41,7 +41,7 @@ public class ConsultaEntity extends BaseEntity {
     private boolean tieneAlergia;
 
     @Column(columnDefinition = "TEXT", name = "paciente_alergia_txt", nullable = true)
-    private String tienteAlergiaTexto;
+    private String tieneAlergiaTexto;
 
     @Column(name = "paciente_toma_medicamente", nullable = false)
     private boolean tomaMedicamento;
