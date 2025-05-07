@@ -19,7 +19,7 @@ public class ExploracionFisicaEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "paciente_exploracion_fisica_id", nullable = false)
-    private UUID pacienteExploracionFisica;
+    private UUID pacienteExploracionId;
 
     @ManyToOne
     @JoinColumn(name = "id_paciente", nullable = false)
