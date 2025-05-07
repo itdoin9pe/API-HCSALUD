@@ -20,7 +20,7 @@ public class PacienteAlergiaEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "paciente_alergia_id", nullable = false)
-    private UUID pacienteAlergias;
+    private UUID pacienteAlergiaId;
 
     @ManyToOne
     @JoinColumn(name = "alergia_id", nullable = false)
