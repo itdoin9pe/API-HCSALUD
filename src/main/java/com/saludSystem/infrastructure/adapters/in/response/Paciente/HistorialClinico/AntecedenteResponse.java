@@ -1,4 +1,4 @@
-package com.saludSystem.infrastructure.adapters.in.response.Paciente;
+package com.saludSystem.infrastructure.adapters.in.response.Paciente.HistorialClinico;
 
 import com.saludSystem.application.dtos.Paciente.GET.AntecedenteDTO;
 import io.swagger.v3.oas.annotations.media.Schema;

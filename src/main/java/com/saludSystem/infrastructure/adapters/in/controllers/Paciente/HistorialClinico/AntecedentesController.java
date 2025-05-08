@@ -1,4 +1,4 @@
-package com.saludSystem.infrastructure.adapters.in.controllers.Paciente;
+package com.saludSystem.infrastructure.adapters.in.controllers.Paciente.HistorialClinico;
 
 import com.saludSystem.application.dtos.Paciente.GET.AntecedenteDTO;
 import com.saludSystem.application.dtos.Paciente.POST.CrearAntecedenteDTO;
@@ -6,7 +6,7 @@ import com.saludSystem.application.dtos.Paciente.PUT.ActualizarAntecedenteDTO;
 import com.saludSystem.application.services.Paciente.AntecedenteService;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.infrastructure.adapters.in.response.Paciente.AntecedenteResponse;
+import com.saludSystem.infrastructure.adapters.in.response.Paciente.HistorialClinico.AntecedenteResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -31,7 +31,7 @@ public class AntecedentesController {
         return antecedenteService.saveAntecedentes(crearAntecedenteDTO);
     }
 
-    @GetMapping("/GetAllEnfermedadActual")
+    @GetMapping("/GetAllPacienteEnfermedadActual")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",

@@ -1,6 +1,6 @@
-package com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente;
+package com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.HistorialClinico;
 
-import com.saludSystem.domain.model.Paciente.AntecedentesEntity;
+import com.saludSystem.domain.model.Paciente.HistorialClinico.AntecedentesEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

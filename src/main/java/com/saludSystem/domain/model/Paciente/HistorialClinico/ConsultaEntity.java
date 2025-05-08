@@ -1,7 +1,8 @@
-package com.saludSystem.domain.model.Paciente;
+package com.saludSystem.domain.model.Paciente.HistorialClinico;
 
 import com.saludSystem.domain.model.BaseEntity;
 import com.saludSystem.domain.model.Catalogo.EspecialidadEntity;
+import com.saludSystem.domain.model.Paciente.PacienteEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

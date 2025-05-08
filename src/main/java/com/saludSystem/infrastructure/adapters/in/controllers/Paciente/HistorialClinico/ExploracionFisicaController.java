@@ -1,4 +1,4 @@
-package com.saludSystem.infrastructure.adapters.in.controllers.Paciente;
+package com.saludSystem.infrastructure.adapters.in.controllers.Paciente.HistorialClinico;
 
 import com.saludSystem.application.dtos.Paciente.GET.ExploracionFisicaDTO;
 import com.saludSystem.application.dtos.Paciente.POST.CrearExploracionFisicaDTO;

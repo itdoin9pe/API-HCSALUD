@@ -1,4 +1,4 @@
-package com.saludSystem.infrastructure.adapters.in.controllers.Paciente;
+package com.saludSystem.infrastructure.adapters.in.controllers.Paciente.HistorialClinico;
 
 import com.saludSystem.application.dtos.Paciente.GET.PacienteAlergiaDTO;
 import com.saludSystem.application.dtos.Paciente.POST.CrearPacienteAlergiaDTO;
@@ -6,7 +6,7 @@ import com.saludSystem.application.dtos.Paciente.PUT.ActualizarPacienteAlergiaDT
 import com.saludSystem.application.services.Paciente.PacienteAlergiaService;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.infrastructure.adapters.in.response.Paciente.PacienteAlergiaResponse;
+import com.saludSystem.infrastructure.adapters.in.response.Paciente.HistorialClinico.PacienteAlergiaResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
