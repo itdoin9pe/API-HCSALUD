@@ -18,13 +18,18 @@ import com.saludSystem.infrastructure.adapters.out.persistance.repository.Config
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.PacienteRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.Tratamiento.ProcedimientoRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProcedimientoServiceImpl implements ProcedimientoService {
@@ -73,7 +78,10 @@ public class ProcedimientoServiceImpl implements ProcedimientoService {
 
     @Override
     public ListResponse<ProcedimientoDTO> getAllProcedimiento(UUID hospitalId, int page, int rows) {
-        return null;
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<ProcedimientoEntity> procedimientoEntityPage = procedimientoRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<ProcedimientoDTO> data = procedimientoEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, procedimientoEntityPage.getTotalElements(), procedimientoEntityPage.getTotalPages(), procedimientoEntityPage.getNumber() + 1);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

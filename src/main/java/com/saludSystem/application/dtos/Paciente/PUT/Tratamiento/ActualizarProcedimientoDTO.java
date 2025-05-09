@@ -2,7 +2,6 @@ package com.saludSystem.application.dtos.Paciente.PUT.Tratamiento;
 
 import com.saludSystem.domain.model.Paciente.Tratamiento.TipoProcedimiento;
 import lombok.Data;
-
 import java.time.LocalDate;
 import java.util.UUID;
 

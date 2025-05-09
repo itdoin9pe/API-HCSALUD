@@ -24,4 +24,5 @@ public enum TipoProcedimiento {
     VACUNACION,         // Administración de vacunas
     CURACION,           // Cuidado de heridas
     SUTURA              // Cierre de herida
+
 }

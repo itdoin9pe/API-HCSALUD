@@ -32,6 +32,7 @@ public class ProcedimientoEntity extends BaseEntity {
     @JoinColumn(name = "id_doctor", nullable = false)
     private DoctorEntity doctorEntity;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_prodedimiento", nullable = false)
     private TipoProcedimiento tipoProcedimiento;
 
