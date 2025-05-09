@@ -5,7 +5,6 @@ import com.saludSystem.application.dtos.Paciente.POST.CrearPlanTratamientoDTO;
 import com.saludSystem.application.dtos.Paciente.PUT.ActualizarPlanTratamientoDTO;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-
 import java.util.UUID;
 
 public interface PlanTratamientoService {
