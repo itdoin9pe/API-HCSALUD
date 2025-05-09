@@ -1,9 +1,9 @@
 package com.saludSystem.infrastructure.adapters.in.controllers.Paciente.Tratamiento;
 
-import com.saludSystem.application.dtos.Paciente.GET.PlanTratamientoDTO;
-import com.saludSystem.application.dtos.Paciente.POST.CrearPlanTratamientoDTO;
-import com.saludSystem.application.dtos.Paciente.PUT.ActualizarPlanTratamientoDTO;
-import com.saludSystem.application.services.Paciente.PlanTratamientoService;
+import com.saludSystem.application.dtos.Paciente.GET.Tratamiento.PlanTratamientoDTO;
+import com.saludSystem.application.dtos.Paciente.POST.Tratamiento.CrearPlanTratamientoDTO;
+import com.saludSystem.application.dtos.Paciente.PUT.Tratamiento.ActualizarPlanTratamientoDTO;
+import com.saludSystem.application.services.Paciente.Tratamiento.PlanTratamientoService;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.in.response.Paciente.Tratamiento.PlanTratamientoResponse;

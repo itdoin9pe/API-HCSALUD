@@ -1,19 +1,19 @@
-package com.saludSystem.application.dtos.Paciente.POST;
+package com.saludSystem.application.dtos.Paciente.PUT.HistorialClinico;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
-public class CrearConsultaDTO {
+public class ActualizarConsultaDTO {
+    private UUID hospitalId;
+    private UUID userId;
     private UUID pacienteConsultaId;
     private UUID pacienteId;
     private UUID especialidadId;
     private String motivoConsulta;
     private String diagnosticoPresuntivo;
-
     @Schema(description = "Valor boolean (true / false)", example = "s")
     private boolean tieneAlergia;
     private String tieneAlergiaTexto;

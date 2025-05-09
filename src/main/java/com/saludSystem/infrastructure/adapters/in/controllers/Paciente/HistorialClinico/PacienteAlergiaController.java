@@ -1,9 +1,9 @@
 package com.saludSystem.infrastructure.adapters.in.controllers.Paciente.HistorialClinico;
 
-import com.saludSystem.application.dtos.Paciente.GET.PacienteAlergiaDTO;
-import com.saludSystem.application.dtos.Paciente.POST.CrearPacienteAlergiaDTO;
-import com.saludSystem.application.dtos.Paciente.PUT.ActualizarPacienteAlergiaDTO;
-import com.saludSystem.application.services.Paciente.PacienteAlergiaService;
+import com.saludSystem.application.dtos.Paciente.GET.HistorialClinico.PacienteAlergiaDTO;
+import com.saludSystem.application.dtos.Paciente.POST.HistorialClinico.CrearPacienteAlergiaDTO;
+import com.saludSystem.application.dtos.Paciente.PUT.HistorialClinico.ActualizarPacienteAlergiaDTO;
+import com.saludSystem.application.services.Paciente.HistorialClinico.PacienteAlergiaService;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.in.response.Paciente.HistorialClinico.PacienteAlergiaResponse;

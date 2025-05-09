@@ -1,9 +1,9 @@
-package com.saludSystem.application.services.Paciente.impl;
+package com.saludSystem.application.services.Paciente.impl.HistorialClinico;
 
-import com.saludSystem.application.dtos.Paciente.GET.AntecedenteDTO;
-import com.saludSystem.application.dtos.Paciente.POST.CrearAntecedenteDTO;
-import com.saludSystem.application.dtos.Paciente.PUT.ActualizarAntecedenteDTO;
-import com.saludSystem.application.services.Paciente.AntecedenteService;
+import com.saludSystem.application.dtos.Paciente.GET.HistorialClinico.AntecedenteDTO;
+import com.saludSystem.application.dtos.Paciente.POST.HistorialClinico.CrearAntecedenteDTO;
+import com.saludSystem.application.dtos.Paciente.PUT.HistorialClinico.ActualizarAntecedenteDTO;
+import com.saludSystem.application.services.Paciente.HistorialClinico.AntecedenteService;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
 import com.saludSystem.domain.model.Configuracion.UserEntity;

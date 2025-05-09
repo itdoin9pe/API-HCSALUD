@@ -1,9 +1,9 @@
-package com.saludSystem.application.services.Paciente.impl;
+package com.saludSystem.application.services.Paciente.impl.HistorialClinico;
 
-import com.saludSystem.application.dtos.Paciente.GET.ExploracionFisicaDTO;
-import com.saludSystem.application.dtos.Paciente.POST.CrearExploracionFisicaDTO;
-import com.saludSystem.application.dtos.Paciente.PUT.ActualizarExploracionFisicaDTO;
-import com.saludSystem.application.services.Paciente.ExploracionFisicaService;
+import com.saludSystem.application.dtos.Paciente.GET.HistorialClinico.ExploracionFisicaDTO;
+import com.saludSystem.application.dtos.Paciente.POST.HistorialClinico.CrearExploracionFisicaDTO;
+import com.saludSystem.application.dtos.Paciente.PUT.HistorialClinico.ActualizarExploracionFisicaDTO;
+import com.saludSystem.application.services.Paciente.HistorialClinico.ExploracionFisicaService;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
 import com.saludSystem.domain.model.Configuracion.UserEntity;

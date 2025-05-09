@@ -1,9 +1,9 @@
-package com.saludSystem.application.services.Paciente.impl;
+package com.saludSystem.application.services.Paciente.impl.Tratamiento;
 
-import com.saludSystem.application.dtos.Paciente.GET.PlanTratamientoDTO;
-import com.saludSystem.application.dtos.Paciente.POST.CrearPlanTratamientoDTO;
-import com.saludSystem.application.dtos.Paciente.PUT.ActualizarPlanTratamientoDTO;
-import com.saludSystem.application.services.Paciente.PlanTratamientoService;
+import com.saludSystem.application.dtos.Paciente.GET.Tratamiento.PlanTratamientoDTO;
+import com.saludSystem.application.dtos.Paciente.POST.Tratamiento.CrearPlanTratamientoDTO;
+import com.saludSystem.application.dtos.Paciente.PUT.Tratamiento.ActualizarPlanTratamientoDTO;
+import com.saludSystem.application.services.Paciente.Tratamiento.PlanTratamientoService;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Catalogo.EspecialidadEntity;
 import com.saludSystem.domain.model.Catalogo.MedidaEntity;

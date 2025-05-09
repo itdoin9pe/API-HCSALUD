@@ -1,8 +1,8 @@
-package com.saludSystem.application.services.Paciente;
+package com.saludSystem.application.services.Paciente.Tratamiento;
 
-import com.saludSystem.application.dtos.Paciente.GET.PlanTratamientoDTO;
-import com.saludSystem.application.dtos.Paciente.POST.CrearPlanTratamientoDTO;
-import com.saludSystem.application.dtos.Paciente.PUT.ActualizarPlanTratamientoDTO;
+import com.saludSystem.application.dtos.Paciente.GET.Tratamiento.PlanTratamientoDTO;
+import com.saludSystem.application.dtos.Paciente.POST.Tratamiento.CrearPlanTratamientoDTO;
+import com.saludSystem.application.dtos.Paciente.PUT.Tratamiento.ActualizarPlanTratamientoDTO;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import java.util.UUID;

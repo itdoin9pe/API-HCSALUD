@@ -1,15 +1,11 @@
-package com.saludSystem.application.dtos.Paciente.PUT;
+package com.saludSystem.application.dtos.Paciente.GET.Tratamiento;
 
 import lombok.Data;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
-public class ActualizarPlanTratamientoDTO {
-
-    private UUID hospitalId;
-
-    private UUID userId;
+public class PlanTratamientoDTO {
 
     private UUID pacientePlanTratamientoId;
 

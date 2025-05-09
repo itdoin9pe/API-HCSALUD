@@ -1,9 +1,9 @@
 package com.saludSystem.infrastructure.adapters.in.controllers.Paciente.HistorialClinico;
 
-import com.saludSystem.application.dtos.Paciente.GET.AntecedenteDTO;
-import com.saludSystem.application.dtos.Paciente.POST.CrearAntecedenteDTO;
-import com.saludSystem.application.dtos.Paciente.PUT.ActualizarAntecedenteDTO;
-import com.saludSystem.application.services.Paciente.AntecedenteService;
+import com.saludSystem.application.dtos.Paciente.GET.HistorialClinico.AntecedenteDTO;
+import com.saludSystem.application.dtos.Paciente.POST.HistorialClinico.CrearAntecedenteDTO;
+import com.saludSystem.application.dtos.Paciente.PUT.HistorialClinico.ActualizarAntecedenteDTO;
+import com.saludSystem.application.services.Paciente.HistorialClinico.AntecedenteService;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.in.response.Paciente.HistorialClinico.AntecedenteResponse;

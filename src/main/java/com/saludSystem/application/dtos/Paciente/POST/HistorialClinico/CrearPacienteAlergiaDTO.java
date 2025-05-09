@@ -1,13 +1,11 @@
-package com.saludSystem.application.dtos.Paciente.GET;
+package com.saludSystem.application.dtos.Paciente.POST.HistorialClinico;
 
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
-public class PacienteAlergiaDTO {
-
-    private UUID pacienteAlergiaId;
+public class CrearPacienteAlergiaDTO {
 
     private UUID alergiaId;
 

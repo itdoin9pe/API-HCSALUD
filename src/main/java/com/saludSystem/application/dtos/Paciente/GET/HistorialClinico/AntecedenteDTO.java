@@ -1,4 +1,4 @@
-package com.saludSystem.application.dtos.Paciente.GET;
+package com.saludSystem.application.dtos.Paciente.GET.HistorialClinico;
 
 import lombok.Data;
 import java.util.UUID;

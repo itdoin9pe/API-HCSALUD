@@ -1,8 +1,8 @@
-package com.saludSystem.application.services.Paciente;
+package com.saludSystem.application.services.Paciente.HistorialClinico;
 
-import com.saludSystem.application.dtos.Paciente.GET.ConsultaDTO;
-import com.saludSystem.application.dtos.Paciente.POST.CrearConsultaDTO;
-import com.saludSystem.application.dtos.Paciente.PUT.ActualizarConsultaDTO;
+import com.saludSystem.application.dtos.Paciente.GET.HistorialClinico.ConsultaDTO;
+import com.saludSystem.application.dtos.Paciente.POST.HistorialClinico.CrearConsultaDTO;
+import com.saludSystem.application.dtos.Paciente.PUT.HistorialClinico.ActualizarConsultaDTO;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 

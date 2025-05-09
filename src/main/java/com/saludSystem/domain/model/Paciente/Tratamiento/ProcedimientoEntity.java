@@ -1,7 +1,6 @@
 package com.saludSystem.domain.model.Paciente.Tratamiento;
 
 import com.saludSystem.domain.model.BaseEntity;
-import com.saludSystem.domain.model.Catalogo.MedidaEntity;
 import com.saludSystem.domain.model.Medico.DoctorEntity;
 import com.saludSystem.domain.model.Paciente.PacienteEntity;
 import jakarta.persistence.*;
@@ -30,7 +29,7 @@ public class ProcedimientoEntity extends BaseEntity {
     private PacienteEntity pacienteEntity;
 
     @ManyToOne
-    @JoinColumn(name = "id_doctor")
+    @JoinColumn(name = "id_doctor", nullable = false)
     private DoctorEntity doctorEntity;
 
     @Column(name = "tipo_prodedimiento", nullable = false)

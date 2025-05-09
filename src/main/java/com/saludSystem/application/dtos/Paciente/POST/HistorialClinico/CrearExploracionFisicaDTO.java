@@ -1,12 +1,12 @@
-package com.saludSystem.application.dtos.Paciente.GET;
+package com.saludSystem.application.dtos.Paciente.POST.HistorialClinico;
 
 import lombok.Data;
+
 import java.util.UUID;
 
 @Data
-public class ExploracionFisicaDTO {
+public class CrearExploracionFisicaDTO {
 
-    private UUID pacienteExploracionId;
     private UUID pacienteId;
     private String presionArterial;
     private String pulso;

@@ -1,4 +1,4 @@
-package com.saludSystem.application.dtos.Paciente.PUT;
+package com.saludSystem.application.dtos.Paciente.PUT.HistorialClinico;
 
 import lombok.Data;
 

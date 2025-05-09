@@ -1,9 +1,9 @@
 package com.saludSystem.infrastructure.adapters.in.controllers.Paciente.HistorialClinico;
 
-import com.saludSystem.application.dtos.Paciente.GET.ExploracionFisicaDTO;
-import com.saludSystem.application.dtos.Paciente.POST.CrearExploracionFisicaDTO;
-import com.saludSystem.application.dtos.Paciente.PUT.ActualizarExploracionFisicaDTO;
-import com.saludSystem.application.services.Paciente.ExploracionFisicaService;
+import com.saludSystem.application.dtos.Paciente.GET.HistorialClinico.ExploracionFisicaDTO;
+import com.saludSystem.application.dtos.Paciente.POST.HistorialClinico.CrearExploracionFisicaDTO;
+import com.saludSystem.application.dtos.Paciente.PUT.HistorialClinico.ActualizarExploracionFisicaDTO;
+import com.saludSystem.application.services.Paciente.HistorialClinico.ExploracionFisicaService;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;

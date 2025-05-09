@@ -1,4 +1,4 @@
-package com.saludSystem.application.dtos.Paciente.GET;
+package com.saludSystem.application.dtos.Paciente.GET.HistorialClinico;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
