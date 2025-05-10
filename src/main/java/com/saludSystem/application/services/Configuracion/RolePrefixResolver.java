@@ -10,7 +10,6 @@ public class RolePrefixResolver {
     // Mapeo de nombres de rol a prefijos
     private static final Map<String, String> ROLE_TO_PREFIX = Map.of(
             "CARDIOLOGO", "C",
-            "ODONTOLOGO", "K",
             "PEDIATRA", "P",
             "GENERAL", "G",
             "MEDICO", "M"

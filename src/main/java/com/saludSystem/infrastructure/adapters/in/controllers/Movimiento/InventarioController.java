@@ -28,11 +28,11 @@ import java.util.UUID;
 public class InventarioController {
 
     private final InventarioService inventarioService;
-    private final InventarioExportService inventarioExportServicel;
+    private final InventarioExportService inventarioExportService;
 
-    public InventarioController(InventarioService inventarioService, InventarioExportService inventarioExportServicel) {
+    public InventarioController(InventarioService inventarioService, InventarioExportService inventarioExportService) {
         this.inventarioService = inventarioService;
-        this.inventarioExportServicel = inventarioExportServicel;
+        this.inventarioExportService = inventarioExportService;
     }
 
     @PostMapping("/SaveInventario")
@@ -77,7 +77,7 @@ public class InventarioController {
             @RequestParam UUID hospitalId,
             HttpServletResponse response) {
 
-        byte[] excelBytes = inventarioExportServicel.exportToExcel(hospitalId);
+        byte[] excelBytes = inventarioExportService.exportToExcel(hospitalId);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
@@ -96,7 +96,7 @@ public class InventarioController {
             @RequestParam UUID hospitalId,
             HttpServletResponse response) {
 
-        byte[] pdfBytes = inventarioExportServicel.exportToPdf(hospitalId);
+        byte[] pdfBytes = inventarioExportService.exportToPdf(hospitalId);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,

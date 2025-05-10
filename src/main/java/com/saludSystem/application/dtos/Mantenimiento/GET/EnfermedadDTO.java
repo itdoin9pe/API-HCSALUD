@@ -4,20 +4,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
-public class DiagnosticoDTO {
-
-    private UUID diagnosticoId;
-
-    //private UUID pacienteId;
+public class EnfermedadDTO {
 
     private String enfermedadId;
 
-    private String nombreEnfermedad;
-
-    private LocalDate fecha;
+    private String descripcion;
 
     @Schema(description = "Estado de Diagnostico (0 = inactivo, 1 = activo)", example = "0")
     private Integer estado;

@@ -2,11 +2,11 @@ package com.saludSystem.infrastructure.adapters.in.controllers.Mantenimiento;
 
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.application.dtos.Mantenimiento.PUT.ActualizarDiagnosticoDTO;
-import com.saludSystem.application.dtos.Mantenimiento.POST.CrearDiagnosticoDTO;
-import com.saludSystem.application.dtos.Mantenimiento.GET.DiagnosticoDTO;
-import com.saludSystem.application.services.Mantenimiento.DiagnosticoService;
-import com.saludSystem.infrastructure.adapters.in.response.Mantenimiento.DiagnosticoResponse;
+import com.saludSystem.application.dtos.Mantenimiento.PUT.ActualizarEnfermedadDTO;
+import com.saludSystem.application.dtos.Mantenimiento.POST.CrearEnfermedadDTO;
+import com.saludSystem.application.dtos.Mantenimiento.GET.EnfermedadDTO;
+import com.saludSystem.application.services.Mantenimiento.EnfermedadService;
+import com.saludSystem.infrastructure.adapters.in.response.Mantenimiento.EnfermedadResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -18,57 +18,57 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@Tag(name = "Diagnosticos")
+@Tag(name = "Enfermedades")
 @RestController
-@RequestMapping("/api/Diagnosticos")
+@RequestMapping("/api/Enfermedades")
 public class DiagnositcoController {
 
-    private final DiagnosticoService diagnosticoService;
+    private final EnfermedadService enfermedadService;
 
-    public DiagnositcoController(DiagnosticoService diagnosticoService) {
-        this.diagnosticoService = diagnosticoService;
+    public DiagnositcoController(EnfermedadService enfermedadService) {
+        this.enfermedadService = enfermedadService;
     }
 
-    @PostMapping("/SaveDiagnostico")
-    public ApiResponse stored(@Valid @RequestBody CrearDiagnosticoDTO crearDiagnosticoDTO) {
-        return diagnosticoService.saveDiagnostico(crearDiagnosticoDTO);
+    @PostMapping("/SaveEnfermedad")
+    public ApiResponse stored(@Valid @RequestBody CrearEnfermedadDTO crearEnfermedadDTO) {
+        return enfermedadService.saveEnfermedad(crearEnfermedadDTO);
     }
 
-    @GetMapping("/GetAllDiagnostico")
+    @GetMapping("/GetAllEnfermedad")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = DiagnosticoResponse.class)))
+                            schema = @Schema(implementation = EnfermedadResponse.class)))
     })
-    public ListResponse<DiagnosticoDTO> getAllPage(
+    public ListResponse<EnfermedadDTO> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
-        return diagnosticoService.getAllDiagnostico(hospitalId, page, rows);
+        return enfermedadService.getAllEnfermedad(hospitalId, page, rows);
     }
 
-    @GetMapping("/GetDiagnosticoList")
-    public ResponseEntity<List<DiagnosticoDTO>> getAllList() {
-        return ResponseEntity.ok(diagnosticoService.getDiagnosticoList());
+    @GetMapping("/GetEnfermedadList")
+    public ResponseEntity<List<EnfermedadDTO>> getAllList() {
+        return ResponseEntity.ok(enfermedadService.getEnfermedadList());
     }
 
-    @GetMapping("/GetDiagnostico/{diagnosticoId}")
-    public DiagnosticoDTO getById(@PathVariable UUID diagnosticoId) {
-        return diagnosticoService.getDiagnosticoById(diagnosticoId);
+    @GetMapping("/GetEnfermedad/{enfermedadId}")
+    public EnfermedadDTO getById(@PathVariable String enfermedadId) {
+        return enfermedadService.getEnfermedadById(enfermedadId);
     }
 
-    @PutMapping("/UpdateDiagnostico/{diagnosticoId}")
-    public ApiResponse update(@PathVariable UUID diagnosticoId, @RequestBody ActualizarDiagnosticoDTO actualizarDiagnosticoDTO) {
-        return diagnosticoService.updateDiagnostico(diagnosticoId, actualizarDiagnosticoDTO);
+    @PutMapping("/UpdateEnfermedad/{enfermedadId}")
+    public ApiResponse update(@PathVariable String enfermedadId, @RequestBody ActualizarEnfermedadDTO actualizarEnfermedadDTO) {
+        return enfermedadService.updateEnfermedad(enfermedadId, actualizarEnfermedadDTO);
     }
 
-    @DeleteMapping("/DeleteDiagnostico/{diagnosticoId}")
-    public ApiResponse destroy(@PathVariable UUID diagnosticoId) {
-        return diagnosticoService.deleteDiagnostico(diagnosticoId);
+    @DeleteMapping("/DeleteEnfermedad/{enfermedadId}")
+    public ApiResponse destroy(@PathVariable String enfermedadId) {
+        return enfermedadService.deleteEnfermedad(enfermedadId);
     }
 
-    @GetMapping("/GetDiagnosticosFiltradosPorRol")
-    public ResponseEntity<List<DiagnosticoDTO>> getDiagnosticosFiltradosPorRol() {
-        return ResponseEntity.ok(diagnosticoService.getDiagnosticosFiltradosPorRol());
+    @GetMapping("/GetEnfermedadFiltradosPorRol")
+    public ResponseEntity<List<EnfermedadDTO>> getEnfermedadFiltradosPorRol() {
+        return ResponseEntity.ok(enfermedadService.getEnfermedadFiltradosPorRol());
     }
 
 }

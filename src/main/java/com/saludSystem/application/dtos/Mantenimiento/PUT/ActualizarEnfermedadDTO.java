@@ -2,25 +2,18 @@ package com.saludSystem.application.dtos.Mantenimiento.PUT;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
-public class ActualizarDiagnosticoDTO {
+public class ActualizarEnfermedadDTO {
 
     private UUID hospitalId;
 
     private UUID userId;
 
-    private UUID diagnosticoId;
-
-    //private UUID pacienteId;
-
     private String enfermedadId;
 
-    private String nombreEnfermedad;
-
-    private LocalDate fecha;
+    private String descripcion;
 
     @Schema(description = "Estado de Diagnostico (0 = inactivo, 1 = activo)", example = "0")
     private Integer estado;
