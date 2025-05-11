@@ -16,6 +16,7 @@ import lombok.Setter;
 public class EnfermedadEntity extends BaseEntity {
 
     @Id
+    @Column(name = "enfermedad_id", nullable = false)
     private String enfermedadId;
 
     @Column(name = "descripcion_enfermedad", nullable = false)
