@@ -13,7 +13,9 @@ public class CambioCondicionDTO {
     private Long evolucionCambioCondicionId;
 
     private LocalDateTime fecha;
+
     private String descripcion;
-    private UUID evolucionId;
+
+    private UUID pacienteEvolucionId;
 
 }
