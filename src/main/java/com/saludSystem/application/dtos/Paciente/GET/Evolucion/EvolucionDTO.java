@@ -1,7 +1,6 @@
 package com.saludSystem.application.dtos.Paciente.GET.Evolucion;
 
 import lombok.Data;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;

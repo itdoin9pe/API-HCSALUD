@@ -8,8 +8,6 @@ import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
 import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.domain.model.Paciente.Evolucion.EvolucionEntity;
-import com.saludSystem.domain.model.Paciente.Evolucion.NotaEntity;
-import com.saludSystem.domain.model.Paciente.PacienteEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;

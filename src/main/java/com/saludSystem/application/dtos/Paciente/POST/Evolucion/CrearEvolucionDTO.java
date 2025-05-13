@@ -3,7 +3,6 @@ package com.saludSystem.application.dtos.Paciente.POST.Evolucion;
 import com.saludSystem.application.dtos.Paciente.GET.Evolucion.CambioCondicionDTO;
 import com.saludSystem.application.dtos.Paciente.GET.Evolucion.NotaDTO;
 import lombok.Data;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
