@@ -51,9 +51,8 @@ public class ConsultaServiceImpl implements ConsultaService {
     public ApiResponse saveConsulta(CrearConsultaDTO crearConsultaDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
             throw new RuntimeException("No tienes permisos para realizar esta acción");
         }
@@ -79,7 +78,7 @@ public class ConsultaServiceImpl implements ConsultaService {
         consultaEntity.setEmbarazada(crearConsultaDTO.isEmbarazada());
         consultaEntity.setUltimaMenstruacion(crearConsultaDTO.getUltimaMenstruacion());
         consultaEntity.setHospital(hospital);
-        consultaEntity.setUser(user);
+        consultaEntity.setUser(userEntity);
         consultaRepository.save(consultaEntity);
         return new ApiResponse(true, "Consulta gurdada correctamente");
     }
