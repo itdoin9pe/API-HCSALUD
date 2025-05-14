@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 public class NotaDTO {
 
-    @Schema(example = "Integer")
+    @Schema(description = "ID de la evolucion del paciente", example = "Integer")
     private Long pacienteEvolucionNotaId;
 
     private LocalDateTime fecha;
