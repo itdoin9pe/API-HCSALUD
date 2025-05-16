@@ -33,7 +33,7 @@ public class EstadoCuentaEntity extends BaseEntity {
     private Date fechaApertura;
 
     @Column(name = "estado", nullable = false)
-    private String estado; // Ej: ABIERTA, CERRADA, PAGADA
+    private String estado; // Exp: ABIERTA, CERRADA, PAGADA
 
     @Column(name = "total_hospitalizacion")
     private Double totalHospitalizacion;
