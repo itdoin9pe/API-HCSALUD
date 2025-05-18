@@ -54,7 +54,7 @@ public class CostoHospitalizacionController {
         return costoHospitalizacionService.updateCostoHospitalizacion(pec_costoHospitalizacionId, actualizarCostoHospitalizacionDTO);
     }
 
-    @DeleteMapping("/DeletePacienteEstadoCuentaCostoHospitalizacionId/{pacienteEstadoCuentaCostoHospitalizacionId}")
+    @DeleteMapping("/DeletePacienteEstadoCuentaCostoHospitalizacion/{pacienteEstadoCuentaCostoHospitalizacionId}")
     public ApiResponse destroy(@PathVariable UUID pec_costoHospitalizacionId) {
         return costoHospitalizacionService.deleteCostoHospitalizacion(pec_costoHospitalizacionId);
     }
