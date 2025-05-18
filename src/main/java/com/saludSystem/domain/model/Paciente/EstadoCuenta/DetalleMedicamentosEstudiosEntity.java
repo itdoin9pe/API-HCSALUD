@@ -1,5 +1,6 @@
 package com.saludSystem.domain.model.Paciente.EstadoCuenta;
 
+import com.saludSystem.domain.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-public class DetalleMedicamentosEstudiosEntity {
+public class DetalleMedicamentosEstudiosEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
