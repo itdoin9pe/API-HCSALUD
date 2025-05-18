@@ -1,11 +1,11 @@
 package com.saludSystem.domain.model.Paciente.EstadoCuenta;
 
+import com.saludSystem.domain.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-public class PagoEntity {
+public class PagoEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
