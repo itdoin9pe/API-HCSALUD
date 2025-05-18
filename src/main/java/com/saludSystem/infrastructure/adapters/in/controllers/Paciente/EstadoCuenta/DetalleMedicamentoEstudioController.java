@@ -51,7 +51,7 @@ public class DetalleMedicamentoEstudioController {
 
     @PutMapping("/UpdatePacienteEstadoCuentaEstudioDetalleMedicamento/{pacienteEstadoCuentaEstudioDetalleMedicamentoId}")
     public ApiResponse update(@PathVariable UUID pec_detalleMedicamentoId, @RequestBody ActualizarDetalleMedicamentoEstudioDTO actualizarCostoHospitalizacionDTO) {
-        return detalleMedicamentoEstudioService.updateDetalleMedicamento(pec_detalleMedicamentoId);
+        return detalleMedicamentoEstudioService.updateDetalleMedicamento(pec_detalleMedicamentoId, actualizarCostoHospitalizacionDTO);
     }
 
     @DeleteMapping("/DeletePacienteEstadoCuentaEstudioDetalleMedicamento/{pacienteEstadoCuentaEstudioDetalleMedicamentoId}")

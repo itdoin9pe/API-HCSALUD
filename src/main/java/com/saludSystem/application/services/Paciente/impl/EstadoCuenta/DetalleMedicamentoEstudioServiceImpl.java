@@ -2,6 +2,7 @@ package com.saludSystem.application.services.Paciente.impl.EstadoCuenta;
 
 import com.saludSystem.application.dtos.Paciente.GET.EstadoCuenta.DetalleMedicamentoEstudioDTO;
 import com.saludSystem.application.dtos.Paciente.POST.EstadoCuenta.CrearDetalleMedicamentoEstudioDTO;
+import com.saludSystem.application.dtos.Paciente.PUT.EstadoCuenta.ActualizarDetalleMedicamentoEstudioDTO;
 import com.saludSystem.application.services.Paciente.EstadoCuenta.DetalleMedicamentoEstudioService;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
@@ -23,6 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -62,6 +64,8 @@ public class DetalleMedicamentoEstudioServiceImpl implements DetalleMedicamentoE
         detalleMedicamentosEstudiosEntity.setCantidad(crearDetalleMedicamentoEstudioDTO.getCantidad());
         detalleMedicamentosEstudiosEntity.setCostoUnitario(crearDetalleMedicamentoEstudioDTO.getCostoUnitario());
         detalleMedicamentosEstudiosEntity.setTotalCosto(crearDetalleMedicamentoEstudioDTO.getTotalCosto());
+        detalleMedicamentosEstudiosEntity.setHospital(hospital);
+        detalleMedicamentosEstudiosEntity.setUser(userEntity);
         detalleMedicamentoEstudioRepository.save(detalleMedicamentosEstudiosEntity);
         return new ApiResponse(true, "Detalle del medicamento agregado correctamente");
     }
@@ -77,7 +81,7 @@ public class DetalleMedicamentoEstudioServiceImpl implements DetalleMedicamentoE
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse updateDetalleMedicamento(UUID pec_detalleMedicamentoId) {
+    public ApiResponse updateDetalleMedicamento(UUID pec_detalleMedicamentoId, ActualizarDetalleMedicamentoEstudioDTO actualizarDetalleMedicamentoEstudioDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -86,6 +90,12 @@ public class DetalleMedicamentoEstudioServiceImpl implements DetalleMedicamentoE
         }
         DetalleMedicamentosEstudiosEntity detalleMedicamentosEstudiosEntity = detalleMedicamentoEstudioRepository.findById(
                 pec_detalleMedicamentoId).orElseThrow( () -> new ResourceNotFoundException("Detalle del estudio no encontrado"));
+        Optional.ofNullable(actualizarDetalleMedicamentoEstudioDTO.getEstadoCuentaId()).flatMap(estadoCuentaRepository::findById).ifPresent(detalleMedicamentosEstudiosEntity::setEstadoCuentaEntity);
+        Optional.of(actualizarDetalleMedicamentoEstudioDTO.getTipo()).filter(desc -> !desc.isBlank()).ifPresent(detalleMedicamentosEstudiosEntity::setTipo);
+        Optional.of(actualizarDetalleMedicamentoEstudioDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(detalleMedicamentosEstudiosEntity::setDescripcion);
+        Optional.of(actualizarDetalleMedicamentoEstudioDTO.getCantidad()).ifPresent(detalleMedicamentosEstudiosEntity::setCantidad);
+        Optional.of(actualizarDetalleMedicamentoEstudioDTO.getCostoUnitario()).ifPresent(detalleMedicamentosEstudiosEntity::setCostoUnitario);
+        Optional.of(actualizarDetalleMedicamentoEstudioDTO.getTotalCosto()).ifPresent(detalleMedicamentosEstudiosEntity::setTotalCosto);
         detalleMedicamentoEstudioRepository.save(detalleMedicamentosEstudiosEntity);
         return new ApiResponse(true, "Detalle del estudio actualizado correctamente");
     }
