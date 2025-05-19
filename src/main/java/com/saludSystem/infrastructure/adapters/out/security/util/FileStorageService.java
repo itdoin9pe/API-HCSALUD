@@ -34,6 +34,21 @@ public class FileStorageService {
         return uploadDir + fileName;
     }
 
+    public String storeFileInSubfolder(MultipartFile file, String subfolder) throws IOException {
+        Path uploadPath = Paths.get(uploadDir).resolve(subfolder);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(file.getInputStream(), filePath);
+        return uploadDir + subfolder + "/" + fileName;
+    }
+
+    public String storeFirma(MultipartFile file) throws IOException {
+        return storeFileInSubfolder(file, "firmas");
+    }
+
     // Delete Public Function
     public void deleteFile(String filePath) throws IOException {
         Path path = Paths.get(filePath);
