@@ -12,7 +12,6 @@ import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.MedicamentoRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.MedicamentoRecetadoRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
@@ -48,7 +47,7 @@ public class MedicamentoRecetadoServiceImpl implements MedicamentoRecetadoServic
     @Override
     public ApiResponse saveMedicamentoRecetado(CrearMedicamentoRecetadoDTO crearMedicamentoRecetadoDTO) {
         UserEntity userEntity = authValidator.getCurrentUser();
-        authValidator.validateAdminAccess();  // Lanza excepción si no es admin
+        authValidator.validateAdminAccess(); // Lanza excepción si no es admin
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(
                 () -> new RuntimeException("Hospital no encontrado"));
         MedicamentoRecetadoEntity medicamentoRecetadoEntity = new MedicamentoRecetadoEntity();
@@ -75,7 +74,7 @@ public class MedicamentoRecetadoServiceImpl implements MedicamentoRecetadoServic
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse updateMedicamentoRecetado(UUID medicamentoRecetadoId, ActualizarMedicamentoRecetadoDTO actualizarMedicamentoRecetadoDTO) {
-        authValidator.validateAdminAccess();  // Lanza excepción si no es admin
+        authValidator.validateAdminAccess(); // Lanza excepción si no es admin
         MedicamentoRecetadoEntity medicamentoRecetadoEntity = medicamentoRecetadoRepository.findById(medicamentoRecetadoId)
                 .orElseThrow( () -> new ResourceNotFoundException("Medicamento recetado no encontrado"));
         Optional.ofNullable(actualizarMedicamentoRecetadoDTO.getMedicamentoId()).flatMap(medicamentoRepository::findById).ifPresent(medicamentoRecetadoEntity::setMedicamentoEntity);
@@ -97,7 +96,7 @@ public class MedicamentoRecetadoServiceImpl implements MedicamentoRecetadoServic
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse deleteMedicamentoRecetado(UUID medicamentoRecetadoId) {
-        authValidator.validateAdminAccess();  // Lanza excepción si no es admin
+        authValidator.validateAdminAccess(); // Lanza excepción si no es admin
         medicamentoRepository.deleteById(medicamentoRecetadoId);
         return new ApiResponse(true, "Medicamento recetado eliminado");
     }

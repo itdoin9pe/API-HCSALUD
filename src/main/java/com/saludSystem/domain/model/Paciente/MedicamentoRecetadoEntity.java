@@ -29,15 +29,15 @@ public class MedicamentoRecetadoEntity extends BaseEntity {
     private MedicamentoEntity medicamentoEntity;
 
     @Column(nullable = false)
-    private String dosis; // ej: "500 mg"
+    private String dosis; // ej: "500 mg/400 mg"
 
     @Column(nullable = false)
-    private String frecuencia; // ej: "3 veces al día"
+    private String frecuencia; // ej: "3 o 2 veces al día"
 
     @Column(nullable = true)
-    private Integer duracionDias; // duración en días
+    private Integer duracionDias; // duración en días / 24 horas
 
     @Column(length = 500)
-    private String indicaciones; // indicaciones adicionales
+    private String indicaciones; // indicaciones adicionales - Opcional
 
 }

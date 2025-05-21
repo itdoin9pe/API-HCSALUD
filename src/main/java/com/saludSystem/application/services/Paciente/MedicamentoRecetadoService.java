@@ -5,7 +5,6 @@ import com.saludSystem.application.dtos.Paciente.POST.CrearMedicamentoRecetadoDT
 import com.saludSystem.application.dtos.Paciente.PUT.ActualizarMedicamentoRecetadoDTO;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-
 import java.util.UUID;
 
 public interface MedicamentoRecetadoService {
