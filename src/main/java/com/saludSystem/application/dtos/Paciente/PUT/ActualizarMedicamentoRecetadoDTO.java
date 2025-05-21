@@ -1,11 +1,16 @@
-package com.saludSystem.application.dtos.Paciente.GET;
+package com.saludSystem.application.dtos.Paciente.PUT;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
 import java.util.UUID;
 
 @Data
-public class MedicamentoRecetadoDTO {
+public class ActualizarMedicamentoRecetadoDTO {
+
+    private UUID hospitalId;
+
+    private UUID userId;
 
     private UUID medicamentoRecetadoDTO;
 
