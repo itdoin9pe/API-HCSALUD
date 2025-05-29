@@ -30,14 +30,12 @@ public class MedicamentoServiceImpl implements MedicamentoService {
 
     private final MedicamentoRepository medicamentoRepository;
     private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
     private final AuthValidator authValidator;
     private final ModelMapper modelMapper;
 
-    public MedicamentoServiceImpl(MedicamentoRepository medicamentoRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, AuthValidator authValidator, ModelMapper modelMapper) {
+    public MedicamentoServiceImpl(MedicamentoRepository medicamentoRepository, SysSaludRepository sysSaludRepository, AuthValidator authValidator, ModelMapper modelMapper) {
         this.medicamentoRepository = medicamentoRepository;
         this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
         this.authValidator = authValidator;
         this.modelMapper = modelMapper;
     }
