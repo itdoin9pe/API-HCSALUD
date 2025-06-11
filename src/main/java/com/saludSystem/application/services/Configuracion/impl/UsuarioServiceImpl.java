@@ -18,7 +18,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -32,14 +31,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final RoleRepository roleRepository;
     private final SysSaludRepository sysSaludRepository;
     private final ModelMapper modelMapper;
-    private final PasswordEncoder passwordEncoder;
+    //private final PasswordEncoder passwordEncoder;
 
-    public UsuarioServiceImpl(UserRepository userRepository, RoleRepository roleRepository, SysSaludRepository sysSaludRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+    public UsuarioServiceImpl(UserRepository userRepository, RoleRepository roleRepository, SysSaludRepository sysSaludRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.sysSaludRepository = sysSaludRepository;
         this.modelMapper = modelMapper;
-        this.passwordEncoder = passwordEncoder;
+        //this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -66,7 +65,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .documentNumber(newUserDto.getDocumentNumber())
                 .photo(newUserDto.getPhoto())
                 .username(newUserDto.getUsername())
-                .password(passwordEncoder.encode(newUserDto.getPassword())) // Hash the password in real case
+                //.password(passwordEncoder.encode(newUserDto.getPassword())) // Hash the password in real case
                 .estado(newUserDto.getEstado())
                 .rol(role)
                 .hospital(hospital)
@@ -88,9 +87,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         Optional.ofNullable(actualizarUsuarioDTO.getDocumentNumber()).filter(desc -> !desc.isBlank()).ifPresent(user::setDocumentNumber);
         Optional.ofNullable(actualizarUsuarioDTO.getUsername()).filter(desc -> !desc.isBlank()).ifPresent(user::setUsername);
         Optional.ofNullable(actualizarUsuarioDTO.getPassword()).filter(desc -> !desc.isBlank()).ifPresent(user::setPassword);
+        /*
         if (actualizarUsuarioDTO.getPassword() != null && !actualizarUsuarioDTO.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(actualizarUsuarioDTO.getPassword()));
-        }
+        }*/
         Optional.ofNullable(actualizarUsuarioDTO.getEstado()).ifPresent(user::setEstado);
         userRepository.save(user);
         return modelMapper.map(user, ActualizarUsuarioDTO.class);

@@ -12,7 +12,6 @@ import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.MedicamentoRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -73,12 +72,16 @@ public class MedicamentoServiceImpl implements MedicamentoService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse updateMedicamento(UUID medicamentoId, ActualizarMedicamentoDTO actualizarMedicamentoDTO) {
-        UserEntity userEntity = authValidator.getCurrentUser();
-        authValidator.validateAdminAccess();
-        MedicamentoEntity medicamentoEntity = medicamentoRepository.findById(medicamentoId).orElseThrow(
-                () -> new ResourceNotFoundException("Medicamento no encontrado"));
-        medicamentoRepository.save(medicamentoEntity);
+    public ApiResponse updateMedicamento(UUID medicamentoId, ActualizarMedicamentoDTO dto) {
+        MedicamentoEntity entity = medicamentoRepository.findById(medicamentoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Medicamento no encontrado"));
+        // aplica actualizaciones manuales
+        entity.setNombre(dto.getNombre());
+        entity.setContenido(dto.getContenido());
+        entity.setConcentracion(dto.getConcentracion());
+        entity.setFormaFarmaceutica(dto.getFormaFarmaceutica());
+        entity.setEstado(dto.getEstado());
+        medicamentoRepository.save(entity);
         return new ApiResponse(true, "Medicamento actualizado correctamente");
     }
 

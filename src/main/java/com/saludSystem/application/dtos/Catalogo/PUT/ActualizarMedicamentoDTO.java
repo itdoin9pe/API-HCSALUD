@@ -8,7 +8,7 @@ import java.util.UUID;
 @Data
 public class ActualizarMedicamentoDTO {
 
-    private UUID hosiptalId;
+    private UUID hospitalId;
 
     private UUID userId;
 
