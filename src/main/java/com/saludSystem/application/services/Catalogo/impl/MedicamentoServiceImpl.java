@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class MedicamentoServiceImpl implements MedicamentoService {
-
     private final MedicamentoRepository medicamentoRepository;
     private final SysSaludRepository sysSaludRepository;
     private final AuthValidator authValidator;
@@ -75,7 +74,6 @@ public class MedicamentoServiceImpl implements MedicamentoService {
     public ApiResponse updateMedicamento(UUID medicamentoId, ActualizarMedicamentoDTO dto) {
         MedicamentoEntity entity = medicamentoRepository.findById(medicamentoId)
                 .orElseThrow(() -> new ResourceNotFoundException("Medicamento no encontrado"));
-        // aplica actualizaciones manuales
         entity.setNombre(dto.getNombre());
         entity.setContenido(dto.getContenido());
         entity.setConcentracion(dto.getConcentracion());
@@ -105,5 +103,4 @@ public class MedicamentoServiceImpl implements MedicamentoService {
     private MedicamentoDTO convertToDTO(MedicamentoEntity medicamentoEntity) {
         return modelMapper.map(medicamentoEntity, MedicamentoDTO.class);
     }
-
 }
