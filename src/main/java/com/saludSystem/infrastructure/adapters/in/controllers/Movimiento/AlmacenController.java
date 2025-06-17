@@ -66,5 +66,4 @@ public class AlmacenController {
     public ApiResponse destroy(@PathVariable UUID almacenId) {
         return almacenService.deleteAlmacen(almacenId);
     }
-
 }

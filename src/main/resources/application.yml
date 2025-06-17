@@ -26,17 +26,10 @@ server:
   #address: ${SECRET_IP}
 
 jwt:
-  issuer: http://localhost:8081
   secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION}
   refresh:
     expiration: ${JWT_REFRESH_EXPIRATION}
-
-key:
-  properties:
-    applications:
-      - clientId: ${CLIENT_ID}
-        clientSecret: "{noop}${CLIENT_SECRET}"
 
 file:
   upload-dir: ${FILE_UPLOAD_DIR}

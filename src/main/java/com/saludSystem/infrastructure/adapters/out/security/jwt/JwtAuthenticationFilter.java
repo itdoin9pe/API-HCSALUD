@@ -17,35 +17,21 @@ import java.io.IOException;
 
 @NoArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
     @Autowired
     private JwtUtil jwtUtil;
-    
     @Autowired
     private UserService userService;
-    
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-        // Verificar si es una solicitud OAuth2
-        if (request.getRequestURI().startsWith("/login/oauth2/")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
         final String authorizationHeader = request.getHeader("Authorization");
-
         String username = null;
         String jwt = null;
-
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
             username = jwtUtil.extractUsername(jwt);
         }
-
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = userService.loadUserByUsername(username);
-
             if (jwtUtil.validateToken(jwt, userDetails)){
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

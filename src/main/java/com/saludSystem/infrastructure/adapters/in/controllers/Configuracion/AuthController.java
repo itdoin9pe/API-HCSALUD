@@ -35,7 +35,6 @@ public class AuthController {
       return ResponseEntity.badRequest().body(
           Map.of("message", "Check your credentials!!"));
     }
-
     try {
       Map<String, Object> tokens = authService.authenticate(
                       loginUserDto.getEmail(), loginUserDto.getPassword());
@@ -53,7 +52,6 @@ public class AuthController {
       return ResponseEntity.badRequest().body(
           Map.of("message", "Check the fields!!"));
     }
-
     try {
       usuarioService.saveUsuario(newUserDto);
       Map<String, Object> response = new HashMap<>();
@@ -76,10 +74,8 @@ public class AuthController {
         return ResponseEntity.badRequest()
                 .body(Map.of("error", "Refresh token is required", "code", "RT001"));
       }
-
       Map<String, Object> tokens = authService.refreshToken(refreshToken);
       return ResponseEntity.ok(tokens);
-
     } catch (AuthService.TokenInvalidatedException e) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
               .body(Map.of("error", e.getMessage(), "code", "RT002"));
@@ -96,13 +92,11 @@ public class AuthController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
               .body(Map.of("error", "Internal server error", "code", "RT500"));
     }
-
   }
 
   @GetMapping("/check-auth")
   public ResponseEntity<Map<String, Object>> checkAuth() {
-    Authentication authentication =
-        SecurityContextHolder.getContext().getAuthentication();
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication == null || !authentication.isAuthenticated() ||
         authentication.getPrincipal().equals("anonymousUser")) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -119,12 +113,10 @@ public class AuthController {
   @PostMapping("/logout")
   public ResponseEntity<Map<String, String>> logout(@RequestHeader("Authorization") String token) {
     if (token == null || !token.startsWith("Bearer ")) {
-      return ResponseEntity.badRequest().body(
-          Map.of("message", "Invalid token format"));
+      return ResponseEntity.badRequest().body(Map.of("message", "Invalid token format"));
     }
     String jwt = token.substring(7);
     authService.invalidateToken(jwt);
     return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
   }
-
 }

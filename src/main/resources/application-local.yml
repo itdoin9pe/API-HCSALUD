@@ -23,7 +23,6 @@ server:
   #address: ${SECRET_IP}
 
 jwt:
-  issuer: http://localhost:8081
   secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION}
   refresh:
@@ -31,12 +30,6 @@ jwt:
 
 file:
   upload-dir: ./uploads/
-
-key:
-  properties:
-    applications:
-      - clientId: ${CLIENT_ID}
-        clientSecret: "{noop}${CLIENT_SECRET}"
 
 springdoc:
   api-docs:

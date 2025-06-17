@@ -41,7 +41,6 @@ public class AuthService {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );
-
             SecurityContextHolder.getContext().setAuthentication(authentication);
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String jwt = jwtUtil.generateToken(authentication);
@@ -84,7 +83,6 @@ public class AuthService {
             // 6. Generar nuevos tokens
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
-
             String newAccessToken = jwtUtil.generateToken(authentication);
             String newRefreshToken = jwtUtil.generateRefreshToken(userDetails);
 
@@ -93,9 +91,7 @@ public class AuthService {
             tokens.put("access_token", newAccessToken);
             tokens.put("refresh_token", newRefreshToken);
             tokens.put("expires_in", jwtUtil.getAccessTokenExpirationInSeconds());
-
             return tokens;
-
         } catch (ExpiredJwtException ex) {
             throw new TokenExpiredException("Refresh token expired");
         } catch (JwtException | IllegalArgumentException ex) {
@@ -105,32 +101,14 @@ public class AuthService {
         }
     }
 
-    /*
-    public UserEntity getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication instanceof OAuth2AuthenticationToken) {
-            OAuth2User oAuth2User = ((OAuth2AuthenticationToken) authentication).getPrincipal();
-            String email = (String) oAuth2User.getAttributes().get("email");
-            return userService.findEntityByEmail(email);
-        } else {
-            // Tu lógica existente para JWT
-            String email = authentication.getName();
-            return userService.findEntityByEmail(email);
-        }
-    }*/
-
     public UserEntity getCurrentUser() {
         // Obtiene el Authentication del contexto de seguridad
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         if (authentication == null || !authentication.isAuthenticated()) {
             throw new AccessDeniedException("Email no autenticado");
         }
-
         // Obtiene el username/email del principal (que en tu caso es el email)
         String email = authentication.getName();
-
         // Busca el usuario en la BD usando tu UserService
         return userService.findEntityByEmail(email);
     }
@@ -166,5 +144,4 @@ public class AuthService {
             super(message);
         }
     }
-
 }
