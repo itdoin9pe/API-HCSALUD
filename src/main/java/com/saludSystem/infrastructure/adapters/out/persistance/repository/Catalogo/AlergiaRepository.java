@@ -4,8 +4,6 @@ import com.saludSystem.domain.model.Catalogo.AlergiaEntity;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.GenericRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
 public interface AlergiaRepository extends GenericRepository<AlergiaEntity> {
 
