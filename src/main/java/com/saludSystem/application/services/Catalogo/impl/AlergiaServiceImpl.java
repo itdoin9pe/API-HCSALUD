@@ -77,7 +77,7 @@ public class AlergiaServiceImpl extends GenericServiceImpl<AlergiaEntity,
         updateEntityFromDto(actualizarAlergiaDTO, alergiaEntity);
         alergiaEntity.setUser(userEntity);
         genericRepository.save(alergiaEntity);
-        return new ApiResponse(true, "Alergia no encontrada");
+        return new ApiResponse(true, "Alergia actualizada");
     }
 
     @Override
