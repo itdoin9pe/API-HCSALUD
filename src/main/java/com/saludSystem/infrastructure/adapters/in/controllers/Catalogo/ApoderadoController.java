@@ -19,7 +19,8 @@ public class ApoderadoController extends GenericController<
         CrearApoderadoDTO,
         ActualizarApoderadoDTO> {
 
-    protected ApoderadoController(GenericService<ApoderadoDTO, UUID, CrearApoderadoDTO, ActualizarApoderadoDTO> genericService) {
+    protected ApoderadoController(GenericService<ApoderadoDTO, UUID,
+            CrearApoderadoDTO, ActualizarApoderadoDTO> genericService) {
         super(genericService);
     }
 }
