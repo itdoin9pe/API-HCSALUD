@@ -31,7 +31,9 @@ public class MedicamentoController extends GenericController<
 
     private final MedicamentoService medicamentoService;
 
-    protected MedicamentoController(GenericService<MedicamentoDTO, UUID, CrearMedicamentoDTO, ActualizarMedicamentoDTO> genericService, MedicamentoService medicamentoService) {
+    protected MedicamentoController(GenericService<MedicamentoDTO, UUID,
+            CrearMedicamentoDTO, ActualizarMedicamentoDTO> genericService,
+                                    MedicamentoService medicamentoService) {
         super(genericService);
         this.medicamentoService = medicamentoService;
     }

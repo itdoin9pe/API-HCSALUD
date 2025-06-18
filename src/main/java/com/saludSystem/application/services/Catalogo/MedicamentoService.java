@@ -7,7 +7,6 @@ import com.saludSystem.application.services.GenericService;
 
 import java.util.UUID;
 
-
 public interface MedicamentoService extends GenericService<
         MedicamentoDTO,
         UUID,
