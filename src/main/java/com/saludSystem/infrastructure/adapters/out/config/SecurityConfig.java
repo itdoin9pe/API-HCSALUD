@@ -1,13 +1,10 @@
 package com.saludSystem.infrastructure.adapters.out.config;
 
-import com.saludSystem.application.services.Configuracion.UserService;
 import com.saludSystem.infrastructure.adapters.out.security.jwt.JwtAuthenticationFilter;
 import com.saludSystem.infrastructure.adapters.out.security.jwt.JwtEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -19,38 +16,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
-  private final UserService userService;
-
-  public SecurityConfig(UserService userService) {
-    this.userService = userService;
-  }
-
   @Bean
-  public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder)
-          throws Exception {
-    AuthenticationManagerBuilder authenticationManagerBuilder =
-            http.getSharedObject(AuthenticationManagerBuilder.class);
-    authenticationManagerBuilder.userDetailsService(userService)
-            .passwordEncoder(passwordEncoder);
-    return authenticationManagerBuilder.build();
-  }
-
-  @Bean
-  protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.cors(Customizer.withDefaults())
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+            .cors(Customizer.withDefaults())
             .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(
-                    auth
-                            -> auth.requestMatchers("/v3/api-docs/**", "/swagger-ui/**")
-                            .permitAll()
-                            .requestMatchers("/", "/saludo", "/api/login", "/api/refresh-token")
-                            .permitAll()
-                            .anyRequest()
-                            .authenticated())
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers(
+                            "/v3/api-docs/**", "/swagger-ui/**", "/saludo", "/api/login", "/api/refresh-token")
+                    .permitAll()
+                    .anyRequest().authenticated()
+            )
             .httpBasic(Customizer.withDefaults())
-            .exceptionHandling(
-                    exception -> exception.authenticationEntryPoint(jwtEntryPoint()))
+            .exceptionHandling(exception ->
+                    exception.authenticationEntryPoint(jwtEntryPoint())
+            )
             .addFilterBefore(jwtTokenFilter(),
                     UsernamePasswordAuthenticationFilter.class);
     return http.build();

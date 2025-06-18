@@ -33,5 +33,4 @@ public class AuthValidator {
             throw new AccessDeniedException("No tienes permisos para realizar esta operación");
         }
     }
-
 }

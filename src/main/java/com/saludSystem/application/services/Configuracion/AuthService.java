@@ -7,6 +7,7 @@ import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -50,7 +51,10 @@ public class AuthService {
             tokens.put("refresh_token", refreshToken);
             tokens.put("expires_in", jwtUtil.getAccessTokenExpirationInSeconds());
             return tokens;
-        } catch (Exception e) {
+        } catch (BadCredentialsException e) {
+            throw new RuntimeException("Invalid username or password");
+        }
+        catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Authentication failed: " + e.getMessage());
         }

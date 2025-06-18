@@ -4,6 +4,7 @@ import com.saludSystem.application.dtos.Catalogo.GET.MedicamentoDTO;
 import com.saludSystem.application.dtos.Catalogo.POST.CrearMedicamentoDTO;
 import com.saludSystem.application.dtos.Catalogo.PUT.ActualizarMedicamentoDTO;
 import com.saludSystem.application.services.Catalogo.MedicamentoService;
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Catalogo.MedicamentoEntity;
 import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
@@ -25,82 +26,103 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class MedicamentoServiceImpl implements MedicamentoService {
-    private final MedicamentoRepository medicamentoRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final AuthValidator authValidator;
-    private final ModelMapper modelMapper;
+public class MedicamentoServiceImpl extends GenericServiceImpl<MedicamentoEntity,
+        MedicamentoDTO,
+        UUID,
+        CrearMedicamentoDTO,
+        ActualizarMedicamentoDTO> implements MedicamentoService {
 
-    public MedicamentoServiceImpl(MedicamentoRepository medicamentoRepository, SysSaludRepository sysSaludRepository, AuthValidator authValidator, ModelMapper modelMapper) {
-        this.medicamentoRepository = medicamentoRepository;
+    private final SysSaludRepository sysSaludRepository;
+
+    public MedicamentoServiceImpl(
+            MedicamentoRepository repository,
+            ModelMapper modelMapper,
+            AuthValidator authValidator,
+            SysSaludRepository sysSaludRepository) {
+        super(
+                repository,
+                modelMapper,
+                authValidator,
+                MedicamentoDTO.class,
+                entity -> modelMapper.map(entity, MedicamentoDTO.class)
+        );
         this.sysSaludRepository = sysSaludRepository;
-        this.authValidator = authValidator;
-        this.modelMapper = modelMapper;
     }
 
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveMedicamento(CrearMedicamentoDTO crearMedicamentoDTO) {
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse save(CrearMedicamentoDTO dto) {
         UserEntity userEntity = authValidator.getCurrentUser();
-        authValidator.validateAdminAccess();  // Lanza excepción si no es admin
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(
-                () -> new RuntimeException("Hospital no encontrado"));
-        MedicamentoEntity medicamentoEntity = new MedicamentoEntity();
-        medicamentoEntity.setNombre(crearMedicamentoDTO.getNombre());
-        medicamentoEntity.setFormaFarmaceutica(crearMedicamentoDTO.getFormaFarmaceutica());
-        medicamentoEntity.setConcentracion(crearMedicamentoDTO.getConcentracion());
-        medicamentoEntity.setContenido(crearMedicamentoDTO.getContenido());
-        medicamentoEntity.setEstado(crearMedicamentoDTO.getEstado());
-        medicamentoEntity.setHospital(hospital);
-        medicamentoEntity.setUser(userEntity);
-        medicamentoRepository.save(medicamentoEntity);
+        authValidator.validateAdminAccess();
+        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
+                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+        MedicamentoEntity entity = convertCreateDtoToEntity(dto);
+        entity.setHospital(hospital);
+        entity.setUser(userEntity);
+        genericRepository.save(entity);
         return new ApiResponse(true, "Medicamento agregado correctamente");
     }
 
+    // Si necesitas métodos específicos que no están en GenericService
     @Override
-    public List<MedicamentoDTO> getMedicamentoList() {
-        return medicamentoRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    public ListResponse<MedicamentoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<MedicamentoEntity> entityPage = ((MedicamentoRepository)genericRepository).findByHospital_HospitalId(hospitalId, pageable);
+        List<MedicamentoDTO> data = entityPage.getContent().stream()
+                .map(toDtoConverter)
+                .collect(Collectors.toList());
+        return new ListResponse<>(
+                data,
+                entityPage.getTotalElements(),
+                entityPage.getTotalPages(),
+                entityPage.getNumber() + 1
+        );
     }
 
     @Override
-    public MedicamentoDTO getMedicamentoById(UUID medicamentoId) {
-        MedicamentoEntity medicamentoEntity = medicamentoRepository.findById(medicamentoId).orElseThrow(
-                () -> new ResourceNotFoundException("Medicamento no encontrado"));
-        return convertToDTO(medicamentoEntity);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    @Override
-    public ApiResponse updateMedicamento(UUID medicamentoId, ActualizarMedicamentoDTO dto) {
-        MedicamentoEntity entity = medicamentoRepository.findById(medicamentoId)
+    public ApiResponse update(UUID id, ActualizarMedicamentoDTO dto) {
+        UserEntity userEntity = authValidator.getCurrentUser();
+        authValidator.validateAdminAccess();
+        MedicamentoEntity entity = genericRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Medicamento no encontrado"));
+        updateEntityFromDto(dto, entity);
+        entity.setUser(userEntity); // actualizar quién hizo el cambio, si es necesario
+        genericRepository.save(entity);
+        return new ApiResponse(true, "Medicamento actualizado correctamente");
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse delete(UUID id) {
+        UserEntity userEntity = authValidator.getCurrentUser();
+        authValidator.validateAdminAccess();
+        return super.delete(id);
+    }
+
+    @Override
+    public MedicamentoDTO getById(UUID id) {
+        // Puedes añadir lógica adicional si es necesario
+        return super.getById(id);
+    }
+
+    @Override
+    protected MedicamentoEntity convertCreateDtoToEntity(CrearMedicamentoDTO dto) {
+        MedicamentoEntity entity = new MedicamentoEntity();
+        entity.setNombre(dto.getNombre());
+        entity.setFormaFarmaceutica(dto.getFormaFarmaceutica());
+        entity.setConcentracion(dto.getConcentracion());
+        entity.setContenido(dto.getContenido());
+        entity.setEstado(dto.getEstado());
+        return entity;
+    }
+
+    @Override
+    protected void updateEntityFromDto(ActualizarMedicamentoDTO dto, MedicamentoEntity entity) {
         entity.setNombre(dto.getNombre());
         entity.setContenido(dto.getContenido());
         entity.setConcentracion(dto.getConcentracion());
         entity.setFormaFarmaceutica(dto.getFormaFarmaceutica());
         entity.setEstado(dto.getEstado());
-        medicamentoRepository.save(entity);
-        return new ApiResponse(true, "Medicamento actualizado correctamente");
-    }
-
-    @Override
-    public ListResponse<MedicamentoDTO> getAllMedicamento(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<MedicamentoEntity> medicamentoEntityPage = medicamentoRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<MedicamentoDTO> data = medicamentoEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, medicamentoEntityPage.getTotalElements(), medicamentoEntityPage.getTotalPages(), medicamentoEntityPage.getNumber() + 1);
-    }
-
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    @Override
-    public ApiResponse deleteMedicamento(UUID medicamentoId) {
-        UserEntity userEntity = authValidator.getCurrentUser();
-        authValidator.validateAdminAccess();
-        medicamentoRepository.deleteById(medicamentoId);
-        return new ApiResponse(true, "Medicamento eliminado correctamente");
-    }
-
-    private MedicamentoDTO convertToDTO(MedicamentoEntity medicamentoEntity) {
-        return modelMapper.map(medicamentoEntity, MedicamentoDTO.class);
     }
 }

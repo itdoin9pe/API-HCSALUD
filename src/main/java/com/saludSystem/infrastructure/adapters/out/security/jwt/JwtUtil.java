@@ -15,7 +15,6 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-	
     @Value("${jwt.secret}")
     private String secret;
 
@@ -74,5 +73,4 @@ public class JwtUtil {
     public String extractUsername(String token){
         return extractAllClaims(token).getSubject();
     }
-
 }

@@ -14,7 +14,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter @Setter
 public class MedicamentoEntity extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "medicamento_id", nullable = false)
@@ -34,5 +33,4 @@ public class MedicamentoEntity extends BaseEntity {
 
     @Column(name = "estado_medicamento")
     private Integer estado;
-
 }
