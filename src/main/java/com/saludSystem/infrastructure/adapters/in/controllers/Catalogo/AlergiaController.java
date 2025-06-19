@@ -32,7 +32,6 @@ public class AlergiaController extends GenericController<
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = AlergiaResponse.class)))
     })
-    @Override
     public ListResponse<AlergiaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }

@@ -24,13 +24,13 @@ public abstract class GenericController<DTO, ID, CREATE_DTO, UPDATE_DTO> {
         return genericService.save(dto);
     }
 
-    @GetMapping("/Get")
+    @GetMapping("/GetList")
     public ResponseEntity<List<DTO>> getList() {
         return ResponseEntity.ok(genericService.getList()
         );
     }
 
-    @GetMapping("Get/{id}")
+    @GetMapping("GetById/{id}")
     public DTO getById(@PathVariable ID id) {
         return genericService.getById(id);
     }

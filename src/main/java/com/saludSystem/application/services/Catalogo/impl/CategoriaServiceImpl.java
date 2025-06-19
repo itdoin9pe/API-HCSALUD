@@ -1,103 +1,70 @@
 package com.saludSystem.application.services.Catalogo.impl;
 
-import com.saludSystem.application.dtos.Catalogo.PUT.ActualizarCategoriaDTO;
 import com.saludSystem.application.dtos.Catalogo.GET.CategoriaDTO;
 import com.saludSystem.application.dtos.Catalogo.POST.CrearCategoriaDTO;
+import com.saludSystem.application.dtos.Catalogo.PUT.ActualizarCategoriaDTO;
 import com.saludSystem.application.services.Catalogo.CategoriaService;
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.domain.model.Catalogo.CategoriaEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.CategoriaRepository;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.domain.exception.ResourceNotFoundException;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.CategoriaRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class CategoriaServiceImpl implements CategoriaService {
+public class CategoriaServiceImpl extends GenericServiceImpl<CategoriaEntity, CategoriaDTO, UUID, CrearCategoriaDTO,
+        ActualizarCategoriaDTO> implements CategoriaService {
 
-    private final CategoriaRepository categoriaRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
-
-    public CategoriaServiceImpl(CategoriaRepository categoriaRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ModelMapper modelMapper) {
-        this.categoriaRepository = categoriaRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
+    public CategoriaServiceImpl(CategoriaRepository categoriaRepository, ModelMapper modelMapper,
+                                AuthValidator authValidator) {
+        super(categoriaRepository, modelMapper, authValidator, CategoriaDTO.class,
+                categoriaEntity -> modelMapper.map(categoriaEntity, CategoriaDTO.class));
     }
 
     @Override
-    public ApiResponse saveCategoria(CrearCategoriaDTO crearCategoriaDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        CategoriaEntity categoria = new CategoriaEntity();
-        categoria.setNombre(crearCategoriaDTO.getNombre());
-        categoria.setEstado(crearCategoriaDTO.getEstado());
-        categoria.setHospital(hospital);
-        categoria.setUser(user);
-        categoriaRepository.save(categoria);
-        return new ApiResponse(true, "Categoria creada correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse save(CrearCategoriaDTO dto) {
+        return save(dto);
     }
 
     @Override
-    public List<CategoriaDTO> getCategoriaList() {
-        return categoriaRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public ListResponse<CategoriaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    public ApiResponse deleteCategoria(UUID categoriaId) {
-        categoriaRepository.deleteById(categoriaId);
-        return new ApiResponse(true, "Categoria eliminada correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse update(UUID id, ActualizarCategoriaDTO actualizarCategoriaDTO) {
+        return super.update(id, actualizarCategoriaDTO);
     }
 
     @Override
-    public ApiResponse updateCategoria(UUID categoriaId, ActualizarCategoriaDTO actualizarCategoriaDTO) {
-        CategoriaEntity categoria = categoriaRepository.findById(categoriaId)
-                .orElseThrow(() ->  new ResourceNotFoundException("Categoria no encontrada con ID" + categoriaId));
-        Optional.ofNullable(actualizarCategoriaDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(categoria::setNombre);
-        Optional.ofNullable(actualizarCategoriaDTO.getEstado()).ifPresent(categoria::setEstado);
-        categoriaRepository.save(categoria);
-        return new ApiResponse(true, "Categoria actualizada correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse delete(UUID id) {
+        return super.delete(id);
     }
 
     @Override
-    public CategoriaDTO getCategoriaById(UUID categoriaId) {
-        CategoriaEntity categoria = categoriaRepository.findById(categoriaId)
-                .orElseThrow( () -> new ResourceNotFoundException("Categoria no encontrada"));
-        return convertToDTO(categoria);
+    public CategoriaDTO getById(UUID id) {
+        return super.getById(id);
     }
 
     @Override
-    public ListResponse<CategoriaDTO> getAllCategoria(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<CategoriaEntity> categoriaPage = categoriaRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<CategoriaDTO> data = categoriaPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, categoriaPage.getTotalElements(), categoriaPage.getTotalPages(), categoriaPage.getNumber() + 1);
+    protected CategoriaEntity convertCreateDtoToEntity(CrearCategoriaDTO crearCategoriaDTO) {
+        CategoriaEntity entity = new CategoriaEntity();
+        entity.setNombre(crearCategoriaDTO.getNombre());
+        entity.setEstado(crearCategoriaDTO.getEstado());
+        return entity;
     }
 
-    private CategoriaDTO convertToDTO(CategoriaEntity categoria) {
-        return modelMapper.map(categoria, CategoriaDTO.class);
+    @Override
+    protected void updateEntityFromDto(ActualizarCategoriaDTO actualizarCategoriaDTO, CategoriaEntity entity) {
+        entity.setNombre(actualizarCategoriaDTO.getNombre());
+        entity.setEstado(actualizarCategoriaDTO.getEstado());
     }
-
 }

@@ -5,7 +5,6 @@ import com.saludSystem.domain.model.BaseEntity;
 import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.infrastructure.adapters.in.response.PaginatedResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.GenericRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import jakarta.transaction.Transactional;
@@ -39,25 +38,14 @@ public abstract class GenericServiceImpl<T extends BaseEntity, DTO, ID, CREATE_D
     @Transactional
     @Override
     public ApiResponse save(CREATE_DTO createDto) {
-        // Obtener usuario actual y validar acceso
-        UserEntity currentUser = authValidator.getCurrentUser();
+        UserEntity currentUser = authValidator.getCurrentUser();// Obtener usuario actual y validar acceso
         authValidator.validateAdminAccess(); // Opcional: hacer configurable
-
-        // Convertir DTO a entidad
-        T entity = convertCreateDtoToEntity(createDto);
-
-        // Asignar información de auditoría
-        entity.setUser(currentUser);
+        T entity = convertCreateDtoToEntity(createDto); // Convertir DTO a entidad
+        entity.setUser(currentUser);        // Asignar información de auditoría
         entity.setHospital(currentUser.getHospital());
-
-        // Lógica pre-guardado específica (si es necesaria)
-        beforeSave(entity, createDto);
-
-        // Guardar entidad
-        genericRepository.save(entity);
-
-        // Construir respuesta
-        return buildSuccessResponse(entity);
+        beforeSave(entity, createDto);     // Lógica pre-guardado específica (si es necesaria)
+        genericRepository.save(entity);    // Guardar entidad
+        return buildSuccessResponse(entity);        // Construir respuesta
     }
 
     // Método hook para lógica específica antes de guardar

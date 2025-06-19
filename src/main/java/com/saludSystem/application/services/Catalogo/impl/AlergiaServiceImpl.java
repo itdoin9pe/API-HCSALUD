@@ -9,7 +9,6 @@ import com.saludSystem.domain.model.Catalogo.AlergiaEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.AlergiaRepository;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,14 +21,9 @@ import java.util.UUID;
 public class AlergiaServiceImpl extends GenericServiceImpl<AlergiaEntity, AlergiaDTO, UUID, CrearAlergiaDTO,
         ActualizarAlergiaDTO> implements AlergiaService {
 
-    private final SysSaludRepository sysSaludRepository;
-
-    public AlergiaServiceImpl(AlergiaRepository alergiaRepository, ModelMapper modelMapper, AuthValidator authValidator,
-            SysSaludRepository sysSaludRepository) {
-        super(alergiaRepository,
-                modelMapper, authValidator, AlergiaDTO.class,
+    public AlergiaServiceImpl(AlergiaRepository alergiaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(alergiaRepository, modelMapper, authValidator, AlergiaDTO.class,
                 alergiaEntity -> modelMapper.map(alergiaEntity, AlergiaDTO.class));
-        this.sysSaludRepository = sysSaludRepository;
     }
 
     @Override

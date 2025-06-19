@@ -10,11 +10,8 @@ import java.util.List;
 @Getter
 @Setter
 public class AlergiaResponse {
-
     @Schema(description = "Lista de Alergias")
     private List<AlergiaDTO> data;
-
     @Schema(description = "Número total de Alergias Registradas", example = "0")
     private long totalData;
-
 }
