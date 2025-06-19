@@ -2,8 +2,10 @@ package com.saludSystem.application.services;
 
 import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.BaseEntity;
+import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
+import com.saludSystem.infrastructure.adapters.in.response.PaginatedResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.GenericRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import jakarta.transaction.Transactional;
@@ -37,8 +39,34 @@ public abstract class GenericServiceImpl<T extends BaseEntity, DTO, ID, CREATE_D
     @Transactional
     @Override
     public ApiResponse save(CREATE_DTO createDto) {
+        // Obtener usuario actual y validar acceso
+        UserEntity currentUser = authValidator.getCurrentUser();
+        authValidator.validateAdminAccess(); // Opcional: hacer configurable
+
+        // Convertir DTO a entidad
         T entity = convertCreateDtoToEntity(createDto);
+
+        // Asignar información de auditoría
+        entity.setUser(currentUser);
+        entity.setHospital(currentUser.getHospital());
+
+        // Lógica pre-guardado específica (si es necesaria)
+        beforeSave(entity, createDto);
+
+        // Guardar entidad
         genericRepository.save(entity);
+
+        // Construir respuesta
+        return buildSuccessResponse(entity);
+    }
+
+    // Método hook para lógica específica antes de guardar
+    protected void beforeSave(T entity, CREATE_DTO dto) {
+        // Puede ser sobrescrito por implementaciones concretas
+    }
+
+    // Método para construir respuesta exitosa
+    protected ApiResponse buildSuccessResponse(T entity) {
         return new ApiResponse(true, "Registro creado exitosamente");
     }
 
@@ -69,11 +97,9 @@ public abstract class GenericServiceImpl<T extends BaseEntity, DTO, ID, CREATE_D
     public ListResponse<DTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<T> entityPage = genericRepository.findByHospital_HospitalId(hospitalId, pageable);
-
         List<DTO> data = entityPage.getContent().stream()
                 .map(toDtoConverter)
                 .collect(Collectors.toList());
-
         return new ListResponse<>(
                 data,
                 entityPage.getTotalElements(),

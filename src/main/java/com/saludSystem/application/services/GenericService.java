@@ -2,6 +2,7 @@ package com.saludSystem.application.services;
 
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
+import com.saludSystem.infrastructure.adapters.in.response.PaginatedResponse;
 
 import java.util.List;
 import java.util.UUID;

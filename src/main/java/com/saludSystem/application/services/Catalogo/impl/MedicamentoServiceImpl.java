@@ -1,5 +1,6 @@
 package com.saludSystem.application.services.Catalogo.impl;
 
+import com.saludSystem.application.dtos.Catalogo.GET.AlergiaDTO;
 import com.saludSystem.application.dtos.Catalogo.GET.MedicamentoDTO;
 import com.saludSystem.application.dtos.Catalogo.POST.CrearMedicamentoDTO;
 import com.saludSystem.application.dtos.Catalogo.PUT.ActualizarMedicamentoDTO;
@@ -11,6 +12,7 @@ import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
 import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
+import com.saludSystem.infrastructure.adapters.in.response.PaginatedResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.MedicamentoRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
@@ -63,7 +65,6 @@ public class MedicamentoServiceImpl extends GenericServiceImpl<MedicamentoEntity
         return new ApiResponse(true, "Medicamento agregado correctamente");
     }
 
-    // Si necesitas métodos específicos que no están en GenericService
     @Override
     public ListResponse<MedicamentoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);

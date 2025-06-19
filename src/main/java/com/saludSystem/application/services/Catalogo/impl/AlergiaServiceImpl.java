@@ -5,10 +5,7 @@ import com.saludSystem.application.dtos.Catalogo.GET.AlergiaDTO;
 import com.saludSystem.application.dtos.Catalogo.POST.CrearAlergiaDTO;
 import com.saludSystem.application.services.Catalogo.AlergiaService;
 import com.saludSystem.application.services.GenericServiceImpl;
-import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Catalogo.AlergiaEntity;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.AlergiaRepository;
@@ -22,18 +19,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class AlergiaServiceImpl extends GenericServiceImpl<AlergiaEntity,
-        AlergiaDTO,
-        UUID,
-        CrearAlergiaDTO,
+public class AlergiaServiceImpl extends GenericServiceImpl<AlergiaEntity, AlergiaDTO, UUID, CrearAlergiaDTO,
         ActualizarAlergiaDTO> implements AlergiaService {
 
     private final SysSaludRepository sysSaludRepository;
 
-    public AlergiaServiceImpl(
-            AlergiaRepository alergiaRepository,
-            ModelMapper modelMapper,
-            AuthValidator authValidator,
+    public AlergiaServiceImpl(AlergiaRepository alergiaRepository, ModelMapper modelMapper, AuthValidator authValidator,
             SysSaludRepository sysSaludRepository) {
         super(alergiaRepository,
                 modelMapper, authValidator, AlergiaDTO.class,
@@ -44,15 +35,7 @@ public class AlergiaServiceImpl extends GenericServiceImpl<AlergiaEntity,
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse save(CrearAlergiaDTO dto) {
-        UserEntity userEntity = authValidator.getCurrentUser();
-        authValidator.validateAdminAccess();
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
-                .orElseThrow( () -> new ResourceNotFoundException("Hospital no encontrado"));
-        AlergiaEntity entity = convertCreateDtoToEntity(dto);
-        entity.setUser(userEntity);
-        entity.setHospital(hospital);
-        genericRepository.save(entity);
-        return new ApiResponse(true, "Alergia agregada");
+        return super.save(dto);
     }
 
     @Override

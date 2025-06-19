@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 public class ListResponse<T> {
-
     @Schema(description = "Lista de elementos", example = "[]")
     private List<T> data;
 
@@ -23,5 +22,4 @@ public class ListResponse<T> {
         this.totalPages = totalPages;
         this.currentPage = currentPage;
     }
-
 }

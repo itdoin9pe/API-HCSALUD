@@ -9,6 +9,6 @@ import java.util.UUID;
 public class AlergiaDTO {
     private UUID alergiaId;
     private String nombre;
-    @Schema(description = "Estado de Alergias (0 = inactivo, 1 = activo)", example = "0")
+    @Schema(description = "Estado (0=Inactivo, 1=Activo)", example = "1")
     private Integer estado;
 }

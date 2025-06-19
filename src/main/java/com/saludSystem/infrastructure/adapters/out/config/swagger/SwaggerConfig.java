@@ -1,9 +1,15 @@
 package com.saludSystem.infrastructure.adapters.out.config.swagger;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.media.ArraySchema;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.xml.validation.Schema;
 
 @Configuration
 @OpenAPIDefinition(
@@ -14,7 +20,6 @@ import org.springframework.context.annotation.Configuration;
         )
 )
 public class SwaggerConfig {
-
     @Bean
     public OpenAPI notifOpenAPI() {
         OpenAPI openAPI = new OpenAPI();
@@ -27,5 +32,4 @@ public class SwaggerConfig {
                 .license(new io.swagger.v3.oas.models.info.License().name("License")));
         return openAPI;
     }
-
 }

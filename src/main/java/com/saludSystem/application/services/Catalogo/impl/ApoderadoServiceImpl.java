@@ -10,6 +10,7 @@ import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
 import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
+import com.saludSystem.infrastructure.adapters.in.response.PaginatedResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.ApoderadoRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
@@ -74,7 +75,7 @@ public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity,
     public List<ApoderadoDTO> getList() {
         return super.getList();
     }
-
+    
     @Override
     public ListResponse<ApoderadoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
