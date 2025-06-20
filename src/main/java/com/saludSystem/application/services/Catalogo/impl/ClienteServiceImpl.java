@@ -1,106 +1,83 @@
 package com.saludSystem.application.services.Catalogo.impl;
 
-import com.saludSystem.application.dtos.Catalogo.PUT.ActualizarClienteDTO;
 import com.saludSystem.application.dtos.Catalogo.GET.ClienteDTO;
 import com.saludSystem.application.dtos.Catalogo.POST.CrearClienteDTO;
+import com.saludSystem.application.dtos.Catalogo.PUT.ActualizarClienteDTO;
 import com.saludSystem.application.services.Catalogo.ClienteService;
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.domain.model.Catalogo.ClienteEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.ClienteRepository;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.domain.exception.ResourceNotFoundException;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.ClienteRepository;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.GenericRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.function.Function;
 
 @Service
-public class ClienteServiceImpl implements ClienteService {
+public class ClienteServiceImpl extends GenericServiceImpl<ClienteEntity, ClienteDTO, UUID,
+        CrearClienteDTO, ActualizarClienteDTO> implements ClienteService {
 
-    private final ClienteRepository clienteRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
-
-    public ClienteServiceImpl(ClienteRepository clienteRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ModelMapper modelMapper) {
-        this.clienteRepository = clienteRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
+    public ClienteServiceImpl(ClienteRepository clienteRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(clienteRepository, modelMapper, authValidator, ClienteDTO.class,
+                clienteEntity -> modelMapper.map(clienteEntity, ClienteDTO.class));
     }
 
     @Override
-    public ApiResponse saveCliente(CrearClienteDTO crearClienteDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        ClienteEntity clienteEntity = new ClienteEntity();
-        clienteEntity.setTipoDocumento(crearClienteDTO.getTipoDocumento());
-        clienteEntity.setNombre(crearClienteDTO.getNombre());
-        clienteEntity.setDireccion(crearClienteDTO.getDireccion());
-        clienteEntity.setContacto(crearClienteDTO.getContacto());
-        clienteEntity.setTelefono(crearClienteDTO.getTelefono());
-        clienteEntity.setEmail(crearClienteDTO.getEmail());
-        clienteEntity.setEstado(crearClienteDTO.getEstado());
-        clienteEntity.setUser(user);
-        clienteEntity.setHospital(hospital);
-        clienteRepository.save(clienteEntity);
-        return new ApiResponse(true,  "Cliente registrado correctamente");
+    public ApiResponse save(CrearClienteDTO crearClienteDTO) {
+        return super.save(crearClienteDTO);
     }
 
     @Override
-    public ApiResponse updateCliente(UUID clienteId, ActualizarClienteDTO actualizarClienteDTO) {
-        ClienteEntity clienteEntity = clienteRepository.findById(clienteId)
-                .orElseThrow( () -> new ResourceNotFoundException("Cliente no encontrado"));
-        Optional.ofNullable(actualizarClienteDTO.getTipoDocumento()).filter(desc -> !desc.isBlank()).ifPresent(clienteEntity::setTipoDocumento);
-        Optional.ofNullable(actualizarClienteDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(clienteEntity::setNombre);
-        Optional.ofNullable(actualizarClienteDTO.getDireccion()).filter(desc -> !desc.isBlank()).ifPresent(clienteEntity::setDireccion);
-        Optional.ofNullable(actualizarClienteDTO.getContacto()).filter(desc -> !desc.isBlank()).ifPresent(clienteEntity::setContacto);
-        Optional.ofNullable(actualizarClienteDTO.getTelefono()).filter(desc -> !desc.isBlank()).ifPresent(clienteEntity::setTelefono);
-        Optional.ofNullable(actualizarClienteDTO.getEmail()).filter(desc -> !desc.isBlank()).ifPresent(clienteEntity::setEmail);
-        Optional.ofNullable(actualizarClienteDTO.getEstado()).ifPresent(clienteEntity::setEstado);
-        clienteRepository.save(clienteEntity);
-        return new ApiResponse(true, "Cliente actualizado correctamente");
+    public ListResponse<ClienteDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    public ClienteDTO getClienteById(UUID clienteId) {
-        ClienteEntity clienteEntity = clienteRepository.findById(clienteId).orElseThrow(
-                () -> new ResourceNotFoundException("Cliente no encontrado"));
-        return convertToDTO(clienteEntity);
+    public ApiResponse update(UUID uuid, ActualizarClienteDTO actualizarClienteDTO) {
+        return super.update(uuid, actualizarClienteDTO);
     }
 
     @Override
-    public ApiResponse deleteCliente(UUID clienteId) {
-        clienteRepository.deleteById(clienteId);
-        return new ApiResponse(true, "Cliente eliminado correctamente");
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
     }
 
     @Override
-    public ListResponse<ClienteDTO> getAllCliente(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<ClienteEntity> clienteModelPage = clienteRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<ClienteDTO> data = clienteModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, clienteModelPage.getTotalElements(), clienteModelPage.getTotalPages(), clienteModelPage.getNumber() + 1);
+    public ClienteDTO getById(UUID uuid) {
+        return super.getById(uuid);
     }
 
-    private ClienteDTO convertToDTO(ClienteEntity clienteEntity) {
-        return modelMapper.map(clienteEntity, ClienteDTO.class);
+    @Override
+    public List<ClienteDTO> getList() {
+        return super.getList();
     }
 
+    @Override
+    protected ClienteEntity convertCreateDtoToEntity(CrearClienteDTO crearClienteDTO) {
+        ClienteEntity entity = new ClienteEntity();
+        entity.setNombre(crearClienteDTO.getNombre());
+        entity.setContacto(crearClienteDTO.getContacto());
+        entity.setTelefono(crearClienteDTO.getTelefono());
+        entity.setDireccion(crearClienteDTO.getDireccion());
+        entity.setEmail(crearClienteDTO.getEmail());
+        entity.setTipoDocumento(crearClienteDTO.getTipoDocumento());
+        entity.setEstado(crearClienteDTO.getEstado());
+        return entity;
+    }
+
+    @Override
+    protected void updateEntityFromDto(ActualizarClienteDTO actualizarClienteDTO, ClienteEntity entity) {
+        entity.setNombre(actualizarClienteDTO.getNombre());
+        entity.setContacto(actualizarClienteDTO.getContacto());
+        entity.setTelefono(actualizarClienteDTO.getTelefono());
+        entity.setDireccion(actualizarClienteDTO.getDireccion());
+        entity.setEmail(actualizarClienteDTO.getEmail());
+        entity.setTipoDocumento(actualizarClienteDTO.getTipoDocumento());
+        entity.setEstado(actualizarClienteDTO.getEstado());
+    }
 }
