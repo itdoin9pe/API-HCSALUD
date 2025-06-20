@@ -16,7 +16,7 @@ public class BaseEntity {
     private SysSaludEntity hospital;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "id_user", nullable = false)
     private UserEntity user;
 
 }

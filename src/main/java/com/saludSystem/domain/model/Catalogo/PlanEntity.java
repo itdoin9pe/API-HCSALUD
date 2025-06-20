@@ -1,7 +1,6 @@
 package com.saludSystem.domain.model.Catalogo;
 
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
+import com.saludSystem.domain.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -13,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-public class PlanEntity {
+public class PlanEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -40,13 +39,5 @@ public class PlanEntity {
 
     @Column(name = "estado", nullable = false)
     private Integer estado;
-
-    @ManyToOne
-    @JoinColumn(name = "hospital_id", nullable = false)
-    private SysSaludEntity hospital;
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private UserEntity user;
 
 }
