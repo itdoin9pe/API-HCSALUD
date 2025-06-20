@@ -4,13 +4,9 @@ import com.saludSystem.application.dtos.Catalogo.PUT.ActualizarApoderadoDTO;
 import com.saludSystem.application.dtos.Catalogo.GET.ApoderadoDTO;
 import com.saludSystem.application.dtos.Catalogo.POST.CrearApoderadoDTO;
 import com.saludSystem.application.services.GenericServiceImpl;
-import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Catalogo.ApoderadoEntity;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.infrastructure.adapters.in.response.PaginatedResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.ApoderadoRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
@@ -22,19 +18,13 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity,
-        ApoderadoDTO,
-        UUID,
-        CrearApoderadoDTO,
-        ActualizarApoderadoDTO> {
+public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity, ApoderadoDTO,
+        UUID, CrearApoderadoDTO, ActualizarApoderadoDTO> {
 
     private final SysSaludRepository sysSaludRepository;
 
-    public ApoderadoServiceImpl(
-            ApoderadoRepository apoderadoRepository,
-            ModelMapper modelMapper,
-            AuthValidator authValidator,
-            SysSaludRepository sysSaludRepository) {
+    public ApoderadoServiceImpl(ApoderadoRepository apoderadoRepository, ModelMapper modelMapper,
+            AuthValidator authValidator, SysSaludRepository sysSaludRepository) {
         super(apoderadoRepository, modelMapper, authValidator, ApoderadoDTO.class,
                 apoderadoEntity -> modelMapper.map(apoderadoEntity, ApoderadoDTO.class));
         this.sysSaludRepository = sysSaludRepository;
@@ -42,16 +32,8 @@ public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity,
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearApoderadoDTO dto){
-        UserEntity userEntity = authValidator.getCurrentUser();
-        authValidator.validateAdminAccess();
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
-                .orElseThrow( () -> new ResourceNotFoundException("Hospital not found"));
-        ApoderadoEntity apoderadoEntity = convertCreateDtoToEntity(dto);
-        apoderadoEntity.setHospital(hospital);
-        apoderadoEntity.setUser(userEntity);
-        genericRepository.save(apoderadoEntity);
-        return new ApiResponse(true, "Apoderado agregado");
+    public ApiResponse save(CrearApoderadoDTO dto) {
+        return super.save(dto);
     }
 
     @Override
