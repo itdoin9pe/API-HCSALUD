@@ -11,6 +11,7 @@ import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +26,7 @@ public class EspecialidadServiceImpl extends GenericServiceImpl<EspecialidadEnti
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse save(CrearEspecialidadDTO crearEspecialidadDTO) {
         return super.save(crearEspecialidadDTO);
     }
@@ -35,11 +37,13 @@ public class EspecialidadServiceImpl extends GenericServiceImpl<EspecialidadEnti
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse update(UUID uuid, ActualizarEspecialidadDTO actualizarEspecialidadDTO) {
         return super.update(uuid, actualizarEspecialidadDTO);
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse delete(UUID uuid) {
         return super.delete(uuid);
     }

@@ -12,6 +12,7 @@ import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalo
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.GenericRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class ClienteServiceImpl extends GenericServiceImpl<ClienteEntity, Client
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse save(CrearClienteDTO crearClienteDTO) {
         return super.save(crearClienteDTO);
     }
@@ -38,11 +40,13 @@ public class ClienteServiceImpl extends GenericServiceImpl<ClienteEntity, Client
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse update(UUID uuid, ActualizarClienteDTO actualizarClienteDTO) {
         return super.update(uuid, actualizarClienteDTO);
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse delete(UUID uuid) {
         return super.delete(uuid);
     }

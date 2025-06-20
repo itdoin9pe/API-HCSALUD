@@ -11,6 +11,7 @@ import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.ConsentimientoRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class ConsentimientoServiceImpl extends GenericServiceImpl<Consentimiento
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse save(CrearConsentimientoDTO crearConsentimientoDTO) {
         return super.save(crearConsentimientoDTO);
     }
@@ -37,11 +39,13 @@ public class ConsentimientoServiceImpl extends GenericServiceImpl<Consentimiento
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse update(UUID uuid, ActualizarConsentimientoDTO actualizarConsentimientoDTO) {
         return super.update(uuid, actualizarConsentimientoDTO);
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse delete(UUID uuid) {
         return super.delete(uuid);
     }

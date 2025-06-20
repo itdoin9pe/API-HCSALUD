@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MedicamentoRepository extends GenericRepository<MedicamentoEntity> {
-    // Métodos específicos si los hay
 }
