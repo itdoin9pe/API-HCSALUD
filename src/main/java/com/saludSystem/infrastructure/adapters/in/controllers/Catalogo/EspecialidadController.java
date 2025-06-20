@@ -3,16 +3,14 @@ package com.saludSystem.infrastructure.adapters.in.controllers.Catalogo;
 import com.saludSystem.application.dtos.Catalogo.PUT.ActualizarEspecialidadDTO;
 import com.saludSystem.application.dtos.Catalogo.POST.CrearEspecialidadDTO;
 import com.saludSystem.application.dtos.Catalogo.GET.EspecialidadDTO;
-import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
+import com.saludSystem.application.services.GenericService;
+import com.saludSystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludSystem.infrastructure.adapters.in.response.Catalogo.EspecialidadResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.application.services.Catalogo.EspecialidadService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
@@ -20,49 +18,21 @@ import java.util.UUID;
 @Tag(name = "Especialidades")
 @RestController
 @RequestMapping("/api/Especialidades")
-public class EspecialidadController {
+public class EspecialidadController extends GenericController<EspecialidadDTO, UUID,
+        CrearEspecialidadDTO, ActualizarEspecialidadDTO> {
 
-    private final EspecialidadService especialidadService;
-
-    public EspecialidadController(EspecialidadService especialidadService) {
-        this.especialidadService = especialidadService;
+    protected EspecialidadController(GenericService<EspecialidadDTO, UUID, CrearEspecialidadDTO,
+            ActualizarEspecialidadDTO> genericService) {
+        super(genericService);
     }
 
-    @PostMapping("/SaveEspecialidad")
-    public ApiResponse store(@Valid @RequestBody CrearEspecialidadDTO crearEspecialidadDTO){
-        return especialidadService.saveEspecialidad(crearEspecialidadDTO);
-    }
-
-    @GetMapping("/GetAllEspecialidad")
+    @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = EspecialidadResponse.class)))
     })
-    public ListResponse<EspecialidadDTO> getAllPage(
-            @RequestParam(name = "hospitalId", required = true) UUID hospitalId, @RequestParam(name = "Page") int page,
-            @RequestParam(name = "Rows") int rows) {
-        return especialidadService.getAllEspecialidad(hospitalId, page, rows);
+    public ListResponse<EspecialidadDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
-
-    @GetMapping("/GetEspecialidadList")
-    public ResponseEntity<List<EspecialidadDTO>> getAllList() {
-        return ResponseEntity.ok(especialidadService.getEspecialidadList());
-    }
-
-    @GetMapping("/GetEspecialidad/{especialidadId}")
-    public EspecialidadDTO getById(@PathVariable UUID especialidadId) {
-        return especialidadService.getEspecialidadById(especialidadId);
-    }
-
-    @PutMapping("/UpdateEspecialidad/{especialidadId}")
-    public ApiResponse update(@PathVariable UUID especialidadId, @RequestBody ActualizarEspecialidadDTO actualizarEspecialidadDTO) {
-        return especialidadService.updateEspecialidad(especialidadId, actualizarEspecialidadDTO);
-    }
-
-    @DeleteMapping("/DeleteEspecialidad/{especialidadId}")
-    public ApiResponse destroy(@PathVariable UUID especialidadId) {
-        return especialidadService.deleteEspecialidad(especialidadId);
-    }
-
 }
