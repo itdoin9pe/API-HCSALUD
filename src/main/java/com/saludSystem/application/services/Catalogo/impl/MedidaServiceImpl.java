@@ -1,100 +1,75 @@
 package com.saludSystem.application.services.Catalogo.impl;
 
-import com.saludSystem.application.dtos.Catalogo.PUT.ActualizarMedidaDTO;
-import com.saludSystem.application.dtos.Catalogo.POST.CrearMedidaDTO;
 import com.saludSystem.application.dtos.Catalogo.GET.MedidaDTO;
+import com.saludSystem.application.dtos.Catalogo.POST.CrearMedidaDTO;
+import com.saludSystem.application.dtos.Catalogo.PUT.ActualizarMedidaDTO;
 import com.saludSystem.application.services.Catalogo.MedidaService;
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.domain.model.Catalogo.MedidaEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.MedidaRepository;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.domain.exception.ResourceNotFoundException;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.MedidaRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class MedidaServiceImpl implements MedidaService {
+public class MedidaServiceImpl extends GenericServiceImpl<MedidaEntity, MedidaDTO, UUID,
+        CrearMedidaDTO, ActualizarMedidaDTO> implements MedidaService {
 
-    private final MedidaRepository medidaRepository;
-    private final UserRepository userRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final ModelMapper modelMapper;
-
-    public MedidaServiceImpl(MedidaRepository medidaRepository, UserRepository userRepository, SysSaludRepository sysSaludRepository, ModelMapper modelMapper) {
-        this.medidaRepository = medidaRepository;
-        this.userRepository = userRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.modelMapper = modelMapper;
+    public MedidaServiceImpl(MedidaRepository medidaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(medidaRepository, modelMapper, authValidator, MedidaDTO.class,
+                medidaEntity -> modelMapper.map(medidaEntity, MedidaDTO.class));
     }
 
     @Override
-    public ApiResponse saveMedida(CrearMedidaDTO crearMedidaDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        MedidaEntity medida = new MedidaEntity();
-        medida.setNombre(crearMedidaDTO.getNombre());
-        medida.setEstado(crearMedidaDTO.getEstado());
-        medida.setUser(user);
-        medida.setHospital(hospital);
-        medidaRepository.save(medida);
-        return new ApiResponse(true, "Medida registrada correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse save(CrearMedidaDTO crearMedidaDTO) {
+        return super.save(crearMedidaDTO);
     }
 
     @Override
-    public List<MedidaDTO> getMedidaList() {
-        return medidaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    public ListResponse<MedidaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    public MedidaDTO getMedidaById(UUID medidaId) {
-        MedidaEntity medida = medidaRepository.findById(medidaId).orElseThrow( () -> new ResourceNotFoundException("Medida no encontrada"));
-        return convertToDTO(medida);
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse update(UUID uuid, ActualizarMedidaDTO actualizarMedidaDTO) {
+        return super.update(uuid, actualizarMedidaDTO);
     }
 
     @Override
-    public ApiResponse updateMedida(UUID medidaId, ActualizarMedidaDTO actualizarMedidaDTO) {
-        MedidaEntity medida = medidaRepository.findById(medidaId).orElseThrow(
-                () -> new ResourceNotFoundException("Medida no encontrada con ID" + medidaId));
-        Optional.ofNullable(actualizarMedidaDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(medida::setNombre);
-        Optional.ofNullable(actualizarMedidaDTO.getEstado()).ifPresent(medida::setEstado);
-        medidaRepository.save(medida);
-        return new ApiResponse(true, "Medida actualizada con exito");
+    public MedidaDTO getById(UUID uuid) {
+        return super.getById(uuid);
     }
 
     @Override
-    public ApiResponse deleteMedida(UUID medidaId) {
-        medidaRepository.deleteById(medidaId);
-        return new ApiResponse(true, "Medida eliminada correctamente");
+    public List<MedidaDTO> getList() {
+        return super.getList();
     }
 
     @Override
-    public ListResponse<MedidaDTO> getAllMedida(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<MedidaEntity> medidasPage = medidaRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<MedidaDTO> data = medidasPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, medidasPage.getTotalElements(), medidasPage.getTotalPages(), medidasPage.getNumber() + 1);
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
     }
 
-    private MedidaDTO convertToDTO(MedidaEntity medida) {
-        return modelMapper.map(medida, MedidaDTO.class);
+    @Override
+    protected MedidaEntity convertCreateDtoToEntity(CrearMedidaDTO crearMedidaDTO) {
+        MedidaEntity entity = new MedidaEntity();
+        entity.setNombre(crearMedidaDTO.getNombre());
+        entity.setEstado(crearMedidaDTO.getEstado());
+        return entity;
     }
 
+    @Override
+    protected void updateEntityFromDto(ActualizarMedidaDTO actualizarMedidaDTO, MedidaEntity entity) {
+        entity.setNombre(actualizarMedidaDTO.getNombre());
+        entity.setEstado(actualizarMedidaDTO.getEstado());
+    }
 }
