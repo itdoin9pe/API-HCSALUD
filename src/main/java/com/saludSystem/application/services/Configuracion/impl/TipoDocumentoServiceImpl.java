@@ -1,115 +1,85 @@
 package com.saludSystem.application.services.Configuracion.impl;
 
 import com.saludSystem.application.services.Configuracion.TipoDocumentoService;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.application.dtos.Configuracion.PUT.ActualizarTipoDocumentoDTO;
 import com.saludSystem.application.dtos.Configuracion.POST.CrearTipoDocumentoDTO;
 import com.saludSystem.application.dtos.Configuracion.GET.TipoDocumentoDTO;
 import com.saludSystem.domain.model.Configuracion.TipoDocumentoEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.TipoDocumentoRepository;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.TipoDocumentoRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class TipoDocumentoServiceImpl implements TipoDocumentoService {
+public class TipoDocumentoServiceImpl extends GenericServiceImpl<
+        TipoDocumentoEntity, TipoDocumentoDTO, UUID, CrearTipoDocumentoDTO, ActualizarTipoDocumentoDTO>
+        implements TipoDocumentoService {
 
-    private final TipoDocumentoRepository tipoDocumentoRepository;
-    private final UserRepository userRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final ModelMapper modelMapper;
-
-    public TipoDocumentoServiceImpl(TipoDocumentoRepository tipoDocumentoRepository, UserRepository userRepository, SysSaludRepository sysSaludRepository, ModelMapper modelMapper) {
-        this.tipoDocumentoRepository = tipoDocumentoRepository;
-        this.userRepository = userRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.modelMapper = modelMapper;
+    public TipoDocumentoServiceImpl(TipoDocumentoRepository tipoDocumentoRepository, ModelMapper modelMapper,
+                                    AuthValidator authValidator) {
+        super(tipoDocumentoRepository, modelMapper, authValidator, TipoDocumentoDTO.class,
+                tipoDocumentoEntity -> modelMapper.map(tipoDocumentoEntity, TipoDocumentoDTO.class));
     }
 
     @Override
-    public ApiResponse saveTipoDocumento(CrearTipoDocumentoDTO crearTipoDocumentoDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        TipoDocumentoEntity tipoDocumento = new TipoDocumentoEntity();
-        tipoDocumento.setTipoComprobante(crearTipoDocumentoDTO.getTipoComprobante());
-        tipoDocumento.setSerie(crearTipoDocumentoDTO.getSerie());
-        tipoDocumento.setInicio(crearTipoDocumentoDTO.getInicio());
-        tipoDocumento.setFin(crearTipoDocumentoDTO.getFin());
-        tipoDocumento.setCorrelativoActual(crearTipoDocumentoDTO.getCorrelativoActual());
-        tipoDocumento.setEstado(crearTipoDocumentoDTO.getEstado());
-        tipoDocumento.setHospital(hospital);
-        tipoDocumento.setUser(user);
-        tipoDocumentoRepository.save(tipoDocumento);
-        return new ApiResponse(true, "Tipo de documento registrado correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse save(CrearTipoDocumentoDTO crearTipoDocumentoDTO) {
+        return super.save(crearTipoDocumentoDTO);
     }
 
     @Override
-    public ListResponse<TipoDocumentoDTO> getAllTipoDocumento(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<TipoDocumentoEntity> tipoDocumentoPage = tipoDocumentoRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<TipoDocumentoDTO> data = tipoDocumentoPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, tipoDocumentoPage.getTotalElements(), tipoDocumentoPage.getTotalPages(), tipoDocumentoPage.getNumber() + 1);
+    public ListResponse<TipoDocumentoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    public TipoDocumentoDTO getTipoDocumentoById(UUID tDocumentoId) {
-        TipoDocumentoEntity tipoDocumento = tipoDocumentoRepository.findById(tDocumentoId)
-                .orElseThrow( () -> new RuntimeException("Tipo de documento no encontrado"));
-        TipoDocumentoDTO dto = new TipoDocumentoDTO();
-        dto.setTDocumentoId(tipoDocumento.getTDocumentoId());
-        dto.setTipoComprobante(tipoDocumento.getTipoComprobante());
-        dto.setSerie(tipoDocumento.getSerie());
-        dto.setInicio(tipoDocumento.getInicio());
-        dto.setFin(tipoDocumento.getFin());
-        dto.setCorrelativoActual(tipoDocumento.getCorrelativoActual());
-        dto.setEstado(tipoDocumento.getEstado());
-        return dto;
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse update(UUID uuid, ActualizarTipoDocumentoDTO actualizarTipoDocumentoDTO) {
+        return super.update(uuid, actualizarTipoDocumentoDTO);
     }
 
     @Override
-    public List<TipoDocumentoDTO> getTipoDocumentoList() {
-        return tipoDocumentoRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    public TipoDocumentoDTO getById(UUID uuid) {
+        return super.getById(uuid);
     }
 
     @Override
-    public ApiResponse updateTipoDocumento(UUID tDocumentoId, ActualizarTipoDocumentoDTO actualizarTipoDocumentoDTO) {
-        TipoDocumentoEntity tipoDocumento = tipoDocumentoRepository.findById(tDocumentoId).orElseThrow(
-                () -> new RuntimeException("Tipo Documento no encontrado"));
-        Optional.ofNullable(actualizarTipoDocumentoDTO.getTipoComprobante()).filter(desc -> !desc.isBlank()).ifPresent(tipoDocumento::setTipoComprobante);
-        Optional.ofNullable(actualizarTipoDocumentoDTO.getSerie()).ifPresent(tipoDocumento::setSerie);
-        Optional.ofNullable(actualizarTipoDocumentoDTO.getInicio()).ifPresent(tipoDocumento::setInicio);
-        Optional.ofNullable(actualizarTipoDocumentoDTO.getFin()).ifPresent(tipoDocumento::setFin);
-        Optional.ofNullable(actualizarTipoDocumentoDTO.getCorrelativoActual()).ifPresent(tipoDocumento::setCorrelativoActual);
-        tipoDocumentoRepository.save(tipoDocumento);
-        return new ApiResponse(true, "Tipo de documento actualizado correctamente");
+    public List<TipoDocumentoDTO> getList() {
+        return super.getList();
     }
 
     @Override
-    public ApiResponse deleteTipoDocumento(UUID tDocumentoId) {
-        tipoDocumentoRepository.deleteById(tDocumentoId);
-        return new ApiResponse(true, "Tipo de documento eliminado correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
     }
 
-    private TipoDocumentoDTO convertToDTO(TipoDocumentoEntity tipoDocumento) {
-        return modelMapper.map(tipoDocumento, TipoDocumentoDTO.class);
+    @Override
+    protected TipoDocumentoEntity convertCreateDtoToEntity(CrearTipoDocumentoDTO crearTipoDocumentoDTO) {
+        TipoDocumentoEntity entity = new TipoDocumentoEntity();
+        entity.setTipoComprobante(crearTipoDocumentoDTO.getTipoComprobante());
+        entity.setSerie(crearTipoDocumentoDTO.getSerie());
+        entity.setInicio(crearTipoDocumentoDTO.getInicio());
+        entity.setFin(crearTipoDocumentoDTO.getFin());
+        entity.setCorrelativoActual(crearTipoDocumentoDTO.getCorrelativoActual());
+        entity.setEstado(crearTipoDocumentoDTO.getEstado());
+        return entity;
     }
 
+    @Override
+    protected void updateEntityFromDto(ActualizarTipoDocumentoDTO actualizarTipoDocumentoDTO, TipoDocumentoEntity entity) {
+        entity.setTipoComprobante(actualizarTipoDocumentoDTO.getTipoComprobante());
+        entity.setSerie(actualizarTipoDocumentoDTO.getSerie());
+        entity.setInicio(actualizarTipoDocumentoDTO.getInicio());
+        entity.setFin(actualizarTipoDocumentoDTO.getFin());
+        entity.setCorrelativoActual(actualizarTipoDocumentoDTO.getCorrelativoActual());
+        entity.setEstado(actualizarTipoDocumentoDTO.getEstado());
+    }
 }
