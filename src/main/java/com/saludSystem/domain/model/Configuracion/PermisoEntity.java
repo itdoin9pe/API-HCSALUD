@@ -1,5 +1,6 @@
 package com.saludSystem.domain.model.Configuracion;
 
+import com.saludSystem.domain.model.BaseEntity;
 import com.saludSystem.domain.model.MenuEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PermisoEntity {
+public class PermisoEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -38,15 +39,7 @@ public class PermisoEntity {
     private RoleEntity rol;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
-
-    @ManyToOne
     @JoinColumn(name = "menu_id", nullable = false)
     private MenuEntity menuEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "hospital_id", nullable = false)
-    private SysSaludEntity hospital;
 
 }
