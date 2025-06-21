@@ -1,5 +1,6 @@
 package com.saludSystem.domain.model.Configuracion;
 
+import com.saludSystem.domain.model.BaseEntity;
 import com.saludSystem.domain.model.SucursalEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sedes")
-public class SedeEntity {
+public class SedeEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -40,13 +41,4 @@ public class SedeEntity {
     @ManyToOne
     @JoinColumn(name = "sucursal_id", nullable = false)
     private SucursalEntity sucursalEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
-
-    @ManyToOne
-    @JoinColumn(name = "hospital_id", nullable = false)
-    private SysSaludEntity hospital;
-
 }

@@ -3,67 +3,34 @@ package com.saludSystem.infrastructure.adapters.in.controllers.Configuracion;
 import com.saludSystem.application.dtos.Configuracion.PUT.ActualizarSedeDTO;
 import com.saludSystem.application.dtos.Configuracion.POST.CrearSedeDTO;
 import com.saludSystem.application.dtos.Configuracion.GET.SedeDTO;
-import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
+import com.saludSystem.application.services.GenericService;
+import com.saludSystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludSystem.infrastructure.adapters.in.response.Configuracion.SedeResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.application.services.Configuracion.SedeService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Sedes")
 @RestController
 @RequestMapping("/api/Sedes")
-public class SedeController {
+public class SedeController extends GenericController<SedeDTO, UUID, CrearSedeDTO, ActualizarSedeDTO> {
 
-    private final SedeService sedeService;
-
-    public SedeController(SedeService sedeService){
-        this.sedeService = sedeService;
+    protected SedeController(GenericService<SedeDTO, UUID, CrearSedeDTO, ActualizarSedeDTO> genericService) {
+        super(genericService);
     }
 
-    @PostMapping("/SaveSede")
-    public ApiResponse stored(@Valid @RequestBody CrearSedeDTO crearSedeDTO){
-        return sedeService.saveSede(crearSedeDTO);
-    }
-
-    @GetMapping("/GetAllSede")
+    @GetMapping("/GetAll")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = SedeResponse.class)))
     })
-    public ListResponse<SedeDTO> getAllPage(
-            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
-        return sedeService.getAllEmpresa(hospitalId, page, rows);
+    public ListResponse<SedeDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
-
-    @PutMapping("/UpdateSede/{sedeId}")
-    public ApiResponse update(@PathVariable UUID sedeId, @RequestBody ActualizarSedeDTO actualizarSedeDTO) {
-        return sedeService.updateSede(sedeId, actualizarSedeDTO);
-    }
-
-    @DeleteMapping("/DeleteSede/{sedeId}")
-    public ApiResponse destroy(@PathVariable UUID sedeId){
-        return sedeService.deleteSede(sedeId);
-    }
-
-    @GetMapping("/GetSede/{sedeId}")
-    public SedeDTO getById(@PathVariable UUID sedeId){
-        return sedeService.getSedeById(sedeId);
-    }
-
-    @GetMapping("/GetSedeList")
-    public ResponseEntity<List<SedeDTO>> getAllList() {
-        return ResponseEntity.ok(sedeService.getSedeList());
-    }
-
 }
