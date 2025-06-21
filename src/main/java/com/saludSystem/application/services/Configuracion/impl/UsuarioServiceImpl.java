@@ -51,6 +51,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UserEntity saveUsuario(NewUserDto newUserDto) {
+        /*
         RoleEntity role = roleRepository.findByRoleId(newUserDto.getRoleId())
                 .orElseThrow(() -> new EntityNotFoundException("Rol no encontrado"));
         SysSaludEntity hospital = sysSaludRepository.findAll()
@@ -71,7 +72,8 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .hospital(hospital)
                 .build();
 
-        return userRepository.save(user);
+        return userRepository.save(user);*/
+        return null;
     }
 
     @Override

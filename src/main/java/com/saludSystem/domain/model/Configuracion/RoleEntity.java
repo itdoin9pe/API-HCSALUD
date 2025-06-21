@@ -1,18 +1,18 @@
 package com.saludSystem.domain.model.Configuracion;
 
+import com.saludSystem.domain.model.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "roles")
-@Data
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleEntity {
+public class RoleEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -24,10 +24,6 @@ public class RoleEntity {
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
-
-    @ManyToOne
-    @JoinColumn(name = "hospital_id", nullable = false)
-    private SysSaludEntity hospital;
 
     @OneToMany(mappedBy = "rol")
     private List<UserEntity> usuarios;
