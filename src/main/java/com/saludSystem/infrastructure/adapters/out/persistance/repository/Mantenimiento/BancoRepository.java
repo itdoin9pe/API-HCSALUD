@@ -1,16 +1,10 @@
 package com.saludSystem.infrastructure.adapters.out.persistance.repository.Mantenimiento;
 
 import com.saludSystem.domain.model.Mantenimiento.BancoEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.GenericRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
-public interface BancoRepository extends JpaRepository<BancoEntity, UUID> {
-
-    Page<BancoEntity> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+public interface BancoRepository extends GenericRepository<BancoEntity> {
 
 }
