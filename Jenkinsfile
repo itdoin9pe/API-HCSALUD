@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.6-eclipse-temurin-17'
-        }
-    }
+    agent any
 
     environment {
         SPRING_PROFILES_ACTIVE = "prod"
@@ -34,7 +30,13 @@ pipeline {
 
         stage('Build con Maven') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                script {
+                    docker.image('maven:3.8.6-eclipse-temurin-17')
+                          .inside('--volume=/var/run/docker.sock:/var/run/docker.sock') {
+                        sh 'docker --version' // ahora sí funcionará
+                        sh 'mvn clean package -DskipTests'
+                    }
+                }
             }
         }
 
