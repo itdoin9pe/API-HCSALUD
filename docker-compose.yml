@@ -2,12 +2,14 @@ version: '3.8'
 
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
     container_name: jenkins
-    user: root  # necesario para poder usar docker.sock
+    user: root
     ports:
-      - "8080:8080"   # Jenkins UI
-      - "50000:50000" # Jenkins agents
+      - "8080:8080"
+      - "50000:50000"
     volumes:
       - ./jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
@@ -24,7 +26,7 @@ services:
       MYSQL_PASSWORD: giangodisinyou2
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3306:3306"
+      - "3307:3306"
     networks:
       - jenkins_net
 
