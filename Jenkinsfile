@@ -29,13 +29,11 @@ pipeline {
         }
 
         stage('Build con Maven') {
-            agent {
-                docker {
-                    image 'maven:3.8.6-eclipse-temurin-17'
-                }
-            }
             steps {
-                sh 'mvn clean package -DskipTests'
+                // SOLO usar Maven para compilar, no usar Docker aquí
+                docker.image('maven:3.8.6-eclipse-temurin-17').inside {
+                    sh 'mvn clean package -DskipTests'
+                }
             }
         }
 
