@@ -23,9 +23,9 @@ pipeline {
         }
 
         stage('Checkout') {
-            steps {
-                git 'https://github.com/itdoin9pe/API-HCSALUD.git'
-            }
+             steps {
+                git url: 'https://github.com/itdoin9pe/API-HCSALUD.git', credentialsId: 'github-token'
+             }
         }
 
         stage('Build con Maven') {
