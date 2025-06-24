@@ -1,10 +1,6 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.6-eclipse-temurin-17'
-            args '-v /var/run/docker.sock:/var/run/docker.sock' // Permite usar Docker dentro del contenedor
-        }
-    }
+
+    agent any
 
     environment {
         SPRING_PROFILES_ACTIVE = "prod"
@@ -18,6 +14,14 @@ pipeline {
     }
 
     stages {
+
+        stage('Verificar Docker') {
+            steps {
+                sh 'docker --version'
+                sh 'docker ps'
+            }
+        }
+
         stage('Checkout') {
             steps {
                 git 'https://github.com/itdoin9pe/API-HCSALUD.git'
