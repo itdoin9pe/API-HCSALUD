@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3.8.6-eclipse-temurin-17'
+        }
+    }
 
     environment {
         SPRING_PROFILES_ACTIVE = "prod"
