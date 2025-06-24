@@ -1,0 +1,58 @@
+pipeline {
+    agent {
+        docker {
+            image 'maven:3.8.6-eclipse-temurin-17'
+            args '-v /var/run/docker.sock:/var/run/docker.sock' // para poder usar docker dentro del contenedor
+        }
+    }
+
+    environment {
+        SPRING_PROFILES_ACTIVE = "prod"
+        DB_URL = "jdbc:mysql://mysql:3306/db_sysalud"
+        DB_USERNAME = "root"
+        DB_PASSWORD = "giangodisinyou2"
+        JWT_SECRET = "fb3185950296da2445c1837ffc09f771feb47650d4ca97a8029c663bbab0dbcc"
+        JWT_EXPIRATION = "3600"
+        JWT_REFRESH_EXPIRATION = "86400"
+        FILE_UPLOAD_DIR = "./uploads"
+    }
+
+    stages {
+        stage('Clonar proyecto') {
+            steps {
+                git 'https://github.com/itdoin9pe/API-HCSALUD.git' // reemplaza esto con tu repo real
+            }
+        }
+
+        stage('Compilar') {
+            steps {
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Build Docker') {
+            steps {
+                sh 'docker build -t syssalud-app .'
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh '''
+                docker stop syssalud-app || true
+                docker rm syssalud-app || true
+                docker run -d --name syssalud-app \
+                    -e DB_URL=$DB_URL \
+                    -e DB_USERNAME=$DB_USERNAME \
+                    -e DB_PASSWORD=$DB_PASSWORD \
+                    -e JWT_SECRET=$JWT_SECRET \
+                    -e JWT_EXPIRATION=$JWT_EXPIRATION \
+                    -e JWT_REFRESH_EXPIRATION=$JWT_REFRESH_EXPIRATION \
+                    -e SPRING_PROFILES_ACTIVE=$SPRING_PROFILES_ACTIVE \
+                    -e FILE_UPLOAD_DIR=$FILE_UPLOAD_DIR \
+                    -p 8081:8081 syssalud-app
+                '''
+            }
+        }
+    }
+}
