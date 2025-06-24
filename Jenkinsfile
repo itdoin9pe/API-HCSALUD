@@ -1,5 +1,4 @@
 pipeline {
-
     agent any
 
     environment {
@@ -14,7 +13,6 @@ pipeline {
     }
 
     stages {
-
         stage('Verificar Docker') {
             steps {
                 sh 'docker --version'
@@ -23,9 +21,11 @@ pipeline {
         }
 
         stage('Checkout') {
-             steps {
-                git url: 'https://github.com/itdoin9pe/API-HCSALUD.git', credentialsId: 'github-token'
-             }
+            steps {
+                git url: 'https://github.com/itdoin9pe/API-HCSALUD.git',
+                    branch: 'main',
+                    credentialsId: 'github-token'
+            }
         }
 
         stage('Build con Maven') {
