@@ -1,103 +1,77 @@
 package com.saludSystem.application.services.Mantenimiento.impl;
 
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.application.services.Mantenimiento.CuentaService;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.application.dtos.Mantenimiento.PUT.ActualizarCuentaDTO;
 import com.saludSystem.application.dtos.Mantenimiento.POST.CrearCuentaDTO;
 import com.saludSystem.application.dtos.Mantenimiento.GET.CuentaDTO;
 import com.saludSystem.domain.model.Mantenimiento.CuentaEntity;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Mantenimiento.CuentaRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class CuentaServiceImpl implements CuentaService {
+public class CuentaServiceImpl extends GenericServiceImpl<CuentaEntity, CuentaDTO,
+        UUID, CrearCuentaDTO, ActualizarCuentaDTO> implements CuentaService {
 
-    private final CuentaRepository cuentaRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
-
-    public CuentaServiceImpl(CuentaRepository cuentaRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ModelMapper modelMapper) {
-        this.cuentaRepository = cuentaRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
+    public CuentaServiceImpl(CuentaRepository cuentaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(cuentaRepository, modelMapper, authValidator, CuentaDTO.class,
+                cuentaEntity -> modelMapper.map(cuentaEntity, CuentaDTO.class));
     }
 
     @Override
-    public ApiResponse saveCuenta(CrearCuentaDTO crearCuentaDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        CuentaEntity cuentaEntity = new CuentaEntity();
-        cuentaEntity.setNombre(crearCuentaDTO.getNombre());
-        cuentaEntity.setTotal(crearCuentaDTO.getTotal());
-        cuentaEntity.setEstado(crearCuentaDTO.getEstado());
-        cuentaEntity.setHospital(hospital);
-        cuentaEntity.setUser(userEntity);
-        cuentaRepository.save(cuentaEntity);
-        return new ApiResponse(true, "Cuenta a pagar registrada correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse save(CrearCuentaDTO crearCuentaDTO) {
+        return super.save(crearCuentaDTO);
     }
 
     @Override
-    public List<CuentaDTO> getCuentaList() {
-        return cuentaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    public ListResponse<CuentaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    public ListResponse<CuentaDTO> getAllCuenta(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<CuentaEntity> cuentaModelPage = cuentaRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<CuentaDTO> data = cuentaModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, cuentaModelPage.getTotalElements(), cuentaModelPage.getTotalPages(), cuentaModelPage.getNumber() +1 );
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse update(UUID uuid, ActualizarCuentaDTO actualizarCuentaDTO) {
+        return super.update(uuid, actualizarCuentaDTO);
     }
 
     @Override
-    public ApiResponse updateCuenta(UUID cuentaPagarId, ActualizarCuentaDTO actualizarCuentaDTO) {
-        CuentaEntity cuentaEntity = cuentaRepository.findById(cuentaPagarId).orElseThrow(
-                () -> new ResourceNotFoundException("Cuenta no encontrada"));
-        Optional.ofNullable(actualizarCuentaDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(cuentaEntity::setNombre);
-        Optional.ofNullable(actualizarCuentaDTO.getTotal()).ifPresent(cuentaEntity::setTotal);
-        Optional.ofNullable(actualizarCuentaDTO.getEstado()).ifPresent(cuentaEntity::setEstado);
-        cuentaRepository.save(cuentaEntity);
-        return new ApiResponse(true, "Cuenta a pagar actualizada correctamente");
+    public CuentaDTO getById(UUID uuid) {
+        return super.getById(uuid);
     }
 
     @Override
-    public CuentaDTO getCuentaById(UUID cuentaPagarId) {
-        CuentaEntity cuentaEntity = cuentaRepository.findById(cuentaPagarId).orElseThrow(
-                () -> new ResourceNotFoundException("Cuenta no encontrada"));
-        return convertToDTO(cuentaEntity);
+    public List<CuentaDTO> getList() {
+        return super.getList();
     }
 
     @Override
-    public ApiResponse deleteCuenta(UUID cuentaPagarId) {
-        cuentaRepository.deleteById(cuentaPagarId);
-        return new ApiResponse(true, "Cuenta eliminada correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
     }
 
-    private CuentaDTO convertToDTO(CuentaEntity cuentaEntity) {
-        return modelMapper.map(cuentaEntity, CuentaDTO.class);
+    @Override
+    protected CuentaEntity convertCreateDtoToEntity(CrearCuentaDTO crearCuentaDTO) {
+        CuentaEntity entity = new CuentaEntity();
+        entity.setNombre(crearCuentaDTO.getNombre());
+        entity.setTotal(crearCuentaDTO.getTotal());
+        entity.setEstado(crearCuentaDTO.getEstado());
+        return entity;
     }
 
+    @Override
+    protected void updateEntityFromDto(ActualizarCuentaDTO actualizarCuentaDTO, CuentaEntity entity) {
+        entity.setNombre(actualizarCuentaDTO.getNombre());
+        entity.setTotal(actualizarCuentaDTO.getTotal());
+        entity.setEstado(actualizarCuentaDTO.getEstado());
+    }
 }

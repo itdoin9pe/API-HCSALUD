@@ -1,99 +1,75 @@
 package com.saludSystem.application.services.Mantenimiento.impl;
 
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.application.services.Mantenimiento.CajaService;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.application.dtos.Mantenimiento.PUT.ActualizarCajaDTO;
 import com.saludSystem.application.dtos.Mantenimiento.GET.CajaDTO;
 import com.saludSystem.application.dtos.Mantenimiento.POST.CrearCajaDTO;
 import com.saludSystem.domain.model.Mantenimiento.CajaEntity;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Mantenimiento.CajaRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class CajaServiceImpl implements CajaService {
+public class CajaServiceImpl extends GenericServiceImpl<CajaEntity, CajaDTO, UUID, CrearCajaDTO, ActualizarCajaDTO>
+        implements CajaService {
 
-    private final CajaRepository cajaRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
-
-    public CajaServiceImpl(CajaRepository cajaRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ModelMapper modelMapper) {
-        this.cajaRepository = cajaRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
+    public CajaServiceImpl(CajaRepository cajaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(cajaRepository, modelMapper, authValidator, CajaDTO.class,
+                cajaEntity -> modelMapper.map(cajaEntity, CajaDTO.class));
     }
 
     @Override
-    public ApiResponse saveCaja(CrearCajaDTO crearCajaDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        CajaEntity cajaEntity = new CajaEntity();
-        cajaEntity.setNombre(crearCajaDTO.getNombre());
-        cajaEntity.setEstado(crearCajaDTO.getEstado());
-        cajaEntity.setHospital(hospital);
-        cajaEntity.setUser(userEntity);
-        cajaRepository.save(cajaEntity);
-        return new ApiResponse(true, "Caja registrado correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse save(CrearCajaDTO crearCajaDTO) {
+        return super.save(crearCajaDTO);
     }
 
     @Override
-    public List<CajaDTO> getCajaList() {
-        return cajaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    public ListResponse<CajaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    public ListResponse<CajaDTO> getAllCaja(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<CajaEntity> cajaModelPage = cajaRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<CajaDTO> data = cajaModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, cajaModelPage.getTotalElements(), cajaModelPage.getTotalPages(), cajaModelPage.getNumber() +1 );
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse update(UUID uuid, ActualizarCajaDTO actualizarCajaDTO) {
+        return super.update(uuid, actualizarCajaDTO);
     }
 
     @Override
-    public CajaDTO getCajaById(UUID cajaId) {
-        CajaEntity cajaEntity = cajaRepository.findById(cajaId).orElseThrow( () -> new ResourceNotFoundException("Caja no encontrada"));
-        return convertToDTO(cajaEntity);
+    public CajaDTO getById(UUID uuid) {
+        return super.getById(uuid);
     }
 
     @Override
-    public ApiResponse updateCaja(UUID cajaId, ActualizarCajaDTO actualizarCajaDTO) {
-        CajaEntity cajaEntity = cajaRepository.findById(cajaId).orElseThrow( () -> new ResourceNotFoundException("Caja no encontrada"));
-        Optional.ofNullable(actualizarCajaDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(cajaEntity::setNombre);
-        Optional.ofNullable(actualizarCajaDTO.getEstado()).ifPresent(cajaEntity::setEstado);
-        cajaRepository.save(cajaEntity);
-        return new ApiResponse(true, "Caja actualizada correctamente");
+    public List<CajaDTO> getList() {
+        return super.getList();
     }
 
     @Override
-    public ApiResponse deleteCaja(UUID cajaId) {
-        cajaRepository.deleteById(cajaId);
-        return new ApiResponse(true, "Caja eliminado correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
     }
 
-    CajaDTO convertToDTO(CajaEntity cajaEntity) {
-        return modelMapper.map(cajaEntity, CajaDTO.class);
+    @Override
+    protected CajaEntity convertCreateDtoToEntity(CrearCajaDTO crearCajaDTO) {
+        CajaEntity entity = new CajaEntity();
+        entity.setNombre(crearCajaDTO.getNombre());
+        entity.setEstado(crearCajaDTO.getEstado());
+        return entity;
     }
 
+    @Override
+    protected void updateEntityFromDto(ActualizarCajaDTO actualizarCajaDTO, CajaEntity entity) {
+        entity.setNombre(actualizarCajaDTO.getNombre());
+        entity.setEstado(actualizarCajaDTO.getEstado());
+    }
 }
