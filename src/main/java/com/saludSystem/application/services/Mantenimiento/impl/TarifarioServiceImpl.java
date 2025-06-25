@@ -1,131 +1,114 @@
 package com.saludSystem.application.services.Mantenimiento.impl;
 
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.application.services.Mantenimiento.TarifarioService;
-import com.saludSystem.domain.model.Catalogo.CategoriaEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.CategoriaRepository;
-import com.saludSystem.domain.model.Catalogo.MedidaEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.MedidaRepository;
-import com.saludSystem.domain.model.Catalogo.TipoConceptoEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.TipoConceptoRepository;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.domain.exception.ResourceNotFoundException;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.CategoriaRepository;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.MedidaRepository;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.TipoConceptoRepository;
 import com.saludSystem.application.dtos.Mantenimiento.PUT.ActualizarTarifarioDTO;
 import com.saludSystem.application.dtos.Mantenimiento.POST.CrearTarifarioDTO;
 import com.saludSystem.application.dtos.Mantenimiento.GET.TarifarioDTO;
 import com.saludSystem.domain.model.Mantenimiento.TarifarioEntity;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Mantenimiento.TarifarioRepository;
-import com.saludSystem.domain.model.Operaciones.UnidadEntity;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Operaciones.UnidadRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class TarifarioServiceImpl implements TarifarioService {
+public class TarifarioServiceImpl extends GenericServiceImpl<TarifarioEntity, TarifarioDTO, UUID,
+        CrearTarifarioDTO, ActualizarTarifarioDTO> implements TarifarioService {
 
-    private final TarifarioRepository tarifarioRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
     private final TipoConceptoRepository tipoConceptoRepository;
     private final CategoriaRepository categoriaRepository;
     private final UnidadRepository unidadRepository;
     private final MedidaRepository medidaRepository;
-    private final ModelMapper modelMapper;
 
-    public TarifarioServiceImpl(TarifarioRepository tarifarioRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, TipoConceptoRepository tipoConceptoRepository, CategoriaRepository categoriaRepository, UnidadRepository unidadRepository, MedidaRepository medidaRepository, ModelMapper modelMapper) {
-        this.tarifarioRepository = tarifarioRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
+    public TarifarioServiceImpl(TarifarioRepository tarifarioRepository, ModelMapper modelMapper,
+                                AuthValidator authValidator, TipoConceptoRepository tipoConceptoRepository, CategoriaRepository categoriaRepository, UnidadRepository unidadRepository, MedidaRepository medidaRepository) {
+        super(tarifarioRepository, modelMapper, authValidator, TarifarioDTO.class,
+                tarifarioEntity -> modelMapper.map(tarifarioEntity, TarifarioDTO.class));
         this.tipoConceptoRepository = tipoConceptoRepository;
         this.categoriaRepository = categoriaRepository;
         this.unidadRepository = unidadRepository;
         this.medidaRepository = medidaRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
-    public ApiResponse saveTarifario(CrearTarifarioDTO crearTarifarioDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        TarifarioEntity tarifarioEntity = new TarifarioEntity();
-        Optional<TipoConceptoEntity> tipoConceptoModel = tipoConceptoRepository.findById(crearTarifarioDTO.getTipoConceptoId());
-        tipoConceptoModel.ifPresent(tarifarioEntity::setTipoConceptoEntity);
-        Optional<CategoriaEntity> categoriaModel = categoriaRepository.findById(crearTarifarioDTO.getCategoriaId());
-        categoriaModel.ifPresent(tarifarioEntity::setCategoriaEntity);
-        Optional<UnidadEntity> unidadModel = unidadRepository.findById(crearTarifarioDTO.getUnidadId());
-        unidadModel.ifPresent(tarifarioEntity::setUnidadEntity);
-        Optional<MedidaEntity> medidaModel = medidaRepository.findById(crearTarifarioDTO.getMedidaId());
-        medidaModel.ifPresent(tarifarioEntity::setMedidaEntity);
-        tarifarioEntity.setGrupo(crearTarifarioDTO.getGrupo());
-        tarifarioEntity.setDescripcion(crearTarifarioDTO.getDescripcion());
-        tarifarioEntity.setPrecio(crearTarifarioDTO.getPrecio());
-        tarifarioEntity.setEstado(crearTarifarioDTO.getEstado());
-        tarifarioEntity.setHospital(hospital);
-        tarifarioEntity.setUser(userEntity);
-        tarifarioRepository.save(tarifarioEntity);
-        return new ApiResponse(true, "Tarifario registrado correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse save(CrearTarifarioDTO crearTarifarioDTO) {
+        return super.save(crearTarifarioDTO);
     }
 
     @Override
-    public ListResponse<TarifarioDTO> getAllTarifario(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<TarifarioEntity> tarifarioModelPage = tarifarioRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<TarifarioDTO> data = tarifarioModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, tarifarioModelPage.getTotalElements(), tarifarioModelPage.getTotalPages(), tarifarioModelPage.getNumber() +1 );
+    public ListResponse<TarifarioDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    public List<TarifarioDTO> getTarifarioList() {
-        return tarifarioRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse update(UUID uuid, ActualizarTarifarioDTO actualizarTarifarioDTO) {
+        return super.update(uuid, actualizarTarifarioDTO);
     }
 
     @Override
-    public TarifarioDTO getTarifarioById(UUID tarifarioId) {
-        TarifarioEntity tarifarioEntity = tarifarioRepository.findById(tarifarioId).orElseThrow( () -> new ResourceNotFoundException("Tarifario no encontrado"));
-        return convertToDTO(tarifarioEntity);
+    public TarifarioDTO getById(UUID uuid) {
+        return super.getById(uuid);
     }
 
     @Override
-    public ApiResponse updateTarifario(UUID tarifarioId, ActualizarTarifarioDTO actualizarTarifarioDTO) {
-        TarifarioEntity tarifarioEntity = tarifarioRepository.findById(tarifarioId).orElseThrow(() -> new ResourceNotFoundException("Tarifario no encontrado"));
-        Optional.ofNullable(actualizarTarifarioDTO.getTipoConceptoId()).flatMap(tipoConceptoRepository::findById).ifPresent(tarifarioEntity::setTipoConceptoEntity);
-        Optional.ofNullable(actualizarTarifarioDTO.getCategoriaId()).flatMap(categoriaRepository::findById).ifPresent(tarifarioEntity::setCategoriaEntity);
-        Optional.ofNullable(actualizarTarifarioDTO.getUnidadId()).flatMap(unidadRepository::findById).ifPresent(tarifarioEntity::setUnidadEntity);
-        Optional.ofNullable(actualizarTarifarioDTO.getMedidaId()).flatMap(medidaRepository::findById).ifPresent(tarifarioEntity::setMedidaEntity);
-        Optional.ofNullable(actualizarTarifarioDTO.getGrupo()).filter(desc -> !desc.isBlank()).ifPresent(tarifarioEntity::setGrupo);
-        Optional.ofNullable(actualizarTarifarioDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(tarifarioEntity::setDescripcion);
-        Optional.ofNullable(actualizarTarifarioDTO.getPrecio()).ifPresent(tarifarioEntity::setPrecio);
-        Optional.ofNullable(actualizarTarifarioDTO.getEstado()).ifPresent(tarifarioEntity::setEstado);
-        tarifarioRepository.save(tarifarioEntity);
-        return new ApiResponse(true, "Tarifario actualizado correctamente");
+    public List<TarifarioDTO> getList() {
+        return super.getList();
     }
 
     @Override
-    public ApiResponse deleteTarifario(UUID tarifarioId) {
-        tarifarioRepository.deleteById(tarifarioId);
-        return new ApiResponse(true, "Tarifario eliminado correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
     }
 
-    private TarifarioDTO convertToDTO(TarifarioEntity tarifarioEntity) {
-        return modelMapper.map(tarifarioEntity, TarifarioDTO.class);
+    @Override
+    protected TarifarioEntity convertCreateDtoToEntity(CrearTarifarioDTO crearTarifarioDTO) {
+        TarifarioEntity entity = new TarifarioEntity();
+        tipoConceptoRepository.findById(crearTarifarioDTO.getTipoConceptoId()).ifPresent(entity::setTipoConceptoEntity);
+        categoriaRepository.findById(crearTarifarioDTO.getCategoriaId()).ifPresent(entity::setCategoriaEntity);
+        unidadRepository.findById(crearTarifarioDTO.getUnidadId()).ifPresent(entity::setUnidadEntity);
+        medidaRepository.findById(crearTarifarioDTO.getMedidaId()).ifPresent(entity::setMedidaEntity);
+        entity.setGrupo(crearTarifarioDTO.getGrupo());
+        entity.setDescripcion(crearTarifarioDTO.getDescripcion());
+        entity.setPrecio(crearTarifarioDTO.getPrecio());
+        entity.setEstado(crearTarifarioDTO.getEstado());
+        return entity;
     }
 
+    @Override
+    protected void updateEntityFromDto(ActualizarTarifarioDTO actualizarTarifarioDTO, TarifarioEntity entity) {
+        Optional.ofNullable(actualizarTarifarioDTO.getTipoConceptoId())
+                .flatMap(tipoConceptoRepository::findById)
+                .ifPresent(entity::setTipoConceptoEntity);
+        Optional.ofNullable(actualizarTarifarioDTO.getCategoriaId())
+                .flatMap(categoriaRepository::findById)
+                .ifPresent(entity::setCategoriaEntity);
+        Optional.ofNullable(actualizarTarifarioDTO.getUnidadId())
+                .flatMap(unidadRepository::findById)
+                .ifPresent(entity::setUnidadEntity);
+        Optional.ofNullable(actualizarTarifarioDTO.getMedidaId())
+                .flatMap(medidaRepository::findById)
+                .ifPresent(entity::setMedidaEntity);
+        Optional.ofNullable(actualizarTarifarioDTO.getGrupo())
+                .filter(s -> !s.isBlank())
+                .ifPresent(entity::setGrupo);
+        Optional.ofNullable(actualizarTarifarioDTO.getDescripcion())
+                .filter(s -> !s.isBlank())
+                .ifPresent(entity::setDescripcion);
+        Optional.ofNullable(actualizarTarifarioDTO.getPrecio()).ifPresent(entity::setPrecio);
+        Optional.ofNullable(actualizarTarifarioDTO.getEstado()).ifPresent(entity::setEstado);
+    }
 }
