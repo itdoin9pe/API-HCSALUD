@@ -1,98 +1,75 @@
 package com.saludSystem.application.services.Mantenimiento.impl;
 
+import com.saludSystem.application.dtos.Mantenimiento.GET.MonedaDTO;
+import com.saludSystem.application.dtos.Mantenimiento.POST.CrearMonedaDTO;
+import com.saludSystem.application.dtos.Mantenimiento.PUT.ActualizarMonedaDTO;
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.application.services.Mantenimiento.MonedaService;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
+import com.saludSystem.domain.model.Mantenimiento.MonedaEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.domain.exception.ResourceNotFoundException;
-import com.saludSystem.application.dtos.Mantenimiento.PUT.ActualizarMonedaDTO;
-import com.saludSystem.application.dtos.Mantenimiento.POST.CrearMonedaDTO;
-import com.saludSystem.application.dtos.Mantenimiento.GET.MonedaDTO;
-import com.saludSystem.domain.model.Mantenimiento.MonedaEntity;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Mantenimiento.MonedaRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class MonedaServiceImpl implements MonedaService {
+public class MonedaServiceImpl extends GenericServiceImpl<MonedaEntity, MonedaDTO,
+        UUID, CrearMonedaDTO, ActualizarMonedaDTO> implements MonedaService {
 
-    private final MonedaRepository monedaRepository;
-    private final UserRepository userRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final ModelMapper modelMapper;
-
-    public MonedaServiceImpl(MonedaRepository monedaRepository, UserRepository userRepository, SysSaludRepository sysSaludRepository, ModelMapper modelMapper) {
-        this.monedaRepository = monedaRepository;
-        this.userRepository = userRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.modelMapper = modelMapper;
+    public MonedaServiceImpl(MonedaRepository monedaRepository, AuthValidator authValidator,ModelMapper modelMapper) {
+        super(monedaRepository, modelMapper, authValidator, MonedaDTO.class,
+                monedaEntity -> modelMapper.map(monedaEntity, MonedaDTO.class));
     }
 
     @Override
-    public ApiResponse saveMoneda(CrearMonedaDTO crearMonedaDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        MonedaEntity monedaEntity = new MonedaEntity();
-        monedaEntity.setDescripcion(crearMonedaDTO.getDescripcion());
-        monedaEntity.setEstado(crearMonedaDTO.getEstado());
-        monedaEntity.setUser(user);
-        monedaEntity.setHospital(hospital);
-        monedaRepository.save(monedaEntity);
-        return new ApiResponse(true, "Moneda registrada correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse save(CrearMonedaDTO crearMonedaDTO) {
+        return super.save(crearMonedaDTO);
     }
 
     @Override
-    public ListResponse<MonedaDTO> getAllMoneda(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<MonedaEntity> monedaModelPage = monedaRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<MonedaDTO> data = monedaModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, monedaModelPage.getTotalElements(), monedaModelPage.getTotalPages(), monedaModelPage.getNumber() + 1);
+    public ListResponse<MonedaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    public List<MonedaDTO> getMonedaList() {
-        return monedaRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse update(UUID uuid, ActualizarMonedaDTO actualizarMonedaDTO) {
+        return super.update(uuid, actualizarMonedaDTO);
     }
 
     @Override
-    public MonedaDTO getMonedaById(UUID monedaId) {
-        MonedaEntity monedaEntity = monedaRepository.findById(monedaId).orElseThrow(() -> new ResourceNotFoundException("Moneda no encontrada"));
-        return convertToDTO(monedaEntity);
+    public List<MonedaDTO> getList() {
+        return super.getList();
     }
 
     @Override
-    public ApiResponse updateMoneda(UUID monedaId, ActualizarMonedaDTO actualizarMonedaDTO) {
-        MonedaEntity monedaEntity = monedaRepository.findById(monedaId).orElseThrow(
-                () -> new ResourceNotFoundException("Moneda no encontrada"));
-        Optional.ofNullable(actualizarMonedaDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(monedaEntity::setDescripcion);
-        Optional.ofNullable(actualizarMonedaDTO.getEstado()).ifPresent(monedaEntity::setEstado);
-        monedaRepository.save(monedaEntity);
-        return new ApiResponse(true, "Moneda actualizada correctamente");
+    public MonedaDTO getById(UUID uuid) {
+        return super.getById(uuid);
     }
 
     @Override
-    public ApiResponse deleteMoneda(UUID monedaId) {
-        monedaRepository.deleteById(monedaId);
-        return new ApiResponse(true, "Moneda eliminada correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
     }
 
-    private MonedaDTO convertToDTO(MonedaEntity monedaEntity) {
-        return modelMapper.map(monedaEntity, MonedaDTO.class);
+    @Override
+    protected MonedaEntity convertCreateDtoToEntity(CrearMonedaDTO crearMonedaDTO) {
+        MonedaEntity entity = new MonedaEntity();
+        entity.setDescripcion(crearMonedaDTO.getDescripcion());
+        entity.setEstado(crearMonedaDTO.getEstado());
+        return entity;
     }
 
+    @Override
+    protected void updateEntityFromDto(ActualizarMonedaDTO actualizarMonedaDTO, MonedaEntity entity) {
+        entity.setDescripcion(actualizarMonedaDTO.getDescripcion());
+        entity.setEstado(actualizarMonedaDTO.getEstado());
+    }
 }
