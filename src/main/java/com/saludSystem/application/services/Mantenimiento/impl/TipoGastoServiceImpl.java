@@ -1,101 +1,75 @@
 package com.saludSystem.application.services.Mantenimiento.impl;
 
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.application.services.Mantenimiento.TipoGastoService;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
-import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
-import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.application.dtos.Mantenimiento.PUT.ActualizarTipoGastoDTO;
 import com.saludSystem.application.dtos.Mantenimiento.POST.CrearTipoGastoDTO;
 import com.saludSystem.application.dtos.Mantenimiento.GET.TipoGastoDTO;
 import com.saludSystem.domain.model.Mantenimiento.TipoGastoEntity;
+import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
+import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Mantenimiento.TipoGastoRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class TipoGastoServiceImpl implements TipoGastoService {
+public class TipoGastoServiceImpl extends GenericServiceImpl<TipoGastoEntity, TipoGastoDTO, UUID,
+        CrearTipoGastoDTO, ActualizarTipoGastoDTO> implements TipoGastoService {
 
-    private final TipoGastoRepository tipoGastoRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
-
-    public TipoGastoServiceImpl(TipoGastoRepository tipoGastoRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ModelMapper modelMapper) {
-        this.tipoGastoRepository = tipoGastoRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
+    public TipoGastoServiceImpl(TipoGastoRepository tipoGastoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(tipoGastoRepository, modelMapper, authValidator, TipoGastoDTO.class,
+                tipoGastoEntity -> modelMapper.map(tipoGastoEntity, TipoGastoDTO.class));
     }
 
     @Override
-    public ApiResponse saveTipoGasto(CrearTipoGastoDTO crearTipoGastoDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        TipoGastoEntity tipoGastoEntity = new TipoGastoEntity();
-        tipoGastoEntity.setNombre(crearTipoGastoDTO.getNombre());
-        tipoGastoEntity.setEstado(crearTipoGastoDTO.getEstado());
-        tipoGastoEntity.setHospital(hospital);
-        tipoGastoEntity.setUser(userEntity);
-        tipoGastoRepository.save(tipoGastoEntity);
-        return new ApiResponse(true, "Concepto de gasto registrado correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse save(CrearTipoGastoDTO crearTipoGastoDTO) {
+        return super.save(crearTipoGastoDTO);
     }
 
     @Override
-    public List<TipoGastoDTO> getTipoGastoList() {
-        return tipoGastoRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    public ListResponse<TipoGastoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    public ListResponse<TipoGastoDTO> getAllTipoGasto(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<TipoGastoEntity> tipoGastoModelPage = tipoGastoRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<TipoGastoDTO> data = tipoGastoModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, tipoGastoModelPage.getTotalElements(), tipoGastoModelPage.getTotalPages(), tipoGastoModelPage.getNumber() +1 );
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse update(UUID uuid, ActualizarTipoGastoDTO actualizarTipoGastoDTO) {
+        return super.update(uuid, actualizarTipoGastoDTO);
     }
 
     @Override
-    public TipoGastoDTO getTipoGastoById(UUID conceptoGastoId) {
-        TipoGastoEntity tipoGastoEntity = tipoGastoRepository.findById(conceptoGastoId)
-                .orElseThrow( () -> new ResourceNotFoundException("Concepto de gasto no encontrado"));
-        return convertToDTO(tipoGastoEntity);
+    public TipoGastoDTO getById(UUID uuid) {
+        return super.getById(uuid);
     }
 
     @Override
-    public ApiResponse updateTipoGasto(UUID conceptoGastoId, ActualizarTipoGastoDTO actualizarTipoGastoDTO) {
-        TipoGastoEntity tipoGastoEntity = tipoGastoRepository.findById(conceptoGastoId)
-                .orElseThrow( () -> new ResourceNotFoundException("Concepto de gasto no encontrado"));
-        Optional.ofNullable(actualizarTipoGastoDTO.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(tipoGastoEntity::setNombre);
-        Optional.ofNullable(actualizarTipoGastoDTO.getEstado()).ifPresent(tipoGastoEntity::setEstado);
-        tipoGastoRepository.save(tipoGastoEntity);
-        return new ApiResponse(true, "Concepto de gasto actualizado correctamente");
+    public List<TipoGastoDTO> getList() {
+        return super.getList();
     }
 
     @Override
-    public ApiResponse deleteTipoGasto(UUID conceptoGastoId) {
-        tipoGastoRepository.deleteById(conceptoGastoId);
-        return new ApiResponse(true, "Concepto de gasto eliminado correctamente");
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
     }
 
-    private TipoGastoDTO convertToDTO(TipoGastoEntity tipoGastoEntity) {
-        return modelMapper.map(tipoGastoEntity, TipoGastoDTO.class);
+    @Override
+    protected TipoGastoEntity convertCreateDtoToEntity(CrearTipoGastoDTO crearTipoGastoDTO) {
+        TipoGastoEntity entity = new TipoGastoEntity();
+        entity.setNombre(crearTipoGastoDTO.getNombre());
+        entity.setEstado(crearTipoGastoDTO.getEstado());
+        return entity;
     }
 
+    @Override
+    protected void updateEntityFromDto(ActualizarTipoGastoDTO actualizarTipoGastoDTO, TipoGastoEntity entity) {
+        entity.setNombre(actualizarTipoGastoDTO.getNombre());
+        entity.setEstado(actualizarTipoGastoDTO.getEstado());
+    }
 }
