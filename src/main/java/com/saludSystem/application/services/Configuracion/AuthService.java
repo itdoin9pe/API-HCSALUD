@@ -36,11 +36,11 @@ public class AuthService {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
-    public Map<String, Object> authenticate(String username, String password) {
+    public Map<String, Object> authenticate(String email, String password) {
         try {
             AuthenticationManager authenticationManager = authenticationManagerBuilder.getObject();
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password)
+                    new UsernamePasswordAuthenticationToken(email, password)
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
