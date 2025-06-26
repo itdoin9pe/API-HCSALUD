@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleEntity extends BaseEntity {
+public class RoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -24,6 +24,10 @@ public class RoleEntity extends BaseEntity {
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id", referencedColumnName = "hospital_id", nullable = false)
+    private SysSaludEntity hospital;
 
     @OneToMany(mappedBy = "rol")
     private List<UserEntity> usuarios;

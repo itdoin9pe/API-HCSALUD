@@ -4,72 +4,99 @@ import com.saludSystem.application.dtos.Configuracion.PUT.ActualizarRolDTO;
 import com.saludSystem.application.dtos.Configuracion.POST.CrearRolDTO;
 import com.saludSystem.application.dtos.Configuracion.GET.RolDTO;
 import com.saludSystem.application.services.Configuracion.RolService;
-import com.saludSystem.application.services.GenericServiceImpl;
+import com.saludSystem.domain.exception.ResourceNotFoundException;
 import com.saludSystem.domain.model.Configuracion.RoleEntity;
+import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
+import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.RoleRepository;
-import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
-public class RolServiceImpl extends GenericServiceImpl<
-        RoleEntity, RolDTO, UUID, CrearRolDTO, ActualizarRolDTO> implements RolService {
+public class RolServiceImpl implements RolService {
 
-    public RolServiceImpl(RoleRepository roleRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(roleRepository, modelMapper, authValidator, RolDTO.class,
-                roleEntity -> modelMapper.map(roleEntity, RolDTO.class));
+    private final RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final SysSaludRepository sysSaludRepository;
+    private final ModelMapper modelMapper;
+
+    public RolServiceImpl(RoleRepository roleRepository, UserRepository userRepository, SysSaludRepository sysSaludRepository, ModelMapper modelMapper) {
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
+        this.sysSaludRepository = sysSaludRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearRolDTO crearRolDTO) {
-        return super.save(crearRolDTO);
+    public ApiResponse saveRole(CrearRolDTO crearRolDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+        RoleEntity role = new RoleEntity();
+        role.setNombre(crearRolDTO.getNombre());
+        role.setEstado(crearRolDTO.getEstado());
+        role.setHospital(hospital);
+        roleRepository.save(role);
+        return new ApiResponse(true, "Role creado correctamente");
     }
 
     @Override
-    public ListResponse<RolDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
+    public List<RolDTO> getRoleList() {
+        return roleRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarRolDTO actualizarRolDTO) {
-        return super.update(uuid, actualizarRolDTO);
+    public ListResponse<RolDTO> getAllRole(UUID hospitalId, int page, int rows) {
+        Pageable pageable = PageRequest.of(page - 1, rows);
+        Page<RoleEntity> rolePage = roleRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<RolDTO> data = rolePage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return new ListResponse<>(data, rolePage.getTotalElements(), rolePage.getTotalPages(), rolePage.getNumber() + 1);
     }
 
     @Override
-    public List<RolDTO> getList() {
-        return super.getList();
+    public RolDTO getRoleById(UUID roleId) {
+        RoleEntity role = roleRepository.findById(roleId).
+                orElseThrow( () -> new ResourceNotFoundException("Role no encontrado"));
+        RolDTO dto = new RolDTO();
+        dto.setRoleId(role.getRoleId());
+        dto.setNombre(role.getNombre());
+        dto.setEstado(role.getEstado());
+        return dto;
     }
 
     @Override
-    public RolDTO getById(UUID uuid) {
-        return super.getById(uuid);
+    public ApiResponse updateRole(UUID roleId, ActualizarRolDTO actualizarRolDTO) {
+        RoleEntity role = roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException("Role not found"));
+        Optional.ofNullable(actualizarRolDTO.getNombre()).ifPresent(role::setNombre);
+        Optional.ofNullable(actualizarRolDTO.getEstado()).ifPresent(role::setEstado);
+        roleRepository.save(role);
+        return new ApiResponse(true, "Role actualizado correctamente");
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse delete(UUID uuid) {
-        return super.delete(uuid);
+    public ApiResponse deleteRole(UUID roleId) {
+        roleRepository.deleteById(roleId);
+        return new ApiResponse(true, "Role eliminado correctamente");
     }
 
-    @Override
-    protected RoleEntity convertCreateDtoToEntity(CrearRolDTO crearRolDTO) {
-        RoleEntity entity = new RoleEntity();
-        entity.setNombre(crearRolDTO.getNombre());
-        entity.setEstado(crearRolDTO.getEstado());
-        return entity;
-    }
-
-    @Override
-    protected void updateEntityFromDto(ActualizarRolDTO actualizarRolDTO, RoleEntity entity) {
-        entity.setNombre(actualizarRolDTO.getNombre());
-        entity.setEstado(actualizarRolDTO.getEstado());
+    private RolDTO convertToDTO(RoleEntity role) {
+        return modelMapper.map(role, RolDTO.class);
     }
 }

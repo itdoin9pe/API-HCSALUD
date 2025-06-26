@@ -1,10 +1,19 @@
 package com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion;
 
 import com.saludSystem.domain.model.Configuracion.RoleEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.GenericRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
-public interface RoleRepository extends GenericRepository<RoleEntity> {
+public interface RoleRepository extends JpaRepository<RoleEntity, UUID> {
+
+    Optional<RoleEntity> findByRoleId(UUID roleId);
+
+    Page<RoleEntity> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 
 }

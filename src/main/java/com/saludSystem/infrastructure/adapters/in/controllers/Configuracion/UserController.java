@@ -70,7 +70,6 @@ public class UserController {
     newUserDto.setLastName(lastName);
     newUserDto.setFirstName(firstName);
     newUserDto.setPhoneNumber(phoneNumber);
-
     newUserDto.setAddress(address);
     newUserDto.setEmail(email);
     newUserDto.setDocumentType(documentType);
