@@ -6,6 +6,7 @@ import com.saludSystem.domain.model.SucursalEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "almacenes")
+@EqualsAndHashCode(callSuper = true)
 public class AlmacenEntity extends BaseEntity {
 
     @Id
