@@ -3,9 +3,6 @@ package com.saludSystem.infrastructure.adapters.in.controllers;
 import com.saludSystem.application.services.GenericService;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.infrastructure.adapters.in.response.PaginatedResponse;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,8 +35,8 @@ public abstract class GenericController<DTO, ID, CREATE_DTO, UPDATE_DTO> {
     @GetMapping("/GetAll")
     public ListResponse<DTO> getAllPaginated(
             @RequestParam UUID hospitalId,
-            @RequestParam(name = "Page", defaultValue = "1") int page,
-            @RequestParam(name = "Rows", defaultValue = "10") int rows) {
+            @RequestParam(name = "Page") int page,
+            @RequestParam(name = "Rows") int rows) {
         return genericService.getAllPaginated(hospitalId, page, rows);
     }
 
