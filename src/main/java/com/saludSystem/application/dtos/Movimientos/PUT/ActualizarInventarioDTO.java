@@ -15,6 +15,8 @@ public class ActualizarInventarioDTO {
     @Schema(example = "0")
     private int tipoInventarioId;
 
+    private UUID almacenId;
+
     private UUID marcaMaterialId;
 
     private UUID categoriaMaterialId;

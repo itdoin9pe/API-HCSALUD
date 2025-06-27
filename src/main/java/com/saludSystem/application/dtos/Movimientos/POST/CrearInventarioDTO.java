@@ -12,6 +12,8 @@ public class CrearInventarioDTO {
 
     private UUID productoId;
 
+    private UUID almacenId;
+
     @Schema(example = "0")
     private int tipoInventarioId;
 
