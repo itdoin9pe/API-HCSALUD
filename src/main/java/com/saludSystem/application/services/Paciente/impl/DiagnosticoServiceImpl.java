@@ -3,126 +3,101 @@ package com.saludSystem.application.services.Paciente.impl;
 import com.saludSystem.application.dtos.Paciente.GET.DiagnosticoDTO;
 import com.saludSystem.application.dtos.Paciente.POST.CrearDiagnosticoDTO;
 import com.saludSystem.application.dtos.Paciente.PUT.ActualizarDiagnosticoDTO;
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.application.services.Paciente.DiagnosticoService;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.domain.model.Mantenimiento.EnfermedadEntity;
 import com.saludSystem.domain.model.Paciente.DiagnosticoEntity;
 import com.saludSystem.domain.model.Paciente.PacienteEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Mantenimiento.EnfermedadRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.DiagnosticoRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.PacienteRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class DiagnosticoServiceImpl implements DiagnosticoService {
+public class DiagnosticoServiceImpl extends GenericServiceImpl<DiagnosticoEntity, DiagnosticoDTO, UUID,
+        CrearDiagnosticoDTO, ActualizarDiagnosticoDTO> implements DiagnosticoService {
 
-    private final DiagnosticoRepository diagnosticoRepository;
     private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
     private final PacienteRepository pacienteRepository;
     private final EnfermedadRepository enfermedadRepository;
-    private final ModelMapper modelMapper;
 
-    public DiagnosticoServiceImpl(DiagnosticoRepository diagnosticoRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, PacienteRepository pacienteRepository, EnfermedadRepository enfermedadRepository, ModelMapper modelMapper) {
-        this.diagnosticoRepository = diagnosticoRepository;
+    public DiagnosticoServiceImpl(DiagnosticoRepository diagnosticoRepository, ModelMapper modelMapper, AuthValidator authValidator, SysSaludRepository sysSaludRepository, PacienteRepository pacienteRepository, EnfermedadRepository enfermedadRepository) {
+        super(diagnosticoRepository, modelMapper, authValidator, DiagnosticoDTO.class,
+                diagnosticoEntity -> modelMapper.map(diagnosticoEntity, DiagnosticoDTO.class));
         this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
         this.pacienteRepository = pacienteRepository;
         this.enfermedadRepository = enfermedadRepository;
-        this.modelMapper = modelMapper;
+    }
+
+    @Override
+    protected DiagnosticoEntity convertCreateDtoToEntity(CrearDiagnosticoDTO crearDiagnosticoDTO) {
+        DiagnosticoEntity entity = new DiagnosticoEntity();
+        PacienteEntity paciente = pacienteRepository.findById(crearDiagnosticoDTO.getPacienteId())
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente no encontrado"));
+        entity.setPacienteEntity(paciente);
+        EnfermedadEntity enfermedad = enfermedadRepository.findById(crearDiagnosticoDTO.getEnfermedadId())
+                .orElseThrow(() -> new ResourceNotFoundException("Enfermedad no encontrada"));
+        entity.setEnfermedadEntity(enfermedad);
+        entity.setFecha(crearDiagnosticoDTO.getFecha());
+        entity.setDescripcion(crearDiagnosticoDTO.getDescripcion());
+        return entity;
+    }
+
+    @Override
+    protected void updateEntityFromDto(ActualizarDiagnosticoDTO actualizarDiagnosticoDTO, DiagnosticoEntity entity) {
+        Optional.ofNullable(actualizarDiagnosticoDTO.getPacienteId())
+                .flatMap(pacienteRepository::findById)
+                .ifPresent(entity::setPacienteEntity);
+        Optional.ofNullable(actualizarDiagnosticoDTO.getEnfermedadId())
+                .flatMap(enfermedadRepository::findById)
+                .ifPresent(entity::setEnfermedadEntity);
+        Optional.ofNullable(actualizarDiagnosticoDTO.getFecha()).ifPresent(entity::setFecha);
+        Optional.ofNullable(actualizarDiagnosticoDTO.getDescripcion())
+                .filter(desc -> !desc.isBlank())
+                .ifPresent(entity::setDescripcion);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveDiagnostico(CrearDiagnosticoDTO crearDiagnosticoDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            throw new RuntimeException("No tienes permisos para realizar esta acción");
-        }
-        DiagnosticoEntity diagnosticoEntity = new DiagnosticoEntity();
-        Optional<PacienteEntity> pacienteEntity = pacienteRepository.findById(crearDiagnosticoDTO.getPacienteId());
-        pacienteEntity.ifPresent(diagnosticoEntity::setPacienteEntity);
-        Optional<EnfermedadEntity> enfermedadEntity = enfermedadRepository.findById(crearDiagnosticoDTO.getEnfermedadId());
-        enfermedadEntity.ifPresent(diagnosticoEntity::setEnfermedadEntity);
-        diagnosticoEntity.setFecha(crearDiagnosticoDTO.getFecha());
-        diagnosticoEntity.setDescripcion(crearDiagnosticoDTO.getDescripcion());
-        diagnosticoEntity.setHospital(hospital);
-        diagnosticoEntity.setUser(user);
-        diagnosticoRepository.save(diagnosticoEntity);
-        return new ApiResponse(true, "Diagnostico del paciente creado correctamente");
+    public ApiResponse save(CrearDiagnosticoDTO crearDiagnosticoDTO) {
+        return super.save(crearDiagnosticoDTO);
     }
 
     @Override
-    public ListResponse<DiagnosticoDTO> getAllDiagnotico(UUID pacienteDiagnosticoId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<DiagnosticoEntity>  diagnosticoEntityPage = diagnosticoRepository.findByHospital_HospitalId(pacienteDiagnosticoId, pageable);
-        List<DiagnosticoDTO> data = diagnosticoEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, diagnosticoEntityPage.getTotalElements(), diagnosticoEntityPage.getTotalPages(), diagnosticoEntityPage.getNumber() + 1);
+    public ListResponse<DiagnosticoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse updateDiagnostico(UUID pacienteDiagnosticoId, ActualizarDiagnosticoDTO actualizarDiagnosticoDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            throw new RuntimeException("No tienes permisos para realizar esta acción");
-        }
-        DiagnosticoEntity diagnosticoEntity = diagnosticoRepository.findById(pacienteDiagnosticoId).orElseThrow(
-                () -> new ResourceNotFoundException("Diagnostico del paciente no encontrado"));
-        Optional.ofNullable(actualizarDiagnosticoDTO.getPacienteId()).flatMap(pacienteRepository::findById).ifPresent(diagnosticoEntity::setPacienteEntity);
-        Optional.ofNullable(actualizarDiagnosticoDTO.getEnfermedadId()).flatMap(enfermedadRepository::findById).ifPresent(diagnosticoEntity::setEnfermedadEntity);
-        Optional.ofNullable(actualizarDiagnosticoDTO.getFecha()).ifPresent(diagnosticoEntity::setFecha);
-        Optional.ofNullable(actualizarDiagnosticoDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(diagnosticoEntity::setDescripcion);
-        diagnosticoRepository.save(diagnosticoEntity);
-        return new ApiResponse(true, "Diagnostico del paciente modificado correctamente");
+    public ApiResponse update(UUID uuid, ActualizarDiagnosticoDTO actualizarDiagnosticoDTO) {
+        return super.update(uuid, actualizarDiagnosticoDTO);
     }
 
     @Override
-    public DiagnosticoDTO getDiagnosticoById(UUID pacienteDiagnosticoId) {
-        DiagnosticoEntity diagnosticoEntity = diagnosticoRepository.findById(pacienteDiagnosticoId).orElseThrow(
-                () -> new ResourceNotFoundException("Diagnostico del paciente no encontrado"));
-        return convertToDTO(diagnosticoEntity);
+    public DiagnosticoDTO getById(UUID uuid) {
+        return super.getById(uuid);
+    }
+
+    @Override
+    public List<DiagnosticoDTO> getList() {
+        return super.getList();
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse deleteDiagnostico(UUID pacienteDiagnosticoId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            throw new RuntimeException("No tienes permisos para realizar esta acción");
-        }
-        diagnosticoRepository.deleteById(pacienteDiagnosticoId);
-        return new ApiResponse(true, "Diagnostico del paciente eliminado correctamente");
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
     }
-
-    private DiagnosticoDTO convertToDTO(DiagnosticoEntity diagnosticoEntity) {
-        return modelMapper.map(diagnosticoEntity, DiagnosticoDTO.class);
-    }
-
 }
