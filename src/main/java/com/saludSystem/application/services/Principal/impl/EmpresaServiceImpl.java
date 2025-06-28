@@ -11,6 +11,7 @@ import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Principal.EmpresaRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class EmpresaServiceImpl extends GenericServiceImpl<EmpresaEntity, Empres
                 empresaEntity -> modelMapper.map(empresaEntity, EmpresaDTO.class));
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse save(CrearEmpresaDTO crearEmpresaDTO) {
         return super.save(crearEmpresaDTO);
@@ -35,6 +37,7 @@ public class EmpresaServiceImpl extends GenericServiceImpl<EmpresaEntity, Empres
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarEmpresaDTO actualizarEmpresaDTO) {
         return super.update(uuid, actualizarEmpresaDTO);
@@ -50,6 +53,7 @@ public class EmpresaServiceImpl extends GenericServiceImpl<EmpresaEntity, Empres
         return super.getList();
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse delete(UUID uuid) {
         return super.delete(uuid);
@@ -60,7 +64,7 @@ public class EmpresaServiceImpl extends GenericServiceImpl<EmpresaEntity, Empres
         EmpresaEntity entity = new EmpresaEntity();
         entity.setDescripcion(crearEmpresaDTO.getDescripcion());
         entity.setEstado(crearEmpresaDTO.getEstado());
-        return null;
+        return entity;
     }
 
     @Override
