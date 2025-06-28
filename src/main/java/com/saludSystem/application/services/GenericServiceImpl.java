@@ -72,6 +72,7 @@ public abstract class GenericServiceImpl<T extends BaseEntity, DTO, ID, CREATE_D
         return toDtoConverter.apply(entity);
     }
 
+    @Transactional
     @Override
     public ApiResponse update(ID id, UPDATE_DTO updateDto) {
         T entity = genericRepository.findById((UUID) id)
