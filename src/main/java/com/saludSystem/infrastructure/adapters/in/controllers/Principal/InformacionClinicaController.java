@@ -3,49 +3,36 @@ package com.saludSystem.infrastructure.adapters.in.controllers.Principal;
 import com.saludSystem.application.dtos.Principal.PUT.ActualizarInformacionClinicaDTO;
 import com.saludSystem.application.dtos.Principal.POST.CrearInformacionClinicaDTO;
 import com.saludSystem.application.dtos.Principal.GET.InformacionClinicaDTO;
-import com.saludSystem.application.services.Principal.InformacionClinicaService;
-import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
+import com.saludSystem.application.services.GenericService;
+import com.saludSystem.infrastructure.adapters.in.controllers.GenericController;
+import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
+import com.saludSystem.infrastructure.adapters.in.response.Principal.InformacionClinicaResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
 import java.util.UUID;
 
 @Tag(name = "InformacionClinicas")
 @RestController
 @RequestMapping("/api/InformacionClinicas")
-public class InformacionClinicaController {
+public class InformacionClinicaController extends GenericController<InformacionClinicaDTO, UUID,
+        CrearInformacionClinicaDTO, ActualizarInformacionClinicaDTO> {
 
-    private final InformacionClinicaService informacionClinicaService;
-
-    public InformacionClinicaController(InformacionClinicaService informacionClinicaService){
-        this.informacionClinicaService = informacionClinicaService;
+    protected InformacionClinicaController(GenericService<InformacionClinicaDTO, UUID, CrearInformacionClinicaDTO, ActualizarInformacionClinicaDTO> genericService) {
+        super(genericService);
     }
 
-    @GetMapping("/GetInformacionClinicaList")
-    public ResponseEntity<List<InformacionClinicaDTO>> getAllList(){
-        return ResponseEntity.ok(informacionClinicaService.getInformacionClinicaList());
-    }
-
-    @PostMapping("/SaveInformacionClinica")
-    public ApiResponse store(@Valid @RequestBody CrearInformacionClinicaDTO crearInformacionClinicaDTO){
-        return informacionClinicaService.saveInformacionClinica(crearInformacionClinicaDTO);
-    }
-
-    @DeleteMapping("/DeleteInformacionClinica/{informacionClinicaId}")
-    public ApiResponse destroy(@PathVariable UUID informacionClinicaId){
-        return informacionClinicaService.deleteInformacionClinica(informacionClinicaId);
-    }
-
-    @PutMapping("/UpdateInformacionClinica/{informacionClinicaId}")
-    public ApiResponse update(@PathVariable UUID informacionClinicaId, @RequestBody ActualizarInformacionClinicaDTO actualizarInformacionClinicaDTO){
-        return informacionClinicaService.updateInformacionClinica(informacionClinicaId, actualizarInformacionClinicaDTO);
-    }
-
-    @GetMapping("/GetInformacionClinica/{informacionClinicaId}")
-    public InformacionClinicaDTO getById(@PathVariable UUID informacionClinicaId){
-        return informacionClinicaService.getInformacionClinicaById(informacionClinicaId);
+    @GetMapping("/GetAll")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = InformacionClinicaResponse.class)))
+    })
+    public ListResponse<InformacionClinicaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
 }
