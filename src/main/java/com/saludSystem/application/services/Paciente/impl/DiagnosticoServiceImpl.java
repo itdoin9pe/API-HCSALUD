@@ -11,7 +11,6 @@ import com.saludSystem.domain.model.Paciente.DiagnosticoEntity;
 import com.saludSystem.domain.model.Paciente.PacienteEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Mantenimiento.EnfermedadRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.DiagnosticoRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.PacienteRepository;
@@ -28,14 +27,14 @@ import java.util.UUID;
 public class DiagnosticoServiceImpl extends GenericServiceImpl<DiagnosticoEntity, DiagnosticoDTO, UUID,
         CrearDiagnosticoDTO, ActualizarDiagnosticoDTO> implements DiagnosticoService {
 
-    private final SysSaludRepository sysSaludRepository;
     private final PacienteRepository pacienteRepository;
     private final EnfermedadRepository enfermedadRepository;
 
-    public DiagnosticoServiceImpl(DiagnosticoRepository diagnosticoRepository, ModelMapper modelMapper, AuthValidator authValidator, SysSaludRepository sysSaludRepository, PacienteRepository pacienteRepository, EnfermedadRepository enfermedadRepository) {
+    public DiagnosticoServiceImpl(
+            DiagnosticoRepository diagnosticoRepository, ModelMapper modelMapper,
+            AuthValidator authValidator, PacienteRepository pacienteRepository, EnfermedadRepository enfermedadRepository) {
         super(diagnosticoRepository, modelMapper, authValidator, DiagnosticoDTO.class,
                 diagnosticoEntity -> modelMapper.map(diagnosticoEntity, DiagnosticoDTO.class));
-        this.sysSaludRepository = sysSaludRepository;
         this.pacienteRepository = pacienteRepository;
         this.enfermedadRepository = enfermedadRepository;
     }
