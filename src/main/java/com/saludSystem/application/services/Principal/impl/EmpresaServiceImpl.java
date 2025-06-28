@@ -1,92 +1,71 @@
 package com.saludSystem.application.services.Principal.impl;
 
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.application.services.Principal.EmpresaService;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.application.dtos.Principal.PUT.ActualizarEmpresaDTO;
 import com.saludSystem.application.dtos.Principal.POST.CrearEmpresaDTO;
 import com.saludSystem.application.dtos.Principal.GET.EmpresaDTO;
 import com.saludSystem.domain.model.Principal.EmpresaEntity;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Principal.EmpresaRepository;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
-import com.saludSystem.domain.exception.ResourceNotFoundException;
+import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Principal.EmpresaRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class EmpresaServiceImpl implements EmpresaService {
+public class EmpresaServiceImpl extends GenericServiceImpl<EmpresaEntity, EmpresaDTO, UUID,
+        CrearEmpresaDTO, ActualizarEmpresaDTO> implements EmpresaService {
 
-    private final EmpresaRepository empresaRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
-
-    public EmpresaServiceImpl(EmpresaRepository empresaRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ModelMapper modelMapper) {
-        this.empresaRepository = empresaRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
+    public EmpresaServiceImpl(EmpresaRepository empresaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(empresaRepository, modelMapper, authValidator, EmpresaDTO.class,
+                empresaEntity -> modelMapper.map(empresaEntity, EmpresaDTO.class));
     }
 
     @Override
-    public List<EmpresaDTO> getEmpresaList() {
-        return empresaRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public ApiResponse save(CrearEmpresaDTO crearEmpresaDTO) {
+        return super.save(crearEmpresaDTO);
     }
 
     @Override
-    public EmpresaDTO getEmpresaById(UUID empresaId) {
-        EmpresaEntity empresa = empresaRepository.findById(empresaId)
-                .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con Id: " + empresaId));
-        return convertToDTO(empresa);
+    public ListResponse<EmpresaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    public ApiResponse updateEmpresa(UUID empresaId, ActualizarEmpresaDTO actualizarEmpresaDTO) {
-        EmpresaEntity empresa = empresaRepository.findById(empresaId)
-                .orElseThrow(() -> new ResourceNotFoundException("Empresa no encontrada con ID: " + empresaId));
-        Optional.ofNullable(actualizarEmpresaDTO.getDescripcion()).filter(desc -> !desc.isBlank())
-                .ifPresent(empresa::setDescripcion);
-        Optional.ofNullable(actualizarEmpresaDTO.getEstado()).ifPresent(empresa::setEstado);
-        empresaRepository.save(empresa);
-        return new ApiResponse(true, "Empresa actualizada correctamente.");
+    public ApiResponse update(UUID uuid, ActualizarEmpresaDTO actualizarEmpresaDTO) {
+        return super.update(uuid, actualizarEmpresaDTO);
     }
 
     @Override
-    public ApiResponse saveEmpresa(CrearEmpresaDTO crearEmpresaDTO){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
-        SysSaludEntity sysSalud = sysSaludRepository.findById(user.getHospital().getHospitalId())
-                .orElseThrow(() -> new ResourceNotFoundException("Hospital no encontrado"));
-        EmpresaEntity empresa = new EmpresaEntity();
-        empresa.setDescripcion(crearEmpresaDTO.getDescripcion());
-        empresa.setEstado(crearEmpresaDTO.getEstado());
-        empresa.setUser(user);
-        empresa.setHospital(sysSalud);
-        empresaRepository.save(empresa);
-        return new ApiResponse(true, "Empresa registrada correctamente.");
+    public EmpresaDTO getById(UUID uuid) {
+        return super.getById(uuid);
     }
 
     @Override
-    public ApiResponse deleteEmpresa(UUID empresaId) {
-        empresaRepository.deleteById(empresaId);
-        return new ApiResponse(true, "Empresa eliminada correctamente");
+    public List<EmpresaDTO> getList() {
+        return super.getList();
     }
 
-    private EmpresaDTO convertToDTO(EmpresaEntity empresa) {
-        return modelMapper.map(empresa, EmpresaDTO.class);
+    @Override
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
     }
 
+    @Override
+    protected EmpresaEntity convertCreateDtoToEntity(CrearEmpresaDTO crearEmpresaDTO) {
+        EmpresaEntity entity = new EmpresaEntity();
+        entity.setDescripcion(crearEmpresaDTO.getDescripcion());
+        entity.setEstado(crearEmpresaDTO.getEstado());
+        return null;
+    }
+
+    @Override
+    protected void updateEntityFromDto(ActualizarEmpresaDTO actualizarEmpresaDTO, EmpresaEntity entity) {
+        entity.setDescripcion(actualizarEmpresaDTO.getDescripcion());
+        entity.setEstado(actualizarEmpresaDTO.getEstado());
+    }
 }
