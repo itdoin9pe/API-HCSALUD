@@ -9,8 +9,6 @@ import java.util.UUID;
 @Data
 public class CrearCostoHospitalizacionDTO {
 
-    private UUID pec_costoHospitalizacionId;
-
     private UUID pec_estadoCuentaId;
 
     private LocalDate fechaIngreso;
