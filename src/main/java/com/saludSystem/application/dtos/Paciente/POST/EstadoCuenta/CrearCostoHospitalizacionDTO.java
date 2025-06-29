@@ -11,6 +11,8 @@ public class CrearCostoHospitalizacionDTO {
 
     private UUID pec_estadoCuentaId;
 
+    private UUID pacienteId;
+
     private LocalDate fechaIngreso;
 
     private LocalDate fechaAlta;

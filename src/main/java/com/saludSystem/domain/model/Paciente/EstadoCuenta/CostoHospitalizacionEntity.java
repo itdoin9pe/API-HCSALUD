@@ -1,6 +1,7 @@
 package com.saludSystem.domain.model.Paciente.EstadoCuenta;
 
 import com.saludSystem.domain.model.BaseEntity;
+import com.saludSystem.domain.model.Paciente.PacienteEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,10 @@ public class CostoHospitalizacionEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "id_estado_cuenta", nullable = false)
     private EstadoCuentaEntity estadoCuentaEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "id_paciente", nullable = false)
+    private PacienteEntity pacienteEntity;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha_ingreso", nullable = false)
