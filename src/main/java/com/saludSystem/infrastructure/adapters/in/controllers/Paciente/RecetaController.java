@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Tag(name = "PacientesRecetas")
 @RestController
-@RequestMapping("/api/PacientesRecetas")
+@RequestMapping("/api/Pacientes/Recetas")
 public class RecetaController extends GenericController<RecetaDTO, UUID,
         CrearRecetaDTO, ActualizarRecetaDTO> {
 

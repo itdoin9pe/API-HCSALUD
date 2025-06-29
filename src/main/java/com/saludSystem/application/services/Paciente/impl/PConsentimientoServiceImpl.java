@@ -16,6 +16,7 @@ import com.saludSystem.infrastructure.adapters.out.persistance.repository.Pacien
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.PacienteRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
@@ -101,6 +102,7 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
                 .ifPresent(entity::setEstado);
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse save(CrearPConsentimientoDTO crearPConsentimientoDTO) {
         return super.save(crearPConsentimientoDTO);
@@ -111,6 +113,7 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarPConsentimiento actualizarPConsentimiento) {
         return super.update(uuid, actualizarPConsentimiento);
@@ -126,6 +129,7 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
         return super.getList();
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse delete(UUID uuid) {
         return super.delete(uuid);
