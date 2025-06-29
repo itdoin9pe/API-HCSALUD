@@ -10,6 +10,8 @@ public class DetalleMedicamentoEstudioDTO {
 
     private UUID pec_detalleMedicamentoId;
 
+    private UUID pacienteId;
+
     private UUID estadoCuentaId;
 
     private String tipo;

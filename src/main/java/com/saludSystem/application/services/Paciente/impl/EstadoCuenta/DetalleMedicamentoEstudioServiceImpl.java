@@ -3,125 +3,99 @@ package com.saludSystem.application.services.Paciente.impl.EstadoCuenta;
 import com.saludSystem.application.dtos.Paciente.GET.EstadoCuenta.DetalleMedicamentoEstudioDTO;
 import com.saludSystem.application.dtos.Paciente.POST.EstadoCuenta.CrearDetalleMedicamentoEstudioDTO;
 import com.saludSystem.application.dtos.Paciente.PUT.EstadoCuenta.ActualizarDetalleMedicamentoEstudioDTO;
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.application.services.Paciente.EstadoCuenta.DetalleMedicamentoEstudioService;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.domain.model.Paciente.EstadoCuenta.DetalleMedicamentosEstudiosEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.EstadoCuenta.DetalleMedicamentoEstudioRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.EstadoCuenta.EstadoCuentaRepository;
+import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.PacienteRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class DetalleMedicamentoEstudioServiceImpl implements DetalleMedicamentoEstudioService {
+public class DetalleMedicamentoEstudioServiceImpl extends GenericServiceImpl<DetalleMedicamentosEstudiosEntity,
+        DetalleMedicamentoEstudioDTO, UUID, CrearDetalleMedicamentoEstudioDTO, ActualizarDetalleMedicamentoEstudioDTO>
+        implements DetalleMedicamentoEstudioService {
 
-    private final DetalleMedicamentoEstudioRepository detalleMedicamentoEstudioRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
     private final EstadoCuentaRepository estadoCuentaRepository;
-    private final ModelMapper modelMapper;
+    private final PacienteRepository pacienteRepository;
 
-    public DetalleMedicamentoEstudioServiceImpl(DetalleMedicamentoEstudioRepository detalleMedicamentoEstudioRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, EstadoCuentaRepository estadoCuentaRepository, ModelMapper modelMapper) {
-        this.detalleMedicamentoEstudioRepository = detalleMedicamentoEstudioRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
+    public DetalleMedicamentoEstudioServiceImpl(
+            DetalleMedicamentoEstudioRepository detalleMedicamentoEstudioRepository,
+            ModelMapper modelMapper, AuthValidator authValidator, EstadoCuentaRepository estadoCuentaRepository, PacienteRepository pacienteRepository) {
+        super(detalleMedicamentoEstudioRepository, modelMapper, authValidator, DetalleMedicamentoEstudioDTO.class,
+                detalleMedicamentosEstudiosEntity ->
+                        modelMapper.map(detalleMedicamentosEstudiosEntity, DetalleMedicamentoEstudioDTO.class));
         this.estadoCuentaRepository = estadoCuentaRepository;
-        this.modelMapper = modelMapper;
+        this.pacienteRepository = pacienteRepository;
+    }
+
+    @Override
+    protected DetalleMedicamentosEstudiosEntity convertCreateDtoToEntity(CrearDetalleMedicamentoEstudioDTO crearDetalleMedicamentoEstudioDTO) {
+        DetalleMedicamentosEstudiosEntity entity = new DetalleMedicamentosEstudiosEntity();
+        entity.setPacienteEntity(pacienteRepository.findById(crearDetalleMedicamentoEstudioDTO.getPacienteId())
+                .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
+        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(crearDetalleMedicamentoEstudioDTO.getEstadoCuentaId())
+                .orElseThrow( () -> new ResourceNotFoundException("Estado de cuenta not found")));
+        entity.setTipo(crearDetalleMedicamentoEstudioDTO.getTipo());
+        entity.setDescripcion(crearDetalleMedicamentoEstudioDTO.getDescripcion());
+        entity.setCantidad(crearDetalleMedicamentoEstudioDTO.getCantidad());
+        entity.setCostoUnitario(crearDetalleMedicamentoEstudioDTO.getCostoUnitario());
+        entity.setTotalCosto(crearDetalleMedicamentoEstudioDTO.getTotalCosto());
+        return entity;
+    }
+
+    @Override
+    protected void updateEntityFromDto(ActualizarDetalleMedicamentoEstudioDTO actualizarDetalleMedicamentoEstudioDTO, DetalleMedicamentosEstudiosEntity entity) {
+        entity.setPacienteEntity(pacienteRepository.findById(actualizarDetalleMedicamentoEstudioDTO.getPacienteId())
+                .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
+        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(actualizarDetalleMedicamentoEstudioDTO.getEstadoCuentaId())
+                .orElseThrow( () -> new ResourceNotFoundException("Estado de cuenta not found")));
+        entity.setTipo(actualizarDetalleMedicamentoEstudioDTO.getTipo());
+        entity.setDescripcion(actualizarDetalleMedicamentoEstudioDTO.getDescripcion());
+        entity.setCantidad(actualizarDetalleMedicamentoEstudioDTO.getCantidad());
+        entity.setCostoUnitario(actualizarDetalleMedicamentoEstudioDTO.getCostoUnitario());
+        entity.setTotalCosto(actualizarDetalleMedicamentoEstudioDTO.getTotalCosto());
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveDetalleMedicamentoEstudio(CrearDetalleMedicamentoEstudioDTO crearDetalleMedicamentoEstudioDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
-        }
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(
-                () -> new RuntimeException("Hospital no encontrado"));
-        DetalleMedicamentosEstudiosEntity detalleMedicamentosEstudiosEntity = new DetalleMedicamentosEstudiosEntity();
-        detalleMedicamentosEstudiosEntity.setEstadoCuentaEntity(estadoCuentaRepository.findById(crearDetalleMedicamentoEstudioDTO.getEstadoCuentaId())
-                .orElseThrow( () -> new ResourceNotFoundException("Estado de cuenta no encontrado") ));
-        detalleMedicamentosEstudiosEntity.setTipo(crearDetalleMedicamentoEstudioDTO.getTipo());
-        detalleMedicamentosEstudiosEntity.setDescripcion(crearDetalleMedicamentoEstudioDTO.getDescripcion());
-        detalleMedicamentosEstudiosEntity.setCantidad(crearDetalleMedicamentoEstudioDTO.getCantidad());
-        detalleMedicamentosEstudiosEntity.setCostoUnitario(crearDetalleMedicamentoEstudioDTO.getCostoUnitario());
-        detalleMedicamentosEstudiosEntity.setTotalCosto(crearDetalleMedicamentoEstudioDTO.getTotalCosto());
-        detalleMedicamentosEstudiosEntity.setHospital(hospital);
-        detalleMedicamentosEstudiosEntity.setUser(userEntity);
-        detalleMedicamentoEstudioRepository.save(detalleMedicamentosEstudiosEntity);
-        return new ApiResponse(true, "Detalle del medicamento agregado correctamente");
+    public ApiResponse save(CrearDetalleMedicamentoEstudioDTO crearDetalleMedicamentoEstudioDTO) {
+        return super.save(crearDetalleMedicamentoEstudioDTO);
     }
 
     @Override
-    public ListResponse<DetalleMedicamentoEstudioDTO> getAllDetalleMedicamentoEstudio(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<DetalleMedicamentosEstudiosEntity> detalleMedicamentosEstudiosEntityPage = detalleMedicamentoEstudioRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<DetalleMedicamentoEstudioDTO> data = detalleMedicamentosEstudiosEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, detalleMedicamentosEstudiosEntityPage.getTotalElements(), detalleMedicamentosEstudiosEntityPage.getTotalPages(),
-                detalleMedicamentosEstudiosEntityPage.getNumber() + 1);
+    public ListResponse<DetalleMedicamentoEstudioDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse updateDetalleMedicamento(UUID pec_detalleMedicamentoId, ActualizarDetalleMedicamentoEstudioDTO actualizarDetalleMedicamentoEstudioDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
-        }
-        DetalleMedicamentosEstudiosEntity detalleMedicamentosEstudiosEntity = detalleMedicamentoEstudioRepository.findById(
-                pec_detalleMedicamentoId).orElseThrow( () -> new ResourceNotFoundException("Detalle del estudio no encontrado"));
-        Optional.ofNullable(actualizarDetalleMedicamentoEstudioDTO.getEstadoCuentaId()).flatMap(estadoCuentaRepository::findById).ifPresent(detalleMedicamentosEstudiosEntity::setEstadoCuentaEntity);
-        Optional.of(actualizarDetalleMedicamentoEstudioDTO.getTipo()).filter(desc -> !desc.isBlank()).ifPresent(detalleMedicamentosEstudiosEntity::setTipo);
-        Optional.of(actualizarDetalleMedicamentoEstudioDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(detalleMedicamentosEstudiosEntity::setDescripcion);
-        Optional.of(actualizarDetalleMedicamentoEstudioDTO.getCantidad()).ifPresent(detalleMedicamentosEstudiosEntity::setCantidad);
-        Optional.of(actualizarDetalleMedicamentoEstudioDTO.getCostoUnitario()).ifPresent(detalleMedicamentosEstudiosEntity::setCostoUnitario);
-        Optional.of(actualizarDetalleMedicamentoEstudioDTO.getTotalCosto()).ifPresent(detalleMedicamentosEstudiosEntity::setTotalCosto);
-        detalleMedicamentoEstudioRepository.save(detalleMedicamentosEstudiosEntity);
-        return new ApiResponse(true, "Detalle del estudio actualizado correctamente");
+    public ApiResponse update(UUID uuid, ActualizarDetalleMedicamentoEstudioDTO actualizarDetalleMedicamentoEstudioDTO) {
+        return super.update(uuid, actualizarDetalleMedicamentoEstudioDTO);
     }
 
     @Override
-    public DetalleMedicamentoEstudioDTO getDetalleMedicamentoById(UUID pec_detalleMedicamentoId) {
-        DetalleMedicamentosEstudiosEntity detalleMedicamentosEstudiosEntity = detalleMedicamentoEstudioRepository.findById(
-                pec_detalleMedicamentoId).orElseThrow( () -> new ResourceNotFoundException("Detalle del estudio no encontrado"));
-        return convertToDTO(detalleMedicamentosEstudiosEntity);
+    public DetalleMedicamentoEstudioDTO getById(UUID uuid) {
+        return super.getById(uuid);
+    }
+
+    @Override
+    public List<DetalleMedicamentoEstudioDTO> getList() {
+        return super.getList();
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse deleteDetalleMedicamentoEstudio(UUID pec_detalleMedicamentoId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
-        }
-        detalleMedicamentoEstudioRepository.deleteById(pec_detalleMedicamentoId);
-        return new ApiResponse(true, "Detalles del estudio de medicamentos eliminado correctamente");
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
     }
-
-    private DetalleMedicamentoEstudioDTO convertToDTO(DetalleMedicamentosEstudiosEntity detalleMedicamentosEstudiosEntity) {
-        return modelMapper.map(detalleMedicamentosEstudiosEntity, DetalleMedicamentoEstudioDTO.class);
-    }
-
 }

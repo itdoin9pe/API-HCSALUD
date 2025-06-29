@@ -7,7 +7,9 @@ import java.util.UUID;
 
 @Data
 public class CrearDetalleMedicamentoEstudioDTO {
-    
+
+    private UUID pacienteId;
+
     private UUID estadoCuentaId;
 
     private String tipo;

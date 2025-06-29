@@ -1,6 +1,7 @@
 package com.saludSystem.domain.model.Paciente.EstadoCuenta;
 
 import com.saludSystem.domain.model.BaseEntity;
+import com.saludSystem.domain.model.Paciente.PacienteEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,10 @@ public class DetalleMedicamentosEstudiosEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_detalle", nullable = false)
     private UUID pec_detalleMedicamentoId;
+
+    @ManyToOne
+    @JoinColumn(name = "id_paciente", nullable = false)
+    private PacienteEntity pacienteEntity;
 
     @ManyToOne
     @JoinColumn(name = "id_estado_cuenta", nullable = false)
