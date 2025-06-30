@@ -2,6 +2,7 @@ package com.saludSystem.domain.model.Paciente.HistorialClinico;
 
 import com.saludSystem.domain.model.BaseEntity;
 import com.saludSystem.domain.model.Catalogo.AlergiaEntity;
+import com.saludSystem.domain.model.Paciente.PacienteEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,10 @@ public class PacienteAlergiaEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "paciente_alergia_id", nullable = false)
     private UUID pacienteAlergiaId;
+
+    @ManyToOne
+    @JoinColumn(name = "id_paciente", nullable = false)
+    private PacienteEntity pacienteEntity;
 
     @ManyToOne
     @JoinColumn(name = "alergia_id", nullable = false)

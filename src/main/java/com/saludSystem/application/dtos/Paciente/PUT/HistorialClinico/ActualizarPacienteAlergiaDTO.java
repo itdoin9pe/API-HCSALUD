@@ -1,5 +1,6 @@
 package com.saludSystem.application.dtos.Paciente.PUT.HistorialClinico;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.UUID;
@@ -13,10 +14,13 @@ public class ActualizarPacienteAlergiaDTO {
 
     private UUID pacienteAlergiaId;
 
+    private UUID pacienteId;
+
     private UUID alergiaId;
 
     private String observacion;
 
+    @Schema(example = "0")
     private Integer estado;
 
 }
