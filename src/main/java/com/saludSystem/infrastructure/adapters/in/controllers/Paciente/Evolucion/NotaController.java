@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Tag(name = "PacientesEvolucionesNotas")
 @RestController
-@RequestMapping("/api/PacientesEvololucionesNotas")
+@RequestMapping("/api/Pacientes/Evololuciones/Notas")
 public class NotaController {
 
     private final NotaService notaService;
@@ -27,12 +27,12 @@ public class NotaController {
         this.notaService = notaService;
     }
 
-    @PostMapping("/SavePacienteEvolucionNota")
+    @PostMapping("/Save")
     public ApiResponse stored(@Valid @RequestBody CrearNotaDTO crearNotaDTO) {
         return notaService.saveNota(crearNotaDTO);
     }
 
-    @GetMapping("/GetAllPacienteEvolucionNota")
+    @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
@@ -44,19 +44,18 @@ public class NotaController {
         return notaService.getAllNota(hospitalId, page, rows);
     }
 
-    @GetMapping("/GetPacienteEvolucionNota/{pacienteEvolucionNotaId}")
+    @GetMapping("/GetById/{Id}")
     public NotaDTO getById(@PathVariable Long pacienteEvolucionNotaId) {
         return notaService.getNotaById(pacienteEvolucionNotaId);
     }
 
-    @PutMapping("/UpdatePacienteEvolucionNota/{pacienteEvolucionNotaId}")
+    @PutMapping("/Update/{Id}")
     public ApiResponse update(@PathVariable Long pacienteEvolucionNotaId, @RequestBody ActualizarNotaDTO actualizarNotaDTO) {
         return notaService.updateNota(pacienteEvolucionNotaId, actualizarNotaDTO);
     }
 
-    @DeleteMapping("/DeletePacienteEvolucionNota/{pacienteEvolucionNotaId}")
+    @DeleteMapping("/Delete/{Id}")
     public ApiResponse destroy(@PathVariable Long pacienteEvolucionNotaId) {
         return notaService.deleteNota(pacienteEvolucionNotaId);
     }
-
 }

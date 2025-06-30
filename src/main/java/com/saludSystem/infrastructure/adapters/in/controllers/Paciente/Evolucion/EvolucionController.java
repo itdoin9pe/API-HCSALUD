@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Tag(name = "PacientesEvoluciones")
 @RestController
-@RequestMapping("/api/PacientesEvoluciones")
+@RequestMapping("/api/Pacientes/Evoluciones")
 public class EvolucionController {
 
     private final EvolucionService evolucionService;
@@ -27,12 +27,12 @@ public class EvolucionController {
         this.evolucionService = evolucionService;
     }
 
-    @PostMapping("/SavePacienteEvolucion")
+    @PostMapping("/Save")
     public ApiResponse stored(@Valid @RequestBody CrearEvolucionDTO crearEvolucionDTO) {
         return evolucionService.saveEvolucion(crearEvolucionDTO);
     }
 
-    @GetMapping("/GetAllPacienteEvolucion")
+    @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
@@ -44,19 +44,18 @@ public class EvolucionController {
         return evolucionService.getAllEvolucion(hospitalId, page, rows);
     }
 
-    @GetMapping("/GetPacienteEvolucion/{pacienteEvolucionId}")
+    @GetMapping("/GetById/{Id}")
     public EvolucionDTO getById(@PathVariable UUID pacienteEvolucionId) {
         return evolucionService.getEvolucionById(pacienteEvolucionId);
     }
 
-    @PutMapping("/UpdatePacienteEvolucion/{pacienteEvolucionId}")
+    @PutMapping("/Update/{Id}")
     public ApiResponse update(@PathVariable UUID pacienteEvolucionId, @RequestBody ActualizarEvolucionDTO actualizarEvolucionDTO) {
         return evolucionService.updateEvolucion(pacienteEvolucionId, actualizarEvolucionDTO);
     }
 
-    @DeleteMapping("/DeletePacienteEvolucion/{pacienteEvolucionId}")
+    @DeleteMapping("/Delete/{Id}")
     public ApiResponse destroy(@PathVariable UUID pacienteEvolucionId) {
         return evolucionService.deleteEvolucion(pacienteEvolucionId);
     }
-
 }
