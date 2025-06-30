@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Tag(name = "PacientesEvolucionesAltasMedicas")
 @RestController 
-@RequestMapping("/api/PacientesEvolucionesAltasMedicas")
+@RequestMapping("/api/Pacientes/Evoluciones/AltasMedicas")
 public class AltaMedicaController {
 
     private final AltaMedicaService altaMedicaService;
@@ -27,15 +27,15 @@ public class AltaMedicaController {
         this.altaMedicaService = altaMedicaService;
     }
 
-    @PostMapping("/SavePacienteEvolucionAltaMedica")
+    @PostMapping("/Save")
     public ApiResponse stored(@Valid @RequestBody CrearAltaMedicaDTO crearAltaMedicaDTO) {
         return altaMedicaService.saveAltaMedica(crearAltaMedicaDTO);
     }
 
-    @GetMapping("/GetAllPacienteEvolucionAltaMedica")
+    @GetMapping("/GetAll")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = AltaMedicaResponse.class)))
     })
     public ListResponse<AltaMedicaDTO> getAllPage(
@@ -44,17 +44,17 @@ public class AltaMedicaController {
         return altaMedicaService.getAllAltaMedica(hospitalId, page, rows);
     }
 
-    @GetMapping("/GetPacienteEvolucionAltaMedica/{pacienteEvolucionAltaMedicaId}")
+    @GetMapping("/GetById/{Id}")
     public AltaMedicaDTO getById(@PathVariable Long evolucionAltaMedicaId) {
         return altaMedicaService.getAltaMedicaById(evolucionAltaMedicaId);
     }
 
-    @PutMapping("/UpdatePacienteEvolucionAltaMedica/{pacienteEvolucionAltaMedicaId}")
+    @PutMapping("/Update/{Id}")
     public ApiResponse update(@PathVariable Long evolucionAltaMedicaId, @RequestBody ActualizarAltaMedicaDTO actualizarAltaMedicaDTO) {
         return altaMedicaService.updateAltaMedica(evolucionAltaMedicaId, actualizarAltaMedicaDTO);
     }
 
-    @DeleteMapping("/DeletePacienteEvolucionAltaMedica/{pacienteEvolucionAltaMedicaId}")
+    @DeleteMapping("/Delete/{Id}")
     public ApiResponse destroy(@PathVariable Long evolucionAltaMedicaId) {
         return altaMedicaService.deleteAltaMedica(evolucionAltaMedicaId);
     }
