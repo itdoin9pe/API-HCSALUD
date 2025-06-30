@@ -11,7 +11,6 @@ import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.EstadoCuenta.DetalleMedicamentoEstudioRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.EstadoCuenta.EstadoCuentaRepository;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.PacienteRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,25 +25,21 @@ public class DetalleMedicamentoEstudioServiceImpl extends GenericServiceImpl<Det
         implements DetalleMedicamentoEstudioService {
 
     private final EstadoCuentaRepository estadoCuentaRepository;
-    private final PacienteRepository pacienteRepository;
 
     public DetalleMedicamentoEstudioServiceImpl(
             DetalleMedicamentoEstudioRepository detalleMedicamentoEstudioRepository,
-            ModelMapper modelMapper, AuthValidator authValidator, EstadoCuentaRepository estadoCuentaRepository, PacienteRepository pacienteRepository) {
+            ModelMapper modelMapper, AuthValidator authValidator, EstadoCuentaRepository estadoCuentaRepository) {
         super(detalleMedicamentoEstudioRepository, modelMapper, authValidator, DetalleMedicamentoEstudioDTO.class,
                 detalleMedicamentosEstudiosEntity ->
                         modelMapper.map(detalleMedicamentosEstudiosEntity, DetalleMedicamentoEstudioDTO.class));
         this.estadoCuentaRepository = estadoCuentaRepository;
-        this.pacienteRepository = pacienteRepository;
     }
 
     @Override
     protected DetalleMedicamentosEstudiosEntity convertCreateDtoToEntity(CrearDetalleMedicamentoEstudioDTO crearDetalleMedicamentoEstudioDTO) {
         DetalleMedicamentosEstudiosEntity entity = new DetalleMedicamentosEstudiosEntity();
-        entity.setPacienteEntity(pacienteRepository.findById(crearDetalleMedicamentoEstudioDTO.getPacienteId())
-                .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
         entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(crearDetalleMedicamentoEstudioDTO.getEstadoCuentaId())
-                .orElseThrow( () -> new ResourceNotFoundException("Estado de cuenta not found")));
+                .orElseThrow(() -> new ResourceNotFoundException("Estado de cuenta not found")));
         entity.setTipo(crearDetalleMedicamentoEstudioDTO.getTipo());
         entity.setDescripcion(crearDetalleMedicamentoEstudioDTO.getDescripcion());
         entity.setCantidad(crearDetalleMedicamentoEstudioDTO.getCantidad());
@@ -55,10 +50,8 @@ public class DetalleMedicamentoEstudioServiceImpl extends GenericServiceImpl<Det
 
     @Override
     protected void updateEntityFromDto(ActualizarDetalleMedicamentoEstudioDTO actualizarDetalleMedicamentoEstudioDTO, DetalleMedicamentosEstudiosEntity entity) {
-        entity.setPacienteEntity(pacienteRepository.findById(actualizarDetalleMedicamentoEstudioDTO.getPacienteId())
-                .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
         entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(actualizarDetalleMedicamentoEstudioDTO.getEstadoCuentaId())
-                .orElseThrow( () -> new ResourceNotFoundException("Estado de cuenta not found")));
+                .orElseThrow(() -> new ResourceNotFoundException("Estado de cuenta not found")));
         entity.setTipo(actualizarDetalleMedicamentoEstudioDTO.getTipo());
         entity.setDescripcion(actualizarDetalleMedicamentoEstudioDTO.getDescripcion());
         entity.setCantidad(actualizarDetalleMedicamentoEstudioDTO.getCantidad());

@@ -11,7 +11,6 @@ import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.EstadoCuenta.CostoHospitalizacionRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.EstadoCuenta.EstadoCuentaRepository;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.PacienteRepository;
 import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,23 +25,19 @@ public class CostoHospitalizacionServiceImpl extends GenericServiceImpl<CostoHos
         implements CostoHospitalizacionService {
 
     private final EstadoCuentaRepository estadoCuentaRepository;
-    private final PacienteRepository pacienteRepository;
 
     public CostoHospitalizacionServiceImpl(
             CostoHospitalizacionRepository costoHospitalizacionRepository,
-            ModelMapper modelMapper, AuthValidator authValidator, EstadoCuentaRepository estadoCuentaRepository, PacienteRepository pacienteRepository) {
+            ModelMapper modelMapper, AuthValidator authValidator, EstadoCuentaRepository estadoCuentaRepository) {
         super(costoHospitalizacionRepository, modelMapper, authValidator, CostoHospitalizacionDTO.class,
                 costoHospitalizacionEntity
                         -> modelMapper.map(costoHospitalizacionEntity, CostoHospitalizacionDTO.class));
         this.estadoCuentaRepository = estadoCuentaRepository;
-        this.pacienteRepository = pacienteRepository;
     }
 
     @Override
     protected CostoHospitalizacionEntity convertCreateDtoToEntity(CrearCostoHospitalizacionDTO crearCostoHospitalizacionDTO) {
         CostoHospitalizacionEntity entity = new CostoHospitalizacionEntity();
-        entity.setPacienteEntity(pacienteRepository.findById(crearCostoHospitalizacionDTO.getPacienteId())
-                .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
         entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(crearCostoHospitalizacionDTO.getPec_estadoCuentaId())
                 .orElseThrow( () -> new ResourceNotFoundException("Estado de cuenta not found")));
         entity.setFechaIngreso(crearCostoHospitalizacionDTO.getFechaIngreso());
@@ -57,8 +52,6 @@ public class CostoHospitalizacionServiceImpl extends GenericServiceImpl<CostoHos
 
     @Override
     protected void updateEntityFromDto(ActualizarCostoHospitalizacionDTO actualizarCostoHospitalizacionDTO, CostoHospitalizacionEntity entity) {
-        entity.setPacienteEntity(pacienteRepository.findById(actualizarCostoHospitalizacionDTO.getPacienteId())
-                .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
         entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(actualizarCostoHospitalizacionDTO.getPec_costoHospitalizacionId())
                 .orElseThrow( () -> new ResourceNotFoundException("Costo de hospitalizacoin not found")));
         entity.setFechaIngreso(actualizarCostoHospitalizacionDTO.getFechaIngreso());
