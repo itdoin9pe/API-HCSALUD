@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Tag(name = "PacientesEvolucionesCambiosCondiciones")
 @RestController
-@RequestMapping("/api/PacientesEvolucionesCambiosCondiciones")
+@RequestMapping("/api/Pacientes/Evoluciones/CambiosCondiciones")
 public class CambioCondicionController {
 
     private final CambioCondicionService cambioCondicionService;
@@ -27,15 +27,15 @@ public class CambioCondicionController {
         this.cambioCondicionService = cambioCondicionService;
     }
 
-    @PostMapping("/SavePacienteEvolucionCambioCondicion")
+    @PostMapping("/Save")
     public ApiResponse stored(@Valid @RequestBody CrearCambioCondicionDTO crearCambioCondicionDTO) {
         return cambioCondicionService.saveCambioCondicion(crearCambioCondicionDTO);
     }
 
-    @GetMapping("/GetAllPacienteEvolucionCambioCondicion")
+    @GetMapping("/GetAll")
     @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CambioCondicionResponse.class)))
     })
     public ListResponse<CambioCondicionDTO> getAllPage(
@@ -44,19 +44,18 @@ public class CambioCondicionController {
         return cambioCondicionService.getAllCambioCondicion(hospitalId, page, rows);
     }
 
-    @GetMapping("/GetPacienteEvolucionCambioCondicion/{pacienteEvolucionCambioCondicionId}")
+    @GetMapping("/GetById/{Id}")
     public CambioCondicionDTO getById(@PathVariable Long evolucionCambioCondicionId) {
         return cambioCondicionService.getCambioCondicionById(evolucionCambioCondicionId);
     }
 
-    @PutMapping("/UpdatePacienteEvolucionCambioCondicion/{pacienteEvolucionCambioCondicionId}")
+    @PutMapping("/Update/{Id}")
     public ApiResponse update(@PathVariable Long evolucionCambioCondicionId, @RequestBody ActualizarCambioCondicionDTO actualizarCambioCondicionDTO) {
         return cambioCondicionService.updateCambioCondicion(evolucionCambioCondicionId, actualizarCambioCondicionDTO);
     }
 
-    @DeleteMapping("/DeletePacienteEvolucionCambioCondicion/{pacienteEvolucionCambioCondicionId}")
+    @DeleteMapping("/Delete/{Id}")
     public ApiResponse destroy(@PathVariable Long evolucionCambioCondicionId) {
         return cambioCondicionService.deleteCambioCondicion(evolucionCambioCondicionId);
     }
-
 }

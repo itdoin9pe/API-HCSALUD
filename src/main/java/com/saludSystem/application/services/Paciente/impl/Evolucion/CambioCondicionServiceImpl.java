@@ -5,22 +5,18 @@ import com.saludSystem.application.dtos.Paciente.POST.Evolucion.CrearCambioCondi
 import com.saludSystem.application.dtos.Paciente.PUT.Evolucion.ActualizarCambioCondicionDTO;
 import com.saludSystem.application.services.Paciente.Evolucion.CambioCondicionService;
 import com.saludSystem.domain.exception.ResourceNotFoundException;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
 import com.saludSystem.domain.model.Paciente.Evolucion.CambioCondicionEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.Evolucion.CambioCondicionRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.Evolucion.EvolucionRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,34 +29,32 @@ public class CambioCondicionServiceImpl implements CambioCondicionService {
 
     private final CambioCondicionRepository cambioCondicionRepository;
     private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
     private final EvolucionRepository evolucionRepository;
+    private final AuthValidator authValidator;
     private final ModelMapper modelMapper;
 
-    public CambioCondicionServiceImpl(CambioCondicionRepository cambioCondicionRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, EvolucionRepository evolucionRepository, ModelMapper modelMapper) {
+    public CambioCondicionServiceImpl(CambioCondicionRepository cambioCondicionRepository, SysSaludRepository sysSaludRepository, EvolucionRepository evolucionRepository, AuthValidator authValidator, ModelMapper modelMapper) {
         this.cambioCondicionRepository = cambioCondicionRepository;
         this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
         this.evolucionRepository = evolucionRepository;
+        this.authValidator = authValidator;
         this.modelMapper = modelMapper;
     }
 
     @PreAuthorize("HasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse saveCambioCondicion(CrearCambioCondicionDTO crearCambioCondicionDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "You do not have sufficient permissions to perforn this action");
-        }
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(
-                () -> new RuntimeException("Hospital not found"));
-        CambioCondicionEntity cambioCondicionEntity = new CambioCondicionEntity();
+        authValidator.validateAdminAccess();
+        var user = authValidator.getCurrentUser();
+        var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+        var cambioCondicionEntity = new CambioCondicionEntity();
+        cambioCondicionEntity.setEvolucionEntity(evolucionRepository.findById(crearCambioCondicionDTO.getPacienteEvolucionId())
+                .orElseThrow( () -> new ResourceNotFoundException("Evolucion not found")));
         cambioCondicionEntity.setFecha(crearCambioCondicionDTO.getFecha());
         cambioCondicionEntity.setDescripcion(cambioCondicionEntity.getDescripcion());
         cambioCondicionEntity.setHospital(hospital);
-        cambioCondicionEntity.setUser(userEntity);
+        cambioCondicionEntity.setUser(user);
         cambioCondicionRepository.save(cambioCondicionEntity);
         return new ApiResponse(true, "Cambio de condicion guardada correctamente");
     }
@@ -75,14 +69,12 @@ public class CambioCondicionServiceImpl implements CambioCondicionService {
     @PreAuthorize("HasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse updateCambioCondicion(Long evolucionCambioCondicionId, ActualizarCambioCondicionDTO actualizarCambioCondicionDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "You do not have sufficient permissions to perforn this action");
-        }
+        authValidator.validateAdminAccess();
         CambioCondicionEntity cambioCondicionEntity = cambioCondicionRepository.findById(evolucionCambioCondicionId).orElseThrow(
                 () -> new ResourceNotFoundException("Cambio de condicion no encontrado"));
+        Optional.ofNullable(actualizarCambioCondicionDTO.getPacienteEvolucionId())
+                .flatMap(evolucionRepository::findById)
+                .ifPresent(cambioCondicionEntity::setEvolucionEntity);
         Optional.ofNullable(actualizarCambioCondicionDTO.getFecha()).ifPresent(cambioCondicionEntity::setFecha);
         Optional.ofNullable(actualizarCambioCondicionDTO.getDescripcion()).ifPresent(cambioCondicionEntity::setDescripcion);
         return new ApiResponse(true, "Cambio de condicion actualizado correctamente");
@@ -99,12 +91,7 @@ public class CambioCondicionServiceImpl implements CambioCondicionService {
     @PreAuthorize("HasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse deleteCambioCondicion(Long evolucionCambioCondicionId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "You do not have sufficient permissions to perforn this action");
-        }
+        authValidator.validateAdminAccess();
         cambioCondicionRepository.deleteById(evolucionCambioCondicionId);
         return new ApiResponse(true, "Cambio de condicion eliminado correctamente");
     }
@@ -112,5 +99,4 @@ public class CambioCondicionServiceImpl implements CambioCondicionService {
     private CambioCondicionDTO convertToDTO(CambioCondicionEntity cambioCondicionEntity) {
         return modelMapper.map(cambioCondicionEntity, CambioCondicionDTO.class);
     }
-
 }

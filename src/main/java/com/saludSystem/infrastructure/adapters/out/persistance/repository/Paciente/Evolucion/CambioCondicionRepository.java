@@ -10,7 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface CambioCondicionRepository extends JpaRepository<CambioCondicionEntity, Long> {
-
     Page<CambioCondicionEntity> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
-
 }
