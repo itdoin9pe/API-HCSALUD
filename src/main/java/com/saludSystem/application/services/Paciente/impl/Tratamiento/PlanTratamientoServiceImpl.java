@@ -3,142 +3,106 @@ package com.saludSystem.application.services.Paciente.impl.Tratamiento;
 import com.saludSystem.application.dtos.Paciente.GET.Tratamiento.PlanTratamientoDTO;
 import com.saludSystem.application.dtos.Paciente.POST.Tratamiento.CrearPlanTratamientoDTO;
 import com.saludSystem.application.dtos.Paciente.PUT.Tratamiento.ActualizarPlanTratamientoDTO;
+import com.saludSystem.application.services.GenericServiceImpl;
 import com.saludSystem.application.services.Paciente.Tratamiento.PlanTratamientoService;
-import com.saludSystem.domain.exception.ResourceNotFoundException;
-import com.saludSystem.domain.model.Catalogo.EspecialidadEntity;
-import com.saludSystem.domain.model.Catalogo.MedidaEntity;
-import com.saludSystem.domain.model.Configuracion.SysSaludEntity;
-import com.saludSystem.domain.model.Configuracion.UserEntity;
-import com.saludSystem.domain.model.Medico.DoctorEntity;
-import com.saludSystem.domain.model.Paciente.PacienteEntity;
 import com.saludSystem.domain.model.Paciente.Tratamiento.PlanTratamientoEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.DoctorRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.EspecialidadRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Catalogo.MedidaRepository;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.SysSaludRepository;
-import com.saludSystem.infrastructure.adapters.out.persistance.repository.Configuracion.UserRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.PacienteRepository;
 import com.saludSystem.infrastructure.adapters.out.persistance.repository.Paciente.Tratamiento.PlanTratamientoRepository;
+import com.saludSystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class PlanTratamientoServiceImpl implements PlanTratamientoService {
+public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamientoEntity, PlanTratamientoDTO, UUID,
+        CrearPlanTratamientoDTO, ActualizarPlanTratamientoDTO> implements PlanTratamientoService {
 
-    private final PlanTratamientoRepository planTratamientoRepository;
-    private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
     private final PacienteRepository pacienteRepository;
     private final EspecialidadRepository especialidadRepository;
     private final DoctorRepository doctorRepository;
     private final MedidaRepository medidaRepository;
-    private final ModelMapper modelMapper;
 
-    public PlanTratamientoServiceImpl(PlanTratamientoRepository planTratamientoRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, PacienteRepository pacienteRepository, EspecialidadRepository especialidadRepository, DoctorRepository doctorRepository, MedidaRepository medidaRepository, ModelMapper modelMapper) {
-        this.planTratamientoRepository = planTratamientoRepository;
-        this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
+    public PlanTratamientoServiceImpl(
+            PlanTratamientoRepository planTratamientoRepository, ModelMapper modelMapper, AuthValidator authValidator,
+            PacienteRepository pacienteRepository, EspecialidadRepository especialidadRepository,
+            DoctorRepository doctorRepository, MedidaRepository medidaRepository) {
+        super(planTratamientoRepository, modelMapper, authValidator, PlanTratamientoDTO.class,
+                planTratamientoEntity -> modelMapper.map(planTratamientoEntity, PlanTratamientoDTO.class));
         this.pacienteRepository = pacienteRepository;
         this.especialidadRepository = especialidadRepository;
         this.doctorRepository = doctorRepository;
         this.medidaRepository = medidaRepository;
-        this.modelMapper = modelMapper;
+    }
+
+    @Override
+    protected PlanTratamientoEntity convertCreateDtoToEntity(CrearPlanTratamientoDTO crearPlanTratamientoDTO) {
+        PlanTratamientoEntity entity = new PlanTratamientoEntity();
+        pacienteRepository.findById(crearPlanTratamientoDTO.getPacienteId()).ifPresent(entity::setPacienteEntity);
+        doctorRepository.findById(crearPlanTratamientoDTO.getDoctorId()).ifPresent(entity::setDoctorEntity);
+        especialidadRepository.findById(crearPlanTratamientoDTO.getEspecialidadId()).ifPresent(entity::setEspecialidadEntity);
+        medidaRepository.findById(crearPlanTratamientoDTO.getMedidaId()).ifPresent(entity::setMedidaEntity);
+        entity.setFechaInicio(crearPlanTratamientoDTO.getFechaInicio());
+        entity.setFechaFin(crearPlanTratamientoDTO.getFechaFin());
+        return entity;
+    }
+
+    @Override
+    protected void updateEntityFromDto(ActualizarPlanTratamientoDTO actualizarPlanTratamientoDTO, PlanTratamientoEntity entity) {
+        Optional.ofNullable(actualizarPlanTratamientoDTO.getPacienteId())
+                .flatMap(pacienteRepository::findById)
+                .ifPresent(entity::setPacienteEntity);
+        Optional.ofNullable(actualizarPlanTratamientoDTO.getDoctorId())
+                .flatMap(doctorRepository::findById)
+                .ifPresent(entity::setDoctorEntity);
+        Optional.ofNullable(actualizarPlanTratamientoDTO.getEspecialidadId())
+                .flatMap(especialidadRepository::findById)
+                .ifPresent(entity::setEspecialidadEntity);
+        Optional.ofNullable(actualizarPlanTratamientoDTO.getMedidaId())
+                .flatMap(medidaRepository::findById)
+                .ifPresent(entity::setMedidaEntity);
+        Optional.ofNullable(actualizarPlanTratamientoDTO.getFechaInicio()).ifPresent(entity::setFechaInicio);
+        Optional.ofNullable(actualizarPlanTratamientoDTO.getFechaFin()).ifPresent(entity::setFechaFin);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse savePlanTratamiento(CrearPlanTratamientoDTO crearPlanTratamientoDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            throw new RuntimeException("No tienes permisos para realizar esta acción");
-        }
-        PlanTratamientoEntity planTratamientoEntity = new PlanTratamientoEntity();
-        Optional<PacienteEntity> pacienteEntity = pacienteRepository.findById(crearPlanTratamientoDTO.getPacienteId());
-        pacienteEntity.ifPresent(planTratamientoEntity::setPacienteEntity);
-        Optional<DoctorEntity> doctorEntity = doctorRepository.findById(crearPlanTratamientoDTO.getDoctorId());
-        doctorEntity.ifPresent(planTratamientoEntity::setDoctorEntity);
-        Optional<EspecialidadEntity> especialidadEntity = especialidadRepository.findById(crearPlanTratamientoDTO.getEspecialidadId());
-        especialidadEntity.ifPresent(planTratamientoEntity::setEspecialidadEntity);
-        Optional<MedidaEntity> medidaEntity = medidaRepository.findById(crearPlanTratamientoDTO.getMedidaId());
-        medidaEntity.ifPresent(planTratamientoEntity::setMedidaEntity);
-        planTratamientoEntity.setFechaFin(crearPlanTratamientoDTO.getFechaFin());
-        planTratamientoEntity.setFechaInicio(crearPlanTratamientoDTO.getFechaInicio());
-        planTratamientoEntity.setHospital(hospital);
-        planTratamientoEntity.setUser(user);
-        planTratamientoRepository.save(planTratamientoEntity);
-        return new ApiResponse(true, "Plan de tratamiento agregado correctamente");
-    }
-
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')") @Override
-    public ApiResponse updatePlanTratamiento(UUID pacientePlanTratamientoId, ActualizarPlanTratamientoDTO actualizarPlanTratamientoDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            throw new RuntimeException("No tienes permisos para realizar esta acción");
-        }
-        PlanTratamientoEntity planTratamientoEntity = planTratamientoRepository.findById(pacientePlanTratamientoId).
-                orElseThrow( () -> new ResourceNotFoundException("Plan de tratamiento no encontrado"));
-        Optional.ofNullable(actualizarPlanTratamientoDTO.getPacienteId()).flatMap(pacienteRepository::findById).ifPresent(planTratamientoEntity::setPacienteEntity);
-        Optional.ofNullable(actualizarPlanTratamientoDTO.getDoctorId()).flatMap(doctorRepository::findById).ifPresent(planTratamientoEntity::setDoctorEntity);
-        Optional.ofNullable(actualizarPlanTratamientoDTO.getEspecialidadId()).flatMap(especialidadRepository::findById).ifPresent(planTratamientoEntity::setEspecialidadEntity);
-        Optional.ofNullable(actualizarPlanTratamientoDTO.getMedidaId()).flatMap(medidaRepository::findById).ifPresent(planTratamientoEntity::setMedidaEntity);
-        Optional.ofNullable(actualizarPlanTratamientoDTO.getFechaInicio()).ifPresent(planTratamientoEntity::setFechaInicio);
-        Optional.ofNullable(actualizarPlanTratamientoDTO.getFechaFin()).ifPresent(planTratamientoEntity::setFechaFin);
-        planTratamientoRepository.save(planTratamientoEntity);
-        return new ApiResponse(true, "Plan de tratamiento modificado correctamente");
+    public ApiResponse save(CrearPlanTratamientoDTO crearPlanTratamientoDTO) {
+        return super.save(crearPlanTratamientoDTO);
     }
 
     @Override
-    public ListResponse<PlanTratamientoDTO> getAllPlanTratamiento(UUID hospitalId, int page, int rows) {
-        Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<PlanTratamientoEntity> planTratamientoEntityPage = planTratamientoRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<PlanTratamientoDTO> data = planTratamientoEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
-        return new ListResponse<>(data, planTratamientoEntityPage.getTotalElements(), planTratamientoEntityPage.getTotalPages(), planTratamientoEntityPage.getNumber() + 1);
-    }
-
-    @Override
-    public PlanTratamientoDTO getPlanTratamientoById(UUID pacientePlanTratamientoId) {
-        PlanTratamientoEntity planTratamientoEntity = planTratamientoRepository.findById(pacientePlanTratamientoId).
-                orElseThrow( () -> new ResourceNotFoundException("Plan de tratamiento no encontrado"));
-        return convertToDTO(planTratamientoEntity);
+    public ListResponse<PlanTratamientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse deletePlanTratamiento(UUID pacientePlanTratamientoId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            throw new RuntimeException("No tienes permisos para realizar esta acción");
-        }
-        planTratamientoRepository.deleteById(pacientePlanTratamientoId);
-        return new ApiResponse(true, "Plan de tratamiento eliminado correctamente");
+    public ApiResponse update(UUID uuid, ActualizarPlanTratamientoDTO actualizarPlanTratamientoDTO) {
+        return super.update(uuid, actualizarPlanTratamientoDTO);
     }
 
-    private PlanTratamientoDTO convertToDTO(PlanTratamientoEntity planTratamientoEntity) {
-        return modelMapper.map(planTratamientoEntity, PlanTratamientoDTO.class);
+    @Override
+    public PlanTratamientoDTO getById(UUID uuid) {
+        return super.getById(uuid);
     }
 
+    @Override
+    public List<PlanTratamientoDTO> getList() {
+        return super.getList();
+    }
+
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @Override
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
+    }
 }
