@@ -60,6 +60,5 @@ volumes:
 
 networks:
   jenkins_net:
-    name: jenkins_net
     driver: bridge
 
