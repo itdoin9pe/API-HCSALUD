@@ -2,11 +2,8 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-# Instala Docker dentro del contenedor Jenkins
 RUN apt-get update && \
-    apt-get install -y docker.io docker-compose git
-
-# Agrega el usuario jenkins al grupo docker
-RUN usermod -aG docker jenkins
+    apt-get install -y maven && \
+    apt-get clean
 
 USER jenkins

@@ -30,9 +30,9 @@ pipeline {
 
         stage('Análisis con SonarQube') {
             steps {
-                script {
+                docker.image('maven:3.8.6-eclipse-temurin-17').inside('--network=jenkins_net') {
                     withSonarQubeEnv('SonarServer') {
-                        sh 'mvn sonar:sonar -Dsonar.projectKey=sysSalud -Dsonar.java.binaries=target -DskipTests'
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=sysSalud -Dsonar.java.binaries=target -DskipTests -Dsonar.host.url=http://sonarqube:9000'
                     }
                 }
             }
