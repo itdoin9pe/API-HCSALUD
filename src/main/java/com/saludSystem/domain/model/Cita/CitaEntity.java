@@ -1,4 +1,4 @@
-package com.saludSystem.domain.model.CIta;
+package com.saludSystem.domain.model.Cita;
 
 import com.saludSystem.domain.model.BaseEntity;
 import com.saludSystem.domain.model.Catalogo.EspecialidadEntity;

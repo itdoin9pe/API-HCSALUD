@@ -1,4 +1,4 @@
-package com.saludSystem.infrastructure.adapters.in.controllers.CIta;
+package com.saludSystem.infrastructure.adapters.in.controllers.Cita;
 
 import com.saludSystem.application.dtos.Cita.GET.CitaDTO;
 import com.saludSystem.application.dtos.Cita.POST.CrearCitaDTO;

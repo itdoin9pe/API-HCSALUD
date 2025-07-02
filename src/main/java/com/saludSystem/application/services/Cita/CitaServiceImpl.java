@@ -4,7 +4,7 @@ import com.saludSystem.application.dtos.Cita.GET.CitaDTO;
 import com.saludSystem.application.dtos.Cita.POST.CrearCitaDTO;
 import com.saludSystem.application.dtos.Cita.PUT.ActualizarCitaDTO;
 import com.saludSystem.application.services.GenericServiceImpl;
-import com.saludSystem.domain.model.CIta.CitaEntity;
+import com.saludSystem.domain.model.Cita.CitaEntity;
 import com.saludSystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludSystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludSystem.infrastructure.adapters.out.persistance.DoctorRepository;
