@@ -33,7 +33,7 @@ pipeline {
                 script {
                     docker.image('maven:3.8.6-eclipse-temurin-17').inside {
                         withSonarQubeEnv('SonarServer') {
-                            sh 'mvn sonar:sonar -Dsonar.projectKey=sysSalud -Dsonar.java.binaries=target -DskipTests'
+                            sh 'mvn sonar:sonar -Dsonar.projectKey=sysSalud -Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.java.binaries=target -DskipTests'
                         }
                     }
                 }
