@@ -21,7 +21,8 @@ import java.util.UUID;
 public class ProcedimientoController extends GenericController<ProcedimientoDTO, UUID,
         CrearProcedimientoDTO, ActualizarProcedimientoDTO> {
 
-    protected ProcedimientoController(GenericService<ProcedimientoDTO, UUID, CrearProcedimientoDTO, ActualizarProcedimientoDTO> genericService) {
+    protected ProcedimientoController(GenericService<ProcedimientoDTO, UUID, CrearProcedimientoDTO,
+            ActualizarProcedimientoDTO> genericService) {
         super(genericService);
     }
 
