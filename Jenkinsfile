@@ -4,9 +4,9 @@ pipeline {
     environment {
         SPRING_PROFILES_ACTIVE = "prod"
         DB_URL = "jdbc:mysql://mysql:3306/db_sysalud"
-        DB_USERNAME = credentials('db-username')         // <- ID creado en Jenkins
-        DB_PASSWORD = credentials('db-password')         // <- ID creado en Jenkins
-        JWT_SECRET = credentials('jwt-secret')           // <- ID creado en Jenkins
+        DB_USERNAME = "root"
+        DB_PASSWORD = "giangodisinyou2"
+        JWT_SECRET = "fb3185950296da2445c1837ffc09f771feb47650d4ca97a8029c663bbab0dbcc"
         JWT_EXPIRATION = "3600"
         JWT_REFRESH_EXPIRATION = "86400"
         FILE_UPLOAD_DIR = "./uploads"
