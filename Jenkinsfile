@@ -34,14 +34,23 @@ pipeline {
                 script {
                     docker.image('maven:3.8.6-eclipse-temurin-17').inside('--network=jenkins_net') {
                         withSonarQubeEnv('SonarServer') {
-                            sh './wait-for-sonarqube.sh'
-                            sh '''
-                                mvn clean verify sonar:sonar \
-                                -Dsonar.projectKey=sysSalud \
-                                -Dsonar.java.binaries=target \
-                                -Dsonar.host.url=http://sonarqube:9000 \
-                                -DskipTests
-                            '''
+                           sh '''
+                               echo "Esperando que SonarQube esté disponible..."
+                               for i in {1..30}; do
+                                 if curl -s http://sonarqube:9000/api/system/status | grep -q '"status":"UP"'; then
+                                   echo "✅ SonarQube está disponible"
+                                   break
+                                 fi
+                                 echo "Intento $i: SonarQube aún no responde, esperando 5 segundos..."
+                                 sleep 5
+                               done
+
+                               mvn clean verify sonar:sonar \
+                                 -Dsonar.projectKey=sysSalud \
+                                 -Dsonar.java.binaries=target \
+                                 -Dsonar.host.url=http://sonarqube:9000 \
+                                 -DskipTests
+                           '''
                         }
                     }
                 }
