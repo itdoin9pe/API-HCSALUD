@@ -32,7 +32,7 @@ pipeline {
         stage('Build y Análisis SonarQube') {
             steps {
                 script {
-                    docker.image('maven:3.8.6-eclipse-temurin-17').inside('--network=jenkins_net') {
+                    docker.image('maven:3.8.6-eclipse-temurin-17').inside('--network=syssalud_jenkins_net') {
                         withSonarQubeEnv('SonarServer') {
                            sh '''
                                echo "Esperando que SonarQube esté disponible..."
