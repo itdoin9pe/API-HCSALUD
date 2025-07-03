@@ -48,7 +48,7 @@ pipeline {
                                mvn clean verify sonar:sonar \
                                  -Dsonar.projectKey=sysSalud \
                                  -Dsonar.java.binaries=target \
-                                 -Dsonar.host.url=http://localhost:9000 \
+                                 -Dsonar.host.url=http://sonarqube:9000 \
                                  -DskipTests
                            '''
                         }
