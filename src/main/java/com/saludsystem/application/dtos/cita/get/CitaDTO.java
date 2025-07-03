@@ -20,7 +20,7 @@ public class CitaDTO {
     private UUID pacienteEntity;
     private UUID sedeEntity;
     private UUID tipoCitadoEntity;
-    private String Estado;
+    private String estado;
     private String motivoConsulta;
     private String observacion;
 }

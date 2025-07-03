@@ -1,11 +1,10 @@
-package com.saludsystem.application.services.Cita;
+package com.saludsystem.application.services.cita;
 
 
 import com.saludsystem.application.dtos.cita.get.CitaDTO;
 import com.saludsystem.application.dtos.cita.post.CrearCitaDTO;
 import com.saludsystem.application.dtos.cita.put.ActualizarCitaDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
-import com.saludsystem.application.services.cita.CitaService;
 import com.saludsystem.domain.model.cita.CitaEntity;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;

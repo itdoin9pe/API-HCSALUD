@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 public class MedicamentoRecetadoDTO {
 
-    private UUID medicamentoRecetadoDTO;
+    private UUID medicamentoRecetadoId;
 
     private UUID medicamentoId;
 

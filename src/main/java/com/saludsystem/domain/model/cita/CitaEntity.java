@@ -59,7 +59,7 @@ public class CitaEntity extends BaseEntity {
     private TipoCitadoEntity tipoCitadoEntity;
 
     @Column(name = "estado_cita", nullable = false)
-    private String Estado;
+    private String estado;
 
     @Column(name = "motivoConsulta_cita", nullable = false)
     private String motivoConsulta;

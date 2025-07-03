@@ -18,7 +18,7 @@ public class CrearClienteDTO {
     private String telefono;
 
     @Schema(example = "user@gmail.com")
-    private String email;;
+    private String email;
 
     @Schema(description = "Estado del Cliente (0 = inactivo, 1 = activo)", example = "0")
     private Integer estado;

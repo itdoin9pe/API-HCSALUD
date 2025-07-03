@@ -13,7 +13,7 @@ public class ActualizarMedicamentoRecetadoDTO {
 
     private UUID userId;
 
-    private UUID medicamentoRecetadoDTO;
+    private UUID medicamentoRecetadoId;
 
     private UUID medicamentoId;
 
