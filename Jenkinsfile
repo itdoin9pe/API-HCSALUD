@@ -34,6 +34,7 @@ pipeline {
                 script {
                     docker.image('maven:3.8.6-eclipse-temurin-17').inside('--network=jenkins_net') {
                         withSonarQubeEnv('SonarServer') {
+                            sh './wait-for-sonarqube.sh'
                             sh '''
                                 mvn clean verify sonar:sonar \
                                 -Dsonar.projectKey=sysSalud \
