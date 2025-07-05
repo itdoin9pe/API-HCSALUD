@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 public class EstadoCuentaDTO {
 
-    private UUID pec_estadoCuentaId;
+    private UUID pecId;
 
     private UUID pacienteId;
 

@@ -13,7 +13,7 @@ public class ActualizarEstadoCuentaDTO {
 
     private UUID userId;
 
-    private UUID pec_estadoCuentaId;
+    private UUID pecId;
 
     private UUID pacienteId;
 
