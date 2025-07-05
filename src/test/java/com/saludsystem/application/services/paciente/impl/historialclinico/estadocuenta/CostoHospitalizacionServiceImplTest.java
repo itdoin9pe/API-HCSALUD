@@ -2,6 +2,7 @@ package com.saludsystem.application.services.paciente.impl.historialclinico.esta
 
 import com.saludsystem.application.dtos.paciente.get.historialclinico.estadocuenta.CostoHospitalizacionDTO;
 import com.saludsystem.application.dtos.paciente.post.historialclinico.estadocuenta.CrearCostoHospitalizacionDTO;
+import com.saludsystem.application.dtos.paciente.put.historialclinico.estadocuenta.ActualizarCostoHospitalizacionDTO;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
 import com.saludsystem.domain.model.configuracion.UserEntity;
 import com.saludsystem.domain.model.paciente.EstadoCuenta.CostoHospitalizacionEntity;
@@ -13,6 +14,8 @@ import com.saludsystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -107,5 +110,53 @@ class CostoHospitalizacionServiceImplTest {
                 .thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class, () -> service.save(dto));
+    }
+    @Test
+    void testUpdateSuccess() {
+        UUID id = UUID.randomUUID();
+
+        CostoHospitalizacionEntity existing = new CostoHospitalizacionEntity();
+        existing.setCostoPorDia(100.0);
+        when(repository.findById(id)).thenReturn(Optional.of(existing));
+
+        var updateDto = new ActualizarCostoHospitalizacionDTO();
+        updateDto.setCostoPorDia(200.0);
+        updateDto.setCantidadDias(3);
+        updateDto.setTotalCosto(600.0);
+
+        ApiResponse response = service.update(id, updateDto);
+
+        assertTrue(response.isSuccess());
+        assertEquals("Registro actualizado exitosamente", response.getMessage());
+        verify(repository).save(existing);
+        assertEquals(200.0, existing.getCostoPorDia());
+        assertEquals(3, existing.getCantidadDias());
+        assertEquals(600.0, existing.getTotalCosto());
+    }
+
+    @Test
+    void testUpdateThrowsWhenNotFound() {
+        UUID id = UUID.randomUUID();
+        when(repository.findById(id)).thenReturn(Optional.empty());
+
+        var dto = new ActualizarCostoHospitalizacionDTO();
+        assertThrows(ResourceNotFoundException.class, () -> service.update(id, dto));
+    }
+
+    @Test
+    void testGetAllPaginated() {
+        UUID hospitalId = UUID.randomUUID();
+        CostoHospitalizacionEntity entity = new CostoHospitalizacionEntity();
+        entity.setCostoPorDia(150.0);
+
+        Page<CostoHospitalizacionEntity> page = new PageImpl<>(List.of(entity));
+        when(repository.findByHospital_HospitalId(eq(hospitalId), any())).thenReturn(page);
+
+        var result = service.getAllPaginated(hospitalId, 1, 10);
+
+        assertEquals(1, result.getData().size());
+        assertEquals(150.0, result.getData().get(0).getCostoPorDia());
+        assertEquals(1, result.getTotalPages());
+        assertEquals(1, result.getCurrentPage());
     }
 }
