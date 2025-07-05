@@ -1,5 +1,6 @@
 package com.saludsystem.application.dtos.cita.put;
 
+import com.saludsystem.application.dtos.cita.CitaBaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -8,10 +9,11 @@ import java.time.LocalTime;
 import java.util.UUID;
 
 @Data
-public class ActualizarCitaDTO {
+public class ActualizarCitaDTO extends CitaBaseDTO {
     private UUID hospitalId;
     private UUID userId;
     private UUID citadoId;
+    /*
     private UUID especialidadEntity;
     private UUID doctorEntity;
     private LocalDate fecha;
@@ -24,5 +26,5 @@ public class ActualizarCitaDTO {
     private UUID tipoCitadoEntity;
     private String estado;
     private String motivoConsulta;
-    private String observacion;
+    private String observacion;*/
 }
