@@ -17,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -51,13 +52,12 @@ public class CostoHospitalizacionServiceImpl extends GenericServiceImpl<CostoHos
 
     @Override
     protected void updateEntityFromDto(ActualizarCostoHospitalizacionDTO actualizarCostoHospitalizacionDTO, CostoHospitalizacionEntity entity) {
-        entity.setFechaIngreso(actualizarCostoHospitalizacionDTO.getFechaIngreso());
-        entity.setFechaAlta(actualizarCostoHospitalizacionDTO.getFechaAlta());
-        entity.setTipoHabitacion(actualizarCostoHospitalizacionDTO.getTipoHabitacion());
-        entity.setTipoHabitacion(actualizarCostoHospitalizacionDTO.getTipoHabitacion());
-        entity.setCostoPorDia(actualizarCostoHospitalizacionDTO.getCostoPorDia());
-        entity.setCantidadDias(actualizarCostoHospitalizacionDTO.getCantidadDias());
-        entity.setTotalCosto(actualizarCostoHospitalizacionDTO.getTotalCosto());
+        Optional.ofNullable(actualizarCostoHospitalizacionDTO.getFechaIngreso()).ifPresent(entity::setFechaIngreso);
+        Optional.ofNullable(actualizarCostoHospitalizacionDTO.getFechaAlta()).ifPresent(entity::setFechaIngreso);
+        Optional.ofNullable(actualizarCostoHospitalizacionDTO.getTipoHabitacion()).ifPresent(entity::setTipoHabitacion);
+        Optional.ofNullable(actualizarCostoHospitalizacionDTO.getCostoPorDia()).ifPresent(entity::setCostoPorDia);
+        Optional.ofNullable(actualizarCostoHospitalizacionDTO.getCantidadDias()).ifPresent(entity::setCantidadDias);
+        Optional.ofNullable(actualizarCostoHospitalizacionDTO.getTotalCosto()).ifPresent(entity::setTotalCosto);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
