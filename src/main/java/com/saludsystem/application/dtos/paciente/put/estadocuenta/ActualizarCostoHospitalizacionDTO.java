@@ -13,9 +13,9 @@ public class ActualizarCostoHospitalizacionDTO {
 
     private UUID userId;
 
-    private UUID pec_costoHospitalizacionId;
+    private UUID pecCostoHospitalizacionId;
 
-    private UUID pec_estadoCuentaId;
+    private UUID pacEstadoCuentaId;
 
     private UUID pacienteId;
 

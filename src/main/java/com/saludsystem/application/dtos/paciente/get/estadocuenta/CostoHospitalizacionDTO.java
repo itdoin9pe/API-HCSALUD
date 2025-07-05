@@ -9,9 +9,9 @@ import java.util.UUID;
 @Data
 public class CostoHospitalizacionDTO {
 
-    private UUID pec_costoHospitalizacionId;
+    private UUID pecCostoHospitalizacionId;
 
-    private UUID pec_estadoCuentaId;
+    private UUID pacEstadoCuentaId;
 
     private UUID pacienteId;
 

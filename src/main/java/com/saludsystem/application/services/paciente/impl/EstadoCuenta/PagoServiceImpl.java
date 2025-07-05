@@ -45,7 +45,7 @@ public class PagoServiceImpl extends GenericServiceImpl<PagoEntity, PagoDTO, UUI
 
     @Override
     protected void updateEntityFromDto(ActualizarPagoDTO actualizarPagoDTO, PagoEntity entity) {
-        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(actualizarPagoDTO.getEstadoCuentaId())
+        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(actualizarPagoDTO.getPacEstadoCuentaId())
                 .orElseThrow( () -> new ResourceNotFoundException("Estado de cuenta not found")));
         entity.setFechaPago(actualizarPagoDTO.getFechaPago());
         entity.setMonto(actualizarPagoDTO.getMonto());

@@ -8,11 +8,11 @@ import java.util.UUID;
 @Data
 public class DetalleMedicamentoEstudioDTO {
 
-    private UUID pec_detalleMedicamentoId;
+    private UUID pecDetalleMedicamentoId;
 
     private UUID pacienteId;
 
-    private UUID estadoCuentaId;
+    private UUID pacEstadoCuentaId;
 
     private String tipo;
 

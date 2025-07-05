@@ -9,9 +9,9 @@ import java.util.UUID;
 @Data
 public class PagoDTO {
 
-    private UUID pec_pagoId;
+    private UUID pecPagoId;
 
-    private UUID estadoCuentaId;
+    private UUID pacEstadoCuentaId;
 
     private LocalDate fechaPago;
 

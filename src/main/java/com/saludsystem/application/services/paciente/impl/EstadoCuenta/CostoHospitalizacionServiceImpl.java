@@ -38,7 +38,7 @@ public class CostoHospitalizacionServiceImpl extends GenericServiceImpl<CostoHos
     @Override
     protected CostoHospitalizacionEntity convertCreateDtoToEntity(CrearCostoHospitalizacionDTO crearCostoHospitalizacionDTO) {
         CostoHospitalizacionEntity entity = new CostoHospitalizacionEntity();
-        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(crearCostoHospitalizacionDTO.getPec_estadoCuentaId())
+        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(crearCostoHospitalizacionDTO.getPacEstadoCuentaId())
                 .orElseThrow( () -> new ResourceNotFoundException("Estado de cuenta not found")));
         entity.setFechaIngreso(crearCostoHospitalizacionDTO.getFechaIngreso());
         entity.setFechaAlta(crearCostoHospitalizacionDTO.getFechaAlta());
@@ -52,7 +52,7 @@ public class CostoHospitalizacionServiceImpl extends GenericServiceImpl<CostoHos
 
     @Override
     protected void updateEntityFromDto(ActualizarCostoHospitalizacionDTO actualizarCostoHospitalizacionDTO, CostoHospitalizacionEntity entity) {
-        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(actualizarCostoHospitalizacionDTO.getPec_costoHospitalizacionId())
+        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(actualizarCostoHospitalizacionDTO.getPecCostoHospitalizacionId())
                 .orElseThrow( () -> new ResourceNotFoundException("Costo de hospitalizacoin not found")));
         entity.setFechaIngreso(actualizarCostoHospitalizacionDTO.getFechaIngreso());
         entity.setFechaAlta(actualizarCostoHospitalizacionDTO.getFechaAlta());

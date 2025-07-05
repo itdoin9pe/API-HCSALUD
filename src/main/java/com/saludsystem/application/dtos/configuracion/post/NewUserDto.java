@@ -19,8 +19,8 @@ public class NewUserDto {
     private String documentType;
     private String documentNumber;
     private String photo;
-    public String username;
-    public String password;
+    private String username;
+    private String password;
     private Integer estado;
     private UUID roleId;
 

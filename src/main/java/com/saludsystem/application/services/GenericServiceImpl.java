@@ -27,7 +27,7 @@ public abstract class GenericServiceImpl<T extends BaseEntity, DTO, ID, CREATE_D
     protected final Class<DTO> dtoClass;
     protected final Function<T, DTO> toDtoConverter;
 
-    public GenericServiceImpl(GenericRepository<T> genericRepository, ModelMapper modelMapper, AuthValidator authValidator, Class<DTO> dtoClass, Function<T, DTO> toDtoConverter) {
+    protected GenericServiceImpl(GenericRepository<T> genericRepository, ModelMapper modelMapper, AuthValidator authValidator, Class<DTO> dtoClass, Function<T, DTO> toDtoConverter) {
         this.genericRepository = genericRepository;
         this.modelMapper = modelMapper;
         this.authValidator = authValidator;

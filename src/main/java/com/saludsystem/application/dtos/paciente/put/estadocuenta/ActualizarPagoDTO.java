@@ -13,9 +13,9 @@ public class ActualizarPagoDTO {
 
     private UUID userId;
 
-    private UUID pec_pagoId;
+    private UUID pecPagoId;
 
-    private UUID estadoCuentaId;
+    private UUID pacEstadoCuentaId;
 
     private LocalDate fechaPago;
 
