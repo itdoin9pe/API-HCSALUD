@@ -4,7 +4,7 @@ import com.saludsystem.application.dtos.paciente.get.historialclinico.estadocuen
 import com.saludsystem.application.dtos.paciente.post.historialclinico.estadocuenta.CrearCostoHospitalizacionDTO;
 import com.saludsystem.application.dtos.paciente.put.historialclinico.estadocuenta.ActualizarCostoHospitalizacionDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
-import com.saludsystem.application.services.paciente.historialclinico.estadoCuenta.CostoHospitalizacionService;
+import com.saludsystem.application.services.paciente.historialclinico.estadocuenta.CostoHospitalizacionService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
 import com.saludsystem.domain.model.paciente.EstadoCuenta.CostoHospitalizacionEntity;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;

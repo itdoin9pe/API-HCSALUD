@@ -1,4 +1,4 @@
-package com.saludsystem.application.services.paciente.historialclinico.estadoCuenta;
+package com.saludsystem.application.services.paciente.historialclinico.estadocuenta;
 
 import com.saludsystem.application.dtos.paciente.get.historialclinico.estadocuenta.CostoHospitalizacionDTO;
 import com.saludsystem.application.dtos.paciente.post.historialclinico.estadocuenta.CrearCostoHospitalizacionDTO;

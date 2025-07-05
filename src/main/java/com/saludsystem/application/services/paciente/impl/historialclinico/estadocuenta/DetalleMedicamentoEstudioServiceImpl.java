@@ -4,7 +4,7 @@ import com.saludsystem.application.dtos.paciente.get.historialclinico.estadocuen
 import com.saludsystem.application.dtos.paciente.post.historialclinico.estadocuenta.CrearDetalleMedicamentoEstudioDTO;
 import com.saludsystem.application.dtos.paciente.put.historialclinico.estadocuenta.ActualizarDetalleMedicamentoEstudioDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
-import com.saludsystem.application.services.paciente.historialclinico.estadoCuenta.DetalleMedicamentoEstudioService;
+import com.saludsystem.application.services.paciente.historialclinico.estadocuenta.DetalleMedicamentoEstudioService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
 import com.saludsystem.domain.model.paciente.EstadoCuenta.DetalleMedicamentosEstudiosEntity;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
