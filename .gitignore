@@ -40,6 +40,7 @@ application.properties*
 *.bk
 .env.local
 .env.prod
+sonar-project.properties
 
 ### Spring profiles ###
 src/main/resources/application-prod.yml
