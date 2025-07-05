@@ -1,12 +1,7 @@
 package com.saludsystem.application.dtos.cita.post;
 
 import com.saludsystem.application.dtos.cita.CitaBaseDTO;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.UUID;
 
 @Data
 public class CrearCitaDTO extends CitaBaseDTO {
