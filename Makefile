@@ -8,7 +8,8 @@ sonar:
 		-Dsonar.projectKey=$(SONAR_PROJECT_KEY) \
 		-Dsonar.projectName='$(SONAR_PROJECT_NAME)' \
 		-Dsonar.host.url=$(SONAR_HOST) \
-		-Dsonar.token=$(SONAR_TOKEN)
+		-Dsonar.token=$(SONAR_TOKEN) \
+		-Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
 
 # Compilar y empaquetar el proyecto
 build:
