@@ -3,7 +3,7 @@ package com.saludsystem.infrastructure.adapters.in.controllers.paciente.Evolucio
 import com.saludsystem.application.dtos.paciente.get.historialclinico.evolucion.EvolucionDTO;
 import com.saludsystem.application.dtos.paciente.post.historialclinico.evolucion.CrearEvolucionDTO;
 import com.saludsystem.application.dtos.paciente.put.historialclinico.evolucion.ActualizarEvolucionDTO;
-import com.saludsystem.application.services.paciente.historialClinico.evolucion.EvolucionService;
+import com.saludsystem.application.services.paciente.historialclinico.evolucion.EvolucionService;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.infrastructure.adapters.in.response.paciente.Evolucion.EvolucionResponse;
