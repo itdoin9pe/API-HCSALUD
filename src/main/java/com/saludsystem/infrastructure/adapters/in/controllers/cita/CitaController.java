@@ -20,12 +20,13 @@ import java.util.UUID;
 @Tag(name = "CitasMedicas")
 @RestController
 @RequestMapping("/api/CitasMedicas")
-public class CItaController extends GenericController<CitaDTO, UUID, CrearCitaDTO, ActualizarCitaDTO> {
+public class CitaController extends GenericController<CitaDTO, UUID, CrearCitaDTO, ActualizarCitaDTO> {
 
-    protected CItaController(GenericService<CitaDTO, UUID, CrearCitaDTO, ActualizarCitaDTO> genericService) {
+    protected CitaController(GenericService<CitaDTO, UUID, CrearCitaDTO, ActualizarCitaDTO> genericService) {
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

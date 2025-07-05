@@ -1,6 +1,5 @@
 package com.saludsystem.application.services.cita;
 
-
 import com.saludsystem.application.dtos.cita.get.CitaDTO;
 import com.saludsystem.application.dtos.cita.post.CrearCitaDTO;
 import com.saludsystem.application.dtos.cita.put.ActualizarCitaDTO;

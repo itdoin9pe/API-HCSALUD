@@ -1,18 +1,4 @@
 services:
-  jenkins:
-    build:
-      context: .
-      dockerfile: Dockerfile.jenkins
-    container_name: jenkins
-    user: root
-    ports:
-      - "8080:8080"
-      - "50000:50000"
-    volumes:
-      - ./jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - jenkins_net
 
   mysql:
     image: mysql:8.0
@@ -61,4 +47,3 @@ volumes:
 networks:
   jenkins_net:
     driver: bridge
-
