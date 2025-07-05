@@ -43,7 +43,6 @@ public class CostoHospitalizacionServiceImpl extends GenericServiceImpl<CostoHos
         entity.setFechaIngreso(crearCostoHospitalizacionDTO.getFechaIngreso());
         entity.setFechaAlta(crearCostoHospitalizacionDTO.getFechaAlta());
         entity.setTipoHabitacion(crearCostoHospitalizacionDTO.getTipoHabitacion());
-        entity.setTipoHabitacion(crearCostoHospitalizacionDTO.getTipoHabitacion());
         entity.setCostoPorDia(crearCostoHospitalizacionDTO.getCostoPorDia());
         entity.setCantidadDias(crearCostoHospitalizacionDTO.getCantidadDias());
         entity.setTotalCosto(crearCostoHospitalizacionDTO.getTotalCosto());
@@ -52,8 +51,6 @@ public class CostoHospitalizacionServiceImpl extends GenericServiceImpl<CostoHos
 
     @Override
     protected void updateEntityFromDto(ActualizarCostoHospitalizacionDTO actualizarCostoHospitalizacionDTO, CostoHospitalizacionEntity entity) {
-        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(actualizarCostoHospitalizacionDTO.getPecCostoHospitalizacionId())
-                .orElseThrow( () -> new ResourceNotFoundException("Costo de hospitalizacoin not found")));
         entity.setFechaIngreso(actualizarCostoHospitalizacionDTO.getFechaIngreso());
         entity.setFechaAlta(actualizarCostoHospitalizacionDTO.getFechaAlta());
         entity.setTipoHabitacion(actualizarCostoHospitalizacionDTO.getTipoHabitacion());

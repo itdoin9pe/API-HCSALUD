@@ -50,8 +50,6 @@ public class DetalleMedicamentoEstudioServiceImpl extends GenericServiceImpl<Det
 
     @Override
     protected void updateEntityFromDto(ActualizarDetalleMedicamentoEstudioDTO actualizarDetalleMedicamentoEstudioDTO, DetalleMedicamentosEstudiosEntity entity) {
-        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(actualizarDetalleMedicamentoEstudioDTO.getPacEstadoCuentaId())
-                .orElseThrow(() -> new ResourceNotFoundException("Estado de cuenta not found")));
         entity.setTipo(actualizarDetalleMedicamentoEstudioDTO.getTipo());
         entity.setDescripcion(actualizarDetalleMedicamentoEstudioDTO.getDescripcion());
         entity.setCantidad(actualizarDetalleMedicamentoEstudioDTO.getCantidad());
