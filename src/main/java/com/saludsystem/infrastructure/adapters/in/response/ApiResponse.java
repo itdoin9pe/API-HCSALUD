@@ -12,8 +12,8 @@ public class ApiResponse {
     @Getter
     private String message;
 
-    public ApiResponse(boolean isSuccess, String message) {
-        this.success = isSuccess;
+    public ApiResponse(boolean success, String message) {
+        this.success = success;
         this.message = message;
     }
 
