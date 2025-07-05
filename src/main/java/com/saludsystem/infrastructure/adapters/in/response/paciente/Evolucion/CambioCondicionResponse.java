@@ -1,6 +1,6 @@
 package com.saludsystem.infrastructure.adapters.in.response.paciente.Evolucion;
 
-import com.saludsystem.application.dtos.paciente.get.evolucion.CambioCondicionDTO;
+import com.saludsystem.application.dtos.paciente.get.historialclinico.evolucion.CambioCondicionDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

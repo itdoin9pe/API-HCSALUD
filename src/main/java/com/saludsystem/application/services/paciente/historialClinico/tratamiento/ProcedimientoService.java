@@ -1,0 +1,15 @@
+package com.saludsystem.application.services.paciente.historialClinico.tratamiento;
+
+import com.saludsystem.application.dtos.paciente.get.historialclinico.tratamiento.ProcedimientoDTO;
+import com.saludsystem.application.dtos.paciente.post.historialclinico.tratamiento.CrearProcedimientoDTO;
+import com.saludsystem.application.dtos.paciente.put.historialclinico.tratamiento.ActualizarProcedimientoDTO;
+import com.saludsystem.application.services.GenericService;
+
+import java.util.UUID;
+
+public interface ProcedimientoService extends GenericService<
+        ProcedimientoDTO,
+        UUID,
+        CrearProcedimientoDTO,
+        ActualizarProcedimientoDTO> {
+}

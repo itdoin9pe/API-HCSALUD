@@ -1,8 +1,8 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.paciente.EstadoCuenta;
 
-import com.saludsystem.application.dtos.paciente.get.estadocuenta.DetalleMedicamentoEstudioDTO;
-import com.saludsystem.application.dtos.paciente.post.estadocuenta.CrearDetalleMedicamentoEstudioDTO;
-import com.saludsystem.application.dtos.paciente.put.estadocuenta.ActualizarDetalleMedicamentoEstudioDTO;
+import com.saludsystem.application.dtos.paciente.get.historialclinico.estadocuenta.DetalleMedicamentoEstudioDTO;
+import com.saludsystem.application.dtos.paciente.post.historialclinico.estadocuenta.CrearDetalleMedicamentoEstudioDTO;
+import com.saludsystem.application.dtos.paciente.put.historialclinico.estadocuenta.ActualizarDetalleMedicamentoEstudioDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;

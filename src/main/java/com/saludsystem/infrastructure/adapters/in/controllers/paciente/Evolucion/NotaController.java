@@ -1,9 +1,9 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.paciente.Evolucion;
 
-import com.saludsystem.application.dtos.paciente.get.evolucion.NotaDTO;
-import com.saludsystem.application.dtos.paciente.post.evolucion.CrearNotaDTO;
-import com.saludsystem.application.dtos.paciente.put.evolucion.ActualizarNotaDTO;
-import com.saludsystem.application.services.paciente.Evolucion.NotaService;
+import com.saludsystem.application.dtos.paciente.get.historialclinico.evolucion.NotaDTO;
+import com.saludsystem.application.dtos.paciente.post.historialclinico.evolucion.CrearNotaDTO;
+import com.saludsystem.application.dtos.paciente.put.historialclinico.evolucion.ActualizarNotaDTO;
+import com.saludsystem.application.services.paciente.historialClinico.evolucion.NotaService;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.infrastructure.adapters.in.response.paciente.Evolucion.NotaResponse;

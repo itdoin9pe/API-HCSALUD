@@ -1,6 +1,6 @@
 package com.saludsystem.infrastructure.adapters.in.response.paciente.EstadoCuenta;
 
-import com.saludsystem.application.dtos.paciente.get.estadocuenta.CostoHospitalizacionDTO;
+import com.saludsystem.application.dtos.paciente.get.historialclinico.estadocuenta.CostoHospitalizacionDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

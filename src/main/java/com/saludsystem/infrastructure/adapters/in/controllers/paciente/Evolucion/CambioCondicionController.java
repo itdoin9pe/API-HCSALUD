@@ -1,9 +1,9 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.paciente.Evolucion;
 
-import com.saludsystem.application.dtos.paciente.get.evolucion.CambioCondicionDTO;
-import com.saludsystem.application.dtos.paciente.post.evolucion.CrearCambioCondicionDTO;
-import com.saludsystem.application.dtos.paciente.put.evolucion.ActualizarCambioCondicionDTO;
-import com.saludsystem.application.services.paciente.Evolucion.CambioCondicionService;
+import com.saludsystem.application.dtos.paciente.get.historialclinico.evolucion.CambioCondicionDTO;
+import com.saludsystem.application.dtos.paciente.post.historialclinico.evolucion.CrearCambioCondicionDTO;
+import com.saludsystem.application.dtos.paciente.put.historialclinico.evolucion.ActualizarCambioCondicionDTO;
+import com.saludsystem.application.services.paciente.historialClinico.evolucion.CambioCondicionService;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.infrastructure.adapters.in.response.paciente.Evolucion.CambioCondicionResponse;

@@ -1,8 +1,8 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.paciente.Tratamiento;
 
-import com.saludsystem.application.dtos.paciente.get.tratamiento.CostoTratamientoDTO;
-import com.saludsystem.application.dtos.paciente.post.tratamiento.CrearCostoTratamientoDTO;
-import com.saludsystem.application.dtos.paciente.put.tratamiento.ActualizarCostoTratamientoDTO;
+import com.saludsystem.application.dtos.paciente.get.historialclinico.tratamiento.CostoTratamientoDTO;
+import com.saludsystem.application.dtos.paciente.post.historialclinico.tratamiento.CrearCostoTratamientoDTO;
+import com.saludsystem.application.dtos.paciente.put.historialclinico.tratamiento.ActualizarCostoTratamientoDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
