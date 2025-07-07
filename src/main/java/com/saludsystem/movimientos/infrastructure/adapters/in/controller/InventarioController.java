@@ -1,0 +1,106 @@
+package com.saludsystem.movimientos.infrastructure.adapters.in.controller;
+
+import com.saludsystem.movimientos.application.dto.res.InventarioDTO;
+import com.saludsystem.movimientos.application.dto.req.CrearInventarioDTO;
+import com.saludsystem.movimientos.application.dto.ActualizarInventarioDTO;
+import com.saludsystem.movimientos.application.service.InventarioExportService;
+import com.saludsystem.movimientos.application.service.InventarioService;
+import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
+import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
+import com.saludsystem.movimientos.infrastructure.adapters.in.response.InventarioResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
+
+@Tag(name = "Inventarios")
+@RestController
+@RequestMapping("/api/Inventarios")
+public class InventarioController {
+
+    private final InventarioService inventarioService;
+    private final InventarioExportService inventarioExportService;
+
+    public InventarioController(InventarioService inventarioService, InventarioExportService inventarioExportService) {
+        this.inventarioService = inventarioService;
+        this.inventarioExportService = inventarioExportService;
+    }
+
+    @PostMapping("/SaveInventario")
+    public ApiResponse store(@Valid @RequestBody CrearInventarioDTO crearInventarioDTO) {
+        return inventarioService.saveInventario(crearInventarioDTO);
+    }
+
+    @GetMapping("/GetAllInventario")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = InventarioResponse.class)))
+    })
+    public ListResponse<InventarioDTO> getAllPage(
+            @RequestParam(name = "hospitalId") UUID hospitalId,
+            @RequestParam(name = "Page", defaultValue = "") int page,
+            @RequestParam(name = "Rows", defaultValue = "") int rows) {
+        return inventarioService.getAllInventario(hospitalId, page, rows);
+    }
+
+    @GetMapping("/GetInventario/{inventarioId}")
+    public InventarioDTO getById(@PathVariable UUID inventarioId) {
+        return inventarioService.getInventarioById(inventarioId);
+    }
+
+    @PutMapping("/UpdateInventario/{inventarioId}")
+    public ApiResponse update(@PathVariable UUID inventarioId, @RequestBody ActualizarInventarioDTO actualizarInventarioDTO) {
+        return inventarioService.updateInventario(inventarioId, actualizarInventarioDTO);
+    }
+
+    @DeleteMapping("/DeleteInventario/{inventarioId}")
+    public ApiResponse destroy(@PathVariable UUID inventarioId) {
+        return inventarioService.deleteInventario(inventarioId);
+    }
+
+    @ApiResponses(value = {@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    content = @Content(mediaType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500")
+    })
+    @GetMapping("/ExportExcel")
+    public ResponseEntity<byte[]> exportExcel(
+            @RequestParam UUID hospitalId,
+            HttpServletResponse response) {
+
+        byte[] excelBytes = inventarioExportService.exportToExcel(hospitalId);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=inventario.xlsx")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(excelBytes);
+    }
+
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
+                    content = @Content(mediaType = "application/pdf")),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500")
+    })
+    @GetMapping("/ExportPdf")
+    public ResponseEntity<byte[]> exportPdf(
+            @RequestParam UUID hospitalId,
+            HttpServletResponse response) {
+
+        byte[] pdfBytes = inventarioExportService.exportToPdf(hospitalId);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=inventario.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
+    }
+}

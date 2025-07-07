@@ -1,0 +1,83 @@
+package com.saludsystem.configuracion.application.services.impl;
+
+import com.saludsystem.configuracion.application.dto.req.TipoDocumentoDTO;
+import com.saludsystem.configuracion.application.dto.res.CrearTipoDocumentoDTO;
+import com.saludsystem.shared.application.service.GenericServiceImpl;
+import com.saludsystem.configuracion.application.services.TipoDocumentoService;
+import com.saludsystem.configuracion.domain.model.TipoDocumentoEntity;
+import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
+import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
+import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.TipoDocumentoRepository;
+import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+@Service
+public class TipoDocumentoServiceImpl extends GenericServiceImpl<TipoDocumentoEntity, CrearTipoDocumentoDTO,
+        TipoDocumentoDTO, UUID> implements TipoDocumentoService {
+
+    protected TipoDocumentoServiceImpl(
+            TipoDocumentoRepository tipoDocumentoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(tipoDocumentoRepository, modelMapper, authValidator, TipoDocumentoDTO.class);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse save(CrearTipoDocumentoDTO crearTipoDocumentoDTO) {
+        return super.save(crearTipoDocumentoDTO);
+    }
+
+    @Override
+    public ListResponse<TipoDocumentoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse update(UUID uuid, CrearTipoDocumentoDTO updateDto) {
+        return super.update(uuid, updateDto);
+    }
+
+    @Override
+    public TipoDocumentoDTO getById(UUID uuid) {
+        return super.getById(uuid);
+    }
+
+    @Override
+    public List<TipoDocumentoDTO> getList() {
+        return super.getList();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
+    }
+
+    @Override
+    protected TipoDocumentoEntity convertCreateDtoToEntity(CrearTipoDocumentoDTO crearTipoDocumentoDTO) {
+        TipoDocumentoEntity entity = new TipoDocumentoEntity();
+        entity.setTipoComprobante(crearTipoDocumentoDTO.getTipoComprobante());
+        entity.setSerie(crearTipoDocumentoDTO.getSerie());
+        entity.setInicio(crearTipoDocumentoDTO.getInicio());
+        entity.setFin(crearTipoDocumentoDTO.getFin());
+        entity.setCorrelativoActual(crearTipoDocumentoDTO.getCorrelativoActual());
+        entity.setEstado(crearTipoDocumentoDTO.getEstado());
+        return entity;
+    }
+
+    @Override
+    protected void updateEntityFromDto(TipoDocumentoEntity entity, CrearTipoDocumentoDTO dto) {
+        Optional.ofNullable(dto.getTipoComprobante()).ifPresent(entity::setTipoComprobante);
+        Optional.ofNullable(dto.getSerie()).ifPresent(entity::setSerie);
+        Optional.ofNullable(dto.getInicio()).ifPresent(entity::setInicio);
+        Optional.ofNullable(dto.getFin()).ifPresent(entity::setFin);
+        Optional.ofNullable(dto.getCorrelativoActual()).ifPresent(entity::setCorrelativoActual);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
+    }
+}

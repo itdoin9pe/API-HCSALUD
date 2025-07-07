@@ -1,0 +1,89 @@
+package com.saludsystem.paciente.application.service.impl.historialclinico.estadocuenta;
+
+import com.saludsystem.paciente.application.dto.res.historialclinico.estadocuenta.DetalleMedicamentoEstudioDTO;
+import com.saludsystem.paciente.application.dto.req.historialclinico.estadocuenta.CrearDetalleMedicamentoEstudioDTO;
+import com.saludsystem.shared.application.service.GenericServiceImpl;
+import com.saludsystem.paciente.application.service.historialclinico.estadocuenta.DetalleMedicamentoEstudioService;
+import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
+import com.saludsystem.paciente.domain.model.EstadoCuenta.DetalleMedicamentosEstudiosEntity;
+import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
+import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
+import com.saludsystem.paciente.infrastructure.adapters.out.persistance.EstadoCuenta.DetalleMedicamentoEstudioRepository;
+import com.saludsystem.paciente.infrastructure.adapters.out.persistance.EstadoCuenta.EstadoCuentaRepository;
+import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+
+@Service
+public class DetalleMedicamentoEstudioServiceImpl extends GenericServiceImpl<DetalleMedicamentosEstudiosEntity,
+        CrearDetalleMedicamentoEstudioDTO, DetalleMedicamentoEstudioDTO, UUID>
+        implements DetalleMedicamentoEstudioService {
+
+    private final EstadoCuentaRepository estadoCuentaRepository;
+
+    public DetalleMedicamentoEstudioServiceImpl(
+            DetalleMedicamentoEstudioRepository detalleMedicamentoEstudioRepository,
+            ModelMapper modelMapper, AuthValidator authValidator, EstadoCuentaRepository estadoCuentaRepository) {
+        super(detalleMedicamentoEstudioRepository, modelMapper, authValidator, DetalleMedicamentoEstudioDTO.class);
+        this.estadoCuentaRepository = estadoCuentaRepository;
+    }
+
+    @Override
+    protected DetalleMedicamentosEstudiosEntity convertCreateDtoToEntity(CrearDetalleMedicamentoEstudioDTO crearDetalleMedicamentoEstudioDTO) {
+        DetalleMedicamentosEstudiosEntity entity = new DetalleMedicamentosEstudiosEntity();
+        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(crearDetalleMedicamentoEstudioDTO.getEstadoCuentaId())
+                .orElseThrow(() -> new ResourceNotFoundException("Estado de cuenta not found")));
+        entity.setTipo(crearDetalleMedicamentoEstudioDTO.getTipo());
+        entity.setDescripcion(crearDetalleMedicamentoEstudioDTO.getDescripcion());
+        entity.setCantidad(crearDetalleMedicamentoEstudioDTO.getCantidad());
+        entity.setCostoUnitario(crearDetalleMedicamentoEstudioDTO.getCostoUnitario());
+        entity.setTotalCosto(crearDetalleMedicamentoEstudioDTO.getTotalCosto());
+        return entity;
+    }
+
+    @Override
+    protected void updateEntityFromDto(DetalleMedicamentosEstudiosEntity entity, CrearDetalleMedicamentoEstudioDTO dto) {
+        entity.setTipo(dto.getTipo());
+        entity.setDescripcion(dto.getDescripcion());
+        entity.setCantidad(dto.getCantidad());
+        entity.setCostoUnitario(dto.getCostoUnitario());
+        entity.setTotalCosto(dto.getTotalCosto());
+    }
+
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @Override
+    public ApiResponse save(CrearDetalleMedicamentoEstudioDTO crearDetalleMedicamentoEstudioDTO) {
+        return super.save(crearDetalleMedicamentoEstudioDTO);
+    }
+
+    @Override
+    public ListResponse<DetalleMedicamentoEstudioDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return super.getAllPaginated(hospitalId, page, rows);
+    }
+
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @Override
+    public ApiResponse update(UUID uuid, CrearDetalleMedicamentoEstudioDTO updateDto) {
+        return super.update(uuid, updateDto);
+    }
+
+    @Override
+    public DetalleMedicamentoEstudioDTO getById(UUID uuid) {
+        return super.getById(uuid);
+    }
+
+    @Override
+    public List<DetalleMedicamentoEstudioDTO> getList() {
+        return super.getList();
+    }
+
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @Override
+    public ApiResponse delete(UUID uuid) {
+        return super.delete(uuid);
+    }
+}

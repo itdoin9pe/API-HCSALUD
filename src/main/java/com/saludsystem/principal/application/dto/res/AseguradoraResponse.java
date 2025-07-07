@@ -1,0 +1,18 @@
+package com.saludsystem.principal.application.dto.res;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+import java.util.UUID;
+
+@Data
+public class AseguradoraResponse {
+
+    private UUID aseguradoraId;
+
+    private String descripcion;
+
+    @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
+    private Integer estado;
+
+}
