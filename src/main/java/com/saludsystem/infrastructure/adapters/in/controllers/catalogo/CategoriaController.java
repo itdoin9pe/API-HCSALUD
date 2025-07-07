@@ -1,8 +1,7 @@
     package com.saludsystem.infrastructure.adapters.in.controllers.catalogo;
 
-    import com.saludsystem.application.dtos.catalogo.get.CategoriaDTO;
+    import com.saludsystem.application.dtos.catalogo.req.CategoriaDTO;
     import com.saludsystem.application.dtos.catalogo.post.CrearCategoriaDTO;
-    import com.saludsystem.application.dtos.catalogo.put.ActualizarCategoriaDTO;
     import com.saludsystem.application.services.GenericService;
     import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
     import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,10 +17,9 @@
     @Tag(name = "Categorias")
     @RestController
     @RequestMapping("/api/Categorias")
-    public class CategoriaController extends GenericController<CategoriaDTO, UUID,
-            CrearCategoriaDTO, ActualizarCategoriaDTO> {
-        protected CategoriaController(GenericService<CategoriaDTO, UUID,
-                CrearCategoriaDTO, ActualizarCategoriaDTO> genericService) {
+    public class CategoriaController extends GenericController<CrearCategoriaDTO, CategoriaDTO, UUID> {
+
+        protected CategoriaController(GenericService<CrearCategoriaDTO, CategoriaDTO, UUID> genericService) {
             super(genericService);
         }
 

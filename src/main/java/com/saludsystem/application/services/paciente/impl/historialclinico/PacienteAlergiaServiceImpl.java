@@ -2,7 +2,6 @@ package com.saludsystem.application.services.paciente.impl.historialclinico;
 
 import com.saludsystem.application.dtos.paciente.get.historialclinico.PacienteAlergiaDTO;
 import com.saludsystem.application.dtos.paciente.post.historialclinico.CrearPacienteAlergiaDTO;
-import com.saludsystem.application.dtos.paciente.put.historialclinico.ActualizarPacienteAlergiaDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.historialclinico.PacienteAlergiaService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
@@ -21,8 +20,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class PacienteAlergiaServiceImpl extends GenericServiceImpl<PacienteAlergiaEntity, PacienteAlergiaDTO,
-        UUID, CrearPacienteAlergiaDTO, ActualizarPacienteAlergiaDTO> implements PacienteAlergiaService {
+public class PacienteAlergiaServiceImpl extends GenericServiceImpl<PacienteAlergiaEntity,CrearPacienteAlergiaDTO,
+        PacienteAlergiaDTO, UUID> implements PacienteAlergiaService {
 
     private final PacienteRepository pacienteRepository;
     private final AlergiaRepository alergiaRepository;
@@ -30,8 +29,8 @@ public class PacienteAlergiaServiceImpl extends GenericServiceImpl<PacienteAlerg
     public PacienteAlergiaServiceImpl(
             PacienteAlergiaRepository pacienteAlergiaRepository, ModelMapper modelMapper, AuthValidator authValidator,
             PacienteRepository pacienteRepository, AlergiaRepository alergiaRepository) {
-        super(pacienteAlergiaRepository, modelMapper, authValidator, PacienteAlergiaDTO.class,
-                pacienteAlergiaEntity -> modelMapper.map(pacienteAlergiaEntity, PacienteAlergiaDTO.class));
+        super(pacienteAlergiaRepository, modelMapper, authValidator, PacienteAlergiaDTO.class
+        );
         this.pacienteRepository = pacienteRepository;
         this.alergiaRepository = alergiaRepository;
     }
@@ -49,13 +48,13 @@ public class PacienteAlergiaServiceImpl extends GenericServiceImpl<PacienteAlerg
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarPacienteAlergiaDTO actualizarPacienteAlergiaDTO, PacienteAlergiaEntity entity) {
-        entity.setPacienteEntity(pacienteRepository.findById(actualizarPacienteAlergiaDTO.getPacienteId())
+    protected void updateEntityFromDto(PacienteAlergiaEntity entity, CrearPacienteAlergiaDTO dto) {
+        entity.setPacienteEntity(pacienteRepository.findById(dto.getPacienteId())
                 .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
-        entity.setAlergiaEntity(alergiaRepository.findById(actualizarPacienteAlergiaDTO.getAlergiaId())
+        entity.setAlergiaEntity(alergiaRepository.findById(dto.getAlergiaId())
                 .orElseThrow( () -> new ResourceNotFoundException("Alergia not found")));
-        entity.setObservacion(actualizarPacienteAlergiaDTO.getObservacion());
-        entity.setEstado(actualizarPacienteAlergiaDTO.getEstado());
+        entity.setObservacion(dto.getObservacion());
+        entity.setEstado(dto.getEstado());
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -71,8 +70,8 @@ public class PacienteAlergiaServiceImpl extends GenericServiceImpl<PacienteAlerg
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarPacienteAlergiaDTO actualizarPacienteAlergiaDTO) {
-        return super.update(uuid, actualizarPacienteAlergiaDTO);
+    public ApiResponse update(UUID uuid, CrearPacienteAlergiaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

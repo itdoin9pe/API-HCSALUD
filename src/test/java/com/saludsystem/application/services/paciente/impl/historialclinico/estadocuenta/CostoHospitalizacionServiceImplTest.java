@@ -119,7 +119,7 @@ class CostoHospitalizacionServiceImplTest {
         existing.setCostoPorDia(100.0);
         when(repository.findById(id)).thenReturn(Optional.of(existing));
 
-        var updateDto = new ActualizarCostoHospitalizacionDTO();
+        var updateDto = new CrearCostoHospitalizacionDTO();
         updateDto.setCostoPorDia(200.0);
         updateDto.setCantidadDias(3);
         updateDto.setTotalCosto(600.0);
@@ -139,7 +139,7 @@ class CostoHospitalizacionServiceImplTest {
         UUID id = UUID.randomUUID();
         when(repository.findById(id)).thenReturn(Optional.empty());
 
-        var dto = new ActualizarCostoHospitalizacionDTO();
+        var dto = new CrearCostoHospitalizacionDTO();
         assertThrows(ResourceNotFoundException.class, () -> service.update(id, dto));
     }
 

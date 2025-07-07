@@ -1,7 +1,7 @@
 package com.saludsystem.application.services.principal.impl;
 
-import com.saludsystem.application.dtos.principal.get.PaisDTO;
-import com.saludsystem.application.dtos.principal.post.CrearPaisDTO;
+import com.saludsystem.application.dtos.principal.res.PaisDTO;
+import com.saludsystem.application.dtos.principal.req.CrearPaisDTO;
 import com.saludsystem.application.services.principal.PaisService;
 import com.saludsystem.domain.model.configuracion.SysSaludEntity;
 import com.saludsystem.domain.model.configuracion.UserEntity;

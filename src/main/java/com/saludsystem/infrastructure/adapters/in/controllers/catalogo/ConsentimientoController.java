@@ -1,8 +1,7 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.catalogo;
 
-import com.saludsystem.application.dtos.catalogo.get.ConsentimientoDTO;
+import com.saludsystem.application.dtos.catalogo.req.ConsentimientoDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearConsentimientoDTO;
-import com.saludsystem.application.dtos.catalogo.put.ActualizarConsentimientoDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,11 +17,9 @@ import java.util.UUID;
 @Tag(name = "Consentimientos")
 @RestController
 @RequestMapping("/api/Consentimientos")
-public class ConsentimientoController extends GenericController<
-        ConsentimientoDTO, UUID, CrearConsentimientoDTO, ActualizarConsentimientoDTO> {
+public class ConsentimientoController extends GenericController<CrearConsentimientoDTO, ConsentimientoDTO, UUID> {
 
-    protected ConsentimientoController(GenericService<ConsentimientoDTO, UUID, CrearConsentimientoDTO,
-            ActualizarConsentimientoDTO> genericService) {
+    protected ConsentimientoController(GenericService<CrearConsentimientoDTO, ConsentimientoDTO, UUID> genericService) {
         super(genericService);
     }
 

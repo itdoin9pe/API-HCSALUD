@@ -2,7 +2,6 @@ package com.saludsystem.application.services.paciente.impl.historialclinico;
 
 import com.saludsystem.application.dtos.paciente.get.historialclinico.AntecedenteDTO;
 import com.saludsystem.application.dtos.paciente.post.historialclinico.CrearAntecedenteDTO;
-import com.saludsystem.application.dtos.paciente.put.historialclinico.ActualizarAntecedenteDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.historialclinico.AntecedenteService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
@@ -20,16 +19,16 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class AntecedenteServiceImpl extends GenericServiceImpl<AntecedentesEntity, AntecedenteDTO, UUID,
-        CrearAntecedenteDTO, ActualizarAntecedenteDTO> implements AntecedenteService {
+public class AntecedenteServiceImpl extends GenericServiceImpl<AntecedentesEntity, CrearAntecedenteDTO,
+        AntecedenteDTO, UUID> implements AntecedenteService {
 
     private final PacienteRepository pacienteRepository;
 
     public AntecedenteServiceImpl(
             AntecedenteRespository antecedenteRespository,
             ModelMapper modelMapper, AuthValidator authValidator, PacienteRepository pacienteRepository) {
-        super(antecedenteRespository, modelMapper, authValidator, AntecedenteDTO.class,
-                antecedentesEntity -> modelMapper.map(antecedentesEntity, AntecedenteDTO.class));
+        super(antecedenteRespository, modelMapper, authValidator, AntecedenteDTO.class
+        );
         this.pacienteRepository = pacienteRepository;
     }
 
@@ -54,19 +53,19 @@ public class AntecedenteServiceImpl extends GenericServiceImpl<AntecedentesEntit
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarAntecedenteDTO actualizarAntecedenteDTO, AntecedentesEntity entity) {
-        entity.setMotivo(actualizarAntecedenteDTO.getMotivo());
-        entity.setEnfermedad(actualizarAntecedenteDTO.getEnfermedad());
-        entity.setTiempoEnfermedad(actualizarAntecedenteDTO.getTiempoEnfermedad());
-        entity.setSigno(actualizarAntecedenteDTO.getSigno());
-        entity.setRelato(actualizarAntecedenteDTO.getRelato());
-        entity.setFunciones(actualizarAntecedenteDTO.getFunciones());
-        entity.setAntecedentesPersonales(actualizarAntecedenteDTO.getAntecedentesPersonales());
-        entity.setAntecedentesFamiliares(actualizarAntecedenteDTO.getAntecedentesFamiliares());
-        entity.setMedicamento(actualizarAntecedenteDTO.getMedicamento());
-        entity.setNombreMedicamento(actualizarAntecedenteDTO.getNombreMedicamento());
-        entity.setMotivoMedicamento(actualizarAntecedenteDTO.getMotivoMedicamento());
-        entity.setDosis(actualizarAntecedenteDTO.getDosis());
+    protected void updateEntityFromDto(AntecedentesEntity entity, CrearAntecedenteDTO dto) {
+        entity.setMotivo(dto.getMotivo());
+        entity.setEnfermedad(dto.getEnfermedad());
+        entity.setTiempoEnfermedad(dto.getTiempoEnfermedad());
+        entity.setSigno(dto.getSigno());
+        entity.setRelato(dto.getRelato());
+        entity.setFunciones(dto.getFunciones());
+        entity.setAntecedentesPersonales(dto.getAntecedentesPersonales());
+        entity.setAntecedentesFamiliares(dto.getAntecedentesFamiliares());
+        entity.setMedicamento(dto.getMedicamento());
+        entity.setNombreMedicamento(dto.getNombreMedicamento());
+        entity.setMotivoMedicamento(dto.getMotivoMedicamento());
+        entity.setDosis(dto.getDosis());
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -82,8 +81,8 @@ public class AntecedenteServiceImpl extends GenericServiceImpl<AntecedentesEntit
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarAntecedenteDTO actualizarAntecedenteDTO) {
-        return super.update(uuid, actualizarAntecedenteDTO);
+    public ApiResponse update(UUID uuid, CrearAntecedenteDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

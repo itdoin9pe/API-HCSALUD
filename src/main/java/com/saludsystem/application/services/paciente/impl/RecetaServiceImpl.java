@@ -2,7 +2,6 @@ package com.saludsystem.application.services.paciente.impl;
 
 import com.saludsystem.application.dtos.paciente.get.RecetaDTO;
 import com.saludsystem.application.dtos.paciente.post.CrearRecetaDTO;
-import com.saludsystem.application.dtos.paciente.put.ActualizarRecetaDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.RecetaService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
@@ -25,16 +24,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, RecetaDTO, UUID,
-        CrearRecetaDTO, ActualizarRecetaDTO> implements RecetaService {
+public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, CrearRecetaDTO, RecetaDTO, UUID>
+        implements RecetaService {
 
     private final PacienteRepository pacienteRepository;
     private final DoctorRepository doctorRepository;
     private final MedicamentoRepository medicamentoRepository;
 
     public RecetaServiceImpl(RecetaRepository recetaRepository, ModelMapper modelMapper, AuthValidator authValidator, PacienteRepository pacienteRepository, DoctorRepository doctorRepository, MedicamentoRepository medicamentoRepository) {
-        super(recetaRepository, modelMapper, authValidator, RecetaDTO.class,
-                recetaEntity -> modelMapper.map(recetaEntity, RecetaDTO.class));
+        super(recetaRepository, modelMapper, authValidator, RecetaDTO.class
+        );
         this.pacienteRepository = pacienteRepository;
         this.doctorRepository = doctorRepository;
         this.medicamentoRepository = medicamentoRepository;
@@ -51,6 +50,22 @@ public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, RecetaDT
         entity.setObservaciones(crearRecetaDTO.getObservaciones());
         entity.setEstado(crearRecetaDTO.getEstado());
         return entity;
+    }
+
+    @Override
+    protected void updateEntityFromDto(RecetaEntity entity, CrearRecetaDTO dto) {
+        // Actualizar paciente si se proporciona
+        Optional.ofNullable(dto.getPacienteId())
+                .flatMap(pacienteRepository::findById)
+                .ifPresent(entity::setPacienteEntity);
+        // Actualizar doctor si se proporciona
+        Optional.ofNullable(dto.getDoctorId())
+                .flatMap(doctorRepository::findById)
+                .ifPresent(entity::setDoctorEntity);
+        // Actualizar otros campos si se proporcionan
+        Optional.ofNullable(dto.getFecha()).ifPresent(entity::setFecha);
+        Optional.ofNullable(dto.getObservaciones()).ifPresent(entity::setObservaciones);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 
     @Override
@@ -79,22 +94,6 @@ public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, RecetaDT
         }
     }
 
-    @Override
-    protected void updateEntityFromDto(ActualizarRecetaDTO actualizarRecetaDTO, RecetaEntity entity) {
-        // Actualizar paciente si se proporciona
-        Optional.ofNullable(actualizarRecetaDTO.getPacienteId())
-                .flatMap(pacienteRepository::findById)
-                .ifPresent(entity::setPacienteEntity);
-        // Actualizar doctor si se proporciona
-        Optional.ofNullable(actualizarRecetaDTO.getDoctorId())
-                .flatMap(doctorRepository::findById)
-                .ifPresent(entity::setDoctorEntity);
-        // Actualizar otros campos si se proporcionan
-        Optional.ofNullable(actualizarRecetaDTO.getFecha()).ifPresent(entity::setFecha);
-        Optional.ofNullable(actualizarRecetaDTO.getObservaciones()).ifPresent(entity::setObservaciones);
-        Optional.ofNullable(actualizarRecetaDTO.getEstado()).ifPresent(entity::setEstado);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse save(CrearRecetaDTO crearRecetaDTO) {
@@ -108,8 +107,8 @@ public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, RecetaDT
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarRecetaDTO actualizarRecetaDTO) {
-        return super.update(uuid, actualizarRecetaDTO);
+    public ApiResponse update(UUID uuid, CrearRecetaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

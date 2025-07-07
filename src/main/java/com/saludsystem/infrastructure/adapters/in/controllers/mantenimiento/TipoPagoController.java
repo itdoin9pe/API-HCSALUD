@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.mantenimiento;
 
 import com.saludsystem.application.dtos.mantenimiento.get.TipoPagoDTO;
 import com.saludsystem.application.dtos.mantenimiento.post.CrearTipoPagoDTO;
-import com.saludsystem.application.dtos.mantenimiento.put.ActualizarTipoPagoDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,9 +17,9 @@ import java.util.UUID;
 @Tag(name = "TiposPagos")
 @RestController
 @RequestMapping("/api/TiposPagos")
-public class TipoPagoController extends GenericController<TipoPagoDTO, UUID, CrearTipoPagoDTO, ActualizarTipoPagoDTO> {
+public class TipoPagoController extends GenericController<CrearTipoPagoDTO, TipoPagoDTO, UUID> {
 
-    protected TipoPagoController(GenericService<TipoPagoDTO, UUID, CrearTipoPagoDTO, ActualizarTipoPagoDTO> genericService) {
+    protected TipoPagoController(GenericService<CrearTipoPagoDTO, TipoPagoDTO, UUID> genericService) {
         super(genericService);
     }
 

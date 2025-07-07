@@ -1,6 +1,6 @@
 package com.saludsystem.infrastructure.adapters.in.response.catalogo;
 
-import com.saludsystem.application.dtos.catalogo.get.AlergiaDTO;
+import com.saludsystem.application.dtos.catalogo.req.AlergiaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

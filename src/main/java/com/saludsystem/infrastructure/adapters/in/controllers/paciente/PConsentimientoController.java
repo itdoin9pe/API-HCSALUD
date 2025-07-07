@@ -28,11 +28,10 @@ import java.util.UUID;
 @Tag(name = "PacientesConsentimientos")
 @RestController
 @RequestMapping("/api/Pacientes/Consentimientos")
-public class PConsentimientoController extends GenericController<PConsentimientoDTO, UUID,
-        CrearPConsentimientoDTO, ActualizarPConsentimiento> {
+public class PConsentimientoController extends GenericController<CrearPConsentimientoDTO,
+        PConsentimientoDTO, UUID> {
 
-    protected PConsentimientoController(GenericService<PConsentimientoDTO, UUID, CrearPConsentimientoDTO,
-            ActualizarPConsentimiento> genericService) {
+    protected PConsentimientoController(GenericService<CrearPConsentimientoDTO, PConsentimientoDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -48,9 +47,8 @@ public class PConsentimientoController extends GenericController<PConsentimiento
     @PutMapping(value = "/Update/{Id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
             content = @Content(schema = @Schema(implementation = PConsentimientoResponse.class)))
-    public ApiResponse update(@PathVariable UUID pacienteConsentimientoId,
-                              @RequestBody ActualizarPConsentimiento actualizarPConsentimiento) {
-        return super.update(pacienteConsentimientoId, actualizarPConsentimiento);
+    public ApiResponse update(UUID uuid, CrearPConsentimientoDTO dto) {
+        return super.update(uuid, dto);
     }
 
     @GetMapping("/GetAll")

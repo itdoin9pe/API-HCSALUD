@@ -1,7 +1,7 @@
 package com.saludsystem.application.services.principal.impl;
 
 
-import com.saludsystem.application.dtos.principal.get.TipoPacienteDTO;
+import com.saludsystem.application.dtos.principal.res.TipoPacienteDTO;
 import com.saludsystem.application.services.principal.TipoPacienteService;
 import com.saludsystem.domain.model.principal.TipoPacienteEntity;
 import com.saludsystem.infrastructure.adapters.out.persistance.repository.principal.TipoPacienteRepository;

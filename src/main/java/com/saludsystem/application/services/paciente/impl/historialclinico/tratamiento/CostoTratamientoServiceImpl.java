@@ -2,7 +2,6 @@ package com.saludsystem.application.services.paciente.impl.historialclinico.trat
 
 import com.saludsystem.application.dtos.paciente.get.historialclinico.tratamiento.CostoTratamientoDTO;
 import com.saludsystem.application.dtos.paciente.post.historialclinico.tratamiento.CrearCostoTratamientoDTO;
-import com.saludsystem.application.dtos.paciente.put.historialclinico.tratamiento.ActualizarCostoTratamientoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.historialclinico.tratamiento.CostoTratamientoService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
@@ -21,8 +20,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class CostoTratamientoServiceImpl extends GenericServiceImpl<CostoTratamientoEntity, CostoTratamientoDTO,
-        UUID, CrearCostoTratamientoDTO, ActualizarCostoTratamientoDTO> implements CostoTratamientoService {
+public class CostoTratamientoServiceImpl extends GenericServiceImpl<CostoTratamientoEntity, CrearCostoTratamientoDTO,
+        CostoTratamientoDTO, UUID> implements CostoTratamientoService {
 
     private final PacienteRepository pacienteRepository;
     private final PlanTratamientoRepository planTratamientoRepository;
@@ -30,9 +29,8 @@ public class CostoTratamientoServiceImpl extends GenericServiceImpl<CostoTratami
     public CostoTratamientoServiceImpl(
             CostoTratamientoRepository costoTratamientoRepository, ModelMapper modelMapper, AuthValidator authValidator,
             PacienteRepository pacienteRepository, PlanTratamientoRepository planTratamientoRepository) {
-        super(costoTratamientoRepository, modelMapper, authValidator, CostoTratamientoDTO.class,
-                costoTratamientoEntity ->
-                        modelMapper.map(costoTratamientoEntity, CostoTratamientoDTO.class));
+        super(costoTratamientoRepository, modelMapper, authValidator, CostoTratamientoDTO.class
+        );
         this.pacienteRepository = pacienteRepository;
         this.planTratamientoRepository = planTratamientoRepository;
     }
@@ -52,15 +50,15 @@ public class CostoTratamientoServiceImpl extends GenericServiceImpl<CostoTratami
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarCostoTratamientoDTO actualizarCostoTratamientoDTO, CostoTratamientoEntity entity) {
-        entity.setPacienteEntity(pacienteRepository.findById(actualizarCostoTratamientoDTO.getPacienteId())
+    protected void updateEntityFromDto(CostoTratamientoEntity entity, CrearCostoTratamientoDTO dto) {
+        entity.setPacienteEntity(pacienteRepository.findById(dto.getPacienteId())
                 .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
-        entity.setPlanTratamientoEntity(planTratamientoRepository.findById(actualizarCostoTratamientoDTO.getPacientePlanTratamientoId())
+        entity.setPlanTratamientoEntity(planTratamientoRepository.findById(dto.getPacientePlanTratamientoId())
                 .orElseThrow( () -> new ResourceNotFoundException("Plan de tratamiento not found")));
-        entity.setConcepto(actualizarCostoTratamientoDTO.getConcepto());
-        entity.setMonto(actualizarCostoTratamientoDTO.getMonto());
-        entity.setMoneda(actualizarCostoTratamientoDTO.getMoneda());
-        entity.setPagado(actualizarCostoTratamientoDTO.isPagado());
+        entity.setConcepto(dto.getConcepto());
+        entity.setMonto(dto.getMonto());
+        entity.setMoneda(dto.getMoneda());
+        entity.setPagado(dto.isPagado());
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -76,8 +74,8 @@ public class CostoTratamientoServiceImpl extends GenericServiceImpl<CostoTratami
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarCostoTratamientoDTO actualizarCostoTratamientoDTO) {
-        return super.update(uuid, actualizarCostoTratamientoDTO);
+    public ApiResponse update(UUID uuid, CrearCostoTratamientoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

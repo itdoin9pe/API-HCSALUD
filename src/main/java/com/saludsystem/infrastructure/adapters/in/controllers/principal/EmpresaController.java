@@ -1,8 +1,7 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.principal;
 
-import com.saludsystem.application.dtos.principal.get.EmpresaDTO;
-import com.saludsystem.application.dtos.principal.post.CrearEmpresaDTO;
-import com.saludsystem.application.dtos.principal.put.ActualizarEmpresaDTO;
+import com.saludsystem.application.dtos.principal.res.EmpresaDTO;
+import com.saludsystem.application.dtos.principal.req.CrearEmpresaDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,9 +17,9 @@ import java.util.UUID;
 @Tag(name = "Empresas")
 @RestController
 @RequestMapping("/api/Empresas")
-public class EmpresaController extends GenericController<EmpresaDTO, UUID, CrearEmpresaDTO, ActualizarEmpresaDTO> {
+public class EmpresaController extends GenericController<CrearEmpresaDTO, EmpresaDTO, UUID> {
 
-    protected EmpresaController(GenericService<EmpresaDTO, UUID, CrearEmpresaDTO, ActualizarEmpresaDTO> genericService) {
+    protected EmpresaController(GenericService<CrearEmpresaDTO, EmpresaDTO, UUID> genericService) {
         super(genericService);
     }
 

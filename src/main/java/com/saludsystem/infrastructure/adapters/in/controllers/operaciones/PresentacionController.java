@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.operaciones;
 
 import com.saludsystem.application.dtos.operaciones.get.PresentacionDTO;
 import com.saludsystem.application.dtos.operaciones.post.CrearPresentacionDTO;
-import com.saludsystem.application.dtos.operaciones.put.ActualizarPresentacionDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -19,11 +18,9 @@ import java.util.UUID;
 @Tag(name = "Presentaciones")
 @RestController
 @RequestMapping("/api/Presentaciones")
-public class PresentacionController extends GenericController<PresentacionDTO, UUID,
-        CrearPresentacionDTO, ActualizarPresentacionDTO> {
+public class PresentacionController extends GenericController<CrearPresentacionDTO, PresentacionDTO, UUID> {
 
-    protected PresentacionController(GenericService<PresentacionDTO, UUID, CrearPresentacionDTO,
-            ActualizarPresentacionDTO> genericService) {
+    protected PresentacionController(GenericService<CrearPresentacionDTO, PresentacionDTO, UUID> genericService) {
         super(genericService);
     }
 

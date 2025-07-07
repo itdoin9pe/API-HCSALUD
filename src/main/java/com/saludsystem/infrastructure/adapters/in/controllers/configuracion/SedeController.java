@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.configuracion;
 
 import com.saludsystem.application.dtos.configuracion.get.SedeDTO;
 import com.saludsystem.application.dtos.configuracion.post.CrearSedeDTO;
-import com.saludsystem.application.dtos.configuracion.put.ActualizarSedeDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,9 +17,9 @@ import java.util.UUID;
 @Tag(name = "Sedes")
 @RestController
 @RequestMapping("/api/Sedes")
-public class SedeController extends GenericController<SedeDTO, UUID, CrearSedeDTO, ActualizarSedeDTO> {
+public class SedeController extends GenericController<CrearSedeDTO, SedeDTO, UUID> {
 
-    protected SedeController(GenericService<SedeDTO, UUID, CrearSedeDTO, ActualizarSedeDTO> genericService) {
+    protected SedeController(GenericService<CrearSedeDTO, SedeDTO, UUID> genericService) {
         super(genericService);
     }
 

@@ -18,11 +18,9 @@ import java.util.UUID;
 @Tag(name = "CategoriasMateriales")
 @RestController
 @RequestMapping("/api/CategoriasMateriales")
-public class CategoriaMatController extends GenericController<CategoriaMatDTO, UUID,
-        CrearCategotiaMatDTO, ActualizarCategoriaMatDTO> {
+public class CategoriaMatController extends GenericController<CrearCategotiaMatDTO, CategoriaMatDTO, UUID> {
 
-    protected CategoriaMatController(GenericService<CategoriaMatDTO, UUID, CrearCategotiaMatDTO,
-            ActualizarCategoriaMatDTO> genericService) {
+    protected CategoriaMatController(GenericService<CrearCategotiaMatDTO, CategoriaMatDTO, UUID> genericService) {
         super(genericService);
     }
 

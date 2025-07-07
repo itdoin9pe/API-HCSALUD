@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.movimiento;
 
 import com.saludsystem.application.dtos.movimientos.get.AlmacenDTO;
 import com.saludsystem.application.dtos.movimientos.post.CrearAlmacenDTO;
-import com.saludsystem.application.dtos.movimientos.put.ActualizarAlmacenDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -19,9 +18,9 @@ import java.util.UUID;
 @Tag(name = "Almacenes")
 @RestController
 @RequestMapping("/api/Almacenes")
-public class AlmacenController extends GenericController<AlmacenDTO, UUID, CrearAlmacenDTO, ActualizarAlmacenDTO> {
+public class AlmacenController extends GenericController<CrearAlmacenDTO, AlmacenDTO, UUID> {
 
-    protected AlmacenController(GenericService<AlmacenDTO, UUID, CrearAlmacenDTO, ActualizarAlmacenDTO> genericService) {
+    protected AlmacenController(GenericService<CrearAlmacenDTO, AlmacenDTO, UUID> genericService) {
         super(genericService);
     }
 

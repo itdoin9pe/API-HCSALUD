@@ -1,8 +1,7 @@
 package com.saludsystem.application.services.catalogo.impl;
 
-import com.saludsystem.application.dtos.catalogo.get.TipoCitadoDTO;
+import com.saludsystem.application.dtos.catalogo.req.TipoCitadoDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearTipoCitadoDTO;
-import com.saludsystem.application.dtos.catalogo.put.ActualizarTipoCitadoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.catalogo.TipoCitadoService;
 import com.saludsystem.domain.model.catalogo.TipoCitadoEntity;
@@ -15,16 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TipoCitadoServiceImpl extends GenericServiceImpl<TipoCitadoEntity, TipoCitadoDTO, UUID,
-        CrearTipoCitadoDTO, ActualizarTipoCitadoDTO> implements TipoCitadoService {
+public class TipoCitadoServiceImpl extends GenericServiceImpl<TipoCitadoEntity, CrearTipoCitadoDTO, TipoCitadoDTO, UUID>
+        implements TipoCitadoService {
 
-    public TipoCitadoServiceImpl(TipoCitadoRepository tipoCitadoRepository, ModelMapper modelMapper,
-                                 AuthValidator authValidator) {
-        super(tipoCitadoRepository, modelMapper, authValidator, TipoCitadoDTO.class,
-                tipoCitadoEntity -> modelMapper.map(tipoCitadoEntity, TipoCitadoDTO.class));
+    protected TipoCitadoServiceImpl(
+            TipoCitadoRepository tipoCitadoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(tipoCitadoRepository, modelMapper, authValidator, TipoCitadoDTO.class);
     }
 
     @Override
@@ -40,8 +39,8 @@ public class TipoCitadoServiceImpl extends GenericServiceImpl<TipoCitadoEntity, 
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarTipoCitadoDTO actualizarTipoCitadoDTO) {
-        return super.update(uuid, actualizarTipoCitadoDTO);
+    public ApiResponse update(UUID uuid, CrearTipoCitadoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -70,9 +69,9 @@ public class TipoCitadoServiceImpl extends GenericServiceImpl<TipoCitadoEntity, 
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarTipoCitadoDTO actualizarTipoCitadoDTO, TipoCitadoEntity entity) {
-        entity.setNombre(actualizarTipoCitadoDTO.getNombre());
-        entity.setColor(actualizarTipoCitadoDTO.getColor());
-        entity.setEstado(actualizarTipoCitadoDTO.getEstado());
+    protected void updateEntityFromDto(TipoCitadoEntity entity, CrearTipoCitadoDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getColor()).ifPresent(entity::setColor);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

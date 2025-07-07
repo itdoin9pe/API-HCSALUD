@@ -2,7 +2,6 @@ package com.saludsystem.application.services.operaciones.impl;
 
 import com.saludsystem.application.dtos.operaciones.get.MarcaDTO;
 import com.saludsystem.application.dtos.operaciones.post.CrearMarcaDTO;
-import com.saludsystem.application.dtos.operaciones.put.ActualizarMarcaDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.operaciones.MarcaService;
 import com.saludsystem.domain.model.operaciones.MarcaEntity;
@@ -15,15 +14,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class MarcaServiceImpl extends GenericServiceImpl<MarcaEntity, MarcaDTO, UUID,
-        CrearMarcaDTO, ActualizarMarcaDTO> implements MarcaService {
+public class MarcaServiceImpl extends GenericServiceImpl<MarcaEntity, CrearMarcaDTO, MarcaDTO, UUID>
+        implements MarcaService {
 
-    public MarcaServiceImpl(MarcaRepository marcaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(marcaRepository, modelMapper, authValidator, MarcaDTO.class,
-                marcaEntity -> modelMapper.map(marcaEntity, MarcaDTO.class));
+    protected MarcaServiceImpl(MarcaRepository marcaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(marcaRepository, modelMapper, authValidator, MarcaDTO.class);
     }
 
     @Override
@@ -39,8 +38,8 @@ public class MarcaServiceImpl extends GenericServiceImpl<MarcaEntity, MarcaDTO, 
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarMarcaDTO actualizarMarcaDTO) {
-        return super.update(uuid, actualizarMarcaDTO);
+    public ApiResponse update(UUID uuid, CrearMarcaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -68,8 +67,8 @@ public class MarcaServiceImpl extends GenericServiceImpl<MarcaEntity, MarcaDTO, 
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarMarcaDTO actualizarMarcaDTO, MarcaEntity entity) {
-        entity.setNombre(actualizarMarcaDTO.getNombre());
-        entity.setEstado(actualizarMarcaDTO.getEstado());
+    protected void updateEntityFromDto(MarcaEntity entity, CrearMarcaDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

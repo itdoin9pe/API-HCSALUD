@@ -2,7 +2,6 @@ package com.saludsystem.application.services.operaciones.impl;
 
 import com.saludsystem.application.dtos.operaciones.get.PresentacionDTO;
 import com.saludsystem.application.dtos.operaciones.post.CrearPresentacionDTO;
-import com.saludsystem.application.dtos.operaciones.put.ActualizarPresentacionDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.operaciones.PresentacionService;
 import com.saludsystem.domain.model.operaciones.PresentacionEntity;
@@ -15,15 +14,17 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PresentacionServiceImpl extends GenericServiceImpl<PresentacionEntity, PresentacionDTO, UUID,
-        CrearPresentacionDTO, ActualizarPresentacionDTO> implements PresentacionService {
+public class PresentacionServiceImpl extends GenericServiceImpl<PresentacionEntity, CrearPresentacionDTO,
+        PresentacionDTO, UUID> implements PresentacionService {
 
-    public PresentacionServiceImpl(PresentacionReposirory presentacionReposirory, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(presentacionReposirory, modelMapper, authValidator, PresentacionDTO.class,
-                presentacionEntity -> modelMapper.map(presentacionEntity, PresentacionDTO.class));
+    public PresentacionServiceImpl(
+            PresentacionReposirory presentacionReposirory, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(presentacionReposirory, modelMapper, authValidator, PresentacionDTO.class
+        );
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -39,8 +40,8 @@ public class PresentacionServiceImpl extends GenericServiceImpl<PresentacionEnti
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarPresentacionDTO actualizarPresentacionDTO) {
-        return super.update(uuid, actualizarPresentacionDTO);
+    public ApiResponse update(UUID uuid, CrearPresentacionDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -68,8 +69,8 @@ public class PresentacionServiceImpl extends GenericServiceImpl<PresentacionEnti
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarPresentacionDTO actualizarPresentacionDTO, PresentacionEntity entity) {
-        entity.setNombre(actualizarPresentacionDTO.getNombre());
-        entity.setEstado(actualizarPresentacionDTO.getEstado());
+    protected void updateEntityFromDto(PresentacionEntity entity, CrearPresentacionDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

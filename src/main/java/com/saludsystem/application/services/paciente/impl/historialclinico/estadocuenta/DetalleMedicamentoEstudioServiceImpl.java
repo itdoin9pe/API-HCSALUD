@@ -2,7 +2,6 @@ package com.saludsystem.application.services.paciente.impl.historialclinico.esta
 
 import com.saludsystem.application.dtos.paciente.get.historialclinico.estadocuenta.DetalleMedicamentoEstudioDTO;
 import com.saludsystem.application.dtos.paciente.post.historialclinico.estadocuenta.CrearDetalleMedicamentoEstudioDTO;
-import com.saludsystem.application.dtos.paciente.put.historialclinico.estadocuenta.ActualizarDetalleMedicamentoEstudioDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.historialclinico.estadocuenta.DetalleMedicamentoEstudioService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
@@ -21,7 +20,7 @@ import java.util.UUID;
 
 @Service
 public class DetalleMedicamentoEstudioServiceImpl extends GenericServiceImpl<DetalleMedicamentosEstudiosEntity,
-        DetalleMedicamentoEstudioDTO, UUID, CrearDetalleMedicamentoEstudioDTO, ActualizarDetalleMedicamentoEstudioDTO>
+        CrearDetalleMedicamentoEstudioDTO, DetalleMedicamentoEstudioDTO, UUID>
         implements DetalleMedicamentoEstudioService {
 
     private final EstadoCuentaRepository estadoCuentaRepository;
@@ -29,9 +28,7 @@ public class DetalleMedicamentoEstudioServiceImpl extends GenericServiceImpl<Det
     public DetalleMedicamentoEstudioServiceImpl(
             DetalleMedicamentoEstudioRepository detalleMedicamentoEstudioRepository,
             ModelMapper modelMapper, AuthValidator authValidator, EstadoCuentaRepository estadoCuentaRepository) {
-        super(detalleMedicamentoEstudioRepository, modelMapper, authValidator, DetalleMedicamentoEstudioDTO.class,
-                detalleMedicamentosEstudiosEntity ->
-                        modelMapper.map(detalleMedicamentosEstudiosEntity, DetalleMedicamentoEstudioDTO.class));
+        super(detalleMedicamentoEstudioRepository, modelMapper, authValidator, DetalleMedicamentoEstudioDTO.class);
         this.estadoCuentaRepository = estadoCuentaRepository;
     }
 
@@ -49,12 +46,12 @@ public class DetalleMedicamentoEstudioServiceImpl extends GenericServiceImpl<Det
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarDetalleMedicamentoEstudioDTO actualizarDetalleMedicamentoEstudioDTO, DetalleMedicamentosEstudiosEntity entity) {
-        entity.setTipo(actualizarDetalleMedicamentoEstudioDTO.getTipo());
-        entity.setDescripcion(actualizarDetalleMedicamentoEstudioDTO.getDescripcion());
-        entity.setCantidad(actualizarDetalleMedicamentoEstudioDTO.getCantidad());
-        entity.setCostoUnitario(actualizarDetalleMedicamentoEstudioDTO.getCostoUnitario());
-        entity.setTotalCosto(actualizarDetalleMedicamentoEstudioDTO.getTotalCosto());
+    protected void updateEntityFromDto(DetalleMedicamentosEstudiosEntity entity, CrearDetalleMedicamentoEstudioDTO dto) {
+        entity.setTipo(dto.getTipo());
+        entity.setDescripcion(dto.getDescripcion());
+        entity.setCantidad(dto.getCantidad());
+        entity.setCostoUnitario(dto.getCostoUnitario());
+        entity.setTotalCosto(dto.getTotalCosto());
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -70,8 +67,8 @@ public class DetalleMedicamentoEstudioServiceImpl extends GenericServiceImpl<Det
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarDetalleMedicamentoEstudioDTO actualizarDetalleMedicamentoEstudioDTO) {
-        return super.update(uuid, actualizarDetalleMedicamentoEstudioDTO);
+    public ApiResponse update(UUID uuid, CrearDetalleMedicamentoEstudioDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

@@ -1,28 +1,28 @@
 package com.saludsystem.application.services.catalogo.impl;
 
-import com.saludsystem.application.dtos.catalogo.put.ActualizarEspecialidadDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearEspecialidadDTO;
-import com.saludsystem.application.dtos.catalogo.get.EspecialidadDTO;
+import com.saludsystem.application.dtos.catalogo.req.EspecialidadDTO;
 import com.saludsystem.application.services.catalogo.EspecialidadService;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.domain.model.catalogo.EspecialidadEntity;
-import com.saludsystem.infrastructure.adapters.out.persistance.repository.catalogo.EspecialidadRepository;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
+import com.saludsystem.infrastructure.adapters.out.persistance.repository.catalogo.EspecialidadRepository;
 import com.saludsystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class EspecialidadServiceImpl extends GenericServiceImpl<EspecialidadEntity, EspecialidadDTO, UUID,
-        CrearEspecialidadDTO, ActualizarEspecialidadDTO> implements EspecialidadService {
+public class EspecialidadServiceImpl extends GenericServiceImpl<EspecialidadEntity, CrearEspecialidadDTO,
+        EspecialidadDTO, UUID> implements EspecialidadService {
 
-    public EspecialidadServiceImpl(EspecialidadRepository especialidadRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(especialidadRepository, modelMapper, authValidator, EspecialidadDTO.class,
-                especialidadEntity -> modelMapper.map(especialidadEntity, EspecialidadDTO.class));
+    protected EspecialidadServiceImpl(
+            EspecialidadRepository especialidadRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(especialidadRepository, modelMapper, authValidator, EspecialidadDTO.class);
     }
 
     @Override
@@ -38,8 +38,8 @@ public class EspecialidadServiceImpl extends GenericServiceImpl<EspecialidadEnti
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarEspecialidadDTO actualizarEspecialidadDTO) {
-        return super.update(uuid, actualizarEspecialidadDTO);
+    public ApiResponse update(UUID uuid, CrearEspecialidadDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -68,9 +68,9 @@ public class EspecialidadServiceImpl extends GenericServiceImpl<EspecialidadEnti
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarEspecialidadDTO actualizarEspecialidadDTO, EspecialidadEntity entity) {
-        entity.setNombre(actualizarEspecialidadDTO.getNombre());
-        entity.setDescripcion(actualizarEspecialidadDTO.getDescripcion());
-        entity.setEstado(actualizarEspecialidadDTO.getEstado());
+    protected void updateEntityFromDto(EspecialidadEntity entity, CrearEspecialidadDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

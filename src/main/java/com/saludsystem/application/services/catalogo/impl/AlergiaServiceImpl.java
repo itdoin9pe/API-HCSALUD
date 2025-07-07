@@ -1,7 +1,6 @@
 package com.saludsystem.application.services.catalogo.impl;
 
-import com.saludsystem.application.dtos.catalogo.put.ActualizarAlergiaDTO;
-import com.saludsystem.application.dtos.catalogo.get.AlergiaDTO;
+import com.saludsystem.application.dtos.catalogo.req.AlergiaDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearAlergiaDTO;
 import com.saludsystem.application.services.catalogo.AlergiaService;
 import com.saludsystem.application.services.GenericServiceImpl;
@@ -15,15 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class AlergiaServiceImpl extends GenericServiceImpl<AlergiaEntity, AlergiaDTO, UUID, CrearAlergiaDTO,
-        ActualizarAlergiaDTO> implements AlergiaService {
+public class AlergiaServiceImpl extends GenericServiceImpl<AlergiaEntity,
+        CrearAlergiaDTO, AlergiaDTO, UUID> implements AlergiaService {
 
-    public AlergiaServiceImpl(AlergiaRepository alergiaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(alergiaRepository, modelMapper, authValidator, AlergiaDTO.class,
-                alergiaEntity -> modelMapper.map(alergiaEntity, AlergiaDTO.class));
+    protected AlergiaServiceImpl(
+            AlergiaRepository alergiaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(alergiaRepository, modelMapper, authValidator, AlergiaDTO.class);
     }
 
     @Override
@@ -39,8 +39,8 @@ public class AlergiaServiceImpl extends GenericServiceImpl<AlergiaEntity, Alergi
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID id, ActualizarAlergiaDTO actualizarAlergiaDTO) {
-        return super.update(id, actualizarAlergiaDTO);
+    public ApiResponse update(UUID uuid, CrearAlergiaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -68,8 +68,8 @@ public class AlergiaServiceImpl extends GenericServiceImpl<AlergiaEntity, Alergi
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarAlergiaDTO actualizarAlergiaDTO, AlergiaEntity entity) {
-        entity.setNombre(actualizarAlergiaDTO.getNombre());
-        entity.setEstado(actualizarAlergiaDTO.getEstado());
+    protected void updateEntityFromDto(AlergiaEntity entity, CrearAlergiaDTO dto) {
+        Optional.ofNullable(dto.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.mantenimiento;
 
 import com.saludsystem.application.dtos.mantenimiento.get.MonedaDTO;
 import com.saludsystem.application.dtos.mantenimiento.post.CrearMonedaDTO;
-import com.saludsystem.application.dtos.mantenimiento.put.ActualizarMonedaDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,9 +17,9 @@ import java.util.UUID;
 @Tag(name = "TiposMonedas")
 @RestController
 @RequestMapping("/api/TiposMonedas")
-public class MonedaController extends GenericController<MonedaDTO, UUID, CrearMonedaDTO, ActualizarMonedaDTO> {
+public class MonedaController extends GenericController<CrearMonedaDTO, MonedaDTO, UUID> {
 
-    protected MonedaController(GenericService<MonedaDTO, UUID, CrearMonedaDTO, ActualizarMonedaDTO> genericService) {
+    protected MonedaController(GenericService<CrearMonedaDTO, MonedaDTO, UUID> genericService) {
         super(genericService);
     }
 

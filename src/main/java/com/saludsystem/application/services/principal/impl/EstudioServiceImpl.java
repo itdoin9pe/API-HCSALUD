@@ -1,8 +1,7 @@
 package com.saludsystem.application.services.principal.impl;
 
-import com.saludsystem.application.dtos.principal.get.EstudioDTO;
-import com.saludsystem.application.dtos.principal.post.CrearEstudioDTO;
-import com.saludsystem.application.dtos.principal.put.ActualizarEstudioDTO;
+import com.saludsystem.application.dtos.principal.res.EstudioDTO;
+import com.saludsystem.application.dtos.principal.req.CrearEstudioDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.principal.EstudioService;
 import com.saludsystem.domain.model.principal.EstudioEntity;
@@ -15,16 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class EstudioServiceImpl extends GenericServiceImpl<EstudioEntity, EstudioDTO, UUID,
-        CrearEstudioDTO, ActualizarEstudioDTO> implements EstudioService {
-
+public class EstudioServiceImpl extends GenericServiceImpl<EstudioEntity, CrearEstudioDTO, EstudioDTO, UUID>
+        implements EstudioService {
 
     public EstudioServiceImpl(EstudioRepository estudioRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(estudioRepository, modelMapper, authValidator, EstudioDTO.class,
-                estudioEntity -> modelMapper.map(estudioEntity, EstudioDTO.class));
+        super(estudioRepository, modelMapper, authValidator, EstudioDTO.class
+        );
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -40,8 +39,8 @@ public class EstudioServiceImpl extends GenericServiceImpl<EstudioEntity, Estudi
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarEstudioDTO actualizarEstudioDTO) {
-        return super.update(uuid, actualizarEstudioDTO);
+    public ApiResponse update(UUID uuid, CrearEstudioDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -68,7 +67,7 @@ public class EstudioServiceImpl extends GenericServiceImpl<EstudioEntity, Estudi
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarEstudioDTO actualizarEstudioDTO, EstudioEntity entity) {
-        entity.setDescripcion(actualizarEstudioDTO.getDescripcion());
+    protected void updateEntityFromDto(EstudioEntity entity, CrearEstudioDTO dto) {
+        Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
     }
 }

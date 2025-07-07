@@ -2,7 +2,6 @@ package com.saludsystem.application.services.paciente.impl.historialclinico.trat
 
 import com.saludsystem.application.dtos.paciente.get.historialclinico.tratamiento.ProcedimientoDTO;
 import com.saludsystem.application.dtos.paciente.post.historialclinico.tratamiento.CrearProcedimientoDTO;
-import com.saludsystem.application.dtos.paciente.put.historialclinico.tratamiento.ActualizarProcedimientoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.historialclinico.tratamiento.ProcedimientoService;
 import com.saludsystem.domain.model.paciente.Tratamiento.ProcedimientoEntity;
@@ -21,8 +20,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ProcedimientoServiceImpl extends GenericServiceImpl<ProcedimientoEntity, ProcedimientoDTO, UUID,
-        CrearProcedimientoDTO, ActualizarProcedimientoDTO> implements ProcedimientoService {
+public class ProcedimientoServiceImpl extends GenericServiceImpl<ProcedimientoEntity, CrearProcedimientoDTO,
+        ProcedimientoDTO, UUID> implements ProcedimientoService {
 
     private final DoctorRepository doctorRepository;
     private final PacienteRepository pacienteRepository;
@@ -30,8 +29,8 @@ public class ProcedimientoServiceImpl extends GenericServiceImpl<ProcedimientoEn
     public ProcedimientoServiceImpl(
             ProcedimientoRepository procedimientoRepository, ModelMapper modelMapper,
             AuthValidator authValidator, DoctorRepository doctorRepository, PacienteRepository pacienteRepository) {
-        super(procedimientoRepository, modelMapper, authValidator, ProcedimientoDTO.class,
-                procedimientoEntity -> modelMapper.map(procedimientoEntity, ProcedimientoDTO.class));
+        super(procedimientoRepository, modelMapper, authValidator, ProcedimientoDTO.class
+        );
         this.doctorRepository = doctorRepository;
         this.pacienteRepository = pacienteRepository;
     }
@@ -49,17 +48,17 @@ public class ProcedimientoServiceImpl extends GenericServiceImpl<ProcedimientoEn
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarProcedimientoDTO actualizarProcedimientoDTO, ProcedimientoEntity entity) {
-        Optional.ofNullable(actualizarProcedimientoDTO.getDoctorId())
+    protected void updateEntityFromDto(ProcedimientoEntity entity, CrearProcedimientoDTO dto) {
+        Optional.ofNullable(dto.getDoctorId())
                 .flatMap(doctorRepository::findById)
                 .ifPresent(entity::setDoctorEntity);
-        Optional.ofNullable(actualizarProcedimientoDTO.getPacienteId())
+        Optional.ofNullable(dto.getPacienteId())
                 .flatMap(pacienteRepository::findById)
                 .ifPresent(entity::setPacienteEntity);
-        entity.setTipoProcedimiento(actualizarProcedimientoDTO.getTipoProcedimiento());
-        entity.setDescripcion(actualizarProcedimientoDTO.getDescripcion());
-        entity.setFecha(actualizarProcedimientoDTO.getFecha());
-        entity.setResultado(actualizarProcedimientoDTO.getResultado());
+        Optional.ofNullable(dto.getTipoProcedimiento()).ifPresent(entity::setTipoProcedimiento);
+        Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
+        Optional.ofNullable(dto.getFecha()).ifPresent(entity::setFecha);
+        Optional.ofNullable(dto.getResultado()).ifPresent(entity::setResultado);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -73,10 +72,10 @@ public class ProcedimientoServiceImpl extends GenericServiceImpl<ProcedimientoEn
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarProcedimientoDTO actualizarProcedimientoDTO) {
-        return super.update(uuid, actualizarProcedimientoDTO);
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ApiResponse update(UUID uuid, CrearProcedimientoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

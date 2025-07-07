@@ -1,8 +1,7 @@
 package com.saludsystem.application.services.catalogo.impl;
 
-import com.saludsystem.application.dtos.catalogo.get.ConsentimientoDTO;
+import com.saludsystem.application.dtos.catalogo.req.ConsentimientoDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearConsentimientoDTO;
-import com.saludsystem.application.dtos.catalogo.put.ActualizarConsentimientoDTO;
 import com.saludsystem.application.services.catalogo.ConsentimientoService;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.domain.model.catalogo.ConsentimientoEntity;
@@ -15,16 +14,17 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ConsentimientoServiceImpl extends GenericServiceImpl<ConsentimientoEntity, ConsentimientoDTO, UUID,
-        CrearConsentimientoDTO, ActualizarConsentimientoDTO> implements ConsentimientoService {
+public class ConsentimientoServiceImpl extends GenericServiceImpl<ConsentimientoEntity, CrearConsentimientoDTO,
+        ConsentimientoDTO, UUID> implements ConsentimientoService {
 
-    public ConsentimientoServiceImpl(ConsentimientoRepository consentimientoRepository, ModelMapper modelMapper,
-                                     AuthValidator authValidator) {
-        super(consentimientoRepository, modelMapper, authValidator, ConsentimientoDTO.class,
-                consentimientoEntity -> modelMapper.map(consentimientoEntity, ConsentimientoDTO.class));
+    protected ConsentimientoServiceImpl(
+            ConsentimientoRepository consentimientoRepository,
+            ModelMapper modelMapper, AuthValidator authValidator) {
+        super(consentimientoRepository, modelMapper, authValidator, ConsentimientoDTO.class);
     }
 
     @Override
@@ -40,8 +40,8 @@ public class ConsentimientoServiceImpl extends GenericServiceImpl<Consentimiento
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarConsentimientoDTO actualizarConsentimientoDTO) {
-        return super.update(uuid, actualizarConsentimientoDTO);
+    public ApiResponse update(UUID uuid, CrearConsentimientoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -71,10 +71,10 @@ public class ConsentimientoServiceImpl extends GenericServiceImpl<Consentimiento
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarConsentimientoDTO actualizarConsentimientoDTO, ConsentimientoEntity entity) {
-        entity.setNombre(actualizarConsentimientoDTO.getNombre());
-        entity.setObservacion(actualizarConsentimientoDTO.getObservacion());
-        entity.setTexto(actualizarConsentimientoDTO.getTexto());
-        entity.setEstado(actualizarConsentimientoDTO.getEstado());
+    protected void updateEntityFromDto(ConsentimientoEntity entity, CrearConsentimientoDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getObservacion()).ifPresent(entity::setObservacion);
+        Optional.ofNullable(dto.getTexto()).ifPresent(entity::setTexto);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

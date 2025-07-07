@@ -2,13 +2,11 @@ package com.saludsystem.application.services.mantenimiento.impl;
 
 import com.saludsystem.application.dtos.mantenimiento.get.CajaDTO;
 import com.saludsystem.application.dtos.mantenimiento.post.CrearCajaDTO;
-import com.saludsystem.application.dtos.mantenimiento.put.ActualizarCajaDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.mantenimiento.CajaService;
 import com.saludsystem.domain.model.mantenimiento.CajaEntity;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
-
 import com.saludsystem.infrastructure.adapters.out.persistance.repository.mantenimiento.CajaRepository;
 import com.saludsystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
@@ -16,15 +14,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CajaServiceImpl extends GenericServiceImpl<CajaEntity, CajaDTO, UUID, CrearCajaDTO, ActualizarCajaDTO>
+public class CajaServiceImpl extends GenericServiceImpl<CajaEntity, CrearCajaDTO, CajaDTO, UUID>
         implements CajaService {
 
-    public CajaServiceImpl(CajaRepository cajaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(cajaRepository, modelMapper, authValidator, CajaDTO.class,
-                cajaEntity -> modelMapper.map(cajaEntity, CajaDTO.class));
+    protected CajaServiceImpl(CajaRepository cajaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(cajaRepository, modelMapper, authValidator, CajaDTO.class);
     }
 
     @Override
@@ -40,8 +38,8 @@ public class CajaServiceImpl extends GenericServiceImpl<CajaEntity, CajaDTO, UUI
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarCajaDTO actualizarCajaDTO) {
-        return super.update(uuid, actualizarCajaDTO);
+    public ApiResponse update(UUID uuid, CrearCajaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -69,8 +67,8 @@ public class CajaServiceImpl extends GenericServiceImpl<CajaEntity, CajaDTO, UUI
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarCajaDTO actualizarCajaDTO, CajaEntity entity) {
-        entity.setNombre(actualizarCajaDTO.getNombre());
-        entity.setEstado(actualizarCajaDTO.getEstado());
+    protected void updateEntityFromDto(CajaEntity entity, CrearCajaDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

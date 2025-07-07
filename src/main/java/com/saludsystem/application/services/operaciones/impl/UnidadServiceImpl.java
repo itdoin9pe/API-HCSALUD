@@ -2,7 +2,6 @@ package com.saludsystem.application.services.operaciones.impl;
 
 import com.saludsystem.application.dtos.operaciones.get.UnidadDTO;
 import com.saludsystem.application.dtos.operaciones.post.CrearUnidadDTO;
-import com.saludsystem.application.dtos.operaciones.put.ActualizarUnidadDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.operaciones.UnidadService;
 import com.saludsystem.domain.model.operaciones.UnidadEntity;
@@ -15,15 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class UnidadServiceImpl extends GenericServiceImpl<UnidadEntity, UnidadDTO, UUID,
-        CrearUnidadDTO, ActualizarUnidadDTO> implements UnidadService {
+public class UnidadServiceImpl extends GenericServiceImpl<UnidadEntity, CrearUnidadDTO, UnidadDTO, UUID>
+        implements UnidadService {
 
     public UnidadServiceImpl(UnidadRepository unidadRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(unidadRepository, modelMapper, authValidator, UnidadDTO.class,
-                unidadEntity -> modelMapper.map(unidadEntity, UnidadDTO.class));
+        super(unidadRepository, modelMapper, authValidator, UnidadDTO.class
+        );
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -39,8 +39,8 @@ public class UnidadServiceImpl extends GenericServiceImpl<UnidadEntity, UnidadDT
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarUnidadDTO actualizarUnidadDTO) {
-        return super.update(uuid, actualizarUnidadDTO);
+    public ApiResponse update(UUID uuid, CrearUnidadDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -70,10 +70,10 @@ public class UnidadServiceImpl extends GenericServiceImpl<UnidadEntity, UnidadDT
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarUnidadDTO actualizarUnidadDTO, UnidadEntity entity) {
-        entity.setNombre(actualizarUnidadDTO.getNombre());
-        entity.setSiglas(actualizarUnidadDTO.getSiglas());
-        entity.setDescripcion(actualizarUnidadDTO.getDescripcion());
-        entity.setEstado(actualizarUnidadDTO.getEstado());
+    protected void updateEntityFromDto(UnidadEntity entity, CrearUnidadDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getSiglas()).ifPresent(entity::setSiglas);
+        Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

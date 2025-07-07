@@ -1,8 +1,7 @@
 package com.saludsystem.application.services.principal.impl;
 
-import com.saludsystem.application.dtos.principal.get.EmpresaDTO;
-import com.saludsystem.application.dtos.principal.post.CrearEmpresaDTO;
-import com.saludsystem.application.dtos.principal.put.ActualizarEmpresaDTO;
+import com.saludsystem.application.dtos.principal.res.EmpresaDTO;
+import com.saludsystem.application.dtos.principal.req.CrearEmpresaDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.principal.EmpresaService;
 import com.saludsystem.domain.model.principal.EmpresaEntity;
@@ -15,15 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class EmpresaServiceImpl extends GenericServiceImpl<EmpresaEntity, EmpresaDTO, UUID,
-        CrearEmpresaDTO, ActualizarEmpresaDTO> implements EmpresaService {
+public class EmpresaServiceImpl extends GenericServiceImpl<EmpresaEntity, CrearEmpresaDTO, EmpresaDTO, UUID>
+        implements EmpresaService {
 
     public EmpresaServiceImpl(EmpresaRepository empresaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(empresaRepository, modelMapper, authValidator, EmpresaDTO.class,
-                empresaEntity -> modelMapper.map(empresaEntity, EmpresaDTO.class));
+        super(empresaRepository, modelMapper, authValidator, EmpresaDTO.class
+        );
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -39,8 +39,8 @@ public class EmpresaServiceImpl extends GenericServiceImpl<EmpresaEntity, Empres
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarEmpresaDTO actualizarEmpresaDTO) {
-        return super.update(uuid, actualizarEmpresaDTO);
+    public ApiResponse update(UUID uuid, CrearEmpresaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -68,8 +68,8 @@ public class EmpresaServiceImpl extends GenericServiceImpl<EmpresaEntity, Empres
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarEmpresaDTO actualizarEmpresaDTO, EmpresaEntity entity) {
-        entity.setDescripcion(actualizarEmpresaDTO.getDescripcion());
-        entity.setEstado(actualizarEmpresaDTO.getEstado());
+    protected void updateEntityFromDto(EmpresaEntity entity, CrearEmpresaDTO dto) {
+        Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

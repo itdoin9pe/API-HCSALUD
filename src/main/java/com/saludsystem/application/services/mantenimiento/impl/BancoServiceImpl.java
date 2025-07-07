@@ -2,7 +2,6 @@ package com.saludsystem.application.services.mantenimiento.impl;
 
 import com.saludsystem.application.dtos.mantenimiento.get.BancoDTO;
 import com.saludsystem.application.dtos.mantenimiento.post.CrearBancoDTO;
-import com.saludsystem.application.dtos.mantenimiento.put.ActualizarBancoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.mantenimiento.BancoService;
 import com.saludsystem.domain.model.mantenimiento.BancoEntity;
@@ -11,20 +10,22 @@ import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.infrastructure.adapters.out.persistance.repository.mantenimiento.BancoRepository;
 import com.saludsystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class BancoServiceImpl extends GenericServiceImpl<
-        BancoEntity, BancoDTO, UUID, CrearBancoDTO, ActualizarBancoDTO> implements BancoService {
+public class BancoServiceImpl extends GenericServiceImpl<BancoEntity, CrearBancoDTO, BancoDTO, UUID>
+        implements BancoService {
 
-    public BancoServiceImpl(BancoRepository bancoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(bancoRepository, modelMapper, authValidator, BancoDTO.class,
-                bancoEntity -> modelMapper.map(bancoEntity, BancoDTO.class));
+    protected BancoServiceImpl(BancoRepository bancoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(bancoRepository, modelMapper, authValidator, BancoDTO.class);
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse save(CrearBancoDTO crearBancoDTO) {
         return super.save(crearBancoDTO);
@@ -35,9 +36,10 @@ public class BancoServiceImpl extends GenericServiceImpl<
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarBancoDTO actualizarBancoDTO) {
-        return super.update(uuid, actualizarBancoDTO);
+    public ApiResponse update(UUID uuid, CrearBancoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -50,6 +52,7 @@ public class BancoServiceImpl extends GenericServiceImpl<
         return super.getById(uuid);
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse delete(UUID uuid) {
         return super.delete(uuid);
@@ -64,8 +67,8 @@ public class BancoServiceImpl extends GenericServiceImpl<
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarBancoDTO actualizarBancoDTO, BancoEntity entity) {
-        entity.setDescripcion(actualizarBancoDTO.getDescripcion());
-        entity.setEstado(actualizarBancoDTO.getEstado());
+    protected void updateEntityFromDto(BancoEntity entity, CrearBancoDTO dto) {
+        Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

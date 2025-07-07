@@ -8,8 +8,7 @@ import com.saludsystem.application.services.GenericService;
 import java.util.UUID;
 
 public interface AntecedenteService extends GenericService<
-        AntecedenteDTO,
-        UUID,
         CrearAntecedenteDTO,
-        ActualizarAntecedenteDTO> {
+        AntecedenteDTO,
+        UUID> {
 }

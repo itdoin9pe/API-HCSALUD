@@ -2,7 +2,6 @@ package com.saludsystem.application.services.configuracion.impl;
 
 import com.saludsystem.application.dtos.configuracion.get.TipoDocumentoDTO;
 import com.saludsystem.application.dtos.configuracion.post.CrearTipoDocumentoDTO;
-import com.saludsystem.application.dtos.configuracion.put.ActualizarTipoDocumentoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.configuracion.TipoDocumentoService;
 import com.saludsystem.domain.model.configuracion.TipoDocumentoEntity;
@@ -15,17 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TipoDocumentoServiceImpl extends GenericServiceImpl<
-        TipoDocumentoEntity, TipoDocumentoDTO, UUID, CrearTipoDocumentoDTO, ActualizarTipoDocumentoDTO>
-        implements TipoDocumentoService {
+public class TipoDocumentoServiceImpl extends GenericServiceImpl<TipoDocumentoEntity, CrearTipoDocumentoDTO,
+        TipoDocumentoDTO, UUID> implements TipoDocumentoService {
 
-    public TipoDocumentoServiceImpl(TipoDocumentoRepository tipoDocumentoRepository, ModelMapper modelMapper,
-                                    AuthValidator authValidator) {
-        super(tipoDocumentoRepository, modelMapper, authValidator, TipoDocumentoDTO.class,
-                tipoDocumentoEntity -> modelMapper.map(tipoDocumentoEntity, TipoDocumentoDTO.class));
+    protected TipoDocumentoServiceImpl(
+            TipoDocumentoRepository tipoDocumentoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(tipoDocumentoRepository, modelMapper, authValidator, TipoDocumentoDTO.class);
     }
 
     @Override
@@ -41,8 +39,8 @@ public class TipoDocumentoServiceImpl extends GenericServiceImpl<
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarTipoDocumentoDTO actualizarTipoDocumentoDTO) {
-        return super.update(uuid, actualizarTipoDocumentoDTO);
+    public ApiResponse update(UUID uuid, CrearTipoDocumentoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -74,12 +72,12 @@ public class TipoDocumentoServiceImpl extends GenericServiceImpl<
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarTipoDocumentoDTO actualizarTipoDocumentoDTO, TipoDocumentoEntity entity) {
-        entity.setTipoComprobante(actualizarTipoDocumentoDTO.getTipoComprobante());
-        entity.setSerie(actualizarTipoDocumentoDTO.getSerie());
-        entity.setInicio(actualizarTipoDocumentoDTO.getInicio());
-        entity.setFin(actualizarTipoDocumentoDTO.getFin());
-        entity.setCorrelativoActual(actualizarTipoDocumentoDTO.getCorrelativoActual());
-        entity.setEstado(actualizarTipoDocumentoDTO.getEstado());
+    protected void updateEntityFromDto(TipoDocumentoEntity entity, CrearTipoDocumentoDTO dto) {
+        Optional.ofNullable(dto.getTipoComprobante()).ifPresent(entity::setTipoComprobante);
+        Optional.ofNullable(dto.getSerie()).ifPresent(entity::setSerie);
+        Optional.ofNullable(dto.getInicio()).ifPresent(entity::setInicio);
+        Optional.ofNullable(dto.getFin()).ifPresent(entity::setFin);
+        Optional.ofNullable(dto.getCorrelativoActual()).ifPresent(entity::setCorrelativoActual);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

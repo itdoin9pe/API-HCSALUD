@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.operaciones;
 
 import com.saludsystem.application.dtos.operaciones.get.ProveedorDTO;
 import com.saludsystem.application.dtos.operaciones.post.CrearProveedorDTO;
-import com.saludsystem.application.dtos.operaciones.put.ActualizarProveedorDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,9 +17,9 @@ import java.util.UUID;
 @Tag(name = "Proveedor")
 @RestController
 @RequestMapping("/api/Proveedor")
-public class ProveedorController extends GenericController<ProveedorDTO, UUID, CrearProveedorDTO, ActualizarProveedorDTO> {
+public class ProveedorController extends GenericController<CrearProveedorDTO, ProveedorDTO, UUID> {
 
-    protected ProveedorController(GenericService<ProveedorDTO, UUID, CrearProveedorDTO, ActualizarProveedorDTO> genericService) {
+    protected ProveedorController(GenericService<CrearProveedorDTO, ProveedorDTO, UUID> genericService) {
         super(genericService);
     }
 

@@ -1,8 +1,7 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.catalogo;
 
-import com.saludsystem.application.dtos.catalogo.get.TipoCitadoDTO;
+import com.saludsystem.application.dtos.catalogo.req.TipoCitadoDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearTipoCitadoDTO;
-import com.saludsystem.application.dtos.catalogo.put.ActualizarTipoCitadoDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,11 +17,9 @@ import java.util.UUID;
 @Tag(name = "TiposCitado")
 @RestController
 @RequestMapping("/api/TiposCitado")
-public class TipoCitadoController extends GenericController<
-        TipoCitadoDTO, UUID, CrearTipoCitadoDTO, ActualizarTipoCitadoDTO> {
+public class TipoCitadoController extends GenericController<CrearTipoCitadoDTO, TipoCitadoDTO, UUID> {
 
-    protected TipoCitadoController(GenericService<TipoCitadoDTO, UUID,
-            CrearTipoCitadoDTO, ActualizarTipoCitadoDTO> genericService) {
+    protected TipoCitadoController(GenericService<CrearTipoCitadoDTO, TipoCitadoDTO, UUID> genericService) {
         super(genericService);
     }
 

@@ -1,13 +1,13 @@
 package com.saludsystem.application.services.catalogo.impl;
 
-import com.saludsystem.application.dtos.catalogo.get.TipoConceptoDTO;
+import com.saludsystem.application.dtos.catalogo.req.TipoConceptoDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearTipoConceptoDTO;
-import com.saludsystem.application.dtos.catalogo.put.ActualizarTipoConceptoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.catalogo.TipoConceptoService;
 import com.saludsystem.domain.model.catalogo.TipoConceptoEntity;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
+import com.saludsystem.infrastructure.adapters.out.persistance.repository.GenericRepository;
 import com.saludsystem.infrastructure.adapters.out.persistance.repository.catalogo.TipoConceptoRepository;
 import com.saludsystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
@@ -15,16 +15,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TipoConceptoServiceImpl extends GenericServiceImpl<TipoConceptoEntity, TipoConceptoDTO, UUID,
-        CrearTipoConceptoDTO, ActualizarTipoConceptoDTO> implements TipoConceptoService {
+public class TipoConceptoServiceImpl extends GenericServiceImpl<TipoConceptoEntity, CrearTipoConceptoDTO,
+        TipoConceptoDTO, UUID> implements TipoConceptoService {
 
-    public TipoConceptoServiceImpl(TipoConceptoRepository tipoConceptoRepository, ModelMapper modelMapper,
-                                   AuthValidator authValidator) {
-        super(tipoConceptoRepository, modelMapper, authValidator, TipoConceptoDTO.class,
-                tipoConceptoEntity -> modelMapper.map(tipoConceptoEntity, TipoConceptoDTO.class));
+    protected TipoConceptoServiceImpl(
+            TipoConceptoRepository tipoConceptoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(tipoConceptoRepository, modelMapper, authValidator, TipoConceptoDTO.class);
     }
 
     @Override
@@ -40,8 +40,8 @@ public class TipoConceptoServiceImpl extends GenericServiceImpl<TipoConceptoEnti
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarTipoConceptoDTO actualizarTipoConceptoDTO) {
-        return super.update(uuid, actualizarTipoConceptoDTO);
+    public ApiResponse update(UUID uuid, CrearTipoConceptoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -69,8 +69,8 @@ public class TipoConceptoServiceImpl extends GenericServiceImpl<TipoConceptoEnti
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarTipoConceptoDTO actualizarTipoConceptoDTO, TipoConceptoEntity entity) {
-        entity.setNombre(actualizarTipoConceptoDTO.getNombre());
-        entity.setEstado(actualizarTipoConceptoDTO.getEstado());
+    protected void updateEntityFromDto(TipoConceptoEntity entity, CrearTipoConceptoDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

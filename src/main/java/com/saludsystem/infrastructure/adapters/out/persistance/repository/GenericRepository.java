@@ -10,8 +10,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @NoRepositoryBean
-public interface GenericRepository<T extends BaseEntity> extends JpaRepository<T, UUID> {
+public interface GenericRepository<E extends BaseEntity> extends JpaRepository<E, UUID> {
 
-    Page<T> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    Page<E> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 
 }

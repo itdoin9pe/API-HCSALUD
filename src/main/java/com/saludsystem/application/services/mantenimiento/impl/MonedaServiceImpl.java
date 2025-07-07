@@ -1,9 +1,7 @@
 package com.saludsystem.application.services.mantenimiento.impl;
 
-
 import com.saludsystem.application.dtos.mantenimiento.get.MonedaDTO;
 import com.saludsystem.application.dtos.mantenimiento.post.CrearMonedaDTO;
-import com.saludsystem.application.dtos.mantenimiento.put.ActualizarMonedaDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.mantenimiento.MonedaService;
 import com.saludsystem.domain.model.mantenimiento.MonedaEntity;
@@ -16,15 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class MonedaServiceImpl extends GenericServiceImpl<MonedaEntity, MonedaDTO,
-        UUID, CrearMonedaDTO, ActualizarMonedaDTO> implements MonedaService {
+public class MonedaServiceImpl extends GenericServiceImpl<MonedaEntity, CrearMonedaDTO, MonedaDTO, UUID>
+        implements MonedaService {
 
-    public MonedaServiceImpl(MonedaRepository monedaRepository, AuthValidator authValidator, ModelMapper modelMapper) {
-        super(monedaRepository, modelMapper, authValidator, MonedaDTO.class,
-                monedaEntity -> modelMapper.map(monedaEntity, MonedaDTO.class));
+    protected MonedaServiceImpl(
+            MonedaRepository monedaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(monedaRepository, modelMapper, authValidator, MonedaDTO.class);
     }
 
     @Override
@@ -40,8 +39,8 @@ public class MonedaServiceImpl extends GenericServiceImpl<MonedaEntity, MonedaDT
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarMonedaDTO actualizarMonedaDTO) {
-        return super.update(uuid, actualizarMonedaDTO);
+    public ApiResponse update(UUID uuid, CrearMonedaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -69,8 +68,8 @@ public class MonedaServiceImpl extends GenericServiceImpl<MonedaEntity, MonedaDT
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarMonedaDTO actualizarMonedaDTO, MonedaEntity entity) {
-        entity.setDescripcion(actualizarMonedaDTO.getDescripcion());
-        entity.setEstado(actualizarMonedaDTO.getEstado());
+    protected void updateEntityFromDto(MonedaEntity entity, CrearMonedaDTO dto) {
+        Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

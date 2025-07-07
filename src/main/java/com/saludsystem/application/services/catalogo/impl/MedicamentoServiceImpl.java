@@ -1,9 +1,7 @@
 package com.saludsystem.application.services.catalogo.impl;
 
-
-import com.saludsystem.application.dtos.catalogo.get.MedicamentoDTO;
+import com.saludsystem.application.dtos.catalogo.req.MedicamentoDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearMedicamentoDTO;
-import com.saludsystem.application.dtos.catalogo.put.ActualizarMedicamentoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.catalogo.MedicamentoService;
 import com.saludsystem.domain.model.catalogo.MedicamentoEntity;
@@ -15,17 +13,17 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class MedicamentoServiceImpl extends GenericServiceImpl<MedicamentoEntity, MedicamentoDTO, UUID,
-        CrearMedicamentoDTO, ActualizarMedicamentoDTO> implements MedicamentoService {
+public class MedicamentoServiceImpl extends GenericServiceImpl<MedicamentoEntity, CrearMedicamentoDTO,
+        MedicamentoDTO, UUID> implements MedicamentoService {
 
-    public MedicamentoServiceImpl(MedicamentoRepository repository,
-                                  ModelMapper modelMapper, AuthValidator authValidator) {
-        super(repository, modelMapper, authValidator, MedicamentoDTO.class,
-                entity -> modelMapper.map(entity, MedicamentoDTO.class)
-        );
+    protected MedicamentoServiceImpl(
+            MedicamentoRepository medicamentoRepository,
+            ModelMapper modelMapper, AuthValidator authValidator) {
+        super(medicamentoRepository, modelMapper, authValidator, MedicamentoDTO.class);
     }
 
     @Override
@@ -41,8 +39,8 @@ public class MedicamentoServiceImpl extends GenericServiceImpl<MedicamentoEntity
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarMedicamentoDTO actualizarMedicamentoDTO) {
-        return super.update(uuid, actualizarMedicamentoDTO);
+    public ApiResponse update(UUID uuid, CrearMedicamentoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -68,11 +66,11 @@ public class MedicamentoServiceImpl extends GenericServiceImpl<MedicamentoEntity
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarMedicamentoDTO dto, MedicamentoEntity entity) {
-        entity.setNombre(dto.getNombre());
-        entity.setContenido(dto.getContenido());
-        entity.setConcentracion(dto.getConcentracion());
-        entity.setFormaFarmaceutica(dto.getFormaFarmaceutica());
-        entity.setEstado(dto.getEstado());
+    protected void updateEntityFromDto(MedicamentoEntity entity, CrearMedicamentoDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getFormaFarmaceutica()).ifPresent(entity::setFormaFarmaceutica);
+        Optional.ofNullable(dto.getConcentracion()).ifPresent(entity::setConcentracion);
+        Optional.ofNullable(dto.getContenido()).ifPresent(entity::setContenido);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

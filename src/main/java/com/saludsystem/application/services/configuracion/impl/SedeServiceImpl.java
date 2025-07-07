@@ -2,7 +2,6 @@ package com.saludsystem.application.services.configuracion.impl;
 
 import com.saludsystem.application.dtos.configuracion.get.SedeDTO;
 import com.saludsystem.application.dtos.configuracion.post.CrearSedeDTO;
-import com.saludsystem.application.dtos.configuracion.put.ActualizarSedeDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.configuracion.SedeService;
 import com.saludsystem.domain.model.SucursalEntity;
@@ -18,18 +17,18 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class SedeServiceImpl extends GenericServiceImpl<SedeEntity, SedeDTO, UUID,
-        CrearSedeDTO, ActualizarSedeDTO> implements SedeService {
+public class SedeServiceImpl extends GenericServiceImpl<SedeEntity, CrearSedeDTO, SedeDTO, UUID>
+        implements SedeService {
 
     private final SucursalRepository sucursalRepository;
 
     public SedeServiceImpl(SedeRepository sedeRepository, ModelMapper modelMapper, AuthValidator authValidator,
                            SucursalRepository sucursalRepository) {
-        super(sedeRepository, modelMapper, authValidator, SedeDTO.class,
-                sedeEntity -> modelMapper.map(sedeEntity, SedeDTO.class));
+        super(sedeRepository, modelMapper, authValidator, SedeDTO.class);
         this.sucursalRepository = sucursalRepository;
     }
 
@@ -59,8 +58,8 @@ public class SedeServiceImpl extends GenericServiceImpl<SedeEntity, SedeDTO, UUI
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarSedeDTO actualizarSedeDTO) {
-        return super.update(uuid, actualizarSedeDTO);
+    public ApiResponse update(UUID uuid, CrearSedeDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -91,11 +90,11 @@ public class SedeServiceImpl extends GenericServiceImpl<SedeEntity, SedeDTO, UUI
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarSedeDTO actualizarSedeDTO, SedeEntity entity) {
-        entity.setCodigo(actualizarSedeDTO.getCodigo());
-        entity.setNombre(actualizarSedeDTO.getNombre());
-        entity.setDireccion(actualizarSedeDTO.getDireccion());
-        entity.setUbigeo(actualizarSedeDTO.getUbigeo());
-        entity.setEstado(actualizarSedeDTO.getEstado());
+    protected void updateEntityFromDto(SedeEntity entity, CrearSedeDTO dto) {
+        Optional.ofNullable(dto.getCodigo()).ifPresent(entity::setCodigo);
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getDireccion()).ifPresent(entity::setDireccion);
+        Optional.ofNullable(dto.getUbigeo()).ifPresent(entity::setUbigeo);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

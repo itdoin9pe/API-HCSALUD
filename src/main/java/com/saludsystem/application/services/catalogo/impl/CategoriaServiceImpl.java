@@ -1,8 +1,7 @@
 package com.saludsystem.application.services.catalogo.impl;
 
-import com.saludsystem.application.dtos.catalogo.get.CategoriaDTO;
+import com.saludsystem.application.dtos.catalogo.req.CategoriaDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearCategoriaDTO;
-import com.saludsystem.application.dtos.catalogo.put.ActualizarCategoriaDTO;
 import com.saludsystem.application.services.catalogo.CategoriaService;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.domain.model.catalogo.CategoriaEntity;
@@ -14,16 +13,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CategoriaServiceImpl extends GenericServiceImpl<CategoriaEntity, CategoriaDTO, UUID, CrearCategoriaDTO,
-        ActualizarCategoriaDTO> implements CategoriaService {
+public class CategoriaServiceImpl extends GenericServiceImpl<CategoriaEntity,
+        CrearCategoriaDTO,CategoriaDTO, UUID> implements CategoriaService {
 
     public CategoriaServiceImpl(CategoriaRepository categoriaRepository, ModelMapper modelMapper,
                                 AuthValidator authValidator) {
-        super(categoriaRepository, modelMapper, authValidator, CategoriaDTO.class,
-                categoriaEntity -> modelMapper.map(categoriaEntity, CategoriaDTO.class));
+        super(categoriaRepository, modelMapper, authValidator, CategoriaDTO.class);
     }
 
     @Override
@@ -39,8 +38,8 @@ public class CategoriaServiceImpl extends GenericServiceImpl<CategoriaEntity, Ca
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID id, ActualizarCategoriaDTO actualizarCategoriaDTO) {
-        return super.update(id, actualizarCategoriaDTO);
+    public ApiResponse update(UUID uuid, CrearCategoriaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -63,8 +62,8 @@ public class CategoriaServiceImpl extends GenericServiceImpl<CategoriaEntity, Ca
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarCategoriaDTO actualizarCategoriaDTO, CategoriaEntity entity) {
-        entity.setNombre(actualizarCategoriaDTO.getNombre());
-        entity.setEstado(actualizarCategoriaDTO.getEstado());
+    protected void updateEntityFromDto(CategoriaEntity entity, CrearCategoriaDTO dto) {
+        Optional.ofNullable(dto.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

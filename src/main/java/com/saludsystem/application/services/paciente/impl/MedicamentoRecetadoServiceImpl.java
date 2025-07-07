@@ -2,7 +2,6 @@ package com.saludsystem.application.services.paciente.impl;
 
 import com.saludsystem.application.dtos.paciente.get.MedicamentoRecetadoDTO;
 import com.saludsystem.application.dtos.paciente.post.CrearMedicamentoRecetadoDTO;
-import com.saludsystem.application.dtos.paciente.put.ActualizarMedicamentoRecetadoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.MedicamentoRecetadoService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
@@ -23,17 +22,15 @@ import java.util.UUID;
 
 @Service
 public class MedicamentoRecetadoServiceImpl extends GenericServiceImpl<MedicamentoRecetadoEntity,
-        MedicamentoRecetadoDTO, UUID, CrearMedicamentoRecetadoDTO, ActualizarMedicamentoRecetadoDTO>
-        implements MedicamentoRecetadoService {
+        CrearMedicamentoRecetadoDTO, MedicamentoRecetadoDTO, UUID> implements MedicamentoRecetadoService {
 
     private final MedicamentoRepository medicamentoRepository;
 
     public MedicamentoRecetadoServiceImpl(
             MedicamentoRecetadoRepository medicamentoRecetadoRepository, ModelMapper modelMapper,
             AuthValidator authValidator, MedicamentoRepository medicamentoRepository) {
-        super(medicamentoRecetadoRepository, modelMapper, authValidator, MedicamentoRecetadoDTO.class,
-                medicamentoRecetadoEntity -> modelMapper.map(medicamentoRecetadoEntity,
-                        MedicamentoRecetadoDTO.class));
+        super(medicamentoRecetadoRepository, modelMapper, authValidator, MedicamentoRecetadoDTO.class
+        );
         this.medicamentoRepository = medicamentoRepository;
     }
 
@@ -50,13 +47,13 @@ public class MedicamentoRecetadoServiceImpl extends GenericServiceImpl<Medicamen
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarMedicamentoRecetadoDTO actualizarMedicamentoRecetadoDTO, MedicamentoRecetadoEntity entity) {
-        Optional.ofNullable(actualizarMedicamentoRecetadoDTO.getMedicamentoId()).flatMap(medicamentoRepository::findById).
+    protected void updateEntityFromDto(MedicamentoRecetadoEntity entity, CrearMedicamentoRecetadoDTO dto) {
+        Optional.ofNullable(dto.getMedicamentoId()).flatMap(medicamentoRepository::findById).
                 ifPresent(entity::setMedicamentoEntity);
-        entity.setDosis(actualizarMedicamentoRecetadoDTO.getDosis());
-        entity.setFrecuencia(actualizarMedicamentoRecetadoDTO.getFrecuencia());
-        entity.setIndicaciones(actualizarMedicamentoRecetadoDTO.getIndicaciones());
-        entity.setDuracionDias(actualizarMedicamentoRecetadoDTO.getDuracionDias());
+        entity.setDosis(dto.getDosis());
+        entity.setFrecuencia(dto.getFrecuencia());
+        entity.setIndicaciones(dto.getIndicaciones());
+        entity.setDuracionDias(dto.getDuracionDias());
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -72,8 +69,8 @@ public class MedicamentoRecetadoServiceImpl extends GenericServiceImpl<Medicamen
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarMedicamentoRecetadoDTO actualizarMedicamentoRecetadoDTO) {
-        return super.update(uuid, actualizarMedicamentoRecetadoDTO);
+    public ApiResponse update(UUID uuid, CrearMedicamentoRecetadoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

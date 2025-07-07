@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.configuracion;
 
 import com.saludsystem.application.dtos.configuracion.get.PermisoDTO;
 import com.saludsystem.application.dtos.configuracion.post.CrearPermisoDTO;
-import com.saludsystem.application.dtos.configuracion.put.ActualizarPermisoDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -19,10 +18,9 @@ import java.util.UUID;
 @Tag(name = "Permisos")
 @RestController
 @RequestMapping("/api/Permisos")
-public class PermisoController extends GenericController<PermisoDTO, UUID, CrearPermisoDTO, ActualizarPermisoDTO> {
+public class PermisoController extends GenericController<CrearPermisoDTO, PermisoDTO, UUID> {
 
-    protected PermisoController(GenericService<PermisoDTO, UUID, CrearPermisoDTO,
-            ActualizarPermisoDTO> genericService) {
+    protected PermisoController(GenericService<CrearPermisoDTO, PermisoDTO, UUID> genericService) {
         super(genericService);
     }
 

@@ -2,7 +2,6 @@ package com.saludsystem.application.services.operaciones.impl;
 
 import com.saludsystem.application.dtos.operaciones.get.CategoriaMatDTO;
 import com.saludsystem.application.dtos.operaciones.post.CrearCategotiaMatDTO;
-import com.saludsystem.application.dtos.operaciones.put.ActualizarCategoriaMatDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.operaciones.CategoriaMatService;
 import com.saludsystem.domain.model.operaciones.CategoriaMatEntity;
@@ -15,15 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CategoriaMatServiceImpl extends GenericServiceImpl<CategoriaMatEntity, CategoriaMatDTO, UUID,
-        CrearCategotiaMatDTO, ActualizarCategoriaMatDTO> implements CategoriaMatService {
+public class CategoriaMatServiceImpl extends GenericServiceImpl<CategoriaMatEntity, CrearCategotiaMatDTO,
+        CategoriaMatDTO, UUID> implements CategoriaMatService {
 
-    public CategoriaMatServiceImpl(CategoriaMatRepository categoriaMatRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(categoriaMatRepository, modelMapper, authValidator, CategoriaMatDTO.class,
-                categoriaMatEntity -> modelMapper.map(categoriaMatEntity, CategoriaMatDTO.class));
+    protected CategoriaMatServiceImpl(
+            CategoriaMatRepository categoriaMatRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(categoriaMatRepository, modelMapper, authValidator, CategoriaMatDTO.class);
     }
 
     @Override
@@ -39,8 +39,8 @@ public class CategoriaMatServiceImpl extends GenericServiceImpl<CategoriaMatEnti
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarCategoriaMatDTO actualizarCategoriaMatDTO) {
-        return super.update(uuid, actualizarCategoriaMatDTO);
+    public ApiResponse update(UUID uuid, CrearCategotiaMatDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -69,9 +69,9 @@ public class CategoriaMatServiceImpl extends GenericServiceImpl<CategoriaMatEnti
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarCategoriaMatDTO actualizarCategoriaMatDTO, CategoriaMatEntity entity) {
-        entity.setNombre(actualizarCategoriaMatDTO.getNombre());
-        entity.setDescripcion(actualizarCategoriaMatDTO.getDescripcion());
-        entity.setEstado(actualizarCategoriaMatDTO.getEstado());
+    protected void updateEntityFromDto(CategoriaMatEntity entity, CrearCategotiaMatDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

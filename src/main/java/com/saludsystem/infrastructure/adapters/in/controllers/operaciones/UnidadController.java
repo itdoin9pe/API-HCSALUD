@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.operaciones;
 
 import com.saludsystem.application.dtos.operaciones.get.UnidadDTO;
 import com.saludsystem.application.dtos.operaciones.post.CrearUnidadDTO;
-import com.saludsystem.application.dtos.operaciones.put.ActualizarUnidadDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -19,9 +18,9 @@ import java.util.UUID;
 @Tag(name = "Unidades")
 @RestController
 @RequestMapping("/api/Unidades")
-public class UnidadController extends GenericController<UnidadDTO, UUID, CrearUnidadDTO, ActualizarUnidadDTO> {
+public class UnidadController extends GenericController<CrearUnidadDTO, UnidadDTO, UUID> {
 
-    protected UnidadController(GenericService<UnidadDTO, UUID, CrearUnidadDTO, ActualizarUnidadDTO> genericService) {
+    protected UnidadController(GenericService<CrearUnidadDTO, UnidadDTO, UUID> genericService) {
         super(genericService);
     }
 

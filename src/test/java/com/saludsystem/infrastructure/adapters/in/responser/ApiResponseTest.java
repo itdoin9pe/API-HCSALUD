@@ -16,7 +16,7 @@ class ApiResponseTest {
         ApiResponse response = new ApiResponse(success, message);
 
         // Then
-        assertTrue(response.getIsSuccess());
+        assertTrue(response.isSuccess());
         assertEquals("Operación exitosa", response.getMessage());
     }
 
@@ -30,7 +30,7 @@ class ApiResponseTest {
         response.setMessage("Mensaje modificado");
 
         // Then
-        assertTrue(response.getIsSuccess());
+        assertTrue(response.isSuccess());
         assertEquals("Mensaje modificado", response.getMessage());
     }
 }

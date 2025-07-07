@@ -2,7 +2,6 @@ package com.saludsystem.application.services.cita;
 
 import com.saludsystem.application.dtos.cita.get.CitaDTO;
 import com.saludsystem.application.dtos.cita.post.CrearCitaDTO;
-import com.saludsystem.application.dtos.cita.put.ActualizarCitaDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.domain.model.cita.CitaEntity;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
@@ -23,8 +22,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CitaServiceImpl extends GenericServiceImpl<CitaEntity, CitaDTO, UUID,
-        CrearCitaDTO, ActualizarCitaDTO> implements CitaService {
+public class CitaServiceImpl extends GenericServiceImpl<CitaEntity, CrearCitaDTO, CitaDTO, UUID> implements CitaService {
 
     private final DoctorRepository doctorRepository;
     private final EspecialidadRepository especialidadRepository;
@@ -36,8 +34,7 @@ public class CitaServiceImpl extends GenericServiceImpl<CitaEntity, CitaDTO, UUI
             CitaRepository citaRepository, ModelMapper modelMapper, AuthValidator authValidator,
             DoctorRepository doctorRepository, EspecialidadRepository especialidadRepository,
             PacienteRepository pacienteRepository, SedeRepository sedeRepository, TipoCitadoRepository tipoCitadoRepository) {
-        super(citaRepository, modelMapper, authValidator, CitaDTO.class,
-                citaEntity -> modelMapper.map(citaEntity, CitaDTO.class));
+        super(citaRepository, modelMapper, authValidator, CitaDTO.class);
         this.doctorRepository = doctorRepository;
         this.especialidadRepository = especialidadRepository;
         this.pacienteRepository = pacienteRepository;
@@ -63,23 +60,23 @@ public class CitaServiceImpl extends GenericServiceImpl<CitaEntity, CitaDTO, UUI
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarCitaDTO actualizarCitaDTO, CitaEntity entity) {
-        Optional.ofNullable(actualizarCitaDTO.getDoctorEntity()).flatMap(doctorRepository::findById)
+    protected void updateEntityFromDto(CitaEntity entity, CrearCitaDTO dto) {
+        Optional.ofNullable(dto.getDoctorEntity()).flatMap(doctorRepository::findById)
                 .ifPresent(entity::setDoctorEntity);
-        Optional.ofNullable(actualizarCitaDTO.getEspecialidadEntity()).flatMap(especialidadRepository::findById)
+        Optional.ofNullable(dto.getEspecialidadEntity()).flatMap(especialidadRepository::findById)
                 .ifPresent(entity::setEspecialidadEntity);
-        Optional.ofNullable(actualizarCitaDTO.getPacienteEntity()).flatMap(pacienteRepository::findById)
+        Optional.ofNullable(dto.getPacienteEntity()).flatMap(pacienteRepository::findById)
                 .ifPresent(entity::setPacienteEntity);
-        Optional.ofNullable(actualizarCitaDTO.getSedeEntity()).flatMap(sedeRepository::findById)
+        Optional.ofNullable(dto.getSedeEntity()).flatMap(sedeRepository::findById)
                 .ifPresent(entity::setSedeEntity);
-        Optional.ofNullable(actualizarCitaDTO.getTipoCitadoEntity()).flatMap(tipoCitadoRepository::findById)
+        Optional.ofNullable(dto.getTipoCitadoEntity()).flatMap(tipoCitadoRepository::findById)
                 .ifPresent(entity::setTipoCitadoEntity);
-        entity.setFecha(actualizarCitaDTO.getFecha());
-        entity.setHoraInicio(actualizarCitaDTO.getHoraInicio());
-        entity.setHoraFin(actualizarCitaDTO.getHoraFin());
-        entity.setEstado(actualizarCitaDTO.getEstado());
-        entity.setMotivoConsulta(actualizarCitaDTO.getMotivoConsulta());
-        entity.setObservacion(actualizarCitaDTO.getObservacion());
+        Optional.ofNullable(dto.getFecha()).ifPresent(entity::setFecha);
+        Optional.ofNullable(dto.getHoraInicio()).ifPresent(entity::setHoraInicio);
+        Optional.ofNullable(dto.getHoraFin()).ifPresent(entity::setHoraFin);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
+        Optional.ofNullable(dto.getMotivoConsulta()).ifPresent(entity::setMotivoConsulta);
+        Optional.ofNullable(dto.getObservacion()).ifPresent(entity::setObservacion);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -95,8 +92,8 @@ public class CitaServiceImpl extends GenericServiceImpl<CitaEntity, CitaDTO, UUI
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarCitaDTO actualizarCitaDTO) {
-        return super.update(uuid, actualizarCitaDTO);
+    public ApiResponse update(UUID uuid, CrearCitaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

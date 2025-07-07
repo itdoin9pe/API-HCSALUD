@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.mantenimiento;
 
 import com.saludsystem.application.dtos.mantenimiento.get.TarifarioDTO;
 import com.saludsystem.application.dtos.mantenimiento.post.CrearTarifarioDTO;
-import com.saludsystem.application.dtos.mantenimiento.put.ActualizarTarifarioDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,10 +17,9 @@ import java.util.UUID;
 @Tag(name = "Tarifarios")
 @RestController
 @RequestMapping("/api/Tarifarios")
-public class TarifarioController extends GenericController<TarifarioDTO, UUID,
-        CrearTarifarioDTO, ActualizarTarifarioDTO> {
+public class TarifarioController extends GenericController<CrearTarifarioDTO, TarifarioDTO, UUID> {
 
-    protected TarifarioController(GenericService<TarifarioDTO, UUID, CrearTarifarioDTO, ActualizarTarifarioDTO> genericService) {
+    protected TarifarioController(GenericService<CrearTarifarioDTO, TarifarioDTO, UUID> genericService) {
         super(genericService);
     }
 

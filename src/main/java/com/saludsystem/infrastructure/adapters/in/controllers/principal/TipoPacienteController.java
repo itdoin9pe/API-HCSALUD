@@ -1,6 +1,6 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.principal;
 
-import com.saludsystem.application.dtos.principal.get.TipoPacienteDTO;
+import com.saludsystem.application.dtos.principal.res.TipoPacienteDTO;
 import com.saludsystem.application.services.principal.TipoPacienteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;

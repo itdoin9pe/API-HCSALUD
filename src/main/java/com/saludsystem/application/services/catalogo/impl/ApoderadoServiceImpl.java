@@ -1,9 +1,9 @@
 package com.saludsystem.application.services.catalogo.impl;
 
-import com.saludsystem.application.dtos.catalogo.put.ActualizarApoderadoDTO;
-import com.saludsystem.application.dtos.catalogo.get.ApoderadoDTO;
+import com.saludsystem.application.dtos.catalogo.req.ApoderadoDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearApoderadoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
+import com.saludsystem.application.services.catalogo.ApoderadoService;
 import com.saludsystem.domain.model.catalogo.ApoderadoEntity;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -15,18 +15,18 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity, ApoderadoDTO,
-        UUID, CrearApoderadoDTO, ActualizarApoderadoDTO> {
+public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity, CrearApoderadoDTO,
+        ApoderadoDTO, UUID> implements ApoderadoService {
 
     private final SysSaludRepository sysSaludRepository;
 
     public ApoderadoServiceImpl(ApoderadoRepository apoderadoRepository, ModelMapper modelMapper,
             AuthValidator authValidator, SysSaludRepository sysSaludRepository) {
-        super(apoderadoRepository, modelMapper, authValidator, ApoderadoDTO.class,
-                apoderadoEntity -> modelMapper.map(apoderadoEntity, ApoderadoDTO.class));
+        super(apoderadoRepository, modelMapper, authValidator, ApoderadoDTO.class);
         this.sysSaludRepository = sysSaludRepository;
     }
 
@@ -38,8 +38,8 @@ public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity, Ap
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID id, ActualizarApoderadoDTO dto) {
-        return super.update(id, dto);
+    public ApiResponse update(UUID uuid, CrearApoderadoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -75,11 +75,11 @@ public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity, Ap
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarApoderadoDTO actualizarApoderadoDTO, ApoderadoEntity entity) {
-        entity.setNombre(actualizarApoderadoDTO.getNombre());
-        entity.setNroDocumento(actualizarApoderadoDTO.getNroDocumento());
-        entity.setDireccion(actualizarApoderadoDTO.getDireccion());
-        entity.setTelefono(actualizarApoderadoDTO.getTelefono());
-        entity.setEstado(actualizarApoderadoDTO.getEstado());
+    protected void updateEntityFromDto(ApoderadoEntity entity, CrearApoderadoDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getNroDocumento()).ifPresent(entity::setNroDocumento);
+        Optional.ofNullable(dto.getDireccion()).ifPresent(entity::setDireccion);
+        Optional.ofNullable(dto.getTelefono()).ifPresent(entity::setTelefono);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

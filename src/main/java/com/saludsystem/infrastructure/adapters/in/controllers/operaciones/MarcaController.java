@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.operaciones;
 
 import com.saludsystem.application.dtos.operaciones.get.MarcaDTO;
 import com.saludsystem.application.dtos.operaciones.post.CrearMarcaDTO;
-import com.saludsystem.application.dtos.operaciones.put.ActualizarMarcaDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,9 +17,9 @@ import java.util.UUID;
 @Tag(name = "MarcasMateriales")
 @RestController
 @RequestMapping("/api/MarcasMateriales")
-public class MarcaController extends GenericController<MarcaDTO, UUID, CrearMarcaDTO, ActualizarMarcaDTO> {
+public class MarcaController extends GenericController<CrearMarcaDTO, MarcaDTO, UUID> {
 
-    protected MarcaController(GenericService<MarcaDTO, UUID, CrearMarcaDTO, ActualizarMarcaDTO> genericService) {
+    protected MarcaController(GenericService<CrearMarcaDTO, MarcaDTO, UUID> genericService) {
         super(genericService);
     }
 

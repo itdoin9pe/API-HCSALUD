@@ -1,6 +1,6 @@
 package com.saludsystem.infrastructure.adapters.in.response.catalogo;
 
-import com.saludsystem.application.dtos.catalogo.get.PlanDTO;
+import com.saludsystem.application.dtos.catalogo.req.PlanDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

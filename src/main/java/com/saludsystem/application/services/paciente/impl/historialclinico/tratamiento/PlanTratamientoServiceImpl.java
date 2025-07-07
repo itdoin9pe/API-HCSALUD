@@ -23,8 +23,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamientoEntity, PlanTratamientoDTO, UUID,
-        CrearPlanTratamientoDTO, ActualizarPlanTratamientoDTO> implements PlanTratamientoService {
+public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamientoEntity, CrearPlanTratamientoDTO,
+        PlanTratamientoDTO, UUID> implements PlanTratamientoService {
 
     private final PacienteRepository pacienteRepository;
     private final EspecialidadRepository especialidadRepository;
@@ -35,8 +35,8 @@ public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamien
             PlanTratamientoRepository planTratamientoRepository, ModelMapper modelMapper, AuthValidator authValidator,
             PacienteRepository pacienteRepository, EspecialidadRepository especialidadRepository,
             DoctorRepository doctorRepository, MedidaRepository medidaRepository) {
-        super(planTratamientoRepository, modelMapper, authValidator, PlanTratamientoDTO.class,
-                planTratamientoEntity -> modelMapper.map(planTratamientoEntity, PlanTratamientoDTO.class));
+        super(planTratamientoRepository, modelMapper, authValidator, PlanTratamientoDTO.class
+        );
         this.pacienteRepository = pacienteRepository;
         this.especialidadRepository = especialidadRepository;
         this.doctorRepository = doctorRepository;
@@ -56,21 +56,21 @@ public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamien
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarPlanTratamientoDTO actualizarPlanTratamientoDTO, PlanTratamientoEntity entity) {
-        Optional.ofNullable(actualizarPlanTratamientoDTO.getPacienteId())
+    protected void updateEntityFromDto(PlanTratamientoEntity entity, CrearPlanTratamientoDTO dto) {
+        Optional.ofNullable(dto.getPacienteId())
                 .flatMap(pacienteRepository::findById)
                 .ifPresent(entity::setPacienteEntity);
-        Optional.ofNullable(actualizarPlanTratamientoDTO.getDoctorId())
+        Optional.ofNullable(dto.getDoctorId())
                 .flatMap(doctorRepository::findById)
                 .ifPresent(entity::setDoctorEntity);
-        Optional.ofNullable(actualizarPlanTratamientoDTO.getEspecialidadId())
+        Optional.ofNullable(dto.getEspecialidadId())
                 .flatMap(especialidadRepository::findById)
                 .ifPresent(entity::setEspecialidadEntity);
-        Optional.ofNullable(actualizarPlanTratamientoDTO.getMedidaId())
+        Optional.ofNullable(dto.getMedidaId())
                 .flatMap(medidaRepository::findById)
                 .ifPresent(entity::setMedidaEntity);
-        Optional.ofNullable(actualizarPlanTratamientoDTO.getFechaInicio()).ifPresent(entity::setFechaInicio);
-        Optional.ofNullable(actualizarPlanTratamientoDTO.getFechaFin()).ifPresent(entity::setFechaFin);
+        Optional.ofNullable(dto.getFechaInicio()).ifPresent(entity::setFechaInicio);
+        Optional.ofNullable(dto.getFechaFin()).ifPresent(entity::setFechaFin);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -86,8 +86,8 @@ public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamien
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarPlanTratamientoDTO actualizarPlanTratamientoDTO) {
-        return super.update(uuid, actualizarPlanTratamientoDTO);
+    public ApiResponse update(UUID uuid, CrearPlanTratamientoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

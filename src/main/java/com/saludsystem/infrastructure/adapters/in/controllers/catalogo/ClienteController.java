@@ -1,8 +1,7 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.catalogo;
 
-import com.saludsystem.application.dtos.catalogo.get.ClienteDTO;
+import com.saludsystem.application.dtos.catalogo.req.ClienteDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearClienteDTO;
-import com.saludsystem.application.dtos.catalogo.put.ActualizarClienteDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,11 +17,9 @@ import java.util.UUID;
 @Tag(name = "Clientes")
 @RestController
 @RequestMapping("/api/Clientes")
-public class ClienteController extends GenericController<
-        ClienteDTO, UUID, CrearClienteDTO, ActualizarClienteDTO> {
+public class ClienteController extends GenericController<CrearClienteDTO, ClienteDTO, UUID> {
 
-    protected ClienteController(GenericService<ClienteDTO, UUID,
-            CrearClienteDTO, ActualizarClienteDTO> genericService) {
+    protected ClienteController(GenericService<CrearClienteDTO, ClienteDTO, UUID> genericService) {
         super(genericService);
     }
 

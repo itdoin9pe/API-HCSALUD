@@ -18,9 +18,9 @@ import java.util.UUID;
 @Tag(name = "Bancos")
 @RestController
 @RequestMapping("/api/Bancos")
-public class BancoController extends GenericController<BancoDTO, UUID, CrearBancoDTO, ActualizarBancoDTO> {
+public class BancoController extends GenericController<CrearBancoDTO, BancoDTO, UUID> {
 
-    protected BancoController(GenericService<BancoDTO, UUID, CrearBancoDTO, ActualizarBancoDTO> genericService) {
+    protected BancoController(GenericService<CrearBancoDTO, BancoDTO, UUID> genericService) {
         super(genericService);
     }
 

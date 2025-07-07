@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.configuracion;
 
 import com.saludsystem.application.dtos.configuracion.get.TipoDocumentoDTO;
 import com.saludsystem.application.dtos.configuracion.post.CrearTipoDocumentoDTO;
-import com.saludsystem.application.dtos.configuracion.put.ActualizarTipoDocumentoDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,11 +17,9 @@ import java.util.UUID;
 @Tag(name = "TipoDocumentos")
 @RestController
 @RequestMapping("/api/TipoDocumentos")
-public class TipoDocumentoController extends GenericController<TipoDocumentoDTO, UUID,
-        CrearTipoDocumentoDTO, ActualizarTipoDocumentoDTO> {
+public class TipoDocumentoController extends GenericController<CrearTipoDocumentoDTO, TipoDocumentoDTO, UUID> {
 
-    protected TipoDocumentoController(GenericService<TipoDocumentoDTO, UUID,
-            CrearTipoDocumentoDTO, ActualizarTipoDocumentoDTO> genericService) {
+    protected TipoDocumentoController(GenericService<CrearTipoDocumentoDTO, TipoDocumentoDTO, UUID> genericService) {
         super(genericService);
     }
 

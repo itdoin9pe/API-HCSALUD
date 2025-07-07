@@ -1,6 +1,6 @@
 package com.saludsystem.infrastructure.adapters.in.response.principal;
 
-import com.saludsystem.application.dtos.principal.get.EstudioDTO;
+import com.saludsystem.application.dtos.principal.res.EstudioDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

@@ -2,13 +2,11 @@ package com.saludsystem.application.services.mantenimiento.impl;
 
 import com.saludsystem.application.dtos.mantenimiento.get.TarifarioDTO;
 import com.saludsystem.application.dtos.mantenimiento.post.CrearTarifarioDTO;
-import com.saludsystem.application.dtos.mantenimiento.put.ActualizarTarifarioDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.mantenimiento.TarifarioService;
 import com.saludsystem.domain.model.mantenimiento.TarifarioEntity;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
-
 import com.saludsystem.infrastructure.adapters.out.persistance.repository.catalogo.CategoriaRepository;
 import com.saludsystem.infrastructure.adapters.out.persistance.repository.catalogo.MedidaRepository;
 import com.saludsystem.infrastructure.adapters.out.persistance.repository.catalogo.TipoConceptoRepository;
@@ -24,18 +22,20 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TarifarioServiceImpl extends GenericServiceImpl<TarifarioEntity, TarifarioDTO, UUID,
-        CrearTarifarioDTO, ActualizarTarifarioDTO> implements TarifarioService {
+public class TarifarioServiceImpl extends GenericServiceImpl<TarifarioEntity, CrearTarifarioDTO, TarifarioDTO, UUID>
+        implements TarifarioService {
 
     private final TipoConceptoRepository tipoConceptoRepository;
     private final CategoriaRepository categoriaRepository;
     private final UnidadRepository unidadRepository;
     private final MedidaRepository medidaRepository;
 
-    public TarifarioServiceImpl(TarifarioRepository tarifarioRepository, ModelMapper modelMapper,
-                                AuthValidator authValidator, TipoConceptoRepository tipoConceptoRepository, CategoriaRepository categoriaRepository, UnidadRepository unidadRepository, MedidaRepository medidaRepository) {
-        super(tarifarioRepository, modelMapper, authValidator, TarifarioDTO.class,
-                tarifarioEntity -> modelMapper.map(tarifarioEntity, TarifarioDTO.class));
+    public TarifarioServiceImpl(
+            TarifarioRepository tarifarioRepository, ModelMapper modelMapper,
+            AuthValidator authValidator, TipoConceptoRepository tipoConceptoRepository,
+            CategoriaRepository categoriaRepository, UnidadRepository unidadRepository,
+            MedidaRepository medidaRepository) {
+        super(tarifarioRepository, modelMapper, authValidator, TarifarioDTO.class);
         this.tipoConceptoRepository = tipoConceptoRepository;
         this.categoriaRepository = categoriaRepository;
         this.unidadRepository = unidadRepository;
@@ -55,8 +55,8 @@ public class TarifarioServiceImpl extends GenericServiceImpl<TarifarioEntity, Ta
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarTarifarioDTO actualizarTarifarioDTO) {
-        return super.update(uuid, actualizarTarifarioDTO);
+    public ApiResponse update(UUID uuid, CrearTarifarioDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -90,26 +90,26 @@ public class TarifarioServiceImpl extends GenericServiceImpl<TarifarioEntity, Ta
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarTarifarioDTO actualizarTarifarioDTO, TarifarioEntity entity) {
-        Optional.ofNullable(actualizarTarifarioDTO.getTipoConceptoId())
+    protected void updateEntityFromDto(TarifarioEntity entity, CrearTarifarioDTO dto) {
+        Optional.ofNullable(dto.getTipoConceptoId())
                 .flatMap(tipoConceptoRepository::findById)
                 .ifPresent(entity::setTipoConceptoEntity);
-        Optional.ofNullable(actualizarTarifarioDTO.getCategoriaId())
+        Optional.ofNullable(dto.getCategoriaId())
                 .flatMap(categoriaRepository::findById)
                 .ifPresent(entity::setCategoriaEntity);
-        Optional.ofNullable(actualizarTarifarioDTO.getUnidadId())
+        Optional.ofNullable(dto.getUnidadId())
                 .flatMap(unidadRepository::findById)
                 .ifPresent(entity::setUnidadEntity);
-        Optional.ofNullable(actualizarTarifarioDTO.getMedidaId())
+        Optional.ofNullable(dto.getMedidaId())
                 .flatMap(medidaRepository::findById)
                 .ifPresent(entity::setMedidaEntity);
-        Optional.ofNullable(actualizarTarifarioDTO.getGrupo())
+        Optional.ofNullable(dto.getGrupo())
                 .filter(s -> !s.isBlank())
                 .ifPresent(entity::setGrupo);
-        Optional.ofNullable(actualizarTarifarioDTO.getDescripcion())
+        Optional.ofNullable(dto.getDescripcion())
                 .filter(s -> !s.isBlank())
                 .ifPresent(entity::setDescripcion);
-        Optional.ofNullable(actualizarTarifarioDTO.getPrecio()).ifPresent(entity::setPrecio);
-        Optional.ofNullable(actualizarTarifarioDTO.getEstado()).ifPresent(entity::setEstado);
+        Optional.ofNullable(dto.getPrecio()).ifPresent(entity::setPrecio);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

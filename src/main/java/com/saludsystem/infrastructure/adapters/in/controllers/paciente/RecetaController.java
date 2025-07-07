@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.paciente;
 
 import com.saludsystem.application.dtos.paciente.get.RecetaDTO;
 import com.saludsystem.application.dtos.paciente.post.CrearRecetaDTO;
-import com.saludsystem.application.dtos.paciente.put.ActualizarRecetaDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,12 +17,12 @@ import java.util.UUID;
 @Tag(name = "PacientesRecetas")
 @RestController
 @RequestMapping("/api/Pacientes/Recetas")
-public class RecetaController extends GenericController<RecetaDTO, UUID,
-        CrearRecetaDTO, ActualizarRecetaDTO> {
+public class RecetaController extends GenericController<CrearRecetaDTO, RecetaDTO, UUID> {
 
-    protected RecetaController(GenericService<RecetaDTO, UUID, CrearRecetaDTO, ActualizarRecetaDTO> genericService) {
+    protected RecetaController(GenericService<CrearRecetaDTO, RecetaDTO, UUID> genericService) {
         super(genericService);
     }
+
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

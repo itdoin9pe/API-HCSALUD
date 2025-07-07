@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.mantenimiento;
 
 import com.saludsystem.application.dtos.mantenimiento.get.CajaDTO;
 import com.saludsystem.application.dtos.mantenimiento.post.CrearCajaDTO;
-import com.saludsystem.application.dtos.mantenimiento.put.ActualizarCajaDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,9 +17,9 @@ import java.util.UUID;
 @Tag(name = "Cajas")
 @RestController
 @RequestMapping("/api/Cajas")
-public class CajaController extends GenericController<CajaDTO, UUID, CrearCajaDTO, ActualizarCajaDTO> {
+public class CajaController extends GenericController<CrearCajaDTO, CajaDTO, UUID> {
 
-    protected CajaController(GenericService<CajaDTO, UUID, CrearCajaDTO, ActualizarCajaDTO> genericService) {
+    protected CajaController(GenericService<CrearCajaDTO, CajaDTO, UUID> genericService) {
         super(genericService);
     }
 

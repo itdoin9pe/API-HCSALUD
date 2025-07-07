@@ -1,8 +1,7 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.catalogo;
 
-import com.saludsystem.application.dtos.catalogo.get.ApoderadoDTO;
+import com.saludsystem.application.dtos.catalogo.req.ApoderadoDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearApoderadoDTO;
-import com.saludsystem.application.dtos.catalogo.put.ActualizarApoderadoDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -17,14 +16,9 @@ import java.util.UUID;
 @Tag(name = "Apoderados")
 @RestController
 @RequestMapping("/api/Apoderados")
-public class ApoderadoController extends GenericController<
-        ApoderadoDTO,
-        UUID,
-        CrearApoderadoDTO,
-        ActualizarApoderadoDTO> {
+public class ApoderadoController extends GenericController<CrearApoderadoDTO, ApoderadoDTO, UUID> {
 
-    protected ApoderadoController(GenericService<ApoderadoDTO, UUID,
-            CrearApoderadoDTO, ActualizarApoderadoDTO> genericService) {
+    protected ApoderadoController(GenericService<CrearApoderadoDTO, ApoderadoDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -37,5 +31,4 @@ public class ApoderadoController extends GenericController<
     public ListResponse<ApoderadoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
-
 }

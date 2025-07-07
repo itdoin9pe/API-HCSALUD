@@ -2,7 +2,6 @@ package com.saludsystem.application.services.configuracion.impl;
 
 import com.saludsystem.application.dtos.configuracion.get.PermisoDTO;
 import com.saludsystem.application.dtos.configuracion.post.CrearPermisoDTO;
-import com.saludsystem.application.dtos.configuracion.put.ActualizarPermisoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.configuracion.PermisoService;
 import com.saludsystem.domain.model.configuracion.PermisoEntity;
@@ -15,16 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PermisoServiceImpl extends GenericServiceImpl<PermisoEntity, PermisoDTO, UUID,
-        CrearPermisoDTO, ActualizarPermisoDTO> implements PermisoService {
+public class PermisoServiceImpl extends GenericServiceImpl<PermisoEntity, CrearPermisoDTO, PermisoDTO, UUID>
+        implements PermisoService {
 
-    public PermisoServiceImpl(PermisoRepository permisoRepository, ModelMapper modelMapper,
-                              AuthValidator authValidator) {
-        super(permisoRepository, modelMapper, authValidator, PermisoDTO.class,
-                permisoEntity -> modelMapper.map(permisoEntity, PermisoDTO.class));
+    protected PermisoServiceImpl(
+            PermisoRepository permisoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(permisoRepository, modelMapper, authValidator, PermisoDTO.class);
     }
 
     @Override
@@ -40,8 +39,8 @@ public class PermisoServiceImpl extends GenericServiceImpl<PermisoEntity, Permis
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarPermisoDTO actualizarPermisoDTO) {
-        return super.update(uuid, actualizarPermisoDTO);
+    public ApiResponse update(UUID uuid, CrearPermisoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -71,10 +70,10 @@ public class PermisoServiceImpl extends GenericServiceImpl<PermisoEntity, Permis
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarPermisoDTO actualizarPermisoDTO, PermisoEntity entity) {
-        entity.setInsert(actualizarPermisoDTO.getInsert());
-        entity.setRead(actualizarPermisoDTO.getRead());
-        entity.setUpdate(actualizarPermisoDTO.getUpdate());
-        entity.setDelete(actualizarPermisoDTO.getDelete());
+    protected void updateEntityFromDto(PermisoEntity entity, CrearPermisoDTO dto) {
+        Optional.ofNullable(dto.getInsert()).ifPresent(entity::setInsert);
+        Optional.ofNullable(dto.getRead()).ifPresent(entity::setRead);
+        Optional.ofNullable(dto.getUpdate()).ifPresent(entity::setUpdate);
+        Optional.ofNullable(dto.getDelete()).ifPresent(entity::setDelete);
     }
 }

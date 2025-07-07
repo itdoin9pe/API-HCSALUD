@@ -1,8 +1,7 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.principal;
 
-import com.saludsystem.application.dtos.principal.get.InformacionClinicaDTO;
-import com.saludsystem.application.dtos.principal.post.CrearInformacionClinicaDTO;
-import com.saludsystem.application.dtos.principal.put.ActualizarInformacionClinicaDTO;
+import com.saludsystem.application.dtos.principal.req.CrearInformacionClinicaDTO;
+import com.saludsystem.application.dtos.principal.res.InformacionClinicaDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,11 +17,10 @@ import java.util.UUID;
 @Tag(name = "InformacionClinicas")
 @RestController
 @RequestMapping("/api/InformacionClinicas")
-public class InformacionClinicaController extends GenericController<InformacionClinicaDTO, UUID,
-        CrearInformacionClinicaDTO, ActualizarInformacionClinicaDTO> {
+public class InformacionClinicaController extends GenericController<CrearInformacionClinicaDTO,
+        InformacionClinicaDTO, UUID> {
 
-    protected InformacionClinicaController(GenericService<InformacionClinicaDTO, UUID,
-            CrearInformacionClinicaDTO, ActualizarInformacionClinicaDTO> genericService) {
+    protected InformacionClinicaController(GenericService<CrearInformacionClinicaDTO, InformacionClinicaDTO, UUID> genericService) {
         super(genericService);
     }
 

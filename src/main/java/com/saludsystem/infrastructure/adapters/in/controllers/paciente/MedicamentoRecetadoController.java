@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.paciente;
 
 import com.saludsystem.application.dtos.paciente.get.MedicamentoRecetadoDTO;
 import com.saludsystem.application.dtos.paciente.post.CrearMedicamentoRecetadoDTO;
-import com.saludsystem.application.dtos.paciente.put.ActualizarMedicamentoRecetadoDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,11 +17,10 @@ import java.util.UUID;
 @Tag(name = "PacientesMedicamentosRecetados")
 @RestController
 @RequestMapping("/api/Pacientes/MedicamentosRecetados")
-public class MedicamentoRecetadoController extends GenericController<MedicamentoRecetadoDTO, UUID,
-        CrearMedicamentoRecetadoDTO, ActualizarMedicamentoRecetadoDTO> {
+public class MedicamentoRecetadoController extends GenericController<CrearMedicamentoRecetadoDTO,
+        MedicamentoRecetadoDTO, UUID> {
 
-    protected MedicamentoRecetadoController(GenericService<MedicamentoRecetadoDTO, UUID,
-            CrearMedicamentoRecetadoDTO, ActualizarMedicamentoRecetadoDTO> genericService) {
+    protected MedicamentoRecetadoController(GenericService<CrearMedicamentoRecetadoDTO, MedicamentoRecetadoDTO, UUID> genericService) {
         super(genericService);
     }
 

@@ -2,7 +2,6 @@ package com.saludsystem.application.services.operaciones.impl;
 
 import com.saludsystem.application.dtos.operaciones.get.ProveedorDTO;
 import com.saludsystem.application.dtos.operaciones.post.CrearProveedorDTO;
-import com.saludsystem.application.dtos.operaciones.put.ActualizarProveedorDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.operaciones.ProveedorService;
 import com.saludsystem.domain.model.operaciones.ProveedorEntity;
@@ -15,15 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ProveedorServiceImpl extends GenericServiceImpl<ProveedorEntity, ProveedorDTO, UUID,
-        CrearProveedorDTO, ActualizarProveedorDTO> implements ProveedorService {
+public class ProveedorServiceImpl extends GenericServiceImpl<ProveedorEntity, CrearProveedorDTO, ProveedorDTO, UUID>
+        implements ProveedorService {
 
-    public ProveedorServiceImpl(ProveedorRepository proveedorRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(proveedorRepository, modelMapper, authValidator, ProveedorDTO.class,
-                proveedorEntity -> modelMapper.map(proveedorEntity, ProveedorDTO.class));
+    public ProveedorServiceImpl(
+            ProveedorRepository proveedorRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(proveedorRepository, modelMapper, authValidator, ProveedorDTO.class);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -39,8 +39,8 @@ public class ProveedorServiceImpl extends GenericServiceImpl<ProveedorEntity, Pr
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarProveedorDTO actualizarProveedorDTO) {
-        return super.update(uuid, actualizarProveedorDTO);
+    public ApiResponse update(UUID uuid, CrearProveedorDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -72,12 +72,12 @@ public class ProveedorServiceImpl extends GenericServiceImpl<ProveedorEntity, Pr
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarProveedorDTO actualizarProveedorDTO, ProveedorEntity entity) {
-        entity.setNombre(actualizarProveedorDTO.getNombre());
-        entity.setContacto(actualizarProveedorDTO.getContacto());
-        entity.setCorreo(actualizarProveedorDTO.getCorreo());
-        entity.setDireccion(actualizarProveedorDTO.getDireccion());
-        entity.setRuc(actualizarProveedorDTO.getRuc());
-        entity.setTelefono(actualizarProveedorDTO.getTelefono());
+    protected void updateEntityFromDto(ProveedorEntity entity, CrearProveedorDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getContacto()).ifPresent(entity::setContacto);
+        Optional.ofNullable(dto.getCorreo()).ifPresent(entity::setCorreo);
+        Optional.ofNullable(dto.getDireccion()).ifPresent(entity::setDireccion);
+        Optional.ofNullable(dto.getRuc()).ifPresent(entity::setRuc);
+        Optional.ofNullable(dto.getTelefono()).ifPresent(entity::setTelefono);
     }
 }

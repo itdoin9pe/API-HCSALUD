@@ -2,7 +2,6 @@ package com.saludsystem.application.services.paciente.impl.historialclinico.esta
 
 import com.saludsystem.application.dtos.paciente.get.historialclinico.estadocuenta.CostoHospitalizacionDTO;
 import com.saludsystem.application.dtos.paciente.post.historialclinico.estadocuenta.CrearCostoHospitalizacionDTO;
-import com.saludsystem.application.dtos.paciente.put.historialclinico.estadocuenta.ActualizarCostoHospitalizacionDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.historialclinico.estadocuenta.CostoHospitalizacionService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
@@ -22,17 +21,15 @@ import java.util.UUID;
 
 @Service
 public class CostoHospitalizacionServiceImpl extends GenericServiceImpl<CostoHospitalizacionEntity,
-        CostoHospitalizacionDTO, UUID, CrearCostoHospitalizacionDTO, ActualizarCostoHospitalizacionDTO>
-        implements CostoHospitalizacionService {
+        CrearCostoHospitalizacionDTO, CostoHospitalizacionDTO, UUID> implements CostoHospitalizacionService {
 
     private final EstadoCuentaRepository estadoCuentaRepository;
 
     public CostoHospitalizacionServiceImpl(
             CostoHospitalizacionRepository costoHospitalizacionRepository,
             ModelMapper modelMapper, AuthValidator authValidator, EstadoCuentaRepository estadoCuentaRepository) {
-        super(costoHospitalizacionRepository, modelMapper, authValidator, CostoHospitalizacionDTO.class,
-                costoHospitalizacionEntity
-                        -> modelMapper.map(costoHospitalizacionEntity, CostoHospitalizacionDTO.class));
+        super(costoHospitalizacionRepository, modelMapper, authValidator, CostoHospitalizacionDTO.class
+        );
         this.estadoCuentaRepository = estadoCuentaRepository;
     }
 
@@ -51,13 +48,13 @@ public class CostoHospitalizacionServiceImpl extends GenericServiceImpl<CostoHos
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarCostoHospitalizacionDTO actualizarCostoHospitalizacionDTO, CostoHospitalizacionEntity entity) {
-        Optional.ofNullable(actualizarCostoHospitalizacionDTO.getFechaIngreso()).ifPresent(entity::setFechaIngreso);
-        Optional.ofNullable(actualizarCostoHospitalizacionDTO.getFechaAlta()).ifPresent(entity::setFechaIngreso);
-        Optional.ofNullable(actualizarCostoHospitalizacionDTO.getTipoHabitacion()).ifPresent(entity::setTipoHabitacion);
-        Optional.ofNullable(actualizarCostoHospitalizacionDTO.getCostoPorDia()).ifPresent(entity::setCostoPorDia);
-        Optional.ofNullable(actualizarCostoHospitalizacionDTO.getCantidadDias()).ifPresent(entity::setCantidadDias);
-        Optional.ofNullable(actualizarCostoHospitalizacionDTO.getTotalCosto()).ifPresent(entity::setTotalCosto);
+    protected void updateEntityFromDto(CostoHospitalizacionEntity entity, CrearCostoHospitalizacionDTO dto) {
+        Optional.ofNullable(dto.getFechaIngreso()).ifPresent(entity::setFechaIngreso);
+        Optional.ofNullable(dto.getFechaAlta()).ifPresent(entity::setFechaIngreso);
+        Optional.ofNullable(dto.getTipoHabitacion()).ifPresent(entity::setTipoHabitacion);
+        Optional.ofNullable(dto.getCostoPorDia()).ifPresent(entity::setCostoPorDia);
+        Optional.ofNullable(dto.getCantidadDias()).ifPresent(entity::setCantidadDias);
+        Optional.ofNullable(dto.getTotalCosto()).ifPresent(entity::setTotalCosto);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -73,8 +70,8 @@ public class CostoHospitalizacionServiceImpl extends GenericServiceImpl<CostoHos
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarCostoHospitalizacionDTO actualizarCostoHospitalizacionDTO) {
-        return super.update(uuid, actualizarCostoHospitalizacionDTO);
+    public ApiResponse update(UUID uuid, CrearCostoHospitalizacionDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.paciente;
 
 import com.saludsystem.application.dtos.paciente.get.DiagnosticoDTO;
 import com.saludsystem.application.dtos.paciente.post.CrearDiagnosticoDTO;
-import com.saludsystem.application.dtos.paciente.put.ActualizarDiagnosticoDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,11 +17,9 @@ import java.util.UUID;
 @Tag(name = "PacientesDiagnosticos")
 @RestController
 @RequestMapping("/api/Pacientes/Diagnosticos")
-public class DiagnosticoController extends GenericController<DiagnosticoDTO, UUID,
-        CrearDiagnosticoDTO, ActualizarDiagnosticoDTO> {
+public class DiagnosticoController extends GenericController<CrearDiagnosticoDTO, DiagnosticoDTO, UUID> {
 
-    protected DiagnosticoController(GenericService<DiagnosticoDTO, UUID, CrearDiagnosticoDTO,
-            ActualizarDiagnosticoDTO> genericService) {
+    protected DiagnosticoController(GenericService<CrearDiagnosticoDTO, DiagnosticoDTO, UUID> genericService) {
         super(genericService);
     }
 

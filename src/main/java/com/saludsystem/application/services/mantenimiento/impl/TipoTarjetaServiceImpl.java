@@ -2,9 +2,7 @@ package com.saludsystem.application.services.mantenimiento.impl;
 
 import com.saludsystem.application.dtos.mantenimiento.get.TipoTarjetaDTO;
 import com.saludsystem.application.dtos.mantenimiento.post.CrearTipoTarjetaDTO;
-import com.saludsystem.application.dtos.mantenimiento.put.ActualizarTipoTarjetaDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
-
 import com.saludsystem.application.services.mantenimiento.TipoTarjetaService;
 import com.saludsystem.domain.model.mantenimiento.TipoTarjetaEntity;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
@@ -16,17 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TipoTarjetaServiceImpl extends GenericServiceImpl<TipoTarjetaEntity, TipoTarjetaDTO, UUID,
-        CrearTipoTarjetaDTO, ActualizarTipoTarjetaDTO> implements TipoTarjetaService {
+public class TipoTarjetaServiceImpl extends GenericServiceImpl<TipoTarjetaEntity, CrearTipoTarjetaDTO, TipoTarjetaDTO,
+        UUID> implements TipoTarjetaService {
 
-
-    public TipoTarjetaServiceImpl(TipoTarjetaRepository tipoTarjetaRepository, ModelMapper modelMapper,
-                                  AuthValidator authValidator) {
-        super(tipoTarjetaRepository, modelMapper, authValidator, TipoTarjetaDTO.class,
-                tipoTarjetaEntity -> modelMapper.map(tipoTarjetaEntity, TipoTarjetaDTO.class));
+    protected TipoTarjetaServiceImpl(
+            TipoTarjetaRepository tipoTarjetaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(tipoTarjetaRepository, modelMapper, authValidator, TipoTarjetaDTO.class);
     }
 
     @Override
@@ -42,8 +39,8 @@ public class TipoTarjetaServiceImpl extends GenericServiceImpl<TipoTarjetaEntity
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarTipoTarjetaDTO actualizarTipoTarjetaDTO) {
-        return super.update(uuid, actualizarTipoTarjetaDTO);
+    public ApiResponse update(UUID uuid, CrearTipoTarjetaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -71,8 +68,8 @@ public class TipoTarjetaServiceImpl extends GenericServiceImpl<TipoTarjetaEntity
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarTipoTarjetaDTO actualizarTipoTarjetaDTO, TipoTarjetaEntity entity) {
-        entity.setDescripcion(actualizarTipoTarjetaDTO.getDescripcion());
-        entity.setEstado(actualizarTipoTarjetaDTO.getEstado());
+    protected void updateEntityFromDto(TipoTarjetaEntity entity, CrearTipoTarjetaDTO dto) {
+        Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

@@ -3,7 +3,6 @@ package com.saludsystem.application.services.paciente.impl;
 import com.saludsystem.application.dtos.paciente.get.HoraDTO;
 import com.saludsystem.application.dtos.paciente.get.PConsentimientoDTO;
 import com.saludsystem.application.dtos.paciente.post.CrearPConsentimientoDTO;
-import com.saludsystem.application.dtos.paciente.put.ActualizarPConsentimiento;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.PConsentimientoService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
@@ -25,8 +24,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimientoEntity, PConsentimientoDTO,
-        UUID, CrearPConsentimientoDTO, ActualizarPConsentimiento> implements PConsentimientoService {
+public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimientoEntity, CrearPConsentimientoDTO,
+        PConsentimientoDTO, UUID> implements PConsentimientoService {
 
     private final DoctorRepository doctorRepository;
     private final PacienteRepository pacienteRepository;
@@ -35,8 +34,8 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
     public PConsentimientoServiceImpl(
             PConsentimientoRepository pConsentimientoRepository, ModelMapper modelMapper, AuthValidator authValidator,
             DoctorRepository doctorRepository, PacienteRepository pacienteRepository, ConsentimientoRepository consentimientoRepository) {
-        super(pConsentimientoRepository, modelMapper, authValidator, PConsentimientoDTO.class,
-                pConsentimientoEntity -> modelMapper.map(pConsentimientoEntity, PConsentimientoDTO.class));
+        super(pConsentimientoRepository, modelMapper, authValidator, PConsentimientoDTO.class
+        );
         this.doctorRepository = doctorRepository;
         this.pacienteRepository = pacienteRepository;
         this.consentimientoRepository = consentimientoRepository;
@@ -70,35 +69,35 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarPConsentimiento actualizarPConsentimiento, PConsentimientoEntity entity) {
-        Optional.ofNullable(actualizarPConsentimiento.getDoctorId())
+    protected void updateEntityFromDto(PConsentimientoEntity entity, CrearPConsentimientoDTO dto) {
+        Optional.ofNullable(dto.getDoctorId())
                 .flatMap(doctorRepository::findById)
                 .ifPresent(entity::setDoctorEntity);
-        Optional.ofNullable(actualizarPConsentimiento.getFecha())
+        Optional.ofNullable(dto.getFecha())
                 .ifPresent(entity::setFecha);
-        Optional.ofNullable(actualizarPConsentimiento.getHora())
+        Optional.ofNullable(dto.getHora())
                 .ifPresent(horaDTO -> entity.setHora(LocalTime.of(
                         horaDTO.getHours(),
                         horaDTO.getMinutes(),
                         horaDTO.getSeconds()
                 )));
-        Optional.ofNullable(actualizarPConsentimiento.getApoderadoNombre())
+        Optional.ofNullable(dto.getApoderadoNombre())
                 .ifPresent(entity::setApoderadoNombre);
-        Optional.ofNullable(actualizarPConsentimiento.getApoderadoDocumento())
+        Optional.ofNullable(dto.getApoderadoDocumento())
                 .ifPresent(entity::setApoderadoDocumento);
-        Optional.ofNullable(actualizarPConsentimiento.getApoderadoDireccion())
+        Optional.ofNullable(dto.getApoderadoDireccion())
                 .ifPresent(entity::setApoderadoDireccion);
-        Optional.ofNullable(actualizarPConsentimiento.getConsentimientoId())
+        Optional.ofNullable(dto.getConsentimientoId())
                 .flatMap(consentimientoRepository::findById)
                 .ifPresent(entity::setConsentimientoEntity);
-        Optional.ofNullable(actualizarPConsentimiento.getPacienteId())
+        Optional.ofNullable(dto.getPacienteId())
                 .flatMap(pacienteRepository::findById)
                 .ifPresent(entity::setPacienteEntity);
-        Optional.ofNullable(actualizarPConsentimiento.getCuerpo())
+        Optional.ofNullable(dto.getCuerpo())
                 .ifPresent(entity::setCuerpo);
-        Optional.ofNullable(actualizarPConsentimiento.getFirma())
+        Optional.ofNullable(dto.getFirma())
                 .ifPresent(entity::setFirma);
-        Optional.ofNullable(actualizarPConsentimiento.getEstado())
+        Optional.ofNullable(dto.getEstado())
                 .ifPresent(entity::setEstado);
     }
 
@@ -115,8 +114,8 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarPConsentimiento actualizarPConsentimiento) {
-        return super.update(uuid, actualizarPConsentimiento);
+    public ApiResponse update(UUID uuid, CrearPConsentimientoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

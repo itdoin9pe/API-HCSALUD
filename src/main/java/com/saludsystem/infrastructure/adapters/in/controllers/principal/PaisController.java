@@ -1,7 +1,7 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.principal;
 
-import com.saludsystem.application.dtos.principal.get.PaisDTO;
-import com.saludsystem.application.dtos.principal.post.CrearPaisDTO;
+import com.saludsystem.application.dtos.principal.res.PaisDTO;
+import com.saludsystem.application.dtos.principal.req.CrearPaisDTO;
 import com.saludsystem.application.services.principal.PaisService;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;

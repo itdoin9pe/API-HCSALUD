@@ -2,7 +2,6 @@ package com.saludsystem.application.services.movimiento.impl;
 
 import com.saludsystem.application.dtos.movimientos.get.AlmacenDTO;
 import com.saludsystem.application.dtos.movimientos.post.CrearAlmacenDTO;
-import com.saludsystem.application.dtos.movimientos.put.ActualizarAlmacenDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.movimiento.AlmacenService;
 import com.saludsystem.domain.model.SucursalEntity;
@@ -19,19 +18,20 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class AlmacenServiceImpl extends GenericServiceImpl<AlmacenEntity, AlmacenDTO, UUID,
-        CrearAlmacenDTO, ActualizarAlmacenDTO> implements AlmacenService {
+public class AlmacenServiceImpl extends GenericServiceImpl<AlmacenEntity, CrearAlmacenDTO, AlmacenDTO, UUID>
+        implements AlmacenService {
 
     private final SucursalRepository sucursalRepository;
     private final SedeRepository sedeRepository;
 
-    public AlmacenServiceImpl(AlmacenRepository almacenRepository, ModelMapper modelMapper,
-                              AuthValidator authValidator, SucursalRepository sucursalRepository, SedeRepository sedeRepository) {
-        super(almacenRepository, modelMapper, authValidator, AlmacenDTO.class,
-                almacenEntity -> modelMapper.map(almacenEntity, AlmacenDTO.class));
+    public AlmacenServiceImpl(
+            AlmacenRepository almacenRepository, ModelMapper modelMapper,
+            AuthValidator authValidator, SucursalRepository sucursalRepository, SedeRepository sedeRepository) {
+        super(almacenRepository, modelMapper, authValidator, AlmacenDTO.class);
         this.sucursalRepository = sucursalRepository;
         this.sedeRepository = sedeRepository;
     }
@@ -62,8 +62,8 @@ public class AlmacenServiceImpl extends GenericServiceImpl<AlmacenEntity, Almace
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarAlmacenDTO actualizarAlmacenDTO) {
-        return super.update(uuid, actualizarAlmacenDTO);
+    public ApiResponse update(UUID uuid, CrearAlmacenDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class AlmacenServiceImpl extends GenericServiceImpl<AlmacenEntity, Almace
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarAlmacenDTO actualizarAlmacenDTO, AlmacenEntity entity) {
-        entity.setNombre(actualizarAlmacenDTO.getNombre());
-        entity.setEstado(actualizarAlmacenDTO.getEstado());
+    protected void updateEntityFromDto(AlmacenEntity entity, CrearAlmacenDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

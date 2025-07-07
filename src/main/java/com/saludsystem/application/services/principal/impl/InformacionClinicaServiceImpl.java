@@ -1,8 +1,7 @@
 package com.saludsystem.application.services.principal.impl;
 
-import com.saludsystem.application.dtos.principal.get.InformacionClinicaDTO;
-import com.saludsystem.application.dtos.principal.post.CrearInformacionClinicaDTO;
-import com.saludsystem.application.dtos.principal.put.ActualizarInformacionClinicaDTO;
+import com.saludsystem.application.dtos.principal.res.InformacionClinicaDTO;
+import com.saludsystem.application.dtos.principal.req.CrearInformacionClinicaDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.principal.InformacionClinicaService;
 import com.saludsystem.domain.model.principal.InformacionClinicaEntity;
@@ -18,15 +17,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class InformacionClinicaServiceImpl extends GenericServiceImpl<InformacionClinicaEntity, InformacionClinicaDTO,
-        UUID, CrearInformacionClinicaDTO, ActualizarInformacionClinicaDTO> implements InformacionClinicaService {
+public class InformacionClinicaServiceImpl extends GenericServiceImpl<InformacionClinicaEntity,
+        CrearInformacionClinicaDTO, InformacionClinicaDTO, UUID> implements InformacionClinicaService {
 
     public InformacionClinicaServiceImpl(
             InformacionClinicaRepository informacionClinicaRepository,
             ModelMapper modelMapper, AuthValidator authValidator) {
-        super(informacionClinicaRepository, modelMapper, authValidator, InformacionClinicaDTO.class,
-                informacionClinicaEntity -> modelMapper.map
-                        (informacionClinicaEntity, InformacionClinicaDTO.class));
+        super(informacionClinicaRepository, modelMapper, authValidator, InformacionClinicaDTO.class
+        );
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -42,8 +40,8 @@ public class InformacionClinicaServiceImpl extends GenericServiceImpl<Informacio
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarInformacionClinicaDTO actualizarInformacionClinicaDTO) {
-        return super.update(uuid, actualizarInformacionClinicaDTO);
+    public ApiResponse update(UUID uuid, CrearInformacionClinicaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -71,10 +69,8 @@ public class InformacionClinicaServiceImpl extends GenericServiceImpl<Informacio
     }
 
     @Override
-    protected void updateEntityFromDto(
-            ActualizarInformacionClinicaDTO actualizarInformacionClinicaDTO,
-            InformacionClinicaEntity entity) {
-        entity.setNombre(actualizarInformacionClinicaDTO.getNombre());
-        entity.setEstado(actualizarInformacionClinicaDTO.getEstado());
+    protected void updateEntityFromDto(InformacionClinicaEntity entity, CrearInformacionClinicaDTO dto) {
+        entity.setNombre(dto.getNombre());
+        entity.setEstado(dto.getEstado());
     }
 }

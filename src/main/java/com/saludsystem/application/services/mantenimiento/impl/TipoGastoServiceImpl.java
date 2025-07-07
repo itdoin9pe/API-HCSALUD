@@ -2,9 +2,7 @@ package com.saludsystem.application.services.mantenimiento.impl;
 
 import com.saludsystem.application.dtos.mantenimiento.get.TipoGastoDTO;
 import com.saludsystem.application.dtos.mantenimiento.post.CrearTipoGastoDTO;
-import com.saludsystem.application.dtos.mantenimiento.put.ActualizarTipoGastoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
-
 import com.saludsystem.application.services.mantenimiento.TipoGastoService;
 import com.saludsystem.domain.model.mantenimiento.TipoGastoEntity;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
@@ -16,15 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TipoGastoServiceImpl extends GenericServiceImpl<TipoGastoEntity, TipoGastoDTO, UUID,
-        CrearTipoGastoDTO, ActualizarTipoGastoDTO> implements TipoGastoService {
+public class TipoGastoServiceImpl extends GenericServiceImpl<TipoGastoEntity, CrearTipoGastoDTO, TipoGastoDTO, UUID>
+        implements TipoGastoService {
 
-    public TipoGastoServiceImpl(TipoGastoRepository tipoGastoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(tipoGastoRepository, modelMapper, authValidator, TipoGastoDTO.class,
-                tipoGastoEntity -> modelMapper.map(tipoGastoEntity, TipoGastoDTO.class));
+    protected TipoGastoServiceImpl(
+            TipoGastoRepository tipoGastoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(tipoGastoRepository, modelMapper, authValidator, TipoGastoDTO.class);
     }
 
     @Override
@@ -40,8 +39,8 @@ public class TipoGastoServiceImpl extends GenericServiceImpl<TipoGastoEntity, Ti
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarTipoGastoDTO actualizarTipoGastoDTO) {
-        return super.update(uuid, actualizarTipoGastoDTO);
+    public ApiResponse update(UUID uuid, CrearTipoGastoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -69,8 +68,8 @@ public class TipoGastoServiceImpl extends GenericServiceImpl<TipoGastoEntity, Ti
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarTipoGastoDTO actualizarTipoGastoDTO, TipoGastoEntity entity) {
-        entity.setNombre(actualizarTipoGastoDTO.getNombre());
-        entity.setEstado(actualizarTipoGastoDTO.getEstado());
+    protected void updateEntityFromDto(TipoGastoEntity entity, CrearTipoGastoDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
     }
 }

@@ -1,8 +1,7 @@
 package com.saludsystem.application.services.catalogo.impl;
 
-import com.saludsystem.application.dtos.catalogo.get.ClienteDTO;
+import com.saludsystem.application.dtos.catalogo.req.ClienteDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearClienteDTO;
-import com.saludsystem.application.dtos.catalogo.put.ActualizarClienteDTO;
 import com.saludsystem.application.services.catalogo.ClienteService;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.domain.model.catalogo.ClienteEntity;
@@ -15,15 +14,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ClienteServiceImpl extends GenericServiceImpl<ClienteEntity, ClienteDTO, UUID,
-        CrearClienteDTO, ActualizarClienteDTO> implements ClienteService {
+public class ClienteServiceImpl extends GenericServiceImpl<ClienteEntity,
+        CrearClienteDTO, ClienteDTO, UUID> implements ClienteService {
 
-    public ClienteServiceImpl(ClienteRepository clienteRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(clienteRepository, modelMapper, authValidator, ClienteDTO.class,
-                clienteEntity -> modelMapper.map(clienteEntity, ClienteDTO.class));
+    protected ClienteServiceImpl(
+            ClienteRepository clienteRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(clienteRepository, modelMapper, authValidator, ClienteDTO.class);
     }
 
     @Override
@@ -39,8 +39,8 @@ public class ClienteServiceImpl extends GenericServiceImpl<ClienteEntity, Client
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarClienteDTO actualizarClienteDTO) {
-        return super.update(uuid, actualizarClienteDTO);
+    public ApiResponse update(UUID uuid, CrearClienteDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -73,13 +73,13 @@ public class ClienteServiceImpl extends GenericServiceImpl<ClienteEntity, Client
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarClienteDTO actualizarClienteDTO, ClienteEntity entity) {
-        entity.setNombre(actualizarClienteDTO.getNombre());
-        entity.setContacto(actualizarClienteDTO.getContacto());
-        entity.setTelefono(actualizarClienteDTO.getTelefono());
-        entity.setDireccion(actualizarClienteDTO.getDireccion());
-        entity.setEmail(actualizarClienteDTO.getEmail());
-        entity.setTipoDocumento(actualizarClienteDTO.getTipoDocumento());
-        entity.setEstado(actualizarClienteDTO.getEstado());
+    protected void updateEntityFromDto(ClienteEntity entity, CrearClienteDTO dto) {
+        Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
+        Optional.ofNullable(dto.getContacto()).ifPresent(entity::setContacto);
+        Optional.ofNullable(dto.getTelefono()).ifPresent(entity::setTelefono);
+        Optional.ofNullable(dto.getDireccion()).ifPresent(entity::setDireccion);
+        Optional.ofNullable(dto.getEmail()).ifPresent(entity::setEmail);
+        Optional.ofNullable(dto.getTipoDocumento()).ifPresent(entity::setTipoDocumento);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 }

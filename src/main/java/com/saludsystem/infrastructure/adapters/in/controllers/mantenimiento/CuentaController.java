@@ -2,7 +2,6 @@ package com.saludsystem.infrastructure.adapters.in.controllers.mantenimiento;
 
 import com.saludsystem.application.dtos.mantenimiento.get.CuentaDTO;
 import com.saludsystem.application.dtos.mantenimiento.post.CrearCuentaDTO;
-import com.saludsystem.application.dtos.mantenimiento.put.ActualizarCuentaDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,9 +17,9 @@ import java.util.UUID;
 @Tag(name = "CuentasPagar")
 @RestController
 @RequestMapping("/api/CuentasPagar")
-public class CuentaController extends GenericController<CuentaDTO, UUID, CrearCuentaDTO, ActualizarCuentaDTO> {
+public class CuentaController extends GenericController<CrearCuentaDTO, CuentaDTO, UUID> {
 
-    protected CuentaController(GenericService<CuentaDTO, UUID, CrearCuentaDTO, ActualizarCuentaDTO> genericService) {
+    protected CuentaController(GenericService<CrearCuentaDTO, CuentaDTO, UUID> genericService) {
         super(genericService);
     }
 

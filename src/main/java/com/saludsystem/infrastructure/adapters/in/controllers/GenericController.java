@@ -9,31 +9,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class GenericController<DTO, ID, CREATE_DTO, UPDATE_DTO> {
-    private final GenericService<DTO, ID, CREATE_DTO, UPDATE_DTO> genericService;
+public abstract class GenericController<REQ, RES, ID> {
 
-    protected GenericController(GenericService<DTO, ID, CREATE_DTO, UPDATE_DTO> genericService) {
+    private final GenericService<REQ, RES, ID> genericService;
+
+    protected GenericController(GenericService<REQ, RES, ID> genericService) {
         this.genericService = genericService;
     }
 
     @PostMapping("/Save")
-    public ApiResponse create(@RequestBody CREATE_DTO dto) {
+    public ApiResponse create(@RequestBody REQ dto) {
         return genericService.save(dto);
     }
 
     @GetMapping("/GetList")
-    public ResponseEntity<List<DTO>> getList() {
+    public ResponseEntity<List<RES>> getList() {
         return ResponseEntity.ok(genericService.getList()
         );
     }
 
     @GetMapping("GetById/{id}")
-    public DTO getById(@PathVariable ID id) {
+    public RES getById(@PathVariable ID id) {
         return genericService.getById(id);
     }
 
     @GetMapping("/GetAll")
-    public ListResponse<DTO> getAllPaginated(
+    public ListResponse<RES> getAllPaginated(
             @RequestParam UUID hospitalId,
             @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows) {
@@ -41,7 +42,7 @@ public abstract class GenericController<DTO, ID, CREATE_DTO, UPDATE_DTO> {
     }
 
     @PutMapping("Update/{id}")
-    public ApiResponse update(@PathVariable ID id, @RequestBody UPDATE_DTO dto) {
+    public ApiResponse update(@PathVariable ID id, @RequestBody REQ dto) {
         return genericService.update(id, dto);
     }
 

@@ -2,7 +2,6 @@ package com.saludsystem.application.services.paciente.impl.historialclinico.esta
 
 import com.saludsystem.application.dtos.paciente.get.historialclinico.estadocuenta.EstadoCuentaDTO;
 import com.saludsystem.application.dtos.paciente.post.historialclinico.estadocuenta.CrearEstadoCuentaDTO;
-import com.saludsystem.application.dtos.paciente.put.historialclinico.estadocuenta.ActualizarEstadoCuentaDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.historialclinico.estadocuenta.EstadoCuentaService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
@@ -20,16 +19,16 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class EstadoCuentaServiceImpl extends GenericServiceImpl<EstadoCuentaEntity, EstadoCuentaDTO, UUID,
-        CrearEstadoCuentaDTO, ActualizarEstadoCuentaDTO> implements EstadoCuentaService {
+public class EstadoCuentaServiceImpl extends GenericServiceImpl<EstadoCuentaEntity,  CrearEstadoCuentaDTO,
+        EstadoCuentaDTO, UUID> implements EstadoCuentaService {
 
     private final PacienteRepository pacienteRepository;
 
     public EstadoCuentaServiceImpl(
             EstadoCuentaRepository estadoCuentaRepository, ModelMapper modelMapper,
             AuthValidator authValidator, PacienteRepository pacienteRepository) {
-        super(estadoCuentaRepository, modelMapper, authValidator, EstadoCuentaDTO.class,
-                estadoCuentaEntity -> modelMapper.map(estadoCuentaEntity, EstadoCuentaDTO.class));
+        super(estadoCuentaRepository, modelMapper, authValidator, EstadoCuentaDTO.class
+        );
         this.pacienteRepository = pacienteRepository;
     }
 
@@ -48,15 +47,15 @@ public class EstadoCuentaServiceImpl extends GenericServiceImpl<EstadoCuentaEnti
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarEstadoCuentaDTO actualizarEstadoCuentaDTO, EstadoCuentaEntity entity) {
-        entity.setPacienteEntity(pacienteRepository.findById(actualizarEstadoCuentaDTO.getPacienteId())
+    protected void updateEntityFromDto(EstadoCuentaEntity entity, CrearEstadoCuentaDTO dto) {
+        entity.setPacienteEntity(pacienteRepository.findById(dto.getPacienteId())
                 .orElseThrow( () -> new ResourceNotFoundException("Paciente not found") ));
-        entity.setFechaApertura(actualizarEstadoCuentaDTO.getFechaApertura());
-        entity.setEstado(actualizarEstadoCuentaDTO.getEstado());
-        entity.setTotalHospitalizacion(actualizarEstadoCuentaDTO.getTotalHospitalizacion());
-        entity.setTotalMedicamentosEstudios(actualizarEstadoCuentaDTO.getTotalMedicamentosEstudios());
-        entity.setTotalPagado(actualizarEstadoCuentaDTO.getTotalPagado());
-        entity.setSaldoPendiente(actualizarEstadoCuentaDTO.getSaldoPendiente());
+        entity.setFechaApertura(dto.getFechaApertura());
+        entity.setEstado(dto.getEstado());
+        entity.setTotalHospitalizacion(dto.getTotalHospitalizacion());
+        entity.setTotalMedicamentosEstudios(dto.getTotalMedicamentosEstudios());
+        entity.setTotalPagado(dto.getTotalPagado());
+        entity.setSaldoPendiente(dto.getSaldoPendiente());
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -72,8 +71,8 @@ public class EstadoCuentaServiceImpl extends GenericServiceImpl<EstadoCuentaEnti
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarEstadoCuentaDTO actualizarEstadoCuentaDTO) {
-        return super.update(uuid, actualizarEstadoCuentaDTO);
+    public ApiResponse update(UUID uuid, CrearEstadoCuentaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

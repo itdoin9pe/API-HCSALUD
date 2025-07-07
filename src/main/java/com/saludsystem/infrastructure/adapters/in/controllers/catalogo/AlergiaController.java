@@ -1,8 +1,7 @@
 package com.saludsystem.infrastructure.adapters.in.controllers.catalogo;
 
-import com.saludsystem.application.dtos.catalogo.get.AlergiaDTO;
+import com.saludsystem.application.dtos.catalogo.req.AlergiaDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearAlergiaDTO;
-import com.saludsystem.application.dtos.catalogo.put.ActualizarAlergiaDTO;
 import com.saludsystem.application.services.GenericService;
 import com.saludsystem.infrastructure.adapters.in.controllers.GenericController;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
@@ -18,11 +17,9 @@ import java.util.UUID;
 @Tag(name = "Alergias")
 @RestController
 @RequestMapping("/api/Alergias")
-public class AlergiaController extends GenericController<
-        AlergiaDTO, UUID, CrearAlergiaDTO, ActualizarAlergiaDTO> {
+public class AlergiaController extends GenericController<CrearAlergiaDTO, AlergiaDTO, UUID> {
 
-    protected AlergiaController(GenericService<AlergiaDTO, UUID,
-            CrearAlergiaDTO, ActualizarAlergiaDTO> genericService) {
+    protected AlergiaController(GenericService<CrearAlergiaDTO, AlergiaDTO, UUID> genericService) {
         super(genericService);
     }
 

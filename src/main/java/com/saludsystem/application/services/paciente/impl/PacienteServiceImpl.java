@@ -7,6 +7,7 @@ import com.saludsystem.application.services.paciente.PacienteService;
 import com.saludsystem.domain.model.configuracion.SedeEntity;
 import com.saludsystem.domain.model.configuracion.SysSaludEntity;
 import com.saludsystem.domain.model.configuracion.UserEntity;
+import com.saludsystem.domain.model.principal.AseguradoraEntity;
 import com.saludsystem.domain.model.paciente.PacienteEntity;
 import com.saludsystem.domain.model.principal.*;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;

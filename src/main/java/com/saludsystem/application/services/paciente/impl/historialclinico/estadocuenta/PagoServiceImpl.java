@@ -2,7 +2,6 @@ package com.saludsystem.application.services.paciente.impl.historialclinico.esta
 
 import com.saludsystem.application.dtos.paciente.get.historialclinico.estadocuenta.PagoDTO;
 import com.saludsystem.application.dtos.paciente.post.historialclinico.estadocuenta.CrearPagoDTO;
-import com.saludsystem.application.dtos.paciente.put.historialclinico.estadocuenta.ActualizarPagoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.historialclinico.estadocuenta.PagoService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
@@ -20,14 +19,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class PagoServiceImpl extends GenericServiceImpl<PagoEntity, PagoDTO, UUID,
-        CrearPagoDTO, ActualizarPagoDTO> implements PagoService {
+public class PagoServiceImpl extends GenericServiceImpl<PagoEntity, CrearPagoDTO, PagoDTO, UUID> implements PagoService {
 
     private final EstadoCuentaRepository estadoCuentaRepository;
 
-    public PagoServiceImpl(PagoRepository pagoRepository, ModelMapper modelMapper, AuthValidator authValidator, EstadoCuentaRepository estadoCuentaRepository) {
-        super(pagoRepository, modelMapper, authValidator, PagoDTO.class,
-                pagoEntity -> modelMapper.map(pagoEntity, PagoDTO.class));
+    public PagoServiceImpl(PagoRepository pagoRepository, ModelMapper modelMapper, AuthValidator authValidator,
+                           EstadoCuentaRepository estadoCuentaRepository) {
+        super(pagoRepository, modelMapper, authValidator, PagoDTO.class
+        );
         this.estadoCuentaRepository = estadoCuentaRepository;
     }
 
@@ -44,11 +43,11 @@ public class PagoServiceImpl extends GenericServiceImpl<PagoEntity, PagoDTO, UUI
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarPagoDTO actualizarPagoDTO, PagoEntity entity) {
-        entity.setFechaPago(actualizarPagoDTO.getFechaPago());
-        entity.setMonto(actualizarPagoDTO.getMonto());
-        entity.setMetodoPago(actualizarPagoDTO.getMetodoPago());
-        entity.setReferenciaPago(actualizarPagoDTO.getReferenciaPago());
+    protected void updateEntityFromDto(PagoEntity entity, CrearPagoDTO dto) {
+        entity.setFechaPago(dto.getFechaPago());
+        entity.setMonto(dto.getMonto());
+        entity.setMetodoPago(dto.getMetodoPago());
+        entity.setReferenciaPago(dto.getReferenciaPago());
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -64,8 +63,8 @@ public class PagoServiceImpl extends GenericServiceImpl<PagoEntity, PagoDTO, UUI
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarPagoDTO actualizarPagoDTO) {
-        return super.update(uuid, actualizarPagoDTO);
+    public ApiResponse update(UUID uuid, CrearPagoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

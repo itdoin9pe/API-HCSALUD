@@ -2,7 +2,6 @@ package com.saludsystem.application.services.paciente.impl.historialclinico;
 
 import com.saludsystem.application.dtos.paciente.get.historialclinico.ExploracionFisicaDTO;
 import com.saludsystem.application.dtos.paciente.post.historialclinico.CrearExploracionFisicaDTO;
-import com.saludsystem.application.dtos.paciente.put.historialclinico.ActualizarExploracionFisicaDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.historialclinico.ExploracionFisicaService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
@@ -20,17 +19,15 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ExploracionFisicaServiceImpl extends GenericServiceImpl<ExploracionFisicaEntity, ExploracionFisicaDTO,
-        UUID, CrearExploracionFisicaDTO, ActualizarExploracionFisicaDTO> implements ExploracionFisicaService {
+public class ExploracionFisicaServiceImpl extends GenericServiceImpl<ExploracionFisicaEntity, CrearExploracionFisicaDTO,
+        ExploracionFisicaDTO, UUID> implements ExploracionFisicaService {
 
     private final PacienteRepository pacienteRepository;
 
     public ExploracionFisicaServiceImpl(
             ExploracionFisicaRepository exploracionFisicaRepository,
             ModelMapper modelMapper, AuthValidator authValidator, PacienteRepository pacienteRepository) {
-        super(exploracionFisicaRepository, modelMapper, authValidator, ExploracionFisicaDTO.class,
-                exploracionFisicaEntity ->
-                        modelMapper.map(exploracionFisicaEntity, ExploracionFisicaDTO.class));
+        super(exploracionFisicaRepository, modelMapper, authValidator, ExploracionFisicaDTO.class);
         this.pacienteRepository = pacienteRepository;
     }
 
@@ -53,19 +50,19 @@ public class ExploracionFisicaServiceImpl extends GenericServiceImpl<Exploracion
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarExploracionFisicaDTO actualizarExploracionFisicaDTO, ExploracionFisicaEntity entity) {
-        entity.setPacienteEntity(pacienteRepository.findById(actualizarExploracionFisicaDTO.getPacienteId())
+    protected void updateEntityFromDto(ExploracionFisicaEntity entity, CrearExploracionFisicaDTO dto) {
+        entity.setPacienteEntity(pacienteRepository.findById(dto.getPacienteId())
                 .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
-        entity.setPresionArterial(actualizarExploracionFisicaDTO.getPresionArterial());
-        entity.setPulso(actualizarExploracionFisicaDTO.getPulso());
-        entity.setTemperatura(actualizarExploracionFisicaDTO.getTemperatura());
-        entity.setFrecuenciaCardiaca(actualizarExploracionFisicaDTO.getFrecuenciaCardiaca());
-        entity.setFrecuenciaRespiratoria(actualizarExploracionFisicaDTO.getFrecuenciaRespiratoria());
-        entity.setPeso(actualizarExploracionFisicaDTO.getPeso());
-        entity.setTalla(actualizarExploracionFisicaDTO.getTalla());
-        entity.setMasa(actualizarExploracionFisicaDTO.getMasa());
-        entity.setExamenClinico(actualizarExploracionFisicaDTO.getExamenClinico());
-        entity.setComplementoExamen(actualizarExploracionFisicaDTO.getComplementoExamen());
+        entity.setPresionArterial(dto.getPresionArterial());
+        entity.setPulso(dto.getPulso());
+        entity.setTemperatura(dto.getTemperatura());
+        entity.setFrecuenciaCardiaca(dto.getFrecuenciaCardiaca());
+        entity.setFrecuenciaRespiratoria(dto.getFrecuenciaRespiratoria());
+        entity.setPeso(dto.getPeso());
+        entity.setTalla(dto.getTalla());
+        entity.setMasa(dto.getMasa());
+        entity.setExamenClinico(dto.getExamenClinico());
+        entity.setComplementoExamen(dto.getComplementoExamen());
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -81,8 +78,8 @@ public class ExploracionFisicaServiceImpl extends GenericServiceImpl<Exploracion
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarExploracionFisicaDTO actualizarExploracionFisicaDTO) {
-        return super.update(uuid, actualizarExploracionFisicaDTO);
+    public ApiResponse update(UUID uuid, CrearExploracionFisicaDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override

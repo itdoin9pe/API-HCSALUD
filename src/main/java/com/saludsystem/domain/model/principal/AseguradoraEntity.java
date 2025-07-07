@@ -26,5 +26,4 @@ public class AseguradoraEntity extends BaseEntity {
 
     @Column(name = "estado", nullable = false)
     private Integer estado;
-
 }

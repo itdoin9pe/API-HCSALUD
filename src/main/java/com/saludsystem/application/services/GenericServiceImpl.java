@@ -18,16 +18,16 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public abstract class GenericServiceImpl<T extends BaseEntity, DTO, ID, CREATE_DTO, UPDATE_DTO>
-        implements GenericService<DTO, ID, CREATE_DTO, UPDATE_DTO> {
+public abstract class GenericServiceImpl<E extends BaseEntity, REQ, RES, ID>
+        implements GenericService<REQ, RES, ID> {
 
-    protected final GenericRepository<T> genericRepository;
+    protected final GenericRepository<E> genericRepository;
     protected final ModelMapper modelMapper;
     protected final AuthValidator authValidator;
-    protected final Class<DTO> dtoClass;
-    protected final Function<T, DTO> toDtoConverter;
+    protected final Class<RES> dtoClass;
+    protected Function<E, RES> toDtoConverter;
 
-    protected GenericServiceImpl(GenericRepository<T> genericRepository, ModelMapper modelMapper, AuthValidator authValidator, Class<DTO> dtoClass, Function<T, DTO> toDtoConverter) {
+    protected GenericServiceImpl(GenericRepository<E> genericRepository, ModelMapper modelMapper, AuthValidator authValidator, Class<RES> dtoClass) {
         this.genericRepository = genericRepository;
         this.modelMapper = modelMapper;
         this.authValidator = authValidator;
@@ -37,10 +37,10 @@ public abstract class GenericServiceImpl<T extends BaseEntity, DTO, ID, CREATE_D
 
     @Transactional
     @Override
-    public ApiResponse save(CREATE_DTO createDto) {
+    public ApiResponse save(REQ createDto) {
         UserEntity currentUser = authValidator.getCurrentUser();// Obtener usuario actual y validar acceso
         authValidator.validateAdminAccess(); // Opcional: hacer configurable
-        T entity = convertCreateDtoToEntity(createDto); // Convertir DTO a entidad
+        E entity = convertCreateDtoToEntity(createDto); // Convertir DTO a entidad
         entity.setUser(currentUser);        // Asignar información de auditoría
         entity.setHospital(currentUser.getHospital());
         beforeSave(entity, createDto);     // Lógica pre-guardado específica (si es necesaria)
@@ -49,44 +49,44 @@ public abstract class GenericServiceImpl<T extends BaseEntity, DTO, ID, CREATE_D
     }
 
     // Método hook para lógica específica antes de guardar
-    protected void beforeSave(T entity, CREATE_DTO dto) {
+    protected void beforeSave(E entity, REQ dto) {
         // Puede ser sobrescrito por implementaciones concretas
     }
 
     // Método para construir respuesta exitosa
-    protected ApiResponse buildSuccessResponse(T entity) {
+    protected ApiResponse buildSuccessResponse(E entity) {
         return new ApiResponse(true, "Registro creado exitosamente");
     }
 
     @Override
-    public List<DTO> getList() {
+    public List<RES> getList() {
         return genericRepository.findAll().stream()
                 .map(toDtoConverter)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public DTO getById(ID id) {
-        T entity = genericRepository.findById((UUID) id)
+    public RES getById(ID id) {
+        E entity = genericRepository.findById((UUID) id)
                 .orElseThrow(() -> new ResourceNotFoundException("Registro no encontrado"));
         return toDtoConverter.apply(entity);
     }
 
     @Transactional
     @Override
-    public ApiResponse update(ID id, UPDATE_DTO updateDto) {
-        T entity = genericRepository.findById((UUID) id)
+    public ApiResponse update(ID id, REQ updateDto) {
+        E entity = genericRepository.findById((UUID) id)
                 .orElseThrow(() -> new ResourceNotFoundException("Registro no encontrado"));
-        updateEntityFromDto(updateDto, entity);
+        updateEntityFromDto(entity, updateDto);
         genericRepository.save(entity);
         return new ApiResponse(true, "Registro actualizado exitosamente");
     }
 
     @Override
-    public ListResponse<DTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<RES> getAllPaginated(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
-        Page<T> entityPage = genericRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<DTO> data = entityPage.getContent().stream()
+        Page<E> entityPage = genericRepository.findByHospital_HospitalId(hospitalId, pageable);
+        List<RES> data = entityPage.getContent().stream()
                 .map(toDtoConverter)
                 .collect(Collectors.toList());
         return new ListResponse<>(
@@ -104,6 +104,6 @@ public abstract class GenericServiceImpl<T extends BaseEntity, DTO, ID, CREATE_D
         return new ApiResponse(true, "Registro eliminado exitosamente");
     }
 
-    protected abstract T convertCreateDtoToEntity(CREATE_DTO dto);
-    protected abstract void updateEntityFromDto(UPDATE_DTO dto, T entity);
+    protected abstract E convertCreateDtoToEntity(REQ dto);
+    protected abstract void updateEntityFromDto(E entity, REQ dto);
 }

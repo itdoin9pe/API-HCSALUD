@@ -1,29 +1,28 @@
 package com.saludsystem.application.services.catalogo.impl;
 
-import com.saludsystem.application.dtos.catalogo.put.ActualizarPlanDTO;
 import com.saludsystem.application.dtos.catalogo.post.CrearPlanDTO;
-import com.saludsystem.application.dtos.catalogo.get.PlanDTO;
+import com.saludsystem.application.dtos.catalogo.req.PlanDTO;
 import com.saludsystem.application.services.catalogo.PlanService;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.domain.model.catalogo.PlanEntity;
-import com.saludsystem.infrastructure.adapters.out.persistance.repository.catalogo.PlanRepository;
 import com.saludsystem.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.infrastructure.adapters.in.response.ListResponse;
+import com.saludsystem.infrastructure.adapters.out.persistance.repository.catalogo.PlanRepository;
 import com.saludsystem.infrastructure.adapters.out.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PlanServiceImpl extends GenericServiceImpl<PlanEntity, PlanDTO, UUID, CrearPlanDTO, ActualizarPlanDTO>
+public class PlanServiceImpl extends GenericServiceImpl<PlanEntity, CrearPlanDTO, PlanDTO, UUID>
         implements PlanService {
 
-    public PlanServiceImpl(PlanRepository planRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(planRepository, modelMapper, authValidator, PlanDTO.class,
-                planEntity -> modelMapper.map(planEntity, PlanDTO.class));
+    protected PlanServiceImpl(PlanRepository planRepository, ModelMapper modelMapper, AuthValidator authValidator) {
+        super(planRepository, modelMapper, authValidator,PlanDTO.class);
     }
 
     @Override
@@ -39,8 +38,8 @@ public class PlanServiceImpl extends GenericServiceImpl<PlanEntity, PlanDTO, UUI
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ActualizarPlanDTO actualizarPlanDTO) {
-        return super.update(uuid, actualizarPlanDTO);
+    public ApiResponse update(UUID uuid, CrearPlanDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
@@ -73,13 +72,14 @@ public class PlanServiceImpl extends GenericServiceImpl<PlanEntity, PlanDTO, UUI
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarPlanDTO actualizarPlanDTO, PlanEntity entity) {
-        entity.setNombrePlan(actualizarPlanDTO.getNombrePlan());
-        entity.setCostoPlan(actualizarPlanDTO.getCostoPlan());
-        entity.setFechaInicio(actualizarPlanDTO.getFechaInicio());
-        entity.setFechaFinContrato(actualizarPlanDTO.getFechaFinContrato());
-        entity.setUsuMax(actualizarPlanDTO.getUseMax());
-        entity.setMaxPlan(actualizarPlanDTO.getMaxPlan());
-        entity.setEstado(actualizarPlanDTO.getEstado());
+    protected void updateEntityFromDto(PlanEntity entity, CrearPlanDTO dto) {
+        Optional.ofNullable(dto.getNombrePlan()).ifPresent(entity::setNombrePlan);
+        Optional.ofNullable(dto.getCostoPlan()).ifPresent(entity::setCostoPlan);
+        Optional.ofNullable(dto.getFechaInicio()).ifPresent(entity::setFechaInicio);
+        Optional.ofNullable(dto.getFechaFinContrato()).ifPresent(entity::setFechaFinContrato);
+        Optional.ofNullable(dto.getUseMax()).ifPresent(entity::setUsuMax);
+        Optional.ofNullable(dto.getMaxPlan()).ifPresent(entity::setMaxPlan);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
+
 }

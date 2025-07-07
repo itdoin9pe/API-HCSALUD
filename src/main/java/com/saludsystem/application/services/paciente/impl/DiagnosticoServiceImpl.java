@@ -2,7 +2,6 @@ package com.saludsystem.application.services.paciente.impl;
 
 import com.saludsystem.application.dtos.paciente.get.DiagnosticoDTO;
 import com.saludsystem.application.dtos.paciente.post.CrearDiagnosticoDTO;
-import com.saludsystem.application.dtos.paciente.put.ActualizarDiagnosticoDTO;
 import com.saludsystem.application.services.GenericServiceImpl;
 import com.saludsystem.application.services.paciente.DiagnosticoService;
 import com.saludsystem.domain.exception.ResourceNotFoundException;
@@ -24,8 +23,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class DiagnosticoServiceImpl extends GenericServiceImpl<DiagnosticoEntity, DiagnosticoDTO, UUID,
-        CrearDiagnosticoDTO, ActualizarDiagnosticoDTO> implements DiagnosticoService {
+public class DiagnosticoServiceImpl extends GenericServiceImpl<DiagnosticoEntity, CrearDiagnosticoDTO,
+        DiagnosticoDTO, UUID> implements DiagnosticoService {
 
     private final PacienteRepository pacienteRepository;
     private final EnfermedadRepository enfermedadRepository;
@@ -33,8 +32,8 @@ public class DiagnosticoServiceImpl extends GenericServiceImpl<DiagnosticoEntity
     public DiagnosticoServiceImpl(
             DiagnosticoRepository diagnosticoRepository, ModelMapper modelMapper,
             AuthValidator authValidator, PacienteRepository pacienteRepository, EnfermedadRepository enfermedadRepository) {
-        super(diagnosticoRepository, modelMapper, authValidator, DiagnosticoDTO.class,
-                diagnosticoEntity -> modelMapper.map(diagnosticoEntity, DiagnosticoDTO.class));
+        super(diagnosticoRepository, modelMapper, authValidator, DiagnosticoDTO.class
+        );
         this.pacienteRepository = pacienteRepository;
         this.enfermedadRepository = enfermedadRepository;
     }
@@ -54,15 +53,15 @@ public class DiagnosticoServiceImpl extends GenericServiceImpl<DiagnosticoEntity
     }
 
     @Override
-    protected void updateEntityFromDto(ActualizarDiagnosticoDTO actualizarDiagnosticoDTO, DiagnosticoEntity entity) {
-        Optional.ofNullable(actualizarDiagnosticoDTO.getPacienteId())
+    protected void updateEntityFromDto(DiagnosticoEntity entity, CrearDiagnosticoDTO dto) {
+        Optional.ofNullable(dto.getPacienteId())
                 .flatMap(pacienteRepository::findById)
                 .ifPresent(entity::setPacienteEntity);
-        Optional.ofNullable(actualizarDiagnosticoDTO.getEnfermedadId())
+        Optional.ofNullable(dto.getEnfermedadId())
                 .flatMap(enfermedadRepository::findById)
                 .ifPresent(entity::setEnfermedadEntity);
-        Optional.ofNullable(actualizarDiagnosticoDTO.getFecha()).ifPresent(entity::setFecha);
-        Optional.ofNullable(actualizarDiagnosticoDTO.getDescripcion())
+        Optional.ofNullable(dto.getFecha()).ifPresent(entity::setFecha);
+        Optional.ofNullable(dto.getDescripcion())
                 .filter(desc -> !desc.isBlank())
                 .ifPresent(entity::setDescripcion);
     }
@@ -80,8 +79,8 @@ public class DiagnosticoServiceImpl extends GenericServiceImpl<DiagnosticoEntity
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ActualizarDiagnosticoDTO actualizarDiagnosticoDTO) {
-        return super.update(uuid, actualizarDiagnosticoDTO);
+    public ApiResponse update(UUID uuid, CrearDiagnosticoDTO updateDto) {
+        return super.update(uuid, updateDto);
     }
 
     @Override
