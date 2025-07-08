@@ -2,7 +2,7 @@ package com.saludsystem.paciente.application.service.impl.historialclinico.evolu
 
 import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.AltaMedicaResponse;
 import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.AltaMedicaRequest;
-import com.saludsystem.paciente.application.dto.evolucion.ActualizarAltaMedicaDTO;
+import com.saludsystem.paciente.application.dto.base.evolucion.ActualizarAltaMedicaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.AltaMedicaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.Evolucion.AltaMedicaEntity;

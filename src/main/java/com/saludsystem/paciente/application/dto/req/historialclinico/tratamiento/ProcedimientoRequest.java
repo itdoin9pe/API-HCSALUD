@@ -1,23 +1,12 @@
 package com.saludsystem.paciente.application.dto.req.historialclinico.tratamiento;
 
-import com.saludsystem.paciente.domain.model.Tratamiento.TipoProcedimiento;
+import com.saludsystem.paciente.application.dto.base.historialclinico.tratamiento.ProcedimientoBaseDTO;
 import lombok.Data;
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
-public class ProcedimientoRequest {
+public class ProcedimientoRequest extends ProcedimientoBaseDTO {
 
-    private UUID pacienteId;
-
-    private UUID doctorId;
-
-    private TipoProcedimiento tipoProcedimiento;
-
-    private String descripcion;
-
-    private LocalDate fecha;
-
-    private String resultado;
+    private UUID pacienteProcedimientoId;
 
 }

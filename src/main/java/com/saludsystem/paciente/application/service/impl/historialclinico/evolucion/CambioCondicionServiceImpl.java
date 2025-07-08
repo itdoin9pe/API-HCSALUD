@@ -2,7 +2,7 @@ package com.saludsystem.paciente.application.service.impl.historialclinico.evolu
 
 import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.CambioCondicionResponse;
 import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.CambioCondicionRequest;
-import com.saludsystem.paciente.application.dto.evolucion.ActualizarCambioCondicionDTO;
+import com.saludsystem.paciente.application.dto.base.evolucion.ActualizarCambioCondicionDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.CambioCondicionService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.Evolucion.CambioCondicionEntity;

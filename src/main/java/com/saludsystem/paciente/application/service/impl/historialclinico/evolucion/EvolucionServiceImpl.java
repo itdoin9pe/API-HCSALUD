@@ -1,8 +1,8 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico.evolucion;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.EvolucionDTO;
+import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.EvolucionResponse;
 import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.EvolucionRequest;
-import com.saludsystem.paciente.application.dto.evolucion.ActualizarEvolucionDTO;
+import com.saludsystem.paciente.application.dto.base.evolucion.ActualizarEvolucionDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.EvolucionService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.Evolucion.EvolucionEntity;
@@ -61,15 +61,15 @@ public class EvolucionServiceImpl implements EvolucionService {
     }
 
     @Override
-    public ListResponse<EvolucionDTO> getAllEvolucion(UUID hospitalId, int page, int rows) {
+    public ListResponse<EvolucionResponse> getAllEvolucion(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<EvolucionEntity> evolucionEntityPage = evolucionRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<EvolucionDTO> data = evolucionEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<EvolucionResponse> data = evolucionEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data, evolucionEntityPage.getTotalElements(), evolucionEntityPage.getTotalPages(), evolucionEntityPage.getNumber() + 1);
     }
 
     @Override
-    public EvolucionDTO getEvolucionById(UUID pacienteEvolucionId) {
+    public EvolucionResponse getEvolucionById(UUID pacienteEvolucionId) {
         EvolucionEntity evolucionEntity = evolucionRepository.findById(pacienteEvolucionId).orElseThrow(
                 () -> new ResourceNotFoundException("Evolucion no encontrada"));
         return convertToDTO(evolucionEntity);
@@ -96,7 +96,7 @@ public class EvolucionServiceImpl implements EvolucionService {
         return new ApiResponse(true, "Evolucion eliminada correctamente");
     }
 
-    private EvolucionDTO convertToDTO(EvolucionEntity evolucionEntity) {
-        return modelMapper.map(evolucionEntity, EvolucionDTO.class);
+    private EvolucionResponse convertToDTO(EvolucionEntity evolucionEntity) {
+        return modelMapper.map(evolucionEntity, EvolucionResponse.class);
     }
 }

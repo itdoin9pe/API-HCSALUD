@@ -1,4 +1,4 @@
-package com.saludsystem.paciente.application.dto.evolucion;
+package com.saludsystem.paciente.application.dto.base.evolucion;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -7,20 +7,18 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-public class ActualizarNotaDTO {
+public class ActualizarCambioCondicionDTO {
 
     private UUID hospitalId;
 
     private UUID userId;
 
     @Schema(example = "Integer")
-    private Long pacienteEvolucionNotaId;
+    private Long evolucionCambioCondicionId;
 
     private LocalDateTime fecha;
 
-    private String tipo;
-
-    private String contenido;
+    private String descripcion;
 
     private UUID pacienteEvolucionId;
 

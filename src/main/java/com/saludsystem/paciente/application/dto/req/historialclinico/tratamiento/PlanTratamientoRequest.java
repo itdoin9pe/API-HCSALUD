@@ -1,22 +1,12 @@
 package com.saludsystem.paciente.application.dto.req.historialclinico.tratamiento;
 
+import com.saludsystem.paciente.application.dto.base.historialclinico.tratamiento.PlanTratamientoBaseDTO;
 import lombok.Data;
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
-public class PlanTratamientoRequest {
+public class PlanTratamientoRequest extends PlanTratamientoBaseDTO {
 
-    private UUID pacienteId;
-
-    private UUID doctorId;
-
-    private UUID especialidadId;
-
-    private UUID medidaId;
-
-    private LocalDate fechaInicio;
-
-    private LocalDate fechaFin;
+    private UUID pacientePlanTratamientoId;
 
 }

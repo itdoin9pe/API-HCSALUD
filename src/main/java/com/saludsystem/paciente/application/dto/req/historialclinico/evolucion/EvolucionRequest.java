@@ -1,25 +1,12 @@
 package com.saludsystem.paciente.application.dto.req.historialclinico.evolucion;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.CambioCondicionResponse;
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.NotaResponse;
+import com.saludsystem.paciente.application.dto.base.historialclinico.evolucion.EvolucionBaseDTO;
 import lombok.Data;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Data
-public class EvolucionRequest {
+public class EvolucionRequest extends EvolucionBaseDTO {
 
-    private UUID pacienteId;
-
-    private LocalDateTime fechaInicio;
-
-    private Boolean finalizada = false;
-
-    private List<NotaResponse> notas;
-
-    private List<CambioCondicionResponse> cambios;
-
-    private UUID pacienteAltaMedicaId;
+    private UUID pacienteEvolucionId;
 
 }

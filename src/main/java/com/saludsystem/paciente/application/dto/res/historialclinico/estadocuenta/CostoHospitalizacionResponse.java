@@ -1,33 +1,12 @@
 package com.saludsystem.paciente.application.dto.res.historialclinico.estadocuenta;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.saludsystem.paciente.application.dto.base.historialclinico.estadocuenta.CostoHospitalizacionBaseDTO;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
-public class CostoHospitalizacionResponse {
-
-    private UUID pecCostoHospitalizacionId;
-
-    private UUID pacEstadoCuentaId;
-
-    private UUID pacienteId;
-
-    private LocalDate fechaIngreso;
-
-    private LocalDate fechaAlta;
-
-    private String tipoHabitacion;
-
-    @Schema(example = "0")
-    private Double costoPorDia;
-
-    @Schema(example = "Integer")
-    private Integer cantidadDias;
-
-    @Schema(example = "0")
-    private Double totalCosto;
-
+public class CostoHospitalizacionResponse extends CostoHospitalizacionBaseDTO {
+    private UUID hospitalId;
+    private UUID userId;
 }

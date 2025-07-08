@@ -33,7 +33,7 @@ public class PagoServiceImpl extends GenericServiceImpl<PagoEntity, PagoRequest,
     @Override
     protected PagoEntity convertCreateDtoToEntity(PagoRequest pagoRequest) {
         PagoEntity entity = new PagoEntity();
-        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(pagoRequest.getEstadoCuentaId())
+        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(pagoRequest.getPacEstadoCuentaId())
                 .orElseThrow( () -> new ResourceNotFoundException("Estado de cuenta not found")));
         entity.setFechaPago(pagoRequest.getFechaPago());
         entity.setMonto(pagoRequest.getMonto());

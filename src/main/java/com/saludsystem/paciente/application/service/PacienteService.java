@@ -2,7 +2,7 @@ package com.saludsystem.paciente.application.service;
 
 import com.saludsystem.paciente.application.dto.res.PacienteResponse;
 import com.saludsystem.paciente.application.dto.req.PacienteRequest;
-import com.saludsystem.paciente.application.dto.ActualizarPacienteDTO;
+import com.saludsystem.paciente.application.dto.base.ActualizarPacienteDTO;
 import com.saludsystem.paciente.domain.model.PacienteEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;

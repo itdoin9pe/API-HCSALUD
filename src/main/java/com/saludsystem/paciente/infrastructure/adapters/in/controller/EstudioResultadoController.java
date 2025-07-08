@@ -2,7 +2,7 @@ package com.saludsystem.paciente.infrastructure.adapters.in.controller;
 
 import com.saludsystem.paciente.application.dto.res.EstudioResultadoResponse;
 import com.saludsystem.paciente.application.dto.req.EstudioResultadoRequest;
-import com.saludsystem.paciente.application.dto.ActualizarEstudioResultadoDTO;
+import com.saludsystem.paciente.application.dto.base.ActualizarEstudioResultadoDTO;
 import com.saludsystem.paciente.application.service.EstudioResultadoService;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.EstudioResultadoListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;

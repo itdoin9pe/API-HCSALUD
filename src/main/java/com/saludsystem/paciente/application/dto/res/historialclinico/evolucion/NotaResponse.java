@@ -1,23 +1,12 @@
 package com.saludsystem.paciente.application.dto.res.historialclinico.evolucion;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.saludsystem.paciente.application.dto.base.historialclinico.evolucion.NotaBaseDTO;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-public class NotaResponse {
-
-    @Schema(description = "ID de la evolucion del paciente", example = "Integer")
-    private Long pacienteEvolucionNotaId;
-
-    private LocalDateTime fecha;
-
-    private String tipo;
-
-    private String contenido;
-
-    private UUID pacienteEvolucionId;
-
+public class NotaResponse extends NotaBaseDTO {
+    private UUID hospitalId;
+    private UUID userId;
 }

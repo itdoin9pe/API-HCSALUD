@@ -1,4 +1,4 @@
-package com.saludsystem.paciente.application.dto;
+package com.saludsystem.paciente.application.dto.base;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

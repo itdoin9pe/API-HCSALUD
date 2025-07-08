@@ -2,7 +2,7 @@ package com.saludsystem.paciente.application.service.impl;
 
 import com.saludsystem.paciente.application.dto.res.EstudioMedicoResponse;
 import com.saludsystem.paciente.application.dto.req.EstudioMedicoRequest;
-import com.saludsystem.paciente.application.dto.ActualizarEstudioMedicoDTO;
+import com.saludsystem.paciente.application.dto.base.ActualizarEstudioMedicoDTO;
 import com.saludsystem.paciente.application.service.EstudioMedicoService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.configuracion.domain.model.SysSaludEntity;

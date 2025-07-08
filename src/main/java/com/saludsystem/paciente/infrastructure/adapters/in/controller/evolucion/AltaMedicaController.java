@@ -2,7 +2,7 @@ package com.saludsystem.paciente.infrastructure.adapters.in.controller.evolucion
 
 import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.AltaMedicaResponse;
 import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.AltaMedicaRequest;
-import com.saludsystem.paciente.application.dto.evolucion.ActualizarAltaMedicaDTO;
+import com.saludsystem.paciente.application.dto.base.evolucion.ActualizarAltaMedicaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.AltaMedicaService;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.Evolucion.AltaMedicaListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;

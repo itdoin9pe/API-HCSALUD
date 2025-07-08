@@ -2,7 +2,7 @@ package com.saludsystem.paciente.application.service.impl;
 
 import com.saludsystem.paciente.application.dto.res.PacienteResponse;
 import com.saludsystem.paciente.application.dto.req.PacienteRequest;
-import com.saludsystem.paciente.application.dto.ActualizarPacienteDTO;
+import com.saludsystem.paciente.application.dto.base.ActualizarPacienteDTO;
 import com.saludsystem.paciente.application.service.PacienteService;
 import com.saludsystem.configuracion.domain.model.SedeEntity;
 import com.saludsystem.configuracion.domain.model.SysSaludEntity;

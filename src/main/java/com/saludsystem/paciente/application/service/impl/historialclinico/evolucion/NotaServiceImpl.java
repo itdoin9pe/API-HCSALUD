@@ -2,7 +2,7 @@ package com.saludsystem.paciente.application.service.impl.historialclinico.evolu
 
 import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.NotaResponse;
 import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.NotaRequest;
-import com.saludsystem.paciente.application.dto.evolucion.ActualizarNotaDTO;
+import com.saludsystem.paciente.application.dto.base.evolucion.ActualizarNotaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.NotaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.Evolucion.NotaEntity;

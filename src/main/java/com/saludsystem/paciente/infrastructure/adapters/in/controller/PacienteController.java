@@ -2,7 +2,7 @@ package com.saludsystem.paciente.infrastructure.adapters.in.controller;
 
 import com.saludsystem.paciente.application.dto.res.PacienteResponse;
 import com.saludsystem.paciente.application.dto.req.PacienteRequest;
-import com.saludsystem.paciente.application.dto.ActualizarPacienteDTO;
+import com.saludsystem.paciente.application.dto.base.ActualizarPacienteDTO;
 import com.saludsystem.paciente.application.service.PacienteService;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.PacienteListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;

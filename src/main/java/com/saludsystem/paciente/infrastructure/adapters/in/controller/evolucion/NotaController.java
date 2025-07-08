@@ -2,7 +2,7 @@ package com.saludsystem.paciente.infrastructure.adapters.in.controller.evolucion
 
 import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.NotaResponse;
 import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.NotaRequest;
-import com.saludsystem.paciente.application.dto.evolucion.ActualizarNotaDTO;
+import com.saludsystem.paciente.application.dto.base.evolucion.ActualizarNotaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.NotaService;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.Evolucion.NotaListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;

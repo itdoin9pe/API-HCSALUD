@@ -1,30 +1,11 @@
 package com.saludsystem.paciente.application.dto.req.historialclinico.estadocuenta;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.saludsystem.paciente.application.dto.base.historialclinico.estadocuenta.EstadoCuentaBaseDTO;
 import lombok.Data;
 
-import java.util.Date;
 import java.util.UUID;
 
 @Data
-public class EstadoCuentaRequest {
-
-    private UUID pacienteId;
-
-    private Date fechaApertura;
-
-    private String estado;
-
-    @Schema(example = "0")
-    private Double totalHospitalizacion;
-
-    @Schema(example = "0")
-    private Double totalMedicamentosEstudios;
-
-    @Schema(example = "0")
-    private Double totalPagado;
-
-    @Schema(example = "0")
-    private Double saldoPendiente;
-
+public class EstadoCuentaRequest extends EstadoCuentaBaseDTO {
+    private UUID pacEstadoCuentaId;
 }

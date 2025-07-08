@@ -1,8 +1,8 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller.evolucion;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.EvolucionDTO;
+import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.EvolucionResponse;
 import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.EvolucionRequest;
-import com.saludsystem.paciente.application.dto.evolucion.ActualizarEvolucionDTO;
+import com.saludsystem.paciente.application.dto.base.evolucion.ActualizarEvolucionDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.EvolucionService;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -38,14 +38,14 @@ public class EvolucionController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = EvolucionListResponse.class)))
     })
-    public ListResponse<EvolucionDTO> getAllPage(
+    public ListResponse<EvolucionResponse> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return evolucionService.getAllEvolucion(hospitalId, page, rows);
     }
 
     @GetMapping("/GetById/{Id}")
-    public EvolucionDTO getById(@PathVariable UUID pacienteEvolucionId) {
+    public EvolucionResponse getById(@PathVariable UUID pacienteEvolucionId) {
         return evolucionService.getEvolucionById(pacienteEvolucionId);
     }
 
