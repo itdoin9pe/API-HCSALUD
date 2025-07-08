@@ -7,7 +7,7 @@ import com.saludsystem.medico.application.service.DoctorService;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.medico.domain.model.DoctorEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.medico.infrastructure.adapters.in.response.DoctorResponse;
+import com.saludsystem.medico.infrastructure.adapters.in.response.DoctorListResponse;
 import com.saludsystem.medico.infrastructure.adapters.out.persistance.DoctorRepository;
 import com.saludsystem.shared.infrastructure.security.util.FileStorageService;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -122,7 +122,7 @@ public class DoctorController {
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = DoctorResponse.class)))
+                            schema = @Schema(implementation = DoctorListResponse.class)))
     })
     public ListResponse<DoctorDTO> getAllDoctor(@RequestParam(name = "hospitalId", required = true) UUID hospitalId,
                                                 @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {

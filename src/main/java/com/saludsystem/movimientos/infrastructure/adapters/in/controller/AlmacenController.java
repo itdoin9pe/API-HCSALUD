@@ -1,11 +1,11 @@
 package com.saludsystem.movimientos.infrastructure.adapters.in.controller;
 
-import com.saludsystem.movimientos.application.dto.res.AlmacenDTO;
-import com.saludsystem.movimientos.application.dto.req.CrearAlmacenDTO;
+import com.saludsystem.movimientos.application.dto.res.AlmacenResponse;
+import com.saludsystem.movimientos.application.dto.req.AlmacenRequest;
+import com.saludsystem.movimientos.infrastructure.adapters.in.response.AlmacenListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.movimientos.infrastructure.adapters.in.response.AlmacenResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -18,9 +18,9 @@ import java.util.UUID;
 @Tag(name = "Almacenes")
 @RestController
 @RequestMapping("/api/Almacenes")
-public class AlmacenController extends GenericController<CrearAlmacenDTO, AlmacenDTO, UUID> {
+public class AlmacenController extends GenericController<AlmacenRequest, AlmacenResponse, UUID> {
 
-    protected AlmacenController(GenericService<CrearAlmacenDTO, AlmacenDTO, UUID> genericService) {
+    protected AlmacenController(GenericService<AlmacenRequest, AlmacenResponse, UUID> genericService) {
         super(genericService);
     }
 
@@ -28,9 +28,9 @@ public class AlmacenController extends GenericController<CrearAlmacenDTO, Almace
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AlmacenResponse.class)))
+                            schema = @Schema(implementation = AlmacenListResponse.class)))
     })
-    public ListResponse<AlmacenDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<AlmacenResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

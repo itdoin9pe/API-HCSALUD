@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.service.impl;
 
-import com.saludsystem.paciente.application.dto.res.MedicamentoRecetadoDTO;
-import com.saludsystem.paciente.application.dto.req.CrearMedicamentoRecetadoDTO;
+import com.saludsystem.paciente.application.dto.res.MedicamentoRecetadoResponse;
+import com.saludsystem.paciente.application.dto.req.MedicamentoRecetadoRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.MedicamentoRecetadoService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -22,32 +22,32 @@ import java.util.UUID;
 
 @Service
 public class MedicamentoRecetadoServiceImpl extends GenericServiceImpl<MedicamentoRecetadoEntity,
-        CrearMedicamentoRecetadoDTO, MedicamentoRecetadoDTO, UUID> implements MedicamentoRecetadoService {
+        MedicamentoRecetadoRequest, MedicamentoRecetadoResponse, UUID> implements MedicamentoRecetadoService {
 
     private final MedicamentoRepository medicamentoRepository;
 
     public MedicamentoRecetadoServiceImpl(
             MedicamentoRecetadoRepository medicamentoRecetadoRepository, ModelMapper modelMapper,
             AuthValidator authValidator, MedicamentoRepository medicamentoRepository) {
-        super(medicamentoRecetadoRepository, modelMapper, authValidator, MedicamentoRecetadoDTO.class
+        super(medicamentoRecetadoRepository, modelMapper, authValidator, MedicamentoRecetadoResponse.class
         );
         this.medicamentoRepository = medicamentoRepository;
     }
 
     @Override
-    protected MedicamentoRecetadoEntity convertCreateDtoToEntity(CrearMedicamentoRecetadoDTO crearMedicamentoRecetadoDTO) {
+    protected MedicamentoRecetadoEntity convertCreateDtoToEntity(MedicamentoRecetadoRequest medicamentoRecetadoRequest) {
         MedicamentoRecetadoEntity entity = new MedicamentoRecetadoEntity();
-        MedicamentoEntity medicamento = medicamentoRepository.findById(crearMedicamentoRecetadoDTO.getMedicamentoId())
+        MedicamentoEntity medicamento = medicamentoRepository.findById(medicamentoRecetadoRequest.getMedicamentoId())
                 .orElseThrow( () -> new ResourceNotFoundException("Medicamento not found"));
-        entity.setDosis(crearMedicamentoRecetadoDTO.getDosis());
-        entity.setFrecuencia(crearMedicamentoRecetadoDTO.getFrecuencia());
-        entity.setIndicaciones(crearMedicamentoRecetadoDTO.getIndicaciones());
-        entity.setDuracionDias(crearMedicamentoRecetadoDTO.getDuracionDias());
+        entity.setDosis(medicamentoRecetadoRequest.getDosis());
+        entity.setFrecuencia(medicamentoRecetadoRequest.getFrecuencia());
+        entity.setIndicaciones(medicamentoRecetadoRequest.getIndicaciones());
+        entity.setDuracionDias(medicamentoRecetadoRequest.getDuracionDias());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(MedicamentoRecetadoEntity entity, CrearMedicamentoRecetadoDTO dto) {
+    protected void updateEntityFromDto(MedicamentoRecetadoEntity entity, MedicamentoRecetadoRequest dto) {
         Optional.ofNullable(dto.getMedicamentoId()).flatMap(medicamentoRepository::findById).
                 ifPresent(entity::setMedicamentoEntity);
         entity.setDosis(dto.getDosis());
@@ -58,28 +58,28 @@ public class MedicamentoRecetadoServiceImpl extends GenericServiceImpl<Medicamen
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearMedicamentoRecetadoDTO crearMedicamentoRecetadoDTO) {
-        return super.save(crearMedicamentoRecetadoDTO);
+    public ApiResponse save(MedicamentoRecetadoRequest medicamentoRecetadoRequest) {
+        return super.save(medicamentoRecetadoRequest);
     }
 
     @Override
-    public ListResponse<MedicamentoRecetadoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<MedicamentoRecetadoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, CrearMedicamentoRecetadoDTO updateDto) {
+    public ApiResponse update(UUID uuid, MedicamentoRecetadoRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public List<MedicamentoRecetadoDTO> getList() {
+    public List<MedicamentoRecetadoResponse> getList() {
         return super.getList();
     }
 
     @Override
-    public MedicamentoRecetadoDTO getById(UUID uuid) {
+    public MedicamentoRecetadoResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 

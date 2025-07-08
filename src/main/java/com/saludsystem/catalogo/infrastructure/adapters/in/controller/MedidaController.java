@@ -1,11 +1,10 @@
 package com.saludsystem.catalogo.infrastructure.adapters.in.controller;
 
-import com.saludsystem.catalogo.application.dtos.res.MedidaDTO;
-import com.saludsystem.catalogo.application.dtos.req.CrearMedidaDTO;
+import com.saludsystem.catalogo.application.dtos.res.MedidaRequest;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.catalogo.infrastructure.adapters.in.response.MedidaResponse;
+import com.saludsystem.catalogo.infrastructure.adapters.in.response.MedidaListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -17,9 +16,9 @@ import java.util.UUID;
 @Tag(name = "Medidas")
 @RestController
 @RequestMapping("/api/Medidas")
-public class MedidaController extends GenericController<CrearMedidaDTO, MedidaDTO, UUID> {
+public class MedidaController extends GenericController<com.saludsystem.catalogo.application.dtos.req.MedidaRequest, MedidaRequest, UUID> {
 
-    protected MedidaController(GenericService<CrearMedidaDTO, MedidaDTO, UUID> genericService) {
+    protected MedidaController(GenericService<com.saludsystem.catalogo.application.dtos.req.MedidaRequest, MedidaRequest, UUID> genericService) {
         super(genericService);
     }
 
@@ -27,9 +26,9 @@ public class MedidaController extends GenericController<CrearMedidaDTO, MedidaDT
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MedidaResponse.class)))
+                            schema = @Schema(implementation = MedidaListResponse.class)))
     })
-    public ListResponse<MedidaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<MedidaRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

@@ -1,11 +1,11 @@
 package com.saludsystem.configuracion.infrastructure.adapters.in.controller;
 
-import com.saludsystem.configuracion.application.dto.req.PermisoDTO;
-import com.saludsystem.configuracion.application.dto.res.CrearPermisoDTO;
+import com.saludsystem.configuracion.application.dto.res.PermisoResponse;
+import com.saludsystem.configuracion.application.dto.req.PermisoRequest;
+import com.saludsystem.configuracion.infrastructure.adapters.in.response.PermisoListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.configuracion.infrastructure.adapters.in.response.PermisoResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -18,9 +18,9 @@ import java.util.UUID;
 @Tag(name = "Permisos")
 @RestController
 @RequestMapping("/api/Permisos")
-public class PermisoController extends GenericController<CrearPermisoDTO, PermisoDTO, UUID> {
+public class PermisoController extends GenericController<PermisoRequest, PermisoResponse, UUID> {
 
-    protected PermisoController(GenericService<CrearPermisoDTO, PermisoDTO, UUID> genericService) {
+    protected PermisoController(GenericService<PermisoRequest, PermisoResponse, UUID> genericService) {
         super(genericService);
     }
 
@@ -28,9 +28,9 @@ public class PermisoController extends GenericController<CrearPermisoDTO, Permis
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = PermisoResponse.class)))
+                            schema = @Schema(implementation = PermisoListResponse.class)))
     })
-    public ListResponse<PermisoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<PermisoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

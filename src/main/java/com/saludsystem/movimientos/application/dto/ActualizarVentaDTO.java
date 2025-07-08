@@ -1,6 +1,6 @@
 package com.saludsystem.movimientos.application.dto;
 
-import com.saludsystem.movimientos.application.dto.res.VentaDetalleDTO;
+import com.saludsystem.movimientos.application.dto.res.VentaDetalleRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -42,6 +42,6 @@ public class ActualizarVentaDTO {
     @Schema(description = "Estado de la venta (inactive = 0 / active = 1)", example = "0")
     private Integer estado;
 
-    private List<VentaDetalleDTO> detalle;
+    private List<VentaDetalleRequest> detalle;
 
 }

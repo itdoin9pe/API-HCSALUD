@@ -1,12 +1,12 @@
 package com.saludsystem.configuracion.infrastructure.adapters.in.controller;
 
-import com.saludsystem.configuracion.application.dto.req.SysSaludDTO;
-import com.saludsystem.configuracion.application.dto.res.CrearSysSaludDTO;
-import com.saludsystem.configuracion.application.dto.req.ActualizarHospitalDTO;
+import com.saludsystem.configuracion.application.dto.res.SysSaludResponse;
+import com.saludsystem.configuracion.application.dto.req.SysSaludRequest;
+import com.saludsystem.configuracion.application.dto.res.ActualizarHospitalDTO;
 import com.saludsystem.configuracion.application.services.SysSaludService;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.configuracion.infrastructure.adapters.in.response.ClinicaResponse;
+import com.saludsystem.configuracion.infrastructure.adapters.in.response.ClinicaListResponse;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.PlanRepository;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -41,17 +41,17 @@ public class ClinicaController {
             String nombre, String direccion, String celular, String email, String ruc,
             @DateTimeFormat(pattern = "dd-MM-yyyy") Date fecha, MultipartFile foto, UUID planId, Integer estado)
             throws IOException {
-        CrearSysSaludDTO crearSysSaludDTO = new CrearSysSaludDTO();
-        crearSysSaludDTO.setNombre(nombre);
-        crearSysSaludDTO.setDireccion(direccion);
-        crearSysSaludDTO.setCelular(celular);
-        crearSysSaludDTO.setEmail(email);
-        crearSysSaludDTO.setRuc(ruc);
-        crearSysSaludDTO.setFecha(fecha);
+        SysSaludRequest sysSaludRequest = new SysSaludRequest();
+        sysSaludRequest.setNombre(nombre);
+        sysSaludRequest.setDireccion(direccion);
+        sysSaludRequest.setCelular(celular);
+        sysSaludRequest.setEmail(email);
+        sysSaludRequest.setRuc(ruc);
+        sysSaludRequest.setFecha(fecha);
         //crearSysSaludDTO.setFoto(foto);
-        crearSysSaludDTO.setPlanId(planId);
-        crearSysSaludDTO.setEstado(estado);
-        sysSaludService.saveClinica(crearSysSaludDTO);
+        sysSaludRequest.setPlanId(planId);
+        sysSaludRequest.setEstado(estado);
+        sysSaludService.saveClinica(sysSaludRequest);
         return ResponseEntity.ok(new ApiResponse(true, "Hospital creado correctamente!!."));
     }
 
@@ -83,20 +83,20 @@ public class ClinicaController {
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ClinicaResponse.class)))
+                            schema = @Schema(implementation = ClinicaListResponse.class)))
     })
-    public ListResponse<SysSaludDTO> getAllPage(@RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-                                                @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
+    public ListResponse<SysSaludResponse> getAllPage(@RequestParam(name = "hospitalId", required = true) UUID hospitalId,
+                                                     @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return sysSaludService.getAllHospital(hospitalId, page, rows);
     }
 
     @GetMapping("/GetHospitalList")
-    public ResponseEntity<List<SysSaludDTO>> getAllList() {
+    public ResponseEntity<List<SysSaludResponse>> getAllList() {
         return ResponseEntity.ok(sysSaludService.getHospitalList());
     }
 
     @GetMapping("/GetHospital/{hospitalId}")
-    public ResponseEntity<SysSaludDTO> getById(@PathVariable UUID hospitalId) {
+    public ResponseEntity<SysSaludResponse> getById(@PathVariable UUID hospitalId) {
         return sysSaludService.getHospitalBysId(hospitalId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 

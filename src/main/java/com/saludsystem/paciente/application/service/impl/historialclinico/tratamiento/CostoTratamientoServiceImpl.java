@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico.tratamiento;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.tratamiento.CostoTratamientoDTO;
-import com.saludsystem.paciente.application.dto.req.historialclinico.tratamiento.CrearCostoTratamientoDTO;
+import com.saludsystem.paciente.application.dto.res.historialclinico.tratamiento.CostoTratamientoResponse;
+import com.saludsystem.paciente.application.dto.req.historialclinico.tratamiento.CostoTratamientoRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.tratamiento.CostoTratamientoService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class CostoTratamientoServiceImpl extends GenericServiceImpl<CostoTratamientoEntity, CrearCostoTratamientoDTO,
-        CostoTratamientoDTO, UUID> implements CostoTratamientoService {
+public class CostoTratamientoServiceImpl extends GenericServiceImpl<CostoTratamientoEntity, CostoTratamientoRequest,
+        CostoTratamientoResponse, UUID> implements CostoTratamientoService {
 
     private final PacienteRepository pacienteRepository;
     private final PlanTratamientoRepository planTratamientoRepository;
@@ -29,28 +29,28 @@ public class CostoTratamientoServiceImpl extends GenericServiceImpl<CostoTratami
     public CostoTratamientoServiceImpl(
             CostoTratamientoRepository costoTratamientoRepository, ModelMapper modelMapper, AuthValidator authValidator,
             PacienteRepository pacienteRepository, PlanTratamientoRepository planTratamientoRepository) {
-        super(costoTratamientoRepository, modelMapper, authValidator, CostoTratamientoDTO.class
+        super(costoTratamientoRepository, modelMapper, authValidator, CostoTratamientoResponse.class
         );
         this.pacienteRepository = pacienteRepository;
         this.planTratamientoRepository = planTratamientoRepository;
     }
 
     @Override
-    protected CostoTratamientoEntity convertCreateDtoToEntity(CrearCostoTratamientoDTO crearCostoTratamientoDTO) {
+    protected CostoTratamientoEntity convertCreateDtoToEntity(CostoTratamientoRequest costoTratamientoRequest) {
         CostoTratamientoEntity entity = new CostoTratamientoEntity();
-        entity.setPacienteEntity(pacienteRepository.findById(crearCostoTratamientoDTO.getPacienteId())
+        entity.setPacienteEntity(pacienteRepository.findById(costoTratamientoRequest.getPacienteId())
                 .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
-        entity.setPlanTratamientoEntity(planTratamientoRepository.findById(crearCostoTratamientoDTO.getPacientePlanTratamientoId())
+        entity.setPlanTratamientoEntity(planTratamientoRepository.findById(costoTratamientoRequest.getPacientePlanTratamientoId())
                 .orElseThrow( () -> new ResourceNotFoundException("Plan de tratamiento not found")));
-        entity.setConcepto(crearCostoTratamientoDTO.getConcepto());
-        entity.setMonto(crearCostoTratamientoDTO.getMonto());
-        entity.setMoneda(crearCostoTratamientoDTO.getMoneda());
-        entity.setPagado(crearCostoTratamientoDTO.isPagado());
+        entity.setConcepto(costoTratamientoRequest.getConcepto());
+        entity.setMonto(costoTratamientoRequest.getMonto());
+        entity.setMoneda(costoTratamientoRequest.getMoneda());
+        entity.setPagado(costoTratamientoRequest.isPagado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(CostoTratamientoEntity entity, CrearCostoTratamientoDTO dto) {
+    protected void updateEntityFromDto(CostoTratamientoEntity entity, CostoTratamientoRequest dto) {
         entity.setPacienteEntity(pacienteRepository.findById(dto.getPacienteId())
                 .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
         entity.setPlanTratamientoEntity(planTratamientoRepository.findById(dto.getPacientePlanTratamientoId())
@@ -63,28 +63,28 @@ public class CostoTratamientoServiceImpl extends GenericServiceImpl<CostoTratami
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearCostoTratamientoDTO crearCostoTratamientoDTO) {
-        return super.save(crearCostoTratamientoDTO);
+    public ApiResponse save(CostoTratamientoRequest costoTratamientoRequest) {
+        return super.save(costoTratamientoRequest);
     }
 
     @Override
-    public ListResponse<CostoTratamientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<CostoTratamientoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, CrearCostoTratamientoDTO updateDto) {
+    public ApiResponse update(UUID uuid, CostoTratamientoRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public List<CostoTratamientoDTO> getList() {
+    public List<CostoTratamientoResponse> getList() {
         return super.getList();
     }
 
     @Override
-    public CostoTratamientoDTO getById(UUID uuid) {
+    public CostoTratamientoResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 

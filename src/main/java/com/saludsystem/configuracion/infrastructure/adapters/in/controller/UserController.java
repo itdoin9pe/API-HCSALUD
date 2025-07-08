@@ -1,13 +1,13 @@
 package com.saludsystem.configuracion.infrastructure.adapters.in.controller;
 
-import com.saludsystem.configuracion.application.dto.req.UsuarioDTO;
-import com.saludsystem.configuracion.application.dto.res.NewUserDto;
-import com.saludsystem.configuracion.application.dto.req.ActualizarUsuarioDTO;
+import com.saludsystem.configuracion.application.dto.res.UsuarioResponse;
+import com.saludsystem.configuracion.application.dto.req.NewUserDto;
+import com.saludsystem.configuracion.application.dto.res.ActualizarUsuarioDTO;
 import com.saludsystem.configuracion.application.services.UsuarioService;
 import com.saludsystem.configuracion.domain.model.UserEntity;
+import com.saludsystem.configuracion.infrastructure.adapters.in.response.UsuarioListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.configuracion.infrastructure.adapters.in.response.UsuarioResponse;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.UserRepository;
 import com.saludsystem.shared.infrastructure.security.util.FileStorageService;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -46,9 +46,9 @@ public class UserController {
                       content =
                           @Content(mediaType = "application/json",
                                    schema = @Schema(implementation =
-                                                        UsuarioResponse.class)))
+                                                        UsuarioListResponse.class)))
                 })
-  public ListResponse<UsuarioDTO>
+  public ListResponse<UsuarioResponse>
   getAllUsuario(@RequestParam(name = "hospitalId", required = true)
                 UUID hospitalId, @RequestParam(name = "Page") int page,
                 @RequestParam(name = "Rows") int rows) {

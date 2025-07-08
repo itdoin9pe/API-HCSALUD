@@ -1,7 +1,7 @@
 package com.saludsystem.mantenimiento.application.service.impl;
 
-import com.saludsystem.mantenimiento.application.dto.res.CuentaDTO;
-import com.saludsystem.mantenimiento.application.dto.req.CrearCuentaDTO;
+import com.saludsystem.mantenimiento.application.dto.res.CuentaResponse;
+import com.saludsystem.mantenimiento.application.dto.req.CuentaRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.mantenimiento.application.service.CuentaService;
 import com.saludsystem.mantenimiento.domain.model.CuentaEntity;
@@ -18,38 +18,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CuentaServiceImpl extends GenericServiceImpl<CuentaEntity, CrearCuentaDTO, CuentaDTO, UUID>
+public class CuentaServiceImpl extends GenericServiceImpl<CuentaEntity, CuentaRequest, CuentaResponse, UUID>
         implements CuentaService {
 
     protected CuentaServiceImpl(
             CuentaRepository cuentaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(cuentaRepository, modelMapper, authValidator, CuentaDTO.class);
+        super(cuentaRepository, modelMapper, authValidator, CuentaResponse.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearCuentaDTO crearCuentaDTO) {
-        return super.save(crearCuentaDTO);
+    public ApiResponse save(CuentaRequest cuentaRequest) {
+        return super.save(cuentaRequest);
     }
 
     @Override
-    public ListResponse<CuentaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<CuentaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CrearCuentaDTO updateDto) {
+    public ApiResponse update(UUID uuid, CuentaRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public CuentaDTO getById(UUID uuid) {
+    public CuentaResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<CuentaDTO> getList() {
+    public List<CuentaResponse> getList() {
         return super.getList();
     }
 
@@ -60,16 +60,16 @@ public class CuentaServiceImpl extends GenericServiceImpl<CuentaEntity, CrearCue
     }
 
     @Override
-    protected CuentaEntity convertCreateDtoToEntity(CrearCuentaDTO crearCuentaDTO) {
+    protected CuentaEntity convertCreateDtoToEntity(CuentaRequest cuentaRequest) {
         CuentaEntity entity = new CuentaEntity();
-        entity.setNombre(crearCuentaDTO.getNombre());
-        entity.setTotal(crearCuentaDTO.getTotal());
-        entity.setEstado(crearCuentaDTO.getEstado());
+        entity.setNombre(cuentaRequest.getNombre());
+        entity.setTotal(cuentaRequest.getTotal());
+        entity.setEstado(cuentaRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(CuentaEntity entity, CrearCuentaDTO dto) {
+    protected void updateEntityFromDto(CuentaEntity entity, CuentaRequest dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getTotal()).ifPresent(entity::setTotal);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);

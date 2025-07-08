@@ -1,7 +1,7 @@
 package com.saludsystem.catalogo.application.services.impl;
 
-import com.saludsystem.catalogo.application.dtos.res.AlergiaDTO;
-import com.saludsystem.catalogo.application.dtos.req.CrearAlergiaDTO;
+import com.saludsystem.catalogo.application.dtos.res.AlergiaResponse;
+import com.saludsystem.catalogo.application.dtos.req.AlergiaRequest;
 import com.saludsystem.catalogo.application.services.AlergiaService;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.domain.model.AlergiaEntity;
@@ -19,27 +19,27 @@ import java.util.UUID;
 
 @Service
 public class AlergiaServiceImpl extends GenericServiceImpl<AlergiaEntity,
-        CrearAlergiaDTO, AlergiaDTO, UUID> implements AlergiaService {
+        AlergiaRequest, AlergiaResponse, UUID> implements AlergiaService {
 
     protected AlergiaServiceImpl(
             AlergiaRepository alergiaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(alergiaRepository, modelMapper, authValidator, AlergiaDTO.class);
+        super(alergiaRepository, modelMapper, authValidator, AlergiaResponse.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearAlergiaDTO dto) {
+    public ApiResponse save(AlergiaRequest dto) {
         return super.save(dto);
     }
 
     @Override
-    public ListResponse<AlergiaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<AlergiaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CrearAlergiaDTO updateDto) {
+    public ApiResponse update(UUID uuid, AlergiaRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
@@ -50,25 +50,25 @@ public class AlergiaServiceImpl extends GenericServiceImpl<AlergiaEntity,
     }
 
     @Override
-    public AlergiaDTO getById(UUID id) {
+    public AlergiaResponse getById(UUID id) {
         return super.getById(id);
     }
 
     @Override
-    public List<AlergiaDTO> getList() {
+    public List<AlergiaResponse> getList() {
         return super.getList();
     }
 
     @Override
-    protected AlergiaEntity convertCreateDtoToEntity(CrearAlergiaDTO crearAlergiaDTO) {
+    protected AlergiaEntity convertCreateDtoToEntity(AlergiaRequest alergiaRequest) {
         AlergiaEntity entity = new AlergiaEntity();
-        entity.setNombre(crearAlergiaDTO.getNombre());
-        entity.setEstado(crearAlergiaDTO.getEstado());
+        entity.setNombre(alergiaRequest.getNombre());
+        entity.setEstado(alergiaRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(AlergiaEntity entity, CrearAlergiaDTO dto) {
+    protected void updateEntityFromDto(AlergiaEntity entity, AlergiaRequest dto) {
         Optional.ofNullable(dto.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }

@@ -1,7 +1,6 @@
 package com.saludsystem.catalogo.application.services.impl;
 
-import com.saludsystem.catalogo.application.dtos.res.ApoderadoDTO;
-import com.saludsystem.catalogo.application.dtos.req.CrearApoderadoDTO;
+import com.saludsystem.catalogo.application.dtos.res.ApoderadoRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.application.services.ApoderadoService;
 import com.saludsystem.catalogo.domain.model.ApoderadoEntity;
@@ -19,26 +18,26 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity, CrearApoderadoDTO,
-        ApoderadoDTO, UUID> implements ApoderadoService {
+public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity, com.saludsystem.catalogo.application.dtos.req.ApoderadoRequest,
+        ApoderadoRequest, UUID> implements ApoderadoService {
 
     private final SysSaludRepository sysSaludRepository;
 
     public ApoderadoServiceImpl(ApoderadoRepository apoderadoRepository, ModelMapper modelMapper,
             AuthValidator authValidator, SysSaludRepository sysSaludRepository) {
-        super(apoderadoRepository, modelMapper, authValidator, ApoderadoDTO.class);
+        super(apoderadoRepository, modelMapper, authValidator, ApoderadoRequest.class);
         this.sysSaludRepository = sysSaludRepository;
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearApoderadoDTO dto) {
+    public ApiResponse save(com.saludsystem.catalogo.application.dtos.req.ApoderadoRequest dto) {
         return super.save(dto);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CrearApoderadoDTO updateDto) {
+    public ApiResponse update(UUID uuid, com.saludsystem.catalogo.application.dtos.req.ApoderadoRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
@@ -49,33 +48,33 @@ public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity, Cr
     }
 
     @Override
-    public ApoderadoDTO getById(UUID id) {
+    public ApoderadoRequest getById(UUID id) {
         return super.getById(id);
     }
 
     @Override
-    public List<ApoderadoDTO> getList() {
+    public List<ApoderadoRequest> getList() {
         return super.getList();
     }
     
     @Override
-    public ListResponse<ApoderadoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<ApoderadoRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    protected ApoderadoEntity convertCreateDtoToEntity(CrearApoderadoDTO crearApoderadoDTO) {
+    protected ApoderadoEntity convertCreateDtoToEntity(com.saludsystem.catalogo.application.dtos.req.ApoderadoRequest apoderadoRequest) {
         ApoderadoEntity entity = new ApoderadoEntity();
-        entity.setNombre(crearApoderadoDTO.getNombre());
-        entity.setNroDocumento(crearApoderadoDTO.getNroDocumento());
-        entity.setDireccion(crearApoderadoDTO.getDireccion());
-        entity.setTelefono(crearApoderadoDTO.getTelefono());
-        entity.setEstado(crearApoderadoDTO.getEstado());
+        entity.setNombre(apoderadoRequest.getNombre());
+        entity.setNroDocumento(apoderadoRequest.getNroDocumento());
+        entity.setDireccion(apoderadoRequest.getDireccion());
+        entity.setTelefono(apoderadoRequest.getTelefono());
+        entity.setEstado(apoderadoRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(ApoderadoEntity entity, CrearApoderadoDTO dto) {
+    protected void updateEntityFromDto(ApoderadoEntity entity, com.saludsystem.catalogo.application.dtos.req.ApoderadoRequest dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getNroDocumento()).ifPresent(entity::setNroDocumento);
         Optional.ofNullable(dto.getDireccion()).ifPresent(entity::setDireccion);

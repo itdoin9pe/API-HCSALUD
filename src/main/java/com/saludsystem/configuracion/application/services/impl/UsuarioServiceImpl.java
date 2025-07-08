@@ -1,8 +1,8 @@
 package com.saludsystem.configuracion.application.services.impl;
 
-import com.saludsystem.configuracion.application.dto.req.UsuarioDTO;
-import com.saludsystem.configuracion.application.dto.res.NewUserDto;
-import com.saludsystem.configuracion.application.dto.req.ActualizarUsuarioDTO;
+import com.saludsystem.configuracion.application.dto.res.UsuarioResponse;
+import com.saludsystem.configuracion.application.dto.req.NewUserDto;
+import com.saludsystem.configuracion.application.dto.res.ActualizarUsuarioDTO;
 import com.saludsystem.configuracion.application.services.UsuarioService;
 import com.saludsystem.configuracion.domain.model.RoleEntity;
 import com.saludsystem.configuracion.domain.model.SysSaludEntity;
@@ -43,10 +43,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public ListResponse<UsuarioDTO> getAllUsuario(UUID hospitalId, int page, int rows) {
+    public ListResponse<UsuarioResponse> getAllUsuario(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<UserEntity> userPage = userRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<UsuarioDTO> data = userPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<UsuarioResponse> data = userPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data, userPage.getTotalElements(), userPage.getTotalPages(), userPage.getNumber() + 1);
     }
 
@@ -101,8 +101,8 @@ public class UsuarioServiceImpl implements UsuarioService {
         return new ApiResponse(true, "Usuario eliminado correctamente");
     }
 
-    private UsuarioDTO convertToDTO(UserEntity user) {
-        return modelMapper.map(user, UsuarioDTO.class);
+    private UsuarioResponse convertToDTO(UserEntity user) {
+        return modelMapper.map(user, UsuarioResponse.class);
     }
 
 }

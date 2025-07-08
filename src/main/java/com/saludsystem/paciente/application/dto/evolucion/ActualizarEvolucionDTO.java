@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.dto.evolucion;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.CambioCondicionDTO;
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.NotaDTO;
+import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.CambioCondicionResponse;
+import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.NotaResponse;
 import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,9 +22,9 @@ public class ActualizarEvolucionDTO {
 
     private Boolean finalizada = false;
 
-    private List<NotaDTO> notas;
+    private List<NotaResponse> notas;
 
-    private List<CambioCondicionDTO> cambios;
+    private List<CambioCondicionResponse> cambios;
 
     private UUID pacienteAltaMedicaId;
 

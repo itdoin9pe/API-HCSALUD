@@ -1,9 +1,8 @@
 package com.saludsystem.movimientos.application.service.impl;
 
-import com.saludsystem.movimientos.application.dto.res.VentaByIdDTO;
+import com.saludsystem.movimientos.application.dto.res.VentaRequest;
 import com.saludsystem.movimientos.application.dto.res.VentaDTO;
-import com.saludsystem.movimientos.application.dto.res.VentaDetalleDTO;
-import com.saludsystem.movimientos.application.dto.req.CrearVentaDTO;
+import com.saludsystem.movimientos.application.dto.res.VentaDetalleRequest;
 import com.saludsystem.movimientos.application.service.VentaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.configuracion.domain.model.SysSaludEntity;
@@ -66,7 +65,7 @@ public class VentaServiceImpl implements VentaService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveVenta(CrearVentaDTO dto) {
+    public ApiResponse saveVenta(com.saludsystem.movimientos.application.dto.req.VentaRequest dto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -119,7 +118,7 @@ public class VentaServiceImpl implements VentaService {
 
     @Transactional(readOnly = true)
     @Override
-    public VentaByIdDTO getVentaById(UUID ventaId) {
+    public VentaRequest getVentaById(UUID ventaId) {
         VentaEntity ventaEntity = ventaRepository.findById(ventaId).orElseThrow(() -> new ResourceNotFoundException("Venta con id " + ventaId + " no encontrada"));
         return convertToDetailedDTO(ventaEntity);
     }
@@ -192,8 +191,8 @@ public class VentaServiceImpl implements VentaService {
         return dto;
     }
 
-    private VentaByIdDTO convertToDetailedDTO(VentaEntity ventaEntity) {
-        VentaByIdDTO dto = new VentaByIdDTO();
+    private VentaRequest convertToDetailedDTO(VentaEntity ventaEntity) {
+        VentaRequest dto = new VentaRequest();
         // Datos básicos
         dto.setVentaId(ventaEntity.getVentaId());
         dto.setHospitalId(ventaEntity.getHospital().getHospitalId());
@@ -237,13 +236,13 @@ public class VentaServiceImpl implements VentaService {
         dto.setEstado(ventaEntity.getEstado());
         // Detalles de la venta
         if (ventaEntity.getDetalle() != null) {
-            List<VentaDetalleDTO> detallesDTO = ventaEntity.getDetalle().stream().map(this::convertDetalleToDTO).collect(Collectors.toList());dto.setDetalle(detallesDTO);
+            List<VentaDetalleRequest> detallesDTO = ventaEntity.getDetalle().stream().map(this::convertDetalleToDTO).collect(Collectors.toList());dto.setDetalle(detallesDTO);
         }
         return dto;
     }
 
-    private VentaDetalleDTO convertDetalleToDTO(VentaDetalleEntity detalleEntity) {
-        VentaDetalleDTO dto = new VentaDetalleDTO();
+    private VentaDetalleRequest convertDetalleToDTO(VentaDetalleEntity detalleEntity) {
+        VentaDetalleRequest dto = new VentaDetalleRequest();
         dto.setVentaDetalleId(detalleEntity.getVentaDetalleId());
         if (detalleEntity.getProductoEntity() != null) {
             dto.setProductoId(detalleEntity.getProductoEntity().getProductoId());

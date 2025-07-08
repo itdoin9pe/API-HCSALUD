@@ -1,12 +1,12 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller;
 
-import com.saludsystem.paciente.application.dto.res.PacienteDTO;
-import com.saludsystem.paciente.application.dto.req.CrearPacienteDTO;
+import com.saludsystem.paciente.application.dto.res.PacienteResponse;
+import com.saludsystem.paciente.application.dto.req.PacienteRequest;
 import com.saludsystem.paciente.application.dto.ActualizarPacienteDTO;
 import com.saludsystem.paciente.application.service.PacienteService;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.PacienteListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.PacienteResponse;
 import com.saludsystem.shared.infrastructure.security.util.FileStorageService;
 import com.saludsystem.paciente.domain.model.PacienteEntity;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
@@ -48,34 +48,34 @@ public class PacienteController {
             UUID empresaId, String email, String titulo, String observacion, MultipartFile fotoPaciente,
             UUID informacionClinicaId, UUID estudioId, UUID sedeId, String celular) throws IOException {
         String photoPaciente = fileStorageService.storeFile(fotoPaciente);
-        CrearPacienteDTO crearPacienteDTO = new CrearPacienteDTO();
-        crearPacienteDTO.setTipoDocumentoId(tipoDocumentoId);
-        crearPacienteDTO.setNumeroDocumento(numeroDocumento);
-        crearPacienteDTO.setApellidos(apellidos);
-        crearPacienteDTO.setNombres(nombres);
-        crearPacienteDTO.setFechaNacimiento(fechaNacimiento);
-        crearPacienteDTO.setEdad(edad);
-        crearPacienteDTO.setEstado(estado);
-        crearPacienteDTO.setOcupacion(ocupacion);
-        crearPacienteDTO.setDireccion(direccion);
-        crearPacienteDTO.setPaisId(paisId);
-        crearPacienteDTO.setUbigeo(ubigeo);
-        crearPacienteDTO.setTipoPacienteId(tipoPacienteId);
-        crearPacienteDTO.setEstadoCivil(estadoCivil);
-        crearPacienteDTO.setSexo(sexo);
-        crearPacienteDTO.setNombreContacto(nombreContacto);
-        crearPacienteDTO.setTipoHistoria(tipoHistoria);
-        crearPacienteDTO.setAseguradoraId(aseguradoraId);
-        crearPacienteDTO.setEmpresaId(empresaId);
-        crearPacienteDTO.setEmail(email);
-        crearPacienteDTO.setFotoPaciente(photoPaciente);
-        crearPacienteDTO.setTitulo(titulo);
-        crearPacienteDTO.setObservacion(observacion);
-        crearPacienteDTO.setInformacionClinicaId(informacionClinicaId);
-        crearPacienteDTO.setEstudioId(estudioId);
-        crearPacienteDTO.setSedeId(sedeId);
-        crearPacienteDTO.setCelular(celular);
-        pacienteService.savePaciente(crearPacienteDTO);
+        PacienteRequest pacienteRequest = new PacienteRequest();
+        pacienteRequest.setTipoDocumentoId(tipoDocumentoId);
+        pacienteRequest.setNumeroDocumento(numeroDocumento);
+        pacienteRequest.setApellidos(apellidos);
+        pacienteRequest.setNombres(nombres);
+        pacienteRequest.setFechaNacimiento(fechaNacimiento);
+        pacienteRequest.setEdad(edad);
+        pacienteRequest.setEstado(estado);
+        pacienteRequest.setOcupacion(ocupacion);
+        pacienteRequest.setDireccion(direccion);
+        pacienteRequest.setPaisId(paisId);
+        pacienteRequest.setUbigeo(ubigeo);
+        pacienteRequest.setTipoPacienteId(tipoPacienteId);
+        pacienteRequest.setEstadoCivil(estadoCivil);
+        pacienteRequest.setSexo(sexo);
+        pacienteRequest.setNombreContacto(nombreContacto);
+        pacienteRequest.setTipoHistoria(tipoHistoria);
+        pacienteRequest.setAseguradoraId(aseguradoraId);
+        pacienteRequest.setEmpresaId(empresaId);
+        pacienteRequest.setEmail(email);
+        pacienteRequest.setFotoPaciente(photoPaciente);
+        pacienteRequest.setTitulo(titulo);
+        pacienteRequest.setObservacion(observacion);
+        pacienteRequest.setInformacionClinicaId(informacionClinicaId);
+        pacienteRequest.setEstudioId(estudioId);
+        pacienteRequest.setSedeId(sedeId);
+        pacienteRequest.setCelular(celular);
+        pacienteService.savePaciente(pacienteRequest);
         return ResponseEntity.ok(new ApiResponse(true, "Paciente creado correctamente"));
     }
 
@@ -130,21 +130,21 @@ public class PacienteController {
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = PacienteResponse.class)))
+                            schema = @Schema(implementation = PacienteListResponse.class)))
     })
-    public ListResponse<PacienteDTO> obtenerPacientesPaginados(
+    public ListResponse<PacienteResponse> obtenerPacientesPaginados(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return pacienteService.getAllPaciente(hospitalId, page, rows);
     }
 
     @GetMapping("/GetPacienteList")
-    public ResponseEntity<List<PacienteDTO>> obtenerPacientes() {
+    public ResponseEntity<List<PacienteResponse>> obtenerPacientes() {
         return ResponseEntity.ok(pacienteService.getPacienteList());
     }
 
     @GetMapping("/GetPaciente/{pacienteId}")
-    public ResponseEntity<PacienteDTO> obtenerPacientesPorId(@PathVariable UUID pacienteId) {
+    public ResponseEntity<PacienteResponse> obtenerPacientesPorId(@PathVariable UUID pacienteId) {
         return pacienteService.getPacienteById(pacienteId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 

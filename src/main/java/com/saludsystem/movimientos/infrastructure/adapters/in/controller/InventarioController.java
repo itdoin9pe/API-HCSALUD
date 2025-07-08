@@ -1,13 +1,13 @@
 package com.saludsystem.movimientos.infrastructure.adapters.in.controller;
 
-import com.saludsystem.movimientos.application.dto.res.InventarioDTO;
-import com.saludsystem.movimientos.application.dto.req.CrearInventarioDTO;
+import com.saludsystem.movimientos.application.dto.res.InventarioResponse;
+import com.saludsystem.movimientos.application.dto.req.InventarioRequest;
 import com.saludsystem.movimientos.application.dto.ActualizarInventarioDTO;
 import com.saludsystem.movimientos.application.service.InventarioExportService;
 import com.saludsystem.movimientos.application.service.InventarioService;
+import com.saludsystem.movimientos.infrastructure.adapters.in.response.InventarioListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.movimientos.infrastructure.adapters.in.response.InventarioResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -35,17 +35,17 @@ public class InventarioController {
     }
 
     @PostMapping("/SaveInventario")
-    public ApiResponse store(@Valid @RequestBody CrearInventarioDTO crearInventarioDTO) {
-        return inventarioService.saveInventario(crearInventarioDTO);
+    public ApiResponse store(@Valid @RequestBody InventarioRequest inventarioRequest) {
+        return inventarioService.saveInventario(inventarioRequest);
     }
 
     @GetMapping("/GetAllInventario")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = InventarioResponse.class)))
+                            schema = @Schema(implementation = InventarioListResponse.class)))
     })
-    public ListResponse<InventarioDTO> getAllPage(
+    public ListResponse<InventarioResponse> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows) {
@@ -53,7 +53,7 @@ public class InventarioController {
     }
 
     @GetMapping("/GetInventario/{inventarioId}")
-    public InventarioDTO getById(@PathVariable UUID inventarioId) {
+    public InventarioResponse getById(@PathVariable UUID inventarioId) {
         return inventarioService.getInventarioById(inventarioId);
     }
 

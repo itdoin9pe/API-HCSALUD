@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.AntecedenteDTO;
-import com.saludsystem.paciente.application.dto.req.historialclinico.CrearAntecedenteDTO;
+import com.saludsystem.paciente.application.dto.res.historialclinico.AntecedenteResponse;
+import com.saludsystem.paciente.application.dto.req.historialclinico.AntecedenteRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.AntecedenteService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -19,41 +19,41 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class AntecedenteServiceImpl extends GenericServiceImpl<AntecedentesEntity, CrearAntecedenteDTO,
-        AntecedenteDTO, UUID> implements AntecedenteService {
+public class AntecedenteServiceImpl extends GenericServiceImpl<AntecedentesEntity, AntecedenteRequest,
+        AntecedenteResponse, UUID> implements AntecedenteService {
 
     private final PacienteRepository pacienteRepository;
 
     public AntecedenteServiceImpl(
             AntecedenteRespository antecedenteRespository,
             ModelMapper modelMapper, AuthValidator authValidator, PacienteRepository pacienteRepository) {
-        super(antecedenteRespository, modelMapper, authValidator, AntecedenteDTO.class
+        super(antecedenteRespository, modelMapper, authValidator, AntecedenteResponse.class
         );
         this.pacienteRepository = pacienteRepository;
     }
 
     @Override
-    protected AntecedentesEntity convertCreateDtoToEntity(CrearAntecedenteDTO crearAntecedenteDTO) {
+    protected AntecedentesEntity convertCreateDtoToEntity(AntecedenteRequest antecedenteRequest) {
         AntecedentesEntity entity = new AntecedentesEntity();
-        entity.setPacienteEntity(pacienteRepository.findById(crearAntecedenteDTO.getPacienteId()).orElseThrow(
+        entity.setPacienteEntity(pacienteRepository.findById(antecedenteRequest.getPacienteId()).orElseThrow(
                 () -> new ResourceNotFoundException("Paciente not found")));
-        entity.setMotivo(crearAntecedenteDTO.getMotivo());
-        entity.setEnfermedad(crearAntecedenteDTO.getEnfermedad());
-        entity.setTiempoEnfermedad(crearAntecedenteDTO.getTiempoEnfermedad());
-        entity.setSigno(crearAntecedenteDTO.getSigno());
-        entity.setRelato(crearAntecedenteDTO.getRelato());
-        entity.setFunciones(crearAntecedenteDTO.getFunciones());
-        entity.setAntecedentesPersonales(crearAntecedenteDTO.getAntecedentesPersonales());
-        entity.setAntecedentesFamiliares(crearAntecedenteDTO.getAntecedentesFamiliares());
-        entity.setMedicamento(crearAntecedenteDTO.getMedicamento());
-        entity.setNombreMedicamento(crearAntecedenteDTO.getNombreMedicamento());
-        entity.setMotivoMedicamento(crearAntecedenteDTO.getMotivoMedicamento());
-        entity.setDosis(crearAntecedenteDTO.getDosis());
+        entity.setMotivo(antecedenteRequest.getMotivo());
+        entity.setEnfermedad(antecedenteRequest.getEnfermedad());
+        entity.setTiempoEnfermedad(antecedenteRequest.getTiempoEnfermedad());
+        entity.setSigno(antecedenteRequest.getSigno());
+        entity.setRelato(antecedenteRequest.getRelato());
+        entity.setFunciones(antecedenteRequest.getFunciones());
+        entity.setAntecedentesPersonales(antecedenteRequest.getAntecedentesPersonales());
+        entity.setAntecedentesFamiliares(antecedenteRequest.getAntecedentesFamiliares());
+        entity.setMedicamento(antecedenteRequest.getMedicamento());
+        entity.setNombreMedicamento(antecedenteRequest.getNombreMedicamento());
+        entity.setMotivoMedicamento(antecedenteRequest.getMotivoMedicamento());
+        entity.setDosis(antecedenteRequest.getDosis());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(AntecedentesEntity entity, CrearAntecedenteDTO dto) {
+    protected void updateEntityFromDto(AntecedentesEntity entity, AntecedenteRequest dto) {
         entity.setMotivo(dto.getMotivo());
         entity.setEnfermedad(dto.getEnfermedad());
         entity.setTiempoEnfermedad(dto.getTiempoEnfermedad());
@@ -70,28 +70,28 @@ public class AntecedenteServiceImpl extends GenericServiceImpl<AntecedentesEntit
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearAntecedenteDTO crearAntecedenteDTO) {
-        return super.save(crearAntecedenteDTO);
+    public ApiResponse save(AntecedenteRequest antecedenteRequest) {
+        return super.save(antecedenteRequest);
     }
 
     @Override
-    public ListResponse<AntecedenteDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<AntecedenteResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, CrearAntecedenteDTO updateDto) {
+    public ApiResponse update(UUID uuid, AntecedenteRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public List<AntecedenteDTO> getList() {
+    public List<AntecedenteResponse> getList() {
         return super.getList();
     }
 
     @Override
-    public AntecedenteDTO getById(UUID uuid) {
+    public AntecedenteResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 

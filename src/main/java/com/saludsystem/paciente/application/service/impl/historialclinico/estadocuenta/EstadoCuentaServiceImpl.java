@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico.estadocuenta;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.estadocuenta.EstadoCuentaDTO;
-import com.saludsystem.paciente.application.dto.req.historialclinico.estadocuenta.CrearEstadoCuentaDTO;
+import com.saludsystem.paciente.application.dto.res.historialclinico.estadocuenta.EstadoCuentaResponse;
+import com.saludsystem.paciente.application.dto.req.historialclinico.estadocuenta.EstadoCuentaRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.estadocuenta.EstadoCuentaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -19,35 +19,35 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class EstadoCuentaServiceImpl extends GenericServiceImpl<EstadoCuentaEntity,  CrearEstadoCuentaDTO,
-        EstadoCuentaDTO, UUID> implements EstadoCuentaService {
+public class EstadoCuentaServiceImpl extends GenericServiceImpl<EstadoCuentaEntity, EstadoCuentaRequest,
+        EstadoCuentaResponse, UUID> implements EstadoCuentaService {
 
     private final PacienteRepository pacienteRepository;
 
     public EstadoCuentaServiceImpl(
             EstadoCuentaRepository estadoCuentaRepository, ModelMapper modelMapper,
             AuthValidator authValidator, PacienteRepository pacienteRepository) {
-        super(estadoCuentaRepository, modelMapper, authValidator, EstadoCuentaDTO.class
+        super(estadoCuentaRepository, modelMapper, authValidator, EstadoCuentaResponse.class
         );
         this.pacienteRepository = pacienteRepository;
     }
 
     @Override
-    protected EstadoCuentaEntity convertCreateDtoToEntity(CrearEstadoCuentaDTO crearEstadoCuentaDTO) {
+    protected EstadoCuentaEntity convertCreateDtoToEntity(EstadoCuentaRequest estadoCuentaRequest) {
         EstadoCuentaEntity entity = new EstadoCuentaEntity();
-        entity.setPacienteEntity(pacienteRepository.findById(crearEstadoCuentaDTO.getPacienteId())
+        entity.setPacienteEntity(pacienteRepository.findById(estadoCuentaRequest.getPacienteId())
                 .orElseThrow( () -> new ResourceNotFoundException("Paciente not found") ));
-        entity.setFechaApertura(crearEstadoCuentaDTO.getFechaApertura());
-        entity.setEstado(crearEstadoCuentaDTO.getEstado());
-        entity.setTotalHospitalizacion(crearEstadoCuentaDTO.getTotalHospitalizacion());
-        entity.setTotalMedicamentosEstudios(crearEstadoCuentaDTO.getTotalMedicamentosEstudios());
-        entity.setTotalPagado(crearEstadoCuentaDTO.getTotalPagado());
-        entity.setSaldoPendiente(crearEstadoCuentaDTO.getSaldoPendiente());
+        entity.setFechaApertura(estadoCuentaRequest.getFechaApertura());
+        entity.setEstado(estadoCuentaRequest.getEstado());
+        entity.setTotalHospitalizacion(estadoCuentaRequest.getTotalHospitalizacion());
+        entity.setTotalMedicamentosEstudios(estadoCuentaRequest.getTotalMedicamentosEstudios());
+        entity.setTotalPagado(estadoCuentaRequest.getTotalPagado());
+        entity.setSaldoPendiente(estadoCuentaRequest.getSaldoPendiente());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(EstadoCuentaEntity entity, CrearEstadoCuentaDTO dto) {
+    protected void updateEntityFromDto(EstadoCuentaEntity entity, EstadoCuentaRequest dto) {
         entity.setPacienteEntity(pacienteRepository.findById(dto.getPacienteId())
                 .orElseThrow( () -> new ResourceNotFoundException("Paciente not found") ));
         entity.setFechaApertura(dto.getFechaApertura());
@@ -60,28 +60,28 @@ public class EstadoCuentaServiceImpl extends GenericServiceImpl<EstadoCuentaEnti
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearEstadoCuentaDTO crearEstadoCuentaDTO) {
-        return super.save(crearEstadoCuentaDTO);
+    public ApiResponse save(EstadoCuentaRequest estadoCuentaRequest) {
+        return super.save(estadoCuentaRequest);
     }
 
     @Override
-    public ListResponse<EstadoCuentaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<EstadoCuentaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, CrearEstadoCuentaDTO updateDto) {
+    public ApiResponse update(UUID uuid, EstadoCuentaRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public EstadoCuentaDTO getById(UUID uuid) {
+    public EstadoCuentaResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<EstadoCuentaDTO> getList() {
+    public List<EstadoCuentaResponse> getList() {
         return super.getList();
     }
 

@@ -1,7 +1,7 @@
 package com.saludsystem.configuracion.application.services.impl;
 
-import com.saludsystem.configuracion.application.dto.req.PermisoDTO;
-import com.saludsystem.configuracion.application.dto.res.CrearPermisoDTO;
+import com.saludsystem.configuracion.application.dto.res.PermisoResponse;
+import com.saludsystem.configuracion.application.dto.req.PermisoRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.configuracion.application.services.PermisoService;
 import com.saludsystem.configuracion.domain.model.PermisoEntity;
@@ -18,38 +18,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PermisoServiceImpl extends GenericServiceImpl<PermisoEntity, CrearPermisoDTO, PermisoDTO, UUID>
+public class PermisoServiceImpl extends GenericServiceImpl<PermisoEntity, PermisoRequest, PermisoResponse, UUID>
         implements PermisoService {
 
     protected PermisoServiceImpl(
             PermisoRepository permisoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(permisoRepository, modelMapper, authValidator, PermisoDTO.class);
+        super(permisoRepository, modelMapper, authValidator, PermisoResponse.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearPermisoDTO crearPermisoDTO) {
-        return super.save(crearPermisoDTO);
+    public ApiResponse save(PermisoRequest permisoRequest) {
+        return super.save(permisoRequest);
     }
 
     @Override
-    public ListResponse<PermisoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<PermisoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CrearPermisoDTO updateDto) {
+    public ApiResponse update(UUID uuid, PermisoRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public PermisoDTO getById(UUID uuid) {
+    public PermisoResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<PermisoDTO> getList() {
+    public List<PermisoResponse> getList() {
         return super.getList();
     }
 
@@ -60,17 +60,17 @@ public class PermisoServiceImpl extends GenericServiceImpl<PermisoEntity, CrearP
     }
 
     @Override
-    protected PermisoEntity convertCreateDtoToEntity(CrearPermisoDTO crearPermisoDTO) {
+    protected PermisoEntity convertCreateDtoToEntity(PermisoRequest permisoRequest) {
         PermisoEntity entity = new PermisoEntity();
-        entity.setInsert(crearPermisoDTO.getInsert());
-        entity.setRead(crearPermisoDTO.getRead());
-        entity.setUpdate(crearPermisoDTO.getUpdate());
-        entity.setDelete(crearPermisoDTO.getDelete());
+        entity.setInsert(permisoRequest.getInsert());
+        entity.setRead(permisoRequest.getRead());
+        entity.setUpdate(permisoRequest.getUpdate());
+        entity.setDelete(permisoRequest.getDelete());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(PermisoEntity entity, CrearPermisoDTO dto) {
+    protected void updateEntityFromDto(PermisoEntity entity, PermisoRequest dto) {
         Optional.ofNullable(dto.getInsert()).ifPresent(entity::setInsert);
         Optional.ofNullable(dto.getRead()).ifPresent(entity::setRead);
         Optional.ofNullable(dto.getUpdate()).ifPresent(entity::setUpdate);

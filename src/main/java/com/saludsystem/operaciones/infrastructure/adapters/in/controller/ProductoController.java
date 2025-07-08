@@ -1,12 +1,12 @@
 package com.saludsystem.operaciones.infrastructure.adapters.in.controller;
 
-import com.saludsystem.operaciones.application.dto.res.ProductoDTO;
-import com.saludsystem.operaciones.application.dto.req.CrearProductoDTO;
+import com.saludsystem.operaciones.application.dto.res.ProductoResponse;
+import com.saludsystem.operaciones.application.dto.req.ProductoRequest;
 import com.saludsystem.operaciones.application.dto.req.ActualizarProductoDTO;
 import com.saludsystem.operaciones.application.service.ProductoService;
+import com.saludsystem.operaciones.infrastructure.adapters.in.response.ProductoListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.operaciones.infrastructure.adapters.in.response.ProductoResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -30,17 +30,17 @@ public class ProductoController {
     }
 
     @PostMapping("/SaveProducto")
-    public ApiResponse store(@Valid @RequestBody CrearProductoDTO crearProductoDTO) {
-        return productoService.saveProducto(crearProductoDTO);
+    public ApiResponse store(@Valid @RequestBody ProductoRequest productoRequest) {
+        return productoService.saveProducto(productoRequest);
     }
 
     @GetMapping("/GetAllProducto")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ProductoResponse.class)))
+                            schema = @Schema(implementation = ProductoListResponse.class)))
     })
-    public ListResponse<ProductoDTO> getAllPage(
+    public ListResponse<ProductoResponse> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows) {
@@ -48,12 +48,12 @@ public class ProductoController {
     }
 
     @GetMapping("/GetProductoList")
-    public ResponseEntity<List<ProductoDTO>> getAllPage() {
+    public ResponseEntity<List<ProductoResponse>> getAllPage() {
         return ResponseEntity.ok(productoService.getProductoList());
     }
 
     @GetMapping("/GetProducto/{productoId}")
-    public ProductoDTO getById(@PathVariable UUID productoId) {
+    public ProductoResponse getById(@PathVariable UUID productoId) {
         return productoService.getProductoById(productoId);
     }
 

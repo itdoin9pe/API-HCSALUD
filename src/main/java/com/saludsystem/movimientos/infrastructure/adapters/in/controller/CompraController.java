@@ -1,11 +1,11 @@
 package com.saludsystem.movimientos.infrastructure.adapters.in.controller;
 
-import com.saludsystem.movimientos.application.dto.res.CompraDTO;
-import com.saludsystem.movimientos.application.dto.req.CrearCompraDTO;
+import com.saludsystem.movimientos.application.dto.res.CompraResponse;
+import com.saludsystem.movimientos.application.dto.req.CompraRequest;
 import com.saludsystem.movimientos.application.service.CompraService;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.movimientos.infrastructure.adapters.in.response.VentaResponse;
+import com.saludsystem.movimientos.infrastructure.adapters.in.response.VentaListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -27,17 +27,17 @@ public class CompraController {
     }
 
     @PostMapping("/SaveCompra")
-    public ApiResponse store(@Valid @RequestBody CrearCompraDTO crearCompraDTO) {
-        return compraService.saveCompra(crearCompraDTO);
+    public ApiResponse store(@Valid @RequestBody CompraRequest compraRequest) {
+        return compraService.saveCompra(compraRequest);
     }
 
     @GetMapping("/GetAllCompra")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = VentaResponse.class)))
+                            schema = @Schema(implementation = VentaListResponse.class)))
     })
-    public ListResponse<CompraDTO> getAllPage(
+    public ListResponse<CompraResponse> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows) {
@@ -45,7 +45,7 @@ public class CompraController {
     }
 
     @GetMapping("/GetCompra/{compraId}")
-    public CompraDTO getById(@PathVariable UUID compraId) {
+    public CompraResponse getById(@PathVariable UUID compraId) {
         return compraService.getCompraById(compraId);
     }
 

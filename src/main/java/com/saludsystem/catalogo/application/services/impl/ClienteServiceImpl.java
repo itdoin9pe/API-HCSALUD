@@ -1,7 +1,6 @@
 package com.saludsystem.catalogo.application.services.impl;
 
-import com.saludsystem.catalogo.application.dtos.res.ClienteDTO;
-import com.saludsystem.catalogo.application.dtos.req.CrearClienteDTO;
+import com.saludsystem.catalogo.application.dtos.res.ClienteRequest;
 import com.saludsystem.catalogo.application.services.ClienteService;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.domain.model.ClienteEntity;
@@ -19,27 +18,27 @@ import java.util.UUID;
 
 @Service
 public class ClienteServiceImpl extends GenericServiceImpl<ClienteEntity,
-        CrearClienteDTO, ClienteDTO, UUID> implements ClienteService {
+        com.saludsystem.catalogo.application.dtos.req.ClienteRequest, ClienteRequest, UUID> implements ClienteService {
 
     protected ClienteServiceImpl(
             ClienteRepository clienteRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(clienteRepository, modelMapper, authValidator, ClienteDTO.class);
+        super(clienteRepository, modelMapper, authValidator, ClienteRequest.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearClienteDTO crearClienteDTO) {
-        return super.save(crearClienteDTO);
+    public ApiResponse save(com.saludsystem.catalogo.application.dtos.req.ClienteRequest clienteRequest) {
+        return super.save(clienteRequest);
     }
 
     @Override
-    public ListResponse<ClienteDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<ClienteRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CrearClienteDTO updateDto) {
+    public ApiResponse update(UUID uuid, com.saludsystem.catalogo.application.dtos.req.ClienteRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
@@ -50,30 +49,30 @@ public class ClienteServiceImpl extends GenericServiceImpl<ClienteEntity,
     }
 
     @Override
-    public ClienteDTO getById(UUID uuid) {
+    public ClienteRequest getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<ClienteDTO> getList() {
+    public List<ClienteRequest> getList() {
         return super.getList();
     }
 
     @Override
-    protected ClienteEntity convertCreateDtoToEntity(CrearClienteDTO crearClienteDTO) {
+    protected ClienteEntity convertCreateDtoToEntity(com.saludsystem.catalogo.application.dtos.req.ClienteRequest clienteRequest) {
         ClienteEntity entity = new ClienteEntity();
-        entity.setNombre(crearClienteDTO.getNombre());
-        entity.setContacto(crearClienteDTO.getContacto());
-        entity.setTelefono(crearClienteDTO.getTelefono());
-        entity.setDireccion(crearClienteDTO.getDireccion());
-        entity.setEmail(crearClienteDTO.getEmail());
-        entity.setTipoDocumento(crearClienteDTO.getTipoDocumento());
-        entity.setEstado(crearClienteDTO.getEstado());
+        entity.setNombre(clienteRequest.getNombre());
+        entity.setContacto(clienteRequest.getContacto());
+        entity.setTelefono(clienteRequest.getTelefono());
+        entity.setDireccion(clienteRequest.getDireccion());
+        entity.setEmail(clienteRequest.getEmail());
+        entity.setTipoDocumento(clienteRequest.getTipoDocumento());
+        entity.setEstado(clienteRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(ClienteEntity entity, CrearClienteDTO dto) {
+    protected void updateEntityFromDto(ClienteEntity entity, com.saludsystem.catalogo.application.dtos.req.ClienteRequest dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getContacto()).ifPresent(entity::setContacto);
         Optional.ofNullable(dto.getTelefono()).ifPresent(entity::setTelefono);

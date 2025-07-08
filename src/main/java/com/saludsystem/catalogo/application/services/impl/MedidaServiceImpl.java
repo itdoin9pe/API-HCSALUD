@@ -1,7 +1,6 @@
 package com.saludsystem.catalogo.application.services.impl;
 
-import com.saludsystem.catalogo.application.dtos.res.MedidaDTO;
-import com.saludsystem.catalogo.application.dtos.req.CrearMedidaDTO;
+import com.saludsystem.catalogo.application.dtos.res.MedidaRequest;
 import com.saludsystem.catalogo.application.services.MedidaService;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.domain.model.MedidaEntity;
@@ -18,38 +17,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class MedidaServiceImpl extends GenericServiceImpl<MedidaEntity, CrearMedidaDTO, MedidaDTO, UUID>
+public class MedidaServiceImpl extends GenericServiceImpl<MedidaEntity, com.saludsystem.catalogo.application.dtos.req.MedidaRequest, MedidaRequest, UUID>
         implements MedidaService {
 
 
     protected MedidaServiceImpl(MedidaRepository medidaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(medidaRepository, modelMapper, authValidator, MedidaDTO.class);
+        super(medidaRepository, modelMapper, authValidator, MedidaRequest.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearMedidaDTO crearMedidaDTO) {
-        return super.save(crearMedidaDTO);
+    public ApiResponse save(com.saludsystem.catalogo.application.dtos.req.MedidaRequest medidaRequest) {
+        return super.save(medidaRequest);
     }
 
     @Override
-    public ListResponse<MedidaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<MedidaRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CrearMedidaDTO updateDto) {
+    public ApiResponse update(UUID uuid, com.saludsystem.catalogo.application.dtos.req.MedidaRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public MedidaDTO getById(UUID uuid) {
+    public MedidaRequest getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<MedidaDTO> getList() {
+    public List<MedidaRequest> getList() {
         return super.getList();
     }
 
@@ -60,15 +59,15 @@ public class MedidaServiceImpl extends GenericServiceImpl<MedidaEntity, CrearMed
     }
 
     @Override
-    protected MedidaEntity convertCreateDtoToEntity(CrearMedidaDTO crearMedidaDTO) {
+    protected MedidaEntity convertCreateDtoToEntity(com.saludsystem.catalogo.application.dtos.req.MedidaRequest medidaRequest) {
         MedidaEntity entity = new MedidaEntity();
-        entity.setNombre(crearMedidaDTO.getNombre());
-        entity.setEstado(crearMedidaDTO.getEstado());
+        entity.setNombre(medidaRequest.getNombre());
+        entity.setEstado(medidaRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(MedidaEntity entity, CrearMedidaDTO dto) {
+    protected void updateEntityFromDto(MedidaEntity entity, com.saludsystem.catalogo.application.dtos.req.MedidaRequest dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }

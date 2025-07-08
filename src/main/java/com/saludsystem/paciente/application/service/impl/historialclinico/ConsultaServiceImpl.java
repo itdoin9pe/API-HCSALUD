@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.ConsultaDTO;
-import com.saludsystem.paciente.application.dto.req.historialclinico.CrearConsultaDTO;
+import com.saludsystem.paciente.application.dto.res.historialclinico.ConsultaResponse;
+import com.saludsystem.paciente.application.dto.req.historialclinico.ConsultaRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.ConsultaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ConsultaServiceImpl extends GenericServiceImpl<ConsultaEntity, CrearConsultaDTO, ConsultaDTO, UUID>
+public class ConsultaServiceImpl extends GenericServiceImpl<ConsultaEntity, ConsultaRequest, ConsultaResponse, UUID>
         implements ConsultaService {
 
     private final PacienteRepository pacienteRepository;
@@ -29,37 +29,37 @@ public class ConsultaServiceImpl extends GenericServiceImpl<ConsultaEntity, Crea
     public ConsultaServiceImpl(
             ConsultaRepository consultaRepository, ModelMapper modelMapper, AuthValidator authValidator,
             PacienteRepository pacienteRepository, EspecialidadRepository especialidadRepository) {
-        super(consultaRepository, modelMapper, authValidator, ConsultaDTO.class);
+        super(consultaRepository, modelMapper, authValidator, ConsultaResponse.class);
         this.pacienteRepository = pacienteRepository;
         this.especialidadRepository = especialidadRepository;
     }
 
     @Override
-    protected ConsultaEntity convertCreateDtoToEntity(CrearConsultaDTO crearConsultaDTO) {
+    protected ConsultaEntity convertCreateDtoToEntity(ConsultaRequest consultaRequest) {
         ConsultaEntity entity = new ConsultaEntity();
-        entity.setPacienteEntity(pacienteRepository.findById(crearConsultaDTO.getPacienteId())
+        entity.setPacienteEntity(pacienteRepository.findById(consultaRequest.getPacienteId())
                 .orElseThrow( () -> new ResourceNotFoundException("Consulta not found")));
-        entity.setEspecialidadEntity(especialidadRepository.findById(crearConsultaDTO.getEspecialidadId())
+        entity.setEspecialidadEntity(especialidadRepository.findById(consultaRequest.getEspecialidadId())
                 .orElseThrow( () -> new ResourceNotFoundException("Especialidad not found")));
-        entity.setMotivoConsulta(crearConsultaDTO.getMotivoConsulta());
-        entity.setDiagnosticoPresuntivo(crearConsultaDTO.getDiagnosticoPresuntivo());
-        entity.setTieneAlergia(crearConsultaDTO.isTieneAlergia());
-        entity.setTieneAlergiaTexto(crearConsultaDTO.getTieneAlergiaTexto());
-        entity.setTomaMedicamento(crearConsultaDTO.isTomaMedicamento());
-        entity.setCirugiasPrevias(crearConsultaDTO.isCirugiasPrevias());
-        entity.setEnfermedadesCronicas(crearConsultaDTO.getEnfermedadesCronicas());
-        entity.setTransfusionesSanguineas(crearConsultaDTO.isTransfusionesSanguineas());
-        entity.setHistorialPsiquiatrico(crearConsultaDTO.isHistorialPsiquiatrico());
-        entity.setFuma(crearConsultaDTO.isFuma());
-        entity.setConsumeAlcohol(crearConsultaDTO.isConsumeAlcohol());
-        entity.setActividadFisica(crearConsultaDTO.getActividadFisica());
-        entity.setEmbarazada(crearConsultaDTO.isEmbarazada());
-        entity.setUltimaMenstruacion(crearConsultaDTO.getUltimaMenstruacion());
+        entity.setMotivoConsulta(consultaRequest.getMotivoConsulta());
+        entity.setDiagnosticoPresuntivo(consultaRequest.getDiagnosticoPresuntivo());
+        entity.setTieneAlergia(consultaRequest.isTieneAlergia());
+        entity.setTieneAlergiaTexto(consultaRequest.getTieneAlergiaTexto());
+        entity.setTomaMedicamento(consultaRequest.isTomaMedicamento());
+        entity.setCirugiasPrevias(consultaRequest.isCirugiasPrevias());
+        entity.setEnfermedadesCronicas(consultaRequest.getEnfermedadesCronicas());
+        entity.setTransfusionesSanguineas(consultaRequest.isTransfusionesSanguineas());
+        entity.setHistorialPsiquiatrico(consultaRequest.isHistorialPsiquiatrico());
+        entity.setFuma(consultaRequest.isFuma());
+        entity.setConsumeAlcohol(consultaRequest.isConsumeAlcohol());
+        entity.setActividadFisica(consultaRequest.getActividadFisica());
+        entity.setEmbarazada(consultaRequest.isEmbarazada());
+        entity.setUltimaMenstruacion(consultaRequest.getUltimaMenstruacion());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(ConsultaEntity entity, CrearConsultaDTO dto) {
+    protected void updateEntityFromDto(ConsultaEntity entity, ConsultaRequest dto) {
         entity.setPacienteEntity(pacienteRepository.findById(dto.getPacienteId())
                 .orElseThrow( () -> new ResourceNotFoundException("Consulta not found")));
         entity.setEspecialidadEntity(especialidadRepository.findById(dto.getEspecialidadId())
@@ -82,28 +82,28 @@ public class ConsultaServiceImpl extends GenericServiceImpl<ConsultaEntity, Crea
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearConsultaDTO crearConsultaDTO) {
-        return super.save(crearConsultaDTO);
+    public ApiResponse save(ConsultaRequest consultaRequest) {
+        return super.save(consultaRequest);
     }
 
     @Override
-    public ListResponse<ConsultaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<ConsultaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, CrearConsultaDTO updateDto) {
+    public ApiResponse update(UUID uuid, ConsultaRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public List<ConsultaDTO> getList() {
+    public List<ConsultaResponse> getList() {
         return super.getList();
     }
 
     @Override
-    public ConsultaDTO getById(UUID uuid) {
+    public ConsultaResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 

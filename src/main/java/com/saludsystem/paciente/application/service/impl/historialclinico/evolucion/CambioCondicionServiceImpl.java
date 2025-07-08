@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico.evolucion;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.CambioCondicionDTO;
-import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.CrearCambioCondicionDTO;
+import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.CambioCondicionResponse;
+import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.CambioCondicionRequest;
 import com.saludsystem.paciente.application.dto.evolucion.ActualizarCambioCondicionDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.CambioCondicionService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -43,15 +43,15 @@ public class CambioCondicionServiceImpl implements CambioCondicionService {
 
     @PreAuthorize("HasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveCambioCondicion(CrearCambioCondicionDTO crearCambioCondicionDTO) {
+    public ApiResponse saveCambioCondicion(CambioCondicionRequest cambioCondicionRequest) {
         authValidator.validateAdminAccess();
         var user = authValidator.getCurrentUser();
         var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         var cambioCondicionEntity = new CambioCondicionEntity();
-        cambioCondicionEntity.setEvolucionEntity(evolucionRepository.findById(crearCambioCondicionDTO.getPacienteEvolucionId())
+        cambioCondicionEntity.setEvolucionEntity(evolucionRepository.findById(cambioCondicionRequest.getPacienteEvolucionId())
                 .orElseThrow( () -> new ResourceNotFoundException("Evolucion not found")));
-        cambioCondicionEntity.setFecha(crearCambioCondicionDTO.getFecha());
+        cambioCondicionEntity.setFecha(cambioCondicionRequest.getFecha());
         cambioCondicionEntity.setDescripcion(cambioCondicionEntity.getDescripcion());
         cambioCondicionEntity.setHospital(hospital);
         cambioCondicionEntity.setUser(user);
@@ -60,7 +60,7 @@ public class CambioCondicionServiceImpl implements CambioCondicionService {
     }
 
     @Override
-    public CambioCondicionDTO getCambioCondicionById(Long evolucionCambioCondicionId) {
+    public CambioCondicionResponse getCambioCondicionById(Long evolucionCambioCondicionId) {
         CambioCondicionEntity cambioCondicionEntity = cambioCondicionRepository.findById(evolucionCambioCondicionId).orElseThrow(
                 () -> new ResourceNotFoundException("Cambio de condicion no encontrado"));
         return convertToDTO(cambioCondicionEntity);
@@ -81,10 +81,10 @@ public class CambioCondicionServiceImpl implements CambioCondicionService {
     }
 
     @Override
-    public ListResponse<CambioCondicionDTO> getAllCambioCondicion(UUID hospitalId, int page, int rows) {
+    public ListResponse<CambioCondicionResponse> getAllCambioCondicion(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<CambioCondicionEntity> cambioCondicionEntityPage = cambioCondicionRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<CambioCondicionDTO> data = cambioCondicionEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<CambioCondicionResponse> data = cambioCondicionEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data, cambioCondicionEntityPage.getTotalElements(), cambioCondicionEntityPage.getTotalPages(), cambioCondicionEntityPage.getNumber() + 1);
     }
 
@@ -96,7 +96,7 @@ public class CambioCondicionServiceImpl implements CambioCondicionService {
         return new ApiResponse(true, "Cambio de condicion eliminado correctamente");
     }
 
-    private CambioCondicionDTO convertToDTO(CambioCondicionEntity cambioCondicionEntity) {
-        return modelMapper.map(cambioCondicionEntity, CambioCondicionDTO.class);
+    private CambioCondicionResponse convertToDTO(CambioCondicionEntity cambioCondicionEntity) {
+        return modelMapper.map(cambioCondicionEntity, CambioCondicionResponse.class);
     }
 }

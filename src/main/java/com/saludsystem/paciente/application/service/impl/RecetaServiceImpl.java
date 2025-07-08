@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.service.impl;
 
-import com.saludsystem.paciente.application.dto.res.RecetaDTO;
-import com.saludsystem.paciente.application.dto.req.CrearRecetaDTO;
+import com.saludsystem.paciente.application.dto.res.RecetaResponse;
+import com.saludsystem.paciente.application.dto.req.RecetaRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.RecetaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -24,7 +24,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, CrearRecetaDTO, RecetaDTO, UUID>
+public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, RecetaRequest, RecetaResponse, UUID>
         implements RecetaService {
 
     private final PacienteRepository pacienteRepository;
@@ -32,7 +32,7 @@ public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, CrearRec
     private final MedicamentoRepository medicamentoRepository;
 
     public RecetaServiceImpl(RecetaRepository recetaRepository, ModelMapper modelMapper, AuthValidator authValidator, PacienteRepository pacienteRepository, DoctorRepository doctorRepository, MedicamentoRepository medicamentoRepository) {
-        super(recetaRepository, modelMapper, authValidator, RecetaDTO.class
+        super(recetaRepository, modelMapper, authValidator, RecetaResponse.class
         );
         this.pacienteRepository = pacienteRepository;
         this.doctorRepository = doctorRepository;
@@ -40,20 +40,20 @@ public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, CrearRec
     }
 
     @Override
-    protected RecetaEntity convertCreateDtoToEntity(CrearRecetaDTO crearRecetaDTO) {
+    protected RecetaEntity convertCreateDtoToEntity(RecetaRequest recetaRequest) {
         RecetaEntity entity = new RecetaEntity();
-        entity.setPacienteEntity(pacienteRepository.findById(crearRecetaDTO.getPacienteId()).
+        entity.setPacienteEntity(pacienteRepository.findById(recetaRequest.getPacienteId()).
                 orElseThrow( () -> new ResourceNotFoundException("Receta not found")));
-        entity.setDoctorEntity(doctorRepository.findById(crearRecetaDTO.getDoctorId()).
+        entity.setDoctorEntity(doctorRepository.findById(recetaRequest.getDoctorId()).
                 orElseThrow( () -> new ResourceNotFoundException("Doctor not found")));
-        entity.setFecha(crearRecetaDTO.getFecha());
-        entity.setObservaciones(crearRecetaDTO.getObservaciones());
-        entity.setEstado(crearRecetaDTO.getEstado());
+        entity.setFecha(recetaRequest.getFecha());
+        entity.setObservaciones(recetaRequest.getObservaciones());
+        entity.setEstado(recetaRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(RecetaEntity entity, CrearRecetaDTO dto) {
+    protected void updateEntityFromDto(RecetaEntity entity, RecetaRequest dto) {
         // Actualizar paciente si se proporciona
         Optional.ofNullable(dto.getPacienteId())
                 .flatMap(pacienteRepository::findById)
@@ -69,11 +69,11 @@ public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, CrearRec
     }
 
     @Override
-    protected void beforeSave(RecetaEntity entity, CrearRecetaDTO crearRecetaDTO) {
+    protected void beforeSave(RecetaEntity entity, RecetaRequest recetaRequest) {
         // Crear y asociar los medicamentos recetados
-        if (crearRecetaDTO.getMedicamentos() != null && !crearRecetaDTO.getMedicamentos().isEmpty()) {
+        if (recetaRequest.getMedicamentos() != null && !recetaRequest.getMedicamentos().isEmpty()) {
             UserEntity currentUser = authValidator.getCurrentUser();
-            List<MedicamentoRecetadoEntity> listaMedicamentos = crearRecetaDTO.getMedicamentos().stream()
+            List<MedicamentoRecetadoEntity> listaMedicamentos = recetaRequest.getMedicamentos().stream()
                     .map(medDTO -> {
                         MedicamentoRecetadoEntity medEntity = new MedicamentoRecetadoEntity();
                         medEntity.setRecetaEntity(entity);
@@ -96,28 +96,28 @@ public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, CrearRec
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearRecetaDTO crearRecetaDTO) {
-        return super.save(crearRecetaDTO);
+    public ApiResponse save(RecetaRequest recetaRequest) {
+        return super.save(recetaRequest);
     }
 
     @Override
-    public ListResponse<RecetaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<RecetaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, CrearRecetaDTO updateDto) {
+    public ApiResponse update(UUID uuid, RecetaRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public List<RecetaDTO> getList() {
+    public List<RecetaResponse> getList() {
         return super.getList();
     }
 
     @Override
-    public RecetaDTO getById(UUID uuid) {
+    public RecetaResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 

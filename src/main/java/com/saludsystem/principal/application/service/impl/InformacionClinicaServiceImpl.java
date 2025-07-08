@@ -1,7 +1,7 @@
 package com.saludsystem.principal.application.service.impl;
 
-import com.saludsystem.principal.application.dto.res.InformacionClinicaDTO;
-import com.saludsystem.principal.application.dto.req.CrearInformacionClinicaDTO;
+import com.saludsystem.principal.application.dto.res.InformacionClinicaResponse;
+import com.saludsystem.principal.application.dto.req.InformacionClinicaRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.principal.application.service.InformacionClinicaService;
 import com.saludsystem.principal.domain.model.InformacionClinicaEntity;
@@ -18,39 +18,39 @@ import java.util.UUID;
 
 @Service
 public class InformacionClinicaServiceImpl extends GenericServiceImpl<InformacionClinicaEntity,
-        CrearInformacionClinicaDTO, InformacionClinicaDTO, UUID> implements InformacionClinicaService {
+        InformacionClinicaRequest, InformacionClinicaResponse, UUID> implements InformacionClinicaService {
 
     public InformacionClinicaServiceImpl(
             InformacionClinicaRepository informacionClinicaRepository,
             ModelMapper modelMapper, AuthValidator authValidator) {
-        super(informacionClinicaRepository, modelMapper, authValidator, InformacionClinicaDTO.class
+        super(informacionClinicaRepository, modelMapper, authValidator, InformacionClinicaResponse.class
         );
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearInformacionClinicaDTO crearInformacionClinicaDTO) {
-        return super.save(crearInformacionClinicaDTO);
+    public ApiResponse save(InformacionClinicaRequest informacionClinicaRequest) {
+        return super.save(informacionClinicaRequest);
     }
 
     @Override
-    public ListResponse<InformacionClinicaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<InformacionClinicaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, CrearInformacionClinicaDTO updateDto) {
+    public ApiResponse update(UUID uuid, InformacionClinicaRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public List<InformacionClinicaDTO> getList() {
+    public List<InformacionClinicaResponse> getList() {
         return super.getList();
     }
 
     @Override
-    public InformacionClinicaDTO getById(UUID uuid) {
+    public InformacionClinicaResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
@@ -61,15 +61,15 @@ public class InformacionClinicaServiceImpl extends GenericServiceImpl<Informacio
     }
 
     @Override
-    protected InformacionClinicaEntity convertCreateDtoToEntity(CrearInformacionClinicaDTO crearInformacionClinicaDTO) {
+    protected InformacionClinicaEntity convertCreateDtoToEntity(InformacionClinicaRequest informacionClinicaRequest) {
         InformacionClinicaEntity entity = new InformacionClinicaEntity();
-        entity.setNombre(crearInformacionClinicaDTO.getNombre());
-        entity.setEstado(crearInformacionClinicaDTO.getEstado());
+        entity.setNombre(informacionClinicaRequest.getNombre());
+        entity.setEstado(informacionClinicaRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(InformacionClinicaEntity entity, CrearInformacionClinicaDTO dto) {
+    protected void updateEntityFromDto(InformacionClinicaEntity entity, InformacionClinicaRequest dto) {
         entity.setNombre(dto.getNombre());
         entity.setEstado(dto.getEstado());
     }

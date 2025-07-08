@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico.evolucion;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.NotaDTO;
-import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.CrearNotaDTO;
+import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.NotaResponse;
+import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.NotaRequest;
 import com.saludsystem.paciente.application.dto.evolucion.ActualizarNotaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.NotaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -44,17 +44,17 @@ public class NotaServiceImpl implements NotaService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveNota(CrearNotaDTO crearNotaDTO) {
+    public ApiResponse saveNota(NotaRequest notaRequest) {
         authValidator.validateAdminAccess();
         var user = authValidator.getCurrentUser();
         var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         var notaEntity = new NotaEntity();
-        notaEntity.setEvolucionEntity(evolucionRepository.findById(crearNotaDTO.getPacienteEvolucionId()).orElseThrow(
+        notaEntity.setEvolucionEntity(evolucionRepository.findById(notaRequest.getPacienteEvolucionId()).orElseThrow(
                 () -> new RequestRejectedException("Nota de evolucion no encontrada")));
-        notaEntity.setFecha(crearNotaDTO.getFecha());
-        notaEntity.setTipo(crearNotaDTO.getTipo());
-        notaEntity.setContenido(crearNotaDTO.getContenido());
+        notaEntity.setFecha(notaRequest.getFecha());
+        notaEntity.setTipo(notaRequest.getTipo());
+        notaEntity.setContenido(notaRequest.getContenido());
         notaEntity.setHospital(hospital);
         notaEntity.setUser(user);
         notaRepository.save(notaEntity);
@@ -62,7 +62,7 @@ public class NotaServiceImpl implements NotaService {
     }
 
     @Override
-    public NotaDTO getNotaById(Long pacienteEvolucionNotaId) {
+    public NotaResponse getNotaById(Long pacienteEvolucionNotaId) {
         NotaEntity notaEntity = notaRepository.findById(pacienteEvolucionNotaId).orElseThrow(
                 () -> new ResourceNotFoundException("Nota de evolucion no encontrada"));
         return convertToDTO(notaEntity);
@@ -82,10 +82,10 @@ public class NotaServiceImpl implements NotaService {
     }
 
     @Override
-    public ListResponse<NotaDTO> getAllNota(UUID hospitalId, int page, int rows) {
+    public ListResponse<NotaResponse> getAllNota(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<NotaEntity> notaEntityPage = notaRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<NotaDTO> data = notaEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<NotaResponse> data = notaEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data, notaEntityPage.getTotalElements(), notaEntityPage.getTotalPages(), notaEntityPage.getNumber() + 1);
     }
 
@@ -97,7 +97,7 @@ public class NotaServiceImpl implements NotaService {
         return new ApiResponse(true, "Nota de evolucion eliminada correctamente");
     }
 
-    private NotaDTO convertToDTO(NotaEntity notaEntity) {
-        return modelMapper.map(notaEntity, NotaDTO.class);
+    private NotaResponse convertToDTO(NotaEntity notaEntity) {
+        return modelMapper.map(notaEntity, NotaResponse.class);
     }
 }

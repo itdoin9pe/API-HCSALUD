@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico.evolucion;
 
 import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.EvolucionDTO;
-import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.CrearEvolucionDTO;
+import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.EvolucionRequest;
 import com.saludsystem.paciente.application.dto.evolucion.ActualizarEvolucionDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.EvolucionService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -43,17 +43,17 @@ public class EvolucionServiceImpl implements EvolucionService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveEvolucion(CrearEvolucionDTO crearEvolucionDTO) {
+    public ApiResponse saveEvolucion(EvolucionRequest evolucionRequest) {
         authValidator.validateAdminAccess();
         var user = authValidator.getCurrentUser();
         var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         var evolucionEntity = new EvolucionEntity();
         evolucionRepository.save(evolucionEntity);
-        evolucionEntity.setPacienteEntity(pacienteRepository.findById(crearEvolucionDTO.getPacienteId()).
+        evolucionEntity.setPacienteEntity(pacienteRepository.findById(evolucionRequest.getPacienteId()).
                 orElseThrow(() -> new ResourceNotFoundException("Paciente not found")));
-        evolucionEntity.setFechaInicio(crearEvolucionDTO.getFechaInicio());
-        evolucionEntity.setFinalizada(crearEvolucionDTO.getFinalizada());
+        evolucionEntity.setFechaInicio(evolucionRequest.getFechaInicio());
+        evolucionEntity.setFinalizada(evolucionRequest.getFinalizada());
         evolucionEntity.setHospital(hospital);
         evolucionEntity.setUser(user);
         evolucionRepository.save(evolucionEntity);

@@ -1,7 +1,7 @@
 package com.saludsystem.mantenimiento.application.service.impl;
 
-import com.saludsystem.mantenimiento.application.dto.res.TipoGastoDTO;
-import com.saludsystem.mantenimiento.application.dto.req.CrearTipoGastoDTO;
+import com.saludsystem.mantenimiento.application.dto.res.TipoGastoResponse;
+import com.saludsystem.mantenimiento.application.dto.req.TipoGastoRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.mantenimiento.application.service.TipoGastoService;
 import com.saludsystem.mantenimiento.domain.model.TipoGastoEntity;
@@ -18,38 +18,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TipoGastoServiceImpl extends GenericServiceImpl<TipoGastoEntity, CrearTipoGastoDTO, TipoGastoDTO, UUID>
+public class TipoGastoServiceImpl extends GenericServiceImpl<TipoGastoEntity, TipoGastoRequest, TipoGastoResponse, UUID>
         implements TipoGastoService {
 
     protected TipoGastoServiceImpl(
             TipoGastoRepository tipoGastoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(tipoGastoRepository, modelMapper, authValidator, TipoGastoDTO.class);
+        super(tipoGastoRepository, modelMapper, authValidator, TipoGastoResponse.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearTipoGastoDTO crearTipoGastoDTO) {
-        return super.save(crearTipoGastoDTO);
+    public ApiResponse save(TipoGastoRequest tipoGastoRequest) {
+        return super.save(tipoGastoRequest);
     }
 
     @Override
-    public ListResponse<TipoGastoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<TipoGastoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CrearTipoGastoDTO updateDto) {
+    public ApiResponse update(UUID uuid, TipoGastoRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public TipoGastoDTO getById(UUID uuid) {
+    public TipoGastoResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<TipoGastoDTO> getList() {
+    public List<TipoGastoResponse> getList() {
         return super.getList();
     }
 
@@ -60,15 +60,15 @@ public class TipoGastoServiceImpl extends GenericServiceImpl<TipoGastoEntity, Cr
     }
 
     @Override
-    protected TipoGastoEntity convertCreateDtoToEntity(CrearTipoGastoDTO crearTipoGastoDTO) {
+    protected TipoGastoEntity convertCreateDtoToEntity(TipoGastoRequest tipoGastoRequest) {
         TipoGastoEntity entity = new TipoGastoEntity();
-        entity.setNombre(crearTipoGastoDTO.getNombre());
-        entity.setEstado(crearTipoGastoDTO.getEstado());
+        entity.setNombre(tipoGastoRequest.getNombre());
+        entity.setEstado(tipoGastoRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(TipoGastoEntity entity, CrearTipoGastoDTO dto) {
+    protected void updateEntityFromDto(TipoGastoEntity entity, TipoGastoRequest dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
     }

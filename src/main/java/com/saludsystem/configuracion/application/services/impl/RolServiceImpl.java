@@ -1,9 +1,9 @@
 package com.saludsystem.configuracion.application.services.impl;
 
 
-import com.saludsystem.configuracion.application.dto.req.RolDTO;
-import com.saludsystem.configuracion.application.dto.res.CrearRolDTO;
-import com.saludsystem.configuracion.application.dto.req.ActualizarRolDTO;
+import com.saludsystem.configuracion.application.dto.res.RolResponse;
+import com.saludsystem.configuracion.application.dto.req.RolRequest;
+import com.saludsystem.configuracion.application.dto.res.ActualizarRolDTO;
 import com.saludsystem.configuracion.application.services.RolService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.configuracion.domain.model.RoleEntity;
@@ -43,7 +43,7 @@ public class RolServiceImpl implements RolService {
     }
 
     @Override
-    public ApiResponse saveRole(CrearRolDTO crearRolDTO) {
+    public ApiResponse saveRole(RolRequest rolRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity user = userRepository.findByEmail(email)
@@ -51,31 +51,31 @@ public class RolServiceImpl implements RolService {
         SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         RoleEntity role = new RoleEntity();
-        role.setNombre(crearRolDTO.getNombre());
-        role.setEstado(crearRolDTO.getEstado());
+        role.setNombre(rolRequest.getNombre());
+        role.setEstado(rolRequest.getEstado());
         role.setHospital(hospital);
         roleRepository.save(role);
         return new ApiResponse(true, "Role creado correctamente");
     }
 
     @Override
-    public List<RolDTO> getRoleList() {
+    public List<RolResponse> getRoleList() {
         return roleRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public ListResponse<RolDTO> getAllRole(UUID hospitalId, int page, int rows) {
+    public ListResponse<RolResponse> getAllRole(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<RoleEntity> rolePage = roleRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<RolDTO> data = rolePage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<RolResponse> data = rolePage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data, rolePage.getTotalElements(), rolePage.getTotalPages(), rolePage.getNumber() + 1);
     }
 
     @Override
-    public RolDTO getRoleById(UUID roleId) {
+    public RolResponse getRoleById(UUID roleId) {
         RoleEntity role = roleRepository.findById(roleId).
                 orElseThrow( () -> new ResourceNotFoundException("Role no encontrado"));
-        RolDTO dto = new RolDTO();
+        RolResponse dto = new RolResponse();
         dto.setRoleId(role.getRoleId());
         dto.setNombre(role.getNombre());
         dto.setEstado(role.getEstado());
@@ -97,7 +97,7 @@ public class RolServiceImpl implements RolService {
         return new ApiResponse(true, "Role eliminado correctamente");
     }
 
-    private RolDTO convertToDTO(RoleEntity role) {
-        return modelMapper.map(role, RolDTO.class);
+    private RolResponse convertToDTO(RoleEntity role) {
+        return modelMapper.map(role, RolResponse.class);
     }
 }

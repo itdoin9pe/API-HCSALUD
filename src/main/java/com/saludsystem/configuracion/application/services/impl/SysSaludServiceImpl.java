@@ -1,8 +1,8 @@
 package com.saludsystem.configuracion.application.services.impl;
 
-import com.saludsystem.configuracion.application.dto.req.SysSaludDTO;
-import com.saludsystem.configuracion.application.dto.res.CrearSysSaludDTO;
-import com.saludsystem.configuracion.application.dto.req.ActualizarHospitalDTO;
+import com.saludsystem.configuracion.application.dto.res.SysSaludResponse;
+import com.saludsystem.configuracion.application.dto.req.SysSaludRequest;
+import com.saludsystem.configuracion.application.dto.res.ActualizarHospitalDTO;
 import com.saludsystem.configuracion.application.services.SysSaludService;
 import com.saludsystem.catalogo.domain.model.PlanEntity;
 import com.saludsystem.configuracion.domain.model.SysSaludEntity;
@@ -36,33 +36,33 @@ public class SysSaludServiceImpl implements SysSaludService {
     }
 
     @Override
-    public SysSaludEntity saveClinica(CrearSysSaludDTO crearSysSaludDTO) {
+    public SysSaludEntity saveClinica(SysSaludRequest sysSaludRequest) {
         SysSaludEntity sysSalud = new SysSaludEntity();
 
-        sysSalud.setNombre(crearSysSaludDTO.getNombre());
-        sysSalud.setDireccion(crearSysSaludDTO.getDireccion());
-        sysSalud.setCelular(crearSysSaludDTO.getCelular());
-        sysSalud.setEmail(crearSysSaludDTO.getEmail());
-        sysSalud.setRuc(crearSysSaludDTO.getRuc());
-        sysSalud.setFecha(crearSysSaludDTO.getFecha());
-        sysSalud.setFoto(crearSysSaludDTO.getFoto());
-        Optional<PlanEntity> plan = planRepository.findById(crearSysSaludDTO.getPlanId());
+        sysSalud.setNombre(sysSaludRequest.getNombre());
+        sysSalud.setDireccion(sysSaludRequest.getDireccion());
+        sysSalud.setCelular(sysSaludRequest.getCelular());
+        sysSalud.setEmail(sysSaludRequest.getEmail());
+        sysSalud.setRuc(sysSaludRequest.getRuc());
+        sysSalud.setFecha(sysSaludRequest.getFecha());
+        sysSalud.setFoto(sysSaludRequest.getFoto());
+        Optional<PlanEntity> plan = planRepository.findById(sysSaludRequest.getPlanId());
         plan.ifPresent(sysSalud::setPlan);
-        sysSalud.setEstado(crearSysSaludDTO.getEstado());
+        sysSalud.setEstado(sysSaludRequest.getEstado());
 
         return sysSaludRespository.save(sysSalud);
     }
 
     @Override
-    public ListResponse<SysSaludDTO> getAllHospital(UUID hospitalId, int page, int rows) {
+    public ListResponse<SysSaludResponse> getAllHospital(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<SysSaludEntity> medidasPage = sysSaludRespository.findByHospitalId(hospitalId, pageable);
-        List<SysSaludDTO> data = medidasPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<SysSaludResponse> data = medidasPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data, medidasPage.getTotalElements(), medidasPage.getTotalPages(), medidasPage.getNumber() + 1);
     }
 
     @Override
-    public List<SysSaludDTO> getHospitalList() {
+    public List<SysSaludResponse> getHospitalList() {
         return sysSaludRespository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
@@ -90,13 +90,13 @@ public class SysSaludServiceImpl implements SysSaludService {
     }
 
     @Override
-    public Optional<SysSaludDTO> getHospitalBysId(UUID hospitalId) {
+    public Optional<SysSaludResponse> getHospitalBysId(UUID hospitalId) {
         return Optional.ofNullable(sysSaludRespository.findById(hospitalId).map(this::convertToDTO)
                 .orElseThrow( () -> new ResourceNotFoundException("Hospital not found")));
     }
 
-    private SysSaludDTO convertToDTO(SysSaludEntity sysSalud) {
-        return modelMapper.map(sysSalud, SysSaludDTO.class);
+    private SysSaludResponse convertToDTO(SysSaludEntity sysSalud) {
+        return modelMapper.map(sysSalud, SysSaludResponse.class);
     }
 
 }

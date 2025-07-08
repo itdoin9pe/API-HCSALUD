@@ -1,12 +1,12 @@
 package com.saludsystem.configuracion.infrastructure.adapters.in.controller;
 
-import com.saludsystem.configuracion.application.dto.req.RolDTO;
-import com.saludsystem.configuracion.application.dto.res.CrearRolDTO;
-import com.saludsystem.configuracion.application.dto.req.ActualizarRolDTO;
+import com.saludsystem.configuracion.application.dto.res.RolResponse;
+import com.saludsystem.configuracion.application.dto.req.RolRequest;
+import com.saludsystem.configuracion.application.dto.res.ActualizarRolDTO;
 import com.saludsystem.configuracion.application.services.RolService;
+import com.saludsystem.configuracion.infrastructure.adapters.in.response.RolListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.configuracion.infrastructure.adapters.in.response.RolResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -30,18 +30,18 @@ public class RoleController {
     }
 
     @PostMapping("/SaveRol")
-    public ApiResponse stored(@Valid @RequestBody CrearRolDTO crearRolDTO) {
-        return rolService.saveRole(crearRolDTO);
+    public ApiResponse stored(@Valid @RequestBody RolRequest rolRequest) {
+        return rolService.saveRole(rolRequest);
     }
 
     @GetMapping("/GetAllRol")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = RolResponse.class)))
+                            schema = @Schema(implementation = RolListResponse.class)))
     })
 
-    public ListResponse<RolDTO> getAllPage(
+    public ListResponse<RolResponse> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows) {
@@ -49,7 +49,7 @@ public class RoleController {
     }
 
     @GetMapping("/GetRol/{roleId}")
-    public RolDTO getById(@PathVariable UUID roleId) {
+    public RolResponse getById(@PathVariable UUID roleId) {
         return rolService.getRoleById(roleId);
     }
 
@@ -64,7 +64,7 @@ public class RoleController {
     }
 
     @GetMapping("/GetRoleList")
-    public ResponseEntity<List<RolDTO>> getAllList() {
+    public ResponseEntity<List<RolResponse>> getAllList() {
         return ResponseEntity.ok(rolService.getRoleList());
     }
 }

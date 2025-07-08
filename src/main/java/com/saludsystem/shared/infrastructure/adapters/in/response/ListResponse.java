@@ -12,8 +12,11 @@ public class ListResponse<T> {
     @Schema(description = "Lista de elementos", example = "[]")
     private List<T> data;
 
+    @Schema(description = "Número total de elementos", example = "0")
     private long totalElements;
+    @Schema(description = "Número total de paginas", example = "0")
     private int totalPages;
+    @Schema(description = "Número total de paginas actuales", example = "0")
     private int currentPage;
 
     public ListResponse(List<T> data, long totalElements, int totalPages, int currentPage) {

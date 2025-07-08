@@ -1,7 +1,7 @@
 package com.saludsystem.operaciones.application.service.impl;
 
-import com.saludsystem.operaciones.application.dto.res.PresentacionDTO;
-import com.saludsystem.operaciones.application.dto.req.CrearPresentacionDTO;
+import com.saludsystem.operaciones.application.dto.res.PresentacionResponse;
+import com.saludsystem.operaciones.application.dto.req.PresentacionRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.operaciones.application.service.PresentacionService;
 import com.saludsystem.operaciones.domain.model.PresentacionEntity;
@@ -18,39 +18,39 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PresentacionServiceImpl extends GenericServiceImpl<PresentacionEntity, CrearPresentacionDTO,
-        PresentacionDTO, UUID> implements PresentacionService {
+public class PresentacionServiceImpl extends GenericServiceImpl<PresentacionEntity, PresentacionRequest,
+        PresentacionResponse, UUID> implements PresentacionService {
 
     public PresentacionServiceImpl(
             PresentacionReposirory presentacionReposirory, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(presentacionReposirory, modelMapper, authValidator, PresentacionDTO.class
+        super(presentacionReposirory, modelMapper, authValidator, PresentacionResponse.class
         );
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearPresentacionDTO crearPresentacionDTO) {
-        return super.save(crearPresentacionDTO);
+    public ApiResponse save(PresentacionRequest presentacionRequest) {
+        return super.save(presentacionRequest);
     }
 
     @Override
-    public ListResponse<PresentacionDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<PresentacionResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, CrearPresentacionDTO updateDto) {
+    public ApiResponse update(UUID uuid, PresentacionRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public PresentacionDTO getById(UUID uuid) {
+    public PresentacionResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<PresentacionDTO> getList() {
+    public List<PresentacionResponse> getList() {
         return super.getList();
     }
 
@@ -61,15 +61,15 @@ public class PresentacionServiceImpl extends GenericServiceImpl<PresentacionEnti
     }
 
     @Override
-    protected PresentacionEntity convertCreateDtoToEntity(CrearPresentacionDTO crearPresentacionDTO) {
+    protected PresentacionEntity convertCreateDtoToEntity(PresentacionRequest presentacionRequest) {
         PresentacionEntity entity = new PresentacionEntity();
-        entity.setNombre(crearPresentacionDTO.getNombre());
-        entity.setEstado(crearPresentacionDTO.getEstado());
+        entity.setNombre(presentacionRequest.getNombre());
+        entity.setEstado(presentacionRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(PresentacionEntity entity, CrearPresentacionDTO dto) {
+    protected void updateEntityFromDto(PresentacionEntity entity, PresentacionRequest dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }

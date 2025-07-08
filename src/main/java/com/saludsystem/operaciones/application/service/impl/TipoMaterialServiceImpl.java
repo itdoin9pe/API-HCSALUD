@@ -1,7 +1,7 @@
 package com.saludsystem.operaciones.application.service.impl;
 
-import com.saludsystem.operaciones.application.dto.res.TipoMaterialDTO;
-import com.saludsystem.operaciones.application.dto.req.CrearTipoMaterialDTO;
+import com.saludsystem.operaciones.application.dto.res.TipoMaterialResponse;
+import com.saludsystem.operaciones.application.dto.req.TipoMaterialRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.operaciones.application.service.TipoMaterialService;
 import com.saludsystem.operaciones.domain.model.TipoMaterialEntity;
@@ -18,38 +18,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TipoMaterialServiceImpl extends GenericServiceImpl<TipoMaterialEntity, CrearTipoMaterialDTO,
-        TipoMaterialDTO, UUID> implements TipoMaterialService {
+public class TipoMaterialServiceImpl extends GenericServiceImpl<TipoMaterialEntity, TipoMaterialRequest,
+        TipoMaterialResponse, UUID> implements TipoMaterialService {
 
     public TipoMaterialServiceImpl(
             TipoMaterialRepository tipoMaterialRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(tipoMaterialRepository, modelMapper, authValidator, TipoMaterialDTO.class);
+        super(tipoMaterialRepository, modelMapper, authValidator, TipoMaterialResponse.class);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearTipoMaterialDTO crearTipoMaterialDTO) {
-        return super.save(crearTipoMaterialDTO);
+    public ApiResponse save(TipoMaterialRequest tipoMaterialRequest) {
+        return super.save(tipoMaterialRequest);
     }
 
     @Override
-    public ListResponse<TipoMaterialDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<TipoMaterialResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CrearTipoMaterialDTO updateDto) {
+    public ApiResponse update(UUID uuid, TipoMaterialRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public TipoMaterialDTO getById(UUID uuid) {
+    public TipoMaterialResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<TipoMaterialDTO> getList() {
+    public List<TipoMaterialResponse> getList() {
         return super.getList();
     }
 
@@ -60,16 +60,16 @@ public class TipoMaterialServiceImpl extends GenericServiceImpl<TipoMaterialEnti
     }
 
     @Override
-    protected TipoMaterialEntity convertCreateDtoToEntity(CrearTipoMaterialDTO crearTipoMaterialDTO) {
+    protected TipoMaterialEntity convertCreateDtoToEntity(TipoMaterialRequest tipoMaterialRequest) {
         TipoMaterialEntity entity = new TipoMaterialEntity();
-        entity.setNombre(crearTipoMaterialDTO.getNombre());
-        entity.setDescripcion(crearTipoMaterialDTO.getDescripcion());
-        entity.setEstado(crearTipoMaterialDTO.getEstado());
+        entity.setNombre(tipoMaterialRequest.getNombre());
+        entity.setDescripcion(tipoMaterialRequest.getDescripcion());
+        entity.setEstado(tipoMaterialRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(TipoMaterialEntity entity, CrearTipoMaterialDTO dto) {
+    protected void updateEntityFromDto(TipoMaterialEntity entity, TipoMaterialRequest dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);

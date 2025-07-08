@@ -1,12 +1,12 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller.evolucion;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.NotaDTO;
-import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.CrearNotaDTO;
+import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.NotaResponse;
+import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.NotaRequest;
 import com.saludsystem.paciente.application.dto.evolucion.ActualizarNotaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.NotaService;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.Evolucion.NotaListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.Evolucion.NotaResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -28,24 +28,24 @@ public class NotaController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse stored(@Valid @RequestBody CrearNotaDTO crearNotaDTO) {
-        return notaService.saveNota(crearNotaDTO);
+    public ApiResponse stored(@Valid @RequestBody NotaRequest notaRequest) {
+        return notaService.saveNota(notaRequest);
     }
 
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = NotaResponse.class)))
+                            schema = @Schema(implementation = NotaListResponse.class)))
     })
-    public ListResponse<NotaDTO> getAllPage(
+    public ListResponse<NotaResponse> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return notaService.getAllNota(hospitalId, page, rows);
     }
 
     @GetMapping("/GetById/{Id}")
-    public NotaDTO getById(@PathVariable Long pacienteEvolucionNotaId) {
+    public NotaResponse getById(@PathVariable Long pacienteEvolucionNotaId) {
         return notaService.getNotaById(pacienteEvolucionNotaId);
     }
 

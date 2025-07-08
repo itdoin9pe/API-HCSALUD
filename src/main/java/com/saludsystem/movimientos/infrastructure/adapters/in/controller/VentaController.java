@@ -1,12 +1,11 @@
 package com.saludsystem.movimientos.infrastructure.adapters.in.controller;
 
-import com.saludsystem.movimientos.application.dto.res.VentaByIdDTO;
+import com.saludsystem.movimientos.application.dto.res.VentaRequest;
 import com.saludsystem.movimientos.application.dto.res.VentaDTO;
-import com.saludsystem.movimientos.application.dto.req.CrearVentaDTO;
 import com.saludsystem.movimientos.application.service.VentaService;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.movimientos.infrastructure.adapters.in.response.VentaResponse;
+import com.saludsystem.movimientos.infrastructure.adapters.in.response.VentaListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -29,15 +28,15 @@ public class VentaController {
     }
 
     @PostMapping("/SaveVenta")
-    public ApiResponse store(@Valid @RequestBody CrearVentaDTO crearVentaDTO) {
-        return ventaService.saveVenta(crearVentaDTO);
+    public ApiResponse store(@Valid @RequestBody com.saludsystem.movimientos.application.dto.req.VentaRequest ventaRequest) {
+        return ventaService.saveVenta(ventaRequest);
     }
 
     @GetMapping("/GetAllVenta")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = VentaResponse.class)))
+                            schema = @Schema(implementation = VentaListResponse.class)))
     })
     public ListResponse<VentaDTO> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
@@ -52,7 +51,7 @@ public class VentaController {
     }
 
     @GetMapping("/GetVenta/{ventaId}")
-    public VentaByIdDTO getById(@PathVariable UUID ventaId) {
+    public VentaRequest getById(@PathVariable UUID ventaId) {
         return ventaService.getVentaById(ventaId);
     }
 

@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.service.impl;
 
-import com.saludsystem.paciente.application.dto.res.EstudioMedicoDTO;
-import com.saludsystem.paciente.application.dto.req.CrearEstudioMedicoDTO;
+import com.saludsystem.paciente.application.dto.res.EstudioMedicoResponse;
+import com.saludsystem.paciente.application.dto.req.EstudioMedicoRequest;
 import com.saludsystem.paciente.application.dto.ActualizarEstudioMedicoDTO;
 import com.saludsystem.paciente.application.service.EstudioMedicoService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -50,7 +50,7 @@ public class EstudioMedicoServiceImpl implements EstudioMedicoService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveEstudioMedico(CrearEstudioMedicoDTO crearEstudioMedicoDTO) {
+    public ApiResponse saveEstudioMedico(EstudioMedicoRequest estudioMedicoRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -60,15 +60,15 @@ public class EstudioMedicoServiceImpl implements EstudioMedicoService {
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(
                 () -> new RuntimeException("Hospital no encontrado"));
         EstudioMedicoEntity estudioMedicoEntity = new EstudioMedicoEntity();
-        estudioMedicoEntity.setDoctorEntity(doctorRepository.findById(crearEstudioMedicoDTO.getDoctorId()).orElseThrow(
+        estudioMedicoEntity.setDoctorEntity(doctorRepository.findById(estudioMedicoRequest.getDoctorId()).orElseThrow(
                 () -> new ResourceNotFoundException("Doctor no encontrado") ));
-        estudioMedicoEntity.setPacienteEntity(pacienteRepository.findById(crearEstudioMedicoDTO.getPacienteId()).orElseThrow(
+        estudioMedicoEntity.setPacienteEntity(pacienteRepository.findById(estudioMedicoRequest.getPacienteId()).orElseThrow(
                 () -> new ResourceNotFoundException("Paciente no encontrado")));
-        estudioMedicoEntity.setTipo(crearEstudioMedicoDTO.getTipo());
-        estudioMedicoEntity.setRequestAt(crearEstudioMedicoDTO.getRequestAt());
-        estudioMedicoEntity.setPerformedAt(crearEstudioMedicoDTO.getPerformedAt());
-        estudioMedicoEntity.setDescripcion(crearEstudioMedicoDTO.getDescripcion());
-        estudioMedicoEntity.setEstado(crearEstudioMedicoDTO.getEstado());
+        estudioMedicoEntity.setTipo(estudioMedicoRequest.getTipo());
+        estudioMedicoEntity.setRequestAt(estudioMedicoRequest.getRequestAt());
+        estudioMedicoEntity.setPerformedAt(estudioMedicoRequest.getPerformedAt());
+        estudioMedicoEntity.setDescripcion(estudioMedicoRequest.getDescripcion());
+        estudioMedicoEntity.setEstado(estudioMedicoRequest.getEstado());
         estudioMedicoEntity.setHospital(hospital);
         estudioMedicoEntity.setUser(userEntity);
         estudioMedicoRepository.save(estudioMedicoEntity);
@@ -76,10 +76,10 @@ public class EstudioMedicoServiceImpl implements EstudioMedicoService {
     }
 
     @Override
-    public ListResponse<EstudioMedicoDTO> getAllEstudioMedico(UUID hospitalId, int page, int rows) {
+    public ListResponse<EstudioMedicoResponse> getAllEstudioMedico(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<EstudioMedicoEntity> estudioMedicoEntityPage = estudioMedicoRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<EstudioMedicoDTO> data = estudioMedicoEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<EstudioMedicoResponse> data = estudioMedicoEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data, estudioMedicoEntityPage.getTotalElements(), estudioMedicoEntityPage.getTotalPages(), estudioMedicoEntityPage.getNumber() + 1);
     }
 
@@ -106,7 +106,7 @@ public class EstudioMedicoServiceImpl implements EstudioMedicoService {
     }
 
     @Override
-    public EstudioMedicoDTO getEstudioMedicoById(Long pacienteEstudioMedicoId) {
+    public EstudioMedicoResponse getEstudioMedicoById(Long pacienteEstudioMedicoId) {
         EstudioMedicoEntity estudioMedicoEntity = estudioMedicoRepository.findById(pacienteEstudioMedicoId).orElseThrow(
                 () -> new ResourceNotFoundException("Estudio medico no encontrado"));
         return convertToDTO(estudioMedicoEntity);
@@ -125,8 +125,8 @@ public class EstudioMedicoServiceImpl implements EstudioMedicoService {
         return new ApiResponse(true, "Estudio nedico eliminado correctamente");
     }
 
-    private EstudioMedicoDTO convertToDTO(EstudioMedicoEntity estudioMedicoEntity) {
-        return modelMapper.map(estudioMedicoEntity, EstudioMedicoDTO.class);
+    private EstudioMedicoResponse convertToDTO(EstudioMedicoEntity estudioMedicoEntity) {
+        return modelMapper.map(estudioMedicoEntity, EstudioMedicoResponse.class);
     }
 
 }

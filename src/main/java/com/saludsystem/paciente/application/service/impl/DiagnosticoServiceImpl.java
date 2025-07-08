@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.service.impl;
 
-import com.saludsystem.paciente.application.dto.res.DiagnosticoDTO;
-import com.saludsystem.paciente.application.dto.req.CrearDiagnosticoDTO;
+import com.saludsystem.paciente.application.dto.res.DiagnosticoResponse;
+import com.saludsystem.paciente.application.dto.req.DiagnosticoRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.DiagnosticoService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -23,8 +23,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class DiagnosticoServiceImpl extends GenericServiceImpl<DiagnosticoEntity, CrearDiagnosticoDTO,
-        DiagnosticoDTO, UUID> implements DiagnosticoService {
+public class DiagnosticoServiceImpl extends GenericServiceImpl<DiagnosticoEntity, DiagnosticoRequest,
+        DiagnosticoResponse, UUID> implements DiagnosticoService {
 
     private final PacienteRepository pacienteRepository;
     private final EnfermedadRepository enfermedadRepository;
@@ -32,28 +32,28 @@ public class DiagnosticoServiceImpl extends GenericServiceImpl<DiagnosticoEntity
     public DiagnosticoServiceImpl(
             DiagnosticoRepository diagnosticoRepository, ModelMapper modelMapper,
             AuthValidator authValidator, PacienteRepository pacienteRepository, EnfermedadRepository enfermedadRepository) {
-        super(diagnosticoRepository, modelMapper, authValidator, DiagnosticoDTO.class
+        super(diagnosticoRepository, modelMapper, authValidator, DiagnosticoResponse.class
         );
         this.pacienteRepository = pacienteRepository;
         this.enfermedadRepository = enfermedadRepository;
     }
 
     @Override
-    protected DiagnosticoEntity convertCreateDtoToEntity(CrearDiagnosticoDTO crearDiagnosticoDTO) {
+    protected DiagnosticoEntity convertCreateDtoToEntity(DiagnosticoRequest diagnosticoRequest) {
         DiagnosticoEntity entity = new DiagnosticoEntity();
-        PacienteEntity paciente = pacienteRepository.findById(crearDiagnosticoDTO.getPacienteId())
+        PacienteEntity paciente = pacienteRepository.findById(diagnosticoRequest.getPacienteId())
                 .orElseThrow(() -> new ResourceNotFoundException("Paciente no encontrado"));
         entity.setPacienteEntity(paciente);
-        EnfermedadEntity enfermedad = enfermedadRepository.findById(crearDiagnosticoDTO.getEnfermedadId())
+        EnfermedadEntity enfermedad = enfermedadRepository.findById(diagnosticoRequest.getEnfermedadId())
                 .orElseThrow(() -> new ResourceNotFoundException("Enfermedad no encontrada"));
         entity.setEnfermedadEntity(enfermedad);
-        entity.setFecha(crearDiagnosticoDTO.getFecha());
-        entity.setDescripcion(crearDiagnosticoDTO.getDescripcion());
+        entity.setFecha(diagnosticoRequest.getFecha());
+        entity.setDescripcion(diagnosticoRequest.getDescripcion());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(DiagnosticoEntity entity, CrearDiagnosticoDTO dto) {
+    protected void updateEntityFromDto(DiagnosticoEntity entity, DiagnosticoRequest dto) {
         Optional.ofNullable(dto.getPacienteId())
                 .flatMap(pacienteRepository::findById)
                 .ifPresent(entity::setPacienteEntity);
@@ -68,28 +68,28 @@ public class DiagnosticoServiceImpl extends GenericServiceImpl<DiagnosticoEntity
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearDiagnosticoDTO crearDiagnosticoDTO) {
-        return super.save(crearDiagnosticoDTO);
+    public ApiResponse save(DiagnosticoRequest diagnosticoRequest) {
+        return super.save(diagnosticoRequest);
     }
 
     @Override
-    public ListResponse<DiagnosticoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<DiagnosticoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, CrearDiagnosticoDTO updateDto) {
+    public ApiResponse update(UUID uuid, DiagnosticoRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public DiagnosticoDTO getById(UUID uuid) {
+    public DiagnosticoResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<DiagnosticoDTO> getList() {
+    public List<DiagnosticoResponse> getList() {
         return super.getList();
     }
 

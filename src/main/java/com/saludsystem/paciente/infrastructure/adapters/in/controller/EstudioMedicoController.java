@@ -1,12 +1,12 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller;
 
-import com.saludsystem.paciente.application.dto.res.EstudioMedicoDTO;
-import com.saludsystem.paciente.application.dto.req.CrearEstudioMedicoDTO;
+import com.saludsystem.paciente.application.dto.res.EstudioMedicoResponse;
+import com.saludsystem.paciente.application.dto.req.EstudioMedicoRequest;
 import com.saludsystem.paciente.application.dto.ActualizarEstudioMedicoDTO;
 import com.saludsystem.paciente.application.service.EstudioMedicoService;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.EstudioMedicoListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.EstudioMedicoResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -28,24 +28,24 @@ public class EstudioMedicoController {
     }
 
     @PostMapping("/SavePacienteEstudioMedico")
-    public ApiResponse stored(@Valid @RequestBody CrearEstudioMedicoDTO crearEstudioMedicoDTO) {
-        return estudioMedicoService.saveEstudioMedico(crearEstudioMedicoDTO);
+    public ApiResponse stored(@Valid @RequestBody EstudioMedicoRequest estudioMedicoRequest) {
+        return estudioMedicoService.saveEstudioMedico(estudioMedicoRequest);
     }
 
     @GetMapping("/GetAllPacienteEstudioMedico")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EstudioMedicoResponse.class)))
+                            schema = @Schema(implementation = EstudioMedicoListResponse.class)))
     })
-    public ListResponse<EstudioMedicoDTO> getAllPage(
+    public ListResponse<EstudioMedicoResponse> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return estudioMedicoService.getAllEstudioMedico(hospitalId, page, rows);
     }
 
     @GetMapping("/GetPacienteEstudioMedico/{pacienteEstudioMedicoId}")
-    public EstudioMedicoDTO getById(@PathVariable Long pacienteEstudioMedicoId) {
+    public EstudioMedicoResponse getById(@PathVariable Long pacienteEstudioMedicoId) {
         return estudioMedicoService.getEstudioMedicoById(pacienteEstudioMedicoId);
     }
 

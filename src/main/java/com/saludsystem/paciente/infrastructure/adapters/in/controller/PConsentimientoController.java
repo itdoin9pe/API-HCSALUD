@@ -1,12 +1,12 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller;
 
-import com.saludsystem.paciente.application.dto.res.PConsentimientoDTO;
-import com.saludsystem.paciente.application.dto.req.CrearPConsentimientoDTO;
+import com.saludsystem.paciente.application.dto.res.PConsentimientoResponse;
+import com.saludsystem.paciente.application.dto.req.PConsentimientoRequest;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.PConsentimientoListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.PConsentimientoResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -27,26 +27,26 @@ import java.util.UUID;
 @Tag(name = "PacientesConsentimientos")
 @RestController
 @RequestMapping("/api/Pacientes/Consentimientos")
-public class PConsentimientoController extends GenericController<CrearPConsentimientoDTO,
-        PConsentimientoDTO, UUID> {
+public class PConsentimientoController extends GenericController<PConsentimientoRequest,
+        PConsentimientoResponse, UUID> {
 
-    protected PConsentimientoController(GenericService<CrearPConsentimientoDTO, PConsentimientoDTO, UUID> genericService) {
+    protected PConsentimientoController(GenericService<PConsentimientoRequest, PConsentimientoResponse, UUID> genericService) {
         super(genericService);
     }
 
     @Override
     @PostMapping(value = "/Save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
-            content = @Content(schema = @Schema(implementation = PConsentimientoResponse.class)))
-    public ApiResponse create(@RequestBody CrearPConsentimientoDTO crearPConsentimientoDTO) {
-        return super.create(crearPConsentimientoDTO);
+            content = @Content(schema = @Schema(implementation = PConsentimientoListResponse.class)))
+    public ApiResponse create(@RequestBody PConsentimientoRequest PConsentimientoRequest) {
+        return super.create(PConsentimientoRequest);
     }
 
     @Override
     @PutMapping(value = "/Update/{Id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
-            content = @Content(schema = @Schema(implementation = PConsentimientoResponse.class)))
-    public ApiResponse update(UUID uuid, CrearPConsentimientoDTO dto) {
+            content = @Content(schema = @Schema(implementation = PConsentimientoListResponse.class)))
+    public ApiResponse update(UUID uuid, PConsentimientoRequest dto) {
         return super.update(uuid, dto);
     }
 
@@ -54,9 +54,9 @@ public class PConsentimientoController extends GenericController<CrearPConsentim
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = PConsentimientoResponse.class)))
+                            schema = @Schema(implementation = PConsentimientoListResponse.class)))
     })
-    public ListResponse<PConsentimientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<PConsentimientoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 

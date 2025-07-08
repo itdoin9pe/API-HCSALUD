@@ -1,8 +1,7 @@
 package com.saludsystem.movimientos.application.service.impl;
 
 
-import com.saludsystem.movimientos.application.dto.res.VentaDetalleDTO;
-import com.saludsystem.movimientos.application.dto.req.CrearVentaDetalleDTO;
+import com.saludsystem.movimientos.application.dto.res.VentaDetalleRequest;
 import com.saludsystem.movimientos.application.dto.ActualizarVentaDetalleDTO;
 import com.saludsystem.movimientos.application.service.VentaDetalleService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -51,7 +50,7 @@ public class VentaDetalleServiceImpl implements VentaDetalleService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveVentaDetalle(CrearVentaDetalleDTO crearVentaDetalleDTO) {
+    public ApiResponse saveVentaDetalle(com.saludsystem.movimientos.application.dto.req.VentaDetalleRequest crearVentaDetalleRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email)
@@ -62,12 +61,12 @@ public class VentaDetalleServiceImpl implements VentaDetalleService {
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         VentaDetalleEntity ventaDetalleEntity = new VentaDetalleEntity();
-        Optional<ProductoEntity> productoEntity = productoRepository.findById(crearVentaDetalleDTO.getProductoId());
+        Optional<ProductoEntity> productoEntity = productoRepository.findById(crearVentaDetalleRequest.getProductoId());
         productoEntity.ifPresent(ventaDetalleEntity::setProductoEntity);
-        ventaDetalleEntity.setCodigoProducto(crearVentaDetalleDTO.getCodigoProducto());
-        ventaDetalleEntity.setCantidad(crearVentaDetalleDTO.getCantidad());
-        ventaDetalleEntity.setPrecio(BigDecimal.valueOf(crearVentaDetalleDTO.getPrecioUnitario()));
-        ventaDetalleEntity.setSubtotal(BigDecimal.valueOf(crearVentaDetalleDTO.getSubtotal()));
+        ventaDetalleEntity.setCodigoProducto(crearVentaDetalleRequest.getCodigoProducto());
+        ventaDetalleEntity.setCantidad(crearVentaDetalleRequest.getCantidad());
+        ventaDetalleEntity.setPrecio(BigDecimal.valueOf(crearVentaDetalleRequest.getPrecioUnitario()));
+        ventaDetalleEntity.setSubtotal(BigDecimal.valueOf(crearVentaDetalleRequest.getSubtotal()));
         ventaDetalleEntity.setHospital(hospital);
         ventaDetalleEntity.setUser(userEntity);
         ventaDetalleRepository.save(ventaDetalleEntity);
@@ -109,21 +108,21 @@ public class VentaDetalleServiceImpl implements VentaDetalleService {
     }
 
     @Override
-    public VentaDetalleDTO getVentaDetalleById(UUID ventaDetalleId) {
+    public VentaDetalleRequest getVentaDetalleById(UUID ventaDetalleId) {
         VentaDetalleEntity ventaDetalleEntity = ventaDetalleRepository.findById(ventaDetalleId).orElseThrow(() -> new ResourceNotFoundException("Detalle de venta no econtrado"));
         return convertToDTO(ventaDetalleEntity);
     }
 
     @Override
-    public ListResponse<VentaDetalleDTO> getAllVentaDetalle(UUID hospitalId, int page, int rows) {
+    public ListResponse<VentaDetalleRequest> getAllVentaDetalle(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<VentaDetalleEntity> ventaDetalleEntityPage = ventaDetalleRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<VentaDetalleDTO> data = ventaDetalleEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<VentaDetalleRequest> data = ventaDetalleEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data, ventaDetalleEntityPage.getTotalElements(), ventaDetalleEntityPage.getTotalPages(), ventaDetalleEntityPage.getNumber() + 1);
     }
 
-    private VentaDetalleDTO convertToDTO(VentaDetalleEntity ventaDetalleEntity) {
-        return modelMapper.map(ventaDetalleEntity, VentaDetalleDTO.class);
+    private VentaDetalleRequest convertToDTO(VentaDetalleEntity ventaDetalleEntity) {
+        return modelMapper.map(ventaDetalleEntity, VentaDetalleRequest.class);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.saludsystem.operaciones.application.service.impl;
 
-import com.saludsystem.operaciones.application.dto.res.MarcaDTO;
-import com.saludsystem.operaciones.application.dto.req.CrearMarcaDTO;
+import com.saludsystem.operaciones.application.dto.res.MarcaResponse;
+import com.saludsystem.operaciones.application.dto.req.MarcaRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.operaciones.application.service.MarcaService;
 import com.saludsystem.operaciones.domain.model.MarcaEntity;
@@ -18,37 +18,37 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class MarcaServiceImpl extends GenericServiceImpl<MarcaEntity, CrearMarcaDTO, MarcaDTO, UUID>
+public class MarcaServiceImpl extends GenericServiceImpl<MarcaEntity, MarcaRequest, MarcaResponse, UUID>
         implements MarcaService {
 
     protected MarcaServiceImpl(MarcaRepository marcaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(marcaRepository, modelMapper, authValidator, MarcaDTO.class);
+        super(marcaRepository, modelMapper, authValidator, MarcaResponse.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearMarcaDTO crearMarcaDTO) {
-        return super.save(crearMarcaDTO);
+    public ApiResponse save(MarcaRequest marcaRequest) {
+        return super.save(marcaRequest);
     }
 
     @Override
-    public ListResponse<MarcaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<MarcaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CrearMarcaDTO updateDto) {
+    public ApiResponse update(UUID uuid, MarcaRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public List<MarcaDTO> getList() {
+    public List<MarcaResponse> getList() {
         return super.getList();
     }
 
     @Override
-    public MarcaDTO getById(UUID uuid) {
+    public MarcaResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
@@ -59,15 +59,15 @@ public class MarcaServiceImpl extends GenericServiceImpl<MarcaEntity, CrearMarca
     }
 
     @Override
-    protected MarcaEntity convertCreateDtoToEntity(CrearMarcaDTO crearMarcaDTO) {
+    protected MarcaEntity convertCreateDtoToEntity(MarcaRequest marcaRequest) {
         MarcaEntity entity = new MarcaEntity();
-        entity.setNombre(crearMarcaDTO.getNombre());
-        entity.setEstado(crearMarcaDTO.getEstado());
+        entity.setNombre(marcaRequest.getNombre());
+        entity.setEstado(marcaRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(MarcaEntity entity, CrearMarcaDTO dto) {
+    protected void updateEntityFromDto(MarcaEntity entity, MarcaRequest dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }

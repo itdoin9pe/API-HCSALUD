@@ -16,9 +16,9 @@ public class EvolucionDTO {
 
     private Boolean finalizada = false;
 
-    private List<NotaDTO> notas;
+    private List<NotaResponse> notas;
 
-    private List<CambioCondicionDTO> cambios;
+    private List<CambioCondicionResponse> cambios;
 
     private UUID pacienteAltaMedicaId;
 

@@ -1,7 +1,7 @@
 package com.saludsystem.operaciones.application.service.impl;
 
-import com.saludsystem.operaciones.application.dto.res.ProductoDTO;
-import com.saludsystem.operaciones.application.dto.req.CrearProductoDTO;
+import com.saludsystem.operaciones.application.dto.res.ProductoResponse;
+import com.saludsystem.operaciones.application.dto.req.ProductoRequest;
 import com.saludsystem.operaciones.application.dto.req.ActualizarProductoDTO;
 import com.saludsystem.operaciones.application.service.ProductoService;
 import com.saludsystem.operaciones.domain.model.*;
@@ -54,7 +54,7 @@ public class ProductoServiceImpl implements ProductoService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveProducto(CrearProductoDTO crearProductoDTO) {
+    public ApiResponse saveProducto(ProductoRequest productoRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email)
@@ -65,28 +65,28 @@ public class ProductoServiceImpl implements ProductoService {
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         ProductoEntity productoEntity = new ProductoEntity();
-        productoEntity.setDescripcion(crearProductoDTO.getDescripcion());
-        productoEntity.setNombre(crearProductoDTO.getNombre());
-        productoEntity.setCodigo(crearProductoDTO.getCodigo());
-        Optional<MarcaEntity> marcaEntity = marcaRepository.findById(crearProductoDTO.getMarcaMaterialesId());
+        productoEntity.setDescripcion(productoRequest.getDescripcion());
+        productoEntity.setNombre(productoRequest.getNombre());
+        productoEntity.setCodigo(productoRequest.getCodigo());
+        Optional<MarcaEntity> marcaEntity = marcaRepository.findById(productoRequest.getMarcaMaterialesId());
         marcaEntity.ifPresent(productoEntity::setMarcaEntity);
-        Optional<CategoriaMatEntity> categoriaMatEntity = categoriaMatRepository.findById(crearProductoDTO.getCategoriaMaterialId());
+        Optional<CategoriaMatEntity> categoriaMatEntity = categoriaMatRepository.findById(productoRequest.getCategoriaMaterialId());
         categoriaMatEntity.ifPresent(productoEntity::setCategoriaMatEntity);
-        Optional<PresentacionEntity> presentacionEntity = presentacionReposirory.findById(crearProductoDTO.getPresentacionId());
+        Optional<PresentacionEntity> presentacionEntity = presentacionReposirory.findById(productoRequest.getPresentacionId());
         presentacionEntity.ifPresent(productoEntity::setPresentacionEntity);
-        Optional<TipoMaterialEntity> tipoMaterialEntity = tipoMaterialRepository.findById(crearProductoDTO.getTipoMaterialId());
+        Optional<TipoMaterialEntity> tipoMaterialEntity = tipoMaterialRepository.findById(productoRequest.getTipoMaterialId());
         tipoMaterialEntity.ifPresent(productoEntity::setTipoMaterialEntity);
-        Optional<UnidadEntity> unidadEntity = unidadRepository.findById(crearProductoDTO.getUnidadId());
+        Optional<UnidadEntity> unidadEntity = unidadRepository.findById(productoRequest.getUnidadId());
         unidadEntity.ifPresent(productoEntity::setUnidadEntity);
-        productoEntity.setPrecioCompra(crearProductoDTO.getPrecioCompra());
-        productoEntity.setPrecioVenta(crearProductoDTO.getPrecioVenta());
-        productoEntity.setStock(crearProductoDTO.getStock());
-        productoEntity.setCodigoBarras(crearProductoDTO.getCodigoBarras());
-        productoEntity.setLote(crearProductoDTO.getLote());
-        productoEntity.setFecha(crearProductoDTO.getFecha());
-        productoEntity.setEstadoVenta(crearProductoDTO.getEstadoVenta());
-        productoEntity.setEstadoCompra(crearProductoDTO.getEstadoCompra());
-        productoEntity.setEstadoProducto(crearProductoDTO.getEstadoProducto());
+        productoEntity.setPrecioCompra(productoRequest.getPrecioCompra());
+        productoEntity.setPrecioVenta(productoRequest.getPrecioVenta());
+        productoEntity.setStock(productoRequest.getStock());
+        productoEntity.setCodigoBarras(productoRequest.getCodigoBarras());
+        productoEntity.setLote(productoRequest.getLote());
+        productoEntity.setFecha(productoRequest.getFecha());
+        productoEntity.setEstadoVenta(productoRequest.getEstadoVenta());
+        productoEntity.setEstadoCompra(productoRequest.getEstadoCompra());
+        productoEntity.setEstadoProducto(productoRequest.getEstadoProducto());
         productoEntity.setHospital(hospital);
         productoEntity.setUser(userEntity);
         productoRepository.save(productoEntity);
@@ -94,20 +94,20 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public ListResponse<ProductoDTO> getAllProducto(UUID hospitalId, int page, int rows) {
+    public ListResponse<ProductoResponse> getAllProducto(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<ProductoEntity> productoEntityPage = productoRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<ProductoDTO> data = productoEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<ProductoResponse> data = productoEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data, productoEntityPage.getTotalElements(), productoEntityPage.getTotalPages(), productoEntityPage.getNumber() + 1);
     }
 
     @Override
-    public List<ProductoDTO> getProductoList() {
+    public List<ProductoResponse> getProductoList() {
         return productoRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public ProductoDTO getProductoById(UUID productoId) {
+    public ProductoResponse getProductoById(UUID productoId) {
         ProductoEntity productoEntity = productoRepository.findById(productoId).orElseThrow(
                 () -> new ResourceNotFoundException("Producto no encontrado"));
         return convertToDTO(productoEntity);
@@ -160,8 +160,8 @@ public class ProductoServiceImpl implements ProductoService {
         return new ApiResponse(true, "Producto eliminado correctamente");
     }
 
-    private ProductoDTO convertToDTO(ProductoEntity productoEntity) {
-        return modelMapper.map(productoEntity, ProductoDTO.class);
+    private ProductoResponse convertToDTO(ProductoEntity productoEntity) {
+        return modelMapper.map(productoEntity, ProductoResponse.class);
     }
 
 }

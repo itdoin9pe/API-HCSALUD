@@ -1,8 +1,8 @@
 package com.saludsystem.configuracion.application.services;
 
-import com.saludsystem.configuracion.application.dto.req.SysSaludDTO;
-import com.saludsystem.configuracion.application.dto.res.CrearSysSaludDTO;
-import com.saludsystem.configuracion.application.dto.req.ActualizarHospitalDTO;
+import com.saludsystem.configuracion.application.dto.res.SysSaludResponse;
+import com.saludsystem.configuracion.application.dto.req.SysSaludRequest;
+import com.saludsystem.configuracion.application.dto.res.ActualizarHospitalDTO;
 import com.saludsystem.configuracion.domain.model.SysSaludEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -12,16 +12,16 @@ import java.util.UUID;
 
 public interface SysSaludService {
 
-    SysSaludEntity saveClinica(CrearSysSaludDTO crearSysSaludDTO);
+    SysSaludEntity saveClinica(SysSaludRequest sysSaludRequest);
 
-    ListResponse<SysSaludDTO> getAllHospital(UUID hospitalId, int page, int rows);
+    ListResponse<SysSaludResponse> getAllHospital(UUID hospitalId, int page, int rows);
 
-    List<SysSaludDTO> getHospitalList();
+    List<SysSaludResponse> getHospitalList();
 
     ActualizarHospitalDTO updateHospital(UUID hospitalId, ActualizarHospitalDTO actualizarHospitalDTO);
 
     ApiResponse deleteHospital(UUID hospitald);
 
-    Optional<SysSaludDTO> getHospitalBysId(UUID hospitalId);
+    Optional<SysSaludResponse> getHospitalBysId(UUID hospitalId);
 
 }

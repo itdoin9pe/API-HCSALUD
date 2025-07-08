@@ -1,7 +1,7 @@
 package com.saludsystem.principal.application.service.impl;
 
-import com.saludsystem.principal.application.dto.res.EstudioDTO;
-import com.saludsystem.principal.application.dto.req.CrearEstudioDTO;
+import com.saludsystem.principal.application.dto.res.EstudioResponse;
+import com.saludsystem.principal.application.dto.req.EstudioRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.principal.application.service.EstudioService;
 import com.saludsystem.principal.domain.model.EstudioEntity;
@@ -18,38 +18,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class EstudioServiceImpl extends GenericServiceImpl<EstudioEntity, CrearEstudioDTO, EstudioDTO, UUID>
+public class EstudioServiceImpl extends GenericServiceImpl<EstudioEntity, EstudioRequest, EstudioResponse, UUID>
         implements EstudioService {
 
     public EstudioServiceImpl(EstudioRepository estudioRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(estudioRepository, modelMapper, authValidator, EstudioDTO.class
+        super(estudioRepository, modelMapper, authValidator, EstudioResponse.class
         );
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearEstudioDTO crearEstudioDTO) {
-        return super.save(crearEstudioDTO);
+    public ApiResponse save(EstudioRequest estudioRequest) {
+        return super.save(estudioRequest);
     }
 
     @Override
-    public ListResponse<EstudioDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<EstudioResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, CrearEstudioDTO updateDto) {
+    public ApiResponse update(UUID uuid, EstudioRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public EstudioDTO getById(UUID uuid) {
+    public EstudioResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<EstudioDTO> getList() {
+    public List<EstudioResponse> getList() {
         return super.getList();
     }
 
@@ -60,14 +60,14 @@ public class EstudioServiceImpl extends GenericServiceImpl<EstudioEntity, CrearE
     }
 
     @Override
-    protected EstudioEntity convertCreateDtoToEntity(CrearEstudioDTO crearEstudioDTO) {
+    protected EstudioEntity convertCreateDtoToEntity(EstudioRequest estudioRequest) {
         EstudioEntity entity = new EstudioEntity();
-        entity.setDescripcion(crearEstudioDTO.getDescripcion());
+        entity.setDescripcion(estudioRequest.getDescripcion());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(EstudioEntity entity, CrearEstudioDTO dto) {
+    protected void updateEntityFromDto(EstudioEntity entity, EstudioRequest dto) {
         Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
     }
 }

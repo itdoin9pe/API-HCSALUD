@@ -1,8 +1,8 @@
 package com.saludsystem.movimientos.application.service.impl;
 
 
-import com.saludsystem.movimientos.application.dto.res.InventarioDTO;
-import com.saludsystem.movimientos.application.dto.req.CrearInventarioDTO;
+import com.saludsystem.movimientos.application.dto.res.InventarioResponse;
+import com.saludsystem.movimientos.application.dto.req.InventarioRequest;
 import com.saludsystem.movimientos.application.dto.ActualizarInventarioDTO;
 import com.saludsystem.movimientos.application.service.InventarioProjection;
 import com.saludsystem.movimientos.application.service.InventarioService;
@@ -60,28 +60,28 @@ public class InventarioServiceImpl implements InventarioService {
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse saveInventario(CrearInventarioDTO crearInventarioDTO) {
+    public ApiResponse saveInventario(InventarioRequest inventarioRequest) {
         UserEntity userEntity = authValidator.getCurrentUser();
         authValidator.validateAdminAccess(); // Lanza excepción si no es admin
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(
                 () -> new RuntimeException("Hospital no encontrado"));
         InventarioEntity inventario = new InventarioEntity();
-        inventario.setProductoEntity(productoRepository.findById(crearInventarioDTO.getProductoId())
+        inventario.setProductoEntity(productoRepository.findById(inventarioRequest.getProductoId())
                 .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado")));
-        inventario.setMarcaMaterialEntity(marcaRepository.findById(crearInventarioDTO.getMarcaMaterialId())
+        inventario.setMarcaMaterialEntity(marcaRepository.findById(inventarioRequest.getMarcaMaterialId())
                 .orElseThrow(() -> new ResourceNotFoundException("Marca no encontrada")));
-        inventario.setCategoriaMatEntity(categoriaMatRepository.findById(crearInventarioDTO.getCategoriaMaterialId())
+        inventario.setCategoriaMatEntity(categoriaMatRepository.findById(inventarioRequest.getCategoriaMaterialId())
                 .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada")));
-        inventario.setUnidadEntity(unidadRepository.findById(crearInventarioDTO.getUnidadId())
+        inventario.setUnidadEntity(unidadRepository.findById(inventarioRequest.getUnidadId())
                 .orElseThrow(() -> new ResourceNotFoundException("Unidad no encontrada")));
-        inventario.setAlmacenEntity(almacenRepository.findById(crearInventarioDTO.getAlmacenId()).
+        inventario.setAlmacenEntity(almacenRepository.findById(inventarioRequest.getAlmacenId()).
                 orElseThrow(() -> new ResourceNotFoundException("Almacen no encontrado")));
-        inventario.setTipoInventarioId(crearInventarioDTO.getTipoInventarioId());
-        inventario.setPrecioEntrada(crearInventarioDTO.getPrecioEntrada());
-        inventario.setPrecioSalida(crearInventarioDTO.getPrecioSalida());
-        inventario.setStock(crearInventarioDTO.getStock());
-        inventario.setFecha(crearInventarioDTO.getFecha());
-        inventario.setEstado(crearInventarioDTO.getEstado());
+        inventario.setTipoInventarioId(inventarioRequest.getTipoInventarioId());
+        inventario.setPrecioEntrada(inventarioRequest.getPrecioEntrada());
+        inventario.setPrecioSalida(inventarioRequest.getPrecioSalida());
+        inventario.setStock(inventarioRequest.getStock());
+        inventario.setFecha(inventarioRequest.getFecha());
+        inventario.setEstado(inventarioRequest.getEstado());
         inventario.setHospital(hospital);
         inventario.setUser(userEntity);
         inventarioRepository.save(inventario);
@@ -119,7 +119,7 @@ public class InventarioServiceImpl implements InventarioService {
     }
 
     @Override
-    public InventarioDTO getInventarioById(UUID inventarioId) {
+    public InventarioResponse getInventarioById(UUID inventarioId) {
         InventarioEntity inventarioEntity = inventarioRepository.findById(inventarioId).orElseThrow(
                 () -> new ResourceNotFoundException("Inventario no encontrado"));
         return convertToDTO(inventarioEntity);
@@ -127,11 +127,11 @@ public class InventarioServiceImpl implements InventarioService {
 
     @Transactional(readOnly = true)
     @Override
-    public ListResponse<InventarioDTO> getAllInventario(UUID hospitalId, int page, int rows) {
+    public ListResponse<InventarioResponse> getAllInventario(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<InventarioProjection> projections = productoRepository.findInventarioDataByHospitalId(hospitalId, pageable);
-        List<InventarioDTO> data = projections.getContent().stream()
-                .map(p -> new InventarioDTO(
+        List<InventarioResponse> data = projections.getContent().stream()
+                .map(p -> new InventarioResponse(
                         p.getNombreAlmacen(),
                         p.getNombreProducto(),
                         p.getNombreMarca(),
@@ -145,7 +145,7 @@ public class InventarioServiceImpl implements InventarioService {
         );
     }
 
-    private InventarioDTO convertToDTO(InventarioEntity inventarioEntity) {
-        return modelMapper.map(inventarioEntity, InventarioDTO.class);
+    private InventarioResponse convertToDTO(InventarioEntity inventarioEntity) {
+        return modelMapper.map(inventarioEntity, InventarioResponse.class);
     }
 }

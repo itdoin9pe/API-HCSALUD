@@ -1,7 +1,7 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico.estadocuenta;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.estadocuenta.CostoHospitalizacionDTO;
-import com.saludsystem.paciente.application.dto.req.historialclinico.estadocuenta.CrearCostoHospitalizacionDTO;
+import com.saludsystem.paciente.application.dto.res.historialclinico.estadocuenta.CostoHospitalizacionResponse;
+import com.saludsystem.paciente.application.dto.req.historialclinico.estadocuenta.CostoHospitalizacionRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.estadocuenta.CostoHospitalizacionService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -21,34 +21,34 @@ import java.util.UUID;
 
 @Service
 public class CostoHospitalizacionServiceImpl extends GenericServiceImpl<CostoHospitalizacionEntity,
-        CrearCostoHospitalizacionDTO, CostoHospitalizacionDTO, UUID> implements CostoHospitalizacionService {
+        CostoHospitalizacionRequest, CostoHospitalizacionResponse, UUID> implements CostoHospitalizacionService {
 
     private final EstadoCuentaRepository estadoCuentaRepository;
 
     public CostoHospitalizacionServiceImpl(
             CostoHospitalizacionRepository costoHospitalizacionRepository,
             ModelMapper modelMapper, AuthValidator authValidator, EstadoCuentaRepository estadoCuentaRepository) {
-        super(costoHospitalizacionRepository, modelMapper, authValidator, CostoHospitalizacionDTO.class
+        super(costoHospitalizacionRepository, modelMapper, authValidator, CostoHospitalizacionResponse.class
         );
         this.estadoCuentaRepository = estadoCuentaRepository;
     }
 
     @Override
-    protected CostoHospitalizacionEntity convertCreateDtoToEntity(CrearCostoHospitalizacionDTO crearCostoHospitalizacionDTO) {
+    protected CostoHospitalizacionEntity convertCreateDtoToEntity(CostoHospitalizacionRequest costoHospitalizacionRequest) {
         CostoHospitalizacionEntity entity = new CostoHospitalizacionEntity();
-        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(crearCostoHospitalizacionDTO.getPacEstadoCuentaId())
+        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(costoHospitalizacionRequest.getPacEstadoCuentaId())
                 .orElseThrow( () -> new ResourceNotFoundException("Estado de cuenta not found")));
-        entity.setFechaIngreso(crearCostoHospitalizacionDTO.getFechaIngreso());
-        entity.setFechaAlta(crearCostoHospitalizacionDTO.getFechaAlta());
-        entity.setTipoHabitacion(crearCostoHospitalizacionDTO.getTipoHabitacion());
-        entity.setCostoPorDia(crearCostoHospitalizacionDTO.getCostoPorDia());
-        entity.setCantidadDias(crearCostoHospitalizacionDTO.getCantidadDias());
-        entity.setTotalCosto(crearCostoHospitalizacionDTO.getTotalCosto());
+        entity.setFechaIngreso(costoHospitalizacionRequest.getFechaIngreso());
+        entity.setFechaAlta(costoHospitalizacionRequest.getFechaAlta());
+        entity.setTipoHabitacion(costoHospitalizacionRequest.getTipoHabitacion());
+        entity.setCostoPorDia(costoHospitalizacionRequest.getCostoPorDia());
+        entity.setCantidadDias(costoHospitalizacionRequest.getCantidadDias());
+        entity.setTotalCosto(costoHospitalizacionRequest.getTotalCosto());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(CostoHospitalizacionEntity entity, CrearCostoHospitalizacionDTO dto) {
+    protected void updateEntityFromDto(CostoHospitalizacionEntity entity, CostoHospitalizacionRequest dto) {
         Optional.ofNullable(dto.getFechaIngreso()).ifPresent(entity::setFechaIngreso);
         Optional.ofNullable(dto.getFechaAlta()).ifPresent(entity::setFechaIngreso);
         Optional.ofNullable(dto.getTipoHabitacion()).ifPresent(entity::setTipoHabitacion);
@@ -59,28 +59,28 @@ public class CostoHospitalizacionServiceImpl extends GenericServiceImpl<CostoHos
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearCostoHospitalizacionDTO crearCostoHospitalizacionDTO) {
-        return super.save(crearCostoHospitalizacionDTO);
+    public ApiResponse save(CostoHospitalizacionRequest costoHospitalizacionRequest) {
+        return super.save(costoHospitalizacionRequest);
     }
 
     @Override
-    public ListResponse<CostoHospitalizacionDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<CostoHospitalizacionResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, CrearCostoHospitalizacionDTO updateDto) {
+    public ApiResponse update(UUID uuid, CostoHospitalizacionRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public CostoHospitalizacionDTO getById(UUID uuid) {
+    public CostoHospitalizacionResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<CostoHospitalizacionDTO> getList() {
+    public List<CostoHospitalizacionResponse> getList() {
         return super.getList();
     }
 

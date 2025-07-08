@@ -1,7 +1,7 @@
 package com.saludsystem.mantenimiento.application.service.impl;
 
-import com.saludsystem.mantenimiento.application.dto.res.TarifarioDTO;
-import com.saludsystem.mantenimiento.application.dto.req.CrearTarifarioDTO;
+import com.saludsystem.mantenimiento.application.dto.res.TarifarioResponse;
+import com.saludsystem.mantenimiento.application.dto.req.TarifarioRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.mantenimiento.application.service.TarifarioService;
 import com.saludsystem.mantenimiento.domain.model.TarifarioEntity;
@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TarifarioServiceImpl extends GenericServiceImpl<TarifarioEntity, CrearTarifarioDTO, TarifarioDTO, UUID>
+public class TarifarioServiceImpl extends GenericServiceImpl<TarifarioEntity, TarifarioRequest, TarifarioResponse, UUID>
         implements TarifarioService {
 
     private final TipoConceptoRepository tipoConceptoRepository;
@@ -35,7 +35,7 @@ public class TarifarioServiceImpl extends GenericServiceImpl<TarifarioEntity, Cr
             AuthValidator authValidator, TipoConceptoRepository tipoConceptoRepository,
             CategoriaRepository categoriaRepository, UnidadRepository unidadRepository,
             MedidaRepository medidaRepository) {
-        super(tarifarioRepository, modelMapper, authValidator, TarifarioDTO.class);
+        super(tarifarioRepository, modelMapper, authValidator, TarifarioResponse.class);
         this.tipoConceptoRepository = tipoConceptoRepository;
         this.categoriaRepository = categoriaRepository;
         this.unidadRepository = unidadRepository;
@@ -44,28 +44,28 @@ public class TarifarioServiceImpl extends GenericServiceImpl<TarifarioEntity, Cr
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearTarifarioDTO crearTarifarioDTO) {
-        return super.save(crearTarifarioDTO);
+    public ApiResponse save(TarifarioRequest tarifarioRequest) {
+        return super.save(tarifarioRequest);
     }
 
     @Override
-    public ListResponse<TarifarioDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<TarifarioResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CrearTarifarioDTO updateDto) {
+    public ApiResponse update(UUID uuid, TarifarioRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public TarifarioDTO getById(UUID uuid) {
+    public TarifarioResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<TarifarioDTO> getList() {
+    public List<TarifarioResponse> getList() {
         return super.getList();
     }
 
@@ -76,21 +76,21 @@ public class TarifarioServiceImpl extends GenericServiceImpl<TarifarioEntity, Cr
     }
 
     @Override
-    protected TarifarioEntity convertCreateDtoToEntity(CrearTarifarioDTO crearTarifarioDTO) {
+    protected TarifarioEntity convertCreateDtoToEntity(TarifarioRequest tarifarioRequest) {
         TarifarioEntity entity = new TarifarioEntity();
-        tipoConceptoRepository.findById(crearTarifarioDTO.getTipoConceptoId()).ifPresent(entity::setTipoConceptoEntity);
-        categoriaRepository.findById(crearTarifarioDTO.getCategoriaId()).ifPresent(entity::setCategoriaEntity);
-        unidadRepository.findById(crearTarifarioDTO.getUnidadId()).ifPresent(entity::setUnidadEntity);
-        medidaRepository.findById(crearTarifarioDTO.getMedidaId()).ifPresent(entity::setMedidaEntity);
-        entity.setGrupo(crearTarifarioDTO.getGrupo());
-        entity.setDescripcion(crearTarifarioDTO.getDescripcion());
-        entity.setPrecio(crearTarifarioDTO.getPrecio());
-        entity.setEstado(crearTarifarioDTO.getEstado());
+        tipoConceptoRepository.findById(tarifarioRequest.getTipoConceptoId()).ifPresent(entity::setTipoConceptoEntity);
+        categoriaRepository.findById(tarifarioRequest.getCategoriaId()).ifPresent(entity::setCategoriaEntity);
+        unidadRepository.findById(tarifarioRequest.getUnidadId()).ifPresent(entity::setUnidadEntity);
+        medidaRepository.findById(tarifarioRequest.getMedidaId()).ifPresent(entity::setMedidaEntity);
+        entity.setGrupo(tarifarioRequest.getGrupo());
+        entity.setDescripcion(tarifarioRequest.getDescripcion());
+        entity.setPrecio(tarifarioRequest.getPrecio());
+        entity.setEstado(tarifarioRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(TarifarioEntity entity, CrearTarifarioDTO dto) {
+    protected void updateEntityFromDto(TarifarioEntity entity, TarifarioRequest dto) {
         Optional.ofNullable(dto.getTipoConceptoId())
                 .flatMap(tipoConceptoRepository::findById)
                 .ifPresent(entity::setTipoConceptoEntity);

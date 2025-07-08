@@ -1,7 +1,7 @@
 package com.saludsystem.configuracion.application.services.impl;
 
-import com.saludsystem.configuracion.application.dto.req.TipoDocumentoDTO;
-import com.saludsystem.configuracion.application.dto.res.CrearTipoDocumentoDTO;
+import com.saludsystem.configuracion.application.dto.res.TipoDocumentoResponse;
+import com.saludsystem.configuracion.application.dto.req.TipoDocumentoRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.configuracion.application.services.TipoDocumentoService;
 import com.saludsystem.configuracion.domain.model.TipoDocumentoEntity;
@@ -18,38 +18,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TipoDocumentoServiceImpl extends GenericServiceImpl<TipoDocumentoEntity, CrearTipoDocumentoDTO,
-        TipoDocumentoDTO, UUID> implements TipoDocumentoService {
+public class TipoDocumentoServiceImpl extends GenericServiceImpl<TipoDocumentoEntity, TipoDocumentoRequest,
+        TipoDocumentoResponse, UUID> implements TipoDocumentoService {
 
     protected TipoDocumentoServiceImpl(
             TipoDocumentoRepository tipoDocumentoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(tipoDocumentoRepository, modelMapper, authValidator, TipoDocumentoDTO.class);
+        super(tipoDocumentoRepository, modelMapper, authValidator, TipoDocumentoResponse.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearTipoDocumentoDTO crearTipoDocumentoDTO) {
-        return super.save(crearTipoDocumentoDTO);
+    public ApiResponse save(TipoDocumentoRequest tipoDocumentoRequest) {
+        return super.save(tipoDocumentoRequest);
     }
 
     @Override
-    public ListResponse<TipoDocumentoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<TipoDocumentoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CrearTipoDocumentoDTO updateDto) {
+    public ApiResponse update(UUID uuid, TipoDocumentoRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public TipoDocumentoDTO getById(UUID uuid) {
+    public TipoDocumentoResponse getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<TipoDocumentoDTO> getList() {
+    public List<TipoDocumentoResponse> getList() {
         return super.getList();
     }
 
@@ -60,19 +60,19 @@ public class TipoDocumentoServiceImpl extends GenericServiceImpl<TipoDocumentoEn
     }
 
     @Override
-    protected TipoDocumentoEntity convertCreateDtoToEntity(CrearTipoDocumentoDTO crearTipoDocumentoDTO) {
+    protected TipoDocumentoEntity convertCreateDtoToEntity(TipoDocumentoRequest tipoDocumentoRequest) {
         TipoDocumentoEntity entity = new TipoDocumentoEntity();
-        entity.setTipoComprobante(crearTipoDocumentoDTO.getTipoComprobante());
-        entity.setSerie(crearTipoDocumentoDTO.getSerie());
-        entity.setInicio(crearTipoDocumentoDTO.getInicio());
-        entity.setFin(crearTipoDocumentoDTO.getFin());
-        entity.setCorrelativoActual(crearTipoDocumentoDTO.getCorrelativoActual());
-        entity.setEstado(crearTipoDocumentoDTO.getEstado());
+        entity.setTipoComprobante(tipoDocumentoRequest.getTipoComprobante());
+        entity.setSerie(tipoDocumentoRequest.getSerie());
+        entity.setInicio(tipoDocumentoRequest.getInicio());
+        entity.setFin(tipoDocumentoRequest.getFin());
+        entity.setCorrelativoActual(tipoDocumentoRequest.getCorrelativoActual());
+        entity.setEstado(tipoDocumentoRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(TipoDocumentoEntity entity, CrearTipoDocumentoDTO dto) {
+    protected void updateEntityFromDto(TipoDocumentoEntity entity, TipoDocumentoRequest dto) {
         Optional.ofNullable(dto.getTipoComprobante()).ifPresent(entity::setTipoComprobante);
         Optional.ofNullable(dto.getSerie()).ifPresent(entity::setSerie);
         Optional.ofNullable(dto.getInicio()).ifPresent(entity::setInicio);

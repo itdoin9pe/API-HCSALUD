@@ -1,7 +1,6 @@
 package com.saludsystem.catalogo.application.services.impl;
 
-import com.saludsystem.catalogo.application.dtos.res.TipoCitadoDTO;
-import com.saludsystem.catalogo.application.dtos.req.CrearTipoCitadoDTO;
+import com.saludsystem.catalogo.application.dtos.res.TipoCitadoRequest;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.application.services.TipoCitadoService;
 import com.saludsystem.catalogo.domain.model.TipoCitadoEntity;
@@ -18,38 +17,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TipoCitadoServiceImpl extends GenericServiceImpl<TipoCitadoEntity, CrearTipoCitadoDTO, TipoCitadoDTO, UUID>
+public class TipoCitadoServiceImpl extends GenericServiceImpl<TipoCitadoEntity, com.saludsystem.catalogo.application.dtos.req.TipoCitadoRequest, TipoCitadoRequest, UUID>
         implements TipoCitadoService {
 
     protected TipoCitadoServiceImpl(
             TipoCitadoRepository tipoCitadoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(tipoCitadoRepository, modelMapper, authValidator, TipoCitadoDTO.class);
+        super(tipoCitadoRepository, modelMapper, authValidator, TipoCitadoRequest.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CrearTipoCitadoDTO crearTipoCitadoDTO) {
-        return super.save(crearTipoCitadoDTO);
+    public ApiResponse save(com.saludsystem.catalogo.application.dtos.req.TipoCitadoRequest tipoCitadoRequest) {
+        return super.save(tipoCitadoRequest);
     }
 
     @Override
-    public ListResponse<TipoCitadoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<TipoCitadoRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CrearTipoCitadoDTO updateDto) {
+    public ApiResponse update(UUID uuid, com.saludsystem.catalogo.application.dtos.req.TipoCitadoRequest updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public TipoCitadoDTO getById(UUID uuid) {
+    public TipoCitadoRequest getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<TipoCitadoDTO> getList() {
+    public List<TipoCitadoRequest> getList() {
         return super.getList();
     }
 
@@ -60,16 +59,16 @@ public class TipoCitadoServiceImpl extends GenericServiceImpl<TipoCitadoEntity, 
     }
 
     @Override
-    protected TipoCitadoEntity convertCreateDtoToEntity(CrearTipoCitadoDTO crearTipoCitadoDTO) {
+    protected TipoCitadoEntity convertCreateDtoToEntity(com.saludsystem.catalogo.application.dtos.req.TipoCitadoRequest tipoCitadoRequest) {
         TipoCitadoEntity entity = new TipoCitadoEntity();
-        entity.setNombre(crearTipoCitadoDTO.getNombre());
-        entity.setColor(crearTipoCitadoDTO.getColor());
-        entity.setEstado(crearTipoCitadoDTO.getEstado());
+        entity.setNombre(tipoCitadoRequest.getNombre());
+        entity.setColor(tipoCitadoRequest.getColor());
+        entity.setEstado(tipoCitadoRequest.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(TipoCitadoEntity entity, CrearTipoCitadoDTO dto) {
+    protected void updateEntityFromDto(TipoCitadoEntity entity, com.saludsystem.catalogo.application.dtos.req.TipoCitadoRequest dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getColor()).ifPresent(entity::setColor);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);

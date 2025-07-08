@@ -1,12 +1,11 @@
 package com.saludsystem.movimientos.infrastructure.adapters.in.controller;
 
-import com.saludsystem.movimientos.application.dto.res.VentaDetalleDTO;
-import com.saludsystem.movimientos.application.dto.req.CrearVentaDetalleDTO;
+import com.saludsystem.movimientos.application.dto.res.VentaDetalleRequest;
 import com.saludsystem.movimientos.application.dto.ActualizarVentaDetalleDTO;
 import com.saludsystem.movimientos.application.service.VentaDetalleService;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.movimientos.infrastructure.adapters.in.response.VentaDetalleResponse;
+import com.saludsystem.movimientos.infrastructure.adapters.in.response.VentaDetalleListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -28,17 +27,17 @@ public class VentaDetalleContoller {
     }
 
     @PostMapping("/SaveVentaDetalle")
-    public ApiResponse store(@Valid @RequestBody CrearVentaDetalleDTO crearVentaDetalleDTO) {
-        return ventaDetalleService.saveVentaDetalle(crearVentaDetalleDTO);
+    public ApiResponse store(@Valid @RequestBody com.saludsystem.movimientos.application.dto.req.VentaDetalleRequest crearVentaDetalleRequest) {
+        return ventaDetalleService.saveVentaDetalle(crearVentaDetalleRequest);
     }
 
     @GetMapping("/GetAllVentaDetalle")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = VentaDetalleResponse.class)))
+                            schema = @Schema(implementation = VentaDetalleListResponse.class)))
     })
-    public ListResponse<VentaDetalleDTO> getAllPage(
+    public ListResponse<VentaDetalleRequest> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows) {
@@ -46,7 +45,7 @@ public class VentaDetalleContoller {
     }
 
     @GetMapping("/GetVentaDetalle/{ventaDetalleId}")
-    public VentaDetalleDTO getById(@PathVariable UUID ventaDetalleId) {
+    public VentaDetalleRequest getById(@PathVariable UUID ventaDetalleId) {
         return ventaDetalleService.getVentaDetalleById(ventaDetalleId);
     }
 
