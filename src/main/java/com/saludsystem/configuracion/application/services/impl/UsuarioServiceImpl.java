@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -46,7 +45,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public ListResponse<UsuarioDTO> getAllUsuario(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<UserEntity> userPage = userRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<UsuarioDTO> data = userPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<UsuarioDTO> data = userPage.getContent().stream().map(this::convertToDTO).toList();
         return new ListResponse<>(data, userPage.getTotalElements(), userPage.getTotalPages(), userPage.getNumber() + 1);
     }
 

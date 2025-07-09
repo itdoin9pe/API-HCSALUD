@@ -115,7 +115,7 @@ public class EnfermedadServiceImpl implements EnfermedadService {
         );
         return enfernedades.stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private EnfermedadDTO convertToDTO(EnfermedadEntity diagnosticoEntity) {

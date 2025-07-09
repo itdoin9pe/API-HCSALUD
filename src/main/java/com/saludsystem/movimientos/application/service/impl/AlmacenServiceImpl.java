@@ -7,7 +7,6 @@ import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.movimientos.application.service.AlmacenService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.shared.domain.model.SucursalEntity;
-import com.saludsystem.configuracion.domain.model.UserEntity;
 import com.saludsystem.movimientos.domain.model.AlmacenEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.out.persistance.SucursalRepository;

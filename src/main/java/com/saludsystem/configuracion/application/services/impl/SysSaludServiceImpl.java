@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class SysSaludServiceImpl implements SysSaludService {
@@ -38,7 +37,6 @@ public class SysSaludServiceImpl implements SysSaludService {
     @Override
     public SysSaludEntity saveClinica(CrearSysSaludDTO crearSysSaludDTO) {
         SysSaludEntity sysSalud = new SysSaludEntity();
-
         sysSalud.setNombre(crearSysSaludDTO.getNombre());
         sysSalud.setDireccion(crearSysSaludDTO.getDireccion());
         sysSalud.setCelular(crearSysSaludDTO.getCelular());
@@ -49,7 +47,6 @@ public class SysSaludServiceImpl implements SysSaludService {
         Optional<PlanEntity> plan = planRepository.findById(crearSysSaludDTO.getPlanId());
         plan.ifPresent(sysSalud::setPlan);
         sysSalud.setEstado(crearSysSaludDTO.getEstado());
-
         return sysSaludRespository.save(sysSalud);
     }
 
@@ -57,13 +54,13 @@ public class SysSaludServiceImpl implements SysSaludService {
     public ListResponse<SysSaludDTO> getAllHospital(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<SysSaludEntity> medidasPage = sysSaludRespository.findByHospitalId(hospitalId, pageable);
-        List<SysSaludDTO> data = medidasPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<SysSaludDTO> data = medidasPage.getContent().stream().map(this::convertToDTO).toList();
         return new ListResponse<>(data, medidasPage.getTotalElements(), medidasPage.getTotalPages(), medidasPage.getNumber() + 1);
     }
 
     @Override
     public List<SysSaludDTO> getHospitalList() {
-        return sysSaludRespository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return sysSaludRespository.findAll().stream().map(this::convertToDTO).toList();
     }
 
     @Override
