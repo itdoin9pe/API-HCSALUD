@@ -6,7 +6,7 @@ import com.saludsystem.paciente.application.dto.put.historialclinico.ActualizarE
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.ExploracionFisicaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-import com.saludsystem.paciente.domain.model.HistorialClinico.ExploracionFisicaEntity;
+import com.saludsystem.paciente.domain.model.historialclinico.ExploracionFisicaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.historialclinico.ExploracionFisicaRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;

@@ -1,4 +1,4 @@
-package com.saludsystem.paciente.domain.model.Tratamiento;
+package com.saludsystem.paciente.domain.model.tratamiento;
 
 import com.saludsystem.shared.domain.model.BaseEntity;
 import com.saludsystem.paciente.domain.model.PacienteEntity;

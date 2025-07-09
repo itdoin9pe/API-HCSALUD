@@ -6,7 +6,7 @@ import com.saludsystem.paciente.application.dto.put.historialclinico.ActualizarA
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.AntecedenteService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-import com.saludsystem.paciente.domain.model.HistorialClinico.AntecedentesEntity;
+import com.saludsystem.paciente.domain.model.historialclinico.AntecedentesEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.historialclinico.AntecedenteRespository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;

@@ -44,19 +44,19 @@ public class AltaMedicaController {
         return altaMedicaService.getAllAltaMedica(hospitalId, page, rows);
     }
 
-    @GetMapping("/GetById/{Id}")
-    public AltaMedicaDTO getById(@PathVariable Long evolucionAltaMedicaId) {
+    @GetMapping("/GetById/{altaMedicaId}")
+    public AltaMedicaDTO getById(@PathVariable("altaMedicaId") Long evolucionAltaMedicaId) {
         return altaMedicaService.getAltaMedicaById(evolucionAltaMedicaId);
     }
 
-    @PutMapping("/Update/{Id}")
-    public ApiResponse update(@PathVariable Long evolucionAltaMedicaId,
+    @PutMapping("/Update/{altaMedicaId}")
+    public ApiResponse update(@PathVariable("altaMedicaId") Long evolucionAltaMedicaId,
                               @RequestBody ActualizarAltaMedicaDTO actualizarAltaMedicaDTO) {
         return altaMedicaService.updateAltaMedica(evolucionAltaMedicaId, actualizarAltaMedicaDTO);
     }
 
-    @DeleteMapping("/Delete/{Id}")
-    public ApiResponse destroy(@PathVariable Long evolucionAltaMedicaId) {
+    @DeleteMapping("/Delete/{altaMedicaId}")
+    public ApiResponse destroy(@PathVariable("altaMedicaId") Long evolucionAltaMedicaId) {
         return altaMedicaService.deleteAltaMedica(evolucionAltaMedicaId);
     }
 }

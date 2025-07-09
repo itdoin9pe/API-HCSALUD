@@ -1,4 +1,4 @@
-package com.saludsystem.paciente.domain.model.Tratamiento;
+package com.saludsystem.paciente.domain.model.tratamiento;
 
 public enum TipoProcedimiento {
     // Procedimientos diagnósticos

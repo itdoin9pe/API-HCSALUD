@@ -1,4 +1,4 @@
-package com.saludsystem.paciente.domain.model.EstadoCuenta;
+package com.saludsystem.paciente.domain.model.estadocuenta;
 
 import com.saludsystem.shared.domain.model.BaseEntity;
 import jakarta.persistence.*;

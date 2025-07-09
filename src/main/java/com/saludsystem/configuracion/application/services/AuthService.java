@@ -1,6 +1,8 @@
 package com.saludsystem.configuracion.application.services;
 
 import com.saludsystem.configuracion.domain.model.UserEntity;
+import com.saludsystem.shared.domain.exception.AuthenticationFailedException;
+import com.saludsystem.shared.domain.exception.InvalidCredentialsException;
 import com.saludsystem.shared.infrastructure.security.jwt.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -15,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import static com.saludsystem.shared.infrastructure.constants.ErrorMessage.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,11 +55,11 @@ public class AuthService {
             tokens.put("expires_in", jwtUtil.getAccessTokenExpirationInSeconds());
             return tokens;
         } catch (BadCredentialsException e) {
-            throw new RuntimeException("Invalid username or password");
+            throw new InvalidCredentialsException(INVALID_CREDENTIALS);
         }
         catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Authentication failed: " + e.getMessage());
+            throw new AuthenticationFailedException(FAILED_AUTHENTICATION + e.getMessage());
         }
     }
 

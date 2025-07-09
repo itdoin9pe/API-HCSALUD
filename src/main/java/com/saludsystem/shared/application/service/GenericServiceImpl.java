@@ -16,10 +16,9 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
-public abstract class GenericServiceImpl<E extends BaseEntity, R, C, U,ID>
-        implements GenericService<R, C, U, ID> {
+public abstract class GenericServiceImpl<E extends BaseEntity, R, C, U, I>
+        implements GenericService<R, C, U, I> {
 
     protected final GenericRepository<E> genericRepository;
     protected final ModelMapper modelMapper;
@@ -45,7 +44,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, R, C, U,ID>
         entity.setHospital(currentUser.getHospital());
         beforeSave(entity, createDto);     // Lógica pre-guardado específica (si es necesaria)
         genericRepository.save(entity);    // Guardar entidad
-        return buildSuccessResponse(entity);        // Construir respuesta
+        return buildSuccessResponse();        // Construir respuesta
     }
 
     // Método hook para lógica específica antes de guardar
@@ -54,7 +53,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, R, C, U,ID>
     }
 
     // Método para construir respuesta exitosa
-    protected ApiResponse buildSuccessResponse(E entity) {
+    protected ApiResponse buildSuccessResponse() {
         return new ApiResponse(true, "Registro creado exitosamente");
     }
 
@@ -66,7 +65,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, R, C, U,ID>
     }
 
     @Override
-    public R getById(ID id) {
+    public R getById(I id) {
         E entity = genericRepository.findById((UUID) id)
                 .orElseThrow(() -> new ResourceNotFoundException("Registro no encontrado"));
         return toDtoConverter.apply(entity);
@@ -74,7 +73,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, R, C, U,ID>
 
     @Transactional
     @Override
-    public ApiResponse update(ID id, U updateDto) {
+    public ApiResponse update(I id, U updateDto) {
         E entity = genericRepository.findById((UUID) id)
                 .orElseThrow(() -> new ResourceNotFoundException("Registro no encontrado"));
         updateEntityFromDto(entity, updateDto);
@@ -99,7 +98,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, R, C, U,ID>
 
     @Transactional
     @Override
-    public ApiResponse delete(ID id) {
+    public ApiResponse delete(I id) {
         genericRepository.deleteById((UUID) id);
         return new ApiResponse(true, "Registro eliminado exitosamente");
     }

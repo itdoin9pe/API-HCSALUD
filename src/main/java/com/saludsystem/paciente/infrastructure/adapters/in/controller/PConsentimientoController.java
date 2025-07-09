@@ -41,15 +41,15 @@ public class PConsentimientoController extends GenericController<PConsentimiento
     @PostMapping(value = "/Save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
             content = @Content(schema = @Schema(implementation = PConsentimientoListResponse.class)))
-    public ApiResponse create(@RequestBody CrearPConsentimientoDTO CrearPConsentimientoDTO) {
-        return super.create(CrearPConsentimientoDTO);
+    public ApiResponse create(@RequestBody CrearPConsentimientoDTO crearPConsentimientoDTO) {
+        return super.create(crearPConsentimientoDTO);
     }
 
     @Override
-    @PutMapping(value = "/Update/{Id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "/Update/{pacienteConsentimientoId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
             content = @Content(schema = @Schema(implementation = PConsentimientoListResponse.class)))
-    public ApiResponse update(UUID uuid, ActualizarPConsentimientoDTO dto) {
+    public ApiResponse update(@PathVariable("pacienteConsentimientoId") UUID uuid, ActualizarPConsentimientoDTO dto) {
         return super.update(uuid, dto);
     }
 

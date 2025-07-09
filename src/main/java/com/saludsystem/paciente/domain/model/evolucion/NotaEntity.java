@@ -1,4 +1,4 @@
-package com.saludsystem.paciente.domain.model.Evolucion;
+package com.saludsystem.paciente.domain.model.evolucion;
 
 import com.saludsystem.shared.domain.model.BaseEntity;
 import jakarta.persistence.*;
@@ -7,23 +7,26 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "pacientes_evoluciones_cambios_condiciones")
+@Table(name = "pacientes_evoluciones_notas")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
 @EqualsAndHashCode(callSuper = true)
-public class CambioCondicionEntity extends BaseEntity {
+public class NotaEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cambio_condicion_id")
+    @Column(name = "evolucion_nota_id")
     private Long id;
 
-    @Column(name = "fecha_cambio_condicion")
+    @Column(name = "fecha_nota", nullable = false)
     private LocalDateTime fecha;
 
-    @Column(name = "descripcion_cambio_condicion")
-    private String descripcion;
+    @Column(name = "tipo_nota", nullable = false)
+    private String tipo; // "medico" o "enfermeria"
+
+    @Column(name = "contenido_nota", nullable = false)
+    private String contenido;
 
     @ManyToOne
     @JoinColumn(name = "paciente_evolucion_id")

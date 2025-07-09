@@ -44,19 +44,19 @@ public class CambioCondicionController {
         return cambioCondicionService.getAllCambioCondicion(hospitalId, page, rows);
     }
 
-    @GetMapping("/GetById/{Id}")
-    public CambioCondicionDTO getById(@PathVariable Long evolucionCambioCondicionId) {
+    @GetMapping("/GetById/{cambioCondicionId}")
+    public CambioCondicionDTO getById(@PathVariable("cambioCondicionId") Long evolucionCambioCondicionId) {
         return cambioCondicionService.getCambioCondicionById(evolucionCambioCondicionId);
     }
 
-    @PutMapping("/Update/{Id}")
-    public ApiResponse update(@PathVariable Long evolucionCambioCondicionId,
+    @PutMapping("/Update/{cambioCondicionId}")
+    public ApiResponse update(@PathVariable("cambioCondicionId") Long evolucionCambioCondicionId,
                               @RequestBody ActualizarCambioCondicionDTO actualizarCambioCondicionDTO) {
         return cambioCondicionService.updateCambioCondicion(evolucionCambioCondicionId, actualizarCambioCondicionDTO);
     }
 
-    @DeleteMapping("/Delete/{Id}")
-    public ApiResponse destroy(@PathVariable Long evolucionCambioCondicionId) {
+    @DeleteMapping("/Delete/{cambioCondicionId}")
+    public ApiResponse destroy(@PathVariable("cambioCondicionId") Long evolucionCambioCondicionId) {
         return cambioCondicionService.deleteCambioCondicion(evolucionCambioCondicionId);
     }
 }

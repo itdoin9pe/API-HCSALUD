@@ -44,19 +44,19 @@ public class EvolucionController {
         return evolucionService.getAllEvolucion(hospitalId, page, rows);
     }
 
-    @GetMapping("/GetById/{Id}")
-    public EvolucionDTO getById(@PathVariable UUID pacienteEvolucionId) {
+    @GetMapping("/GetById/{notaEvolucionId}")
+    public EvolucionDTO getById(@PathVariable("notaEvolucionId") UUID pacienteEvolucionId) {
         return evolucionService.getEvolucionById(pacienteEvolucionId);
     }
 
-    @PutMapping("/Update/{Id}")
-    public ApiResponse update(@PathVariable UUID pacienteEvolucionId,
+    @PutMapping("/Update/{notaEvolucionId}")
+    public ApiResponse update(@PathVariable("notaEvolucionId") UUID pacienteEvolucionId,
                               @RequestBody ActualizarEvolucionDTO actualizarEvolucionDTO) {
         return evolucionService.updateEvolucion(pacienteEvolucionId, actualizarEvolucionDTO);
     }
 
-    @DeleteMapping("/Delete/{Id}")
-    public ApiResponse destroy(@PathVariable UUID pacienteEvolucionId) {
+    @DeleteMapping("/Delete/{notaEvolucionId}")
+    public ApiResponse destroy(@PathVariable("notaEvolucionId") UUID pacienteEvolucionId) {
         return evolucionService.deleteEvolucion(pacienteEvolucionId);
     }
 }

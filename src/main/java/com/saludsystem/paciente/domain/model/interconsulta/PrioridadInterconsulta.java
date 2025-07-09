@@ -1,4 +1,4 @@
-package com.saludsystem.paciente.domain.model.Interconsulta;
+package com.saludsystem.paciente.domain.model.interconsulta;
 
 public enum PrioridadInterconsulta {
 

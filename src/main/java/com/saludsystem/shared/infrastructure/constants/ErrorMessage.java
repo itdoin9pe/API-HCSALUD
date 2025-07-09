@@ -3,6 +3,10 @@ package com.saludsystem.shared.infrastructure.constants;
 public final class ErrorMessage {
     private ErrorMessage() {}
 
+    // Errors
+    public static final String INVALID_CREDENTIALS = "Credentials not correct";
+    public static final String FAILED_AUTHENTICATION = "Authentication failed";
+
     // PRINCIPAL
     public static final String ASEGURADORA_NOT_FOUND = "Aseguradora no encontrada";
     public static final String EMPRESA_NOT_FOUND = "Empresa no encontrada";
@@ -90,7 +94,7 @@ public final class ErrorMessage {
     // EVOLUCIÓN
     public static final String ALTA_MEDICA_NOT_FOUND = "Alta médica no encontrada";
     public static final String CAMBIO_CONDICION_NOT_FOUND = "Cambio de condición no encontrado";
-    public static final String EVOLUCION_NOT_FOUND = "Evolución no encontrada";
+    public static final String EVOLUCION_NOT_FOUND = "Nota de evolución no encontrada";
     public static final String NOTA_NOT_FOUND = "Nota médica no encontrada";
 
     // INTERCONSULTA

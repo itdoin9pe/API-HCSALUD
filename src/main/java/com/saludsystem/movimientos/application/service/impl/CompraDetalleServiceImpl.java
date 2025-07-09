@@ -99,8 +99,6 @@ public class CompraDetalleServiceImpl implements CompraDetalleService {
     @Override
     public ApiResponse deleteCompraDetalle(UUID compraDetalleId) {
         authValidator.validateAdminAccess();
-        CompraDetalleEntity compraDetalleEntity = compraDetalleRepository.findById(compraDetalleId).orElseThrow(
-                () -> new ResourceNotFoundException(COMPRA_DETALLE_NOT_FOUND));
         compraDetalleRepository.deleteById(compraDetalleId);
         return new ApiResponse(true, "Compra detalle retirada correctamente");
     }

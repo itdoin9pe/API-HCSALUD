@@ -6,7 +6,7 @@ import com.saludsystem.paciente.application.dto.put.historialclinico.tratamiento
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.tratamiento.CostoTratamientoService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-import com.saludsystem.paciente.domain.model.Tratamiento.CostoTratamientoEntity;
+import com.saludsystem.paciente.domain.model.tratamiento.CostoTratamientoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.tratamiento.CostoTratamientoRepository;

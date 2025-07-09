@@ -44,19 +44,19 @@ public class NotaController {
         return notaService.getAllNota(hospitalId, page, rows);
     }
 
-    @GetMapping("/GetById/{Id}")
-    public NotaDTO getById(@PathVariable Long pacienteEvolucionNotaId) {
+    @GetMapping("/GetById/{pacienteNotaId}")
+    public NotaDTO getById(@PathVariable("pacienteNotaId") Long pacienteEvolucionNotaId) {
         return notaService.getNotaById(pacienteEvolucionNotaId);
     }
 
-    @PutMapping("/Update/{Id}")
-    public ApiResponse update(@PathVariable Long pacienteEvolucionNotaId,
+    @PutMapping("/Update/{pacienteNotaId}")
+    public ApiResponse update(@PathVariable("pacienteNotaId") Long pacienteEvolucionNotaId,
                               @RequestBody ActualizarNotaDTO actualizarNotaDTO) {
         return notaService.updateNota(pacienteEvolucionNotaId, actualizarNotaDTO);
     }
 
-    @DeleteMapping("/Delete/{Id}")
-    public ApiResponse destroy(@PathVariable Long pacienteEvolucionNotaId) {
+    @DeleteMapping("/Delete/{pacienteNotaId}")
+    public ApiResponse destroy(@PathVariable("pacienteNotaId") Long pacienteEvolucionNotaId) {
         return notaService.deleteNota(pacienteEvolucionNotaId);
     }
 }

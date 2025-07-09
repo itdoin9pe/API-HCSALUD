@@ -1,6 +1,6 @@
 package com.saludsystem.paciente.application.dto.post.historialclinico.tratamiento;
 
-import com.saludsystem.paciente.domain.model.Tratamiento.TipoProcedimiento;
+import com.saludsystem.paciente.domain.model.tratamiento.TipoProcedimiento;
 import lombok.Data;
 
 import java.time.LocalDate;

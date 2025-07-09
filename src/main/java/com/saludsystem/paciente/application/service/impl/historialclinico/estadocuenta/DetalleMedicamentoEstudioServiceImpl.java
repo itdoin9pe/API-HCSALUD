@@ -6,7 +6,7 @@ import com.saludsystem.paciente.application.dto.put.historialclinico.estadocuent
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.estadocuenta.DetalleMedicamentoEstudioService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-import com.saludsystem.paciente.domain.model.EstadoCuenta.DetalleMedicamentosEstudiosEntity;
+import com.saludsystem.paciente.domain.model.estadocuenta.DetalleMedicamentosEstudiosEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.estadocuenta.DetalleMedicamentoEstudioRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.estadocuenta.EstadoCuentaRepository;

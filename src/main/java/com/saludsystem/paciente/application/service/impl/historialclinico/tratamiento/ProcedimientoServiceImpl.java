@@ -5,7 +5,7 @@ import com.saludsystem.paciente.application.dto.post.historialclinico.tratamient
 import com.saludsystem.paciente.application.dto.put.historialclinico.tratamiento.ActualizarProcedimientoDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.tratamiento.ProcedimientoService;
-import com.saludsystem.paciente.domain.model.Tratamiento.ProcedimientoEntity;
+import com.saludsystem.paciente.domain.model.tratamiento.ProcedimientoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.medico.infrastructure.adapters.out.persistance.DoctorRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;

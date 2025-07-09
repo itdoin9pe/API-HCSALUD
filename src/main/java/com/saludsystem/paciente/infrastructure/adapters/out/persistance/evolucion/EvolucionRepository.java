@@ -1,6 +1,6 @@
 package com.saludsystem.paciente.infrastructure.adapters.out.persistance.evolucion;
 
-import com.saludsystem.paciente.domain.model.Evolucion.EvolucionEntity;
+import com.saludsystem.paciente.domain.model.evolucion.EvolucionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

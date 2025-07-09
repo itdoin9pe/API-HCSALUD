@@ -1,4 +1,4 @@
-package com.saludsystem.paciente.domain.model.Evolucion;
+package com.saludsystem.paciente.domain.model.evolucion;
 
 import com.saludsystem.shared.domain.model.BaseEntity;
 import jakarta.persistence.*;

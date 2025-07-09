@@ -1,4 +1,4 @@
-package com.saludsystem.paciente.domain.model.Interconsulta;
+package com.saludsystem.paciente.domain.model.interconsulta;
 
 import com.saludsystem.shared.domain.model.BaseEntity;
 import com.saludsystem.catalogo.domain.model.EspecialidadEntity;

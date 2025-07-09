@@ -6,7 +6,7 @@ import com.saludsystem.paciente.application.dto.put.historialclinico.ActualizarP
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.PacienteAlergiaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-import com.saludsystem.paciente.domain.model.HistorialClinico.PacienteAlergiaEntity;
+import com.saludsystem.paciente.domain.model.historialclinico.PacienteAlergiaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.AlergiaRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.historialclinico.PacienteAlergiaRepository;

@@ -5,7 +5,7 @@ import com.saludsystem.paciente.application.dto.post.historialclinico.evolucion.
 import com.saludsystem.paciente.application.dto.put.historialclinico.evolucion.ActualizarAltaMedicaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.AltaMedicaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-import com.saludsystem.paciente.domain.model.Evolucion.AltaMedicaEntity;
+import com.saludsystem.paciente.domain.model.evolucion.AltaMedicaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import static com.saludsystem.shared.infrastructure.constants.ErrorMessage.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,10 +47,10 @@ public class AltaMedicaServiceImpl implements AltaMedicaService {
         authValidator.validateAdminAccess();
         var user = authValidator.getCurrentUser();
         var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException(CLINICA_NOT_FOUND));
         var altaMedicaEntity = new AltaMedicaEntity();
         altaMedicaEntity.setEvolucionEntity(evolucionRepository.findById(crearAltaMedicaDTO.getPacienteEvolucionId())
-                .orElseThrow( () -> new RuntimeException("Alta medica no encontrada")));
+                .orElseThrow( () -> new ResourceNotFoundException(ALTA_MEDICA_NOT_FOUND)));
         altaMedicaEntity.setFecha(crearAltaMedicaDTO.getFecha());
         altaMedicaEntity.setResumenFinal(crearAltaMedicaDTO.getResumenFinal());
         altaMedicaEntity.setHospital(hospital);
@@ -70,7 +71,7 @@ public class AltaMedicaServiceImpl implements AltaMedicaService {
     public ApiResponse updateAltaMedica(Long evolucionAltaMedicaId, ActualizarAltaMedicaDTO actualizarAltaMedicaDTO) {
         authValidator.validateAdminAccess();
         AltaMedicaEntity altaMedicaEntity = altaMedicaRepository.findById(evolucionAltaMedicaId).orElseThrow(
-                () -> new ResourceNotFoundException("Alta medica no encontrada"));
+                () -> new ResourceNotFoundException(ALTA_MEDICA_NOT_FOUND));
         Optional.ofNullable(actualizarAltaMedicaDTO.getPacienteEvolucionId()).
                 flatMap(evolucionRepository::findById).
                 ifPresent(altaMedicaEntity::setEvolucionEntity);

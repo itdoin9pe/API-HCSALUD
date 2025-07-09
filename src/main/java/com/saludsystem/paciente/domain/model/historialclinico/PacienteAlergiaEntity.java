@@ -1,4 +1,4 @@
-package com.saludsystem.paciente.domain.model.HistorialClinico;
+package com.saludsystem.paciente.domain.model.historialclinico;
 
 import com.saludsystem.shared.domain.model.BaseEntity;
 import com.saludsystem.catalogo.domain.model.AlergiaEntity;

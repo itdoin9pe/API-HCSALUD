@@ -5,7 +5,7 @@ import com.saludsystem.paciente.application.dto.post.historialclinico.evolucion.
 import com.saludsystem.paciente.application.dto.put.historialclinico.evolucion.ActualizarNotaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.NotaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-import com.saludsystem.paciente.domain.model.Evolucion.NotaEntity;
+import com.saludsystem.paciente.domain.model.evolucion.NotaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.stereotype.Service;
+import static com.saludsystem.shared.infrastructure.constants.ErrorMessage.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,10 +48,10 @@ public class NotaServiceImpl implements NotaService {
         authValidator.validateAdminAccess();
         var user = authValidator.getCurrentUser();
         var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException(CLINICA_NOT_FOUND));
         var notaEntity = new NotaEntity();
         notaEntity.setEvolucionEntity(evolucionRepository.findById(crearNotaDTO.getPacienteEvolucionId()).orElseThrow(
-                () -> new RequestRejectedException("Nota de evolucion no encontrada")));
+                () -> new RequestRejectedException(EVOLUCION_NOT_FOUND)));
         notaEntity.setFecha(crearNotaDTO.getFecha());
         notaEntity.setTipo(crearNotaDTO.getTipo());
         notaEntity.setContenido(crearNotaDTO.getContenido());
@@ -63,7 +64,7 @@ public class NotaServiceImpl implements NotaService {
     @Override
     public NotaDTO getNotaById(Long pacienteEvolucionNotaId) {
         NotaEntity notaEntity = notaRepository.findById(pacienteEvolucionNotaId).orElseThrow(
-                () -> new ResourceNotFoundException("Nota de evolucion no encontrada"));
+                () -> new ResourceNotFoundException(EVOLUCION_NOT_FOUND));
         return convertToDTO(notaEntity);
     }
 
@@ -72,7 +73,7 @@ public class NotaServiceImpl implements NotaService {
     public ApiResponse updateNota(Long pacienteEvolucionNotaId, ActualizarNotaDTO actualizarNotaDTO) {
         authValidator.validateAdminAccess();
         NotaEntity notaEntity = notaRepository.findById(pacienteEvolucionNotaId).orElseThrow(
-                () -> new ResourceNotFoundException("Nota de evolucion no encontrada"));
+                () -> new ResourceNotFoundException(EVOLUCION_NOT_FOUND));
         Optional.ofNullable(actualizarNotaDTO.getFecha()).ifPresent(notaEntity::setFecha);
         Optional.ofNullable(actualizarNotaDTO.getTipo()).ifPresent(notaEntity::setTipo);
         Optional.ofNullable(actualizarNotaDTO.getContenido()).ifPresent(notaEntity::setContenido);

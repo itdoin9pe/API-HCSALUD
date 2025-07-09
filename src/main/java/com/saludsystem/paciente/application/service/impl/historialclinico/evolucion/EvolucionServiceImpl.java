@@ -5,7 +5,7 @@ import com.saludsystem.paciente.application.dto.post.historialclinico.evolucion.
 import com.saludsystem.paciente.application.dto.put.historialclinico.evolucion.ActualizarEvolucionDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.EvolucionService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-import com.saludsystem.paciente.domain.model.Evolucion.EvolucionEntity;
+import com.saludsystem.paciente.domain.model.evolucion.EvolucionEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;

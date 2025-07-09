@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class GenericController<R, C, U, ID> {
+public abstract class GenericController<R, C, U, I> {
 
-    private final GenericService<R, C, U, ID> genericService;
+    private final GenericService<R, C, U, I> genericService;
 
-    protected GenericController(GenericService<R, C, U, ID> genericService) {
+    protected GenericController(GenericService<R, C, U, I> genericService) {
         this.genericService = genericService;
     }
 
@@ -29,7 +29,7 @@ public abstract class GenericController<R, C, U, ID> {
     }
 
     @GetMapping("GetById/{id}")
-    public R getById(@PathVariable ID id) {
+    public R getById(@PathVariable I id) {
         return genericService.getById(id);
     }
 
@@ -42,12 +42,12 @@ public abstract class GenericController<R, C, U, ID> {
     }
 
     @PutMapping("Update/{id}")
-    public ApiResponse update(@PathVariable ID id, @RequestBody U dto) {
+    public ApiResponse update(@PathVariable I id, @RequestBody U dto) {
         return genericService.update(id, dto);
     }
 
     @DeleteMapping("Delete/{id}")
-    public ApiResponse delete(@PathVariable ID id) {
+    public ApiResponse delete(@PathVariable I id) {
         return genericService.delete(id);
     }
 }
