@@ -26,6 +26,7 @@ public class AlmacenController extends GenericController<AlmacenDTO, CrearAlmace
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",

@@ -67,14 +67,14 @@ public class EnfermedadServiceImpl implements EnfermedadService {
 
     @Override
     public List<EnfermedadDTO> getEnfermedadList() {
-        return enfermedadRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return enfermedadRepository.findAll().stream().map(this::convertToDTO).toList();
     }
 
     @Override
     public ListResponse<EnfermedadDTO> getAllEnfermedad(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<EnfermedadEntity> diagnosticoModelPage = enfermedadRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<EnfermedadDTO> data = diagnosticoModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<EnfermedadDTO> data = diagnosticoModelPage.getContent().stream().map(this::convertToDTO).toList();
         return new ListResponse<>(data, diagnosticoModelPage.getTotalElements(), diagnosticoModelPage.getTotalPages(), diagnosticoModelPage.getNumber() +1 );
     }
 

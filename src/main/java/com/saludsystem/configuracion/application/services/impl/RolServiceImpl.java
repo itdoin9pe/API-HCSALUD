@@ -59,14 +59,14 @@ public class RolServiceImpl implements RolService {
 
     @Override
     public List<RolDTO> getRoleList() {
-        return roleRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return roleRepository.findAll().stream().map(this::convertToDTO).toList();
     }
 
     @Override
     public ListResponse<RolDTO> getAllRole(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<RoleEntity> rolePage = roleRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<RolDTO> data = rolePage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<RolDTO> data = rolePage.getContent().stream().map(this::convertToDTO).toList();
         return new ListResponse<>(data, rolePage.getTotalElements(), rolePage.getTotalPages(), rolePage.getNumber() + 1);
     }
 

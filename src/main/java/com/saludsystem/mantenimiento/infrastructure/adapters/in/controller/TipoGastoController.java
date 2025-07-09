@@ -26,6 +26,7 @@ public class TipoGastoController extends GenericController<TipoGastoDTO, CrearTi
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

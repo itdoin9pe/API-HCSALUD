@@ -25,6 +25,7 @@ public class UnidadController extends GenericController<UnidadDTO, CrearUnidadDT
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",

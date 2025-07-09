@@ -1,31 +1,26 @@
-package com.saludsystem.application.services.Movimiento.impl;
-
+package com.saludsystem.movimientos.application.service.impl;
 
 import com.saludsystem.movimientos.application.dto.post.CrearCompraDTO;
 import com.saludsystem.movimientos.application.dto.post.CrearCompraDetalleDTO;
 import com.saludsystem.movimientos.application.dto.get.CompraDTO;
 import com.saludsystem.movimientos.application.service.CompraService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-import com.saludsystem.configuracion.domain.model.SysSaludEntity;
-import com.saludsystem.configuracion.domain.model.UserEntity;
 import com.saludsystem.movimientos.domain.model.CompraDetalleEntity;
 import com.saludsystem.movimientos.domain.model.CompraEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
-import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.UserRepository;
 import com.saludsystem.mantenimiento.infrastructure.adapters.out.persistance.TipoPagoRepository;
 import com.saludsystem.movimientos.infrastructure.adapters.out.persistance.AlmacenRepository;
 import com.saludsystem.movimientos.infrastructure.adapters.out.persistance.CompraRepository;
 import com.saludsystem.operaciones.infrastructure.adapters.out.persistance.ProductoRepository;
 import com.saludsystem.operaciones.infrastructure.adapters.out.persistance.ProveedorRepository;
+import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,34 +32,31 @@ public class CompraServiceImpl implements CompraService {
 
     private final CompraRepository compraRepository;
     private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
     private final ProveedorRepository proveedorRepository;
     private final ProductoRepository productoRepository;
     private final TipoPagoRepository tipoPagoRepository;
     private final AlmacenRepository almacenRepository;
     private final ModelMapper modelMapper;
+    private final AuthValidator authValidator;
 
-    public CompraServiceImpl(CompraRepository compraRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ProveedorRepository proveedorRepository, ProductoRepository productoRepository, TipoPagoRepository tipoPagoRepository, AlmacenRepository almacenRepository, ModelMapper modelMapper) {
+    public CompraServiceImpl(CompraRepository compraRepository, SysSaludRepository sysSaludRepository, ProveedorRepository proveedorRepository, ProductoRepository productoRepository, TipoPagoRepository tipoPagoRepository, AlmacenRepository almacenRepository, ModelMapper modelMapper, AuthValidator authValidator) {
         this.compraRepository = compraRepository;
         this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
         this.proveedorRepository = proveedorRepository;
         this.productoRepository = productoRepository;
         this.tipoPagoRepository = tipoPagoRepository;
         this.almacenRepository = almacenRepository;
         this.modelMapper = modelMapper;
+        this.authValidator = authValidator;
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse saveCompra(CompraDTO compraDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
-        }
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+        authValidator.validateAdminAccess();
+        var user = authValidator.getCurrentUser();
+        var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         CompraEntity compra = new CompraEntity();
         compra.setFecha(compraDTO.getFecha());
         compra.setTipoDocumento(compraDTO.getTipoDocumento());
@@ -77,7 +69,7 @@ public class CompraServiceImpl implements CompraService {
         compra.setObservacion(compraDTO.getObservacion());
         compra.setEstado(compraDTO.getEstado());
         compra.setHospital(hospital);
-        compra.setUser(userEntity);
+        compra.setUser(user);
         List<CompraDetalleEntity> detalles = compraDTO.getDetalles().stream().map(det ->{
             CompraDetalleEntity detalle = new CompraDetalleEntity();
             detalle.setProductoEntity(productoRepository.findById(det.getProductoId()).orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado")));
@@ -103,7 +95,7 @@ public class CompraServiceImpl implements CompraService {
     public ListResponse<CrearCompraDTO> getAllCompra(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<CompraEntity> compraEntityPage = compraRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<CrearCompraDTO> data = compraEntityPage.getContent().stream().map(this::convertToDTOById).collect(Collectors.toList());
+        List<CrearCompraDTO> data = compraEntityPage.getContent().stream().map(this::convertToDTOById).toList();
         return new ListResponse<>(data, compraEntityPage.getTotalElements(), compraEntityPage.getTotalPages(), compraEntityPage.getNumber() + 1);
     }
 

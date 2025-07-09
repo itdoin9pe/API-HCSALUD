@@ -26,6 +26,7 @@ public class PermisoController extends GenericController<PermisoDTO, CrearPermis
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",

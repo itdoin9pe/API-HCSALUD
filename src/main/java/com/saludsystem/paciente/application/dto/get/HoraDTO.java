@@ -2,7 +2,6 @@ package com.saludsystem.paciente.application.dto.get;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
 public class HoraDTO {

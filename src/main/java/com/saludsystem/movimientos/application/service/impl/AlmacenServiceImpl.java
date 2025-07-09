@@ -5,6 +5,7 @@ import com.saludsystem.movimientos.application.dto.get.AlmacenDTO;
 import com.saludsystem.movimientos.application.dto.put.ActualizarAlmacenDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.movimientos.application.service.AlmacenService;
+import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.shared.domain.model.SucursalEntity;
 import com.saludsystem.configuracion.domain.model.UserEntity;
 import com.saludsystem.movimientos.domain.model.AlmacenEntity;
@@ -43,14 +44,14 @@ public class AlmacenServiceImpl extends GenericServiceImpl<AlmacenEntity, Almace
 
     @Override
     protected void beforeSave(AlmacenEntity entity, CrearAlmacenDTO almacenDTO) {
-        UserEntity user = authValidator.getCurrentUser();
+        authValidator.getCurrentUser();
         // Buscar sede
         sedeRepository.findById(almacenDTO.getSedeId())
                 .ifPresentOrElse(entity::setSedeEntity,
-                        () -> { throw new RuntimeException("Sede no encontrada"); });
+                        () -> { throw new ResourceNotFoundException("Sede no encontrada"); });
         // Buscar primera sucursal disponible
         SucursalEntity sucursal = sucursalRepository.findFirstByOrderBySucursalIdAsc()
-                .orElseThrow(() -> new RuntimeException("Sucursal no encontrada"));
+                .orElseThrow(() -> new ResourceNotFoundException("Sucursal no encontrada"));
         entity.setSucursalEntity(sucursal);
     }
 

@@ -25,6 +25,7 @@ public class MedicamentoController extends GenericController<MedicamentoDTO, Cre
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

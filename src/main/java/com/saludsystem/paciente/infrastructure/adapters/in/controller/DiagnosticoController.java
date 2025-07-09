@@ -26,6 +26,7 @@ public class DiagnosticoController extends GenericController<DiagnosticoDTO, Cre
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

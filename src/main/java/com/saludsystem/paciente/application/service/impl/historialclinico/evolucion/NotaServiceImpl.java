@@ -85,7 +85,7 @@ public class NotaServiceImpl implements NotaService {
     public ListResponse<NotaDTO> getAllNota(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<NotaEntity> notaEntityPage = notaRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<NotaDTO> data = notaEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<NotaDTO> data = notaEntityPage.getContent().stream().map(this::convertToDTO).toList();
         return new ListResponse<>(data, notaEntityPage.getTotalElements(), notaEntityPage.getTotalPages(), notaEntityPage.getNumber() + 1);
     }
 

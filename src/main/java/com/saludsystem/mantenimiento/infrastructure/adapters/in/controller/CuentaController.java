@@ -24,6 +24,7 @@ public class CuentaController extends GenericController<CuentaDTO, CrearCuentaDT
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

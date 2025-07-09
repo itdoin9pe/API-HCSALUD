@@ -7,62 +7,52 @@ import com.saludsystem.operaciones.application.service.ProductoService;
 import com.saludsystem.operaciones.domain.model.*;
 import com.saludsystem.operaciones.infrastructure.adapters.out.persistance.*;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-import com.saludsystem.configuracion.domain.model.SysSaludEntity;
-import com.saludsystem.configuracion.domain.model.UserEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
-import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.UserRepository;
+import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
     private final ProductoRepository productoRepository;
     private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
     private final MarcaRepository marcaRepository;
     private final CategoriaMatRepository categoriaMatRepository;
     private final PresentacionReposirory presentacionReposirory;
     private final TipoMaterialRepository tipoMaterialRepository;
     private final UnidadRepository unidadRepository;
     private final ModelMapper modelMapper;
+    private final AuthValidator authValidator;
 
-    public ProductoServiceImpl(ProductoRepository productoRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, MarcaRepository marcaRepository, CategoriaMatRepository categoriaMatRepository, PresentacionReposirory presentacionReposirory, TipoMaterialRepository tipoMaterialRepository, UnidadRepository unidadRepository, ModelMapper modelMapper) {
+    public ProductoServiceImpl(ProductoRepository productoRepository, SysSaludRepository sysSaludRepository, MarcaRepository marcaRepository, CategoriaMatRepository categoriaMatRepository, PresentacionReposirory presentacionReposirory, TipoMaterialRepository tipoMaterialRepository, UnidadRepository unidadRepository, ModelMapper modelMapper, AuthValidator authValidator) {
         this.productoRepository = productoRepository;
         this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
         this.marcaRepository = marcaRepository;
         this.categoriaMatRepository = categoriaMatRepository;
         this.presentacionReposirory = presentacionReposirory;
         this.tipoMaterialRepository = tipoMaterialRepository;
         this.unidadRepository = unidadRepository;
         this.modelMapper = modelMapper;
+        this.authValidator = authValidator;
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse saveProducto(CrearProductoDTO crearProductoDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
-        }
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
+        authValidator.validateAdminAccess();
+        var user = authValidator.getCurrentUser();
+        var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         ProductoEntity productoEntity = new ProductoEntity();
         productoEntity.setDescripcion(crearProductoDTO.getDescripcion());
@@ -88,7 +78,7 @@ public class ProductoServiceImpl implements ProductoService {
         productoEntity.setEstadoCompra(crearProductoDTO.getEstadoCompra());
         productoEntity.setEstadoProducto(crearProductoDTO.getEstadoProducto());
         productoEntity.setHospital(hospital);
-        productoEntity.setUser(userEntity);
+        productoEntity.setUser(user);
         productoRepository.save(productoEntity);
         return new ApiResponse(true, "Producto registrado correctamente");
     }
@@ -97,13 +87,13 @@ public class ProductoServiceImpl implements ProductoService {
     public ListResponse<ProductoDTO> getAllProducto(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<ProductoEntity> productoEntityPage = productoRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<ProductoDTO> data = productoEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<ProductoDTO> data = productoEntityPage.getContent().stream().map(this::convertToDTO).toList();
         return new ListResponse<>(data, productoEntityPage.getTotalElements(), productoEntityPage.getTotalPages(), productoEntityPage.getNumber() + 1);
     }
 
     @Override
     public List<ProductoDTO> getProductoList() {
-        return productoRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return productoRepository.findAll().stream().map(this::convertToDTO).toList();
     }
 
     @Override
@@ -116,13 +106,7 @@ public class ProductoServiceImpl implements ProductoService {
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse updateProducto(UUID productoId, ActualizarProductoDTO actualizarProductoDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
-        }
+        authValidator.validateAdminAccess();
         ProductoEntity productoEntity = productoRepository.findById(productoId).orElseThrow(
                 () -> new ResourceNotFoundException("Producto no encontrado"));
         Optional.ofNullable(actualizarProductoDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(productoEntity::setDescripcion);
@@ -149,13 +133,7 @@ public class ProductoServiceImpl implements ProductoService {
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse deleteProducto(UUID productoId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
-        }
+        authValidator.validateAdminAccess();
         productoRepository.deleteById(productoId);
         return new ApiResponse(true, "Producto eliminado correctamente");
     }

@@ -5,60 +5,51 @@ import com.saludsystem.paciente.application.dto.post.CrearEstudioMedicoDTO;
 import com.saludsystem.paciente.application.dto.put.ActualizarEstudioMedicoDTO;
 import com.saludsystem.paciente.application.service.EstudioMedicoService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-import com.saludsystem.configuracion.domain.model.SysSaludEntity;
-import com.saludsystem.configuracion.domain.model.UserEntity;
 import com.saludsystem.paciente.domain.model.EstudioMedicoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.medico.infrastructure.adapters.out.persistance.DoctorRepository;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
-import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.UserRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.EstudioMedicoRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
+import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class EstudioMedicoServiceImpl implements EstudioMedicoService {
 
     private final EstudioMedicoRepository estudioMedicoRepository;
     private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
     private final PacienteRepository pacienteRepository;
     private final DoctorRepository doctorRepository;
     private final ModelMapper modelMapper;
+    private final AuthValidator authValidator;
 
-    public EstudioMedicoServiceImpl(EstudioMedicoRepository estudioMedicoRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, PacienteRepository pacienteRepository, DoctorRepository doctorRepository, ModelMapper modelMapper) {
+    public EstudioMedicoServiceImpl(EstudioMedicoRepository estudioMedicoRepository, SysSaludRepository sysSaludRepository, PacienteRepository pacienteRepository, DoctorRepository doctorRepository, ModelMapper modelMapper, AuthValidator authValidator) {
         this.estudioMedicoRepository = estudioMedicoRepository;
         this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
         this.pacienteRepository = pacienteRepository;
         this.doctorRepository = doctorRepository;
         this.modelMapper = modelMapper;
+        this.authValidator = authValidator;
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse saveEstudioMedico(CrearEstudioMedicoDTO crearEstudioMedicoDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
-        }
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(
-                () -> new RuntimeException("Hospital no encontrado"));
+        authValidator.validateAdminAccess();
+        var user = authValidator.getCurrentUser();
+        var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         EstudioMedicoEntity estudioMedicoEntity = new EstudioMedicoEntity();
         estudioMedicoEntity.setDoctorEntity(doctorRepository.findById(crearEstudioMedicoDTO.getDoctorId()).orElseThrow(
                 () -> new ResourceNotFoundException("Doctor no encontrado") ));
@@ -70,7 +61,7 @@ public class EstudioMedicoServiceImpl implements EstudioMedicoService {
         estudioMedicoEntity.setDescripcion(crearEstudioMedicoDTO.getDescripcion());
         estudioMedicoEntity.setEstado(crearEstudioMedicoDTO.getEstado());
         estudioMedicoEntity.setHospital(hospital);
-        estudioMedicoEntity.setUser(userEntity);
+        estudioMedicoEntity.setUser(user);
         estudioMedicoRepository.save(estudioMedicoEntity);
         return new ApiResponse(true, "Estudio medico creado correctamente");
     }
@@ -79,19 +70,14 @@ public class EstudioMedicoServiceImpl implements EstudioMedicoService {
     public ListResponse<EstudioMedicoDTO> getAllEstudioMedico(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<EstudioMedicoEntity> estudioMedicoEntityPage = estudioMedicoRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<EstudioMedicoDTO> data = estudioMedicoEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<EstudioMedicoDTO> data = estudioMedicoEntityPage.getContent().stream().map(this::convertToDTO).toList();
         return new ListResponse<>(data, estudioMedicoEntityPage.getTotalElements(), estudioMedicoEntityPage.getTotalPages(), estudioMedicoEntityPage.getNumber() + 1);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse updateEstudioMedico(Long pacienteEstudioMedicoId, ActualizarEstudioMedicoDTO actualizarEstudioMedicoDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
-        }
+        authValidator.validateAdminAccess();
         EstudioMedicoEntity estudioMedicoEntity = estudioMedicoRepository.findById(pacienteEstudioMedicoId).orElseThrow(
                 () -> new ResourceNotFoundException("Estudio medico no encontrado"));
         Optional.ofNullable(actualizarEstudioMedicoDTO.getDoctorId()).flatMap(doctorRepository::findById).ifPresent(estudioMedicoEntity::setDoctorEntity);
@@ -115,12 +101,7 @@ public class EstudioMedicoServiceImpl implements EstudioMedicoService {
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse deleteEstudioMedico(Long pacienteEstudioMedicoId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
-        }
+        authValidator.validateAdminAccess();
         estudioMedicoRepository.deleteById(pacienteEstudioMedicoId);
         return new ApiResponse(true, "Estudio nedico eliminado correctamente");
     }
@@ -128,5 +109,4 @@ public class EstudioMedicoServiceImpl implements EstudioMedicoService {
     private EstudioMedicoDTO convertToDTO(EstudioMedicoEntity estudioMedicoEntity) {
         return modelMapper.map(estudioMedicoEntity, EstudioMedicoDTO.class);
     }
-
 }

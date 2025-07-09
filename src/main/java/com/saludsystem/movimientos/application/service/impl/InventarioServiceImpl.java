@@ -59,9 +59,9 @@ public class InventarioServiceImpl implements InventarioService {
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse saveInventario(CrearInventarioDTO inventarioDTO) {
-        UserEntity userEntity = authValidator.getCurrentUser();
         authValidator.validateAdminAccess(); // Lanza excepción si no es admin
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(
+        var user = authValidator.getCurrentUser();
+        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId()).orElseThrow(
                 () -> new RuntimeException("Hospital no encontrado"));
         InventarioEntity inventario = new InventarioEntity();
         inventario.setProductoEntity(productoRepository.findById(inventarioDTO.getProductoId())
@@ -81,7 +81,7 @@ public class InventarioServiceImpl implements InventarioService {
         inventario.setFecha(inventarioDTO.getFecha());
         inventario.setEstado(inventarioDTO.getEstado());
         inventario.setHospital(hospital);
-        inventario.setUser(userEntity);
+        inventario.setUser(user);
         inventarioRepository.save(inventario);
         return new ApiResponse(true, "Registro creado correctamente");
     }
@@ -110,7 +110,6 @@ public class InventarioServiceImpl implements InventarioService {
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse deleteInventario(UUID inventarioId) {
-        UserEntity userEntity = authValidator.getCurrentUser();
         authValidator.validateAdminAccess(); // Lanza excepción si no es admin
         inventarioRepository.deleteById(inventarioId);
         return new ApiResponse(true, "Registro eliminado correctamente");
@@ -137,8 +136,7 @@ public class InventarioServiceImpl implements InventarioService {
                         p.getPrecioEntrada(),
                         p.getUnidad(),
                         p.getStock()
-                ))
-                .collect(Collectors.toList());
+                )).toList();
         return new ListResponse<>(data, projections.getTotalElements(), projections.getTotalPages(), projections.getNumber() + 1
         );
     }

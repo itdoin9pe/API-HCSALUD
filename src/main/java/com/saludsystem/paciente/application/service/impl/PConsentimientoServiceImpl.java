@@ -41,29 +41,29 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
     }
 
     @Override
-    protected PConsentimientoEntity convertCreateDtoToEntity(CrearPConsentimientoDTO CrearPConsentimientoDTO) {
+    protected PConsentimientoEntity convertCreateDtoToEntity(CrearPConsentimientoDTO crearPConsentimientoDTO) {
         PConsentimientoEntity entity = new PConsentimientoEntity();
-        entity.setDoctorEntity(doctorRepository.findById(CrearPConsentimientoDTO.getDoctorId())
+        entity.setDoctorEntity(doctorRepository.findById(crearPConsentimientoDTO.getDoctorId())
                 .orElseThrow(() -> new ResourceNotFoundException("Doctor no encontrado")));
-        entity.setFecha(CrearPConsentimientoDTO.getFecha());
+        entity.setFecha(crearPConsentimientoDTO.getFecha());
         // Convertir HoraDTO a LocalTime
-        HoraDTO horaDTO = CrearPConsentimientoDTO.getHora();
+        HoraDTO horaDTO = crearPConsentimientoDTO.getHora();
         LocalTime hora = LocalTime.of(
                 horaDTO.getHours(),
                 horaDTO.getMinutes(),
                 horaDTO.getSeconds()
         );
         entity.setHora(hora);
-        entity.setApoderadoNombre(CrearPConsentimientoDTO.getApoderadoNombre());
-        entity.setApoderadoDocumento(CrearPConsentimientoDTO.getApoderadoDocumento());
-        entity.setApoderadoDireccion(CrearPConsentimientoDTO.getApoderadoDireccion());
-        entity.setConsentimientoEntity(consentimientoRepository.findById(CrearPConsentimientoDTO.getConsentimientoId())
+        entity.setApoderadoNombre(crearPConsentimientoDTO.getApoderadoNombre());
+        entity.setApoderadoDocumento(crearPConsentimientoDTO.getApoderadoDocumento());
+        entity.setApoderadoDireccion(crearPConsentimientoDTO.getApoderadoDireccion());
+        entity.setConsentimientoEntity(consentimientoRepository.findById(crearPConsentimientoDTO.getConsentimientoId())
                 .orElseThrow(() -> new ResourceNotFoundException("Consentimiento no encontrado")));
-        entity.setPacienteEntity(pacienteRepository.findById(CrearPConsentimientoDTO.getPacienteId())
+        entity.setPacienteEntity(pacienteRepository.findById(crearPConsentimientoDTO.getPacienteId())
                 .orElseThrow(() -> new ResourceNotFoundException("Paciente no encontrado")));
-        entity.setCuerpo(CrearPConsentimientoDTO.getCuerpo());
-        entity.setFirma(CrearPConsentimientoDTO.getFirma());
-        entity.setEstado(CrearPConsentimientoDTO.getEstado());
+        entity.setCuerpo(crearPConsentimientoDTO.getCuerpo());
+        entity.setFirma(crearPConsentimientoDTO.getFirma());
+        entity.setEstado(crearPConsentimientoDTO.getEstado());
         return entity;
     }
 

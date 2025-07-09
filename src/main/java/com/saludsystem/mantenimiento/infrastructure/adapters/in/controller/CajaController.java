@@ -24,6 +24,7 @@ public class CajaController extends GenericController<CajaDTO, CrearCajaDTO, Act
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

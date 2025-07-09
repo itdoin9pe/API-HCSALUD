@@ -6,7 +6,6 @@ import com.saludsystem.movimientos.application.dto.post.CrearVentaDetalleDTO;
 import com.saludsystem.movimientos.application.service.VentaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.configuracion.domain.model.SysSaludEntity;
-import com.saludsystem.configuracion.domain.model.UserEntity;
 import com.saludsystem.movimientos.domain.model.VentaDetalleEntity;
 import com.saludsystem.movimientos.domain.model.VentaEntity;
 import com.saludsystem.paciente.domain.model.PacienteEntity;
@@ -14,7 +13,6 @@ import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.TipoDocumentoRepository;
-import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.UserRepository;
 import com.saludsystem.mantenimiento.infrastructure.adapters.out.persistance.MonedaRepository;
 import com.saludsystem.mantenimiento.infrastructure.adapters.out.persistance.TipoPagoRepository;
 import com.saludsystem.mantenimiento.infrastructure.adapters.out.persistance.TipoTarjetaRepository;
@@ -22,14 +20,14 @@ import com.saludsystem.movimientos.infrastructure.adapters.out.persistance.Almac
 import com.saludsystem.movimientos.infrastructure.adapters.out.persistance.VentaRepository;
 import com.saludsystem.operaciones.infrastructure.adapters.out.persistance.ProductoRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
+import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -40,7 +38,6 @@ public class VentaServiceImpl implements VentaService {
 
     private final VentaRepository ventaRepository;
     private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
     private final TipoDocumentoRepository tipoDocumentoRepository;
     private final AlmacenRepository almacenRepository;
     private final PacienteRepository pacienteRepository;
@@ -48,12 +45,11 @@ public class VentaServiceImpl implements VentaService {
     private final TipoTarjetaRepository tipoTarjetaRepository;
     private final MonedaRepository monedaRepository;
     private final ProductoRepository productoRepository;
+    private final AuthValidator authValidator;
 
-
-    public VentaServiceImpl(VentaRepository ventaRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, TipoDocumentoRepository tipoDocumentoRepository, AlmacenRepository almacenRepository, PacienteRepository pacienteRepository, TipoPagoRepository tipoPagoRepository, TipoTarjetaRepository tipoTarjetaRepository, MonedaRepository monedaRepository, ProductoRepository productoRepository) {
+    public VentaServiceImpl(VentaRepository ventaRepository, SysSaludRepository sysSaludRepository, TipoDocumentoRepository tipoDocumentoRepository, AlmacenRepository almacenRepository, PacienteRepository pacienteRepository, TipoPagoRepository tipoPagoRepository, TipoTarjetaRepository tipoTarjetaRepository, MonedaRepository monedaRepository, ProductoRepository productoRepository, AuthValidator authValidator) {
         this.ventaRepository = ventaRepository;
         this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
         this.tipoDocumentoRepository = tipoDocumentoRepository;
         this.almacenRepository = almacenRepository;
         this.pacienteRepository = pacienteRepository;
@@ -61,18 +57,16 @@ public class VentaServiceImpl implements VentaService {
         this.tipoTarjetaRepository = tipoTarjetaRepository;
         this.monedaRepository = monedaRepository;
         this.productoRepository = productoRepository;
+        this.authValidator = authValidator;
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse saveVenta(CrearVentaDTO dto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            return new ApiResponse(false, "No tienes permisos para realizar esta acción");
-        }
-        SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+        authValidator.validateAdminAccess(); // Lanza excepción si no es admin
+        var user = authValidator.getCurrentUser();
+        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId()).orElseThrow(
+                () -> new RuntimeException("Hospital no encontrado"));
         VentaEntity venta = new VentaEntity();
         venta.setSerie(dto.getSerie());
         venta.setSecuencia(dto.getSecuencia());
@@ -87,7 +81,7 @@ public class VentaServiceImpl implements VentaService {
         venta.setTotal(dto.getTotal());
         venta.setEstado(dto.getEstado());
         venta.setHospital(hospital);
-        venta.setUser(userEntity);
+        venta.setUser(user);
         venta.setTipoDocumentoEntity(tipoDocumentoRepository.findById(dto.getTdocumentoId()).orElseThrow(() -> new ResourceNotFoundException("TipoDocumento no encontrado")));
         venta.setAlmacenEntity(almacenRepository.findById(dto.getAlmacenId()).orElseThrow(() -> new ResourceNotFoundException("Almacen no encontrado")));
         venta.setBeneficiarioId(pacienteRepository.findById(dto.getBeneficiarioId()).orElseThrow(() -> new ResourceNotFoundException("Paciente con no encontrad")));
@@ -103,7 +97,7 @@ public class VentaServiceImpl implements VentaService {
             detalle.setSubtotal(BigDecimal.valueOf(det.getSubtotal()));
             detalle.setVentaEntity(venta);
             detalle.setHospital(hospital);
-            detalle.setUser(userEntity);
+            detalle.setUser(user);
             return detalle;
         }).collect(Collectors.toList());
         venta.setDetalle(detalles);
@@ -119,7 +113,8 @@ public class VentaServiceImpl implements VentaService {
     @Transactional(readOnly = true)
     @Override
     public VentaDTO getVentaById(UUID ventaId) {
-        VentaEntity ventaEntity = ventaRepository.findById(ventaId).orElseThrow(() -> new ResourceNotFoundException("Venta con id " + ventaId + " no encontrada"));
+        VentaEntity ventaEntity = ventaRepository.findById(ventaId).
+                orElseThrow(() -> new ResourceNotFoundException("Venta con id " + ventaId + " no encontrada"));
         return convertToDetailedDTO(ventaEntity);
     }
 
@@ -128,7 +123,7 @@ public class VentaServiceImpl implements VentaService {
     public ListResponse<VentaDTO> getAllVenta(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<VentaEntity> ventaEntityPage = ventaRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<VentaDTO> data = ventaEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<VentaDTO> data = ventaEntityPage.getContent().stream().map(this::convertToDTO).toList();
         return new ListResponse<>(data, ventaEntityPage.getTotalElements(), ventaEntityPage.getTotalPages(), ventaEntityPage.getNumber() + 1);
     }
 

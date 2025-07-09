@@ -25,6 +25,7 @@ public class TipoPagoController extends GenericController<TipoPagoDTO, CrearTipo
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",

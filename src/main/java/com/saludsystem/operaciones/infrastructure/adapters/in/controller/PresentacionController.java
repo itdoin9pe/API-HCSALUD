@@ -27,6 +27,7 @@ public class PresentacionController extends GenericController<PresentacionDTO, C
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",

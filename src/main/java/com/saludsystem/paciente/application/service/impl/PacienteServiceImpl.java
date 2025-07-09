@@ -5,8 +5,6 @@ import com.saludsystem.paciente.application.dto.post.CrearPacienteDTO;
 import com.saludsystem.paciente.application.dto.put.ActualizarPacienteDTO;
 import com.saludsystem.paciente.application.service.PacienteService;
 import com.saludsystem.configuracion.domain.model.SedeEntity;
-import com.saludsystem.configuracion.domain.model.SysSaludEntity;
-import com.saludsystem.configuracion.domain.model.UserEntity;
 import com.saludsystem.principal.domain.model.*;
 import com.saludsystem.paciente.domain.model.PacienteEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
@@ -15,20 +13,18 @@ import com.saludsystem.principal.infrastructure.adapters.out.persistance.*;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SedeRepository;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
-import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.UserRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
+import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class PacienteServiceImpl implements PacienteService {
@@ -42,10 +38,10 @@ public class PacienteServiceImpl implements PacienteService {
     private final TipoPacienteRepository tipoPacienteRepository;
     private final InformacionClinicaRepository informacionClinicaRepository;
     private final SysSaludRepository sysSaludRepository;
-    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final AuthValidator authValidator;
 
-    public PacienteServiceImpl(PacienteRepository pacienteRepository, PaisRepository paisRepository, SedeRepository sedeRepository, EmpresaRepository empresaRepository, AseguradoraRepository aseguradoraRepository, EstudioRepository estudioRepository, TipoPacienteRepository tipoPacienteRepository, InformacionClinicaRepository informacionClinicaRepository, SysSaludRepository sysSaludRepository, UserRepository userRepository, ModelMapper modelMapper) {
+    public PacienteServiceImpl(PacienteRepository pacienteRepository, PaisRepository paisRepository, SedeRepository sedeRepository, EmpresaRepository empresaRepository, AseguradoraRepository aseguradoraRepository, EstudioRepository estudioRepository, TipoPacienteRepository tipoPacienteRepository, InformacionClinicaRepository informacionClinicaRepository, SysSaludRepository sysSaludRepository, ModelMapper modelMapper, AuthValidator authValidator) {
         this.pacienteRepository = pacienteRepository;
         this.paisRepository = paisRepository;
         this.sedeRepository = sedeRepository;
@@ -55,22 +51,17 @@ public class PacienteServiceImpl implements PacienteService {
         this.tipoPacienteRepository = tipoPacienteRepository;
         this.informacionClinicaRepository = informacionClinicaRepository;
         this.sysSaludRepository = sysSaludRepository;
-        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.authValidator = authValidator;
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public PacienteEntity savePaciente(CrearPacienteDTO crearPacienteDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        UserEntity userEntity = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        SysSaludEntity hospital = sysSaludRepository.findById(user.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
-        if (!"ADMINISTRADOR".equals(userEntity.getRol().getNombre())) {
-            throw new RuntimeException("No tienes permisos para realizar esta acción");
-        }
+        authValidator.validateAdminAccess();
+        var user = authValidator.getCurrentUser();
+        var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
+                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         PacienteEntity paciente = new PacienteEntity();
         paciente.setTipoDocumentoId(crearPacienteDTO.getTipoDocumentoId());
         paciente.setNumeroDocumento(crearPacienteDTO.getNumeroDocumento());
@@ -112,6 +103,7 @@ public class PacienteServiceImpl implements PacienteService {
 
     @Override
     public ActualizarPacienteDTO updatePaciente(UUID pacienteId, ActualizarPacienteDTO actualizarPacienteDTO) {
+        authValidator.validateAdminAccess();
         PacienteEntity paciente = pacienteRepository.findById(pacienteId).orElseThrow(
                 () -> new ResourceNotFoundException("Paciente no encontrado con ID"));
         Optional.ofNullable(actualizarPacienteDTO.getTipoDocumentoId()).filter(desc -> !desc.isBlank()).ifPresent(paciente::setTipoDocumentoId);
@@ -151,19 +143,20 @@ public class PacienteServiceImpl implements PacienteService {
 
     @Override
     public List<PacienteDTO> getPacienteList() {
-        return pacienteRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return pacienteRepository.findAll().stream().map(this::convertToDTO).toList();
     }
 
     @Override
     public ListResponse<PacienteDTO> getAllPaciente(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<PacienteEntity> pacienteModelPage = pacienteRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<PacienteDTO> data = pacienteModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<PacienteDTO> data = pacienteModelPage.getContent().stream().map(this::convertToDTO).toList();
         return new ListResponse<>(data, pacienteModelPage.getTotalElements(), pacienteModelPage.getTotalPages(), pacienteModelPage.getNumber() + 1);
     }
 
     @Override
     public ApiResponse deletePaciente(UUID pacienteId) {
+        authValidator.validateAdminAccess();
         pacienteRepository.deleteById(pacienteId);
         return new ApiResponse(true, "Paciente eliminado correctamente");
     }

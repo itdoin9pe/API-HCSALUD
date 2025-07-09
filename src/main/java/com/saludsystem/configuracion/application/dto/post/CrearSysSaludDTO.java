@@ -17,7 +17,6 @@ public class CrearSysSaludDTO {
     private String ruc;
     private Date fecha;
     private String foto;
-    //private byte[] foto;
     private UUID planId;
     @Schema(description = "Estado de la Clinica (0 = inactivo, 1 = activo)", example = "0")
     private Integer estado;

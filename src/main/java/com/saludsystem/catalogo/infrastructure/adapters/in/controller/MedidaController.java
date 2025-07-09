@@ -25,6 +25,7 @@ public class MedidaController extends GenericController<MedidaDTO, CrearMedidaDT
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

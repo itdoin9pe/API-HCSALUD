@@ -6,7 +6,6 @@ import com.saludsystem.paciente.application.dto.put.ActualizarMedicamentoRecetad
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.MedicamentoRecetadoService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-import com.saludsystem.catalogo.domain.model.MedicamentoEntity;
 import com.saludsystem.paciente.domain.model.MedicamentoRecetadoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.MedicamentoRepository;
@@ -36,7 +35,7 @@ public class MedicamentoRecetadoServiceImpl extends GenericServiceImpl<Medicamen
     @Override
     protected MedicamentoRecetadoEntity convertCreateDtoToEntity(CrearMedicamentoRecetadoDTO crearMedicamentoRecetadoDTO) {
         MedicamentoRecetadoEntity entity = new MedicamentoRecetadoEntity();
-        MedicamentoEntity medicamento = medicamentoRepository.findById(crearMedicamentoRecetadoDTO.getMedicamentoId())
+        medicamentoRepository.findById(crearMedicamentoRecetadoDTO.getMedicamentoId())
                 .orElseThrow( () -> new ResourceNotFoundException("Medicamento not found"));
         entity.setDosis(crearMedicamentoRecetadoDTO.getDosis());
         entity.setFrecuencia(crearMedicamentoRecetadoDTO.getFrecuencia());

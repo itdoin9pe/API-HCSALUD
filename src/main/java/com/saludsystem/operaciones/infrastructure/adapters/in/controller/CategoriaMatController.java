@@ -26,6 +26,7 @@ public class CategoriaMatController extends GenericController<CategoriaMatDTO, C
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
