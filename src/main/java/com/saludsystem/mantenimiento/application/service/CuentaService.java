@@ -1,13 +1,15 @@
 package com.saludsystem.mantenimiento.application.service;
 
-import com.saludsystem.mantenimiento.application.dto.res.CuentaResponse;
-import com.saludsystem.mantenimiento.application.dto.req.CuentaRequest;
+import com.saludsystem.mantenimiento.application.dto.get.CuentaDTO;
+import com.saludsystem.mantenimiento.application.dto.post.CrearCuentaDTO;
+import com.saludsystem.mantenimiento.application.dto.put.ActualizarCuentaDTO;
 import com.saludsystem.shared.application.service.GenericService;
 
 import java.util.UUID;
 
 public interface CuentaService extends GenericService<
-        CuentaRequest,
-        CuentaResponse,
+        CuentaDTO,
+        CrearCuentaDTO,
+        ActualizarCuentaDTO,
         UUID> {
 }

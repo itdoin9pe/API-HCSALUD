@@ -1,12 +1,15 @@
 package com.saludsystem.catalogo.application.services;
 
-import com.saludsystem.catalogo.application.dtos.res.ClienteRequest;
+import com.saludsystem.catalogo.application.dtos.get.ClienteDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearClienteDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarClienteDTO;
 import com.saludsystem.shared.application.service.GenericService;
 
 import java.util.UUID;
 
 public interface ClienteService extends GenericService<
-        com.saludsystem.catalogo.application.dtos.req.ClienteRequest,
-        ClienteRequest,
+        ClienteDTO,
+        CrearClienteDTO,
+        ActualizarClienteDTO,
         UUID> {
 }

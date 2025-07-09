@@ -1,7 +1,8 @@
 package com.saludsystem.cita.application.service;
 
-import com.saludsystem.cita.application.dto.res.CitaResponse;
-import com.saludsystem.cita.application.dto.req.CitaRequest;
+import com.saludsystem.cita.application.dto.post.CrearCitaDTO;
+import com.saludsystem.cita.application.dto.get.CitaDTO;
+import com.saludsystem.cita.application.dto.put.ActualizarCitaDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.cita.domain.model.CitaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
@@ -22,7 +23,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CitaServiceImpl extends GenericServiceImpl<CitaEntity, CitaRequest, CitaResponse, UUID> implements CitaService {
+public class CitaServiceImpl extends GenericServiceImpl<CitaEntity, CitaDTO,
+        CrearCitaDTO, ActualizarCitaDTO, UUID> implements CitaService {
 
     private final DoctorRepository doctorRepository;
     private final EspecialidadRepository especialidadRepository;
@@ -34,7 +36,7 @@ public class CitaServiceImpl extends GenericServiceImpl<CitaEntity, CitaRequest,
             CitaRepository citaRepository, ModelMapper modelMapper, AuthValidator authValidator,
             DoctorRepository doctorRepository, EspecialidadRepository especialidadRepository,
             PacienteRepository pacienteRepository, SedeRepository sedeRepository, TipoCitadoRepository tipoCitadoRepository) {
-        super(citaRepository, modelMapper, authValidator, CitaResponse.class);
+        super(citaRepository, modelMapper, authValidator, CitaDTO.class);
         this.doctorRepository = doctorRepository;
         this.especialidadRepository = especialidadRepository;
         this.pacienteRepository = pacienteRepository;
@@ -43,33 +45,33 @@ public class CitaServiceImpl extends GenericServiceImpl<CitaEntity, CitaRequest,
     }
 
     @Override
-    protected CitaEntity convertCreateDtoToEntity(CitaRequest citaRequest) {
+    protected CitaEntity convertCreateDtoToEntity(CrearCitaDTO citaDTO) {
         CitaEntity entity = new CitaEntity();
-        doctorRepository.findById(citaRequest.getDoctorEntity()).ifPresent(entity::setDoctorEntity);
-        especialidadRepository.findById(citaRequest.getEspecialidadEntity()).ifPresent(entity::setEspecialidadEntity);
-        pacienteRepository.findById(citaRequest.getPacienteEntity()).ifPresent(entity::setPacienteEntity);
-        sedeRepository.findById(citaRequest.getSedeEntity()).ifPresent(entity::setSedeEntity);
-        tipoCitadoRepository.findById(citaRequest.getTipoCitadoEntity()).ifPresent(entity::setTipoCitadoEntity);
-        entity.setFecha(citaRequest.getFecha());
-        entity.setHoraInicio(citaRequest.getHoraInicio());
-        entity.setHoraFin(citaRequest.getHoraFin());
-        entity.setEstado(citaRequest.getEstado());
-        entity.setMotivoConsulta(citaRequest.getMotivoConsulta());
-        entity.setObservacion(citaRequest.getObservacion());
+        doctorRepository.findById(citaDTO.getDoctorId()).ifPresent(entity::setDoctorEntity);
+        especialidadRepository.findById(citaDTO.getEspecialidadId()).ifPresent(entity::setEspecialidadEntity);
+        pacienteRepository.findById(citaDTO.getPacienteId()).ifPresent(entity::setPacienteEntity);
+        sedeRepository.findById(citaDTO.getSedeId()).ifPresent(entity::setSedeEntity);
+        tipoCitadoRepository.findById(citaDTO.getTipoCitadoId()).ifPresent(entity::setTipoCitadoEntity);
+        entity.setFecha(citaDTO.getFecha());
+        entity.setHoraInicio(citaDTO.getHoraInicio());
+        entity.setHoraFin(citaDTO.getHoraFin());
+        entity.setEstado(citaDTO.getEstado());
+        entity.setMotivoConsulta(citaDTO.getMotivoConsulta());
+        entity.setObservacion(citaDTO.getObservacion());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(CitaEntity entity, CitaRequest dto) {
-        Optional.ofNullable(dto.getDoctorEntity()).flatMap(doctorRepository::findById)
+    protected void updateEntityFromDto(CitaEntity entity, ActualizarCitaDTO dto) {
+        Optional.ofNullable(dto.getDoctorId()).flatMap(doctorRepository::findById)
                 .ifPresent(entity::setDoctorEntity);
-        Optional.ofNullable(dto.getEspecialidadEntity()).flatMap(especialidadRepository::findById)
+        Optional.ofNullable(dto.getEspecialidadId()).flatMap(especialidadRepository::findById)
                 .ifPresent(entity::setEspecialidadEntity);
-        Optional.ofNullable(dto.getPacienteEntity()).flatMap(pacienteRepository::findById)
+        Optional.ofNullable(dto.getPacienteId()).flatMap(pacienteRepository::findById)
                 .ifPresent(entity::setPacienteEntity);
-        Optional.ofNullable(dto.getSedeEntity()).flatMap(sedeRepository::findById)
+        Optional.ofNullable(dto.getSedeId()).flatMap(sedeRepository::findById)
                 .ifPresent(entity::setSedeEntity);
-        Optional.ofNullable(dto.getTipoCitadoEntity()).flatMap(tipoCitadoRepository::findById)
+        Optional.ofNullable(dto.getTipoCitadoId()).flatMap(tipoCitadoRepository::findById)
                 .ifPresent(entity::setTipoCitadoEntity);
         Optional.ofNullable(dto.getFecha()).ifPresent(entity::setFecha);
         Optional.ofNullable(dto.getHoraInicio()).ifPresent(entity::setHoraInicio);
@@ -81,28 +83,28 @@ public class CitaServiceImpl extends GenericServiceImpl<CitaEntity, CitaRequest,
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CitaRequest citaRequest) {
-        return super.save(citaRequest);
+    public ApiResponse save(CrearCitaDTO citaDTO) {
+        return super.save(citaDTO);
     }
 
     @Override
-    public ListResponse<CitaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<CitaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, CitaRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarCitaDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public CitaResponse getById(UUID uuid) {
+    public CitaDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<CitaResponse> getList() {
+    public List<CitaDTO> getList() {
         return super.getList();
     }
 

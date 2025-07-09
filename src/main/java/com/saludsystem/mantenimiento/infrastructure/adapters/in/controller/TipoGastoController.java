@@ -1,7 +1,8 @@
 package com.saludsystem.mantenimiento.infrastructure.adapters.in.controller;
 
-import com.saludsystem.mantenimiento.application.dto.res.TipoGastoResponse;
-import com.saludsystem.mantenimiento.application.dto.req.TipoGastoRequest;
+import com.saludsystem.mantenimiento.application.dto.get.TipoGastoDTO;
+import com.saludsystem.mantenimiento.application.dto.post.CrearTipoGastoDTO;
+import com.saludsystem.mantenimiento.application.dto.put.ActualizarTipoGastoDTO;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -17,9 +18,11 @@ import java.util.UUID;
 @Tag(name = "ConceptosGastos")
 @RestController
 @RequestMapping("/api/ConceptosGastos")
-public class TipoGastoController extends GenericController<TipoGastoRequest, TipoGastoResponse, UUID> {
+public class TipoGastoController extends GenericController<TipoGastoDTO, CrearTipoGastoDTO,
+        ActualizarTipoGastoDTO, UUID> {
 
-    protected TipoGastoController(GenericService<TipoGastoRequest, TipoGastoResponse, UUID> genericService) {
+    protected TipoGastoController(
+            GenericService<TipoGastoDTO, CrearTipoGastoDTO, ActualizarTipoGastoDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -29,7 +32,7 @@ public class TipoGastoController extends GenericController<TipoGastoRequest, Tip
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = TIpoGastoListResponse.class)))
     })
-    public ListResponse<TipoGastoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<TipoGastoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

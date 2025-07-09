@@ -1,8 +1,8 @@
 package com.saludsystem.movimientos.application.service.impl;
 
-import com.saludsystem.movimientos.application.dto.res.CompraDetalleResponse;
-import com.saludsystem.movimientos.application.dto.req.CompraDetalleRequest;
-import com.saludsystem.movimientos.application.dto.ActualizarCompraDetalleDTO;
+import com.saludsystem.movimientos.application.dto.post.CrearCompraDetalleDTO;
+import com.saludsystem.movimientos.application.dto.get.CompraDetalleDTO;
+import com.saludsystem.movimientos.application.dto.put.ActualizarCompraDetalleDTO;
 import com.saludsystem.movimientos.application.service.CompraDetalleService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.configuracion.domain.model.SysSaludEntity;
@@ -48,7 +48,7 @@ public class CompraDetalleServiceImpl implements CompraDetalleService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveCompraDetalle(CompraDetalleRequest compraDetalleRequest) {
+    public ApiResponse saveCompraDetalle(CompraDetalleDTO compraDetalleDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email)
@@ -59,13 +59,13 @@ public class CompraDetalleServiceImpl implements CompraDetalleService {
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         CompraDetalleEntity compraDetalleEntity = new CompraDetalleEntity();
-        Optional<ProductoEntity> productoEntity = productoRepository.findById(compraDetalleRequest.getProductoId());
+        Optional<ProductoEntity> productoEntity = productoRepository.findById(compraDetalleDTO.getProductoId());
         productoEntity.ifPresent(compraDetalleEntity::setProductoEntity);
-        compraDetalleEntity.setCantidad(compraDetalleRequest.getCantidad());
-        compraDetalleEntity.setPrecioUnitario(compraDetalleRequest.getPrecioUnitario());
-        compraDetalleEntity.setIgv(compraDetalleRequest.getIgv());
-        compraDetalleEntity.setPrecioVenta(compraDetalleRequest.getPrecioVenta());
-        compraDetalleEntity.setSubtotal(compraDetalleRequest.getSubtotal());
+        compraDetalleEntity.setCantidad(compraDetalleDTO.getCantidad());
+        compraDetalleEntity.setPrecioUnitario(compraDetalleDTO.getPrecioUnitario());
+        compraDetalleEntity.setIgv(compraDetalleDTO.getIgv());
+        compraDetalleEntity.setPrecioVenta(compraDetalleDTO.getPrecioVenta());
+        compraDetalleEntity.setSubtotal(compraDetalleDTO.getSubtotal());
         compraDetalleRepository.save(compraDetalleEntity);
         return new ApiResponse(true, "Compra detalle agregada correctamente");
     }
@@ -94,17 +94,17 @@ public class CompraDetalleServiceImpl implements CompraDetalleService {
     }
 
     @Override
-    public CompraDetalleResponse getCompraDetalleById(UUID compraDetalleId) {
+    public CrearCompraDetalleDTO getCompraDetalleById(UUID compraDetalleId) {
         CompraDetalleEntity compraDetalleEntity = compraDetalleRepository.findById(compraDetalleId).orElseThrow(
                 () -> new ResourceNotFoundException("Detalle de la compra no encontrada"));
         return convertToDto(compraDetalleEntity);
     }
 
     @Override
-    public ListResponse<CompraDetalleResponse> getAllCompraDetalle(UUID hospitalId, int page, int rows) {
+    public ListResponse<CrearCompraDetalleDTO> getAllCompraDetalle(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<CompraDetalleEntity> compraDetalleEntityPage = compraDetalleRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<CompraDetalleResponse> data = compraDetalleEntityPage.getContent().stream().map(this::convertToDto).collect(Collectors.toList());
+        List<CrearCompraDetalleDTO> data = compraDetalleEntityPage.getContent().stream().map(this::convertToDto).collect(Collectors.toList());
         return new ListResponse<>(data, compraDetalleEntityPage.getTotalElements(), compraDetalleEntityPage.getTotalPages(), compraDetalleEntityPage.getNumber() + 1);
     }
 
@@ -124,8 +124,8 @@ public class CompraDetalleServiceImpl implements CompraDetalleService {
         return new ApiResponse(true, "Compra detalle retirada correctamente");
     }
 
-    private CompraDetalleResponse convertToDto(CompraDetalleEntity compraDetalleEntity) {
-        return modelMapper.map(compraDetalleEntity, CompraDetalleResponse.class);
+    private CrearCompraDetalleDTO convertToDto(CompraDetalleEntity compraDetalleEntity) {
+        return modelMapper.map(compraDetalleEntity, CrearCompraDetalleDTO.class);
     }
 
 }

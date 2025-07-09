@@ -1,7 +1,8 @@
 package com.saludsystem.movimientos.infrastructure.adapters.in.controller;
 
-import com.saludsystem.movimientos.application.dto.res.VentaDetalleRequest;
-import com.saludsystem.movimientos.application.dto.ActualizarVentaDetalleDTO;
+import com.saludsystem.movimientos.application.dto.get.VentaDetalleDTO;
+import com.saludsystem.movimientos.application.dto.post.CrearVentaDetalleDTO;
+import com.saludsystem.movimientos.application.dto.put.ActualizarVentaDetalleDTO;
 import com.saludsystem.movimientos.application.service.VentaDetalleService;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -27,8 +28,8 @@ public class VentaDetalleContoller {
     }
 
     @PostMapping("/SaveVentaDetalle")
-    public ApiResponse store(@Valid @RequestBody com.saludsystem.movimientos.application.dto.req.VentaDetalleRequest crearVentaDetalleRequest) {
-        return ventaDetalleService.saveVentaDetalle(crearVentaDetalleRequest);
+    public ApiResponse store(@Valid @RequestBody VentaDetalleDTO crearVentaDetalleDTO) {
+        return ventaDetalleService.saveVentaDetalle(crearVentaDetalleDTO);
     }
 
     @GetMapping("/GetAllVentaDetalle")
@@ -37,7 +38,7 @@ public class VentaDetalleContoller {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = VentaDetalleListResponse.class)))
     })
-    public ListResponse<VentaDetalleRequest> getAllPage(
+    public ListResponse<CrearVentaDetalleDTO> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows) {
@@ -45,7 +46,7 @@ public class VentaDetalleContoller {
     }
 
     @GetMapping("/GetVentaDetalle/{ventaDetalleId}")
-    public VentaDetalleRequest getById(@PathVariable UUID ventaDetalleId) {
+    public CrearVentaDetalleDTO getById(@PathVariable UUID ventaDetalleId) {
         return ventaDetalleService.getVentaDetalleById(ventaDetalleId);
     }
 

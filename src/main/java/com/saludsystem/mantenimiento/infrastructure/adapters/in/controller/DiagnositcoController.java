@@ -1,8 +1,8 @@
 package com.saludsystem.mantenimiento.infrastructure.adapters.in.controller;
 
-import com.saludsystem.mantenimiento.application.dto.res.EnfermedadDTO;
-import com.saludsystem.mantenimiento.application.dto.req.EnfermedadRequest;
-import com.saludsystem.mantenimiento.application.dto.res.EnfermedadResponse;
+import com.saludsystem.mantenimiento.application.dto.get.EnfermedadDTO;
+import com.saludsystem.mantenimiento.application.dto.post.CrearEnfermedadDTO;
+import com.saludsystem.mantenimiento.application.dto.put.ActualizarEnfermedadDTO;
 import com.saludsystem.mantenimiento.application.service.EnfermedadService;
 import com.saludsystem.mantenimiento.infrastructure.adapters.in.response.EnfermedadListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
@@ -30,8 +30,8 @@ public class DiagnositcoController {
     }
 
     @PostMapping("/SaveEnfermedad")
-    public ApiResponse stored(@Valid @RequestBody EnfermedadRequest enfermedadRequest) {
-        return enfermedadService.saveEnfermedad(enfermedadRequest);
+    public ApiResponse stored(@Valid @RequestBody CrearEnfermedadDTO crearEnfermedadDTO) {
+        return enfermedadService.saveEnfermedad(crearEnfermedadDTO);
     }
 
     @GetMapping("/GetAllEnfermedad")
@@ -57,8 +57,8 @@ public class DiagnositcoController {
     }
 
     @PutMapping("/UpdateEnfermedad/{enfermedadId}")
-    public ApiResponse update(@PathVariable String enfermedadId, @RequestBody EnfermedadResponse enfermedadResponse) {
-        return enfermedadService.updateEnfermedad(enfermedadId, enfermedadResponse);
+    public ApiResponse update(@PathVariable String enfermedadId, @RequestBody ActualizarEnfermedadDTO actualizarEnfermedadDTO) {
+        return enfermedadService.updateEnfermedad(enfermedadId, actualizarEnfermedadDTO);
     }
 
     @DeleteMapping("/DeleteEnfermedad/{enfermedadId}")

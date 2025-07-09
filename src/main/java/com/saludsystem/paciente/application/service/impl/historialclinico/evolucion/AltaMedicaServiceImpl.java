@@ -1,8 +1,8 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico.evolucion;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.AltaMedicaResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.AltaMedicaRequest;
-import com.saludsystem.paciente.application.dto.base.evolucion.ActualizarAltaMedicaDTO;
+import com.saludsystem.paciente.application.dto.get.historialclinico.evolucion.AltaMedicaDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.evolucion.CrearAltaMedicaDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.evolucion.ActualizarAltaMedicaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.AltaMedicaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.Evolucion.AltaMedicaEntity;
@@ -43,16 +43,16 @@ public class AltaMedicaServiceImpl implements AltaMedicaService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveAltaMedica(AltaMedicaRequest altaMedicaRequest) {
+    public ApiResponse saveAltaMedica(CrearAltaMedicaDTO crearAltaMedicaDTO) {
         authValidator.validateAdminAccess();
         var user = authValidator.getCurrentUser();
         var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         var altaMedicaEntity = new AltaMedicaEntity();
-        altaMedicaEntity.setEvolucionEntity(evolucionRepository.findById(altaMedicaRequest.getPacienteEvolucionId())
+        altaMedicaEntity.setEvolucionEntity(evolucionRepository.findById(crearAltaMedicaDTO.getPacienteEvolucionId())
                 .orElseThrow( () -> new RuntimeException("Alta medica no encontrada")));
-        altaMedicaEntity.setFecha(altaMedicaRequest.getFecha());
-        altaMedicaEntity.setResumenFinal(altaMedicaRequest.getResumenFinal());
+        altaMedicaEntity.setFecha(crearAltaMedicaDTO.getFecha());
+        altaMedicaEntity.setResumenFinal(crearAltaMedicaDTO.getResumenFinal());
         altaMedicaEntity.setHospital(hospital);
         altaMedicaEntity.setUser(user);
         altaMedicaRepository.save(altaMedicaEntity);
@@ -60,7 +60,7 @@ public class AltaMedicaServiceImpl implements AltaMedicaService {
     }
 
     @Override
-    public AltaMedicaResponse getAltaMedicaById(Long evolucionAltaMedicaId) {
+    public AltaMedicaDTO getAltaMedicaById(Long evolucionAltaMedicaId) {
         AltaMedicaEntity altaMedicaEntity = altaMedicaRepository.findById(evolucionAltaMedicaId).orElseThrow(
                 () -> new ResourceNotFoundException("Alta medica no encontrada"));
         return convertToDTO(altaMedicaEntity);
@@ -82,10 +82,10 @@ public class AltaMedicaServiceImpl implements AltaMedicaService {
     }
 
     @Override
-    public ListResponse<AltaMedicaResponse> getAllAltaMedica(UUID hospitalId, int page, int rows) {
+    public ListResponse<AltaMedicaDTO> getAllAltaMedica(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<AltaMedicaEntity> altaMedicaEntityPage = altaMedicaRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<AltaMedicaResponse> data = altaMedicaEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<AltaMedicaDTO> data = altaMedicaEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data,
                 altaMedicaEntityPage.getTotalElements(),
                 altaMedicaEntityPage.getTotalPages(),
@@ -100,7 +100,7 @@ public class AltaMedicaServiceImpl implements AltaMedicaService {
         return new ApiResponse(true, "Alta medica eliminada correctamente");
     }
 
-    private AltaMedicaResponse convertToDTO(AltaMedicaEntity altaMedicaEntity) {
-        return modelMapper.map(altaMedicaEntity, AltaMedicaResponse.class);
+    private AltaMedicaDTO convertToDTO(AltaMedicaEntity altaMedicaEntity) {
+        return modelMapper.map(altaMedicaEntity, AltaMedicaDTO.class);
     }
 }

@@ -1,6 +1,8 @@
 package com.saludsystem.catalogo.application.services.impl;
 
-import com.saludsystem.catalogo.application.dtos.res.ConsentimientoRequest;
+import com.saludsystem.catalogo.application.dtos.get.ConsentimientoDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearConsentimientoDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarConsentimientoDTO;
 import com.saludsystem.catalogo.application.services.ConsentimientoService;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.domain.model.ConsentimientoEntity;
@@ -17,29 +19,29 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ConsentimientoServiceImpl extends GenericServiceImpl<ConsentimientoEntity, com.saludsystem.catalogo.application.dtos.req.ConsentimientoRequest,
-        ConsentimientoRequest, UUID> implements ConsentimientoService {
+public class ConsentimientoServiceImpl extends GenericServiceImpl<ConsentimientoEntity, ConsentimientoDTO,
+        CrearConsentimientoDTO, ActualizarConsentimientoDTO, UUID> implements ConsentimientoService {
 
     protected ConsentimientoServiceImpl(
             ConsentimientoRepository consentimientoRepository,
             ModelMapper modelMapper, AuthValidator authValidator) {
-        super(consentimientoRepository, modelMapper, authValidator, ConsentimientoRequest.class);
+        super(consentimientoRepository, modelMapper, authValidator, ConsentimientoDTO.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(com.saludsystem.catalogo.application.dtos.req.ConsentimientoRequest consentimientoRequest) {
-        return super.save(consentimientoRequest);
+    public ApiResponse save(CrearConsentimientoDTO consentimientoDTO) {
+        return super.save(consentimientoDTO);
     }
 
     @Override
-    public ListResponse<ConsentimientoRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<ConsentimientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, com.saludsystem.catalogo.application.dtos.req.ConsentimientoRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarConsentimientoDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
@@ -50,27 +52,27 @@ public class ConsentimientoServiceImpl extends GenericServiceImpl<Consentimiento
     }
 
     @Override
-    public ConsentimientoRequest getById(UUID uuid) {
+    public ConsentimientoDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<ConsentimientoRequest> getList() {
+    public List<ConsentimientoDTO> getList() {
         return super.getList();
     }
 
     @Override
-    protected ConsentimientoEntity convertCreateDtoToEntity(com.saludsystem.catalogo.application.dtos.req.ConsentimientoRequest consentimientoRequest) {
+    protected ConsentimientoEntity convertCreateDtoToEntity(CrearConsentimientoDTO consentimientoDTO) {
         ConsentimientoEntity entity = new ConsentimientoEntity();
-        entity.setNombre(consentimientoRequest.getNombre());
-        entity.setObservacion(consentimientoRequest.getObservacion());
-        entity.setTexto(consentimientoRequest.getTexto());
-        entity.setEstado(consentimientoRequest.getEstado());
+        entity.setNombre(consentimientoDTO.getNombre());
+        entity.setObservacion(consentimientoDTO.getObservacion());
+        entity.setTexto(consentimientoDTO.getTexto());
+        entity.setEstado(consentimientoDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(ConsentimientoEntity entity, com.saludsystem.catalogo.application.dtos.req.ConsentimientoRequest dto) {
+    protected void updateEntityFromDto(ConsentimientoEntity entity, ActualizarConsentimientoDTO dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getObservacion()).ifPresent(entity::setObservacion);
         Optional.ofNullable(dto.getTexto()).ifPresent(entity::setTexto);

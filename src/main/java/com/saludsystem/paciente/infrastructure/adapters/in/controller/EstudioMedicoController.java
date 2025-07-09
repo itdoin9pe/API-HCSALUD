@@ -1,8 +1,8 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller;
 
-import com.saludsystem.paciente.application.dto.res.EstudioMedicoResponse;
-import com.saludsystem.paciente.application.dto.req.EstudioMedicoRequest;
-import com.saludsystem.paciente.application.dto.base.ActualizarEstudioMedicoDTO;
+import com.saludsystem.paciente.application.dto.get.EstudioMedicoDTO;
+import com.saludsystem.paciente.application.dto.post.CrearEstudioMedicoDTO;
+import com.saludsystem.paciente.application.dto.put.ActualizarEstudioMedicoDTO;
 import com.saludsystem.paciente.application.service.EstudioMedicoService;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.EstudioMedicoListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
@@ -28,8 +28,8 @@ public class EstudioMedicoController {
     }
 
     @PostMapping("/SavePacienteEstudioMedico")
-    public ApiResponse stored(@Valid @RequestBody EstudioMedicoRequest estudioMedicoRequest) {
-        return estudioMedicoService.saveEstudioMedico(estudioMedicoRequest);
+    public ApiResponse stored(@Valid @RequestBody CrearEstudioMedicoDTO crearEstudioMedicoDTO) {
+        return estudioMedicoService.saveEstudioMedico(crearEstudioMedicoDTO);
     }
 
     @GetMapping("/GetAllPacienteEstudioMedico")
@@ -38,14 +38,14 @@ public class EstudioMedicoController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = EstudioMedicoListResponse.class)))
     })
-    public ListResponse<EstudioMedicoResponse> getAllPage(
+    public ListResponse<EstudioMedicoDTO> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return estudioMedicoService.getAllEstudioMedico(hospitalId, page, rows);
     }
 
     @GetMapping("/GetPacienteEstudioMedico/{pacienteEstudioMedicoId}")
-    public EstudioMedicoResponse getById(@PathVariable Long pacienteEstudioMedicoId) {
+    public EstudioMedicoDTO getById(@PathVariable Long pacienteEstudioMedicoId) {
         return estudioMedicoService.getEstudioMedicoById(pacienteEstudioMedicoId);
     }
 

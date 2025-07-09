@@ -1,8 +1,8 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller.evolucion;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.NotaResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.NotaRequest;
-import com.saludsystem.paciente.application.dto.base.evolucion.ActualizarNotaDTO;
+import com.saludsystem.paciente.application.dto.get.historialclinico.evolucion.NotaDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.evolucion.CrearNotaDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.evolucion.ActualizarNotaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.NotaService;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.Evolucion.NotaListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
@@ -28,8 +28,8 @@ public class NotaController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse stored(@Valid @RequestBody NotaRequest notaRequest) {
-        return notaService.saveNota(notaRequest);
+    public ApiResponse stored(@Valid @RequestBody CrearNotaDTO crearNotaDTO) {
+        return notaService.saveNota(crearNotaDTO);
     }
 
     @GetMapping("/GetAll")
@@ -38,14 +38,14 @@ public class NotaController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = NotaListResponse.class)))
     })
-    public ListResponse<NotaResponse> getAllPage(
+    public ListResponse<NotaDTO> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return notaService.getAllNota(hospitalId, page, rows);
     }
 
     @GetMapping("/GetById/{Id}")
-    public NotaResponse getById(@PathVariable Long pacienteEvolucionNotaId) {
+    public NotaDTO getById(@PathVariable Long pacienteEvolucionNotaId) {
         return notaService.getNotaById(pacienteEvolucionNotaId);
     }
 

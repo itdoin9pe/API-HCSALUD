@@ -18,16 +18,16 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public abstract class GenericServiceImpl<E extends BaseEntity, REQ, RES, ID>
-        implements GenericService<REQ, RES, ID> {
+public abstract class GenericServiceImpl<E extends BaseEntity, R, C, U,ID>
+        implements GenericService<R, C, U, ID> {
 
     protected final GenericRepository<E> genericRepository;
     protected final ModelMapper modelMapper;
     protected final AuthValidator authValidator;
-    protected final Class<RES> dtoClass;
-    protected Function<E, RES> toDtoConverter;
+    protected final Class<R> dtoClass;
+    protected Function<E, R> toDtoConverter;
 
-    protected GenericServiceImpl(GenericRepository<E> genericRepository, ModelMapper modelMapper, AuthValidator authValidator, Class<RES> dtoClass) {
+    protected GenericServiceImpl(GenericRepository<E> genericRepository, ModelMapper modelMapper, AuthValidator authValidator, Class<R> dtoClass) {
         this.genericRepository = genericRepository;
         this.modelMapper = modelMapper;
         this.authValidator = authValidator;
@@ -37,7 +37,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, REQ, RES, ID>
 
     @Transactional
     @Override
-    public ApiResponse save(REQ createDto) {
+    public ApiResponse save(C createDto) {
         UserEntity currentUser = authValidator.getCurrentUser();// Obtener usuario actual y validar acceso
         authValidator.validateAdminAccess(); // Opcional: hacer configurable
         E entity = convertCreateDtoToEntity(createDto); // Convertir DTO a entidad
@@ -49,7 +49,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, REQ, RES, ID>
     }
 
     // Método hook para lógica específica antes de guardar
-    protected void beforeSave(E entity, REQ dto) {
+    protected void beforeSave(E entity, C dto) {
         // Puede ser sobrescrito por implementaciones concretas
     }
 
@@ -59,14 +59,14 @@ public abstract class GenericServiceImpl<E extends BaseEntity, REQ, RES, ID>
     }
 
     @Override
-    public List<RES> getList() {
+    public List<R> getList() {
         return genericRepository.findAll().stream()
                 .map(toDtoConverter)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public RES getById(ID id) {
+    public R getById(ID id) {
         E entity = genericRepository.findById((UUID) id)
                 .orElseThrow(() -> new ResourceNotFoundException("Registro no encontrado"));
         return toDtoConverter.apply(entity);
@@ -74,7 +74,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, REQ, RES, ID>
 
     @Transactional
     @Override
-    public ApiResponse update(ID id, REQ updateDto) {
+    public ApiResponse update(ID id, U updateDto) {
         E entity = genericRepository.findById((UUID) id)
                 .orElseThrow(() -> new ResourceNotFoundException("Registro no encontrado"));
         updateEntityFromDto(entity, updateDto);
@@ -83,10 +83,10 @@ public abstract class GenericServiceImpl<E extends BaseEntity, REQ, RES, ID>
     }
 
     @Override
-    public ListResponse<RES> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<R> getAllPaginated(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<E> entityPage = genericRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<RES> data = entityPage.getContent().stream()
+        List<R> data = entityPage.getContent().stream()
                 .map(toDtoConverter)
                 .collect(Collectors.toList());
         return new ListResponse<>(
@@ -104,6 +104,6 @@ public abstract class GenericServiceImpl<E extends BaseEntity, REQ, RES, ID>
         return new ApiResponse(true, "Registro eliminado exitosamente");
     }
 
-    protected abstract E convertCreateDtoToEntity(REQ dto);
-    protected abstract void updateEntityFromDto(E entity, REQ dto);
+    protected abstract E convertCreateDtoToEntity(C dto);
+    protected abstract void updateEntityFromDto(E entity, U dto);
 }

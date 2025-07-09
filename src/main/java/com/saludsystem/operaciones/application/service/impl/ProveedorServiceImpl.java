@@ -1,7 +1,8 @@
 package com.saludsystem.operaciones.application.service.impl;
 
-import com.saludsystem.operaciones.application.dto.res.ProveedorResponse;
-import com.saludsystem.operaciones.application.dto.req.ProveedorRequest;
+import com.saludsystem.operaciones.application.dto.get.ProveedorDTO;
+import com.saludsystem.operaciones.application.dto.post.CrearProveedorDTO;
+import com.saludsystem.operaciones.application.dto.put.ActualizarProveedorDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.operaciones.application.service.ProveedorService;
 import com.saludsystem.operaciones.domain.model.ProveedorEntity;
@@ -18,38 +19,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ProveedorServiceImpl extends GenericServiceImpl<ProveedorEntity, ProveedorRequest, ProveedorResponse, UUID>
-        implements ProveedorService {
+public class ProveedorServiceImpl extends GenericServiceImpl<ProveedorEntity,ProveedorDTO, CrearProveedorDTO,
+        ActualizarProveedorDTO, UUID> implements ProveedorService {
 
     public ProveedorServiceImpl(
             ProveedorRepository proveedorRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(proveedorRepository, modelMapper, authValidator, ProveedorResponse.class);
+        super(proveedorRepository, modelMapper, authValidator, ProveedorDTO.class);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(ProveedorRequest proveedorRequest) {
-        return super.save(proveedorRequest);
+    public ApiResponse save(CrearProveedorDTO crearProveedorDTO) {
+        return super.save(crearProveedorDTO);
     }
 
     @Override
-    public ListResponse<ProveedorResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<ProveedorDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ProveedorRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarProveedorDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public ProveedorResponse getById(UUID uuid) {
+    public ProveedorDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<ProveedorResponse> getList() {
+    public List<ProveedorDTO> getList() {
         return super.getList();
     }
 
@@ -60,19 +61,19 @@ public class ProveedorServiceImpl extends GenericServiceImpl<ProveedorEntity, Pr
     }
 
     @Override
-    protected ProveedorEntity convertCreateDtoToEntity(ProveedorRequest proveedorRequest) {
+    protected ProveedorEntity convertCreateDtoToEntity(CrearProveedorDTO crearProveedorDTO) {
         ProveedorEntity entity = new ProveedorEntity();
-        entity.setNombre(proveedorRequest.getNombre());
-        entity.setContacto(proveedorRequest.getContacto());
-        entity.setCorreo(proveedorRequest.getCorreo());
-        entity.setDireccion(proveedorRequest.getDireccion());
-        entity.setRuc(proveedorRequest.getRuc());
-        entity.setTelefono(proveedorRequest.getTelefono());
+        entity.setNombre(crearProveedorDTO.getNombre());
+        entity.setContacto(crearProveedorDTO.getContacto());
+        entity.setCorreo(crearProveedorDTO.getCorreo());
+        entity.setDireccion(crearProveedorDTO.getDireccion());
+        entity.setRuc(crearProveedorDTO.getRuc());
+        entity.setTelefono(crearProveedorDTO.getTelefono());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(ProveedorEntity entity, ProveedorRequest dto) {
+    protected void updateEntityFromDto(ProveedorEntity entity, ActualizarProveedorDTO dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getContacto()).ifPresent(entity::setContacto);
         Optional.ofNullable(dto.getCorreo()).ifPresent(entity::setCorreo);

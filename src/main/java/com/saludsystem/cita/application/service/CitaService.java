@@ -1,13 +1,15 @@
 package com.saludsystem.cita.application.service;
 
-import com.saludsystem.cita.application.dto.res.CitaResponse;
-import com.saludsystem.cita.application.dto.req.CitaRequest;
+import com.saludsystem.cita.application.dto.post.CrearCitaDTO;
+import com.saludsystem.cita.application.dto.get.CitaDTO;
+import com.saludsystem.cita.application.dto.put.ActualizarCitaDTO;
 import com.saludsystem.shared.application.service.GenericService;
 
 import java.util.UUID;
 
 public interface CitaService extends GenericService<
-        CitaRequest,
-        CitaResponse,
+        CitaDTO,
+        CrearCitaDTO,
+        ActualizarCitaDTO,
         UUID> {
 }

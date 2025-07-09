@@ -1,7 +1,8 @@
 package com.saludsystem.mantenimiento.application.service.impl;
 
-import com.saludsystem.mantenimiento.application.dto.res.TipoPagoResponse;
-import com.saludsystem.mantenimiento.application.dto.req.TipoPagoRequest;
+import com.saludsystem.mantenimiento.application.dto.get.TipoPagoDTO;
+import com.saludsystem.mantenimiento.application.dto.post.CrearTipoPagoDTO;
+import com.saludsystem.mantenimiento.application.dto.put.ActualizarTipoPagoDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.mantenimiento.application.service.TipoPagoService;
 import com.saludsystem.mantenimiento.domain.model.TipoPagoEntity;
@@ -18,38 +19,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TipoPagoServiceImpl extends GenericServiceImpl<TipoPagoEntity, TipoPagoRequest, TipoPagoResponse, UUID>
-        implements TipoPagoService {
+public class TipoPagoServiceImpl extends GenericServiceImpl<TipoPagoEntity, TipoPagoDTO, CrearTipoPagoDTO,
+        ActualizarTipoPagoDTO, UUID> implements TipoPagoService {
 
     protected TipoPagoServiceImpl(
             TipoPagoRepository tipoPagoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(tipoPagoRepository, modelMapper, authValidator, TipoPagoResponse.class);
+        super(tipoPagoRepository, modelMapper, authValidator, TipoPagoDTO.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(TipoPagoRequest tipoPagoRequest) {
-        return super.save(tipoPagoRequest);
+    public ApiResponse save(CrearTipoPagoDTO crearTipoPagoDTO) {
+        return super.save(crearTipoPagoDTO);
     }
 
     @Override
-    public ListResponse<TipoPagoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<TipoPagoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, TipoPagoRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarTipoPagoDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public TipoPagoResponse getById(UUID uuid) {
+    public TipoPagoDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<TipoPagoResponse> getList() {
+    public List<TipoPagoDTO> getList() {
         return super.getList();
     }
 
@@ -60,16 +61,16 @@ public class TipoPagoServiceImpl extends GenericServiceImpl<TipoPagoEntity, Tipo
     }
 
     @Override
-    protected TipoPagoEntity convertCreateDtoToEntity(TipoPagoRequest tipoPagoRequest) {
+    protected TipoPagoEntity convertCreateDtoToEntity(CrearTipoPagoDTO crearTipoPagoDTO) {
         TipoPagoEntity entity = new TipoPagoEntity();
-        entity.setDescripcion(tipoPagoRequest.getDescripcion());
-        entity.setMetodoPago(tipoPagoRequest.getMetodoPago());
-        entity.setEstado(tipoPagoRequest.getEstado());
+        entity.setDescripcion(crearTipoPagoDTO.getDescripcion());
+        entity.setMetodoPago(crearTipoPagoDTO.getMetodoPago());
+        entity.setEstado(crearTipoPagoDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(TipoPagoEntity entity, TipoPagoRequest dto) {
+    protected void updateEntityFromDto(TipoPagoEntity entity, ActualizarTipoPagoDTO dto) {
         Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
         Optional.ofNullable(dto.getMetodoPago()).ifPresent(entity::setMetodoPago);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);

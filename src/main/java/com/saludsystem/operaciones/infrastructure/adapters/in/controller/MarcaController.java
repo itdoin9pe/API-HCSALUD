@@ -1,7 +1,8 @@
 package com.saludsystem.operaciones.infrastructure.adapters.in.controller;
 
-import com.saludsystem.operaciones.application.dto.res.MarcaResponse;
-import com.saludsystem.operaciones.application.dto.req.MarcaRequest;
+import com.saludsystem.operaciones.application.dto.get.MarcaDTO;
+import com.saludsystem.operaciones.application.dto.post.CrearMarcaDTO;
+import com.saludsystem.operaciones.application.dto.put.ActualizarMarcaDTO;
 import com.saludsystem.operaciones.infrastructure.adapters.in.response.MarcaListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,9 +18,9 @@ import java.util.UUID;
 @Tag(name = "MarcasMateriales")
 @RestController
 @RequestMapping("/api/MarcasMateriales")
-public class MarcaController extends GenericController<MarcaRequest, MarcaResponse, UUID> {
+public class MarcaController extends GenericController<MarcaDTO, CrearMarcaDTO, ActualizarMarcaDTO, UUID> {
 
-    protected MarcaController(GenericService<MarcaRequest, MarcaResponse, UUID> genericService) {
+    protected MarcaController(GenericService<MarcaDTO, CrearMarcaDTO, ActualizarMarcaDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -29,7 +30,7 @@ public class MarcaController extends GenericController<MarcaRequest, MarcaRespon
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = MarcaListResponse.class)))
     })
-    public ListResponse<MarcaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<MarcaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

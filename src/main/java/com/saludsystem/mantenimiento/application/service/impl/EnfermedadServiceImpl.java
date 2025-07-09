@@ -1,9 +1,9 @@
 package com.saludsystem.mantenimiento.application.service.impl;
 
 
-import com.saludsystem.mantenimiento.application.dto.res.EnfermedadDTO;
-import com.saludsystem.mantenimiento.application.dto.req.EnfermedadRequest;
-import com.saludsystem.mantenimiento.application.dto.res.EnfermedadResponse;
+import com.saludsystem.mantenimiento.application.dto.get.EnfermedadDTO;
+import com.saludsystem.mantenimiento.application.dto.post.CrearEnfermedadDTO;
+import com.saludsystem.mantenimiento.application.dto.put.ActualizarEnfermedadDTO;
 import com.saludsystem.configuracion.application.services.AuthService;
 import com.saludsystem.configuracion.application.services.RolePrefixResolver;
 import com.saludsystem.mantenimiento.application.service.EnfermedadService;
@@ -51,7 +51,7 @@ public class EnfermedadServiceImpl implements EnfermedadService {
     }
 
     @Override
-    public ApiResponse saveEnfermedad(EnfermedadRequest enfermedadRequest) {
+    public ApiResponse saveEnfermedad(CrearEnfermedadDTO crearEnfermedadDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email)
@@ -59,9 +59,8 @@ public class EnfermedadServiceImpl implements EnfermedadService {
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         EnfermedadEntity diagnosticoEntity = new EnfermedadEntity();
-        diagnosticoEntity.setEnfermedadId(enfermedadRequest.getEnfermedadId());
-        diagnosticoEntity.setDescripcion(enfermedadRequest.getDescripcion());
-        diagnosticoEntity.setEstado(enfermedadRequest.getEstado());
+        diagnosticoEntity.setDescripcion(crearEnfermedadDTO.getDescripcion());
+        diagnosticoEntity.setEstado(crearEnfermedadDTO.getEstado());
         diagnosticoEntity.setUser(userEntity);
         diagnosticoEntity.setHospital(hospital);
         enfermedadRepository.save(diagnosticoEntity);
@@ -82,11 +81,11 @@ public class EnfermedadServiceImpl implements EnfermedadService {
     }
 
     @Override
-    public ApiResponse updateEnfermedad(String enfermedadId, EnfermedadResponse enfermedadResponse) {
+    public ApiResponse updateEnfermedad(String enfermedadId, ActualizarEnfermedadDTO actualizarEnfermedadDTO) {
         EnfermedadEntity diagnosticoEntity = enfermedadRepository.findById(enfermedadId).orElseThrow( () -> new ResourceNotFoundException("Diagnostico no encontrado"));
-        Optional.ofNullable(enfermedadResponse.getEnfermedadId()).filter(desc -> !desc.isBlank()).ifPresent(diagnosticoEntity::setEnfermedadId);
-        Optional.ofNullable(enfermedadResponse.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(diagnosticoEntity::setDescripcion);
-        Optional.ofNullable(enfermedadResponse.getEstado()).ifPresent(diagnosticoEntity::setEstado);
+        Optional.ofNullable(actualizarEnfermedadDTO.getEnfermedadId()).filter(desc -> !desc.isBlank()).ifPresent(diagnosticoEntity::setEnfermedadId);
+        Optional.ofNullable(actualizarEnfermedadDTO.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(diagnosticoEntity::setDescripcion);
+        Optional.ofNullable(actualizarEnfermedadDTO.getEstado()).ifPresent(diagnosticoEntity::setEstado);
         enfermedadRepository.save(diagnosticoEntity);
         return new ApiResponse(true, "Diagnostico registrado correctamente");
     }

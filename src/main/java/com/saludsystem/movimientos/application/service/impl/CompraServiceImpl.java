@@ -1,9 +1,9 @@
 package com.saludsystem.application.services.Movimiento.impl;
 
 
-import com.saludsystem.movimientos.application.dto.res.CompraResponse;
-import com.saludsystem.movimientos.application.dto.res.CompraDetalleResponse;
-import com.saludsystem.movimientos.application.dto.req.CompraRequest;
+import com.saludsystem.movimientos.application.dto.post.CrearCompraDTO;
+import com.saludsystem.movimientos.application.dto.post.CrearCompraDetalleDTO;
+import com.saludsystem.movimientos.application.dto.get.CompraDTO;
 import com.saludsystem.movimientos.application.service.CompraService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.configuracion.domain.model.SysSaludEntity;
@@ -57,7 +57,7 @@ public class CompraServiceImpl implements CompraService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveCompra(CompraRequest compraRequest) {
+    public ApiResponse saveCompra(CompraDTO compraDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -66,19 +66,19 @@ public class CompraServiceImpl implements CompraService {
         }
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         CompraEntity compra = new CompraEntity();
-        compra.setFecha(compraRequest.getFecha());
-        compra.setTipoDocumento(compraRequest.getTipoDocumento());
-        compra.setNroDocumento(compraRequest.getNroDocumento());
-        compra.setProveedorEntity(proveedorRepository.findById(compraRequest.getProveedorId()).orElseThrow( () -> new ResourceNotFoundException("Proveedor no encontrado")));
-        compra.setTipoPagoEntity(tipoPagoRepository.findById(compraRequest.getTipoPagoId()).orElseThrow( () -> new ResourceNotFoundException("Tipo de pago no encontrado")));
-        compra.setAlmacenEntity(almacenRepository.findById(compraRequest.getAlmacenId()).orElseThrow( () -> new ResourceNotFoundException("Almacen no encontrado")));
-        compra.setEfectivo_total(compraRequest.getEfectivo());
-        compra.setGuiaRemision(compraRequest.getGuiaRemision());
-        compra.setObservacion(compraRequest.getObservacion());
-        compra.setEstado(compraRequest.getEstado());
+        compra.setFecha(compraDTO.getFecha());
+        compra.setTipoDocumento(compraDTO.getTipoDocumento());
+        compra.setNroDocumento(compraDTO.getNroDocumento());
+        compra.setProveedorEntity(proveedorRepository.findById(compraDTO.getProveedorId()).orElseThrow( () -> new ResourceNotFoundException("Proveedor no encontrado")));
+        compra.setTipoPagoEntity(tipoPagoRepository.findById(compraDTO.getTipoPagoId()).orElseThrow( () -> new ResourceNotFoundException("Tipo de pago no encontrado")));
+        compra.setAlmacenEntity(almacenRepository.findById(compraDTO.getAlmacenId()).orElseThrow( () -> new ResourceNotFoundException("Almacen no encontrado")));
+        compra.setEfectivo_total(compraDTO.getEfectivo());
+        compra.setGuiaRemision(compraDTO.getGuiaRemision());
+        compra.setObservacion(compraDTO.getObservacion());
+        compra.setEstado(compraDTO.getEstado());
         compra.setHospital(hospital);
         compra.setUser(userEntity);
-        List<CompraDetalleEntity> detalles = compraRequest.getDetalles().stream().map(det ->{
+        List<CompraDetalleEntity> detalles = compraDTO.getDetalles().stream().map(det ->{
             CompraDetalleEntity detalle = new CompraDetalleEntity();
             detalle.setProductoEntity(productoRepository.findById(det.getProductoId()).orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado")));
             detalle.setCantidad(det.getCantidad());
@@ -100,26 +100,26 @@ public class CompraServiceImpl implements CompraService {
     }
 
     @Override
-    public ListResponse<CompraResponse> getAllCompra(UUID hospitalId, int page, int rows) {
+    public ListResponse<CrearCompraDTO> getAllCompra(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<CompraEntity> compraEntityPage = compraRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<CompraResponse> data = compraEntityPage.getContent().stream().map(this::convertToDTOById).collect(Collectors.toList());
+        List<CrearCompraDTO> data = compraEntityPage.getContent().stream().map(this::convertToDTOById).collect(Collectors.toList());
         return new ListResponse<>(data, compraEntityPage.getTotalElements(), compraEntityPage.getTotalPages(), compraEntityPage.getNumber() + 1);
     }
 
     @Override
-    public CompraResponse getCompraById(UUID compraId) {
+    public CrearCompraDTO getCompraById(UUID compraId) {
         CompraEntity compraEntity = compraRepository.findById(compraId).orElseThrow(() -> new ResourceNotFoundException("Compra no encontrada"));
         return convertToDTOById(compraEntity);
     }
 
-    private CompraResponse convertToDTOById(CompraEntity compraEntity) {
-        return modelMapper.map(compraEntity, CompraResponse.class);
+    private CrearCompraDTO convertToDTOById(CompraEntity compraEntity) {
+        return modelMapper.map(compraEntity, CrearCompraDTO.class);
     }
 
-    private CompraDetalleResponse convertDetalleToDTO(CompraDetalleEntity detalleEntity) {
-        CompraDetalleResponse dto = new CompraDetalleResponse();
-        dto.setCompraDetalleId(detalleEntity.getCompraDetalleId());
+    private CrearCompraDetalleDTO convertDetalleToDTO(CompraDetalleEntity detalleEntity) {
+        CrearCompraDetalleDTO dto = new CrearCompraDetalleDTO();
+        //dto.setCompraDetalleId(detalleEntity.getCompraDetalleId());
         if (detalleEntity.getProductoEntity() != null) {
             dto.setProductoId(detalleEntity.getProductoEntity().getProductoId());
         }

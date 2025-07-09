@@ -1,7 +1,8 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller.estadocuenta;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.estadocuenta.CostoHospitalizacionResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.estadocuenta.CostoHospitalizacionRequest;
+import com.saludsystem.paciente.application.dto.get.historialclinico.estadocuenta.CostoHospitalizacionDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.estadocuenta.CrearCostoHospitalizacionDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.estadocuenta.ActualizarCostoHospitalizacionDTO;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.EstadoCuenta.CostoHospitalizacionListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,10 +18,11 @@ import java.util.UUID;
 @Tag(name = "PacientesEstadosCuentasCostosHospitalizaciones")
 @RestController
 @RequestMapping("/api/Pacientes/EstadosCuentas/CostosHospitalizaciones")
-public class CostoHospitalizacionController extends GenericController<CostoHospitalizacionRequest,
-        CostoHospitalizacionResponse, UUID> {
+public class CostoHospitalizacionController extends GenericController<CostoHospitalizacionDTO, CrearCostoHospitalizacionDTO,
+        ActualizarCostoHospitalizacionDTO, UUID> {
 
-    protected CostoHospitalizacionController(GenericService<CostoHospitalizacionRequest, CostoHospitalizacionResponse, UUID> genericService) {
+    protected CostoHospitalizacionController(GenericService<
+            CostoHospitalizacionDTO, CrearCostoHospitalizacionDTO, ActualizarCostoHospitalizacionDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -30,7 +32,7 @@ public class CostoHospitalizacionController extends GenericController<CostoHospi
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CostoHospitalizacionListResponse.class)))
     })
-    public ListResponse<CostoHospitalizacionResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<CostoHospitalizacionDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

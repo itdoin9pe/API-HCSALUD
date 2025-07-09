@@ -1,13 +1,15 @@
 package com.saludsystem.operaciones.application.service;
 
-import com.saludsystem.operaciones.application.dto.res.ProveedorResponse;
-import com.saludsystem.operaciones.application.dto.req.ProveedorRequest;
+import com.saludsystem.operaciones.application.dto.get.ProveedorDTO;
+import com.saludsystem.operaciones.application.dto.post.CrearProveedorDTO;
+import com.saludsystem.operaciones.application.dto.put.ActualizarProveedorDTO;
 import com.saludsystem.shared.application.service.GenericService;
 
 import java.util.UUID;
 
 public interface ProveedorService extends GenericService<
-        ProveedorRequest,
-        ProveedorResponse,
+        ProveedorDTO,
+        CrearProveedorDTO,
+        ActualizarProveedorDTO,
         UUID> {
 }

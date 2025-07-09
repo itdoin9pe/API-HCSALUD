@@ -1,6 +1,8 @@
 package com.saludsystem.catalogo.application.services.impl;
 
-import com.saludsystem.catalogo.application.dtos.res.CategoriaRequest;
+import com.saludsystem.catalogo.application.dtos.get.CategoriaDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearCategoriaDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarCategoriaDTO;
 import com.saludsystem.catalogo.application.services.CategoriaService;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.domain.model.CategoriaEntity;
@@ -17,27 +19,27 @@ import java.util.UUID;
 
 @Service
 public class CategoriaServiceImpl extends GenericServiceImpl<CategoriaEntity,
-        com.saludsystem.catalogo.application.dtos.req.CategoriaRequest, CategoriaRequest, UUID> implements CategoriaService {
+        CategoriaDTO, CrearCategoriaDTO, ActualizarCategoriaDTO, UUID> implements CategoriaService {
 
     public CategoriaServiceImpl(CategoriaRepository categoriaRepository, ModelMapper modelMapper,
                                 AuthValidator authValidator) {
-        super(categoriaRepository, modelMapper, authValidator, CategoriaRequest.class);
+        super(categoriaRepository, modelMapper, authValidator, CategoriaDTO.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(com.saludsystem.catalogo.application.dtos.req.CategoriaRequest dto) {
+    public ApiResponse save(CrearCategoriaDTO dto) {
         return save(dto);
     }
 
     @Override
-    public ListResponse<CategoriaRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<CategoriaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, com.saludsystem.catalogo.application.dtos.req.CategoriaRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarCategoriaDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
@@ -48,20 +50,20 @@ public class CategoriaServiceImpl extends GenericServiceImpl<CategoriaEntity,
     }
 
     @Override
-    public CategoriaRequest getById(UUID id) {
+    public CategoriaDTO getById(UUID id) {
         return super.getById(id);
     }
 
     @Override
-    protected CategoriaEntity convertCreateDtoToEntity(com.saludsystem.catalogo.application.dtos.req.CategoriaRequest categoriaRequest) {
+    protected CategoriaEntity convertCreateDtoToEntity(CrearCategoriaDTO categoriaDTO) {
         CategoriaEntity entity = new CategoriaEntity();
-        entity.setNombre(categoriaRequest.getNombre());
-        entity.setEstado(categoriaRequest.getEstado());
+        entity.setNombre(categoriaDTO.getNombre());
+        entity.setEstado(categoriaDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(CategoriaEntity entity, com.saludsystem.catalogo.application.dtos.req.CategoriaRequest dto) {
+    protected void updateEntityFromDto(CategoriaEntity entity, ActualizarCategoriaDTO dto) {
         Optional.ofNullable(dto.getNombre()).filter(desc -> !desc.isBlank()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }

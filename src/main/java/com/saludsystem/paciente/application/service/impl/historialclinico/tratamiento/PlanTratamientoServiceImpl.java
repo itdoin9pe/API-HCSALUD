@@ -1,7 +1,8 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico.tratamiento;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.tratamiento.PlanTratamientoResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.tratamiento.PlanTratamientoRequest;
+import com.saludsystem.paciente.application.dto.get.historialclinico.tratamiento.PlanTratamientoDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.tratamiento.CrearPlanTratamientoDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.tratamiento.ActualizarPlanTratamientoDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.tratamiento.PlanTratamientoService;
 import com.saludsystem.paciente.domain.model.Tratamiento.PlanTratamientoEntity;
@@ -22,8 +23,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamientoEntity, PlanTratamientoRequest,
-        PlanTratamientoResponse, UUID> implements PlanTratamientoService {
+public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamientoEntity, PlanTratamientoDTO,
+        CrearPlanTratamientoDTO, ActualizarPlanTratamientoDTO, UUID> implements PlanTratamientoService {
 
     private final PacienteRepository pacienteRepository;
     private final EspecialidadRepository especialidadRepository;
@@ -34,7 +35,7 @@ public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamien
             PlanTratamientoRepository planTratamientoRepository, ModelMapper modelMapper, AuthValidator authValidator,
             PacienteRepository pacienteRepository, EspecialidadRepository especialidadRepository,
             DoctorRepository doctorRepository, MedidaRepository medidaRepository) {
-        super(planTratamientoRepository, modelMapper, authValidator, PlanTratamientoResponse.class
+        super(planTratamientoRepository, modelMapper, authValidator, PlanTratamientoDTO.class
         );
         this.pacienteRepository = pacienteRepository;
         this.especialidadRepository = especialidadRepository;
@@ -43,19 +44,19 @@ public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamien
     }
 
     @Override
-    protected PlanTratamientoEntity convertCreateDtoToEntity(PlanTratamientoRequest planTratamientoRequest) {
+    protected PlanTratamientoEntity convertCreateDtoToEntity(CrearPlanTratamientoDTO crearPlanTratamientoDTO) {
         PlanTratamientoEntity entity = new PlanTratamientoEntity();
-        pacienteRepository.findById(planTratamientoRequest.getPacienteId()).ifPresent(entity::setPacienteEntity);
-        doctorRepository.findById(planTratamientoRequest.getDoctorId()).ifPresent(entity::setDoctorEntity);
-        especialidadRepository.findById(planTratamientoRequest.getEspecialidadId()).ifPresent(entity::setEspecialidadEntity);
-        medidaRepository.findById(planTratamientoRequest.getMedidaId()).ifPresent(entity::setMedidaEntity);
-        entity.setFechaInicio(planTratamientoRequest.getFechaInicio());
-        entity.setFechaFin(planTratamientoRequest.getFechaFin());
+        pacienteRepository.findById(crearPlanTratamientoDTO.getPacienteId()).ifPresent(entity::setPacienteEntity);
+        doctorRepository.findById(crearPlanTratamientoDTO.getDoctorId()).ifPresent(entity::setDoctorEntity);
+        especialidadRepository.findById(crearPlanTratamientoDTO.getEspecialidadId()).ifPresent(entity::setEspecialidadEntity);
+        medidaRepository.findById(crearPlanTratamientoDTO.getMedidaId()).ifPresent(entity::setMedidaEntity);
+        entity.setFechaInicio(crearPlanTratamientoDTO.getFechaInicio());
+        entity.setFechaFin(crearPlanTratamientoDTO.getFechaFin());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(PlanTratamientoEntity entity, PlanTratamientoRequest dto) {
+    protected void updateEntityFromDto(PlanTratamientoEntity entity, ActualizarPlanTratamientoDTO dto) {
         Optional.ofNullable(dto.getPacienteId())
                 .flatMap(pacienteRepository::findById)
                 .ifPresent(entity::setPacienteEntity);
@@ -74,28 +75,28 @@ public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamien
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(PlanTratamientoRequest planTratamientoRequest) {
-        return super.save(planTratamientoRequest);
+    public ApiResponse save(CrearPlanTratamientoDTO crearPlanTratamientoDTO) {
+        return super.save(crearPlanTratamientoDTO);
     }
 
     @Override
-    public ListResponse<PlanTratamientoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<PlanTratamientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, PlanTratamientoRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarPlanTratamientoDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public PlanTratamientoResponse getById(UUID uuid) {
+    public PlanTratamientoDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<PlanTratamientoResponse> getList() {
+    public List<PlanTratamientoDTO> getList() {
         return super.getList();
     }
 

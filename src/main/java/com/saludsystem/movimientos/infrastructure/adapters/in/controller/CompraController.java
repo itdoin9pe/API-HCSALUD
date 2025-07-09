@@ -1,7 +1,7 @@
 package com.saludsystem.movimientos.infrastructure.adapters.in.controller;
 
-import com.saludsystem.movimientos.application.dto.res.CompraResponse;
-import com.saludsystem.movimientos.application.dto.req.CompraRequest;
+import com.saludsystem.movimientos.application.dto.post.CrearCompraDTO;
+import com.saludsystem.movimientos.application.dto.get.CompraDTO;
 import com.saludsystem.movimientos.application.service.CompraService;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -27,8 +27,8 @@ public class CompraController {
     }
 
     @PostMapping("/SaveCompra")
-    public ApiResponse store(@Valid @RequestBody CompraRequest compraRequest) {
-        return compraService.saveCompra(compraRequest);
+    public ApiResponse store(@Valid @RequestBody CompraDTO compraDTO) {
+        return compraService.saveCompra(compraDTO);
     }
 
     @GetMapping("/GetAllCompra")
@@ -37,7 +37,7 @@ public class CompraController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = VentaListResponse.class)))
     })
-    public ListResponse<CompraResponse> getAllPage(
+    public ListResponse<CrearCompraDTO> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows) {
@@ -45,7 +45,7 @@ public class CompraController {
     }
 
     @GetMapping("/GetCompra/{compraId}")
-    public CompraResponse getById(@PathVariable UUID compraId) {
+    public CrearCompraDTO getById(@PathVariable UUID compraId) {
         return compraService.getCompraById(compraId);
     }
 

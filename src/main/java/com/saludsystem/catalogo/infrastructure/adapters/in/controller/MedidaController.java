@@ -1,6 +1,8 @@
 package com.saludsystem.catalogo.infrastructure.adapters.in.controller;
 
-import com.saludsystem.catalogo.application.dtos.res.MedidaRequest;
+import com.saludsystem.catalogo.application.dtos.get.MedidaDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearMedidaDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarMedidaDTO;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -16,9 +18,10 @@ import java.util.UUID;
 @Tag(name = "Medidas")
 @RestController
 @RequestMapping("/api/Medidas")
-public class MedidaController extends GenericController<com.saludsystem.catalogo.application.dtos.req.MedidaRequest, MedidaRequest, UUID> {
+public class MedidaController extends GenericController<MedidaDTO, CrearMedidaDTO, ActualizarMedidaDTO, UUID> {
 
-    protected MedidaController(GenericService<com.saludsystem.catalogo.application.dtos.req.MedidaRequest, MedidaRequest, UUID> genericService) {
+    protected MedidaController(
+            GenericService<MedidaDTO, CrearMedidaDTO, ActualizarMedidaDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -28,7 +31,7 @@ public class MedidaController extends GenericController<com.saludsystem.catalogo
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = MedidaListResponse.class)))
     })
-    public ListResponse<MedidaRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<MedidaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

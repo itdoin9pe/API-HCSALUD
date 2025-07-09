@@ -1,8 +1,8 @@
 package com.saludsystem.configuracion.infrastructure.adapters.in.controller;
 
-import com.saludsystem.configuracion.application.dto.res.UsuarioResponse;
-import com.saludsystem.configuracion.application.dto.req.NewUserDto;
-import com.saludsystem.configuracion.application.dto.res.ActualizarUsuarioDTO;
+import com.saludsystem.configuracion.application.dto.get.UsuarioDTO;
+import com.saludsystem.configuracion.application.dto.post.NewUserDto;
+import com.saludsystem.configuracion.application.dto.put.ActualizarUsuarioDTO;
 import com.saludsystem.configuracion.application.services.UsuarioService;
 import com.saludsystem.configuracion.domain.model.UserEntity;
 import com.saludsystem.configuracion.infrastructure.adapters.in.response.UsuarioListResponse;
@@ -48,7 +48,7 @@ public class UserController {
                                    schema = @Schema(implementation =
                                                         UsuarioListResponse.class)))
                 })
-  public ListResponse<UsuarioResponse>
+  public ListResponse<UsuarioDTO>
   getAllUsuario(@RequestParam(name = "hospitalId", required = true)
                 UUID hospitalId, @RequestParam(name = "Page") int page,
                 @RequestParam(name = "Rows") int rows) {

@@ -1,8 +1,8 @@
 package com.saludsystem.paciente.application.service.impl;
 
-import com.saludsystem.paciente.application.dto.res.PacienteResponse;
-import com.saludsystem.paciente.application.dto.req.PacienteRequest;
-import com.saludsystem.paciente.application.dto.base.ActualizarPacienteDTO;
+import com.saludsystem.paciente.application.dto.get.PacienteDTO;
+import com.saludsystem.paciente.application.dto.post.CrearPacienteDTO;
+import com.saludsystem.paciente.application.dto.put.ActualizarPacienteDTO;
 import com.saludsystem.paciente.application.service.PacienteService;
 import com.saludsystem.configuracion.domain.model.SedeEntity;
 import com.saludsystem.configuracion.domain.model.SysSaludEntity;
@@ -61,7 +61,7 @@ public class PacienteServiceImpl implements PacienteService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public PacienteEntity savePaciente(PacienteRequest pacienteRequest) {
+    public PacienteEntity savePaciente(CrearPacienteDTO crearPacienteDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -72,39 +72,39 @@ public class PacienteServiceImpl implements PacienteService {
             throw new RuntimeException("No tienes permisos para realizar esta acción");
         }
         PacienteEntity paciente = new PacienteEntity();
-        paciente.setTipoDocumentoId(pacienteRequest.getTipoDocumentoId());
-        paciente.setNumeroDocumento(pacienteRequest.getNumeroDocumento());
-        paciente.setApellidos(pacienteRequest.getApellidos());
-        paciente.setNombres(pacienteRequest.getNombres());
-        paciente.setFechaNacimiento(pacienteRequest.getFechaNacimiento());
-        paciente.setEdad(pacienteRequest.getEdad());
-        paciente.setEstado(pacienteRequest.getEstado());
-        paciente.setOcupacion(pacienteRequest.getOcupacion());
-        paciente.setDireccion(pacienteRequest.getDireccion());
-        Optional<PaisEntity> pais = paisRepository.findById(pacienteRequest.getPaisId());
+        paciente.setTipoDocumentoId(crearPacienteDTO.getTipoDocumentoId());
+        paciente.setNumeroDocumento(crearPacienteDTO.getNumeroDocumento());
+        paciente.setApellidos(crearPacienteDTO.getApellidos());
+        paciente.setNombres(crearPacienteDTO.getNombres());
+        paciente.setFechaNacimiento(crearPacienteDTO.getFechaNacimiento());
+        paciente.setEdad(crearPacienteDTO.getEdad());
+        paciente.setEstado(crearPacienteDTO.getEstado());
+        paciente.setOcupacion(crearPacienteDTO.getOcupacion());
+        paciente.setDireccion(crearPacienteDTO.getDireccion());
+        Optional<PaisEntity> pais = paisRepository.findById(crearPacienteDTO.getPaisId());
         pais.ifPresent(paciente::setPaisId);
-        paciente.setUbigeo(pacienteRequest.getUbigeo());
-        Optional<TipoPacienteEntity> tipoPaciente = tipoPacienteRepository.findById(pacienteRequest.getTipoPacienteId());
+        paciente.setUbigeo(crearPacienteDTO.getUbigeo());
+        Optional<TipoPacienteEntity> tipoPaciente = tipoPacienteRepository.findById(crearPacienteDTO.getTipoPacienteId());
         tipoPaciente.ifPresent(paciente::setTipoPacienteId);
-        paciente.setEstadoCivil(pacienteRequest.getEstadoCivil());
-        paciente.setSexo(pacienteRequest.getSexo());
-        paciente.setNombreContacto(pacienteRequest.getNombreContacto());
-        paciente.setTipoHistoria(pacienteRequest.getTipoHistoria());
-        Optional<AseguradoraEntity> aseguradora = aseguradoraRepository.findById(pacienteRequest.getAseguradoraId());
+        paciente.setEstadoCivil(crearPacienteDTO.getEstadoCivil());
+        paciente.setSexo(crearPacienteDTO.getSexo());
+        paciente.setNombreContacto(crearPacienteDTO.getNombreContacto());
+        paciente.setTipoHistoria(crearPacienteDTO.getTipoHistoria());
+        Optional<AseguradoraEntity> aseguradora = aseguradoraRepository.findById(crearPacienteDTO.getAseguradoraId());
         aseguradora.ifPresent(paciente::setAseguradoraId);
-        Optional<EmpresaEntity> empresa = empresaRepository.findById(pacienteRequest.getEmpresaId());
+        Optional<EmpresaEntity> empresa = empresaRepository.findById(crearPacienteDTO.getEmpresaId());
         empresa.ifPresent(paciente::setEmpresaId);
-        paciente.setEmail(pacienteRequest.getEmail());
-        paciente.setFotoPaciente(pacienteRequest.getFotoPaciente());
-        paciente.setTitulo(pacienteRequest.getTitulo());
-        paciente.setObservacion(pacienteRequest.getObservacion());
-        Optional<InformacionClinicaEntity> informacionClinica = informacionClinicaRepository.findById(pacienteRequest.getInformacionClinicaId());
+        paciente.setEmail(crearPacienteDTO.getEmail());
+        paciente.setFotoPaciente(crearPacienteDTO.getFotoPaciente());
+        paciente.setTitulo(crearPacienteDTO.getTitulo());
+        paciente.setObservacion(crearPacienteDTO.getObservacion());
+        Optional<InformacionClinicaEntity> informacionClinica = informacionClinicaRepository.findById(crearPacienteDTO.getInformacionClinicaId());
         informacionClinica.ifPresent(paciente::setInformacionClinicaId);
-        Optional<EstudioEntity> estudio = estudioRepository.findById(pacienteRequest.getEstudioId());
+        Optional<EstudioEntity> estudio = estudioRepository.findById(crearPacienteDTO.getEstudioId());
         estudio.ifPresent(paciente::setEstudioId);
-        Optional<SedeEntity> sede = sedeRepository.findById(pacienteRequest.getSedeId());
+        Optional<SedeEntity> sede = sedeRepository.findById(crearPacienteDTO.getSedeId());
         sede.ifPresent(paciente::setSedeId);
-        paciente.setCelular(pacienteRequest.getCelular());
+        paciente.setCelular(crearPacienteDTO.getCelular());
         paciente.setHospital(hospital);
         paciente.setUser(user);
         return pacienteRepository.save(paciente);
@@ -144,21 +144,21 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
-    public Optional<PacienteResponse> getPacienteById(UUID pacienteId) {
+    public Optional<PacienteDTO> getPacienteById(UUID pacienteId) {
         return Optional.ofNullable(pacienteRepository.findById(pacienteId).map(this::convertToDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("Paciente no encontrado")));
     }
 
     @Override
-    public List<PacienteResponse> getPacienteList() {
+    public List<PacienteDTO> getPacienteList() {
         return pacienteRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public ListResponse<PacienteResponse> getAllPaciente(UUID hospitalId, int page, int rows) {
+    public ListResponse<PacienteDTO> getAllPaciente(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<PacienteEntity> pacienteModelPage = pacienteRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<PacienteResponse> data = pacienteModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<PacienteDTO> data = pacienteModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data, pacienteModelPage.getTotalElements(), pacienteModelPage.getTotalPages(), pacienteModelPage.getNumber() + 1);
     }
 
@@ -168,8 +168,8 @@ public class PacienteServiceImpl implements PacienteService {
         return new ApiResponse(true, "Paciente eliminado correctamente");
     }
 
-    private PacienteResponse convertToDTO(PacienteEntity paciente) {
-        return modelMapper.map(paciente, PacienteResponse.class);
+    private PacienteDTO convertToDTO(PacienteEntity paciente) {
+        return modelMapper.map(paciente, PacienteDTO.class);
     }
 
 }

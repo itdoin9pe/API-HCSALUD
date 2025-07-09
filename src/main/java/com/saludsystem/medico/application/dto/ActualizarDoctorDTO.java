@@ -1,14 +1,16 @@
 package com.saludsystem.medico.application.dto;
 
+import com.saludsystem.shared.application.dto.BaseDTO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = false)
 @Data
-public class ActualizarDoctorDTO {
+public class ActualizarDoctorDTO extends BaseDTO {
 
-    private UUID hospitalId;
-    private UUID userId;
     private UUID pacienteId;
     private String tipoDocumento;
     private String numeroDocumento;

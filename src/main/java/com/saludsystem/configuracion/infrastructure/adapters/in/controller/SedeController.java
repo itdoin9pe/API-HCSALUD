@@ -1,7 +1,8 @@
 package com.saludsystem.configuracion.infrastructure.adapters.in.controller;
 
-import com.saludsystem.configuracion.application.dto.res.SedeResponse;
-import com.saludsystem.configuracion.application.dto.req.SedeRequest;
+import com.saludsystem.configuracion.application.dto.get.SedeDTO;
+import com.saludsystem.configuracion.application.dto.post.CrearSedeDTO;
+import com.saludsystem.configuracion.application.dto.put.ActualizarSedeDTO;
 import com.saludsystem.configuracion.infrastructure.adapters.in.response.SedeListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,9 +18,9 @@ import java.util.UUID;
 @Tag(name = "Sedes")
 @RestController
 @RequestMapping("/api/Sedes")
-public class SedeController extends GenericController<SedeRequest, SedeResponse, UUID> {
+public class SedeController extends GenericController<SedeDTO, CrearSedeDTO, ActualizarSedeDTO, UUID> {
 
-    protected SedeController(GenericService<SedeRequest, SedeResponse, UUID> genericService) {
+    protected SedeController(GenericService<SedeDTO, CrearSedeDTO, ActualizarSedeDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -29,7 +30,7 @@ public class SedeController extends GenericController<SedeRequest, SedeResponse,
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = SedeListResponse.class)))
     })
-    public ListResponse<SedeResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<SedeDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

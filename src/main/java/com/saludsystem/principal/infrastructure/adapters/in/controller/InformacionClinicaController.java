@@ -1,7 +1,8 @@
 package com.saludsystem.principal.infrastructure.adapters.in.controller;
 
-import com.saludsystem.principal.application.dto.req.InformacionClinicaRequest;
-import com.saludsystem.principal.application.dto.res.InformacionClinicaResponse;
+import com.saludsystem.principal.application.dto.post.CrearInformacionClinicaDTO;
+import com.saludsystem.principal.application.dto.get.InformacionClinicaDTO;
+import com.saludsystem.principal.application.dto.put.ActualizarInformacionClinicaDTO;
 import com.saludsystem.principal.infrastructure.adapters.in.response.InformacionClinicaListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,10 +18,11 @@ import java.util.UUID;
 @Tag(name = "InformacionClinicas")
 @RestController
 @RequestMapping("/api/InformacionClinicas")
-public class InformacionClinicaController extends GenericController<InformacionClinicaRequest,
-        InformacionClinicaResponse, UUID> {
+public class InformacionClinicaController extends GenericController<InformacionClinicaDTO, CrearInformacionClinicaDTO,
+        ActualizarInformacionClinicaDTO, UUID> {
 
-    protected InformacionClinicaController(GenericService<InformacionClinicaRequest, InformacionClinicaResponse, UUID> genericService) {
+    protected InformacionClinicaController(GenericService<
+            InformacionClinicaDTO, CrearInformacionClinicaDTO, ActualizarInformacionClinicaDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -30,7 +32,7 @@ public class InformacionClinicaController extends GenericController<InformacionC
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = InformacionClinicaListResponse.class)))
     })
-    public ListResponse<InformacionClinicaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<InformacionClinicaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

@@ -1,7 +1,8 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller.tratamiento;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.tratamiento.ProcedimientoResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.tratamiento.ProcedimientoRequest;
+import com.saludsystem.paciente.application.dto.get.historialclinico.tratamiento.ProcedimientoDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.tratamiento.CrearProcedimientoDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.tratamiento.ActualizarProcedimientoDTO;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.Tratamiento.ProcedimientoListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,9 +18,11 @@ import java.util.UUID;
 @Tag(name = "PacientesProcedimientos")
 @RestController
 @RequestMapping("/api/Pacientes/Procedimientos")
-public class ProcedimientoController extends GenericController<ProcedimientoRequest, ProcedimientoResponse, UUID> {
+public class ProcedimientoController extends GenericController<ProcedimientoDTO, CrearProcedimientoDTO,
+        ActualizarProcedimientoDTO, UUID> {
 
-    protected ProcedimientoController(GenericService<ProcedimientoRequest, ProcedimientoResponse, UUID> genericService) {
+    protected ProcedimientoController(GenericService<
+            ProcedimientoDTO, CrearProcedimientoDTO, ActualizarProcedimientoDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -29,7 +32,7 @@ public class ProcedimientoController extends GenericController<ProcedimientoRequ
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProcedimientoListResponse.class)))
     })
-    public ListResponse<ProcedimientoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<ProcedimientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

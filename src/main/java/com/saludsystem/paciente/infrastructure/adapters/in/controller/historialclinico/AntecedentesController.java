@@ -1,7 +1,8 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller.historialclinico;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.AntecedenteResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.AntecedenteRequest;
+import com.saludsystem.paciente.application.dto.get.historialclinico.AntecedenteDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.CrearAntecedenteDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.ActualizarAntecedenteDTO;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.HistorialClinico.AntecedenteListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -16,9 +17,11 @@ import java.util.UUID;
 @Tag(name = "PacientesEnfermedadesActuales")
 @RestController
 @RequestMapping("/api/Pacientes/EnfermedadesActuales")
-public class AntecedentesController extends GenericController<AntecedenteRequest, AntecedenteResponse, UUID> {
+public class AntecedentesController extends GenericController<AntecedenteDTO, CrearAntecedenteDTO,
+        ActualizarAntecedenteDTO, UUID> {
 
-    protected AntecedentesController(GenericService<AntecedenteRequest, AntecedenteResponse, UUID> genericService) {
+    protected AntecedentesController(
+            GenericService<AntecedenteDTO, CrearAntecedenteDTO, ActualizarAntecedenteDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -28,7 +31,7 @@ public class AntecedentesController extends GenericController<AntecedenteRequest
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = AntecedenteListResponse.class)))
     })
-    public ListResponse<AntecedenteResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<AntecedenteDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

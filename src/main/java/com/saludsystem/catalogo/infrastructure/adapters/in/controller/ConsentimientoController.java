@@ -1,6 +1,8 @@
 package com.saludsystem.catalogo.infrastructure.adapters.in.controller;
 
-import com.saludsystem.catalogo.application.dtos.res.ConsentimientoRequest;
+import com.saludsystem.catalogo.application.dtos.get.ConsentimientoDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearConsentimientoDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarConsentimientoDTO;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -16,9 +18,10 @@ import java.util.UUID;
 @Tag(name = "Consentimientos")
 @RestController
 @RequestMapping("/api/Consentimientos")
-public class ConsentimientoController extends GenericController<com.saludsystem.catalogo.application.dtos.req.ConsentimientoRequest, ConsentimientoRequest, UUID> {
+public class ConsentimientoController extends GenericController<ConsentimientoDTO,
+        CrearConsentimientoDTO, ActualizarConsentimientoDTO, UUID> {
 
-    protected ConsentimientoController(GenericService<com.saludsystem.catalogo.application.dtos.req.ConsentimientoRequest, ConsentimientoRequest, UUID> genericService) {
+    protected ConsentimientoController(GenericService<ConsentimientoDTO, CrearConsentimientoDTO, ActualizarConsentimientoDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -28,7 +31,7 @@ public class ConsentimientoController extends GenericController<com.saludsystem.
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ConsentimientoListResponse.class)))
     })
-    public ListResponse<ConsentimientoRequest> getAllPaginated(
+    public ListResponse<ConsentimientoDTO> getAllPaginated(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId, @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows) {
         return super.getAllPaginated(hospitalId, page, rows);

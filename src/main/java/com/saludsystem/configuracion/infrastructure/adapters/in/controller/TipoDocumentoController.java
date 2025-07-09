@@ -1,7 +1,8 @@
 package com.saludsystem.configuracion.infrastructure.adapters.in.controller;
 
-import com.saludsystem.configuracion.application.dto.res.TipoDocumentoResponse;
-import com.saludsystem.configuracion.application.dto.req.TipoDocumentoRequest;
+import com.saludsystem.configuracion.application.dto.get.TipoDocumentoDTO;
+import com.saludsystem.configuracion.application.dto.post.CrearTipoDocumentoDTO;
+import com.saludsystem.configuracion.application.dto.put.ActualizarTipoDocumentoDTO;
 import com.saludsystem.configuracion.infrastructure.adapters.in.response.TipoDocumentoListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,9 +18,11 @@ import java.util.UUID;
 @Tag(name = "TipoDocumentos")
 @RestController
 @RequestMapping("/api/TipoDocumentos")
-public class TipoDocumentoController extends GenericController<TipoDocumentoRequest, TipoDocumentoResponse, UUID> {
+public class TipoDocumentoController extends GenericController<TipoDocumentoDTO, CrearTipoDocumentoDTO,
+        ActualizarTipoDocumentoDTO, UUID> {
 
-    protected TipoDocumentoController(GenericService<TipoDocumentoRequest, TipoDocumentoResponse, UUID> genericService) {
+    protected TipoDocumentoController(
+            GenericService<TipoDocumentoDTO, CrearTipoDocumentoDTO, ActualizarTipoDocumentoDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -29,7 +32,7 @@ public class TipoDocumentoController extends GenericController<TipoDocumentoRequ
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = TipoDocumentoListResponse.class)))
     })
-    public ListResponse<TipoDocumentoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<TipoDocumentoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

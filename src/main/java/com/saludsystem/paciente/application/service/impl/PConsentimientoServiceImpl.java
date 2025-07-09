@@ -1,8 +1,9 @@
 package com.saludsystem.paciente.application.service.impl;
 
-import com.saludsystem.paciente.application.dto.res.HoraDTO;
-import com.saludsystem.paciente.application.dto.res.PConsentimientoResponse;
-import com.saludsystem.paciente.application.dto.req.PConsentimientoRequest;
+import com.saludsystem.paciente.application.dto.get.HoraDTO;
+import com.saludsystem.paciente.application.dto.get.PConsentimientoDTO;
+import com.saludsystem.paciente.application.dto.post.CrearPConsentimientoDTO;
+import com.saludsystem.paciente.application.dto.put.ActualizarPConsentimientoDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.PConsentimientoService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -24,8 +25,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimientoEntity, PConsentimientoRequest,
-        PConsentimientoResponse, UUID> implements PConsentimientoService {
+public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimientoEntity, PConsentimientoDTO,
+        CrearPConsentimientoDTO, ActualizarPConsentimientoDTO, UUID> implements PConsentimientoService {
 
     private final DoctorRepository doctorRepository;
     private final PacienteRepository pacienteRepository;
@@ -34,7 +35,7 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
     public PConsentimientoServiceImpl(
             PConsentimientoRepository pConsentimientoRepository, ModelMapper modelMapper, AuthValidator authValidator,
             DoctorRepository doctorRepository, PacienteRepository pacienteRepository, ConsentimientoRepository consentimientoRepository) {
-        super(pConsentimientoRepository, modelMapper, authValidator, PConsentimientoResponse.class
+        super(pConsentimientoRepository, modelMapper, authValidator, PConsentimientoDTO.class
         );
         this.doctorRepository = doctorRepository;
         this.pacienteRepository = pacienteRepository;
@@ -42,34 +43,34 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
     }
 
     @Override
-    protected PConsentimientoEntity convertCreateDtoToEntity(PConsentimientoRequest PConsentimientoRequest) {
+    protected PConsentimientoEntity convertCreateDtoToEntity(CrearPConsentimientoDTO CrearPConsentimientoDTO) {
         PConsentimientoEntity entity = new PConsentimientoEntity();
-        entity.setDoctorEntity(doctorRepository.findById(PConsentimientoRequest.getDoctorId())
+        entity.setDoctorEntity(doctorRepository.findById(CrearPConsentimientoDTO.getDoctorId())
                 .orElseThrow(() -> new ResourceNotFoundException("Doctor no encontrado")));
-        entity.setFecha(PConsentimientoRequest.getFecha());
+        entity.setFecha(CrearPConsentimientoDTO.getFecha());
         // Convertir HoraDTO a LocalTime
-        HoraDTO horaDTO = PConsentimientoRequest.getHora();
+        HoraDTO horaDTO = CrearPConsentimientoDTO.getHora();
         LocalTime hora = LocalTime.of(
                 horaDTO.getHours(),
                 horaDTO.getMinutes(),
                 horaDTO.getSeconds()
         );
         entity.setHora(hora);
-        entity.setApoderadoNombre(PConsentimientoRequest.getApoderadoNombre());
-        entity.setApoderadoDocumento(PConsentimientoRequest.getApoderadoDocumento());
-        entity.setApoderadoDireccion(PConsentimientoRequest.getApoderadoDireccion());
-        entity.setConsentimientoEntity(consentimientoRepository.findById(PConsentimientoRequest.getConsentimientoId())
+        entity.setApoderadoNombre(CrearPConsentimientoDTO.getApoderadoNombre());
+        entity.setApoderadoDocumento(CrearPConsentimientoDTO.getApoderadoDocumento());
+        entity.setApoderadoDireccion(CrearPConsentimientoDTO.getApoderadoDireccion());
+        entity.setConsentimientoEntity(consentimientoRepository.findById(CrearPConsentimientoDTO.getConsentimientoId())
                 .orElseThrow(() -> new ResourceNotFoundException("Consentimiento no encontrado")));
-        entity.setPacienteEntity(pacienteRepository.findById(PConsentimientoRequest.getPacienteId())
+        entity.setPacienteEntity(pacienteRepository.findById(CrearPConsentimientoDTO.getPacienteId())
                 .orElseThrow(() -> new ResourceNotFoundException("Paciente no encontrado")));
-        entity.setCuerpo(PConsentimientoRequest.getCuerpo());
-        entity.setFirma(PConsentimientoRequest.getFirma());
-        entity.setEstado(PConsentimientoRequest.getEstado());
+        entity.setCuerpo(CrearPConsentimientoDTO.getCuerpo());
+        entity.setFirma(CrearPConsentimientoDTO.getFirma());
+        entity.setEstado(CrearPConsentimientoDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(PConsentimientoEntity entity, PConsentimientoRequest dto) {
+    protected void updateEntityFromDto(PConsentimientoEntity entity, ActualizarPConsentimientoDTO dto) {
         Optional.ofNullable(dto.getDoctorId())
                 .flatMap(doctorRepository::findById)
                 .ifPresent(entity::setDoctorEntity);
@@ -103,28 +104,28 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(PConsentimientoRequest PConsentimientoRequest) {
-        return super.save(PConsentimientoRequest);
+    public ApiResponse save(CrearPConsentimientoDTO CrearPConsentimientoDTO) {
+        return super.save(CrearPConsentimientoDTO);
     }
 
     @Override
-    public ListResponse<PConsentimientoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<PConsentimientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, PConsentimientoRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarPConsentimientoDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public PConsentimientoResponse getById(UUID uuid) {
+    public PConsentimientoDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<PConsentimientoResponse> getList() {
+    public List<PConsentimientoDTO> getList() {
         return super.getList();
     }
 

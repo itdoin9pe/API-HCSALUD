@@ -1,7 +1,8 @@
 package com.saludsystem.movimientos.infrastructure.adapters.in.controller;
 
-import com.saludsystem.movimientos.application.dto.res.AlmacenResponse;
-import com.saludsystem.movimientos.application.dto.req.AlmacenRequest;
+import com.saludsystem.movimientos.application.dto.post.CrearAlmacenDTO;
+import com.saludsystem.movimientos.application.dto.get.AlmacenDTO;
+import com.saludsystem.movimientos.application.dto.put.ActualizarAlmacenDTO;
 import com.saludsystem.movimientos.infrastructure.adapters.in.response.AlmacenListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -18,9 +19,10 @@ import java.util.UUID;
 @Tag(name = "Almacenes")
 @RestController
 @RequestMapping("/api/Almacenes")
-public class AlmacenController extends GenericController<AlmacenRequest, AlmacenResponse, UUID> {
+public class AlmacenController extends GenericController<AlmacenDTO, CrearAlmacenDTO, ActualizarAlmacenDTO, UUID> {
 
-    protected AlmacenController(GenericService<AlmacenRequest, AlmacenResponse, UUID> genericService) {
+    protected AlmacenController(
+            GenericService<AlmacenDTO, CrearAlmacenDTO, ActualizarAlmacenDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -30,7 +32,7 @@ public class AlmacenController extends GenericController<AlmacenRequest, Almacen
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = AlmacenListResponse.class)))
     })
-    public ListResponse<AlmacenResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<AlmacenDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

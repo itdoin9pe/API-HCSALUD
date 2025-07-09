@@ -1,8 +1,8 @@
 package com.saludsystem.configuracion.infrastructure.adapters.in.controller;
 
-import com.saludsystem.configuracion.application.dto.res.RolResponse;
-import com.saludsystem.configuracion.application.dto.req.RolRequest;
-import com.saludsystem.configuracion.application.dto.res.ActualizarRolDTO;
+import com.saludsystem.configuracion.application.dto.get.RolDTO;
+import com.saludsystem.configuracion.application.dto.post.CrearRolDTO;
+import com.saludsystem.configuracion.application.dto.put.ActualizarRolDTO;
 import com.saludsystem.configuracion.application.services.RolService;
 import com.saludsystem.configuracion.infrastructure.adapters.in.response.RolListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
@@ -30,8 +30,8 @@ public class RoleController {
     }
 
     @PostMapping("/SaveRol")
-    public ApiResponse stored(@Valid @RequestBody RolRequest rolRequest) {
-        return rolService.saveRole(rolRequest);
+    public ApiResponse stored(@Valid @RequestBody CrearRolDTO crearRolDTO) {
+        return rolService.saveRole(crearRolDTO);
     }
 
     @GetMapping("/GetAllRol")
@@ -41,7 +41,7 @@ public class RoleController {
                             schema = @Schema(implementation = RolListResponse.class)))
     })
 
-    public ListResponse<RolResponse> getAllPage(
+    public ListResponse<RolDTO> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows) {
@@ -49,7 +49,7 @@ public class RoleController {
     }
 
     @GetMapping("/GetRol/{roleId}")
-    public RolResponse getById(@PathVariable UUID roleId) {
+    public RolDTO getById(@PathVariable UUID roleId) {
         return rolService.getRoleById(roleId);
     }
 
@@ -64,7 +64,7 @@ public class RoleController {
     }
 
     @GetMapping("/GetRoleList")
-    public ResponseEntity<List<RolResponse>> getAllList() {
+    public ResponseEntity<List<RolDTO>> getAllList() {
         return ResponseEntity.ok(rolService.getRoleList());
     }
 }

@@ -1,7 +1,7 @@
 package com.saludsystem.principal.application.service;
 
-import com.saludsystem.principal.application.dto.res.PaisResponse;
-import com.saludsystem.principal.application.dto.req.PaisRequest;
+import com.saludsystem.principal.application.dto.get.PaisDTO;
+import com.saludsystem.principal.application.dto.post.CrearPaisDTO;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 
@@ -10,10 +10,10 @@ import java.util.UUID;
 
 public interface PaisService {
 
-    ApiResponse savePais(PaisRequest paisRequest);
+    ApiResponse savePais(CrearPaisDTO crearPaisDTO);
 
-    ListResponse<PaisResponse> getAllPais(UUID hospitalId, int page, int rows);
+    ListResponse<PaisDTO> getAllPais(UUID hospitalId, int page, int rows);
 
-    List<PaisResponse> getPaisList();
+    List<PaisDTO> getPaisList();
 
 }

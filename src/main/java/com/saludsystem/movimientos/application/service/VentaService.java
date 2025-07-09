@@ -1,7 +1,7 @@
 package com.saludsystem.movimientos.application.service;
 
-import com.saludsystem.movimientos.application.dto.res.VentaRequest;
-import com.saludsystem.movimientos.application.dto.res.VentaDTO;
+import com.saludsystem.movimientos.application.dto.post.CrearVentaDTO;
+import com.saludsystem.movimientos.application.dto.get.VentaDTO;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import java.util.List;
@@ -9,11 +9,11 @@ import java.util.UUID;
 
 public interface VentaService {
 
-    ApiResponse saveVenta(com.saludsystem.movimientos.application.dto.req.VentaRequest ventaRequest);
+    ApiResponse saveVenta(CrearVentaDTO crearVentaDTO);
 
     List<VentaDTO> getVentaList();
 
-    VentaRequest getVentaById(UUID ventaId);
+    VentaDTO getVentaById(UUID ventaId);
 
     ListResponse<VentaDTO> getAllVenta(UUID hospitalId, int page, int rows);
 

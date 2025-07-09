@@ -1,7 +1,7 @@
 package com.saludsystem.movimientos.infrastructure.adapters.in.controller;
 
-import com.saludsystem.movimientos.application.dto.res.VentaRequest;
-import com.saludsystem.movimientos.application.dto.res.VentaDTO;
+import com.saludsystem.movimientos.application.dto.post.CrearVentaDTO;
+import com.saludsystem.movimientos.application.dto.get.VentaDTO;
 import com.saludsystem.movimientos.application.service.VentaService;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -28,8 +28,8 @@ public class VentaController {
     }
 
     @PostMapping("/SaveVenta")
-    public ApiResponse store(@Valid @RequestBody com.saludsystem.movimientos.application.dto.req.VentaRequest ventaRequest) {
-        return ventaService.saveVenta(ventaRequest);
+    public ApiResponse store(@Valid @RequestBody CrearVentaDTO crearVentaDTO) {
+        return ventaService.saveVenta(crearVentaDTO);
     }
 
     @GetMapping("/GetAllVenta")
@@ -51,7 +51,7 @@ public class VentaController {
     }
 
     @GetMapping("/GetVenta/{ventaId}")
-    public VentaRequest getById(@PathVariable UUID ventaId) {
+    public VentaDTO getById(@PathVariable UUID ventaId) {
         return ventaService.getVentaById(ventaId);
     }
 

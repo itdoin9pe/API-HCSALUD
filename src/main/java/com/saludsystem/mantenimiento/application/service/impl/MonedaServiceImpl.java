@@ -1,7 +1,8 @@
 package com.saludsystem.mantenimiento.application.service.impl;
 
-import com.saludsystem.mantenimiento.application.dto.res.MonedaResponse;
-import com.saludsystem.mantenimiento.application.dto.req.MonedaRequest;
+import com.saludsystem.mantenimiento.application.dto.get.MonedaDTO;
+import com.saludsystem.mantenimiento.application.dto.post.CrearMonedaDTO;
+import com.saludsystem.mantenimiento.application.dto.put.ActualizarMonedaDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.mantenimiento.application.service.MonedaService;
 import com.saludsystem.mantenimiento.domain.model.MonedaEntity;
@@ -18,38 +19,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class MonedaServiceImpl extends GenericServiceImpl<MonedaEntity, MonedaRequest, MonedaResponse, UUID>
-        implements MonedaService {
+public class MonedaServiceImpl extends GenericServiceImpl<MonedaEntity, MonedaDTO, CrearMonedaDTO,
+        ActualizarMonedaDTO, UUID> implements MonedaService {
 
     protected MonedaServiceImpl(
             MonedaRepository monedaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(monedaRepository, modelMapper, authValidator, MonedaResponse.class);
+        super(monedaRepository, modelMapper, authValidator, MonedaDTO.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(MonedaRequest monedaRequest) {
-        return super.save(monedaRequest);
+    public ApiResponse save(CrearMonedaDTO crearMonedaDTO) {
+        return super.save(crearMonedaDTO);
     }
 
     @Override
-    public ListResponse<MonedaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<MonedaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, MonedaRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarMonedaDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public List<MonedaResponse> getList() {
+    public List<MonedaDTO> getList() {
         return super.getList();
     }
 
     @Override
-    public MonedaResponse getById(UUID uuid) {
+    public MonedaDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
@@ -60,15 +61,15 @@ public class MonedaServiceImpl extends GenericServiceImpl<MonedaEntity, MonedaRe
     }
 
     @Override
-    protected MonedaEntity convertCreateDtoToEntity(MonedaRequest monedaRequest) {
+    protected MonedaEntity convertCreateDtoToEntity(CrearMonedaDTO crearMonedaDTO) {
         MonedaEntity entity = new MonedaEntity();
-        entity.setDescripcion(monedaRequest.getDescripcion());
-        entity.setEstado(monedaRequest.getEstado());
+        entity.setDescripcion(crearMonedaDTO.getDescripcion());
+        entity.setEstado(crearMonedaDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(MonedaEntity entity, MonedaRequest dto) {
+    protected void updateEntityFromDto(MonedaEntity entity, ActualizarMonedaDTO dto) {
         Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }

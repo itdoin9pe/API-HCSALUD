@@ -1,8 +1,8 @@
 package com.saludsystem.operaciones.infrastructure.adapters.in.controller;
 
-import com.saludsystem.operaciones.application.dto.res.ProductoResponse;
-import com.saludsystem.operaciones.application.dto.req.ProductoRequest;
-import com.saludsystem.operaciones.application.dto.req.ActualizarProductoDTO;
+import com.saludsystem.operaciones.application.dto.get.ProductoDTO;
+import com.saludsystem.operaciones.application.dto.post.CrearProductoDTO;
+import com.saludsystem.operaciones.application.dto.put.ActualizarProductoDTO;
 import com.saludsystem.operaciones.application.service.ProductoService;
 import com.saludsystem.operaciones.infrastructure.adapters.in.response.ProductoListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
@@ -30,8 +30,8 @@ public class ProductoController {
     }
 
     @PostMapping("/SaveProducto")
-    public ApiResponse store(@Valid @RequestBody ProductoRequest productoRequest) {
-        return productoService.saveProducto(productoRequest);
+    public ApiResponse store(@Valid @RequestBody CrearProductoDTO crearProductoDTO) {
+        return productoService.saveProducto(crearProductoDTO);
     }
 
     @GetMapping("/GetAllProducto")
@@ -40,7 +40,7 @@ public class ProductoController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProductoListResponse.class)))
     })
-    public ListResponse<ProductoResponse> getAllPage(
+    public ListResponse<ProductoDTO> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows) {
@@ -48,12 +48,12 @@ public class ProductoController {
     }
 
     @GetMapping("/GetProductoList")
-    public ResponseEntity<List<ProductoResponse>> getAllPage() {
+    public ResponseEntity<List<ProductoDTO>> getAllPage() {
         return ResponseEntity.ok(productoService.getProductoList());
     }
 
     @GetMapping("/GetProducto/{productoId}")
-    public ProductoResponse getById(@PathVariable UUID productoId) {
+    public ProductoDTO getById(@PathVariable UUID productoId) {
         return productoService.getProductoById(productoId);
     }
 

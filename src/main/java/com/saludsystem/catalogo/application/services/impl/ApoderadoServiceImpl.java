@@ -1,6 +1,8 @@
 package com.saludsystem.catalogo.application.services.impl;
 
-import com.saludsystem.catalogo.application.dtos.res.ApoderadoRequest;
+import com.saludsystem.catalogo.application.dtos.get.ApoderadoDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearApoderadoDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarApoderadoDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.application.services.ApoderadoService;
 import com.saludsystem.catalogo.domain.model.ApoderadoEntity;
@@ -18,26 +20,26 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity, com.saludsystem.catalogo.application.dtos.req.ApoderadoRequest,
-        ApoderadoRequest, UUID> implements ApoderadoService {
+public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity, ApoderadoDTO,
+        CrearApoderadoDTO, ActualizarApoderadoDTO, UUID> implements ApoderadoService {
 
     private final SysSaludRepository sysSaludRepository;
 
     public ApoderadoServiceImpl(ApoderadoRepository apoderadoRepository, ModelMapper modelMapper,
             AuthValidator authValidator, SysSaludRepository sysSaludRepository) {
-        super(apoderadoRepository, modelMapper, authValidator, ApoderadoRequest.class);
+        super(apoderadoRepository, modelMapper, authValidator, ApoderadoDTO.class);
         this.sysSaludRepository = sysSaludRepository;
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(com.saludsystem.catalogo.application.dtos.req.ApoderadoRequest dto) {
+    public ApiResponse save(CrearApoderadoDTO dto) {
         return super.save(dto);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, com.saludsystem.catalogo.application.dtos.req.ApoderadoRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarApoderadoDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
@@ -48,33 +50,33 @@ public class ApoderadoServiceImpl extends GenericServiceImpl<ApoderadoEntity, co
     }
 
     @Override
-    public ApoderadoRequest getById(UUID id) {
+    public ApoderadoDTO getById(UUID id) {
         return super.getById(id);
     }
 
     @Override
-    public List<ApoderadoRequest> getList() {
+    public List<ApoderadoDTO> getList() {
         return super.getList();
     }
     
     @Override
-    public ListResponse<ApoderadoRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<ApoderadoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    protected ApoderadoEntity convertCreateDtoToEntity(com.saludsystem.catalogo.application.dtos.req.ApoderadoRequest apoderadoRequest) {
+    protected ApoderadoEntity convertCreateDtoToEntity(CrearApoderadoDTO apoderadoDTO) {
         ApoderadoEntity entity = new ApoderadoEntity();
-        entity.setNombre(apoderadoRequest.getNombre());
-        entity.setNroDocumento(apoderadoRequest.getNroDocumento());
-        entity.setDireccion(apoderadoRequest.getDireccion());
-        entity.setTelefono(apoderadoRequest.getTelefono());
-        entity.setEstado(apoderadoRequest.getEstado());
+        entity.setNombre(apoderadoDTO.getNombre());
+        entity.setNroDocumento(apoderadoDTO.getNroDocumento());
+        entity.setDireccion(apoderadoDTO.getDireccion());
+        entity.setTelefono(apoderadoDTO.getTelefono());
+        entity.setEstado(apoderadoDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(ApoderadoEntity entity, com.saludsystem.catalogo.application.dtos.req.ApoderadoRequest dto) {
+    protected void updateEntityFromDto(ApoderadoEntity entity, ActualizarApoderadoDTO dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getNroDocumento()).ifPresent(entity::setNroDocumento);
         Optional.ofNullable(dto.getDireccion()).ifPresent(entity::setDireccion);

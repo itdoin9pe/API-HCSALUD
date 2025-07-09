@@ -1,12 +1,15 @@
 package com.saludsystem.catalogo.application.services;
 
-import com.saludsystem.catalogo.application.dtos.res.TipoConceptoRequest;
+import com.saludsystem.catalogo.application.dtos.get.TipoConceptoDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearTipoConceptoDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarTipoConceptoDTO;
 import com.saludsystem.shared.application.service.GenericService;
 
 import java.util.UUID;
 
 public interface TipoConceptoService extends GenericService<
-        com.saludsystem.catalogo.application.dtos.req.TipoConceptoRequest,
-        TipoConceptoRequest,
+        TipoConceptoDTO,
+        CrearTipoConceptoDTO,
+        ActualizarTipoConceptoDTO,
         UUID> {
 }

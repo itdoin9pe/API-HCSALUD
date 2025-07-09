@@ -1,6 +1,6 @@
 package com.saludsystem.principal.infrastructure.adapters.in.controller;
 
-import com.saludsystem.principal.application.dto.res.TipoPacienteResponse;
+import com.saludsystem.principal.application.dto.get.TipoPacienteDTO;
 import com.saludsystem.principal.application.service.TipoPacienteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class TipoPacienteController {
     }
 
     @GetMapping("/GetTipoPacienteList")
-    public ResponseEntity<List<TipoPacienteResponse>> getTipoPacienteList(){
+    public ResponseEntity<List<TipoPacienteDTO>> getTipoPacienteList(){
         return ResponseEntity.ok(tipoPacienteService.getTipoPacienteList());
     }
 

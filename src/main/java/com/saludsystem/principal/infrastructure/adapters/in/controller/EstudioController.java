@@ -1,7 +1,8 @@
 package com.saludsystem.principal.infrastructure.adapters.in.controller;
 
-import com.saludsystem.principal.application.dto.res.EstudioResponse;
-import com.saludsystem.principal.application.dto.req.EstudioRequest;
+import com.saludsystem.principal.application.dto.get.EstudioDTO;
+import com.saludsystem.principal.application.dto.post.CrearEstudioDTO;
+import com.saludsystem.principal.application.dto.put.ActualizarEstudioDTO;
 import com.saludsystem.principal.infrastructure.adapters.in.response.EstudioListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,9 +18,10 @@ import java.util.UUID;
 @Tag(name = "Estudios")
 @RestController
 @RequestMapping("/api/Estudios")
-public class EstudioController extends GenericController<EstudioRequest, EstudioResponse, UUID> {
+public class EstudioController extends GenericController<EstudioDTO, CrearEstudioDTO, ActualizarEstudioDTO, UUID> {
 
-    protected EstudioController(GenericService<EstudioRequest, EstudioResponse, UUID> genericService) {
+    protected EstudioController(
+            GenericService<EstudioDTO, CrearEstudioDTO, ActualizarEstudioDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -29,7 +31,7 @@ public class EstudioController extends GenericController<EstudioRequest, Estudio
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = EstudioListResponse.class)))
     })
-    public ListResponse<EstudioResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<EstudioDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

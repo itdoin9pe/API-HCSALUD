@@ -1,6 +1,8 @@
 package com.saludsystem.catalogo.application.services.impl;
 
-import com.saludsystem.catalogo.application.dtos.res.MedicamentoRequest;
+import com.saludsystem.catalogo.application.dtos.get.MedicamentoDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearMedicamentoDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarMedicamentoDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.application.services.MedicamentoService;
 import com.saludsystem.catalogo.domain.model.MedicamentoEntity;
@@ -16,29 +18,29 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class MedicamentoServiceImpl extends GenericServiceImpl<MedicamentoEntity, com.saludsystem.catalogo.application.dtos.req.MedicamentoRequest,
-        MedicamentoRequest, UUID> implements MedicamentoService {
+public class MedicamentoServiceImpl extends GenericServiceImpl<MedicamentoEntity, MedicamentoDTO,
+        CrearMedicamentoDTO, ActualizarMedicamentoDTO, UUID> implements MedicamentoService {
 
     protected MedicamentoServiceImpl(
             MedicamentoRepository medicamentoRepository,
             ModelMapper modelMapper, AuthValidator authValidator) {
-        super(medicamentoRepository, modelMapper, authValidator, MedicamentoRequest.class);
+        super(medicamentoRepository, modelMapper, authValidator, MedicamentoDTO.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(com.saludsystem.catalogo.application.dtos.req.MedicamentoRequest medicamentoRequest) {
-        return super.save(medicamentoRequest);
+    public ApiResponse save(CrearMedicamentoDTO medicamentoDTO) {
+        return super.save(medicamentoDTO);
     }
 
     @Override
-    public ListResponse<MedicamentoRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<MedicamentoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, com.saludsystem.catalogo.application.dtos.req.MedicamentoRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarMedicamentoDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
@@ -49,12 +51,12 @@ public class MedicamentoServiceImpl extends GenericServiceImpl<MedicamentoEntity
     }
 
     @Override
-    public MedicamentoRequest getById(UUID id) {
+    public MedicamentoDTO getById(UUID id) {
         return super.getById(id);
     }
 
     @Override
-    protected MedicamentoEntity convertCreateDtoToEntity(com.saludsystem.catalogo.application.dtos.req.MedicamentoRequest dto) {
+    protected MedicamentoEntity convertCreateDtoToEntity(CrearMedicamentoDTO dto) {
         MedicamentoEntity entity = new MedicamentoEntity();
         entity.setNombre(dto.getNombre());
         entity.setFormaFarmaceutica(dto.getFormaFarmaceutica());
@@ -65,7 +67,7 @@ public class MedicamentoServiceImpl extends GenericServiceImpl<MedicamentoEntity
     }
 
     @Override
-    protected void updateEntityFromDto(MedicamentoEntity entity, com.saludsystem.catalogo.application.dtos.req.MedicamentoRequest dto) {
+    protected void updateEntityFromDto(MedicamentoEntity entity, ActualizarMedicamentoDTO dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getFormaFarmaceutica()).ifPresent(entity::setFormaFarmaceutica);
         Optional.ofNullable(dto.getConcentracion()).ifPresent(entity::setConcentracion);

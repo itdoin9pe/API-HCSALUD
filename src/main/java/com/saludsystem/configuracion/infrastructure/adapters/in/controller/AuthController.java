@@ -1,7 +1,7 @@
 package com.saludsystem.configuracion.infrastructure.adapters.in.controller;
 
-import com.saludsystem.configuracion.application.dto.req.LoginUserDto;
-import com.saludsystem.configuracion.application.dto.req.NewUserDto;
+import com.saludsystem.configuracion.application.dto.post.LoginUserDto;
+import com.saludsystem.configuracion.application.dto.post.NewUserDto;
 import com.saludsystem.configuracion.application.services.AuthService;
 import com.saludsystem.configuracion.application.services.UsuarioService;
 import jakarta.validation.Valid;

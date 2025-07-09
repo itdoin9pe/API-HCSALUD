@@ -1,7 +1,8 @@
 package com.saludsystem.mantenimiento.application.service.impl;
 
-import com.saludsystem.mantenimiento.application.dto.res.TipoTarjetaResponse;
-import com.saludsystem.mantenimiento.application.dto.req.TipoTarjetaRequest;
+import com.saludsystem.mantenimiento.application.dto.get.TipoTarjetaDTO;
+import com.saludsystem.mantenimiento.application.dto.post.CrearTipoTarjetaDTO;
+import com.saludsystem.mantenimiento.application.dto.put.ActualizarTipoTarjetaDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.mantenimiento.application.service.TipoTarjetaService;
 import com.saludsystem.mantenimiento.domain.model.TipoTarjetaEntity;
@@ -18,38 +19,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TipoTarjetaServiceImpl extends GenericServiceImpl<TipoTarjetaEntity, TipoTarjetaRequest, TipoTarjetaResponse,
-        UUID> implements TipoTarjetaService {
+public class TipoTarjetaServiceImpl extends GenericServiceImpl<TipoTarjetaEntity, TipoTarjetaDTO, CrearTipoTarjetaDTO,
+        ActualizarTipoTarjetaDTO, UUID> implements TipoTarjetaService {
 
     protected TipoTarjetaServiceImpl(
             TipoTarjetaRepository tipoTarjetaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(tipoTarjetaRepository, modelMapper, authValidator, TipoTarjetaResponse.class);
+        super(tipoTarjetaRepository, modelMapper, authValidator, TipoTarjetaDTO.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(TipoTarjetaRequest tipoTarjetaRequest) {
-        return super.save(tipoTarjetaRequest);
+    public ApiResponse save(CrearTipoTarjetaDTO crearTipoTarjetaDTO) {
+        return super.save(crearTipoTarjetaDTO);
     }
 
     @Override
-    public ListResponse<TipoTarjetaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<TipoTarjetaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, TipoTarjetaRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarTipoTarjetaDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public TipoTarjetaResponse getById(UUID uuid) {
+    public TipoTarjetaDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<TipoTarjetaResponse> getList() {
+    public List<TipoTarjetaDTO> getList() {
         return super.getList();
     }
 
@@ -60,15 +61,15 @@ public class TipoTarjetaServiceImpl extends GenericServiceImpl<TipoTarjetaEntity
     }
 
     @Override
-    protected TipoTarjetaEntity convertCreateDtoToEntity(TipoTarjetaRequest tipoTarjetaRequest) {
+    protected TipoTarjetaEntity convertCreateDtoToEntity(CrearTipoTarjetaDTO crearTipoTarjetaDTO) {
         TipoTarjetaEntity entity = new TipoTarjetaEntity();
-        entity.setDescripcion(tipoTarjetaRequest.getDescripcion());
-        entity.setEstado(tipoTarjetaRequest.getEstado());
+        entity.setDescripcion(crearTipoTarjetaDTO.getDescripcion());
+        entity.setEstado(crearTipoTarjetaDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(TipoTarjetaEntity entity, TipoTarjetaRequest dto) {
+    protected void updateEntityFromDto(TipoTarjetaEntity entity, ActualizarTipoTarjetaDTO dto) {
         Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }

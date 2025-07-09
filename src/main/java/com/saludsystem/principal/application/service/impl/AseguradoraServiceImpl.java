@@ -1,7 +1,8 @@
 package com.saludsystem.principal.application.service.impl;
 
-import com.saludsystem.principal.application.dto.res.AseguradoraResponse;
-import com.saludsystem.principal.application.dto.req.AseguradoraRequest;
+import com.saludsystem.principal.application.dto.get.AseguradoraDTO;
+import com.saludsystem.principal.application.dto.post.CrearAseguradoraDTO;
+import com.saludsystem.principal.application.dto.put.ActualizarAseguradoraDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.principal.application.service.AseguradoraService;
 import com.saludsystem.principal.domain.model.AseguradoraEntity;
@@ -17,17 +18,17 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class AseguradoraServiceImpl extends GenericServiceImpl<AseguradoraEntity,
-        AseguradoraRequest, AseguradoraResponse, UUID> implements AseguradoraService {
+public class AseguradoraServiceImpl extends GenericServiceImpl<AseguradoraEntity, AseguradoraDTO, CrearAseguradoraDTO,
+        ActualizarAseguradoraDTO,UUID> implements AseguradoraService {
 
     protected AseguradoraServiceImpl(
             AseguradoraRepository aseguradoraRepository, ModelMapper modelMapper,
             AuthValidator authValidator) {
-        super(aseguradoraRepository, modelMapper, authValidator, AseguradoraResponse.class);
+        super(aseguradoraRepository, modelMapper, authValidator, AseguradoraDTO.class);
     }
 
     @Override
-    protected AseguradoraEntity convertCreateDtoToEntity(AseguradoraRequest dto) {
+    protected AseguradoraEntity convertCreateDtoToEntity(CrearAseguradoraDTO dto) {
         AseguradoraEntity entity = new AseguradoraEntity();
         entity.setDescripcion(dto.getDescripcion());
         entity.setEstado(dto.getEstado());
@@ -35,33 +36,33 @@ public class AseguradoraServiceImpl extends GenericServiceImpl<AseguradoraEntity
     }
 
     @Override
-    protected void updateEntityFromDto(AseguradoraEntity entity, AseguradoraRequest dto) {
+    protected void updateEntityFromDto(AseguradoraEntity entity, ActualizarAseguradoraDTO dto) {
         Optional.ofNullable(dto.getDescripcion()).filter(desc -> !desc.isBlank()).ifPresent(entity::setDescripcion);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 
     @Override
-    public ApiResponse save(AseguradoraRequest createDto) {
+    public ApiResponse save(CrearAseguradoraDTO createDto) {
         return super.save(createDto);
     }
 
     @Override
-    public ListResponse<AseguradoraResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<AseguradoraDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
-    public ApiResponse update(UUID uuid, AseguradoraRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarAseguradoraDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public List<AseguradoraResponse> getList() {
+    public List<AseguradoraDTO> getList() {
         return super.getList();
     }
 
     @Override
-    public AseguradoraResponse getById(UUID uuid) {
+    public AseguradoraDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 

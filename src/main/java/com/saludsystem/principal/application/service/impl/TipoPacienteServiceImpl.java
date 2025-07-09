@@ -1,7 +1,7 @@
 package com.saludsystem.principal.application.service.impl;
 
 
-import com.saludsystem.principal.application.dto.res.TipoPacienteResponse;
+import com.saludsystem.principal.application.dto.get.TipoPacienteDTO;
 import com.saludsystem.principal.application.service.TipoPacienteService;
 import com.saludsystem.principal.domain.model.TipoPacienteEntity;
 import com.saludsystem.principal.infrastructure.adapters.out.persistance.TipoPacienteRepository;
@@ -23,12 +23,12 @@ public class TipoPacienteServiceImpl implements TipoPacienteService {
     }
 
     @Override
-    public List<TipoPacienteResponse> getTipoPacienteList() {
+    public List<TipoPacienteDTO> getTipoPacienteList() {
         return tipoPacienteRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    private TipoPacienteResponse convertToDTO(TipoPacienteEntity tipoPaciente) {
-        return modelMapper.map(tipoPaciente, TipoPacienteResponse.class);
+    private TipoPacienteDTO convertToDTO(TipoPacienteEntity tipoPaciente) {
+        return modelMapper.map(tipoPaciente, TipoPacienteDTO.class);
     }
 
 }

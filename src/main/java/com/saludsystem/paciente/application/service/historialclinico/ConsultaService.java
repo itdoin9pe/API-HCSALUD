@@ -1,13 +1,15 @@
 package com.saludsystem.paciente.application.service.historialclinico;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.ConsultaResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.ConsultaRequest;
+import com.saludsystem.paciente.application.dto.get.historialclinico.ConsultaDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.CrearConsultaDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.ActualizarConsultaDTO;
 import com.saludsystem.shared.application.service.GenericService;
 
 import java.util.UUID;
 
 public interface ConsultaService extends GenericService<
-        ConsultaRequest,
-        ConsultaResponse,
+        ConsultaDTO,
+        CrearConsultaDTO,
+        ActualizarConsultaDTO,
         UUID> {
 }

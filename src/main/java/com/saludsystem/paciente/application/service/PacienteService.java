@@ -1,8 +1,8 @@
 package com.saludsystem.paciente.application.service;
 
-import com.saludsystem.paciente.application.dto.res.PacienteResponse;
-import com.saludsystem.paciente.application.dto.req.PacienteRequest;
-import com.saludsystem.paciente.application.dto.base.ActualizarPacienteDTO;
+import com.saludsystem.paciente.application.dto.get.PacienteDTO;
+import com.saludsystem.paciente.application.dto.post.CrearPacienteDTO;
+import com.saludsystem.paciente.application.dto.put.ActualizarPacienteDTO;
 import com.saludsystem.paciente.domain.model.PacienteEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -13,15 +13,15 @@ import java.util.UUID;
 
 public interface PacienteService {
 
-    PacienteEntity savePaciente(PacienteRequest pacienteRequest);
+    PacienteEntity savePaciente(CrearPacienteDTO crearPacienteDTO);
 
     ActualizarPacienteDTO updatePaciente(UUID pacienteId, ActualizarPacienteDTO actualizarPacienteDTO);
 
-    Optional<PacienteResponse> getPacienteById(UUID pacienteId);
+    Optional<PacienteDTO> getPacienteById(UUID pacienteId);
 
-    List<PacienteResponse> getPacienteList();
+    List<PacienteDTO> getPacienteList();
 
-    ListResponse<PacienteResponse> getAllPaciente(UUID hospitalId, int page, int rows);
+    ListResponse<PacienteDTO> getAllPaciente(UUID hospitalId, int page, int rows);
 
     ApiResponse deletePaciente(UUID pacienteId);
 

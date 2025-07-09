@@ -1,7 +1,7 @@
 package com.saludsystem.principal.infrastructure.adapters.in.controller;
 
-import com.saludsystem.principal.application.dto.res.PaisResponse;
-import com.saludsystem.principal.application.dto.req.PaisRequest;
+import com.saludsystem.principal.application.dto.get.PaisDTO;
+import com.saludsystem.principal.application.dto.post.CrearPaisDTO;
 import com.saludsystem.principal.application.service.PaisService;
 import com.saludsystem.principal.infrastructure.adapters.in.response.PaisListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
@@ -28,8 +28,8 @@ public class PaisController {
     }
 
     @PostMapping("/SavePais")
-    public ApiResponse store(@Valid @RequestBody PaisRequest paisRequest) {
-        return paisService.savePais(paisRequest);
+    public ApiResponse store(@Valid @RequestBody CrearPaisDTO crearPaisDTO) {
+        return paisService.savePais(crearPaisDTO);
     }
 
     @GetMapping("/GetAllPais")
@@ -38,7 +38,7 @@ public class PaisController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = PaisListResponse.class)))
     })
-    public ListResponse<PaisResponse> getAllPage(
+    public ListResponse<PaisDTO> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows) {
@@ -46,7 +46,7 @@ public class PaisController {
     }
 
     @GetMapping("/GetPaisList")
-    public ResponseEntity<List<PaisResponse>> getAllList() {
+    public ResponseEntity<List<PaisDTO>> getAllList() {
         return ResponseEntity.ok(paisService.getPaisList());
     }
 

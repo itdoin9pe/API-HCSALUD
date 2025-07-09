@@ -1,7 +1,8 @@
 package com.saludsystem.mantenimiento.infrastructure.adapters.in.controller;
 
-import com.saludsystem.mantenimiento.application.dto.res.CajaResponse;
-import com.saludsystem.mantenimiento.application.dto.req.CajaRequest;
+import com.saludsystem.mantenimiento.application.dto.get.CajaDTO;
+import com.saludsystem.mantenimiento.application.dto.post.CrearCajaDTO;
+import com.saludsystem.mantenimiento.application.dto.put.ActualizarCajaDTO;
 import com.saludsystem.mantenimiento.infrastructure.adapters.in.response.CajaListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,9 +18,9 @@ import java.util.UUID;
 @Tag(name = "Cajas")
 @RestController
 @RequestMapping("/api/Cajas")
-public class CajaController extends GenericController<CajaRequest, CajaResponse, UUID> {
+public class CajaController extends GenericController<CajaDTO, CrearCajaDTO, ActualizarCajaDTO, UUID> {
 
-    protected CajaController(GenericService<CajaRequest, CajaResponse, UUID> genericService) {
+    protected CajaController(GenericService<CajaDTO, CrearCajaDTO, ActualizarCajaDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -29,7 +30,7 @@ public class CajaController extends GenericController<CajaRequest, CajaResponse,
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CajaListResponse.class)))
     })
-    public ListResponse<CajaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<CajaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

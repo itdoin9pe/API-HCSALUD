@@ -1,7 +1,8 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico.estadocuenta;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.estadocuenta.PagoResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.estadocuenta.PagoRequest;
+import com.saludsystem.paciente.application.dto.get.historialclinico.estadocuenta.PagoDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.estadocuenta.CrearPagoDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.estadocuenta.ActualizarPagoDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.estadocuenta.PagoService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -19,31 +20,32 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class PagoServiceImpl extends GenericServiceImpl<PagoEntity, PagoRequest, PagoResponse, UUID> implements PagoService {
+public class PagoServiceImpl extends GenericServiceImpl<PagoEntity, PagoDTO, CrearPagoDTO,
+        ActualizarPagoDTO, UUID> implements PagoService {
 
     private final EstadoCuentaRepository estadoCuentaRepository;
 
     public PagoServiceImpl(PagoRepository pagoRepository, ModelMapper modelMapper, AuthValidator authValidator,
                            EstadoCuentaRepository estadoCuentaRepository) {
-        super(pagoRepository, modelMapper, authValidator, PagoResponse.class
+        super(pagoRepository, modelMapper, authValidator, PagoDTO.class
         );
         this.estadoCuentaRepository = estadoCuentaRepository;
     }
 
     @Override
-    protected PagoEntity convertCreateDtoToEntity(PagoRequest pagoRequest) {
+    protected PagoEntity convertCreateDtoToEntity(CrearPagoDTO crearPagoDTO) {
         PagoEntity entity = new PagoEntity();
-        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(pagoRequest.getPacEstadoCuentaId())
+        entity.setEstadoCuentaEntity(estadoCuentaRepository.findById(crearPagoDTO.getPacEstadoCuentaId())
                 .orElseThrow( () -> new ResourceNotFoundException("Estado de cuenta not found")));
-        entity.setFechaPago(pagoRequest.getFechaPago());
-        entity.setMonto(pagoRequest.getMonto());
-        entity.setMetodoPago(pagoRequest.getMetodoPago());
-        entity.setReferenciaPago(pagoRequest.getReferenciaPago());
+        entity.setFechaPago(crearPagoDTO.getFechaPago());
+        entity.setMonto(crearPagoDTO.getMonto());
+        entity.setMetodoPago(crearPagoDTO.getMetodoPago());
+        entity.setReferenciaPago(crearPagoDTO.getReferenciaPago());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(PagoEntity entity, PagoRequest dto) {
+    protected void updateEntityFromDto(PagoEntity entity, ActualizarPagoDTO dto) {
         entity.setFechaPago(dto.getFechaPago());
         entity.setMonto(dto.getMonto());
         entity.setMetodoPago(dto.getMetodoPago());
@@ -52,28 +54,28 @@ public class PagoServiceImpl extends GenericServiceImpl<PagoEntity, PagoRequest,
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(PagoRequest pagoRequest) {
-        return super.save(pagoRequest);
+    public ApiResponse save(CrearPagoDTO crearPagoDTO) {
+        return super.save(crearPagoDTO);
     }
 
     @Override
-    public ListResponse<PagoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<PagoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, PagoRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarPagoDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public List<PagoResponse> getList() {
+    public List<PagoDTO> getList() {
         return super.getList();
     }
 
     @Override
-    public PagoResponse getById(UUID uuid) {
+    public PagoDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 

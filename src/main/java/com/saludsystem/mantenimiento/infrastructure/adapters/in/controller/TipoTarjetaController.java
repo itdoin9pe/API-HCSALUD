@@ -1,7 +1,8 @@
 package com.saludsystem.mantenimiento.infrastructure.adapters.in.controller;
 
-import com.saludsystem.mantenimiento.application.dto.res.TipoTarjetaResponse;
-import com.saludsystem.mantenimiento.application.dto.req.TipoTarjetaRequest;
+import com.saludsystem.mantenimiento.application.dto.get.TipoTarjetaDTO;
+import com.saludsystem.mantenimiento.application.dto.post.CrearTipoTarjetaDTO;
+import com.saludsystem.mantenimiento.application.dto.put.ActualizarTipoTarjetaDTO;
 import com.saludsystem.mantenimiento.infrastructure.adapters.in.response.TipoTarjetaListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,9 +18,11 @@ import java.util.UUID;
 @Tag(name = "TipoTarjeta")
 @RestController
 @RequestMapping("/api/TipoTarjeta")
-public class TipoTarjetaController extends GenericController<TipoTarjetaRequest, TipoTarjetaResponse, UUID> {
+public class TipoTarjetaController extends GenericController<TipoTarjetaDTO, CrearTipoTarjetaDTO,
+        ActualizarTipoTarjetaDTO, UUID> {
 
-    protected TipoTarjetaController(GenericService<TipoTarjetaRequest, TipoTarjetaResponse, UUID> genericService) {
+    protected TipoTarjetaController(
+            GenericService<TipoTarjetaDTO, CrearTipoTarjetaDTO, ActualizarTipoTarjetaDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -29,7 +32,7 @@ public class TipoTarjetaController extends GenericController<TipoTarjetaRequest,
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = TipoTarjetaListResponse.class)))
     })
-    public ListResponse<TipoTarjetaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<TipoTarjetaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

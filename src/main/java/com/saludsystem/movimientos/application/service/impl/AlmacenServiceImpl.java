@@ -1,7 +1,8 @@
 package com.saludsystem.movimientos.application.service.impl;
 
-import com.saludsystem.movimientos.application.dto.res.AlmacenResponse;
-import com.saludsystem.movimientos.application.dto.req.AlmacenRequest;
+import com.saludsystem.movimientos.application.dto.post.CrearAlmacenDTO;
+import com.saludsystem.movimientos.application.dto.get.AlmacenDTO;
+import com.saludsystem.movimientos.application.dto.put.ActualizarAlmacenDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.movimientos.application.service.AlmacenService;
 import com.saludsystem.shared.domain.model.SucursalEntity;
@@ -22,8 +23,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class AlmacenServiceImpl extends GenericServiceImpl<AlmacenEntity, AlmacenRequest, AlmacenResponse, UUID>
-        implements AlmacenService {
+public class AlmacenServiceImpl extends GenericServiceImpl<AlmacenEntity, AlmacenDTO, CrearAlmacenDTO,
+        ActualizarAlmacenDTO, UUID> implements AlmacenService {
 
     private final SucursalRepository sucursalRepository;
     private final SedeRepository sedeRepository;
@@ -31,22 +32,22 @@ public class AlmacenServiceImpl extends GenericServiceImpl<AlmacenEntity, Almace
     public AlmacenServiceImpl(
             AlmacenRepository almacenRepository, ModelMapper modelMapper,
             AuthValidator authValidator, SucursalRepository sucursalRepository, SedeRepository sedeRepository) {
-        super(almacenRepository, modelMapper, authValidator, AlmacenResponse.class);
+        super(almacenRepository, modelMapper, authValidator, AlmacenDTO.class);
         this.sucursalRepository = sucursalRepository;
         this.sedeRepository = sedeRepository;
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(AlmacenRequest almacenRequest) {
-        return super.save(almacenRequest);
+    public ApiResponse save(CrearAlmacenDTO almacenDTO) {
+        return super.save(almacenDTO);
     }
 
     @Override
-    protected void beforeSave(AlmacenEntity entity, AlmacenRequest almacenRequest) {
+    protected void beforeSave(AlmacenEntity entity, CrearAlmacenDTO almacenDTO) {
         UserEntity user = authValidator.getCurrentUser();
         // Buscar sede
-        sedeRepository.findById(almacenRequest.getSedeId())
+        sedeRepository.findById(almacenDTO.getSedeId())
                 .ifPresentOrElse(entity::setSedeEntity,
                         () -> { throw new RuntimeException("Sede no encontrada"); });
         // Buscar primera sucursal disponible
@@ -56,23 +57,23 @@ public class AlmacenServiceImpl extends GenericServiceImpl<AlmacenEntity, Almace
     }
 
     @Override
-    public ListResponse<AlmacenResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<AlmacenDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, AlmacenRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarAlmacenDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public AlmacenResponse getById(UUID uuid) {
+    public AlmacenDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<AlmacenResponse> getList() {
+    public List<AlmacenDTO> getList() {
         return super.getList();
     }
 
@@ -83,15 +84,15 @@ public class AlmacenServiceImpl extends GenericServiceImpl<AlmacenEntity, Almace
     }
 
     @Override
-    protected AlmacenEntity convertCreateDtoToEntity(AlmacenRequest almacenRequest) {
+    protected AlmacenEntity convertCreateDtoToEntity(CrearAlmacenDTO almacenDTO) {
         AlmacenEntity entity = new AlmacenEntity();
-        entity.setNombre(almacenRequest.getNombre());
-        entity.setEstado(almacenRequest.getEstado());
+        entity.setNombre(almacenDTO.getNombre());
+        entity.setEstado(almacenDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(AlmacenEntity entity, AlmacenRequest dto) {
+    protected void updateEntityFromDto(AlmacenEntity entity, ActualizarAlmacenDTO dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }

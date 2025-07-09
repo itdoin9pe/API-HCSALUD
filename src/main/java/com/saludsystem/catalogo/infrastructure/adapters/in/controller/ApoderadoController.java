@@ -1,6 +1,8 @@
 package com.saludsystem.catalogo.infrastructure.adapters.in.controller;
 
-import com.saludsystem.catalogo.application.dtos.res.ApoderadoRequest;
+import com.saludsystem.catalogo.application.dtos.get.ApoderadoDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearApoderadoDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarApoderadoDTO;
 import com.saludsystem.catalogo.infrastructure.adapters.in.response.ApoderadoListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -16,9 +18,9 @@ import java.util.UUID;
 @Tag(name = "Apoderados")
 @RestController
 @RequestMapping("/api/Apoderados")
-public class ApoderadoController extends GenericController<com.saludsystem.catalogo.application.dtos.req.ApoderadoRequest, ApoderadoRequest, UUID> {
+public class ApoderadoController extends GenericController<ApoderadoDTO, CrearApoderadoDTO, ActualizarApoderadoDTO, UUID> {
 
-    protected ApoderadoController(GenericService<com.saludsystem.catalogo.application.dtos.req.ApoderadoRequest, ApoderadoRequest, UUID> genericService) {
+    protected ApoderadoController(GenericService<ApoderadoDTO, CrearApoderadoDTO, ActualizarApoderadoDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -28,7 +30,7 @@ public class ApoderadoController extends GenericController<com.saludsystem.catal
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApoderadoListResponse.class)))
     })
-    public ListResponse<ApoderadoRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<ApoderadoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

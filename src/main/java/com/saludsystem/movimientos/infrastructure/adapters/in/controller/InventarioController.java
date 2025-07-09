@@ -1,8 +1,8 @@
 package com.saludsystem.movimientos.infrastructure.adapters.in.controller;
 
-import com.saludsystem.movimientos.application.dto.res.InventarioResponse;
-import com.saludsystem.movimientos.application.dto.req.InventarioRequest;
-import com.saludsystem.movimientos.application.dto.ActualizarInventarioDTO;
+import com.saludsystem.movimientos.application.dto.post.CrearInventarioDTO;
+import com.saludsystem.movimientos.application.dto.get.InventarioDTO;
+import com.saludsystem.movimientos.application.dto.put.ActualizarInventarioDTO;
 import com.saludsystem.movimientos.application.service.InventarioExportService;
 import com.saludsystem.movimientos.application.service.InventarioService;
 import com.saludsystem.movimientos.infrastructure.adapters.in.response.InventarioListResponse;
@@ -35,8 +35,8 @@ public class InventarioController {
     }
 
     @PostMapping("/SaveInventario")
-    public ApiResponse store(@Valid @RequestBody InventarioRequest inventarioRequest) {
-        return inventarioService.saveInventario(inventarioRequest);
+    public ApiResponse store(@Valid @RequestBody InventarioDTO inventarioDTO) {
+        return inventarioService.saveInventario(inventarioDTO);
     }
 
     @GetMapping("/GetAllInventario")
@@ -45,7 +45,7 @@ public class InventarioController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = InventarioListResponse.class)))
     })
-    public ListResponse<InventarioResponse> getAllPage(
+    public ListResponse<InventarioDTO> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows) {
@@ -53,7 +53,7 @@ public class InventarioController {
     }
 
     @GetMapping("/GetInventario/{inventarioId}")
-    public InventarioResponse getById(@PathVariable UUID inventarioId) {
+    public CrearInventarioDTO getById(@PathVariable UUID inventarioId) {
         return inventarioService.getInventarioById(inventarioId);
     }
 

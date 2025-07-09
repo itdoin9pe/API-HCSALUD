@@ -1,12 +1,15 @@
 package com.saludsystem.catalogo.application.services;
 
-import com.saludsystem.catalogo.application.dtos.res.EspecialidadRequest;
+import com.saludsystem.catalogo.application.dtos.get.EspecialidadDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearEspecialidadDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarEspecialidadDTO;
 import com.saludsystem.shared.application.service.GenericService;
 
 import java.util.UUID;
 
 public interface EspecialidadService extends GenericService<
-        com.saludsystem.catalogo.application.dtos.req.EspecialidadRequest,
-        EspecialidadRequest,
+        EspecialidadDTO,
+        CrearEspecialidadDTO,
+        ActualizarEspecialidadDTO,
         UUID> {
 }

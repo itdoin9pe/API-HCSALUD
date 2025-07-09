@@ -1,7 +1,8 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.ExploracionFisicaResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.ExploracionFisicaRequest;
+import com.saludsystem.paciente.application.dto.get.historialclinico.ExploracionFisicaDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.CrearExploracionFisicaDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.ActualizarExploracionFisicaDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.ExploracionFisicaService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -19,20 +20,20 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ExploracionFisicaServiceImpl extends GenericServiceImpl<ExploracionFisicaEntity, ExploracionFisicaRequest,
-        ExploracionFisicaResponse, UUID> implements ExploracionFisicaService {
+public class ExploracionFisicaServiceImpl extends GenericServiceImpl<ExploracionFisicaEntity, ExploracionFisicaDTO,
+        CrearExploracionFisicaDTO, ActualizarExploracionFisicaDTO, UUID> implements ExploracionFisicaService {
 
     private final PacienteRepository pacienteRepository;
 
     public ExploracionFisicaServiceImpl(
             ExploracionFisicaRepository exploracionFisicaRepository,
             ModelMapper modelMapper, AuthValidator authValidator, PacienteRepository pacienteRepository) {
-        super(exploracionFisicaRepository, modelMapper, authValidator, ExploracionFisicaResponse.class);
+        super(exploracionFisicaRepository, modelMapper, authValidator, ExploracionFisicaDTO.class);
         this.pacienteRepository = pacienteRepository;
     }
 
     @Override
-    protected ExploracionFisicaEntity convertCreateDtoToEntity(ExploracionFisicaRequest exploracionFisicaRequest) {
+    protected ExploracionFisicaEntity convertCreateDtoToEntity(CrearExploracionFisicaDTO exploracionFisicaRequest) {
         ExploracionFisicaEntity entity = new ExploracionFisicaEntity();
         entity.setPacienteEntity(pacienteRepository.findById(exploracionFisicaRequest.getPacienteId())
                 .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
@@ -50,7 +51,7 @@ public class ExploracionFisicaServiceImpl extends GenericServiceImpl<Exploracion
     }
 
     @Override
-    protected void updateEntityFromDto(ExploracionFisicaEntity entity, ExploracionFisicaRequest dto) {
+    protected void updateEntityFromDto(ExploracionFisicaEntity entity, ActualizarExploracionFisicaDTO dto) {
         entity.setPacienteEntity(pacienteRepository.findById(dto.getPacienteId())
                 .orElseThrow( () -> new ResourceNotFoundException("Paciente not found")));
         entity.setPresionArterial(dto.getPresionArterial());
@@ -67,28 +68,28 @@ public class ExploracionFisicaServiceImpl extends GenericServiceImpl<Exploracion
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(ExploracionFisicaRequest exploracionFisicaRequest) {
+    public ApiResponse save(CrearExploracionFisicaDTO exploracionFisicaRequest) {
         return super.save(exploracionFisicaRequest);
     }
 
     @Override
-    public ListResponse<ExploracionFisicaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<ExploracionFisicaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, ExploracionFisicaRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarExploracionFisicaDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public ExploracionFisicaResponse getById(UUID uuid) {
+    public ExploracionFisicaDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<ExploracionFisicaResponse> getList() {
+    public List<ExploracionFisicaDTO> getList() {
         return super.getList();
     }
 

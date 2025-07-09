@@ -1,7 +1,8 @@
 package com.saludsystem.operaciones.application.service.impl;
 
-import com.saludsystem.operaciones.application.dto.res.CategoriaMatResponse;
-import com.saludsystem.operaciones.application.dto.req.CategotiaMatRequest;
+import com.saludsystem.operaciones.application.dto.get.CategoriaMatDTO;
+import com.saludsystem.operaciones.application.dto.post.CrearCategotiaMatDTO;
+import com.saludsystem.operaciones.application.dto.put.ActualizarCategoriaMatDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.operaciones.application.service.CategoriaMatService;
 import com.saludsystem.operaciones.domain.model.CategoriaMatEntity;
@@ -18,38 +19,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CategoriaMatServiceImpl extends GenericServiceImpl<CategoriaMatEntity, CategotiaMatRequest,
-        CategoriaMatResponse, UUID> implements CategoriaMatService {
+public class CategoriaMatServiceImpl extends GenericServiceImpl<CategoriaMatEntity, CategoriaMatDTO,
+        CrearCategotiaMatDTO, ActualizarCategoriaMatDTO, UUID> implements CategoriaMatService {
 
     protected CategoriaMatServiceImpl(
             CategoriaMatRepository categoriaMatRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(categoriaMatRepository, modelMapper, authValidator, CategoriaMatResponse.class);
+        super(categoriaMatRepository, modelMapper, authValidator, CategoriaMatDTO.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CategotiaMatRequest categotiaMatRequest) {
-        return super.save(categotiaMatRequest);
+    public ApiResponse save(CrearCategotiaMatDTO crearCategotiaMatDTO) {
+        return super.save(crearCategotiaMatDTO);
     }
 
     @Override
-    public ListResponse<CategoriaMatResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<CategoriaMatDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CategotiaMatRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarCategoriaMatDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public CategoriaMatResponse getById(UUID uuid) {
+    public CategoriaMatDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<CategoriaMatResponse> getList() {
+    public List<CategoriaMatDTO> getList() {
         return super.getList();
     }
 
@@ -60,16 +61,16 @@ public class CategoriaMatServiceImpl extends GenericServiceImpl<CategoriaMatEnti
     }
 
     @Override
-    protected CategoriaMatEntity convertCreateDtoToEntity(CategotiaMatRequest categotiaMatRequest) {
+    protected CategoriaMatEntity convertCreateDtoToEntity(CrearCategotiaMatDTO crearCategotiaMatDTO) {
         CategoriaMatEntity entity = new CategoriaMatEntity();
-        entity.setNombre(categotiaMatRequest.getNombre());
-        entity.setDescripcion(categotiaMatRequest.getDescripcion());
-        entity.setEstado(categotiaMatRequest.getEstado());
+        entity.setNombre(crearCategotiaMatDTO.getNombre());
+        entity.setDescripcion(crearCategotiaMatDTO.getDescripcion());
+        entity.setEstado(crearCategotiaMatDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(CategoriaMatEntity entity, CategotiaMatRequest dto) {
+    protected void updateEntityFromDto(CategoriaMatEntity entity, ActualizarCategoriaMatDTO dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);

@@ -1,6 +1,6 @@
 package com.saludsystem.mantenimiento.infrastructure.adapters.in.response;
 
-import com.saludsystem.mantenimiento.application.dto.res.EnfermedadDTO;
+import com.saludsystem.mantenimiento.application.dto.get.EnfermedadDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,5 +1,6 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.response.HistorialClinico;
 
+import com.saludsystem.paciente.application.dto.get.historialclinico.ExploracionFisicaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import java.util.List;
 public class ExploracionFisicaListResponse {
 
     @Schema(description = "Lista de registros de exploraciones fisicas del paciente")
-    private List<com.saludsystem.paciente.application.dto.res.historialclinico.ExploracionFisicaResponse> data;
+    private List<ExploracionFisicaDTO> data;
 
     @Schema(description = "Total de registros de exploraciones fisicas del paciente", example = "0")
     private long totalData;

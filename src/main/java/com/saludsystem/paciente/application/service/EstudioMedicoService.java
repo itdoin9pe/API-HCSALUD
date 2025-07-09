@@ -1,8 +1,8 @@
 package com.saludsystem.paciente.application.service;
 
-import com.saludsystem.paciente.application.dto.res.EstudioMedicoResponse;
-import com.saludsystem.paciente.application.dto.req.EstudioMedicoRequest;
-import com.saludsystem.paciente.application.dto.base.ActualizarEstudioMedicoDTO;
+import com.saludsystem.paciente.application.dto.get.EstudioMedicoDTO;
+import com.saludsystem.paciente.application.dto.post.CrearEstudioMedicoDTO;
+import com.saludsystem.paciente.application.dto.put.ActualizarEstudioMedicoDTO;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 
@@ -10,13 +10,13 @@ import java.util.UUID;
 
 public interface EstudioMedicoService {
 
-    ApiResponse saveEstudioMedico(EstudioMedicoRequest estudioMedicoRequest);
+    ApiResponse saveEstudioMedico(CrearEstudioMedicoDTO crearEstudioMedicoDTO);
 
-    ListResponse<EstudioMedicoResponse> getAllEstudioMedico(UUID hospitalId, int page, int rows);
+    ListResponse<EstudioMedicoDTO> getAllEstudioMedico(UUID hospitalId, int page, int rows);
 
     ApiResponse updateEstudioMedico(Long pacienteEstudioMedicoId, ActualizarEstudioMedicoDTO actualizarEstudioMedicoDTO);
 
-    EstudioMedicoResponse getEstudioMedicoById(Long pacienteEstudioMedicoId);
+    EstudioMedicoDTO getEstudioMedicoById(Long pacienteEstudioMedicoId);
 
     ApiResponse deleteEstudioMedico(Long pacienteEstudioMedicoId);
 

@@ -1,7 +1,8 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller.tratamiento;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.tratamiento.PlanTratamientoResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.tratamiento.PlanTratamientoRequest;
+import com.saludsystem.paciente.application.dto.get.historialclinico.tratamiento.PlanTratamientoDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.tratamiento.CrearPlanTratamientoDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.tratamiento.ActualizarPlanTratamientoDTO;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.Tratamiento.PlanTratamientoListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,10 +18,11 @@ import java.util.UUID;
 @Tag(name = "PacientesPlanesTratamientos")
 @RestController
 @RequestMapping("/api/Pacientes/PlanesTratamientos")
-public class PlanTratamientoController extends GenericController<PlanTratamientoRequest, PlanTratamientoResponse, UUID> {
+public class PlanTratamientoController extends GenericController<PlanTratamientoDTO, CrearPlanTratamientoDTO,
+        ActualizarPlanTratamientoDTO, UUID> {
 
-    protected PlanTratamientoController(
-            GenericService<PlanTratamientoRequest, PlanTratamientoResponse, UUID> genericService) {
+    protected PlanTratamientoController(GenericService<
+            PlanTratamientoDTO, CrearPlanTratamientoDTO, ActualizarPlanTratamientoDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -30,7 +32,7 @@ public class PlanTratamientoController extends GenericController<PlanTratamiento
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = PlanTratamientoListResponse.class)))
     })
-    public ListResponse<PlanTratamientoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<PlanTratamientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

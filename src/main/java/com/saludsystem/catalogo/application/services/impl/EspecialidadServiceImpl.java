@@ -1,6 +1,8 @@
 package com.saludsystem.catalogo.application.services.impl;
 
-import com.saludsystem.catalogo.application.dtos.res.EspecialidadRequest;
+import com.saludsystem.catalogo.application.dtos.get.EspecialidadDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearEspecialidadDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarEspecialidadDTO;
 import com.saludsystem.catalogo.application.services.EspecialidadService;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.domain.model.EspecialidadEntity;
@@ -16,28 +18,28 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class EspecialidadServiceImpl extends GenericServiceImpl<EspecialidadEntity, com.saludsystem.catalogo.application.dtos.req.EspecialidadRequest,
-        EspecialidadRequest, UUID> implements EspecialidadService {
+public class EspecialidadServiceImpl extends GenericServiceImpl<EspecialidadEntity, EspecialidadDTO,
+        CrearEspecialidadDTO, ActualizarEspecialidadDTO, UUID> implements EspecialidadService {
 
     protected EspecialidadServiceImpl(
             EspecialidadRepository especialidadRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(especialidadRepository, modelMapper, authValidator, EspecialidadRequest.class);
+        super(especialidadRepository, modelMapper, authValidator, EspecialidadDTO.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(com.saludsystem.catalogo.application.dtos.req.EspecialidadRequest especialidadRequest) {
-        return super.save(especialidadRequest);
+    public ApiResponse save(CrearEspecialidadDTO especialidadDTO) {
+        return super.save(especialidadDTO);
     }
 
     @Override
-    public ListResponse<EspecialidadRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<EspecialidadDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, com.saludsystem.catalogo.application.dtos.req.EspecialidadRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarEspecialidadDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
@@ -48,26 +50,26 @@ public class EspecialidadServiceImpl extends GenericServiceImpl<EspecialidadEnti
     }
 
     @Override
-    public EspecialidadRequest getById(UUID uuid) {
+    public EspecialidadDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<EspecialidadRequest> getList() {
+    public List<EspecialidadDTO> getList() {
         return super.getList();
     }
 
     @Override
-    protected EspecialidadEntity convertCreateDtoToEntity(com.saludsystem.catalogo.application.dtos.req.EspecialidadRequest especialidadRequest) {
+    protected EspecialidadEntity convertCreateDtoToEntity(CrearEspecialidadDTO especialidadDTO) {
         EspecialidadEntity entity = new EspecialidadEntity();
-        entity.setNombre(especialidadRequest.getNombre());
-        entity.setDescripcion(especialidadRequest.getDescripcion());
-        entity.setEstado(especialidadRequest.getEstado());
+        entity.setNombre(especialidadDTO.getNombre());
+        entity.setDescripcion(especialidadDTO.getDescripcion());
+        entity.setEstado(especialidadDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(EspecialidadEntity entity, com.saludsystem.catalogo.application.dtos.req.EspecialidadRequest dto) {
+    protected void updateEntityFromDto(EspecialidadEntity entity, ActualizarEspecialidadDTO dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);

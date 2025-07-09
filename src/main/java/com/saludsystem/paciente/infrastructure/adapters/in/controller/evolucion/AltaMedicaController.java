@@ -1,8 +1,8 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller.evolucion;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.AltaMedicaResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.AltaMedicaRequest;
-import com.saludsystem.paciente.application.dto.base.evolucion.ActualizarAltaMedicaDTO;
+import com.saludsystem.paciente.application.dto.get.historialclinico.evolucion.AltaMedicaDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.evolucion.CrearAltaMedicaDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.evolucion.ActualizarAltaMedicaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.AltaMedicaService;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.Evolucion.AltaMedicaListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
@@ -28,8 +28,8 @@ public class AltaMedicaController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse stored(@Valid @RequestBody AltaMedicaRequest altaMedicaRequest) {
-        return altaMedicaService.saveAltaMedica(altaMedicaRequest);
+    public ApiResponse stored(@Valid @RequestBody CrearAltaMedicaDTO crearAltaMedicaDTO) {
+        return altaMedicaService.saveAltaMedica(crearAltaMedicaDTO);
     }
 
     @GetMapping("/GetAll")
@@ -38,14 +38,14 @@ public class AltaMedicaController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = AltaMedicaListResponse.class)))
     })
-    public ListResponse<AltaMedicaResponse> getAllPage(
+    public ListResponse<AltaMedicaDTO> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return altaMedicaService.getAllAltaMedica(hospitalId, page, rows);
     }
 
     @GetMapping("/GetById/{Id}")
-    public AltaMedicaResponse getById(@PathVariable Long evolucionAltaMedicaId) {
+    public AltaMedicaDTO getById(@PathVariable Long evolucionAltaMedicaId) {
         return altaMedicaService.getAltaMedicaById(evolucionAltaMedicaId);
     }
 

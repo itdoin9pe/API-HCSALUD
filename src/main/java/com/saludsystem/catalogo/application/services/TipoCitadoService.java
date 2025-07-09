@@ -1,12 +1,15 @@
 package com.saludsystem.catalogo.application.services;
 
-import com.saludsystem.catalogo.application.dtos.res.TipoCitadoRequest;
+import com.saludsystem.catalogo.application.dtos.get.TipoCitadoDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearTipoCitadoDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarTipoCitadoDTO;
 import com.saludsystem.shared.application.service.GenericService;
 
 import java.util.UUID;
 
 public interface TipoCitadoService extends GenericService<
-        com.saludsystem.catalogo.application.dtos.req.TipoCitadoRequest,
-        TipoCitadoRequest,
+        TipoCitadoDTO,
+        CrearTipoCitadoDTO,
+        ActualizarTipoCitadoDTO,
         UUID> {
 }

@@ -1,7 +1,8 @@
 package com.saludsystem.configuracion.application.services.impl;
 
-import com.saludsystem.configuracion.application.dto.res.SedeResponse;
-import com.saludsystem.configuracion.application.dto.req.SedeRequest;
+import com.saludsystem.configuracion.application.dto.get.SedeDTO;
+import com.saludsystem.configuracion.application.dto.post.CrearSedeDTO;
+import com.saludsystem.configuracion.application.dto.put.ActualizarSedeDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.configuracion.application.services.SedeService;
 import com.saludsystem.shared.domain.model.SucursalEntity;
@@ -21,25 +22,25 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class SedeServiceImpl extends GenericServiceImpl<SedeEntity, SedeRequest, SedeResponse, UUID>
-        implements SedeService {
+public class SedeServiceImpl extends GenericServiceImpl<SedeEntity, SedeDTO, CrearSedeDTO,
+        ActualizarSedeDTO, UUID> implements SedeService {
 
     private final SucursalRepository sucursalRepository;
 
     public SedeServiceImpl(SedeRepository sedeRepository, ModelMapper modelMapper, AuthValidator authValidator,
                            SucursalRepository sucursalRepository) {
-        super(sedeRepository, modelMapper, authValidator, SedeResponse.class);
+        super(sedeRepository, modelMapper, authValidator, SedeDTO.class);
         this.sucursalRepository = sucursalRepository;
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(SedeRequest sedeRequest) {
-        return super.save(sedeRequest);
+    public ApiResponse save(CrearSedeDTO crearSedeDTO) {
+        return super.save(crearSedeDTO);
     }
 
     @Override
-    protected void beforeSave(SedeEntity entity, SedeRequest dto) {
+    protected void beforeSave(SedeEntity entity, CrearSedeDTO dto) {
         UserEntity user = authValidator.getCurrentUser();
         List<SucursalEntity> sucursales = sucursalRepository.findByHospital_HospitalId(user.getHospital().getHospitalId());
         if (sucursales.isEmpty()) {
@@ -52,23 +53,23 @@ public class SedeServiceImpl extends GenericServiceImpl<SedeEntity, SedeRequest,
     }
 
     @Override
-    public ListResponse<SedeResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<SedeDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, SedeRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarSedeDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public List<SedeResponse> getList() {
+    public List<SedeDTO> getList() {
         return super.getList();
     }
 
     @Override
-    public SedeResponse getById(UUID uuid) {
+    public SedeDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
@@ -79,18 +80,18 @@ public class SedeServiceImpl extends GenericServiceImpl<SedeEntity, SedeRequest,
     }
 
     @Override
-    protected SedeEntity convertCreateDtoToEntity(SedeRequest sedeRequest) {
+    protected SedeEntity convertCreateDtoToEntity(CrearSedeDTO crearSedeDTO) {
         SedeEntity entity = new SedeEntity();
-        entity.setCodigo(sedeRequest.getCodigo());
-        entity.setNombre(sedeRequest.getNombre());
-        entity.setDireccion(sedeRequest.getDireccion());
-        entity.setUbigeo(sedeRequest.getUbigeo());
-        entity.setEstado(sedeRequest.getEstado());
+        entity.setCodigo(crearSedeDTO.getCodigo());
+        entity.setNombre(crearSedeDTO.getNombre());
+        entity.setDireccion(crearSedeDTO.getDireccion());
+        entity.setUbigeo(crearSedeDTO.getUbigeo());
+        entity.setEstado(crearSedeDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(SedeEntity entity, SedeRequest dto) {
+    protected void updateEntityFromDto(SedeEntity entity, ActualizarSedeDTO dto) {
         Optional.ofNullable(dto.getCodigo()).ifPresent(entity::setCodigo);
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getDireccion()).ifPresent(entity::setDireccion);

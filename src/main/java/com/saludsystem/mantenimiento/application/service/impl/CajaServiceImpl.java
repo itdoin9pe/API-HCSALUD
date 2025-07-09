@@ -1,7 +1,8 @@
 package com.saludsystem.mantenimiento.application.service.impl;
 
-import com.saludsystem.mantenimiento.application.dto.res.CajaResponse;
-import com.saludsystem.mantenimiento.application.dto.req.CajaRequest;
+import com.saludsystem.mantenimiento.application.dto.get.CajaDTO;
+import com.saludsystem.mantenimiento.application.dto.post.CrearCajaDTO;
+import com.saludsystem.mantenimiento.application.dto.put.ActualizarCajaDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.mantenimiento.application.service.CajaService;
 import com.saludsystem.mantenimiento.domain.model.CajaEntity;
@@ -18,37 +19,37 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CajaServiceImpl extends GenericServiceImpl<CajaEntity, CajaRequest, CajaResponse, UUID>
+public class CajaServiceImpl extends GenericServiceImpl<CajaEntity, CajaDTO, CrearCajaDTO, ActualizarCajaDTO, UUID>
         implements CajaService {
 
     protected CajaServiceImpl(CajaRepository cajaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(cajaRepository, modelMapper, authValidator, CajaResponse.class);
+        super(cajaRepository, modelMapper, authValidator, CajaDTO.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(CajaRequest cajaRequest) {
-        return super.save(cajaRequest);
+    public ApiResponse save(CrearCajaDTO crearCajaDTO) {
+        return super.save(crearCajaDTO);
     }
 
     @Override
-    public ListResponse<CajaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<CajaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, CajaRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarCajaDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public CajaResponse getById(UUID uuid) {
+    public CajaDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<CajaResponse> getList() {
+    public List<CajaDTO> getList() {
         return super.getList();
     }
 
@@ -59,15 +60,15 @@ public class CajaServiceImpl extends GenericServiceImpl<CajaEntity, CajaRequest,
     }
 
     @Override
-    protected CajaEntity convertCreateDtoToEntity(CajaRequest cajaRequest) {
+    protected CajaEntity convertCreateDtoToEntity(CrearCajaDTO crearCajaDTO) {
         CajaEntity entity = new CajaEntity();
-        entity.setNombre(cajaRequest.getNombre());
-        entity.setEstado(cajaRequest.getEstado());
+        entity.setNombre(crearCajaDTO.getNombre());
+        entity.setEstado(crearCajaDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(CajaEntity entity, CajaRequest dto) {
+    protected void updateEntityFromDto(CajaEntity entity, ActualizarCajaDTO dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }

@@ -1,8 +1,8 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico.evolucion;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.evolucion.EvolucionResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.evolucion.EvolucionRequest;
-import com.saludsystem.paciente.application.dto.base.evolucion.ActualizarEvolucionDTO;
+import com.saludsystem.paciente.application.dto.get.historialclinico.evolucion.EvolucionDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.evolucion.CrearEvolucionDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.evolucion.ActualizarEvolucionDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.EvolucionService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.Evolucion.EvolucionEntity;
@@ -43,17 +43,17 @@ public class EvolucionServiceImpl implements EvolucionService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveEvolucion(EvolucionRequest evolucionRequest) {
+    public ApiResponse saveEvolucion(CrearEvolucionDTO crearEvolucionDTO) {
         authValidator.validateAdminAccess();
         var user = authValidator.getCurrentUser();
         var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
         var evolucionEntity = new EvolucionEntity();
         evolucionRepository.save(evolucionEntity);
-        evolucionEntity.setPacienteEntity(pacienteRepository.findById(evolucionRequest.getPacienteId()).
+        evolucionEntity.setPacienteEntity(pacienteRepository.findById(crearEvolucionDTO.getPacienteId()).
                 orElseThrow(() -> new ResourceNotFoundException("Paciente not found")));
-        evolucionEntity.setFechaInicio(evolucionRequest.getFechaInicio());
-        evolucionEntity.setFinalizada(evolucionRequest.getFinalizada());
+        evolucionEntity.setFechaInicio(crearEvolucionDTO.getFechaInicio());
+        evolucionEntity.setFinalizada(crearEvolucionDTO.getFinalizada());
         evolucionEntity.setHospital(hospital);
         evolucionEntity.setUser(user);
         evolucionRepository.save(evolucionEntity);
@@ -61,15 +61,15 @@ public class EvolucionServiceImpl implements EvolucionService {
     }
 
     @Override
-    public ListResponse<EvolucionResponse> getAllEvolucion(UUID hospitalId, int page, int rows) {
+    public ListResponse<EvolucionDTO> getAllEvolucion(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<EvolucionEntity> evolucionEntityPage = evolucionRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<EvolucionResponse> data = evolucionEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<EvolucionDTO> data = evolucionEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data, evolucionEntityPage.getTotalElements(), evolucionEntityPage.getTotalPages(), evolucionEntityPage.getNumber() + 1);
     }
 
     @Override
-    public EvolucionResponse getEvolucionById(UUID pacienteEvolucionId) {
+    public EvolucionDTO getEvolucionById(UUID pacienteEvolucionId) {
         EvolucionEntity evolucionEntity = evolucionRepository.findById(pacienteEvolucionId).orElseThrow(
                 () -> new ResourceNotFoundException("Evolucion no encontrada"));
         return convertToDTO(evolucionEntity);
@@ -96,7 +96,7 @@ public class EvolucionServiceImpl implements EvolucionService {
         return new ApiResponse(true, "Evolucion eliminada correctamente");
     }
 
-    private EvolucionResponse convertToDTO(EvolucionEntity evolucionEntity) {
-        return modelMapper.map(evolucionEntity, EvolucionResponse.class);
+    private EvolucionDTO convertToDTO(EvolucionEntity evolucionEntity) {
+        return modelMapper.map(evolucionEntity, EvolucionDTO.class);
     }
 }

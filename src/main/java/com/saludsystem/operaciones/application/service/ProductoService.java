@@ -1,8 +1,8 @@
 package com.saludsystem.operaciones.application.service;
 
-import com.saludsystem.operaciones.application.dto.res.ProductoResponse;
-import com.saludsystem.operaciones.application.dto.req.ProductoRequest;
-import com.saludsystem.operaciones.application.dto.req.ActualizarProductoDTO;
+import com.saludsystem.operaciones.application.dto.get.ProductoDTO;
+import com.saludsystem.operaciones.application.dto.post.CrearProductoDTO;
+import com.saludsystem.operaciones.application.dto.put.ActualizarProductoDTO;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 
@@ -11,13 +11,13 @@ import java.util.UUID;
 
 public interface ProductoService {
 
-    ApiResponse saveProducto(ProductoRequest productoRequest);
+    ApiResponse saveProducto(CrearProductoDTO crearProductoDTO);
 
-    ListResponse<ProductoResponse> getAllProducto(UUID hospitalId, int page, int rows);
+    ListResponse<ProductoDTO> getAllProducto(UUID hospitalId, int page, int rows);
 
-    List<ProductoResponse> getProductoList();
+    List<ProductoDTO> getProductoList();
 
-    ProductoResponse getProductoById(UUID productoId);
+    ProductoDTO getProductoById(UUID productoId);
 
     ApiResponse updateProducto(UUID productoId, ActualizarProductoDTO actualizarProductoDTO);
 

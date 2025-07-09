@@ -1,6 +1,8 @@
 package com.saludsystem.catalogo.infrastructure.adapters.in.controller;
 
-import com.saludsystem.catalogo.application.dtos.res.EspecialidadRequest;
+import com.saludsystem.catalogo.application.dtos.get.EspecialidadDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearEspecialidadDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarEspecialidadDTO;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -16,9 +18,11 @@ import java.util.UUID;
 @Tag(name = "Especialidades")
 @RestController
 @RequestMapping("/api/Especialidades")
-public class EspecialidadController extends GenericController<com.saludsystem.catalogo.application.dtos.req.EspecialidadRequest, EspecialidadRequest, UUID> {
+public class EspecialidadController extends GenericController<EspecialidadDTO, CrearEspecialidadDTO,
+        ActualizarEspecialidadDTO, UUID> {
 
-    protected EspecialidadController(GenericService<com.saludsystem.catalogo.application.dtos.req.EspecialidadRequest, EspecialidadRequest, UUID> genericService) {
+    protected EspecialidadController(GenericService<EspecialidadDTO,
+            CrearEspecialidadDTO, ActualizarEspecialidadDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -28,7 +32,7 @@ public class EspecialidadController extends GenericController<com.saludsystem.ca
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = EspecialidadListResponse.class)))
     })
-    public ListResponse<EspecialidadRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<EspecialidadDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

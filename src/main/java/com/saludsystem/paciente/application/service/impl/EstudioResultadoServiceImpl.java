@@ -1,8 +1,8 @@
 package com.saludsystem.paciente.application.service.impl;
 
-import com.saludsystem.paciente.application.dto.res.EstudioResultadoResponse;
-import com.saludsystem.paciente.application.dto.req.EstudioResultadoRequest;
-import com.saludsystem.paciente.application.dto.base.ActualizarEstudioResultadoDTO;
+import com.saludsystem.paciente.application.dto.get.EstudioResultadoDTO;
+import com.saludsystem.paciente.application.dto.post.CrearEstudioResultadoDTO;
+import com.saludsystem.paciente.application.dto.put.ActualizarEstudioResultadoDTO;
 import com.saludsystem.paciente.application.service.EstudioResultadoService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.configuracion.domain.model.SysSaludEntity;
@@ -47,7 +47,7 @@ public class EstudioResultadoServiceImpl implements EstudioResultadoService {
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse saveEstudioResultado(EstudioResultadoRequest estudioResultadoRequest) {
+    public ApiResponse saveEstudioResultado(CrearEstudioResultadoDTO crearEstudioResultadoDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -57,11 +57,11 @@ public class EstudioResultadoServiceImpl implements EstudioResultadoService {
         SysSaludEntity hospital = sysSaludRepository.findById(userEntity.getHospital().getHospitalId()).orElseThrow(
                 () -> new RuntimeException("Hospital no encontrado"));
         EstudioResultadoEntity estudioResultadoEntity = new EstudioResultadoEntity();
-        estudioResultadoEntity.setEstudioMedicoEntity(estudioMedicoRepository.findById(estudioResultadoRequest.getPacienteEstudioMedicoId()).
+        estudioResultadoEntity.setEstudioMedicoEntity(estudioMedicoRepository.findById(crearEstudioResultadoDTO.getPacienteEstudioMedicoId()).
                 orElseThrow( () -> new ResourceNotFoundException("Estudio medico no encontrado") ));
-        estudioResultadoEntity.setReporteTexto(estudioResultadoRequest.getReporteTexto());
-        estudioResultadoEntity.setUrlImg(estudioResultadoRequest.getUrlImg());
-        estudioResultadoEntity.setCreatedAt(estudioResultadoRequest.getCreatedAt());
+        estudioResultadoEntity.setReporteTexto(crearEstudioResultadoDTO.getReporteTexto());
+        estudioResultadoEntity.setUrlImg(crearEstudioResultadoDTO.getUrlImg());
+        estudioResultadoEntity.setCreatedAt(crearEstudioResultadoDTO.getCreatedAt());
         estudioResultadoEntity.setHospital(hospital);
         estudioResultadoEntity.setUser(userEntity);
         estudioResultadoRepository.save(estudioResultadoEntity);
@@ -69,10 +69,10 @@ public class EstudioResultadoServiceImpl implements EstudioResultadoService {
     }
 
     @Override
-    public ListResponse<EstudioResultadoResponse> getAllEstudioResultado(UUID hospitalId, int page, int rows) {
+    public ListResponse<EstudioResultadoDTO> getAllEstudioResultado(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<EstudioResultadoEntity> estudioResultadoEntityPage = estudioResultadoRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<EstudioResultadoResponse> data = estudioResultadoEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<EstudioResultadoDTO> data = estudioResultadoEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
         return new ListResponse<>(data, estudioResultadoEntityPage.getTotalElements(), estudioResultadoEntityPage.getTotalPages(), estudioResultadoEntityPage.getNumber() + 1);
     }
 
@@ -96,7 +96,7 @@ public class EstudioResultadoServiceImpl implements EstudioResultadoService {
     }
 
     @Override
-    public EstudioResultadoResponse getEstudioResultadoById(Long pacienteEstudioResultadoId) {
+    public EstudioResultadoDTO getEstudioResultadoById(Long pacienteEstudioResultadoId) {
         EstudioResultadoEntity estudioResultadoEntity = estudioResultadoRepository.findById(pacienteEstudioResultadoId).orElseThrow(
                 () -> new ResourceNotFoundException("Resultado de estudio no encontrado"));
         return convertToDTO(estudioResultadoEntity);
@@ -115,8 +115,8 @@ public class EstudioResultadoServiceImpl implements EstudioResultadoService {
         return new ApiResponse(true, "Resultado de estudio retirada correctamente");
     }
 
-    private EstudioResultadoResponse convertToDTO(EstudioResultadoEntity estudioResultadoEntity) {
-        return modelMapper.map(estudioResultadoEntity, EstudioResultadoResponse.class);
+    private EstudioResultadoDTO convertToDTO(EstudioResultadoEntity estudioResultadoEntity) {
+        return modelMapper.map(estudioResultadoEntity, EstudioResultadoDTO.class);
     }
 
 }

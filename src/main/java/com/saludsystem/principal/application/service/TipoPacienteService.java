@@ -1,10 +1,10 @@
 package com.saludsystem.principal.application.service;
 
-import com.saludsystem.principal.application.dto.res.TipoPacienteResponse;
+import com.saludsystem.principal.application.dto.get.TipoPacienteDTO;
 import java.util.List;
 
 public interface TipoPacienteService {
 
-    List<TipoPacienteResponse> getTipoPacienteList();
+    List<TipoPacienteDTO> getTipoPacienteList();
 
 }

@@ -1,5 +1,6 @@
 package com.saludsystem.operaciones.infrastructure.adapters.in.response;
 
+import com.saludsystem.operaciones.application.dto.get.ProductoDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import java.util.List;
 public class ProductoListResponse {
 
     @Schema(description = "Lista de productos registrados")
-    private List<com.saludsystem.operaciones.application.dto.res.ProductoResponse> data;
+    private List<ProductoDTO> data;
 
     @Schema(description = "Total de productos registrados", example = "0")
     private long totalData;

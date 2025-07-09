@@ -1,6 +1,8 @@
 package com.saludsystem.catalogo.application.services.impl;
 
-import com.saludsystem.catalogo.application.dtos.res.TipoConceptoRequest;
+import com.saludsystem.catalogo.application.dtos.get.TipoConceptoDTO;
+import com.saludsystem.catalogo.application.dtos.post.CrearTipoConceptoDTO;
+import com.saludsystem.catalogo.application.dtos.put.ActualizarTipoConceptoDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.application.services.TipoConceptoService;
 import com.saludsystem.catalogo.domain.model.TipoConceptoEntity;
@@ -17,38 +19,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TipoConceptoServiceImpl extends GenericServiceImpl<TipoConceptoEntity, com.saludsystem.catalogo.application.dtos.req.TipoConceptoRequest,
-        TipoConceptoRequest, UUID> implements TipoConceptoService {
+public class TipoConceptoServiceImpl extends GenericServiceImpl<TipoConceptoEntity, TipoConceptoDTO,
+        CrearTipoConceptoDTO, ActualizarTipoConceptoDTO, UUID> implements TipoConceptoService {
 
     protected TipoConceptoServiceImpl(
             TipoConceptoRepository tipoConceptoRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(tipoConceptoRepository, modelMapper, authValidator, TipoConceptoRequest.class);
+        super(tipoConceptoRepository, modelMapper, authValidator, TipoConceptoDTO.class);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse save(com.saludsystem.catalogo.application.dtos.req.TipoConceptoRequest tipoConceptoRequest) {
-        return super.save(tipoConceptoRequest);
+    public ApiResponse save(CrearTipoConceptoDTO tipoConceptoDTO) {
+        return super.save(tipoConceptoDTO);
     }
 
     @Override
-    public ListResponse<TipoConceptoRequest> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<TipoConceptoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, com.saludsystem.catalogo.application.dtos.req.TipoConceptoRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarTipoConceptoDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public TipoConceptoRequest getById(UUID uuid) {
+    public TipoConceptoDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<TipoConceptoRequest> getList() {
+    public List<TipoConceptoDTO> getList() {
         return super.getList();
     }
 
@@ -59,15 +61,15 @@ public class TipoConceptoServiceImpl extends GenericServiceImpl<TipoConceptoEnti
     }
 
     @Override
-    protected TipoConceptoEntity convertCreateDtoToEntity(com.saludsystem.catalogo.application.dtos.req.TipoConceptoRequest tipoConceptoRequest) {
+    protected TipoConceptoEntity convertCreateDtoToEntity(CrearTipoConceptoDTO tipoConceptoDTO) {
         TipoConceptoEntity entity = new TipoConceptoEntity();
-        entity.setNombre(tipoConceptoRequest.getNombre());
-        entity.setEstado(tipoConceptoRequest.getEstado());
+        entity.setNombre(tipoConceptoDTO.getNombre());
+        entity.setEstado(tipoConceptoDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(TipoConceptoEntity entity, com.saludsystem.catalogo.application.dtos.req.TipoConceptoRequest dto) {
+    protected void updateEntityFromDto(TipoConceptoEntity entity, ActualizarTipoConceptoDTO dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }

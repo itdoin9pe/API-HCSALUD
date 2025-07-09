@@ -1,7 +1,8 @@
 package com.saludsystem.mantenimiento.infrastructure.adapters.in.controller;
 
-import com.saludsystem.mantenimiento.application.dto.res.MonedaResponse;
-import com.saludsystem.mantenimiento.application.dto.req.MonedaRequest;
+import com.saludsystem.mantenimiento.application.dto.get.MonedaDTO;
+import com.saludsystem.mantenimiento.application.dto.post.CrearMonedaDTO;
+import com.saludsystem.mantenimiento.application.dto.put.ActualizarMonedaDTO;
 import com.saludsystem.mantenimiento.infrastructure.adapters.in.response.MonedaListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,9 +18,9 @@ import java.util.UUID;
 @Tag(name = "TiposMonedas")
 @RestController
 @RequestMapping("/api/TiposMonedas")
-public class MonedaController extends GenericController<MonedaRequest, MonedaResponse, UUID> {
+public class MonedaController extends GenericController<MonedaDTO, CrearMonedaDTO, ActualizarMonedaDTO, UUID> {
 
-    protected MonedaController(GenericService<MonedaRequest, MonedaResponse, UUID> genericService) {
+    protected MonedaController(GenericService<MonedaDTO, CrearMonedaDTO, ActualizarMonedaDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -29,7 +30,7 @@ public class MonedaController extends GenericController<MonedaRequest, MonedaRes
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = MonedaListResponse.class)))
     })
-    public ListResponse<MonedaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<MonedaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

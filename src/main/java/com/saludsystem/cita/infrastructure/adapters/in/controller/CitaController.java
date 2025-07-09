@@ -1,7 +1,8 @@
 package com.saludsystem.cita.infrastructure.adapters.in.controller;
 
-import com.saludsystem.cita.application.dto.res.CitaResponse;
-import com.saludsystem.cita.application.dto.req.CitaRequest;
+import com.saludsystem.cita.application.dto.post.CrearCitaDTO;
+import com.saludsystem.cita.application.dto.get.CitaDTO;
+import com.saludsystem.cita.application.dto.put.ActualizarCitaDTO;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -19,9 +20,9 @@ import java.util.UUID;
 @Tag(name = "CitasMedicas")
 @RestController
 @RequestMapping("/api/CitasMedicas")
-public class CitaController extends GenericController<CitaRequest, CitaResponse, UUID> {
+public class CitaController extends GenericController<CitaDTO, CrearCitaDTO, ActualizarCitaDTO, UUID> {
 
-    protected CitaController(GenericService<CitaRequest, CitaResponse, UUID> genericService) {
+    protected CitaController(GenericService<CitaDTO, CrearCitaDTO, ActualizarCitaDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -32,7 +33,7 @@ public class CitaController extends GenericController<CitaRequest, CitaResponse,
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = CitaListResponse.class)))
     })
-    public ListResponse<CitaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<CitaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

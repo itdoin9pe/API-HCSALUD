@@ -1,7 +1,8 @@
 package com.saludsystem.operaciones.infrastructure.adapters.in.controller;
 
-import com.saludsystem.operaciones.application.dto.res.ProveedorResponse;
-import com.saludsystem.operaciones.application.dto.req.ProveedorRequest;
+import com.saludsystem.operaciones.application.dto.get.ProveedorDTO;
+import com.saludsystem.operaciones.application.dto.post.CrearProveedorDTO;
+import com.saludsystem.operaciones.application.dto.put.ActualizarProveedorDTO;
 import com.saludsystem.operaciones.infrastructure.adapters.in.response.ProveedorListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,9 +18,11 @@ import java.util.UUID;
 @Tag(name = "Proveedor")
 @RestController
 @RequestMapping("/api/Proveedor")
-public class ProveedorController extends GenericController<ProveedorRequest, ProveedorResponse, UUID> {
+public class ProveedorController extends GenericController<ProveedorDTO, CrearProveedorDTO,
+        ActualizarProveedorDTO, UUID> {
 
-    protected ProveedorController(GenericService<ProveedorRequest, ProveedorResponse, UUID> genericService) {
+    protected ProveedorController(
+            GenericService<ProveedorDTO, CrearProveedorDTO, ActualizarProveedorDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -29,7 +32,7 @@ public class ProveedorController extends GenericController<ProveedorRequest, Pro
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProveedorListResponse.class)))
     })
-    public ListResponse<ProveedorResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<ProveedorDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

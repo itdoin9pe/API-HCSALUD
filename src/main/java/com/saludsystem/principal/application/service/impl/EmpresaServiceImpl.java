@@ -1,7 +1,8 @@
 package com.saludsystem.principal.application.service.impl;
 
-import com.saludsystem.principal.application.dto.res.EmpresaResponse;
-import com.saludsystem.principal.application.dto.req.EmpresaRequest;
+import com.saludsystem.principal.application.dto.get.EmpresaDTO;
+import com.saludsystem.principal.application.dto.post.CrearEmpresaDTO;
+import com.saludsystem.principal.application.dto.put.ActualizarEmpresaDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.principal.application.service.EmpresaService;
 import com.saludsystem.principal.domain.model.EmpresaEntity;
@@ -18,38 +19,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class EmpresaServiceImpl extends GenericServiceImpl<EmpresaEntity, EmpresaRequest, EmpresaResponse, UUID>
-        implements EmpresaService {
+public class EmpresaServiceImpl extends GenericServiceImpl<EmpresaEntity, EmpresaDTO, CrearEmpresaDTO,
+        ActualizarEmpresaDTO, UUID> implements EmpresaService {
 
     public EmpresaServiceImpl(EmpresaRepository empresaRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(empresaRepository, modelMapper, authValidator, EmpresaResponse.class
+        super(empresaRepository, modelMapper, authValidator, EmpresaDTO.class
         );
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(EmpresaRequest empresaRequest) {
-        return super.save(empresaRequest);
+    public ApiResponse save(CrearEmpresaDTO crearEmpresaDTO) {
+        return super.save(crearEmpresaDTO);
     }
 
     @Override
-    public ListResponse<EmpresaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<EmpresaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, EmpresaRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarEmpresaDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public EmpresaResponse getById(UUID uuid) {
+    public EmpresaDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<EmpresaResponse> getList() {
+    public List<EmpresaDTO> getList() {
         return super.getList();
     }
 
@@ -60,15 +61,15 @@ public class EmpresaServiceImpl extends GenericServiceImpl<EmpresaEntity, Empres
     }
 
     @Override
-    protected EmpresaEntity convertCreateDtoToEntity(EmpresaRequest empresaRequest) {
+    protected EmpresaEntity convertCreateDtoToEntity(CrearEmpresaDTO crearEmpresaDTO) {
         EmpresaEntity entity = new EmpresaEntity();
-        entity.setDescripcion(empresaRequest.getDescripcion());
-        entity.setEstado(empresaRequest.getEstado());
+        entity.setDescripcion(crearEmpresaDTO.getDescripcion());
+        entity.setEstado(crearEmpresaDTO.getEstado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(EmpresaEntity entity, EmpresaRequest dto) {
+    protected void updateEntityFromDto(EmpresaEntity entity, ActualizarEmpresaDTO dto) {
         Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }

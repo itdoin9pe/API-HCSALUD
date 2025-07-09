@@ -1,7 +1,8 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller;
 
-import com.saludsystem.paciente.application.dto.res.RecetaResponse;
-import com.saludsystem.paciente.application.dto.req.RecetaRequest;
+import com.saludsystem.paciente.application.dto.get.RecetaDTO;
+import com.saludsystem.paciente.application.dto.post.CrearRecetaDTO;
+import com.saludsystem.paciente.application.dto.put.ActualizarRecetaDTO;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.RecetaListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -17,9 +18,10 @@ import java.util.UUID;
 @Tag(name = "PacientesRecetas")
 @RestController
 @RequestMapping("/api/Pacientes/Recetas")
-public class RecetaController extends GenericController<RecetaRequest, RecetaResponse, UUID> {
+public class RecetaController extends GenericController<RecetaDTO, CrearRecetaDTO, ActualizarRecetaDTO, UUID> {
 
-    protected RecetaController(GenericService<RecetaRequest, RecetaResponse, UUID> genericService) {
+    protected RecetaController(
+            GenericService<RecetaDTO, CrearRecetaDTO, ActualizarRecetaDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -29,7 +31,7 @@ public class RecetaController extends GenericController<RecetaRequest, RecetaRes
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = RecetaListResponse.class)))
     })
-    public ListResponse<RecetaResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<RecetaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

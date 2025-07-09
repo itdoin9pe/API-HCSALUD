@@ -1,8 +1,8 @@
 package com.saludsystem.movimientos.infrastructure.adapters.in.controller;
 
-import com.saludsystem.movimientos.application.dto.res.CompraDetalleResponse;
-import com.saludsystem.movimientos.application.dto.req.CompraDetalleRequest;
-import com.saludsystem.movimientos.application.dto.ActualizarCompraDetalleDTO;
+import com.saludsystem.movimientos.application.dto.post.CrearCompraDetalleDTO;
+import com.saludsystem.movimientos.application.dto.get.CompraDetalleDTO;
+import com.saludsystem.movimientos.application.dto.put.ActualizarCompraDetalleDTO;
 import com.saludsystem.movimientos.application.service.CompraDetalleService;
 import com.saludsystem.movimientos.infrastructure.adapters.in.response.CompraDetalleListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
@@ -27,8 +27,8 @@ public class CompraDetalleController {
     }
 
     @PostMapping("/SaveCompraDetalle")
-    public ApiResponse store(@Valid @RequestBody CompraDetalleRequest compraDetalleRequest) {
-        return compraDetalleService.saveCompraDetalle(compraDetalleRequest);
+    public ApiResponse store(@Valid @RequestBody CompraDetalleDTO compraDetalleDTO) {
+        return compraDetalleService.saveCompraDetalle(compraDetalleDTO);
     }
 
     @GetMapping("/GetAllCompraDetalle")
@@ -37,7 +37,7 @@ public class CompraDetalleController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CompraDetalleListResponse.class)))
     })
-    public ListResponse<CompraDetalleResponse> getAllPage(
+    public ListResponse<CrearCompraDetalleDTO> getAllPage(
             @RequestParam(name = "hospitalId") UUID hospitalId,
             @RequestParam(name = "Page", defaultValue = "") int page,
             @RequestParam(name = "Rows", defaultValue = "") int rows) {
@@ -45,7 +45,7 @@ public class CompraDetalleController {
     }
 
     @GetMapping("/GetCompraDetalle/{compraDetalleId}")
-    public CompraDetalleResponse getById(@PathVariable UUID compraDetalleId) {
+    public CrearCompraDetalleDTO getById(@PathVariable UUID compraDetalleId) {
         return compraDetalleService.getCompraDetalleById(compraDetalleId);
     }
 

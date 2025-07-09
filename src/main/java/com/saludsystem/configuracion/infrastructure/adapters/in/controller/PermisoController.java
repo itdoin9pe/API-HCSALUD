@@ -1,7 +1,8 @@
 package com.saludsystem.configuracion.infrastructure.adapters.in.controller;
 
-import com.saludsystem.configuracion.application.dto.res.PermisoResponse;
-import com.saludsystem.configuracion.application.dto.req.PermisoRequest;
+import com.saludsystem.configuracion.application.dto.get.PermisoDTO;
+import com.saludsystem.configuracion.application.dto.post.CrearPermisoDTO;
+import com.saludsystem.configuracion.application.dto.put.ActualizarPermisoDTO;
 import com.saludsystem.configuracion.infrastructure.adapters.in.response.PermisoListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
@@ -18,9 +19,10 @@ import java.util.UUID;
 @Tag(name = "Permisos")
 @RestController
 @RequestMapping("/api/Permisos")
-public class PermisoController extends GenericController<PermisoRequest, PermisoResponse, UUID> {
+public class PermisoController extends GenericController<PermisoDTO, CrearPermisoDTO, ActualizarPermisoDTO, UUID> {
 
-    protected PermisoController(GenericService<PermisoRequest, PermisoResponse, UUID> genericService) {
+    protected PermisoController(
+            GenericService<PermisoDTO, CrearPermisoDTO, ActualizarPermisoDTO, UUID> genericService) {
         super(genericService);
     }
 
@@ -30,7 +32,7 @@ public class PermisoController extends GenericController<PermisoRequest, Permiso
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = PermisoListResponse.class)))
     })
-    public ListResponse<PermisoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<PermisoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 }

@@ -1,8 +1,8 @@
 package com.saludsystem.paciente.infrastructure.adapters.in.controller;
 
-import com.saludsystem.paciente.application.dto.res.EstudioResultadoResponse;
-import com.saludsystem.paciente.application.dto.req.EstudioResultadoRequest;
-import com.saludsystem.paciente.application.dto.base.ActualizarEstudioResultadoDTO;
+import com.saludsystem.paciente.application.dto.get.EstudioResultadoDTO;
+import com.saludsystem.paciente.application.dto.post.CrearEstudioResultadoDTO;
+import com.saludsystem.paciente.application.dto.put.ActualizarEstudioResultadoDTO;
 import com.saludsystem.paciente.application.service.EstudioResultadoService;
 import com.saludsystem.paciente.infrastructure.adapters.in.response.EstudioResultadoListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
@@ -28,8 +28,8 @@ public class EstudioResultadoController {
     }
 
     @PostMapping("/SavePacienteEstudioResultado")
-    public ApiResponse stored(@Valid @RequestBody EstudioResultadoRequest estudioResultadoRequest) {
-        return estudioResultadoService.saveEstudioResultado(estudioResultadoRequest);
+    public ApiResponse stored(@Valid @RequestBody CrearEstudioResultadoDTO crearEstudioResultadoDTO) {
+        return estudioResultadoService.saveEstudioResultado(crearEstudioResultadoDTO);
     }
 
     @GetMapping("/GetAllPacienteEstudioResultado")
@@ -38,14 +38,14 @@ public class EstudioResultadoController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = EstudioResultadoListResponse.class)))
     })
-    public ListResponse<EstudioResultadoResponse> getAllPage(
+    public ListResponse<EstudioResultadoDTO> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return estudioResultadoService.getAllEstudioResultado(hospitalId, page, rows);
     }
 
     @GetMapping("/GetPacienteEstudioResultado/{pacienteEstudioResultadoId}")
-    public EstudioResultadoResponse getById(@PathVariable Long pacienteEstudioResultadoId) {
+    public EstudioResultadoDTO getById(@PathVariable Long pacienteEstudioResultadoId) {
         return estudioResultadoService.getEstudioResultadoById(pacienteEstudioResultadoId);
     }
 

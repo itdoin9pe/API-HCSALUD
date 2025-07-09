@@ -1,7 +1,8 @@
 package com.saludsystem.paciente.application.service.impl.historialclinico.tratamiento;
 
-import com.saludsystem.paciente.application.dto.res.historialclinico.tratamiento.ProcedimientoResponse;
-import com.saludsystem.paciente.application.dto.req.historialclinico.tratamiento.ProcedimientoRequest;
+import com.saludsystem.paciente.application.dto.get.historialclinico.tratamiento.ProcedimientoDTO;
+import com.saludsystem.paciente.application.dto.post.historialclinico.tratamiento.CrearProcedimientoDTO;
+import com.saludsystem.paciente.application.dto.put.historialclinico.tratamiento.ActualizarProcedimientoDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.tratamiento.ProcedimientoService;
 import com.saludsystem.paciente.domain.model.Tratamiento.ProcedimientoEntity;
@@ -20,8 +21,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ProcedimientoServiceImpl extends GenericServiceImpl<ProcedimientoEntity, ProcedimientoRequest,
-        ProcedimientoResponse, UUID> implements ProcedimientoService {
+public class ProcedimientoServiceImpl extends GenericServiceImpl<ProcedimientoEntity, ProcedimientoDTO,
+        CrearProcedimientoDTO, ActualizarProcedimientoDTO, UUID> implements ProcedimientoService {
 
     private final DoctorRepository doctorRepository;
     private final PacienteRepository pacienteRepository;
@@ -29,26 +30,26 @@ public class ProcedimientoServiceImpl extends GenericServiceImpl<ProcedimientoEn
     public ProcedimientoServiceImpl(
             ProcedimientoRepository procedimientoRepository, ModelMapper modelMapper,
             AuthValidator authValidator, DoctorRepository doctorRepository, PacienteRepository pacienteRepository) {
-        super(procedimientoRepository, modelMapper, authValidator, ProcedimientoResponse.class
+        super(procedimientoRepository, modelMapper, authValidator, ProcedimientoDTO.class
         );
         this.doctorRepository = doctorRepository;
         this.pacienteRepository = pacienteRepository;
     }
 
     @Override
-    protected ProcedimientoEntity convertCreateDtoToEntity(ProcedimientoRequest procedimientoRequest) {
+    protected ProcedimientoEntity convertCreateDtoToEntity(CrearProcedimientoDTO crearProcedimientoDTO) {
         ProcedimientoEntity entity = new ProcedimientoEntity();
-        doctorRepository.findById(procedimientoRequest.getDoctorId()).ifPresent(entity::setDoctorEntity);
-        pacienteRepository.findById(procedimientoRequest.getPacienteId()).ifPresent(entity::setPacienteEntity);
-        entity.setTipoProcedimiento(procedimientoRequest.getTipoProcedimiento());
-        entity.setDescripcion(procedimientoRequest.getDescripcion());
-        entity.setFecha(procedimientoRequest.getFecha());
-        entity.setResultado(procedimientoRequest.getResultado());
+        doctorRepository.findById(crearProcedimientoDTO.getDoctorId()).ifPresent(entity::setDoctorEntity);
+        pacienteRepository.findById(crearProcedimientoDTO.getPacienteId()).ifPresent(entity::setPacienteEntity);
+        entity.setTipoProcedimiento(crearProcedimientoDTO.getTipoProcedimiento());
+        entity.setDescripcion(crearProcedimientoDTO.getDescripcion());
+        entity.setFecha(crearProcedimientoDTO.getFecha());
+        entity.setResultado(crearProcedimientoDTO.getResultado());
         return entity;
     }
 
     @Override
-    protected void updateEntityFromDto(ProcedimientoEntity entity, ProcedimientoRequest dto) {
+    protected void updateEntityFromDto(ProcedimientoEntity entity, ActualizarProcedimientoDTO dto) {
         Optional.ofNullable(dto.getDoctorId())
                 .flatMap(doctorRepository::findById)
                 .ifPresent(entity::setDoctorEntity);
@@ -63,28 +64,28 @@ public class ProcedimientoServiceImpl extends GenericServiceImpl<ProcedimientoEn
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(ProcedimientoRequest procedimientoRequest) {
-        return super.save(procedimientoRequest);
+    public ApiResponse save(CrearProcedimientoDTO crearProcedimientoDTO) {
+        return super.save(crearProcedimientoDTO);
     }
 
     @Override
-    public ListResponse<ProcedimientoResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<ProcedimientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ApiResponse update(UUID uuid, ProcedimientoRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarProcedimientoDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public ProcedimientoResponse getById(UUID uuid) {
+    public ProcedimientoDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
     @Override
-    public List<ProcedimientoResponse> getList() {
+    public List<ProcedimientoDTO> getList() {
         return super.getList();
     }
 

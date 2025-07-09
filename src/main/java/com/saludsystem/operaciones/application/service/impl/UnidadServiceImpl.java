@@ -1,7 +1,8 @@
 package com.saludsystem.operaciones.application.service.impl;
 
-import com.saludsystem.operaciones.application.dto.res.UnidadResponse;
-import com.saludsystem.operaciones.application.dto.req.UnidadRequest;
+import com.saludsystem.operaciones.application.dto.get.UnidadDTO;
+import com.saludsystem.operaciones.application.dto.post.CrearUnidadDTO;
+import com.saludsystem.operaciones.application.dto.put.ActualizarUnidadDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.operaciones.application.service.UnidadService;
 import com.saludsystem.operaciones.domain.model.UnidadEntity;
@@ -18,38 +19,38 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class UnidadServiceImpl extends GenericServiceImpl<UnidadEntity, UnidadRequest, UnidadResponse, UUID>
-        implements UnidadService {
+public class UnidadServiceImpl extends GenericServiceImpl<UnidadEntity, UnidadDTO, CrearUnidadDTO,
+        ActualizarUnidadDTO, UUID> implements UnidadService {
 
     public UnidadServiceImpl(UnidadRepository unidadRepository, ModelMapper modelMapper, AuthValidator authValidator) {
-        super(unidadRepository, modelMapper, authValidator, UnidadResponse.class
+        super(unidadRepository, modelMapper, authValidator, UnidadDTO.class
         );
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(UnidadRequest unidadRequest) {
-        return super.save(unidadRequest);
+    public ApiResponse save(CrearUnidadDTO crearUnidadDTO) {
+        return super.save(crearUnidadDTO);
     }
 
     @Override
-    public ListResponse<UnidadResponse> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<UnidadDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse update(UUID uuid, UnidadRequest updateDto) {
+    public ApiResponse update(UUID uuid, ActualizarUnidadDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
     @Override
-    public List<UnidadResponse> getList() {
+    public List<UnidadDTO> getList() {
         return super.getList();
     }
 
     @Override
-    public UnidadResponse getById(UUID uuid) {
+    public UnidadDTO getById(UUID uuid) {
         return super.getById(uuid);
     }
 
@@ -60,17 +61,17 @@ public class UnidadServiceImpl extends GenericServiceImpl<UnidadEntity, UnidadRe
     }
 
     @Override
-    protected UnidadEntity convertCreateDtoToEntity(UnidadRequest unidadRequest) {
+    protected UnidadEntity convertCreateDtoToEntity(CrearUnidadDTO crearUnidadDTO) {
         UnidadEntity entity = new UnidadEntity();
-        entity.setNombre(unidadRequest.getNombre());
-        entity.setSiglas(unidadRequest.getSiglas());
-        entity.setDescripcion(unidadRequest.getDescripcion());
-        entity.setEstado(unidadRequest.getEstado());
+        entity.setNombre(crearUnidadDTO.getNombre());
+        entity.setSiglas(crearUnidadDTO.getSiglas());
+        entity.setDescripcion(crearUnidadDTO.getDescripcion());
+        entity.setEstado(crearUnidadDTO.getEstado());
         return null;
     }
 
     @Override
-    protected void updateEntityFromDto(UnidadEntity entity, UnidadRequest dto) {
+    protected void updateEntityFromDto(UnidadEntity entity, ActualizarUnidadDTO dto) {
         Optional.ofNullable(dto.getNombre()).ifPresent(entity::setNombre);
         Optional.ofNullable(dto.getSiglas()).ifPresent(entity::setSiglas);
         Optional.ofNullable(dto.getDescripcion()).ifPresent(entity::setDescripcion);
