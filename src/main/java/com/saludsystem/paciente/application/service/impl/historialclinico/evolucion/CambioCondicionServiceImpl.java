@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class CambioCondicionServiceImpl implements CambioCondicionService {
@@ -84,7 +83,7 @@ public class CambioCondicionServiceImpl implements CambioCondicionService {
     public ListResponse<CambioCondicionDTO> getAllCambioCondicion(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<CambioCondicionEntity> cambioCondicionEntityPage = cambioCondicionRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<CambioCondicionDTO> data = cambioCondicionEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<CambioCondicionDTO> data = cambioCondicionEntityPage.getContent().stream().map(this::convertToDTO).toList();
         return new ListResponse<>(data, cambioCondicionEntityPage.getTotalElements(), cambioCondicionEntityPage.getTotalPages(), cambioCondicionEntityPage.getNumber() + 1);
     }
 

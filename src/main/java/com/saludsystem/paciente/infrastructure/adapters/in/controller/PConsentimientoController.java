@@ -53,6 +53,7 @@ public class PConsentimientoController extends GenericController<PConsentimiento
         return super.update(uuid, dto);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

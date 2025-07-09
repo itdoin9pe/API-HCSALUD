@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class EvolucionServiceImpl implements EvolucionService {
@@ -64,7 +63,7 @@ public class EvolucionServiceImpl implements EvolucionService {
     public ListResponse<EvolucionDTO> getAllEvolucion(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<EvolucionEntity> evolucionEntityPage = evolucionRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<EvolucionDTO> data = evolucionEntityPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<EvolucionDTO> data = evolucionEntityPage.getContent().stream().map(this::convertToDTO).toList();
         return new ListResponse<>(data, evolucionEntityPage.getTotalElements(), evolucionEntityPage.getTotalPages(), evolucionEntityPage.getNumber() + 1);
     }
 
