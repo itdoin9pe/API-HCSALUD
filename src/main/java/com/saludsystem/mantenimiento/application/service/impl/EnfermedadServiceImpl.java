@@ -1,6 +1,5 @@
 package com.saludsystem.mantenimiento.application.service.impl;
 
-
 import com.saludsystem.mantenimiento.application.dto.get.EnfermedadDTO;
 import com.saludsystem.mantenimiento.application.dto.post.CrearEnfermedadDTO;
 import com.saludsystem.mantenimiento.application.dto.put.ActualizarEnfermedadDTO;
@@ -14,7 +13,6 @@ import com.saludsystem.mantenimiento.domain.model.EnfermedadEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
-
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.UserRepository;
 import com.saludsystem.mantenimiento.infrastructure.adapters.out.persistance.EnfermedadRepository;

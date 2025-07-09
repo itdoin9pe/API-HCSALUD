@@ -57,17 +57,13 @@ public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamien
 
     @Override
     protected void updateEntityFromDto(PlanTratamientoEntity entity, ActualizarPlanTratamientoDTO dto) {
-        Optional.ofNullable(dto.getPacienteId())
-                .flatMap(pacienteRepository::findById)
+        Optional.ofNullable(dto.getPacienteId()).flatMap(pacienteRepository::findById)
                 .ifPresent(entity::setPacienteEntity);
-        Optional.ofNullable(dto.getDoctorId())
-                .flatMap(doctorRepository::findById)
+        Optional.ofNullable(dto.getDoctorId()).flatMap(doctorRepository::findById)
                 .ifPresent(entity::setDoctorEntity);
-        Optional.ofNullable(dto.getEspecialidadId())
-                .flatMap(especialidadRepository::findById)
+        Optional.ofNullable(dto.getEspecialidadId()).flatMap(especialidadRepository::findById)
                 .ifPresent(entity::setEspecialidadEntity);
-        Optional.ofNullable(dto.getMedidaId())
-                .flatMap(medidaRepository::findById)
+        Optional.ofNullable(dto.getMedidaId()).flatMap(medidaRepository::findById)
                 .ifPresent(entity::setMedidaEntity);
         Optional.ofNullable(dto.getFechaInicio()).ifPresent(entity::setFechaInicio);
         Optional.ofNullable(dto.getFechaFin()).ifPresent(entity::setFechaFin);
@@ -79,25 +75,10 @@ public class PlanTratamientoServiceImpl extends GenericServiceImpl<PlanTratamien
         return super.save(crearPlanTratamientoDTO);
     }
 
-    @Override
-    public ListResponse<PlanTratamientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarPlanTratamientoDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public PlanTratamientoDTO getById(UUID uuid) {
-        return super.getById(uuid);
-    }
-
-    @Override
-    public List<PlanTratamientoDTO> getList() {
-        return super.getList();
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

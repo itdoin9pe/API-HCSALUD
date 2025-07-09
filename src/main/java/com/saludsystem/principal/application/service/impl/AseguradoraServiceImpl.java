@@ -7,13 +7,12 @@ import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.principal.application.service.AseguradoraService;
 import com.saludsystem.principal.domain.model.AseguradoraEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.principal.infrastructure.adapters.out.persistance.AseguradoraRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -41,31 +40,19 @@ public class AseguradoraServiceImpl extends GenericServiceImpl<AseguradoraEntity
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse save(CrearAseguradoraDTO createDto) {
         return super.save(createDto);
     }
 
-    @Override
-    public ListResponse<AseguradoraDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarAseguradoraDTO updateDto) {
         return super.update(uuid, updateDto);
     }
 
-    @Override
-    public List<AseguradoraDTO> getList() {
-        return super.getList();
-    }
-
-    @Override
-    public AseguradoraDTO getById(UUID uuid) {
-        return super.getById(uuid);
-    }
-
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse delete(UUID uuid) {
         return super.delete(uuid);

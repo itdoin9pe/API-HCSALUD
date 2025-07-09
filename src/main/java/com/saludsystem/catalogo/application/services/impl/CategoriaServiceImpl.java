@@ -7,7 +7,6 @@ import com.saludsystem.catalogo.application.services.CategoriaService;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.domain.model.CategoriaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.CategoriaRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
@@ -33,11 +32,6 @@ public class CategoriaServiceImpl extends GenericServiceImpl<CategoriaEntity,
     }
 
     @Override
-    public ListResponse<CategoriaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
-    @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse update(UUID uuid, ActualizarCategoriaDTO updateDto) {
         return super.update(uuid, updateDto);
@@ -47,11 +41,6 @@ public class CategoriaServiceImpl extends GenericServiceImpl<CategoriaEntity,
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse delete(UUID id) {
         return super.delete(id);
-    }
-
-    @Override
-    public CategoriaDTO getById(UUID id) {
-        return super.getById(id);
     }
 
     @Override

@@ -33,24 +33,9 @@ public class PlanServiceImpl extends GenericServiceImpl<PlanEntity, PlanDTO, Cre
     }
 
     @Override
-    public ListResponse<PlanDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
-    @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse update(UUID uuid, ActualizarPlanDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public List<PlanDTO> getList() {
-        return super.getList();
-    }
-
-    @Override
-    public PlanDTO getById(UUID uuid) {
-        return super.getById(uuid);
     }
 
     @Override

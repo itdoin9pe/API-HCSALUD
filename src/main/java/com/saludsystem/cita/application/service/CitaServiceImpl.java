@@ -6,7 +6,6 @@ import com.saludsystem.cita.application.dto.put.ActualizarCitaDTO;
 import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.cita.domain.model.CitaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.medico.infrastructure.adapters.out.persistance.DoctorRepository;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.EspecialidadRepository;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.TipoCitadoRepository;
@@ -18,7 +17,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -87,25 +85,10 @@ public class CitaServiceImpl extends GenericServiceImpl<CitaEntity, CitaDTO,
         return super.save(citaDTO);
     }
 
-    @Override
-    public ListResponse<CitaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarCitaDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public CitaDTO getById(UUID uuid) {
-        return super.getById(uuid);
-    }
-
-    @Override
-    public List<CitaDTO> getList() {
-        return super.getList();
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

@@ -7,7 +7,6 @@ import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.mantenimiento.application.service.TarifarioService;
 import com.saludsystem.mantenimiento.domain.model.TarifarioEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.CategoriaRepository;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.MedidaRepository;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.TipoConceptoRepository;
@@ -18,7 +17,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -50,24 +48,9 @@ public class TarifarioServiceImpl extends GenericServiceImpl<TarifarioEntity, Ta
     }
 
     @Override
-    public ListResponse<TarifarioDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
-    @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse update(UUID uuid, ActualizarTarifarioDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public TarifarioDTO getById(UUID uuid) {
-        return super.getById(uuid);
-    }
-
-    @Override
-    public List<TarifarioDTO> getList() {
-        return super.getList();
     }
 
     @Override
@@ -92,23 +75,17 @@ public class TarifarioServiceImpl extends GenericServiceImpl<TarifarioEntity, Ta
 
     @Override
     protected void updateEntityFromDto(TarifarioEntity entity, ActualizarTarifarioDTO dto) {
-        Optional.ofNullable(dto.getTipoConceptoId())
-                .flatMap(tipoConceptoRepository::findById)
+        Optional.ofNullable(dto.getTipoConceptoId()).flatMap(tipoConceptoRepository::findById)
                 .ifPresent(entity::setTipoConceptoEntity);
-        Optional.ofNullable(dto.getCategoriaId())
-                .flatMap(categoriaRepository::findById)
+        Optional.ofNullable(dto.getCategoriaId()).flatMap(categoriaRepository::findById)
                 .ifPresent(entity::setCategoriaEntity);
-        Optional.ofNullable(dto.getUnidadId())
-                .flatMap(unidadRepository::findById)
+        Optional.ofNullable(dto.getUnidadId()).flatMap(unidadRepository::findById)
                 .ifPresent(entity::setUnidadEntity);
-        Optional.ofNullable(dto.getMedidaId())
-                .flatMap(medidaRepository::findById)
+        Optional.ofNullable(dto.getMedidaId()).flatMap(medidaRepository::findById)
                 .ifPresent(entity::setMedidaEntity);
-        Optional.ofNullable(dto.getGrupo())
-                .filter(s -> !s.isBlank())
+        Optional.ofNullable(dto.getGrupo()).filter(s -> !s.isBlank())
                 .ifPresent(entity::setGrupo);
-        Optional.ofNullable(dto.getDescripcion())
-                .filter(s -> !s.isBlank())
+        Optional.ofNullable(dto.getDescripcion()).filter(s -> !s.isBlank())
                 .ifPresent(entity::setDescripcion);
         Optional.ofNullable(dto.getPrecio()).ifPresent(entity::setPrecio);
         Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);

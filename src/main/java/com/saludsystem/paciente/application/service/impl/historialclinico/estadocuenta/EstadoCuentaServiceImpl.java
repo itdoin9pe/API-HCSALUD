@@ -8,7 +8,6 @@ import com.saludsystem.paciente.application.service.historialclinico.estadocuent
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.EstadoCuenta.EstadoCuentaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.EstadoCuenta.EstadoCuentaRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
@@ -16,7 +15,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -65,25 +63,10 @@ public class EstadoCuentaServiceImpl extends GenericServiceImpl<EstadoCuentaEnti
         return super.save(crearEstadoCuentaDTO);
     }
 
-    @Override
-    public ListResponse<EstadoCuentaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarEstadoCuentaDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public EstadoCuentaDTO getById(UUID uuid) {
-        return super.getById(uuid);
-    }
-
-    @Override
-    public List<EstadoCuentaDTO> getList() {
-        return super.getList();
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

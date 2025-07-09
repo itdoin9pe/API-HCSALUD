@@ -1,6 +1,5 @@
 package com.saludsystem.configuracion.application.services.impl;
 
-
 import com.saludsystem.configuracion.application.dto.get.RolDTO;
 import com.saludsystem.configuracion.application.dto.post.CrearRolDTO;
 import com.saludsystem.configuracion.application.dto.put.ActualizarRolDTO;

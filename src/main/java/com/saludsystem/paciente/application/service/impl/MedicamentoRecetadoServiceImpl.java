@@ -9,7 +9,6 @@ import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.catalogo.domain.model.MedicamentoEntity;
 import com.saludsystem.paciente.domain.model.MedicamentoRecetadoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.MedicamentoRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.MedicamentoRecetadoRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
@@ -17,7 +16,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -63,25 +61,10 @@ public class MedicamentoRecetadoServiceImpl extends GenericServiceImpl<Medicamen
         return super.save(crearMedicamentoRecetadoDTO);
     }
 
-    @Override
-    public ListResponse<MedicamentoRecetadoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarMedicamentoRecetadoDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public List<MedicamentoRecetadoDTO> getList() {
-        return super.getList();
-    }
-
-    @Override
-    public MedicamentoRecetadoDTO getById(UUID uuid) {
-        return super.getById(uuid);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

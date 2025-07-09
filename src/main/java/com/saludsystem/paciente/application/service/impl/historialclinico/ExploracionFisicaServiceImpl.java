@@ -8,7 +8,6 @@ import com.saludsystem.paciente.application.service.historialclinico.Exploracion
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.HistorialClinico.ExploracionFisicaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.HistorialClinico.ExploracionFisicaRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
@@ -16,7 +15,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -72,25 +70,10 @@ public class ExploracionFisicaServiceImpl extends GenericServiceImpl<Exploracion
         return super.save(exploracionFisicaRequest);
     }
 
-    @Override
-    public ListResponse<ExploracionFisicaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarExploracionFisicaDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public ExploracionFisicaDTO getById(UUID uuid) {
-        return super.getById(uuid);
-    }
-
-    @Override
-    public List<ExploracionFisicaDTO> getList() {
-        return super.getList();
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

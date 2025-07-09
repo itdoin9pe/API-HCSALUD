@@ -8,7 +8,6 @@ import com.saludsystem.paciente.application.service.historialclinico.Antecedente
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.HistorialClinico.AntecedentesEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.HistorialClinico.AntecedenteRespository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
@@ -16,7 +15,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -75,25 +73,10 @@ public class AntecedenteServiceImpl extends GenericServiceImpl<AntecedentesEntit
         return super.save(crearAntecedenteDTO);
     }
 
-    @Override
-    public ListResponse<AntecedenteDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarAntecedenteDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public List<AntecedenteDTO> getList() {
-        return super.getList();
-    }
-
-    @Override
-    public AntecedenteDTO getById(UUID uuid) {
-        return super.getById(uuid);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

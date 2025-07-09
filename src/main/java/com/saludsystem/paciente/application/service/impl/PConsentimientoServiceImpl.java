@@ -9,7 +9,6 @@ import com.saludsystem.paciente.application.service.PConsentimientoService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.PConsentimientoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.medico.infrastructure.adapters.out.persistance.DoctorRepository;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.ConsentimientoRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PConsentimientoRepository;
@@ -20,7 +19,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -71,35 +69,24 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
 
     @Override
     protected void updateEntityFromDto(PConsentimientoEntity entity, ActualizarPConsentimientoDTO dto) {
-        Optional.ofNullable(dto.getDoctorId())
-                .flatMap(doctorRepository::findById)
+        Optional.ofNullable(dto.getDoctorId()).flatMap(doctorRepository::findById)
                 .ifPresent(entity::setDoctorEntity);
-        Optional.ofNullable(dto.getFecha())
-                .ifPresent(entity::setFecha);
-        Optional.ofNullable(dto.getHora())
-                .ifPresent(horaDTO -> entity.setHora(LocalTime.of(
+        Optional.ofNullable(dto.getFecha()).ifPresent(entity::setFecha);
+        Optional.ofNullable(dto.getHora()).ifPresent(horaDTO -> entity.setHora(LocalTime.of(
                         horaDTO.getHours(),
                         horaDTO.getMinutes(),
                         horaDTO.getSeconds()
                 )));
-        Optional.ofNullable(dto.getApoderadoNombre())
-                .ifPresent(entity::setApoderadoNombre);
-        Optional.ofNullable(dto.getApoderadoDocumento())
-                .ifPresent(entity::setApoderadoDocumento);
-        Optional.ofNullable(dto.getApoderadoDireccion())
-                .ifPresent(entity::setApoderadoDireccion);
-        Optional.ofNullable(dto.getConsentimientoId())
-                .flatMap(consentimientoRepository::findById)
+        Optional.ofNullable(dto.getApoderadoNombre()).ifPresent(entity::setApoderadoNombre);
+        Optional.ofNullable(dto.getApoderadoDocumento()).ifPresent(entity::setApoderadoDocumento);
+        Optional.ofNullable(dto.getApoderadoDireccion()).ifPresent(entity::setApoderadoDireccion);
+        Optional.ofNullable(dto.getConsentimientoId()).flatMap(consentimientoRepository::findById)
                 .ifPresent(entity::setConsentimientoEntity);
-        Optional.ofNullable(dto.getPacienteId())
-                .flatMap(pacienteRepository::findById)
+        Optional.ofNullable(dto.getPacienteId()).flatMap(pacienteRepository::findById)
                 .ifPresent(entity::setPacienteEntity);
-        Optional.ofNullable(dto.getCuerpo())
-                .ifPresent(entity::setCuerpo);
-        Optional.ofNullable(dto.getFirma())
-                .ifPresent(entity::setFirma);
-        Optional.ofNullable(dto.getEstado())
-                .ifPresent(entity::setEstado);
+        Optional.ofNullable(dto.getCuerpo()).ifPresent(entity::setCuerpo);
+        Optional.ofNullable(dto.getFirma()).ifPresent(entity::setFirma);
+        Optional.ofNullable(dto.getEstado()).ifPresent(entity::setEstado);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
@@ -108,25 +95,10 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
         return super.save(CrearPConsentimientoDTO);
     }
 
-    @Override
-    public ListResponse<PConsentimientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarPConsentimientoDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public PConsentimientoDTO getById(UUID uuid) {
-        return super.getById(uuid);
-    }
-
-    @Override
-    public List<PConsentimientoDTO> getList() {
-        return super.getList();
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

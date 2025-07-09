@@ -7,14 +7,12 @@ import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.operaciones.application.service.PresentacionService;
 import com.saludsystem.operaciones.domain.model.PresentacionEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.operaciones.infrastructure.adapters.out.persistance.PresentacionReposirory;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,25 +32,10 @@ public class PresentacionServiceImpl extends GenericServiceImpl<PresentacionEnti
         return super.save(crearPresentacionDTO);
     }
 
-    @Override
-    public ListResponse<PresentacionDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarPresentacionDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public PresentacionDTO getById(UUID uuid) {
-        return super.getById(uuid);
-    }
-
-    @Override
-    public List<PresentacionDTO> getList() {
-        return super.getList();
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

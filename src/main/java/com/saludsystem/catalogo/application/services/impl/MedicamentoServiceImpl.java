@@ -7,7 +7,6 @@ import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.catalogo.application.services.MedicamentoService;
 import com.saludsystem.catalogo.domain.model.MedicamentoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.MedicamentoRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
@@ -34,11 +33,6 @@ public class MedicamentoServiceImpl extends GenericServiceImpl<MedicamentoEntity
     }
 
     @Override
-    public ListResponse<MedicamentoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
-    @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse update(UUID uuid, ActualizarMedicamentoDTO updateDto) {
         return super.update(uuid, updateDto);
@@ -48,11 +42,6 @@ public class MedicamentoServiceImpl extends GenericServiceImpl<MedicamentoEntity
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse delete(UUID id) {
         return super.delete(id);
-    }
-
-    @Override
-    public MedicamentoDTO getById(UUID id) {
-        return super.getById(id);
     }
 
     @Override

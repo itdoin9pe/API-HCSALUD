@@ -33,24 +33,9 @@ public class MarcaServiceImpl extends GenericServiceImpl<MarcaEntity, MarcaDTO, 
     }
 
     @Override
-    public ListResponse<MarcaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
-    @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse update(UUID uuid, ActualizarMarcaDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public List<MarcaDTO> getList() {
-        return super.getList();
-    }
-
-    @Override
-    public MarcaDTO getById(UUID uuid) {
-        return super.getById(uuid);
     }
 
     @Override

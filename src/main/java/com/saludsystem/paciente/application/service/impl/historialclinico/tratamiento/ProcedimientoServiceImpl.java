@@ -7,7 +7,6 @@ import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.paciente.application.service.historialclinico.tratamiento.ProcedimientoService;
 import com.saludsystem.paciente.domain.model.Tratamiento.ProcedimientoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.medico.infrastructure.adapters.out.persistance.DoctorRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.Tratamiento.ProcedimientoRepository;
@@ -16,7 +15,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -69,24 +67,9 @@ public class ProcedimientoServiceImpl extends GenericServiceImpl<ProcedimientoEn
     }
 
     @Override
-    public ListResponse<ProcedimientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
-    @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse update(UUID uuid, ActualizarProcedimientoDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public ProcedimientoDTO getById(UUID uuid) {
-        return super.getById(uuid);
-    }
-
-    @Override
-    public List<ProcedimientoDTO> getList() {
-        return super.getList();
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

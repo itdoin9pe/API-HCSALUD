@@ -10,7 +10,6 @@ import com.saludsystem.configuracion.domain.model.SedeEntity;
 import com.saludsystem.configuracion.domain.model.UserEntity;
 import com.saludsystem.shared.infrastructure.adapters.out.persistance.SucursalRepository;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SedeRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
@@ -53,24 +52,9 @@ public class SedeServiceImpl extends GenericServiceImpl<SedeEntity, SedeDTO, Cre
     }
 
     @Override
-    public ListResponse<SedeDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
-    @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse update(UUID uuid, ActualizarSedeDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public List<SedeDTO> getList() {
-        return super.getList();
-    }
-
-    @Override
-    public SedeDTO getById(UUID uuid) {
-        return super.getById(uuid);
     }
 
     @Override

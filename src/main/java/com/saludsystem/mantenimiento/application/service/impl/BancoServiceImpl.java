@@ -7,14 +7,12 @@ import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.mantenimiento.application.service.BancoService;
 import com.saludsystem.mantenimiento.domain.model.BancoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.mantenimiento.infrastructure.adapters.out.persistance.BancoRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -32,25 +30,10 @@ public class BancoServiceImpl extends GenericServiceImpl<BancoEntity, BancoDTO, 
         return super.save(crearBancoDTO);
     }
 
-    @Override
-    public ListResponse<BancoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarBancoDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public List<BancoDTO> getList() {
-        return super.getList();
-    }
-
-    @Override
-    public BancoDTO getById(UUID uuid) {
-        return super.getById(uuid);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

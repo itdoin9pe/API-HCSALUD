@@ -7,14 +7,12 @@ import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.principal.application.service.EstudioService;
 import com.saludsystem.principal.domain.model.EstudioEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.principal.infrastructure.adapters.out.persistance.EstudioRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -33,25 +31,10 @@ public class EstudioServiceImpl extends GenericServiceImpl<EstudioEntity, Estudi
         return super.save(crearEstudioDTO);
     }
 
-    @Override
-    public ListResponse<EstudioDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarEstudioDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public EstudioDTO getById(UUID uuid) {
-        return super.getById(uuid);
-    }
-
-    @Override
-    public List<EstudioDTO> getList() {
-        return super.getList();
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

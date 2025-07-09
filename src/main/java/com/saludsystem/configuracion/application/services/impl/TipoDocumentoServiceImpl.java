@@ -7,14 +7,12 @@ import com.saludsystem.shared.application.service.GenericServiceImpl;
 import com.saludsystem.configuracion.application.services.TipoDocumentoService;
 import com.saludsystem.configuracion.domain.model.TipoDocumentoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.TipoDocumentoRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,24 +32,9 @@ public class TipoDocumentoServiceImpl extends GenericServiceImpl<TipoDocumentoEn
     }
 
     @Override
-    public ListResponse<TipoDocumentoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
-    @Override
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ApiResponse update(UUID uuid, ActualizarTipoDocumentoDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public TipoDocumentoDTO getById(UUID uuid) {
-        return super.getById(uuid);
-    }
-
-    @Override
-    public List<TipoDocumentoDTO> getList() {
-        return super.getList();
     }
 
     @Override

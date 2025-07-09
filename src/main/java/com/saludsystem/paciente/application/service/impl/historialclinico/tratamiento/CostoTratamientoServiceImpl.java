@@ -8,7 +8,6 @@ import com.saludsystem.paciente.application.service.historialclinico.tratamiento
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.Tratamiento.CostoTratamientoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.Tratamiento.CostoTratamientoRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.Tratamiento.PlanTratamientoRepository;
@@ -17,7 +16,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -68,25 +66,10 @@ public class CostoTratamientoServiceImpl extends GenericServiceImpl<CostoTratami
         return super.save(crearCostoTratamientoDTO);
     }
 
-    @Override
-    public ListResponse<CostoTratamientoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarCostoTratamientoDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public List<CostoTratamientoDTO> getList() {
-        return super.getList();
-    }
-
-    @Override
-    public CostoTratamientoDTO getById(UUID uuid) {
-        return super.getById(uuid);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

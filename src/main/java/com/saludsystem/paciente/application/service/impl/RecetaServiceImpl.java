@@ -10,7 +10,6 @@ import com.saludsystem.configuracion.domain.model.UserEntity;
 import com.saludsystem.paciente.domain.model.MedicamentoRecetadoEntity;
 import com.saludsystem.paciente.domain.model.RecetaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.medico.infrastructure.adapters.out.persistance.DoctorRepository;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.MedicamentoRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
@@ -56,12 +55,10 @@ public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, RecetaDT
     @Override
     protected void updateEntityFromDto(RecetaEntity entity, ActualizarRecetaDTO dto) {
         // Actualizar paciente si se proporciona
-        Optional.ofNullable(dto.getPacienteId())
-                .flatMap(pacienteRepository::findById)
+        Optional.ofNullable(dto.getPacienteId()).flatMap(pacienteRepository::findById)
                 .ifPresent(entity::setPacienteEntity);
         // Actualizar doctor si se proporciona
-        Optional.ofNullable(dto.getDoctorId())
-                .flatMap(doctorRepository::findById)
+        Optional.ofNullable(dto.getDoctorId()).flatMap(doctorRepository::findById)
                 .ifPresent(entity::setDoctorEntity);
         // Actualizar otros campos si se proporcionan
         Optional.ofNullable(dto.getFecha()).ifPresent(entity::setFecha);
@@ -101,25 +98,10 @@ public class RecetaServiceImpl extends GenericServiceImpl<RecetaEntity, RecetaDT
         return super.save(crearRecetaDTO);
     }
 
-    @Override
-    public ListResponse<RecetaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarRecetaDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public List<RecetaDTO> getList() {
-        return super.getList();
-    }
-
-    @Override
-    public RecetaDTO getById(UUID uuid) {
-        return super.getById(uuid);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

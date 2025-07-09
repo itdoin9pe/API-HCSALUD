@@ -10,7 +10,6 @@ import com.saludsystem.mantenimiento.domain.model.EnfermedadEntity;
 import com.saludsystem.paciente.domain.model.DiagnosticoEntity;
 import com.saludsystem.paciente.domain.model.PacienteEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.mantenimiento.infrastructure.adapters.out.persistance.EnfermedadRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.DiagnosticoRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
@@ -19,7 +18,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -73,25 +71,10 @@ public class DiagnosticoServiceImpl extends GenericServiceImpl<DiagnosticoEntity
         return super.save(crearDiagnosticoDTO);
     }
 
-    @Override
-    public ListResponse<DiagnosticoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }
-
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public ApiResponse update(UUID uuid, ActualizarDiagnosticoDTO updateDto) {
         return super.update(uuid, updateDto);
-    }
-
-    @Override
-    public DiagnosticoDTO getById(UUID uuid) {
-        return super.getById(uuid);
-    }
-
-    @Override
-    public List<DiagnosticoDTO> getList() {
-        return super.getList();
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

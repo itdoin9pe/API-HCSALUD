@@ -32,7 +32,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, R, C, U,ID>
         this.modelMapper = modelMapper;
         this.authValidator = authValidator;
         this.dtoClass = dtoClass;
-        this.toDtoConverter = toDtoConverter;
+        this.toDtoConverter = entity -> modelMapper.map(entity, dtoClass);;
     }
 
     @Transactional
