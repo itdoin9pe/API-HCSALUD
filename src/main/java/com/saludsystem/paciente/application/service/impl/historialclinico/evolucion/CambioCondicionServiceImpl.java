@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import static com.saludsystem.shared.infrastructure.constants.ErrorMessage.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,10 +47,10 @@ public class CambioCondicionServiceImpl implements CambioCondicionService {
         authValidator.validateAdminAccess();
         var user = authValidator.getCurrentUser();
         var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException(CLINICA_NOT_FOUND));
         var cambioCondicionEntity = new CambioCondicionEntity();
         cambioCondicionEntity.setEvolucionEntity(evolucionRepository.findById(crearCambioCondicionDTO.getPacienteEvolucionId())
-                .orElseThrow( () -> new ResourceNotFoundException("Evolucion not found")));
+                .orElseThrow( () -> new ResourceNotFoundException(EVOLUCION_NOT_FOUND)));
         cambioCondicionEntity.setFecha(crearCambioCondicionDTO.getFecha());
         cambioCondicionEntity.setDescripcion(cambioCondicionEntity.getDescripcion());
         cambioCondicionEntity.setHospital(hospital);
@@ -61,7 +62,7 @@ public class CambioCondicionServiceImpl implements CambioCondicionService {
     @Override
     public CambioCondicionDTO getCambioCondicionById(Long evolucionCambioCondicionId) {
         CambioCondicionEntity cambioCondicionEntity = cambioCondicionRepository.findById(evolucionCambioCondicionId).orElseThrow(
-                () -> new ResourceNotFoundException("Cambio de condicion no encontrado"));
+                () -> new ResourceNotFoundException(CAMBIO_CONDICION_NOT_FOUND));
         return convertToDTO(cambioCondicionEntity);
     }
 
@@ -70,7 +71,7 @@ public class CambioCondicionServiceImpl implements CambioCondicionService {
     public ApiResponse updateCambioCondicion(Long evolucionCambioCondicionId, ActualizarCambioCondicionDTO actualizarCambioCondicionDTO) {
         authValidator.validateAdminAccess();
         CambioCondicionEntity cambioCondicionEntity = cambioCondicionRepository.findById(evolucionCambioCondicionId).orElseThrow(
-                () -> new ResourceNotFoundException("Cambio de condicion no encontrado"));
+                () -> new ResourceNotFoundException(CAMBIO_CONDICION_NOT_FOUND));
         Optional.ofNullable(actualizarCambioCondicionDTO.getPacienteEvolucionId())
                 .flatMap(evolucionRepository::findById)
                 .ifPresent(cambioCondicionEntity::setEvolucionEntity);

@@ -1,7 +1,6 @@
 package com.saludsystem.movimientos.application.service.impl;
 
 import com.saludsystem.movimientos.application.dto.post.CrearCompraDTO;
-import com.saludsystem.movimientos.application.dto.post.CrearCompraDetalleDTO;
 import com.saludsystem.movimientos.application.dto.get.CompraDTO;
 import com.saludsystem.movimientos.application.service.CompraService;
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
@@ -22,6 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import static com.saludsystem.shared.infrastructure.constants.ErrorMessage.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -56,7 +56,7 @@ public class CompraServiceImpl implements CompraService {
         authValidator.validateAdminAccess();
         var user = authValidator.getCurrentUser();
         var hospital = sysSaludRepository.findById(user.getHospital().getHospitalId())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException(CLINICA_NOT_FOUND));
         CompraEntity compra = new CompraEntity();
         compra.setFecha(compraDTO.getFecha());
         compra.setTipoDocumento(compraDTO.getTipoDocumento());

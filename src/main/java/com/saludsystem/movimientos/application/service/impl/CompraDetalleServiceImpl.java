@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import static com.saludsystem.shared.infrastructure.constants.ErrorMessage.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -67,7 +68,7 @@ public class CompraDetalleServiceImpl implements CompraDetalleService {
     public ApiResponse updateCompraDetalle(UUID compraDetalleId, ActualizarCompraDetalleDTO actualizarCompraDetalleDTO) {
         authValidator.validateAdminAccess();
         CompraDetalleEntity compraDetalleEntity = compraDetalleRepository.findById(compraDetalleId).orElseThrow(
-                () -> new ResourceNotFoundException("Detalle de la compra no encontrada"));
+                () -> new ResourceNotFoundException(COMPRA_DETALLE_NOT_FOUND));
         Optional.ofNullable(actualizarCompraDetalleDTO.getProductoId()).
                 flatMap(productoRepository::findById).ifPresent(compraDetalleEntity::setProductoEntity);
         Optional.ofNullable(actualizarCompraDetalleDTO.getCantidad()).ifPresent(compraDetalleEntity::setCantidad);
@@ -82,7 +83,7 @@ public class CompraDetalleServiceImpl implements CompraDetalleService {
     @Override
     public CrearCompraDetalleDTO getCompraDetalleById(UUID compraDetalleId) {
         CompraDetalleEntity compraDetalleEntity = compraDetalleRepository.findById(compraDetalleId).orElseThrow(
-                () -> new ResourceNotFoundException("Detalle de la compra no encontrada"));
+                () -> new ResourceNotFoundException(COMPRA_DETALLE_NOT_FOUND));
         return convertToDto(compraDetalleEntity);
     }
 
@@ -99,7 +100,7 @@ public class CompraDetalleServiceImpl implements CompraDetalleService {
     public ApiResponse deleteCompraDetalle(UUID compraDetalleId) {
         authValidator.validateAdminAccess();
         CompraDetalleEntity compraDetalleEntity = compraDetalleRepository.findById(compraDetalleId).orElseThrow(
-                () -> new ResourceNotFoundException("Detalle de la compra no encontrada"));
+                () -> new ResourceNotFoundException(COMPRA_DETALLE_NOT_FOUND));
         compraDetalleRepository.deleteById(compraDetalleId);
         return new ApiResponse(true, "Compra detalle retirada correctamente");
     }
