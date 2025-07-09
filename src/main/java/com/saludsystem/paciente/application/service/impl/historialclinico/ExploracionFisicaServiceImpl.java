@@ -8,7 +8,7 @@ import com.saludsystem.paciente.application.service.historialclinico.Exploracion
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.HistorialClinico.ExploracionFisicaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.paciente.infrastructure.adapters.out.persistance.HistorialClinico.ExploracionFisicaRepository;
+import com.saludsystem.paciente.infrastructure.adapters.out.persistance.historialclinico.ExploracionFisicaRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;

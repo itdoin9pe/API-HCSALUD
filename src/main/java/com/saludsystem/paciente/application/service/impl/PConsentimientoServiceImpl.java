@@ -91,8 +91,8 @@ public class PConsentimientoServiceImpl extends GenericServiceImpl<PConsentimien
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
-    public ApiResponse save(CrearPConsentimientoDTO CrearPConsentimientoDTO) {
-        return super.save(CrearPConsentimientoDTO);
+    public ApiResponse save(CrearPConsentimientoDTO crearPConsentimientoDTO) {
+        return super.save(crearPConsentimientoDTO);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

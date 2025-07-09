@@ -4,7 +4,7 @@ import com.saludsystem.paciente.application.dto.get.historialclinico.evolucion.C
 import com.saludsystem.paciente.application.dto.post.historialclinico.evolucion.CrearCambioCondicionDTO;
 import com.saludsystem.paciente.application.dto.put.historialclinico.evolucion.ActualizarCambioCondicionDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.CambioCondicionService;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.Evolucion.CambioCondicionListResponse;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.evolucion.CambioCondicionListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;

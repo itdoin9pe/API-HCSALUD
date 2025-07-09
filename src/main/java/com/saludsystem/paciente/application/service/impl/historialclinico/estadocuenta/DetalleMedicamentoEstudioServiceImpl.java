@@ -8,8 +8,8 @@ import com.saludsystem.paciente.application.service.historialclinico.estadocuent
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.EstadoCuenta.DetalleMedicamentosEstudiosEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.paciente.infrastructure.adapters.out.persistance.EstadoCuenta.DetalleMedicamentoEstudioRepository;
-import com.saludsystem.paciente.infrastructure.adapters.out.persistance.EstadoCuenta.EstadoCuentaRepository;
+import com.saludsystem.paciente.infrastructure.adapters.out.persistance.estadocuenta.DetalleMedicamentoEstudioRepository;
+import com.saludsystem.paciente.infrastructure.adapters.out.persistance.estadocuenta.EstadoCuentaRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;

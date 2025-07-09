@@ -3,7 +3,7 @@ package com.saludsystem.paciente.infrastructure.adapters.in.controller.tratamien
 import com.saludsystem.paciente.application.dto.get.historialclinico.tratamiento.CostoTratamientoDTO;
 import com.saludsystem.paciente.application.dto.post.historialclinico.tratamiento.CrearCostoTratamientoDTO;
 import com.saludsystem.paciente.application.dto.put.historialclinico.tratamiento.ActualizarCostoTratamientoDTO;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.Tratamiento.CostoTratamientoListResponse;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.tratamiento.CostoTratamientoListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -26,6 +26,7 @@ public class CostoTratamientoController extends GenericController<CostoTratamien
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

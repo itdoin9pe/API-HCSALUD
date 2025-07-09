@@ -4,10 +4,14 @@ import com.saludsystem.configuracion.application.dto.get.SysSaludDTO;
 import com.saludsystem.configuracion.application.dto.post.CrearSysSaludDTO;
 import com.saludsystem.configuracion.application.dto.put.ActualizarHospitalDTO;
 import com.saludsystem.configuracion.application.services.SysSaludService;
+import com.saludsystem.configuracion.domain.model.SysSaludEntity;
+import com.saludsystem.configuracion.domain.model.UserEntity;
+import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.configuracion.infrastructure.adapters.in.response.ClinicaListResponse;
-import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.PlanRepository;
+import com.saludsystem.shared.infrastructure.security.util.FileStorageService;
+import com.saludsystem.shared.infrastructure.security.util.Util;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -27,11 +31,13 @@ import java.util.*;
 public class ClinicaController {
 
     private final SysSaludService sysSaludService;
-    private final PlanRepository planRepository;
+    private final SysSaludRepository sysSaludRepository;
+    private final FileStorageService fileStorageService;
 
-    public ClinicaController(SysSaludService sysSaludService, PlanRepository planRepository){
+    public ClinicaController(SysSaludService sysSaludService, SysSaludRepository sysSaludRepository, FileStorageService fileStorageService){
         this.sysSaludService = sysSaludService;
-        this.planRepository = planRepository;
+        this.sysSaludRepository = sysSaludRepository;
+        this.fileStorageService = fileStorageService;
     }
 
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
@@ -40,7 +46,8 @@ public class ClinicaController {
     public ResponseEntity<ApiResponse> store(
             String nombre, String direccion, String celular, String email, String ruc,
             @DateTimeFormat(pattern = "dd-MM-yyyy") Date fecha, MultipartFile foto, UUID planId, Integer estado)
-            throws IOException {
+    throws IOException {
+        String photoPath = fileStorageService.storeFile(foto);
         CrearSysSaludDTO crearSysSaludDTO = new CrearSysSaludDTO();
         crearSysSaludDTO.setNombre(nombre);
         crearSysSaludDTO.setDireccion(direccion);
@@ -48,7 +55,7 @@ public class ClinicaController {
         crearSysSaludDTO.setEmail(email);
         crearSysSaludDTO.setRuc(ruc);
         crearSysSaludDTO.setFecha(fecha);
-        //crearSysSaludDTO.setFoto(foto);
+        crearSysSaludDTO.setFoto(photoPath);
         crearSysSaludDTO.setPlanId(planId);
         crearSysSaludDTO.setEstado(estado);
         sysSaludService.saveClinica(crearSysSaludDTO);
@@ -70,11 +77,14 @@ public class ClinicaController {
         actualizarHospitalDTO.setRuc(ruc);
         actualizarHospitalDTO.setFecha(fecha);
         actualizarHospitalDTO.setPlanId(planId);
-        actualizarHospitalDTO.setEstado(estado);
-        /*
-        if (foto != null) {
-            actualizarHospitalDTO.setFoto(Util.compressZLib(foto.getBytes()));
-        }*/
+        if (foto != null && !foto.isEmpty()) {
+            SysSaludEntity existingClinica = sysSaludRepository.findById(hospitalId).orElseThrow();
+            if (existingClinica.getFoto() != null) {
+                fileStorageService.deleteFile(existingClinica.getFoto());
+            }
+            String photoPath = fileStorageService.storeFile(foto);
+            actualizarHospitalDTO.setFoto(photoPath);
+        }
         sysSaludService.updateHospital(hospitalId, actualizarHospitalDTO);
         return ResponseEntity.ok(new ApiResponse(true, "Hospital actualizado correctamente"));
     }

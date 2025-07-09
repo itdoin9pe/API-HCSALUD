@@ -10,6 +10,6 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 public class VentaDetalleDTO extends CrearVentaDetalleDTO {
 
-    private UUID vemtaDetalleId;
+    private UUID ventaDetalleId;
 
 }

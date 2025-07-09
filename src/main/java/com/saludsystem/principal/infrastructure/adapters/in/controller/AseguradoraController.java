@@ -26,6 +26,7 @@ public class AseguradoraController extends GenericController<AseguradoraDTO, Cre
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

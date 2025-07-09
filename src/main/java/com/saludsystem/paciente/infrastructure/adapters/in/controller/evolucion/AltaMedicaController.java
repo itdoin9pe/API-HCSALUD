@@ -4,7 +4,7 @@ import com.saludsystem.paciente.application.dto.get.historialclinico.evolucion.A
 import com.saludsystem.paciente.application.dto.post.historialclinico.evolucion.CrearAltaMedicaDTO;
 import com.saludsystem.paciente.application.dto.put.historialclinico.evolucion.ActualizarAltaMedicaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.AltaMedicaService;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.Evolucion.AltaMedicaListResponse;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.evolucion.AltaMedicaListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -3,7 +3,7 @@ package com.saludsystem.paciente.infrastructure.adapters.in.controller.estadocue
 import com.saludsystem.paciente.application.dto.get.historialclinico.estadocuenta.EstadoCuentaDTO;
 import com.saludsystem.paciente.application.dto.post.historialclinico.estadocuenta.CrearEstadoCuentaDTO;
 import com.saludsystem.paciente.application.dto.put.historialclinico.estadocuenta.ActualizarEstadoCuentaDTO;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.EstadoCuenta.EstadoCuentaListResponse;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.estadocuenta.EstadoCuentaListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -26,6 +26,7 @@ public class EstadoCuentaController extends GenericController<EstadoCuentaDTO, C
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

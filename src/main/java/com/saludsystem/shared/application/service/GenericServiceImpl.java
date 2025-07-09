@@ -32,7 +32,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, R, C, U,ID>
         this.modelMapper = modelMapper;
         this.authValidator = authValidator;
         this.dtoClass = dtoClass;
-        this.toDtoConverter = entity -> modelMapper.map(entity, dtoClass);;
+        this.toDtoConverter = entity -> modelMapper.map(entity, dtoClass);
     }
 
     @Transactional
@@ -62,7 +62,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, R, C, U,ID>
     public List<R> getList() {
         return genericRepository.findAll().stream()
                 .map(toDtoConverter)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -88,7 +88,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, R, C, U,ID>
         Page<E> entityPage = genericRepository.findByHospital_HospitalId(hospitalId, pageable);
         List<R> data = entityPage.getContent().stream()
                 .map(toDtoConverter)
-                .collect(Collectors.toList());
+                .toList();
         return new ListResponse<>(
                 data,
                 entityPage.getTotalElements(),

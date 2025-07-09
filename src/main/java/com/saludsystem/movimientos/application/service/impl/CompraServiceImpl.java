@@ -108,22 +108,4 @@ public class CompraServiceImpl implements CompraService {
     private CrearCompraDTO convertToDTOById(CompraEntity compraEntity) {
         return modelMapper.map(compraEntity, CrearCompraDTO.class);
     }
-
-    private CrearCompraDetalleDTO convertDetalleToDTO(CompraDetalleEntity detalleEntity) {
-        CrearCompraDetalleDTO dto = new CrearCompraDetalleDTO();
-        //dto.setCompraDetalleId(detalleEntity.getCompraDetalleId());
-        if (detalleEntity.getProductoEntity() != null) {
-            dto.setProductoId(detalleEntity.getProductoEntity().getProductoId());
-        }
-        if (detalleEntity.getCompraEntity() != null) {
-            dto.setCompraId(detalleEntity.getCompraEntity().getCompraId());
-        }
-        dto.setCantidad(detalleEntity.getCantidad());
-        dto.setPrecioUnitario(detalleEntity.getPrecioUnitario());
-        dto.setIgv(detalleEntity.getIgv());
-        dto.setPrecioVenta(detalleEntity.getPrecioVenta());
-        dto.setSubtotal(detalleEntity.getSubtotal());
-        return dto;
-    }
-
 }

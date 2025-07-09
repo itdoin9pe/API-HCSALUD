@@ -6,7 +6,7 @@ import com.saludsystem.paciente.application.dto.put.historialclinico.evolucion.A
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.EvolucionService;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.Evolucion.EvolucionListResponse;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.evolucion.EvolucionListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

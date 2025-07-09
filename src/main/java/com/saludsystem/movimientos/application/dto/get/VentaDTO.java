@@ -25,6 +25,7 @@ public class VentaDTO extends CrearVentaDTO {
     private LocalDate fecha;
     private String tipoBeneficiario;
     private String nombreBeneficiario;
+    private String nombreTipoPago;
     private String apellidoBeneficiario;
     private String beneficiarioDocumento;
     private String beneficiarioDireccion;

@@ -9,7 +9,7 @@ import com.saludsystem.paciente.domain.model.Tratamiento.ProcedimientoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.medico.infrastructure.adapters.out.persistance.DoctorRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
-import com.saludsystem.paciente.infrastructure.adapters.out.persistance.Tratamiento.ProcedimientoRepository;
+import com.saludsystem.paciente.infrastructure.adapters.out.persistance.tratamiento.ProcedimientoRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,5 +1,6 @@
 package com.saludsystem.movimientos.application.service.impl;
 
+import com.saludsystem.movimientos.application.dto.get.VentaDetalleDTO;
 import com.saludsystem.movimientos.application.dto.post.CrearVentaDTO;
 import com.saludsystem.movimientos.application.dto.get.VentaDTO;
 import com.saludsystem.movimientos.application.dto.post.CrearVentaDetalleDTO;
@@ -171,13 +172,11 @@ public class VentaServiceImpl implements VentaService {
         // Tipo de tarjeta
         if (ventaEntity.getTipoTarjetaEntity() != null) {
             dto.setTipoTarjetaId(ventaEntity.getTipoTarjetaEntity().getTipoTarjetaId());
-            //dto.setTipoTarjetaId(ventaEntity.getTipoTarjetaEntity().getTipoTarjetaId().toString());
         }
         dto.setMontoRecibido(ventaEntity.getMontoRecibido());
         // Tipo de moneda
         if (ventaEntity.getTipoMonedaEntity() != null) {
             dto.setTipoMonedaId(ventaEntity.getTipoMonedaEntity().getMonedaId());
-            //dto.setTipoMonedaId(ventaEntity.getTipoMonedaEntity().getMonedaId().toString());
         }
         dto.setVuelto(ventaEntity.getVuelto());
         dto.setTotal(ventaEntity.getTotal());
@@ -238,9 +237,9 @@ public class VentaServiceImpl implements VentaService {
         return dto;
     }
 
-    private CrearVentaDetalleDTO convertDetalleToDTO(VentaDetalleEntity detalleEntity) {
-        CrearVentaDetalleDTO dto = new CrearVentaDetalleDTO();
-        //dto.setVentaDetalleId(detalleEntity.getVentaDetalleId());
+    private VentaDetalleDTO convertDetalleToDTO(VentaDetalleEntity detalleEntity) {
+        VentaDetalleDTO dto = new VentaDetalleDTO();
+        dto.setVentaDetalleId(detalleEntity.getVentaDetalleId());
         if (detalleEntity.getProductoEntity() != null) {
             dto.setProductoId(detalleEntity.getProductoEntity().getProductoId());
         }

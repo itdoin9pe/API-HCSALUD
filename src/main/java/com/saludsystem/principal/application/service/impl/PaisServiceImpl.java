@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class PaisServiceImpl implements PaisService {
@@ -56,13 +55,13 @@ public class PaisServiceImpl implements PaisService {
     public ListResponse<PaisDTO> getAllPais(UUID hospitalId, int page, int rows) {
         Pageable pageable = PageRequest.of(page - 1, rows);
         Page<PaisEntity> paisModelPage = paisRepository.findByHospital_HospitalId(hospitalId, pageable);
-        List<PaisDTO> data = paisModelPage.getContent().stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<PaisDTO> data = paisModelPage.getContent().stream().map(this::convertToDTO).toList();
         return new ListResponse<>(data, paisModelPage.getTotalElements(), paisModelPage.getTotalPages(), paisModelPage.getNumber() + 1);
     }
 
     @Override
     public List<PaisDTO> getPaisList() {
-        return paisRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return paisRepository.findAll().stream().map(this::convertToDTO).toList();
     }
 
     private PaisDTO convertToDTO(PaisEntity pais) {

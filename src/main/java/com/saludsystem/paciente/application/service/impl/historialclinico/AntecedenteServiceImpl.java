@@ -8,7 +8,7 @@ import com.saludsystem.paciente.application.service.historialclinico.Antecedente
 import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.HistorialClinico.AntecedentesEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.paciente.infrastructure.adapters.out.persistance.HistorialClinico.AntecedenteRespository;
+import com.saludsystem.paciente.infrastructure.adapters.out.persistance.historialclinico.AntecedenteRespository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;

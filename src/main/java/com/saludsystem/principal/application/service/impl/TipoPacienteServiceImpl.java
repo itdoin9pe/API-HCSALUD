@@ -1,6 +1,5 @@
 package com.saludsystem.principal.application.service.impl;
 
-
 import com.saludsystem.principal.application.dto.get.TipoPacienteDTO;
 import com.saludsystem.principal.application.service.TipoPacienteService;
 import com.saludsystem.principal.domain.model.TipoPacienteEntity;
@@ -9,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TipoPacienteServiceImpl implements TipoPacienteService {
@@ -24,7 +22,7 @@ public class TipoPacienteServiceImpl implements TipoPacienteService {
 
     @Override
     public List<TipoPacienteDTO> getTipoPacienteList() {
-        return tipoPacienteRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+        return tipoPacienteRepository.findAll().stream().map(this::convertToDTO).toList();
     }
 
     private TipoPacienteDTO convertToDTO(TipoPacienteEntity tipoPaciente) {

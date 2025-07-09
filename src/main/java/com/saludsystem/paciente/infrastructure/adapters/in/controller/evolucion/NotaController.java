@@ -4,7 +4,7 @@ import com.saludsystem.paciente.application.dto.get.historialclinico.evolucion.N
 import com.saludsystem.paciente.application.dto.post.historialclinico.evolucion.CrearNotaDTO;
 import com.saludsystem.paciente.application.dto.put.historialclinico.evolucion.ActualizarNotaDTO;
 import com.saludsystem.paciente.application.service.historialclinico.evolucion.NotaService;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.Evolucion.NotaListResponse;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.evolucion.NotaListResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;

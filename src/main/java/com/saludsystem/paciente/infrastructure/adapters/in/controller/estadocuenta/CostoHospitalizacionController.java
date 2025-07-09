@@ -3,7 +3,7 @@ package com.saludsystem.paciente.infrastructure.adapters.in.controller.estadocue
 import com.saludsystem.paciente.application.dto.get.historialclinico.estadocuenta.CostoHospitalizacionDTO;
 import com.saludsystem.paciente.application.dto.post.historialclinico.estadocuenta.CrearCostoHospitalizacionDTO;
 import com.saludsystem.paciente.application.dto.put.historialclinico.estadocuenta.ActualizarCostoHospitalizacionDTO;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.EstadoCuenta.CostoHospitalizacionListResponse;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.estadocuenta.CostoHospitalizacionListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;

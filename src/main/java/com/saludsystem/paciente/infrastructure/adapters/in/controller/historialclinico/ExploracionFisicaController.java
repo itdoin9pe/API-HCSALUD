@@ -3,7 +3,7 @@ package com.saludsystem.paciente.infrastructure.adapters.in.controller.historial
 import com.saludsystem.paciente.application.dto.get.historialclinico.ExploracionFisicaDTO;
 import com.saludsystem.paciente.application.dto.post.historialclinico.CrearExploracionFisicaDTO;
 import com.saludsystem.paciente.application.dto.put.historialclinico.ActualizarExploracionFisicaDTO;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.HistorialClinico.ExploracionFisicaListResponse;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.historialclinico.ExploracionFisicaListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -26,6 +26,7 @@ public class ExploracionFisicaController extends GenericController<ExploracionFi
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

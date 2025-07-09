@@ -9,8 +9,8 @@ import com.saludsystem.paciente.domain.model.Evolucion.NotaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
-import com.saludsystem.paciente.infrastructure.adapters.out.persistance.Evolucion.EvolucionRepository;
-import com.saludsystem.paciente.infrastructure.adapters.out.persistance.Evolucion.NotaRepository;
+import com.saludsystem.paciente.infrastructure.adapters.out.persistance.evolucion.EvolucionRepository;
+import com.saludsystem.paciente.infrastructure.adapters.out.persistance.evolucion.NotaRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class NotaServiceImpl implements NotaService {

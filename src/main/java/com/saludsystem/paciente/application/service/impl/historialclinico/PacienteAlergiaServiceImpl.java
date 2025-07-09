@@ -9,7 +9,7 @@ import com.saludsystem.shared.domain.exception.ResourceNotFoundException;
 import com.saludsystem.paciente.domain.model.HistorialClinico.PacienteAlergiaEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.AlergiaRepository;
-import com.saludsystem.paciente.infrastructure.adapters.out.persistance.HistorialClinico.PacienteAlergiaRepository;
+import com.saludsystem.paciente.infrastructure.adapters.out.persistance.historialclinico.PacienteAlergiaRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;

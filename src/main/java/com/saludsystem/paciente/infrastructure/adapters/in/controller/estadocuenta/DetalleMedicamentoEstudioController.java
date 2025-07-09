@@ -3,7 +3,7 @@ package com.saludsystem.paciente.infrastructure.adapters.in.controller.estadocue
 import com.saludsystem.paciente.application.dto.get.historialclinico.estadocuenta.DetalleMedicamentoEstudioDTO;
 import com.saludsystem.paciente.application.dto.post.historialclinico.estadocuenta.CrearDetalleMedicamentoEstudioDTO;
 import com.saludsystem.paciente.application.dto.put.historialclinico.estadocuenta.ActualizarDetalleMedicamentoEstudioDTO;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.EstadoCuenta.DetalleMedicamentoEstudioListResponse;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.estadocuenta.DetalleMedicamentoEstudioListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -27,6 +27,7 @@ public class DetalleMedicamentoEstudioController extends GenericController<Detal
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

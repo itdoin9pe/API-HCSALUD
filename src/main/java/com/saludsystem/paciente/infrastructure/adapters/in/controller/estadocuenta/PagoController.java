@@ -3,7 +3,7 @@ package com.saludsystem.paciente.infrastructure.adapters.in.controller.estadocue
 import com.saludsystem.paciente.application.dto.get.historialclinico.estadocuenta.PagoDTO;
 import com.saludsystem.paciente.application.dto.post.historialclinico.estadocuenta.CrearPagoDTO;
 import com.saludsystem.paciente.application.dto.put.historialclinico.estadocuenta.ActualizarPagoDTO;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.EstadoCuenta.PagoListResponse;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.estadocuenta.PagoListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -24,6 +24,7 @@ public class PagoController extends GenericController<PagoDTO, CrearPagoDTO, Act
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",

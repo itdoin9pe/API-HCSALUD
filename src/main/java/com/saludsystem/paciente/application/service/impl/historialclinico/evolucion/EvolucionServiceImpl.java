@@ -9,7 +9,7 @@ import com.saludsystem.paciente.domain.model.Evolucion.EvolucionEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
-import com.saludsystem.paciente.infrastructure.adapters.out.persistance.Evolucion.EvolucionRepository;
+import com.saludsystem.paciente.infrastructure.adapters.out.persistance.evolucion.EvolucionRepository;
 import com.saludsystem.paciente.infrastructure.adapters.out.persistance.PacienteRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;

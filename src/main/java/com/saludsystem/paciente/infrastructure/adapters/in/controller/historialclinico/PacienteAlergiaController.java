@@ -3,7 +3,7 @@ package com.saludsystem.paciente.infrastructure.adapters.in.controller.historial
 import com.saludsystem.paciente.application.dto.get.historialclinico.PacienteAlergiaDTO;
 import com.saludsystem.paciente.application.dto.post.historialclinico.CrearPacienteAlergiaDTO;
 import com.saludsystem.paciente.application.dto.put.historialclinico.ActualizarPacienteAlergiaDTO;
-import com.saludsystem.paciente.infrastructure.adapters.in.response.HistorialClinico.PacienteAlergiaListResponse;
+import com.saludsystem.paciente.infrastructure.adapters.in.response.historialclinico.PacienteAlergiaListResponse;
 import com.saludsystem.shared.application.service.GenericService;
 import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
@@ -26,6 +26,7 @@ public class PacienteAlergiaController extends GenericController<PacienteAlergia
         super(genericService);
     }
 
+    @Override
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
