@@ -13,6 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "aseguradoras")
+@EqualsAndHashCode(callSuper = true)
 public class AseguradoraEntity extends BaseEntity {
 
     @Id

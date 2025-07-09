@@ -7,10 +7,8 @@ import com.saludsystem.mantenimiento.domain.model.TipoPagoEntity;
 import com.saludsystem.mantenimiento.domain.model.TipoTarjetaEntity;
 import com.saludsystem.paciente.domain.model.PacienteEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,6 +19,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
+@EqualsAndHashCode(callSuper = true)
 public class VentaEntity extends BaseEntity {
 
     @Id

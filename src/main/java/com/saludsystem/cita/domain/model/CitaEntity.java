@@ -8,15 +8,13 @@ import com.saludsystem.configuracion.domain.model.SedeEntity;
 import com.saludsystem.medico.domain.model.DoctorEntity;
 import com.saludsystem.paciente.domain.model.PacienteEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "citas")
 @NoArgsConstructor

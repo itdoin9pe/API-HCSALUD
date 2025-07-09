@@ -5,10 +5,7 @@ import com.saludsystem.catalogo.domain.model.EspecialidadEntity;
 import com.saludsystem.medico.domain.model.DoctorEntity;
 import com.saludsystem.paciente.domain.model.PacienteEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -18,6 +15,7 @@ import java.util.UUID;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class InterconsultaEntity extends BaseEntity {
 
     @Id

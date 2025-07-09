@@ -17,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "medicos")
+@EqualsAndHashCode(callSuper = true)
 public class DoctorEntity extends BaseEntity {
 
     @Id

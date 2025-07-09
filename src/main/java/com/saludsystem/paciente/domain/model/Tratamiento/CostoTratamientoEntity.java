@@ -3,10 +3,7 @@ package com.saludsystem.paciente.domain.model.Tratamiento;
 import com.saludsystem.shared.domain.model.BaseEntity;
 import com.saludsystem.paciente.domain.model.PacienteEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -15,6 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
+@EqualsAndHashCode(callSuper = true)
 public class CostoTratamientoEntity extends BaseEntity {
 
     @Id

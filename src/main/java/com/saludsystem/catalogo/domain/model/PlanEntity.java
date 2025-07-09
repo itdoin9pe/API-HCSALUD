@@ -6,6 +6,7 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "planes")
 @NoArgsConstructor

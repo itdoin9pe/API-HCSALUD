@@ -6,10 +6,7 @@ import com.saludsystem.operaciones.domain.model.MarcaEntity;
 import com.saludsystem.operaciones.domain.model.ProductoEntity;
 import com.saludsystem.operaciones.domain.model.UnidadEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,6 +16,7 @@ import java.util.UUID;
 @Table(name = "inventario")
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
+@EqualsAndHashCode(callSuper = true)
 public class InventarioEntity extends BaseEntity {
 
     @Id

@@ -12,6 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.util.Date;
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Getter
 @Setter

@@ -13,6 +13,7 @@ import java.util.UUID;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class InformeInterconsulta extends BaseEntity {
 
     @Id

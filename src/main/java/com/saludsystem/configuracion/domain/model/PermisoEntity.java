@@ -3,13 +3,11 @@ package com.saludsystem.configuracion.domain.model;
 import com.saludsystem.shared.domain.model.BaseEntity;
 import com.saludsystem.shared.domain.model.MenuEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "permisos")
 @Getter

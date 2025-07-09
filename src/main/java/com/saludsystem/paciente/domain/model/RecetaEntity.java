@@ -3,10 +3,8 @@ package com.saludsystem.paciente.domain.model;
 import com.saludsystem.shared.domain.model.BaseEntity;
 import com.saludsystem.medico.domain.model.DoctorEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -16,6 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
+@EqualsAndHashCode(callSuper = true)
 public class RecetaEntity extends BaseEntity {
 
     @Id

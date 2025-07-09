@@ -4,10 +4,7 @@ import com.saludsystem.shared.domain.model.BaseEntity;
 import com.saludsystem.catalogo.domain.model.ConsentimientoEntity;
 import com.saludsystem.medico.domain.model.DoctorEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -18,6 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
+@EqualsAndHashCode(callSuper = true)
 public class PConsentimientoEntity extends BaseEntity {
 
     @Id

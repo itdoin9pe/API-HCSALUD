@@ -3,10 +3,8 @@ package com.saludsystem.paciente.domain.model;
 import com.saludsystem.shared.domain.model.BaseEntity;
 import com.saludsystem.medico.domain.model.DoctorEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
+@EqualsAndHashCode(callSuper = true)
 public class EstudioMedicoEntity extends BaseEntity {
 
     @Id

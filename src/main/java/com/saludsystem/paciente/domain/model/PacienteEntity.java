@@ -23,6 +23,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Table(name = "pacientes")
 @Builder
+@EqualsAndHashCode(callSuper = true)
 public class PacienteEntity extends BaseEntity {
 
     @Id

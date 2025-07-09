@@ -2,13 +2,11 @@ package com.saludsystem.catalogo.domain.model;
 
 import com.saludsystem.shared.domain.model.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "tipo_concepto")
 @NoArgsConstructor

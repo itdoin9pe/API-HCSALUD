@@ -4,10 +4,7 @@ import com.saludsystem.shared.domain.model.BaseEntity;
 import com.saludsystem.catalogo.domain.model.EspecialidadEntity;
 import com.saludsystem.paciente.domain.model.PacienteEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -17,6 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
+@EqualsAndHashCode(callSuper = true)
 public class ConsultaEntity extends BaseEntity {
 
     @Id

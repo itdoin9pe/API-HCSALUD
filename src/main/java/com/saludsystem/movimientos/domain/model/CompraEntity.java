@@ -4,10 +4,7 @@ import com.saludsystem.shared.domain.model.BaseEntity;
 import com.saludsystem.mantenimiento.domain.model.TipoPagoEntity;
 import com.saludsystem.operaciones.domain.model.ProveedorEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,6 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
+@EqualsAndHashCode(callSuper = true)
 public class CompraEntity extends BaseEntity {
 
     @Id

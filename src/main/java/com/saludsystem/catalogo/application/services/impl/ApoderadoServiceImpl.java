@@ -8,7 +8,6 @@ import com.saludsystem.catalogo.application.services.ApoderadoService;
 import com.saludsystem.catalogo.domain.model.ApoderadoEntity;
 import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
 import com.saludsystem.catalogo.infrastructure.adapters.out.persistance.ApoderadoRepository;
-import com.saludsystem.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
 import com.saludsystem.shared.infrastructure.security.util.AuthValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;

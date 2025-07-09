@@ -6,10 +6,7 @@ import com.saludsystem.catalogo.domain.model.MedidaEntity;
 import com.saludsystem.catalogo.domain.model.TipoConceptoEntity;
 import com.saludsystem.operaciones.domain.model.UnidadEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -17,8 +14,8 @@ import java.util.UUID;
 @Table(name = "tarifarios")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Getter @Setter
+@EqualsAndHashCode(callSuper = true)
 public class TarifarioEntity extends BaseEntity {
 
     @Id

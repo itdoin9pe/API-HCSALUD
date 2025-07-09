@@ -2,17 +2,14 @@ package com.saludsystem.mantenimiento.domain.model;
 
 import com.saludsystem.shared.domain.model.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "enfermedades")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Getter @Setter
+@EqualsAndHashCode(callSuper = true)
 public class EnfermedadEntity extends BaseEntity {
 
     @Id

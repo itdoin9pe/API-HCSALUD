@@ -11,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "paises")
+@EqualsAndHashCode(callSuper = true)
 public class PaisEntity extends BaseEntity {
 
     @Id
