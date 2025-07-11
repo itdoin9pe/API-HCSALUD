@@ -1,10 +1,15 @@
 package com.saludsystem.domain.catalogo.port.out.repository;
 
-import com.saludsystem.catalogo.domain.model.ClienteEntity;
-import com.saludsystem.shared.infrastructure.adapters.out.persistance.GenericRepository;
-import org.springframework.stereotype.Repository;
+import com.saludsystem.domain.catalogo.model.Cliente;
 
-@Repository
-public interface ClienteRepositoryPort extends GenericRepository<ClienteEntity> {
+import java.util.List;
+import java.util.UUID;
 
+public interface ClienteRepositoryPort {
+    Cliente save(Cliente cliente);
+    Cliente update(UUID uuid, Cliente cliente);
+    void delete(UUID uuid);
+    Cliente findById(UUID uuid);
+    List<Cliente> findAll(UUID hospitalId, int page, int rows);
+    long countByHospitalId(UUID hospitalId);
 }

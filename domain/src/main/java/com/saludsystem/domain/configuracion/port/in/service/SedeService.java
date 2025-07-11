@@ -1,15 +1,14 @@
 package com.saludsystem.domain.configuracion.port.in.service;
 
-import com.configuracion.application.dto.get.SedeDTO;
-import com.configuracion.application.dto.post.CrearSedeDTO;
-import com.configuracion.application.dto.put.ActualizarSedeDTO;
-import com.saludsystem.domain.shared.port.in.GenericService;
+import com.saludsystem.domain.configuracion.model.Sede;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface SedeService extends GenericService<
-        SedeDTO,
-        CrearSedeDTO,
-        ActualizarSedeDTO,
-        UUID> {
+public interface SedeService {
+    Sede save(Sede sede);
+    Sede update(UUID uuid, Sede sede);
+    void delete(UUID uuid);
+    Sede getById(UUID uuid);
+    List<Sede> getAll(UUID hospitalId, int page, int rows);
 }

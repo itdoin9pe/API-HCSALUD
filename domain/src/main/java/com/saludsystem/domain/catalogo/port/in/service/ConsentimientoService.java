@@ -1,15 +1,14 @@
 package com.saludsystem.domain.catalogo.port.in.service;
 
-import com.saludsystem.catalogo.application.dtos.get.ConsentimientoDTO;
-import com.saludsystem.catalogo.application.dtos.post.CrearConsentimientoDTO;
-import com.saludsystem.catalogo.application.dtos.put.ActualizarConsentimientoDTO;
-import com.saludsystem.shared.application.service.GenericService;
+import com.saludsystem.domain.catalogo.model.Consentimiento;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface ConsentimientoService extends GenericService<
-        ConsentimientoDTO,
-        CrearConsentimientoDTO,
-        ActualizarConsentimientoDTO,
-        UUID> {
+public interface ConsentimientoService {
+    Consentimiento save(Consentimiento consentimiento);
+    Consentimiento update(UUID uuid, Consentimiento consentimiento);
+    void delete(UUID uuid);
+    Consentimiento getById(UUID uuid);
+    List<Consentimiento> getAll(UUID hospitalId, int page, int rows);
 }

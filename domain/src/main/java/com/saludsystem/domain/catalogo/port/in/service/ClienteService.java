@@ -1,15 +1,14 @@
 package com.saludsystem.domain.catalogo.port.in.service;
 
-import com.saludsystem.catalogo.application.dtos.get.ClienteDTO;
-import com.saludsystem.catalogo.application.dtos.post.CrearClienteDTO;
-import com.saludsystem.catalogo.application.dtos.put.ActualizarClienteDTO;
-import com.saludsystem.shared.application.service.GenericService;
+import com.saludsystem.domain.catalogo.model.Cliente;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface ClienteService extends GenericService<
-        ClienteDTO,
-        CrearClienteDTO,
-        ActualizarClienteDTO,
-        UUID> {
+public interface ClienteService {
+    Cliente save(Cliente cliente);
+    Cliente update(UUID uuid, Cliente cliente);
+    void delete(UUID uuid);
+    Cliente getById(UUID uuid);
+    List<Cliente> getAll(UUID hospitalId, int page, int rows);
 }

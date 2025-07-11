@@ -1,10 +1,15 @@
 package com.saludsystem.domain.catalogo.port.out.repository;
 
-import com.saludsystem.catalogo.domain.model.MedidaEntity;
-import com.saludsystem.shared.infrastructure.adapters.out.persistance.GenericRepository;
-import org.springframework.stereotype.Repository;
+import com.saludsystem.domain.catalogo.model.Medida;
 
-@Repository
-public interface MedidaRepositoryPort extends GenericRepository<MedidaEntity> {
+import java.util.List;
+import java.util.UUID;
 
+public interface MedidaRepositoryPort {
+    Medida save(Medida medida);
+    Medida update(UUID uuid, Medida medida);
+    void delete(UUID uuid);
+    Medida findById(UUID uuid);
+    List<Medida> findAll(UUID hospitalId, int page, int rows);
+    long countByHospitalId(UUID hospitalId);
 }

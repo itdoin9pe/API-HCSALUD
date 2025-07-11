@@ -1,9 +1,15 @@
 package com.saludsystem.domain.catalogo.port.out.repository;
 
-import com.catalogo.domain.model.MedicamentoEntity;
-import com.configuracion.infrastructure.adapters.out.persistance.GenericRepository;
-import org.springframework.stereotype.Repository;
+import com.saludsystem.domain.catalogo.model.Medicamento;
 
-@Repository
-public interface MedicamentoRepositoryPort extends GenericRepository<MedicamentoEntity> {
+import java.util.List;
+import java.util.UUID;
+
+public interface MedicamentoRepositoryPort {
+    Medicamento save(Medicamento medicamento);
+    Medicamento update(UUID uuid, Medicamento medicamento);
+    void delete(UUID uuid);
+    Medicamento findById(UUID uuid);
+    List<Medicamento> findAll(UUID hospitalId, int page, int rows);
+    long countByHospitalId(UUID hospitalId);
 }

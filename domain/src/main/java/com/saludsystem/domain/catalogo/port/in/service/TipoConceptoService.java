@@ -1,15 +1,14 @@
 package com.saludsystem.domain.catalogo.port.in.service;
 
-import com.saludsystem.catalogo.application.dtos.get.TipoConceptoDTO;
-import com.saludsystem.catalogo.application.dtos.post.CrearTipoConceptoDTO;
-import com.saludsystem.catalogo.application.dtos.put.ActualizarTipoConceptoDTO;
-import com.saludsystem.shared.application.service.GenericService;
+import com.saludsystem.domain.catalogo.model.TipoConcepto;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface TipoConceptoService extends GenericService<
-        TipoConceptoDTO,
-        CrearTipoConceptoDTO,
-        ActualizarTipoConceptoDTO,
-        UUID> {
+public interface TipoConceptoService {
+    TipoConcepto save(TipoConcepto tipoConcepto);
+    TipoConcepto update(UUID uuid, TipoConcepto tipoConcepto);
+    void delete(UUID uuid);
+    TipoConcepto getById(UUID uuid);
+    List<TipoConcepto> getAll(UUID hospitalId, int page, int rows);
 }

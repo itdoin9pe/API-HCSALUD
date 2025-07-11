@@ -1,23 +1,24 @@
 package com.saludsystem.application.catalogo.query.getById;
 
 import com.saludsystem.application.catalogo.dtos.get.CategoriaDTO;
-import com.saludsystem.application.catalogo.dtos.post.CrearCategoriaDTO;
-import com.saludsystem.application.catalogo.dtos.put.ActualizarCategoriaDTO;
+import com.saludsystem.application.catalogo.mapper.CategoriaMapper;
 import com.saludsystem.domain.catalogo.model.Categoria;
+import com.saludsystem.domain.catalogo.port.in.service.CategoriaService;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Component
 public class CategoriaByIdHandler {
 
-    public static Categoria fromCreateDto(CrearCategoriaDTO dto) {
-        return new Categoria(null, dto.getNombre(), dto.getEstado());
+    private final CategoriaService categoriaService;
+
+    public CategoriaByIdHandler(CategoriaService categoriaService) {
+        this.categoriaService = categoriaService;
     }
 
-    public static Categoria fromUpdateDto(UUID id, ActualizarCategoriaDTO dto) {
-        return new Categoria(id, dto.getNombre(), dto.getEstado());
-    }
-
-    public static CategoriaDTO toDto(Categoria model) {
-        return new CategoriaDTO(model.getId(), model.getNombre(), model.getEstado());
+    public CategoriaDTO execute(UUID uuid){
+        Categoria model = categoriaService.getById(uuid);
+        return CategoriaMapper.toDto(model);
     }
 }

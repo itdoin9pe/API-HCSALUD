@@ -1,15 +1,14 @@
 package com.saludsystem.domain.configuracion.port.in.service;
 
-import com.configuracion.application.dto.get.TipoDocumentoDTO;
-import com.configuracion.application.dto.post.CrearTipoDocumentoDTO;
-import com.configuracion.application.dto.put.ActualizarTipoDocumentoDTO;
-import com.saludsystem.domain.shared.port.in.GenericService;
+import com.saludsystem.domain.configuracion.model.TipoDocumento;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface TipoDocumentoService extends GenericService<
-        TipoDocumentoDTO,
-        CrearTipoDocumentoDTO,
-        ActualizarTipoDocumentoDTO,
-        UUID> {
+public interface TipoDocumentoService {
+    TipoDocumento save(TipoDocumento tipoDocumento);
+    TipoDocumento update(UUID uuid, TipoDocumento tipoDocumento);
+    void delete(UUID uuid);
+    TipoDocumento getById(UUID uuid);
+    List<TipoDocumento> getAll(UUID hospitalId, int page, int rows);
 }

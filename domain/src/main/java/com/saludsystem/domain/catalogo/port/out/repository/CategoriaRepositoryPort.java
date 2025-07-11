@@ -11,4 +11,5 @@ public interface CategoriaRepositoryPort {
     void delete(UUID uuid);
     Categoria findById(UUID uuid);
     List<Categoria> findAll(UUID hospitalId, int page, int rows);
+    long countByHospitalId(UUID hospitalId);
 }

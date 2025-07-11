@@ -1,9 +1,15 @@
 package com.saludsystem.domain.catalogo.port.out.repository;
 
-import com.saludsystem.catalogo.domain.model.TipoConceptoEntity;
-import com.saludsystem.shared.infrastructure.adapters.out.persistance.GenericRepository;
-import org.springframework.stereotype.Repository;
+import com.saludsystem.domain.catalogo.model.TipoConcepto;
 
-@Repository
-public interface TipoConceptoRepositoryPort extends GenericRepository<TipoConceptoEntity> {
+import java.util.List;
+import java.util.UUID;
+
+public interface TipoConceptoRepositoryPort {
+    TipoConcepto save(TipoConcepto tipoConcepto);
+    TipoConcepto update(UUID uuid, TipoConcepto tipoConcepto);
+    void delete(UUID uuid);
+    TipoConcepto findById(UUID uuid);
+    List<TipoConcepto> findAll(UUID hospitalId, int page, int rows);
+    long countByHospitalId(UUID hospitalId);
 }

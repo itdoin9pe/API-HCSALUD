@@ -1,15 +1,14 @@
 package com.saludsystem.domain.cita.port.in.service;
 
-import com.saludsystem.cita.application.dto.post.CrearCitaDTO;
-import com.saludsystem.cita.application.dto.get.CitaDTO;
-import com.saludsystem.cita.application.dto.put.ActualizarCitaDTO;
-import com.saludsystem.shared.application.service.GenericService;
+import com.saludsystem.domain.cita.model.Cita;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface CitaService extends GenericService<
-        CitaDTO,
-        CrearCitaDTO,
-        ActualizarCitaDTO,
-        UUID> {
+public interface CitaService {
+    Cita save(Cita cita);
+    Cita update(UUID uuid, Cita cita);
+    void delete(UUID uuid);
+    Cita getById(UUID uuid);
+    List<Cita> getAll(UUID hospitalId, int page, int rows);
 }

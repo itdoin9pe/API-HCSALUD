@@ -1,10 +1,15 @@
 package com.saludsystem.domain.catalogo.port.out.repository;
 
-import com.saludsystem.catalogo.domain.model.TipoCitadoEntity;
-import com.saludsystem.shared.infrastructure.adapters.out.persistance.GenericRepository;
-import org.springframework.stereotype.Repository;
+import com.saludsystem.domain.catalogo.model.TipoCitado;
 
-@Repository
-public interface TipoCitadoRepositoryPort extends GenericRepository<TipoCitadoEntity> {
+import java.util.List;
+import java.util.UUID;
 
+public interface TipoCitadoRepositoryPort {
+    TipoCitado save(TipoCitado tipoCitado);
+    TipoCitado update(UUID uuid, TipoCitado tipoCitado);
+    void delete(UUID uuid);
+    TipoCitado findById(UUID uuid);
+    List<TipoCitado> findAll(UUID hospitalId, int page, int rows);
+    long countByHospitalId(UUID hospitalId);
 }
