@@ -43,4 +43,4 @@ application.properties*
 sonar-project.properties
 
 ### Spring profiles ###
-src/main/resources/application-prod.yml
+infrastructure/src/main/resources/application-prod.yml
