@@ -10,4 +10,11 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 public class EspecialidadDTO extends CrearEspecialidadDTO {
     private UUID especialidadId;
+
+    public EspecialidadDTO(UUID id, String descripcion, String nombre, Integer estado) {
+        this.setEspecialidadId(id);
+        this.setDescripcion(descripcion);
+        this.setNombre(nombre);
+        this.setEstado(estado);
+    }
 }

@@ -1,6 +1,6 @@
 package com.saludsystem.infrastructure.adapter.entity.catalogo;
 
-import com.shared.domain.model.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

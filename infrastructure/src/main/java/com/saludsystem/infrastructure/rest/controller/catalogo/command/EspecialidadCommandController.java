@@ -1,15 +1,11 @@
 package com.saludsystem.infrastructure.rest.controller.catalogo.command;
 
-import com.saludsystem.catalogo.application.dtos.get.EspecialidadDTO;
-import com.saludsystem.catalogo.application.dtos.post.CrearEspecialidadDTO;
-import com.saludsystem.catalogo.application.dtos.put.ActualizarEspecialidadDTO;
-import com.saludsystem.shared.application.service.GenericService;
-import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.catalogo.infrastructure.adapters.in.response.EspecialidadListResponse;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import com.saludsystem.application.catalogo.command.create.EspecialidadCreateHandler;
+import com.saludsystem.application.catalogo.command.delete.EspecialidadDeleteHandler;
+import com.saludsystem.application.catalogo.command.edit.EspecialidadEditHandler;
+import com.saludsystem.application.catalogo.dtos.post.CrearEspecialidadDTO;
+import com.saludsystem.application.catalogo.dtos.put.ActualizarEspecialidadDTO;
+import com.saludsystem.domain.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,22 +14,33 @@ import java.util.UUID;
 @Tag(name = "Especialidades")
 @RestController
 @RequestMapping("/api/Especialidades")
-public class EspecialidadCommandController extends GenericController<EspecialidadDTO, CrearEspecialidadDTO,
-        ActualizarEspecialidadDTO, UUID> {
+public class EspecialidadCommandController {
 
-    protected EspecialidadCommandController(GenericService<EspecialidadDTO,
-            CrearEspecialidadDTO, ActualizarEspecialidadDTO, UUID> genericService) {
-        super(genericService);
+    private final EspecialidadCreateHandler createHandler;
+    private final EspecialidadEditHandler editHandler;
+    private final EspecialidadDeleteHandler deleteHandler;
+
+    public EspecialidadCommandController(EspecialidadCreateHandler createHandler, EspecialidadEditHandler editHandler, EspecialidadDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-    @Override
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EspecialidadListResponse.class)))
-    })
-    public ListResponse<EspecialidadDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody CrearEspecialidadDTO dto) {
+        createHandler.execute(dto);
+        return new ApiResponse(true, "Registro agregado");
+    }
+
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarEspecialidadDTO dto) {
+        editHandler.execute(id, dto);
+        return new ApiResponse(true, "Registro actualizado exitosamente");
+    }
+
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable UUID id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, "Registro eliminado exitosamente");
     }
 }
