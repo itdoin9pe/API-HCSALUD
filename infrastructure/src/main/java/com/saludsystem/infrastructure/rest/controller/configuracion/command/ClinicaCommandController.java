@@ -1,4 +1,4 @@
-package com.saludsystem.infrastructure.rest.controller.configuracion;
+package com.saludsystem.infrastructure.rest.controller.configuracion.command;
 
 import com.configuracion.application.dto.get.SysSaludDTO;
 import com.configuracion.application.dto.post.CrearSysSaludDTO;
@@ -26,13 +26,13 @@ import java.util.*;
 @Tag(name = "Hospitales")
 @RestController
 @RequestMapping("/api/Hospitales")
-public class ClinicaController {
+public class ClinicaCommandController {
 
     private final SysSaludService sysSaludService;
     private final SysSaludRepository sysSaludRepository;
     private final FileStorageService fileStorageService;
 
-    public ClinicaController(SysSaludService sysSaludService, SysSaludRepository sysSaludRepository, FileStorageService fileStorageService){
+    public ClinicaCommandController(SysSaludService sysSaludService, SysSaludRepository sysSaludRepository, FileStorageService fileStorageService){
         this.sysSaludService = sysSaludService;
         this.sysSaludRepository = sysSaludRepository;
         this.fileStorageService = fileStorageService;

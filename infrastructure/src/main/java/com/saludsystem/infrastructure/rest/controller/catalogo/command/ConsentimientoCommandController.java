@@ -1,15 +1,11 @@
 package com.saludsystem.infrastructure.rest.controller.catalogo.command;
 
-import com.saludsystem.catalogo.application.dtos.get.ConsentimientoDTO;
-import com.saludsystem.catalogo.application.dtos.post.CrearConsentimientoDTO;
-import com.saludsystem.catalogo.application.dtos.put.ActualizarConsentimientoDTO;
-import com.saludsystem.shared.application.service.GenericService;
-import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.catalogo.infrastructure.adapters.in.response.ConsentimientoListResponse;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import com.saludsystem.application.catalogo.command.create.ConsentimientoCreateHandler;
+import com.saludsystem.application.catalogo.command.delete.ConsentimientoDeleteHandler;
+import com.saludsystem.application.catalogo.command.edit.ConsentimientoEditHandler;
+import com.saludsystem.application.catalogo.dtos.post.CrearConsentimientoDTO;
+import com.saludsystem.application.catalogo.dtos.put.ActualizarConsentimientoDTO;
+import com.saludsystem.domain.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,23 +14,33 @@ import java.util.UUID;
 @Tag(name = "Consentimientos")
 @RestController
 @RequestMapping("/api/Consentimientos")
-public class ConsentimientoCommandController extends GenericController<ConsentimientoDTO,
-        CrearConsentimientoDTO, ActualizarConsentimientoDTO, UUID> {
+public class ConsentimientoCommandController {
 
-    protected ConsentimientoCommandController(GenericService<ConsentimientoDTO, CrearConsentimientoDTO, ActualizarConsentimientoDTO, UUID> genericService) {
-        super(genericService);
+    private final ConsentimientoCreateHandler createHandler;
+    private final ConsentimientoEditHandler editHandler;
+    private final ConsentimientoDeleteHandler deleteHandler;
+
+    public ConsentimientoCommandController(ConsentimientoCreateHandler createHandler, ConsentimientoEditHandler editHandler, ConsentimientoDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-    @Override
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ConsentimientoListResponse.class)))
-    })
-    public ListResponse<ConsentimientoDTO> getAllPaginated(
-            @RequestParam(name = "hospitalId", required = true) UUID hospitalId, @RequestParam(name = "Page") int page,
-            @RequestParam(name = "Rows") int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody CrearConsentimientoDTO dto) {
+        createHandler.execute(dto);
+        return new ApiResponse(true, "Registro agregado");
+    }
+
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarConsentimientoDTO dto) {
+        editHandler.execute(id, dto);
+        return new ApiResponse(true, "Registro actualizado exitosamente");
+    }
+
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable UUID id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, "Registro eliminado exitosamente");
     }
 }

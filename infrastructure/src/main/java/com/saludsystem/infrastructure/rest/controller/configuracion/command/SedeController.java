@@ -1,4 +1,4 @@
-package com.saludsystem.infrastructure.rest.controller.configuracion;
+package com.saludsystem.infrastructure.rest.controller.configuracion.command;
 
 import com.configuracion.application.dto.get.SedeDTO;
 import com.configuracion.application.dto.post.CrearSedeDTO;

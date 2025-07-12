@@ -1,4 +1,4 @@
-package com.saludsystem.infrastructure.rest.controller.configuracion;
+package com.saludsystem.infrastructure.rest.controller.configuracion.command;
 /*
 import com.saludsystem.enums.UserRole;
 import org.springframework.web.bind.annotation.GetMapping;

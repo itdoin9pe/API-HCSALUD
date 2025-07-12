@@ -1,4 +1,4 @@
-package com.saludsystem.infrastructure.rest.controller.configuracion;
+package com.saludsystem.infrastructure.rest.controller.configuracion.command;
 
 import com.saludsystem.domain.configuracion.port.in.service.UsuarioService;
 import com.saludsystem.infrastructure.adapter.jparepository.configuracion.UserRepository;

@@ -1,6 +1,7 @@
 package com.saludsystem.infrastructure.adapter.entity.paciente;
 
-import com.shared.domain.model.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.catalogo.ConsentimientoEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
