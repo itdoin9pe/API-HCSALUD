@@ -1,15 +1,11 @@
 package com.saludsystem.infrastructure.rest.controller.catalogo.command;
 
-import com.saludsystem.catalogo.application.dtos.get.MedidaDTO;
-import com.saludsystem.catalogo.application.dtos.post.CrearMedidaDTO;
-import com.saludsystem.catalogo.application.dtos.put.ActualizarMedidaDTO;
-import com.saludsystem.shared.application.service.GenericService;
-import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.catalogo.infrastructure.adapters.in.response.MedidaListResponse;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import com.saludsystem.application.catalogo.command.create.MedidaCreateHandler;
+import com.saludsystem.application.catalogo.command.delete.MedidaDeleteHandler;
+import com.saludsystem.application.catalogo.command.edit.MedidaEditHandler;
+import com.saludsystem.application.catalogo.dtos.post.CrearMedidaDTO;
+import com.saludsystem.application.catalogo.dtos.put.ActualizarMedidaDTO;
+import com.saludsystem.domain.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,21 +14,33 @@ import java.util.UUID;
 @Tag(name = "Medidas")
 @RestController
 @RequestMapping("/api/Medidas")
-public class MedidaCommandController extends GenericController<MedidaDTO, CrearMedidaDTO, ActualizarMedidaDTO, UUID> {
+public class MedidaCommandController {
 
-    protected MedidaCommandController(
-            GenericService<MedidaDTO, CrearMedidaDTO, ActualizarMedidaDTO, UUID> genericService) {
-        super(genericService);
+    private final MedidaCreateHandler createHandler;
+    private final MedidaEditHandler editHandler;
+    private final MedidaDeleteHandler deleteHandler;
+
+    public MedidaCommandController(MedidaCreateHandler createHandler, MedidaEditHandler editHandler, MedidaDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-    @Override
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MedidaListResponse.class)))
-    })
-    public ListResponse<MedidaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody CrearMedidaDTO dto) {
+        createHandler.execute(dto);
+        return new ApiResponse(true, "Registro agregado");
+    }
+
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarMedidaDTO dto) {
+        editHandler.execute(id, dto);
+        return new ApiResponse(true, "Registro actualizado exitosamente");
+    }
+
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable UUID id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, "Registro eliminado exitosamente");
     }
 }

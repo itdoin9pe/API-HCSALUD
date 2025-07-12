@@ -10,4 +10,10 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 public class MedidaDTO extends CrearMedidaDTO {
     private UUID medidaId;
+
+    public MedidaDTO(UUID id, String nombre, Integer estado) {
+        this.setMedidaId(id);
+        this.setNombre(nombre);
+        this.setEstado(estado);
+    }
 }
