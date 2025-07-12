@@ -1,15 +1,11 @@
 package com.saludsystem.infrastructure.rest.controller.catalogo.command;
 
-import com.saludsystem.catalogo.application.dtos.get.PlanDTO;
-import com.saludsystem.catalogo.application.dtos.post.CrearPlanDTO;
-import com.saludsystem.catalogo.application.dtos.put.ActualizarPlanDTO;
-import com.saludsystem.shared.application.service.GenericService;
-import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.catalogo.infrastructure.adapters.in.response.PlanListResponse;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import com.saludsystem.application.catalogo.command.create.PlanCreateHandler;
+import com.saludsystem.application.catalogo.command.delete.PlanDeleteHandler;
+import com.saludsystem.application.catalogo.command.edit.PlanEditHandler;
+import com.saludsystem.application.catalogo.dtos.post.CrearPlanDTO;
+import com.saludsystem.application.catalogo.dtos.put.ActualizarPlanDTO;
+import com.saludsystem.domain.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,21 +14,33 @@ import java.util.UUID;
 @Tag(name = "Planes")
 @RestController
 @RequestMapping("/api/Planes")
-public class PlanCommandController extends GenericController<PlanDTO, CrearPlanDTO, ActualizarPlanDTO, UUID> {
+public class PlanCommandController {
 
-    protected PlanCommandController(
-            GenericService<PlanDTO, CrearPlanDTO, ActualizarPlanDTO, UUID> genericService) {
-        super(genericService);
+    private final PlanCreateHandler createHandler;
+    private final PlanEditHandler editHandler;
+    private final PlanDeleteHandler deleteHandler;
+
+    public PlanCommandController(PlanCreateHandler createHandler, PlanEditHandler editHandler, PlanDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-    @Override
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = PlanListResponse.class)))
-    })
-    public ListResponse<PlanDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody CrearPlanDTO dto) {
+        createHandler.execute(dto);
+        return new ApiResponse(true, "Registro agregado");
+    }
+
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarPlanDTO dto) {
+        editHandler.execute(id, dto);
+        return new ApiResponse(true, "Registro actualizado exitosamente");
+    }
+
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable UUID id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, "Registro eliminado exitosamente");
     }
 }

@@ -1,4 +1,4 @@
 package com.saludsystem.infrastructure.adapter.repository.catalogo;
 
-public class PlanRepository {
+public class TipoCitadoRepositoryAdapter {
 }
