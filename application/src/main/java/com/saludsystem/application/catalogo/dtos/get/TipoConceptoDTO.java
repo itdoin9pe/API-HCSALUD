@@ -10,4 +10,10 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 public class TipoConceptoDTO extends CrearTipoConceptoDTO {
     private UUID tipoConceptoId;
+
+    public TipoConceptoDTO(UUID id, String nombre, Integer estado) {
+        this.setTipoConceptoId(id);
+        this.setNombre(nombre);
+        this.setEstado(estado);
+    }
 }

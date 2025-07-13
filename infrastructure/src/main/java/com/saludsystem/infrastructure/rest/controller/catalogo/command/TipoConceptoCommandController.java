@@ -1,15 +1,11 @@
 package com.saludsystem.infrastructure.rest.controller.catalogo.command;
 
-import com.saludsystem.catalogo.application.dtos.get.TipoConceptoDTO;
-import com.saludsystem.catalogo.application.dtos.post.CrearTipoConceptoDTO;
-import com.saludsystem.catalogo.application.dtos.put.ActualizarTipoConceptoDTO;
-import com.saludsystem.shared.application.service.GenericService;
-import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.catalogo.infrastructure.adapters.in.response.TipoConceptoListResponse;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import com.saludsystem.application.catalogo.command.create.TipoConceptoCreateHandler;
+import com.saludsystem.application.catalogo.command.delete.TipoConceptoDeleteHandler;
+import com.saludsystem.application.catalogo.command.edit.TipoConceptoEditHandler;
+import com.saludsystem.application.catalogo.dtos.post.CrearTipoConceptoDTO;
+import com.saludsystem.application.catalogo.dtos.put.ActualizarTipoConceptoDTO;
+import com.saludsystem.domain.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,22 +14,35 @@ import java.util.UUID;
 @Tag(name = "TiposConceptos")
 @RestController
 @RequestMapping("/api/TiposConceptos")
-public class TipoConceptoCommandController extends GenericController<TipoConceptoDTO, CrearTipoConceptoDTO,
-        ActualizarTipoConceptoDTO, UUID> {
+public class TipoConceptoCommandController {
 
-    protected TipoConceptoCommandController(
-            GenericService<TipoConceptoDTO, CrearTipoConceptoDTO, ActualizarTipoConceptoDTO, UUID> genericService) {
-        super(genericService);
+    private final TipoConceptoCreateHandler createHandler;
+    private final TipoConceptoEditHandler editHandler;
+    private final TipoConceptoDeleteHandler deleteHandler;
+
+    public TipoConceptoCommandController(TipoConceptoCreateHandler createHandler, TipoConceptoEditHandler editHandler, TipoConceptoDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-    @Override
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = TipoConceptoListResponse.class)))
-    })
-    public ListResponse<TipoConceptoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
+
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody CrearTipoConceptoDTO dto) {
+        createHandler.execute(dto);
+        return new ApiResponse(true, "Registro agregado");
     }
+
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarTipoConceptoDTO dto) {
+        editHandler.execute(id, dto);
+        return new ApiResponse(true, "Registro actualizado exitosamente");
+    }
+
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable UUID id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, "Registro eliminado exitosamente");
+    }
+
 }
