@@ -1,10 +1,15 @@
 package com.saludsystem.infrastructure.adapter.jparepository.catalogo;
 
-import com.saludsystem.catalogo.domain.model.TipoCitadoEntity;
-import com.saludsystem.shared.infrastructure.adapters.out.persistance.GenericRepository;
+import com.saludsystem.infrastructure.adapter.entity.catalogo.TipoCitadoEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface TipoCitadoJpaRepository extends GenericRepository<TipoCitadoEntity> {
+import java.util.UUID;
 
+@Repository
+public interface TipoCitadoJpaRepository extends JpaRepository<TipoCitadoEntity, UUID> {
+    Page<TipoCitadoEntity> findAllHospitalId(UUID hospitalId, Pageable pageable);
+    long countByHospitalId(UUID hospitalId);
 }

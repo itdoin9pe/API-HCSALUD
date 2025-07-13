@@ -28,7 +28,6 @@ public class CategoriaRepositoryAdapter implements CategoriaRepositoryPort {
 
     @Override
     public Categoria update(UUID uuid, Categoria categoria) {
-        categoria.setId(uuid);
         CategoriaEntity entity = CategoriaDboMapper.toEntity(categoria);
         return CategoriaDboMapper.toDomain(categoriaJpaRepository.save(entity));
     }

@@ -7,6 +7,7 @@ public class CategoriaDboMapper {
 
     public static CategoriaEntity toEntity(Categoria model){
         CategoriaEntity e = new CategoriaEntity();
+        e.setCategoriaId(model.getId());
         e.setNombre(model.getNombre());
         e.setEstado(model.getEstado());
         return e;

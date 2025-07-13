@@ -1,15 +1,11 @@
 package com.saludsystem.infrastructure.rest.controller.catalogo.command;
 
-import com.saludsystem.catalogo.application.dtos.get.TipoCitadoDTO;
-import com.saludsystem.catalogo.application.dtos.post.CrearTipoCitadoDTO;
-import com.saludsystem.catalogo.application.dtos.put.ActualizarTipoCitadoDTO;
-import com.saludsystem.shared.application.service.GenericService;
-import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.catalogo.infrastructure.adapters.in.response.TipoCitadoListResponse;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import com.saludsystem.application.catalogo.command.create.TipoCitadoCreateHandler;
+import com.saludsystem.application.catalogo.command.delete.TipoCitadoDeleteHandler;
+import com.saludsystem.application.catalogo.command.edit.TipoCitadoEditHandler;
+import com.saludsystem.application.catalogo.dtos.post.CrearTipoCitadoDTO;
+import com.saludsystem.application.catalogo.dtos.put.ActualizarTipoCitadoDTO;
+import com.saludsystem.domain.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,22 +14,34 @@ import java.util.UUID;
 @Tag(name = "TiposCitado")
 @RestController
 @RequestMapping("/api/TiposCitado")
-public class TipoCitadoCommandController extends GenericController<TipoCitadoDTO, CrearTipoCitadoDTO,
-        ActualizarTipoCitadoDTO, UUID> {
+public class TipoCitadoCommandController {
 
-    protected TipoCitadoCommandController(
-            GenericService<TipoCitadoDTO, CrearTipoCitadoDTO, ActualizarTipoCitadoDTO, UUID> genericService) {
-        super(genericService);
+    private final TipoCitadoCreateHandler createHandler;
+    private final TipoCitadoEditHandler editHandler;
+    private final TipoCitadoDeleteHandler deleteHandler;
+
+    public TipoCitadoCommandController(TipoCitadoCreateHandler createHandler, TipoCitadoEditHandler editHandler, TipoCitadoDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-    @Override
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = TipoCitadoListResponse.class)))
-    })
-    public ListResponse<TipoCitadoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody CrearTipoCitadoDTO dto) {
+        createHandler.execute(dto);
+        return new ApiResponse(true, "Registro agregado");
     }
+
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarTipoCitadoDTO dto) {
+        editHandler.execute(id, dto);
+        return new ApiResponse(true, "Registro actualizado exitosamente");
+    }
+
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable UUID id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, "Registro eliminado exitosamente");
+    }
+
 }
