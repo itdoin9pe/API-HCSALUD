@@ -1,12 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.operaciones;
 
-import com.saludsystem.operaciones.application.dto.get.ProductoDTO;
-import com.saludsystem.operaciones.application.dto.post.CrearProductoDTO;
-import com.saludsystem.operaciones.application.dto.put.ActualizarProductoDTO;
-import com.saludsystem.operaciones.application.service.ProductoService;
-import com.saludsystem.operaciones.infrastructure.adapters.in.response.ProductoListResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,6 +16,7 @@ import java.util.UUID;
 @RequestMapping("/api/Productos")
 public class ProductoController {
 
+    /*
     private final ProductoService productoService;
 
     public ProductoController(ProductoService productoService) {
@@ -67,4 +61,5 @@ public class ProductoController {
         return productoService.deleteProducto(productoId);
     }
 
+     */
 }

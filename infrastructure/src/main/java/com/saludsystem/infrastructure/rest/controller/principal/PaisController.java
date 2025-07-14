@@ -1,11 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.principal;
 
-import com.saludsystem.application.dto.get.PaisDTO;
-import com.saludsystem.application.dto.post.CrearPaisDTO;
-import com.saludsystem.application.service.PaisService;
-import com.saludsystem.infrastructure.adapters.in.response.PaisListResponse;
-import com.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,6 +15,7 @@ import java.util.UUID;
 @RequestMapping("/api/Paises")
 public class PaisController {
 
+    /*
     private final PaisService paisService;
 
     public PaisController(PaisService paisService){
@@ -49,5 +44,7 @@ public class PaisController {
     public ResponseEntity<List<PaisDTO>> getAllList() {
         return ResponseEntity.ok(paisService.getPaisList());
     }
+
+     */
 
 }

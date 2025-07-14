@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.UUID;
 
 public class ClinicaQueryController {
+
+    /*
     private final ClinicaCreateHandler createHandler;
     private final ClinicaEditHandler editHandler;
     private final ClinicaDeleteHandler deleteHandler;
@@ -46,4 +48,6 @@ public class ClinicaQueryController {
         editHandler.execute(hospitalId, nombre, direccion, celular, email, ruc, fecha, foto, planId, estado);
         return ResponseEntity.ok(new ApiResponse(true, "Hospital actualizado correctamente"));
     }
+
+     */
 }

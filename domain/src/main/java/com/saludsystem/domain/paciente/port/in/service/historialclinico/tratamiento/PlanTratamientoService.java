@@ -1,16 +1,15 @@
 package com.saludsystem.domain.paciente.port.in.service.historialclinico.tratamiento;
 
+import com.saludsystem.domain.catalogo.model.TipoCitado;
+import com.saludsystem.domain.paciente.model.historialclinico.tratamiento.PlanTratamiento;
 
-import com.saludsystem.application.dto.get.historialclinico.tratamiento.PlanTratamientoDTO;
-import com.saludsystem.application.dto.post.historialclinico.tratamiento.CrearPlanTratamientoDTO;
-import com.saludsystem.application.dto.put.historialclinico.tratamiento.ActualizarPlanTratamientoDTO;
-import com.configuracion.application.services.GenericService;
-
+import java.util.List;
 import java.util.UUID;
 
-public interface PlanTratamientoService extends GenericService<
-        PlanTratamientoDTO,
-        CrearPlanTratamientoDTO,
-        ActualizarPlanTratamientoDTO,
-        UUID> {
+public interface PlanTratamientoService {
+    PlanTratamiento save(PlanTratamiento planTratamiento);
+    PlanTratamiento update(UUID uuid, PlanTratamiento planTratamiento);
+    void delete(UUID uuid);
+    PlanTratamiento getById(UUID uuid);
+    List<PlanTratamiento> getAll(UUID hospitalId, int page, int rows);
 }

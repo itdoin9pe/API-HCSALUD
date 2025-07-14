@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface ApoderadoJpaRepository extends JpaRepository<ApoderadoEntity, UUID> {
-    Page<ApoderadoEntity> findAllHospitalId(UUID hospitalId, Pageable pageable);
-    long countByHospitalId(UUID hospitalId);
+    Page<ApoderadoEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    long countByHospital_HospitalId(UUID hospitalId);
 }

@@ -1,8 +1,8 @@
 package com.saludsystem.application.paciente.dtos.put.historialclinico.evolucion;
 
-import com.saludsystem.paciente.application.dto.get.historialclinico.evolucion.CambioCondicionDTO;
-import com.saludsystem.paciente.application.dto.get.historialclinico.evolucion.NotaDTO;
-import com.saludsystem.shared.application.dto.BaseDTO;
+import com.saludsystem.application.BaseDTO;
+import com.saludsystem.application.paciente.dtos.get.historialclinico.evolucion.CambioCondicionDTO;
+import com.saludsystem.application.paciente.dtos.get.historialclinico.evolucion.NotaDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

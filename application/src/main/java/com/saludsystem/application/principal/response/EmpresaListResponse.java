@@ -1,6 +1,6 @@
 package com.saludsystem.application.principal.response;
 
-import com.saludsystem.application.dto.get.EmpresaDTO;
+import com.saludsystem.application.principal.dtos.get.EmpresaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

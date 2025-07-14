@@ -1,15 +1,14 @@
 package com.saludsystem.domain.paciente.port.in.service.historialclinico.estadocuenta;
 
-import com.saludsystem.application.dto.get.historialclinico.estadocuenta.DetalleMedicamentoEstudioDTO;
-import com.saludsystem.application.dto.post.historialclinico.estadocuenta.CrearDetalleMedicamentoEstudioDTO;
-import com.saludsystem.application.dto.put.historialclinico.estadocuenta.ActualizarDetalleMedicamentoEstudioDTO;
-import com.configuracion.application.services.GenericService;
+import com.saludsystem.domain.paciente.model.historialclinico.estadocuenta.DetalleMedicamentoEstudio;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface DetalleMedicamentoEstudioService extends GenericService<
-        DetalleMedicamentoEstudioDTO,
-        CrearDetalleMedicamentoEstudioDTO,
-        ActualizarDetalleMedicamentoEstudioDTO,
-        UUID> {
+public interface DetalleMedicamentoEstudioService {
+    DetalleMedicamentoEstudio save(DetalleMedicamentoEstudio detalleMedicamentoEstudio);
+    DetalleMedicamentoEstudio update(UUID uuid, DetalleMedicamentoEstudio detalleMedicamentoEstudio);
+    void delete(UUID uuid);
+    DetalleMedicamentoEstudio getById(UUID uuid);
+    List<DetalleMedicamentoEstudio> getAll(UUID hospitalId, int page, int rows);
 }

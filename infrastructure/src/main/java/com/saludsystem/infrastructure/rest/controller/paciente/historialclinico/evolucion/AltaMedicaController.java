@@ -1,12 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.paciente.historialclinico.evolucion;
 
-import com.saludsystem.application.dto.get.historialclinico.evolucion.AltaMedicaDTO;
-import com.saludsystem.application.dto.post.historialclinico.evolucion.CrearAltaMedicaDTO;
-import com.saludsystem.application.dto.put.historialclinico.evolucion.ActualizarAltaMedicaDTO;
-import com.saludsystem.application.service.historialclinico.evolucion.AltaMedicaService;
-import com.saludsystem.infrastructure.adapters.in.response.evolucion.AltaMedicaListResponse;
-import com.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,6 +14,7 @@ import java.util.UUID;
 @RequestMapping("/api/Pacientes/Evoluciones/AltasMedicas")
 public class AltaMedicaController {
 
+    /*
     private final AltaMedicaService altaMedicaService;
 
     public AltaMedicaController(AltaMedicaService altaMedicaService) {
@@ -59,4 +53,6 @@ public class AltaMedicaController {
     public ApiResponse destroy(@PathVariable("altaMedicaId") Long evolucionAltaMedicaId) {
         return altaMedicaService.deleteAltaMedica(evolucionAltaMedicaId);
     }
+
+     */
 }

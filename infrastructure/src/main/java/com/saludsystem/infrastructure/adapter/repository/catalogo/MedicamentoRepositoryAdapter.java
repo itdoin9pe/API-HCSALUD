@@ -46,12 +46,12 @@ public class MedicamentoRepositoryAdapter implements MedicamentoRepositoryPort {
 
     @Override
     public List<Medicamento> findAll(UUID hospitalId, int page, int rows) {
-        return medicamentoJpaRepository.findAllHospitalId(hospitalId, PageRequest.of(page, rows))
+        return medicamentoJpaRepository.findAllByHospital_HospitalId(hospitalId, PageRequest.of(page, rows))
                 .stream().map(MedicamentoDboMapper::toDomain).toList();
     }
 
     @Override
     public long countByHospitalId(UUID hospitalId) {
-        return medicamentoJpaRepository.countByHospitalId(hospitalId);
+        return medicamentoJpaRepository.countByHospital_HospitalId(hospitalId);
     }
 }

@@ -1,22 +1,16 @@
 package com.saludsystem.domain.movimiento.port.in.service;
 
-import com.saludsystem.movimientos.application.dto.post.CrearVentaDTO;
-import com.saludsystem.movimientos.application.dto.get.VentaDTO;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
+import com.saludsystem.domain.movimiento.model.Venta;
+
 import java.util.List;
 import java.util.UUID;
 
 public interface VentaService {
 
-    ApiResponse saveVenta(CrearVentaDTO crearVentaDTO);
-
-    List<VentaDTO> getVentaList();
-
-    VentaDTO getVentaById(UUID ventaId);
-
-    ListResponse<VentaDTO> getAllVenta(UUID hospitalId, int page, int rows);
-
-    ApiResponse deleteVenta(UUID ventaId);
+    Venta save(Venta venta);
+    Venta update(UUID uuid, Venta venta);
+    void delete(UUID uuid);
+    Venta getById(UUID uuid);
+    List<Venta> getAll(UUID hospitalId, int page, int rows);
 
 }

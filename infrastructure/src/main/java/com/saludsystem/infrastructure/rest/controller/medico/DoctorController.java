@@ -1,15 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.medico;
 
-import com.saludsystem.medico.application.dto.ActualizarDoctorDTO;
-import com.saludsystem.medico.application.dto.CrearDoctorDTO;
-import com.saludsystem.medico.application.dto.DoctorDTO;
-import com.saludsystem.medico.application.service.DoctorService;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.medico.domain.model.DoctorEntity;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.medico.infrastructure.adapters.in.response.DoctorListResponse;
-import com.saludsystem.infrastructure.adapters.out.persistance.DoctorRepository;
-import com.saludsystem.shared.infrastructure.security.util.FileStorageService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -30,6 +20,7 @@ import java.util.UUID;
 @RequestMapping("/api/Medicos")
 public class DoctorController {
 
+    /*
     private final DoctorService doctorService;
     private final FileStorageService fileStorageService;
     private final DoctorRepository doctorRepository;
@@ -143,5 +134,5 @@ public class DoctorController {
     public ResponseEntity<ApiResponse> destroy(@PathVariable UUID doctorId) {
         doctorService.deleteDoctor(doctorId);
         return ResponseEntity.ok(new ApiResponse(true, "Doctor eliminado correctamente."));
-    }
+    }*/
 }

@@ -1,12 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.mantenimiento;
 
-import com.saludsystem.mantenimiento.application.dto.get.EnfermedadDTO;
-import com.saludsystem.mantenimiento.application.dto.post.CrearEnfermedadDTO;
-import com.saludsystem.mantenimiento.application.dto.put.ActualizarEnfermedadDTO;
-import com.saludsystem.mantenimiento.application.service.EnfermedadService;
-import com.saludsystem.mantenimiento.infrastructure.adapters.in.response.EnfermedadListResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,6 +16,7 @@ import java.util.UUID;
 @RequestMapping("/api/Enfermedades")
 public class DiagnositcoController {
 
+    /*
     private final EnfermedadService enfermedadService;
 
     public DiagnositcoController(EnfermedadService enfermedadService) {
@@ -69,6 +63,6 @@ public class DiagnositcoController {
     @GetMapping("/GetEnfermedadFiltradosPorRol")
     public ResponseEntity<List<EnfermedadDTO>> getEnfermedadFiltradosPorRol() {
         return ResponseEntity.ok(enfermedadService.getEnfermedadFiltradosPorRol());
-    }
+    }*/
 
 }

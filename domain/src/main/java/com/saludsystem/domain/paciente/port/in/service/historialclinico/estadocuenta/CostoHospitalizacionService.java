@@ -1,15 +1,14 @@
 package com.saludsystem.domain.paciente.port.in.service.historialclinico.estadocuenta;
 
-import com.saludsystem.application.dto.get.historialclinico.estadocuenta.CostoHospitalizacionDTO;
-import com.saludsystem.application.dto.post.historialclinico.estadocuenta.CrearCostoHospitalizacionDTO;
-import com.saludsystem.application.dto.put.historialclinico.estadocuenta.ActualizarCostoHospitalizacionDTO;
-import com.configuracion.application.services.GenericService;
+import com.saludsystem.domain.paciente.model.historialclinico.estadocuenta.CostoHospitalizacion;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface CostoHospitalizacionService extends GenericService<
-        CostoHospitalizacionDTO,
-        CrearCostoHospitalizacionDTO,
-        ActualizarCostoHospitalizacionDTO,
-        UUID> {
+public interface CostoHospitalizacionService {
+    CostoHospitalizacion save(CostoHospitalizacion costoHospitalizacion);
+    CostoHospitalizacion update(UUID uuid, CostoHospitalizacion costoHospitalizacion);
+    void delete(UUID uuid);
+    CostoHospitalizacion getById(UUID uuid);
+    List<CostoHospitalizacion> getAll(UUID hospitalId, int page, int rows);
 }

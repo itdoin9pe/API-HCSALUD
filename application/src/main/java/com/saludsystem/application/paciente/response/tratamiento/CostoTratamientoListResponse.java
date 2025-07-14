@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.response.tratamiento;
 
-import com.saludsystem.application.dto.get.historialclinico.tratamiento.CostoTratamientoDTO;
+import com.saludsystem.application.paciente.dtos.get.historialclinico.tratamiento.CostoTratamientoDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

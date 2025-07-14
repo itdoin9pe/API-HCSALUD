@@ -45,12 +45,12 @@ public class AlergiaRepositoryAdapter implements AlergiaRepositoryPort {
 
     @Override
     public List<Alergia> findAll(UUID hospitalId, int page, int rows) {
-        return alergiaJpaRepository.findAllByHospitalId(hospitalId, PageRequest.of(page, rows))
+        return alergiaJpaRepository.findAllByHospital_HospitalId(hospitalId, PageRequest.of(page, rows))
                 .stream().map(AlergiaDboMapper::toDomain).toList();
     }
 
     @Override
     public long countByHospitalId(UUID hospitalId) {
-        return alergiaJpaRepository.countByHospitalId(hospitalId);
+        return alergiaJpaRepository.countByHospital_HospitalId(hospitalId);
     }
 }

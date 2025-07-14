@@ -45,12 +45,12 @@ public class PlanRepositoryAdapter implements PlanRepositoryPort {
 
     @Override
     public List<Plan> findAll(UUID hospitalId, int page, int rows) {
-        return planJpaRepository.findAllHospitalId(hospitalId, PageRequest.of(page, rows))
+        return planJpaRepository.findAllByHospital_HospitalId(hospitalId, PageRequest.of(page, rows))
                 .stream().map(PlanDboMapper::toDomain).toList();
     }
 
     @Override
     public long countByHospitalId(UUID hospitalId) {
-        return planJpaRepository.countByHospitalId(hospitalId);
+        return planJpaRepository.countByHospital_HospitalId(hospitalId);
     }
 }

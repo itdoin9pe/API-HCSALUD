@@ -1,6 +1,6 @@
 package com.saludsystem.application.cita.dtos.get;
 
-import com.saludsystem.application.dto.post.CrearCitaDTO;
+import com.saludsystem.application.cita.dtos.post.CrearCitaDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

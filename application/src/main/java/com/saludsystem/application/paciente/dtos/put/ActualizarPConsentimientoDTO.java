@@ -1,7 +1,7 @@
 package com.saludsystem.application.paciente.dtos.put;
 
-import com.saludsystem.application.dto.get.HoraDTO;
-import com.shared.application.dto.BaseDTO;
+import com.saludsystem.application.BaseDTO;
+import com.saludsystem.application.paciente.dtos.get.HoraDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

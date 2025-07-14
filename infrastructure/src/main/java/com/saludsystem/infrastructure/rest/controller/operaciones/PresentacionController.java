@@ -1,12 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.operaciones;
 
-import com.saludsystem.operaciones.application.dto.get.PresentacionDTO;
-import com.saludsystem.operaciones.application.dto.post.CrearPresentacionDTO;
-import com.saludsystem.operaciones.application.dto.put.ActualizarPresentacionDTO;
-import com.saludsystem.operaciones.infrastructure.adapters.in.response.PresentacionListResponse;
-import com.saludsystem.shared.application.service.GenericService;
-import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -19,15 +12,9 @@ import java.util.UUID;
 @Tag(name = "Presentaciones")
 @RestController
 @RequestMapping("/api/Presentaciones")
-public class PresentacionController extends GenericController<PresentacionDTO, CrearPresentacionDTO,
-        ActualizarPresentacionDTO, UUID> {
+public class PresentacionController  {
 
-    protected PresentacionController(
-            GenericService<PresentacionDTO, CrearPresentacionDTO, ActualizarPresentacionDTO, UUID> genericService) {
-        super(genericService);
-    }
-
-    @Override
+    /*
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -36,5 +23,5 @@ public class PresentacionController extends GenericController<PresentacionDTO, C
     })
     public ListResponse<PresentacionDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
-    }
+    }*/
 }

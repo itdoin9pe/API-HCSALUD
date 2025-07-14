@@ -1,6 +1,6 @@
 package com.saludsystem.application.configuracion.response;
 
-import com.configuracion.application.dto.get.SedeDTO;
+import com.saludsystem.application.configuracion.dtos.get.SedeDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

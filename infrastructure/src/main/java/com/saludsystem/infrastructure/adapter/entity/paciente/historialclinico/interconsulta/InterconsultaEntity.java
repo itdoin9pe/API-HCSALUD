@@ -1,9 +1,9 @@
 package com.saludsystem.infrastructure.adapter.entity.paciente.historialclinico.interconsulta;
 
-import com.saludsystem.domain.model.DoctorEntity;
-import com.saludsystem.domain.model.EspecialidadEntity;
-import com.saludsystem.domain.model.PacienteEntity;
-import com.shared.domain.model.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.catalogo.EspecialidadEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.medico.DoctorEntity;
+import com.saludsystem.infrastructure.adapter.entity.paciente.PacienteEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

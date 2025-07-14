@@ -1,15 +1,14 @@
 package com.saludsystem.domain.mantenimiento.port.in.service;
 
-import com.saludsystem.mantenimiento.application.dto.get.TipoTarjetaDTO;
-import com.saludsystem.mantenimiento.application.dto.post.CrearTipoTarjetaDTO;
-import com.saludsystem.mantenimiento.application.dto.put.ActualizarTipoTarjetaDTO;
-import com.saludsystem.shared.application.service.GenericService;
+import com.saludsystem.domain.mantenimiento.model.TipoTarjeta;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface TipoTarjetaService extends GenericService<
-        TipoTarjetaDTO,
-        CrearTipoTarjetaDTO,
-        ActualizarTipoTarjetaDTO,
-        UUID> {
+public interface TipoTarjetaService {
+    TipoTarjeta save(TipoTarjeta tipoTarjeta);
+    TipoTarjeta update(UUID uuid, TipoTarjeta tipoTarjeta);
+    void delete(UUID uuid);
+    TipoTarjeta getById(UUID uuid);
+    List<TipoTarjeta> getAll(UUID hospitalId, int page, int rows);
 }

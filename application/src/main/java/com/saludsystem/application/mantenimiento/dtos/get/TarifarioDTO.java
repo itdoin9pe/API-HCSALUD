@@ -1,6 +1,6 @@
 package com.saludsystem.application.mantenimiento.dtos.get;
 
-import com.saludsystem.application.dto.post.CrearTarifarioDTO;
+import com.saludsystem.application.mantenimiento.dtos.post.CrearTarifarioDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

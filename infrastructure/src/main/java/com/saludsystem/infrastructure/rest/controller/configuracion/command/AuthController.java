@@ -1,9 +1,8 @@
 package com.saludsystem.infrastructure.rest.controller.configuracion.command;
-
-import com.configuracion.application.dto.post.LoginUserDto;
-import com.configuracion.application.dto.post.NewUserDto;
-import com.configuracion.application.services.AuthService;
-import com.configuracion.application.services.UsuarioService;
+import com.saludsystem.application.configuracion.dtos.post.LoginUserDto;
+import com.saludsystem.application.configuracion.dtos.post.NewUserDto;
+import com.saludsystem.domain.configuracion.port.in.service.UsuarioService;
+import com.saludsystem.infrastructure.security.AuthService;
 import jakarta.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +52,7 @@ public class AuthController {
           Map.of("message", "Check the fields!!"));
     }
     try {
-      usuarioService.saveUsuario(newUserDto);
+      //usuarioService.save(newUserDto);
       Map<String, Object> response = new HashMap<>();
       response.put("message", "User registered successfully");
       response.put("username", newUserDto.getEmail());

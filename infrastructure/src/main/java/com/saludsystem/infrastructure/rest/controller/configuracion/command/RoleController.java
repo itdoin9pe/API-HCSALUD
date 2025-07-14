@@ -1,12 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.configuracion.command;
 
-import com.configuracion.application.dto.get.RolDTO;
-import com.configuracion.application.dto.post.CrearRolDTO;
-import com.configuracion.application.dto.put.ActualizarRolDTO;
-import com.configuracion.application.services.RolService;
-import com.configuracion.infrastructure.adapters.in.response.RolListResponse;
-import com.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,6 +16,7 @@ import java.util.UUID;
 @RequestMapping("/api/Roles")
 public class RoleController {
 
+    /*
     private final RolService rolService;
 
     public RoleController(RolService rolService) {
@@ -66,5 +60,5 @@ public class RoleController {
     @GetMapping("/GetRoleList")
     public ResponseEntity<List<RolDTO>> getAllList() {
         return ResponseEntity.ok(rolService.getRoleList());
-    }
+    }*/
 }

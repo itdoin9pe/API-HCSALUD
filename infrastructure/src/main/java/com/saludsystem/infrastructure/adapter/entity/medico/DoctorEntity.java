@@ -1,6 +1,7 @@
 package com.saludsystem.infrastructure.adapter.entity.medico;
 
-import com.shared.domain.model.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.catalogo.EspecialidadEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

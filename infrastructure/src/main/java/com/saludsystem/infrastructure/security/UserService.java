@@ -1,7 +1,7 @@
 package com.saludsystem.infrastructure.security;
 
 import com.saludsystem.infrastructure.adapter.entity.configuracion.UserEntity;
-import com.saludsystem.infrastructure.adapter.jparepository.configuracion.UserRepository;
+import com.saludsystem.infrastructure.adapter.jparepository.configuracion.UserJpaRepository;
 import com.saludsystem.infrastructure.rest.exception.ResourceNotFoundException;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +16,16 @@ import java.util.Collections;
 @Service
 public class UserService implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private UserJpaRepository userJpaRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(UserJpaRepository userJpaRepository) {
+        this.userJpaRepository = userJpaRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        UserEntity user = userJpaRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
 
         //SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRol().getRoleId().toString());
         // Usa el NOMBRE del rol (ej: "CARDIOLOGO") en lugar del ID
@@ -40,25 +40,25 @@ public class UserService implements UserDetailsService {
     }
 
     public UserEntity findEntityByUsername(String username) {
-        return userRepository.findByUsername(username)
+        return userJpaRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     public UserEntity findEntityByEmail(String email) {
-        return userRepository.findByEmail(email)
+        return userJpaRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("email not found"));
     }
 
     public boolean existsByUsername(String username){
-        return userRepository.existsByUsername(username);
+        return userJpaRepository.existsByUsername(username);
     }
 
     public boolean existsByEmail(String email){
-        return userRepository.existsByEmail(email);
+        return userJpaRepository.existsByEmail(email);
     }
 
     public void save(UserEntity user){
-         userRepository.save(user);
+         userJpaRepository.save(user);
     }
 
 }

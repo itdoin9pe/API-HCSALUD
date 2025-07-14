@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.dtos.put.historialclinico;
 
-import com.saludsystem.shared.application.dto.BaseDTO;
+import com.saludsystem.application.BaseDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

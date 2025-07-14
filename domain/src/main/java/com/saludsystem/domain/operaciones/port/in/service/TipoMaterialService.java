@@ -1,15 +1,14 @@
 package com.saludsystem.domain.operaciones.port.in.service;
 
-import com.saludsystem.operaciones.application.dto.get.TipoMaterialDTO;
-import com.saludsystem.operaciones.application.dto.post.CrearTipoMaterialDTO;
-import com.saludsystem.operaciones.application.dto.put.ActualizarTipoMaterialDTO;
-import com.saludsystem.shared.application.service.GenericService;
+import com.saludsystem.domain.operaciones.model.TipoMaterial;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface TipoMaterialService extends GenericService<
-        TipoMaterialDTO,
-        CrearTipoMaterialDTO,
-        ActualizarTipoMaterialDTO,
-        UUID> {
+public interface TipoMaterialService {
+    TipoMaterial save(TipoMaterial tipoMaterial);
+    TipoMaterial update(UUID uuid, TipoMaterial tipoMaterial);
+    void delete(UUID uuid);
+    TipoMaterial getById(UUID uuid);
+    List<TipoMaterial> getAll(UUID hospitalId, int page, int rows);
 }

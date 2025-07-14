@@ -44,12 +44,12 @@ public class CategoriaRepositoryAdapter implements CategoriaRepositoryPort {
 
     @Override
     public List<Categoria> findAll(UUID hospitalId, int page, int rows) {
-        return categoriaJpaRepository.findAllHospitalId(hospitalId, PageRequest.of(page, rows))
+        return categoriaJpaRepository.findAllByHospital_HospitalId(hospitalId, PageRequest.of(page, rows))
                 .stream().map(CategoriaDboMapper::toDomain).toList();
     }
 
     @Override
     public long countByHospitalId(UUID hospitalId) {
-        return categoriaJpaRepository.countByHospitalId(hospitalId);
+        return categoriaJpaRepository.countByHospital_HospitalId(hospitalId);
     }
 }

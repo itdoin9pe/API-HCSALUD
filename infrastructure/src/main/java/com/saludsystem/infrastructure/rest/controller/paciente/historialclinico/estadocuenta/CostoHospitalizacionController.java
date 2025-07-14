@@ -1,12 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.paciente.historialclinico.estadocuenta;
 
-import com.saludsystem.application.dto.get.historialclinico.estadocuenta.CostoHospitalizacionDTO;
-import com.saludsystem.application.dto.post.historialclinico.estadocuenta.CrearCostoHospitalizacionDTO;
-import com.saludsystem.application.dto.put.historialclinico.estadocuenta.ActualizarCostoHospitalizacionDTO;
-import com.saludsystem.infrastructure.adapters.in.response.estadocuenta.CostoHospitalizacionListResponse;
-import com.configuracion.application.services.GenericService;
-import com.configuracion.infrastructure.adapters.in.controller.GenericController;
-import com.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -18,15 +11,9 @@ import java.util.UUID;
 @Tag(name = "PacientesEstadosCuentasCostosHospitalizaciones")
 @RestController
 @RequestMapping("/api/Pacientes/EstadosCuentas/CostosHospitalizaciones")
-public class CostoHospitalizacionController extends GenericController<CostoHospitalizacionDTO, CrearCostoHospitalizacionDTO,
-        ActualizarCostoHospitalizacionDTO, UUID> {
+public class CostoHospitalizacionController {
 
-    protected CostoHospitalizacionController(GenericService<
-                CostoHospitalizacionDTO, CrearCostoHospitalizacionDTO, ActualizarCostoHospitalizacionDTO, UUID> genericService) {
-        super(genericService);
-    }
-
-    @Override
+    /*
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
@@ -36,4 +23,6 @@ public class CostoHospitalizacionController extends GenericController<CostoHospi
     public ListResponse<CostoHospitalizacionDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
     }
+
+     */
 }

@@ -1,12 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.operaciones;
 
-import com.saludsystem.operaciones.application.dto.get.ProveedorDTO;
-import com.saludsystem.operaciones.application.dto.post.CrearProveedorDTO;
-import com.saludsystem.operaciones.application.dto.put.ActualizarProveedorDTO;
-import com.saludsystem.operaciones.infrastructure.adapters.in.response.ProveedorListResponse;
-import com.saludsystem.shared.application.service.GenericService;
-import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -18,15 +11,9 @@ import java.util.UUID;
 @Tag(name = "Proveedor")
 @RestController
 @RequestMapping("/api/Proveedor")
-public class ProveedorController extends GenericController<ProveedorDTO, CrearProveedorDTO,
-        ActualizarProveedorDTO, UUID> {
+public class ProveedorController {
 
-    protected ProveedorController(
-            GenericService<ProveedorDTO, CrearProveedorDTO, ActualizarProveedorDTO, UUID> genericService) {
-        super(genericService);
-    }
-
-    @Override
+    /*
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
@@ -35,5 +22,5 @@ public class ProveedorController extends GenericController<ProveedorDTO, CrearPr
     })
     public ListResponse<ProveedorDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
-    }
+    }*/
 }

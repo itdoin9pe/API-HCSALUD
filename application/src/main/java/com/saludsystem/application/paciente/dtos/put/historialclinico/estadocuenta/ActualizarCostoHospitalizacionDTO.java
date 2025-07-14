@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.dtos.put.historialclinico.estadocuenta;
 
-import com.saludsystem.shared.application.dto.BaseDTO;
+import com.saludsystem.application.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

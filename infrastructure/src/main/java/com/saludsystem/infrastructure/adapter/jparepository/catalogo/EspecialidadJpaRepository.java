@@ -1,10 +1,15 @@
 package com.saludsystem.infrastructure.adapter.jparepository.catalogo;
 
-import com.catalogo.domain.model.EspecialidadEntity;
-import com.configuracion.infrastructure.adapters.out.persistance.GenericRepository;
+import com.saludsystem.infrastructure.adapter.entity.catalogo.EspecialidadEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface EspecialidadJpaRepository extends GenericRepository<EspecialidadEntity> {
+import java.util.UUID;
 
+@Repository
+public interface EspecialidadJpaRepository extends JpaRepository<EspecialidadEntity, UUID> {
+    Page<EspecialidadEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    long countByHospital_HospitalId(UUID hospitalId);
 }

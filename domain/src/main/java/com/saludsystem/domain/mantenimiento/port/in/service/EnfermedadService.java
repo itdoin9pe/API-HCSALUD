@@ -1,28 +1,18 @@
 package com.saludsystem.domain.mantenimiento.port.in.service;
 
-import com.saludsystem.mantenimiento.application.dto.get.EnfermedadDTO;
-import com.saludsystem.mantenimiento.application.dto.post.CrearEnfermedadDTO;
-import com.saludsystem.mantenimiento.application.dto.put.ActualizarEnfermedadDTO;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
+import com.saludsystem.domain.mantenimiento.model.Enfermedad;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface EnfermedadService {
 
-    ApiResponse saveEnfermedad(CrearEnfermedadDTO crearEnfermedadDTO);
+    Enfermedad save(Enfermedad enfermedad);
+    Enfermedad update(UUID uuid, Enfermedad enfermedad);
+    void delete(UUID uuid);
+    Enfermedad getById(UUID uuid);
+    List<Enfermedad> getAll(UUID hospitalId, int page, int rows);
 
-    List<EnfermedadDTO> getEnfermedadList();
-
-    ListResponse<EnfermedadDTO> getAllEnfermedad(UUID hospitalId, int page, int rows);
-
-    ApiResponse updateEnfermedad(String enfermedadId, ActualizarEnfermedadDTO actualizarEnfermedadDTO);
-
-    EnfermedadDTO getEnfermedadById(String enfermedadId);
-
-    ApiResponse deleteEnfermedad(String enfermedadId);
-
-    List<EnfermedadDTO> getEnfermedadFiltradosPorRol();
+    //List<EnfermedadDTO> getEnfermedadFiltradosPorRol();
 
 }

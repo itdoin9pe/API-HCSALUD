@@ -1,6 +1,6 @@
 package com.saludsystem.application.principal.dtos.get;
 
-import com.saludsystem.application.dto.post.CrearPaisDTO;
+import com.saludsystem.application.principal.dtos.post.CrearPaisDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

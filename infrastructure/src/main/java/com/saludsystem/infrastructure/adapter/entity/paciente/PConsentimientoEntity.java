@@ -2,6 +2,7 @@ package com.saludsystem.infrastructure.adapter.entity.paciente;
 
 import com.saludsystem.infrastructure.adapter.entity.catalogo.ConsentimientoEntity;
 import com.saludsystem.infrastructure.adapter.entity.configuracion.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.medico.DoctorEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

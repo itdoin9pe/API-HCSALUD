@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.dtos.get.historialclinico.evolucion;
 
-import com.saludsystem.application.dto.post.historialclinico.evolucion.CrearCambioCondicionDTO;
+import com.saludsystem.application.paciente.dtos.post.historialclinico.evolucion.CrearCambioCondicionDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

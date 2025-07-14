@@ -1,13 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.paciente;
 
-import com.saludsystem.application.dto.get.PConsentimientoDTO;
-import com.saludsystem.application.dto.post.CrearPConsentimientoDTO;
-import com.saludsystem.application.dto.put.ActualizarPConsentimientoDTO;
-import com.saludsystem.infrastructure.adapters.in.response.PConsentimientoListResponse;
-import com.configuracion.application.services.GenericService;
-import com.configuracion.infrastructure.adapters.in.controller.GenericController;
-import com.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -28,16 +20,9 @@ import java.util.UUID;
 @Tag(name = "PacientesConsentimientos")
 @RestController
 @RequestMapping("/api/Pacientes/Consentimientos")
-public class PConsentimientoController extends GenericController<PConsentimientoDTO, CrearPConsentimientoDTO,
-        ActualizarPConsentimientoDTO, UUID> {
+public class PConsentimientoController {
 
-    protected PConsentimientoController(
-            GenericService<PConsentimientoDTO, CrearPConsentimientoDTO,
-                                ActualizarPConsentimientoDTO, UUID> genericService) {
-        super(genericService);
-    }
-
-    @Override
+    /*
     @PostMapping(value = "/Save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
             content = @Content(schema = @Schema(implementation = PConsentimientoListResponse.class)))
@@ -77,4 +62,6 @@ public class PConsentimientoController extends GenericController<PConsentimiento
         }
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType)).body(resource);
     }
+
+     */
 }

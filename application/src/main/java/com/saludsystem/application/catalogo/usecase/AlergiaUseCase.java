@@ -3,10 +3,12 @@ package com.saludsystem.application.catalogo.usecase;
 import com.saludsystem.domain.catalogo.model.Alergia;
 import com.saludsystem.domain.catalogo.port.in.service.AlergiaService;
 import com.saludsystem.domain.catalogo.port.out.repository.AlergiaRepositoryPort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class AlergiaUseCase implements AlergiaService {
 
     private final AlergiaRepositoryPort alergiaRepositoryPort;

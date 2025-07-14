@@ -1,7 +1,7 @@
 package com.saludsystem.infrastructure.config;
 
-import com.saludsystem.security.jwt.JwtAuthenticationFilter;
-import com.saludsystem.security.jwt.JwtEntryPoint;
+import com.saludsystem.infrastructure.security.jwt.JwtAuthenticationFilter;
+import com.saludsystem.infrastructure.security.jwt.JwtEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;

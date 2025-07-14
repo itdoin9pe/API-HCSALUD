@@ -45,12 +45,12 @@ public class ConsentimientoRepositoryAdapter implements ConsentimientoRepository
 
     @Override
     public List<Consentimiento> findAll(UUID hospitalId, int page, int rows) {
-        return consentimientoJpaRepository.findAllHospitalId(hospitalId, PageRequest.of(page, rows))
+        return consentimientoJpaRepository.findAllByHospital_HospitalId(hospitalId, PageRequest.of(page, rows))
                 .stream().map(ConsentimientoDboMapper::toDomain).toList();
     }
 
     @Override
     public long countByHospitalId(UUID hospitalId) {
-        return consentimientoJpaRepository.countByHospitalId(hospitalId);
+        return consentimientoJpaRepository.countByHospital_HospitalId(hospitalId);
     }
 }

@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface PlanJpaRepository extends JpaRepository<PlanEntity, UUID> {
-    Page<PlanEntity> findAllHospitalId(UUID hospitalId, Pageable pageable);
-    long countByHospitalId(UUID hospitalId);
+    Page<PlanEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    long countByHospital_HospitalId(UUID hospitalId);
 }

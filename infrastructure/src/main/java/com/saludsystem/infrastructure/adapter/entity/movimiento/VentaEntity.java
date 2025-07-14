@@ -1,11 +1,11 @@
 package com.saludsystem.infrastructure.adapter.entity.movimiento;
 
-import com.saludsystem.shared.domain.model.BaseEntity;
-import com.saludsystem.configuracion.domain.model.TipoDocumentoEntity;
-import com.saludsystem.mantenimiento.domain.model.MonedaEntity;
-import com.saludsystem.mantenimiento.domain.model.TipoPagoEntity;
-import com.saludsystem.mantenimiento.domain.model.TipoTarjetaEntity;
-import com.saludsystem.paciente.domain.model.PacienteEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.TipoDocumentoEntity;
+import com.saludsystem.infrastructure.adapter.entity.mantenimiento.MonedaEntity;
+import com.saludsystem.infrastructure.adapter.entity.mantenimiento.TipoPagoEntity;
+import com.saludsystem.infrastructure.adapter.entity.mantenimiento.TipoTarjetaEntity;
+import com.saludsystem.infrastructure.adapter.entity.paciente.PacienteEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

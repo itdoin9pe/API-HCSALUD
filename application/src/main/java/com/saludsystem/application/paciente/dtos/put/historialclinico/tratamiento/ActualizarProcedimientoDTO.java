@@ -1,7 +1,7 @@
 package com.saludsystem.application.paciente.dtos.put.historialclinico.tratamiento;
 
-import com.saludsystem.domain.model.tratamiento.TipoProcedimiento;
-import com.shared.application.dto.BaseDTO;
+import com.saludsystem.application.BaseDTO;
+import com.saludsystem.application.paciente.dtos.TipoProcedimiento;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.dtos.post;
 
-import com.saludsystem.application.dto.get.MedicamentoRecetadoDTO;
+import com.saludsystem.application.paciente.dtos.get.MedicamentoRecetadoDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

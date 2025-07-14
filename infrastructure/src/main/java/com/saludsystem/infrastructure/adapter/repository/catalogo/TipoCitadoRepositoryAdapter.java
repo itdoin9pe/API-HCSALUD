@@ -44,12 +44,12 @@ public class TipoCitadoRepositoryAdapter implements TipoCitadoRepositoryPort {
 
     @Override
     public List<TipoCitado> findAll(UUID hospitalId, int page, int rows) {
-        return tipoCitadoJpaRepository.findAllHospitalId(hospitalId, PageRequest.of(page, rows))
+        return tipoCitadoJpaRepository.findAllByHospital_HospitalId(hospitalId, PageRequest.of(page, rows))
                 .stream().map(TipoCitadoDboMapper::toDomain).toList();
     }
 
     @Override
     public long countByHospitalId(UUID hospitalId) {
-        return tipoCitadoJpaRepository.countByHospitalId(hospitalId);
+        return tipoCitadoJpaRepository.countByHospital_HospitalId(hospitalId);
     }
 }

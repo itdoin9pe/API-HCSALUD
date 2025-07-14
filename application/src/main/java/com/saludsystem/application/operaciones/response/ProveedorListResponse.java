@@ -1,6 +1,6 @@
 package com.saludsystem.application.operaciones.response;
 
-import com.saludsystem.operaciones.application.dto.get.ProveedorDTO;
+import com.saludsystem.application.operaciones.dtos.get.ProveedorDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

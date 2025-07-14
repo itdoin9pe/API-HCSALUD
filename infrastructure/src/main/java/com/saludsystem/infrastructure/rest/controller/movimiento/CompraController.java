@@ -1,11 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.movimiento;
 
-import com.saludsystem.movimientos.application.dto.post.CrearCompraDTO;
-import com.saludsystem.movimientos.application.dto.get.CompraDTO;
-import com.saludsystem.movimientos.application.service.CompraService;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.movimientos.infrastructure.adapters.in.response.VentaListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,6 +14,7 @@ import java.util.UUID;
 @RequestMapping("/api/Compras")
 public class CompraController {
 
+    /*
     private final CompraService compraService;
 
     public CompraController(CompraService compraService) {
@@ -52,5 +47,5 @@ public class CompraController {
     @DeleteMapping("/DeleteCompra/{compraId}")
     public ApiResponse destroy(@PathVariable UUID compraId) {
         return compraService.deleteCompra(compraId);
-    }
+    }*/
 }

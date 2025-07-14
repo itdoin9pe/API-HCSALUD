@@ -1,6 +1,6 @@
 package com.saludsystem.infrastructure.rest.exception;
 
-import com.shared.infrastructure.adapters.in.response.ApiResponse;
+import com.saludsystem.domain.response.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -1,7 +1,8 @@
 package com.saludsystem.infrastructure.adapter.entity.paciente;
 
-import com.configuracion.domain.model.SedeEntity;
-import com.shared.domain.model.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.SedeEntity;
+import com.saludsystem.infrastructure.adapter.entity.principal.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;

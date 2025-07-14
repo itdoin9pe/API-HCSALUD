@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface ConsentimientoJpaRepository extends JpaRepository<ConsentimientoEntity, UUID> {
-    Page<ConsentimientoEntity> findAllHospitalId(UUID hospitalId, Pageable pageable);
-    long countByHospitalId(UUID hospitalId);
+    Page<ConsentimientoEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    long countByHospital_HospitalId(UUID hospitalId);
 }

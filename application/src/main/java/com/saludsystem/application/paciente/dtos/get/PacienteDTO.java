@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.dtos.get;
 
-import com.saludsystem.application.dto.post.CrearPacienteDTO;
+import com.saludsystem.application.paciente.dtos.post.CrearPacienteDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

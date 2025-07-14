@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.response.historialclinico;
 
-import com.saludsystem.application.dto.get.historialclinico.PacienteAlergiaDTO;
+import com.saludsystem.application.paciente.dtos.get.historialclinico.PacienteAlergiaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

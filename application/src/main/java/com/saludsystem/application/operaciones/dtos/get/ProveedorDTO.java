@@ -1,6 +1,6 @@
 package com.saludsystem.application.operaciones.dtos.get;
 
-import com.saludsystem.application.dto.post.CrearProveedorDTO;
+import com.saludsystem.application.operaciones.dtos.post.CrearProveedorDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

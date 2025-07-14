@@ -1,6 +1,6 @@
 package com.saludsystem.application.mantenimiento.dtos.get;
 
-import com.saludsystem.application.dto.post.CrearTipoTarjetaDTO;
+import com.saludsystem.application.mantenimiento.dtos.post.CrearTipoTarjetaDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

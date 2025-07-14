@@ -1,8 +1,8 @@
 package com.saludsystem.infrastructure.adapter.entity.movimiento;
 
-import com.saludsystem.shared.domain.model.BaseEntity;
-import com.saludsystem.mantenimiento.domain.model.TipoPagoEntity;
-import com.saludsystem.operaciones.domain.model.ProveedorEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.mantenimiento.TipoPagoEntity;
+import com.saludsystem.infrastructure.adapter.entity.operaciones.ProveedorEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

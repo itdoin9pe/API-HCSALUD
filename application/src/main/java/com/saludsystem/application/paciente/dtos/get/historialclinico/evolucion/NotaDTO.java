@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.dtos.get.historialclinico.evolucion;
 
-import com.saludsystem.application.dto.post.historialclinico.evolucion.CrearNotaDTO;
+import com.saludsystem.application.paciente.dtos.post.historialclinico.evolucion.CrearNotaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

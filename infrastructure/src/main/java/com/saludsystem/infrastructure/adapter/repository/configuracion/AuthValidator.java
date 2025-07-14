@@ -1,7 +1,7 @@
 package com.saludsystem.infrastructure.adapter.repository.configuracion;
 
 import com.saludsystem.infrastructure.adapter.entity.configuracion.UserEntity;
-import com.saludsystem.infrastructure.adapter.jparepository.configuracion.UserRepository;
+import com.saludsystem.infrastructure.adapter.jparepository.configuracion.UserJpaRepository;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,16 +10,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthValidator {
 
-    private final UserRepository userRepository;
+    private final UserJpaRepository userJpaRepository;
 
-    public AuthValidator(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public AuthValidator(UserJpaRepository userJpaRepository) {
+        this.userJpaRepository = userJpaRepository;
     }
 
     public UserEntity getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        return userRepository.findByEmail(email)
+        return userJpaRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
 

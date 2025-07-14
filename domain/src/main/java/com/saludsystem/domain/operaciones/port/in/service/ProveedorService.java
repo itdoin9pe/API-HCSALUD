@@ -1,15 +1,14 @@
 package com.saludsystem.domain.operaciones.port.in.service;
 
-import com.saludsystem.operaciones.application.dto.get.ProveedorDTO;
-import com.saludsystem.operaciones.application.dto.post.CrearProveedorDTO;
-import com.saludsystem.operaciones.application.dto.put.ActualizarProveedorDTO;
-import com.saludsystem.shared.application.service.GenericService;
+import com.saludsystem.domain.operaciones.model.Proveedor;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface ProveedorService extends GenericService<
-        ProveedorDTO,
-        CrearProveedorDTO,
-        ActualizarProveedorDTO,
-        UUID> {
+public interface ProveedorService {
+    Proveedor save(Proveedor proveedor);
+    Proveedor update(UUID uuid, Proveedor proveedor);
+    void delete(UUID uuid);
+    Proveedor getById(UUID uuid);
+    List<Proveedor> getAll(UUID hospitalId, int page, int rows);
 }

@@ -1,15 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.paciente;
 
-import com.saludsystem.application.dto.get.PacienteDTO;
-import com.saludsystem.application.dto.post.CrearPacienteDTO;
-import com.saludsystem.application.dto.put.ActualizarPacienteDTO;
-import com.saludsystem.application.service.PacienteService;
-import com.saludsystem.domain.model.PacienteEntity;
-import com.saludsystem.infrastructure.adapters.in.response.PacienteListResponse;
-import com.saludsystem.infrastructure.adapters.out.persistance.PacienteRepository;
-import com.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.shared.infrastructure.adapters.in.response.ListResponse;
-import com.shared.infrastructure.security.util.FileStorageService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -28,6 +18,7 @@ import java.util.*;
 @RequestMapping("/api/Pacientes")
 public class PacienteController {
 
+    /*
     private final PacienteService pacienteService;
     private final FileStorageService fileStorageService;
     private final PacienteRepository pacienteRepository;
@@ -152,4 +143,6 @@ public class PacienteController {
     public ApiResponse eliminarPaciente(@PathVariable UUID pacienteId) {
         return pacienteService.deletePaciente(pacienteId);
     }
+
+     */
 }

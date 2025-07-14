@@ -1,6 +1,6 @@
 package com.saludsystem.application.mantenimiento.response;
 
-import com.saludsystem.mantenimiento.application.dto.get.BancoDTO;
+import com.saludsystem.application.mantenimiento.dtos.get.BancoDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

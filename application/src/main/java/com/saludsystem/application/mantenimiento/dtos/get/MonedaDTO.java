@@ -1,6 +1,6 @@
 package com.saludsystem.application.mantenimiento.dtos.get;
 
-import com.saludsystem.application.dto.post.CrearMonedaDTO;
+import com.saludsystem.application.mantenimiento.dtos.post.CrearMonedaDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

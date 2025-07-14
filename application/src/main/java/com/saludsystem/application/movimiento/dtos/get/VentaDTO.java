@@ -1,6 +1,6 @@
 package com.saludsystem.application.movimiento.dtos.get;
 
-import com.saludsystem.application.dto.post.CrearVentaDTO;
+import com.saludsystem.application.movimiento.dtos.post.CrearVentaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

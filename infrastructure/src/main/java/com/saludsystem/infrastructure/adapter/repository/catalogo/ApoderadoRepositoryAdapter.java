@@ -45,12 +45,12 @@ public class ApoderadoRepositoryAdapter implements ApoderadoRepositoryPort {
 
     @Override
     public List<Apoderado> findAll(UUID hospitalId, int page, int rows) {
-        return apoderadoJpaRepository.findAllHospitalId(hospitalId, PageRequest.of(page, rows))
+        return apoderadoJpaRepository.findAllByHospital_HospitalId(hospitalId, PageRequest.of(page, rows))
                 .stream().map(ApoderadoDboMapper::toDomain).toList();
     }
 
     @Override
     public long countByHospitalId(UUID hospitalId) {
-        return apoderadoJpaRepository.countByHospitalId(hospitalId);
+        return apoderadoJpaRepository.countByHospital_HospitalId(hospitalId);
     }
 }

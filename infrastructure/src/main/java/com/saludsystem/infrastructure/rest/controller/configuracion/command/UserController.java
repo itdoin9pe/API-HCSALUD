@@ -1,7 +1,8 @@
 package com.saludsystem.infrastructure.rest.controller.configuracion.command;
 
 import com.saludsystem.domain.configuracion.port.in.service.UsuarioService;
-import com.saludsystem.infrastructure.adapter.jparepository.configuracion.UserRepository;
+import com.saludsystem.infrastructure.adapter.jparepository.configuracion.UserJpaRepository;
+import com.saludsystem.infrastructure.security.util.FileStorageService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,16 +22,17 @@ public class UserController {
   private final UsuarioService usuarioService;
   private final FileStorageService
           fileStorageService;
-  private final UserRepository userRepository;
+  private final UserJpaRepository userJpaRepository;
 
   public UserController(UsuarioService usuarioService,
                         FileStorageService fileStorageService,
-                        UserRepository userRepository) {
+                        UserJpaRepository userJpaRepository) {
     this.usuarioService = usuarioService;
     this.fileStorageService = fileStorageService;
-    this.userRepository = userRepository;
+    this.userJpaRepository = userJpaRepository;
   }
 
+  /*
   @GetMapping("/GetAllUsuario")
   @ApiResponses(value =
                 {
@@ -100,7 +102,7 @@ public class UserController {
     actualizarUsuarioDTO.setPassword(password);
     actualizarUsuarioDTO.setRoleId(roleId);
     if (photo != null && !photo.isEmpty()) {
-      UserEntity existingUser = userRepository.findById(userId).orElseThrow();
+      UserEntity existingUser = userJpaRepository.findById(userId).orElseThrow();
       if (existingUser.getPhoto() != null) {
         fileStorageService.deleteFile(existingUser.getPhoto());
       }
@@ -116,5 +118,5 @@ public class UserController {
   @DeleteMapping("/DeleteUsuario/{userId}")
   public ApiResponse destroy(@PathVariable UUID userId) {
     return usuarioService.deleteUsuario(userId);
-  }
+  }*/
 }

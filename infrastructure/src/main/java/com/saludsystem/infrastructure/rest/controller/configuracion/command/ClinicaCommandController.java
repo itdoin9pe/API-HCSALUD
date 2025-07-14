@@ -1,15 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.configuracion.command;
 
-import com.configuracion.application.dto.get.SysSaludDTO;
-import com.configuracion.application.dto.post.CrearSysSaludDTO;
-import com.configuracion.application.dto.put.ActualizarHospitalDTO;
-import com.configuracion.application.services.SysSaludService;
-import com.configuracion.domain.model.SysSaludEntity;
-import com.configuracion.infrastructure.adapters.in.response.ClinicaListResponse;
-import com.configuracion.infrastructure.adapters.out.persistance.SysSaludRepository;
-import com.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.shared.infrastructure.adapters.in.response.ListResponse;
-import com.shared.infrastructure.security.util.FileStorageService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -28,6 +18,7 @@ import java.util.*;
 @RequestMapping("/api/Hospitales")
 public class ClinicaCommandController {
 
+    /*
     private final SysSaludService sysSaludService;
     private final SysSaludRepository sysSaludRepository;
     private final FileStorageService fileStorageService;
@@ -111,5 +102,5 @@ public class ClinicaCommandController {
     @DeleteMapping("/DeleteHospital/{hospitalId}")
     public ApiResponse destroy(@PathVariable UUID hospitalId) {
         return sysSaludService.deleteHospital(hospitalId);
-    }
+    }*/
 }

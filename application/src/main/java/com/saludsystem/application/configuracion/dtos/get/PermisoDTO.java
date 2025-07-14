@@ -1,6 +1,6 @@
 package com.saludsystem.application.configuracion.dtos.get;
 
-import com.configuracion.application.dto.post.CrearPermisoDTO;
+import com.saludsystem.application.configuracion.dtos.post.CrearPermisoDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

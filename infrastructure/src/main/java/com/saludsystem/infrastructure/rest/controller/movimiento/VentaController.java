@@ -1,11 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.movimiento;
 
-import com.saludsystem.movimientos.application.dto.post.CrearVentaDTO;
-import com.saludsystem.movimientos.application.dto.get.VentaDTO;
-import com.saludsystem.movimientos.application.service.VentaService;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
-import com.saludsystem.movimientos.infrastructure.adapters.in.response.VentaListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,6 +15,7 @@ import java.util.UUID;
 @RequestMapping("/api/Ventas")
 public class VentaController {
 
+    /*
     private final VentaService ventaService;
 
     public VentaController(VentaService ventaService) {
@@ -58,5 +53,5 @@ public class VentaController {
     @DeleteMapping("/DeleteVenta/{ventaId}")
     public ApiResponse destroy(@PathVariable UUID ventaId) {
         return ventaService.deleteVenta(ventaId);
-    }
+    }*/
 }

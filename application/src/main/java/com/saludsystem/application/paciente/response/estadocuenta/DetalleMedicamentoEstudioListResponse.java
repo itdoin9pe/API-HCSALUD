@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.response.estadocuenta;
 
-import com.saludsystem.application.dto.get.historialclinico.estadocuenta.DetalleMedicamentoEstudioDTO;
+import com.saludsystem.application.paciente.dtos.get.historialclinico.estadocuenta.DetalleMedicamentoEstudioDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

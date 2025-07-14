@@ -1,23 +1,17 @@
 package com.saludsystem.domain.paciente.port.in.service;
 
-import com.saludsystem.application.dto.get.EstudioMedicoDTO;
-import com.saludsystem.application.dto.post.CrearEstudioMedicoDTO;
-import com.saludsystem.application.dto.put.ActualizarEstudioMedicoDTO;
-import com.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.shared.infrastructure.adapters.in.response.ListResponse;
+import com.saludsystem.domain.mantenimiento.model.TipoTarjeta;
+import com.saludsystem.domain.paciente.model.EstudioMedico;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface EstudioMedicoService {
 
-    ApiResponse saveEstudioMedico(CrearEstudioMedicoDTO crearEstudioMedicoDTO);
-
-    ListResponse<EstudioMedicoDTO> getAllEstudioMedico(UUID hospitalId, int page, int rows);
-
-    ApiResponse updateEstudioMedico(Long pacienteEstudioMedicoId, ActualizarEstudioMedicoDTO actualizarEstudioMedicoDTO);
-
-    EstudioMedicoDTO getEstudioMedicoById(Long pacienteEstudioMedicoId);
-
-    ApiResponse deleteEstudioMedico(Long pacienteEstudioMedicoId);
+    EstudioMedico save(EstudioMedico tipoTarjeta);
+    EstudioMedico update(UUID uuid, EstudioMedico tipoTarjeta);
+    void delete(UUID uuid);
+    EstudioMedico getById(UUID uuid);
+    List<EstudioMedico> getAll(UUID hospitalId, int page, int rows);
 
 }

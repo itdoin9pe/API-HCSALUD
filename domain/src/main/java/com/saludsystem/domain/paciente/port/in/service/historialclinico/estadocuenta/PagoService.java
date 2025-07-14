@@ -1,15 +1,14 @@
 package com.saludsystem.domain.paciente.port.in.service.historialclinico.estadocuenta;
 
-import com.saludsystem.application.dto.get.historialclinico.estadocuenta.PagoDTO;
-import com.saludsystem.application.dto.post.historialclinico.estadocuenta.CrearPagoDTO;
-import com.saludsystem.application.dto.put.historialclinico.estadocuenta.ActualizarPagoDTO;
-import com.configuracion.application.services.GenericService;
+import com.saludsystem.domain.paciente.model.historialclinico.estadocuenta.Pago;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface PagoService extends GenericService<
-        PagoDTO,
-        CrearPagoDTO,
-        ActualizarPagoDTO,
-        UUID> {
+public interface PagoService {
+    Pago save(Pago tipoTarjeta);
+    Pago update(UUID uuid, Pago tipoTarjeta);
+    void delete(UUID uuid);
+    Pago getById(UUID uuid);
+    List<Pago> getAll(UUID hospitalId, int page, int rows);
 }

@@ -1,10 +1,10 @@
 package com.saludsystem.infrastructure.adapter.entity.movimiento;
 
-import com.saludsystem.shared.domain.model.BaseEntity;
-import com.saludsystem.operaciones.domain.model.CategoriaMatEntity;
-import com.saludsystem.operaciones.domain.model.MarcaEntity;
-import com.saludsystem.operaciones.domain.model.ProductoEntity;
-import com.saludsystem.operaciones.domain.model.UnidadEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.operaciones.CategoriaMatEntity;
+import com.saludsystem.infrastructure.adapter.entity.operaciones.MarcaEntity;
+import com.saludsystem.infrastructure.adapter.entity.operaciones.ProductoEntity;
+import com.saludsystem.infrastructure.adapter.entity.operaciones.UnidadEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

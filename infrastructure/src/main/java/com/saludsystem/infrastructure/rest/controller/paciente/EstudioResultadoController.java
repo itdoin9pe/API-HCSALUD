@@ -1,12 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.paciente;
 
-import com.saludsystem.application.dto.get.EstudioResultadoDTO;
-import com.saludsystem.application.dto.post.CrearEstudioResultadoDTO;
-import com.saludsystem.application.dto.put.ActualizarEstudioResultadoDTO;
-import com.saludsystem.application.service.EstudioResultadoService;
-import com.saludsystem.infrastructure.adapters.in.response.EstudioResultadoListResponse;
-import com.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,6 +14,7 @@ import java.util.UUID;
 @RequestMapping("/api/PacientesEstudiosResultados")
 public class EstudioResultadoController {
 
+    /*
     private final EstudioResultadoService estudioResultadoService;
 
     public EstudioResultadoController(EstudioResultadoService estudioResultadoService) {
@@ -59,5 +53,7 @@ public class EstudioResultadoController {
     public ApiResponse destroy(@PathVariable Long pacienteEstudioResultadoId) {
         return estudioResultadoService.deleteEstudioResultado(pacienteEstudioResultadoId);
     }
+
+     */
 
 }

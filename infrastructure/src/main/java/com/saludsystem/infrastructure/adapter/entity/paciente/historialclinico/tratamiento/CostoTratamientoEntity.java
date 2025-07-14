@@ -1,7 +1,7 @@
 package com.saludsystem.infrastructure.adapter.entity.paciente.historialclinico.tratamiento;
 
-import com.saludsystem.domain.model.PacienteEntity;
-import com.shared.domain.model.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.paciente.PacienteEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

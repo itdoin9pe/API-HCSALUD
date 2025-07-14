@@ -44,12 +44,12 @@ public class TipoConceptoRepositoryAdapter implements TipoConceptoRepositoryPort
 
     @Override
     public List<TipoConcepto> findAll(UUID hospitalId, int page, int rows) {
-        return tipoConceptoJpaRepository.findAllHospitalId(hospitalId, PageRequest.of(page, rows))
+        return tipoConceptoJpaRepository.findAllByHospital_HospitalId(hospitalId, PageRequest.of(page, rows))
                 .stream().map(TipoConceptoDboMapper::toDomain).toList();
     }
 
     @Override
     public long countByHospitalId(UUID hospitalId) {
-        return tipoConceptoJpaRepository.countByHospitalId(hospitalId);
+        return tipoConceptoJpaRepository.countByHospital_HospitalId(hospitalId);
     }
 }

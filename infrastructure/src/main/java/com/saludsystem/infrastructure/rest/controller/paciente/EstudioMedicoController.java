@@ -1,12 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.paciente;
 
-import com.saludsystem.application.dto.get.EstudioMedicoDTO;
-import com.saludsystem.application.dto.post.CrearEstudioMedicoDTO;
-import com.saludsystem.application.dto.put.ActualizarEstudioMedicoDTO;
-import com.saludsystem.application.service.EstudioMedicoService;
-import com.saludsystem.infrastructure.adapters.in.response.EstudioMedicoListResponse;
-import com.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,6 +14,7 @@ import java.util.UUID;
 @RequestMapping("/api/PacientesEstudiosMedicos")
 public class EstudioMedicoController {
 
+    /*
     private final EstudioMedicoService estudioMedicoService;
 
     public EstudioMedicoController(EstudioMedicoService estudioMedicoService) {
@@ -58,5 +52,5 @@ public class EstudioMedicoController {
     @DeleteMapping("/DeletePacienteEstudioMedico/{pacienteEstudioMedicoId}")
     public ApiResponse destroy(@PathVariable Long pacienteEstudioMedicoId) {
         return estudioMedicoService.deleteEstudioMedico(pacienteEstudioMedicoId);
-    }
+    }*/
 }

@@ -3,10 +3,12 @@ package com.saludsystem.application.catalogo.usecase;
 import com.saludsystem.domain.catalogo.model.Apoderado;
 import com.saludsystem.domain.catalogo.port.in.service.ApoderadoService;
 import com.saludsystem.domain.catalogo.port.out.repository.ApoderadoRepositoryPort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class ApoderadoUseCase implements ApoderadoService {
 
     private final ApoderadoRepositoryPort apoderadoRepositoryPort;

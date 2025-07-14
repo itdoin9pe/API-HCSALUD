@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface CategoriaJpaRepository extends JpaRepository<CategoriaEntity, UUID> {
-    Page<CategoriaEntity> findAllHospitalId(UUID hospitalId, Pageable pageable);
-    long countByHospitalId(UUID hospitalId);
+    Page<CategoriaEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    long countByHospital_HospitalId(UUID hospitalId);
 }

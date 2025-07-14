@@ -1,7 +1,7 @@
 package com.saludsystem.application.paciente.dtos.post.historialclinico.evolucion;
 
-import com.saludsystem.paciente.application.dto.get.historialclinico.evolucion.CambioCondicionDTO;
-import com.saludsystem.paciente.application.dto.get.historialclinico.evolucion.NotaDTO;
+import com.saludsystem.application.paciente.dtos.get.historialclinico.evolucion.CambioCondicionDTO;
+import com.saludsystem.application.paciente.dtos.get.historialclinico.evolucion.NotaDTO;
 import lombok.Data;
 
 import java.time.LocalDateTime;

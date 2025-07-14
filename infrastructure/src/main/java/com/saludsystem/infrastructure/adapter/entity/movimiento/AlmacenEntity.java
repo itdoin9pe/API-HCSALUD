@@ -1,8 +1,8 @@
 package com.saludsystem.infrastructure.adapter.entity.movimiento;
 
-import com.saludsystem.shared.domain.model.BaseEntity;
-import com.saludsystem.configuracion.domain.model.SedeEntity;
-import com.saludsystem.shared.domain.model.SucursalEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.BaseEntity;
+import com.saludsystem.infrastructure.adapter.entity.configuracion.SedeEntity;
+import com.saludsystem.infrastructure.adapter.entity.principal.SucursalEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,16 +1,14 @@
 package com.saludsystem.domain.paciente.port.in.service;
 
+import com.saludsystem.domain.paciente.model.Diagnostico;
 
-import com.saludsystem.application.dto.get.DiagnosticoDTO;
-import com.saludsystem.application.dto.post.CrearDiagnosticoDTO;
-import com.saludsystem.application.dto.put.ActualizarDiagnosticoDTO;
-import com.configuracion.application.services.GenericService;
-
+import java.util.List;
 import java.util.UUID;
 
-public interface DiagnosticoService extends GenericService<
-        DiagnosticoDTO,
-        CrearDiagnosticoDTO,
-        ActualizarDiagnosticoDTO,
-        UUID> {
+public interface DiagnosticoService  {
+    Diagnostico save(Diagnostico diagnostico);
+    Diagnostico update(UUID uuid, Diagnostico diagnostico);
+    void delete(UUID uuid);
+    Diagnostico getById(UUID uuid);
+    List<Diagnostico> getAll(UUID hospitalId, int page, int rows);
 }

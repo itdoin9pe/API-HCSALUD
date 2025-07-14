@@ -1,6 +1,6 @@
 package com.saludsystem.application.cita.response;
 
-import com.saludsystem.cita.application.dto.post.CrearCitaDTO;
+import com.saludsystem.application.cita.dtos.post.CrearCitaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.saludsystem.application.movimiento.response;
 
-import com.saludsystem.movimientos.application.dto.post.CrearAlmacenDTO;
+import com.saludsystem.application.movimiento.dtos.post.CrearAlmacenDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

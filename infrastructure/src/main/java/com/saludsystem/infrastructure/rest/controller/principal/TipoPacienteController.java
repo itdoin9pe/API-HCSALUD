@@ -1,7 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.principal;
 
-import com.saludsystem.application.dto.get.TipoPacienteDTO;
-import com.saludsystem.application.service.TipoPacienteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +13,7 @@ import java.util.List;
 @RequestMapping("/api/TiposPaciente")
 public class TipoPacienteController {
 
+    /*
     private final TipoPacienteService tipoPacienteService;
 
     public TipoPacienteController(TipoPacienteService tipoPacienteService) {
@@ -25,5 +24,7 @@ public class TipoPacienteController {
     public ResponseEntity<List<TipoPacienteDTO>> getTipoPacienteList(){
         return ResponseEntity.ok(tipoPacienteService.getTipoPacienteList());
     }
+
+     */
 
 }

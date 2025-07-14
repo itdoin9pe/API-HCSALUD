@@ -1,12 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.paciente.historialclinico.evolucion;
 
-import com.saludsystem.application.dto.get.historialclinico.evolucion.NotaDTO;
-import com.saludsystem.application.dto.post.historialclinico.evolucion.CrearNotaDTO;
-import com.saludsystem.application.dto.put.historialclinico.evolucion.ActualizarNotaDTO;
-import com.saludsystem.application.service.historialclinico.evolucion.NotaService;
-import com.saludsystem.infrastructure.adapters.in.response.evolucion.NotaListResponse;
-import com.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,6 +14,7 @@ import java.util.UUID;
 @RequestMapping("/api/Pacientes/Evololuciones/Notas")
 public class NotaController {
 
+    /*
     private final NotaService notaService;
 
     public NotaController(NotaService notaService) {
@@ -59,4 +53,6 @@ public class NotaController {
     public ApiResponse destroy(@PathVariable("pacienteNotaId") Long pacienteEvolucionNotaId) {
         return notaService.deleteNota(pacienteEvolucionNotaId);
     }
+
+     */
 }

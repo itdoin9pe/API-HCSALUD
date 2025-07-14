@@ -1,12 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.paciente.historialclinico.evolucion;
 
-import com.saludsystem.application.dto.get.historialclinico.evolucion.EvolucionDTO;
-import com.saludsystem.application.dto.post.historialclinico.evolucion.CrearEvolucionDTO;
-import com.saludsystem.application.dto.put.historialclinico.evolucion.ActualizarEvolucionDTO;
-import com.saludsystem.application.service.historialclinico.evolucion.EvolucionService;
-import com.saludsystem.infrastructure.adapters.in.response.evolucion.EvolucionListResponse;
-import com.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,6 +14,7 @@ import java.util.UUID;
 @RequestMapping("/api/Pacientes/Evoluciones")
 public class EvolucionController {
 
+    /*
     private final EvolucionService evolucionService;
 
     public EvolucionController(EvolucionService evolucionService) {
@@ -59,4 +53,6 @@ public class EvolucionController {
     public ApiResponse destroy(@PathVariable("notaEvolucionId") UUID pacienteEvolucionId) {
         return evolucionService.deleteEvolucion(pacienteEvolucionId);
     }
+
+     */
 }

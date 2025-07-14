@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.dtos.get.historialclinico.estadocuenta;
 
-import com.saludsystem.application.dto.post.historialclinico.estadocuenta.CrearCostoHospitalizacionDTO;
+import com.saludsystem.application.paciente.dtos.post.historialclinico.estadocuenta.CrearCostoHospitalizacionDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

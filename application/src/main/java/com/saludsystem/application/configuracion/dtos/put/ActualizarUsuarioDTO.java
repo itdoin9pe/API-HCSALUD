@@ -1,6 +1,6 @@
 package com.saludsystem.application.configuracion.dtos.put;
 
-import com.shared.application.dto.BaseDTO;
+import com.saludsystem.application.BaseDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

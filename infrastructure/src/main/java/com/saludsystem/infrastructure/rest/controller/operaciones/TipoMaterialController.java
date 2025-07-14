@@ -1,12 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.operaciones;
 
-import com.saludsystem.operaciones.application.dto.get.TipoMaterialDTO;
-import com.saludsystem.operaciones.application.dto.post.CrearTipoMaterialDTO;
-import com.saludsystem.operaciones.application.dto.put.ActualizarTipoMaterialDTO;
-import com.saludsystem.operaciones.infrastructure.adapters.in.response.TipoMaterialListResponse;
-import com.saludsystem.shared.application.service.GenericService;
-import com.saludsystem.shared.infrastructure.adapters.in.controller.GenericController;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -18,15 +11,9 @@ import java.util.UUID;
 @Tag(name = "TiposMateriales")
 @RestController
 @RequestMapping("/api/TiposMateriales")
-public class TipoMaterialController extends GenericController<TipoMaterialDTO, CrearTipoMaterialDTO,
-        ActualizarTipoMaterialDTO, UUID> {
+public class TipoMaterialController {
 
-    protected TipoMaterialController(
-            GenericService<TipoMaterialDTO, CrearTipoMaterialDTO, ActualizarTipoMaterialDTO, UUID> genericService) {
-        super(genericService);
-    }
-
-    @Override
+    /*
     @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
@@ -35,5 +22,5 @@ public class TipoMaterialController extends GenericController<TipoMaterialDTO, C
     })
     public ListResponse<TipoMaterialDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return super.getAllPaginated(hospitalId, page, rows);
-    }
+    }*/
 }

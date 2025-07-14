@@ -1,6 +1,6 @@
 package com.saludsystem.application.configuracion.dtos.get;
 
-import com.configuracion.application.dto.post.CrearSedeDTO;
+import com.saludsystem.application.configuracion.dtos.post.CrearSedeDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

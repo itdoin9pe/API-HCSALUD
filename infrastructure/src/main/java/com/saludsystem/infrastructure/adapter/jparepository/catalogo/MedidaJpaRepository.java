@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface MedidaJpaRepository extends JpaRepository<MedidaEntity, UUID> {
-    Page<MedidaEntity> findAllHospitalId(UUID hospitalId, Pageable pageable);
-    long countByHospitalId(UUID hospitalId);
+    Page<MedidaEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    long countByHospital_HospitalId(UUID hospitalId);
 }

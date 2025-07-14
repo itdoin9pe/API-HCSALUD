@@ -1,15 +1,14 @@
 package com.saludsystem.domain.operaciones.port.in.service;
 
-import com.saludsystem.operaciones.application.dto.get.MarcaDTO;
-import com.saludsystem.operaciones.application.dto.post.CrearMarcaDTO;
-import com.saludsystem.operaciones.application.dto.put.ActualizarMarcaDTO;
-import com.saludsystem.shared.application.service.GenericService;
+import com.saludsystem.domain.operaciones.model.Marca;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface MarcaService extends GenericService<
-        MarcaDTO,
-        CrearMarcaDTO,
-        ActualizarMarcaDTO,
-        UUID> {
+public interface MarcaService {
+    Marca save(Marca marca);
+    Marca update(UUID uuid, Marca marca);
+    void delete(UUID uuid);
+    Marca getById(UUID uuid);
+    List<Marca> getAll(UUID hospitalId, int page, int rows);
 }

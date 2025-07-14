@@ -1,15 +1,14 @@
 package com.saludsystem.domain.paciente.port.in.service.historialclinico;
 
-import com.saludsystem.application.dto.get.historialclinico.AntecedenteDTO;
-import com.saludsystem.application.dto.post.historialclinico.CrearAntecedenteDTO;
-import com.saludsystem.application.dto.put.historialclinico.ActualizarAntecedenteDTO;
-import com.configuracion.application.services.GenericService;
+import com.saludsystem.domain.paciente.model.historialclinico.Antecedente;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface AntecedenteService extends GenericService<
-        AntecedenteDTO,
-        CrearAntecedenteDTO,
-        ActualizarAntecedenteDTO,
-        UUID> {
+public interface AntecedenteService {
+    Antecedente save(Antecedente antecedente);
+    Antecedente update(UUID uuid, Antecedente antecedente);
+    void delete(UUID uuid);
+    Antecedente getById(UUID uuid);
+    List<Antecedente> getAll(UUID hospitalId, int page, int rows);
 }

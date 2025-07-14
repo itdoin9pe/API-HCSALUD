@@ -1,15 +1,15 @@
 package com.saludsystem.domain.mantenimiento.port.in.service;
 
-import com.saludsystem.mantenimiento.application.dto.get.TipoGastoDTO;
-import com.saludsystem.mantenimiento.application.dto.post.CrearTipoGastoDTO;
-import com.saludsystem.mantenimiento.application.dto.put.ActualizarTipoGastoDTO;
-import com.saludsystem.shared.application.service.GenericService;
+import com.saludsystem.domain.catalogo.model.TipoCitado;
+import com.saludsystem.domain.mantenimiento.model.TipoGasto;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface TipoGastoService extends GenericService<
-        TipoGastoDTO,
-        CrearTipoGastoDTO,
-        ActualizarTipoGastoDTO,
-        UUID> {
+public interface TipoGastoService {
+    TipoGasto save(TipoGasto tipoGasto);
+    TipoGasto update(UUID uuid, TipoGasto tipoGasto);
+    void delete(UUID uuid);
+    TipoGasto getById(UUID uuid);
+    List<TipoGasto> getAll(UUID hospitalId, int page, int rows);
 }

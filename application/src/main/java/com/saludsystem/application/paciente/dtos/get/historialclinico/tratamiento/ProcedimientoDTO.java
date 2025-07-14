@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.dtos.get.historialclinico.tratamiento;
 
-import com.saludsystem.application.dto.post.historialclinico.tratamiento.CrearProcedimientoDTO;
+import com.saludsystem.application.paciente.dtos.post.historialclinico.tratamiento.CrearProcedimientoDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

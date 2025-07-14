@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.dtos.get;
 
-import com.saludsystem.application.dto.post.CrearPConsentimientoDTO;
+import com.saludsystem.application.paciente.dtos.post.CrearPConsentimientoDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

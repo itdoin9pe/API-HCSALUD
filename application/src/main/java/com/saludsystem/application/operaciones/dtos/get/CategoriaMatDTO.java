@@ -1,6 +1,6 @@
 package com.saludsystem.application.operaciones.dtos.get;
 
-import com.saludsystem.application.dto.post.CrearCategotiaMatDTO;
+import com.saludsystem.application.operaciones.dtos.post.CrearCategotiaMatDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

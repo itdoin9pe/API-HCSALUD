@@ -1,15 +1,14 @@
 package com.saludsystem.domain.mantenimiento.port.in.service;
 
-import com.saludsystem.mantenimiento.application.dto.get.CuentaDTO;
-import com.saludsystem.mantenimiento.application.dto.post.CrearCuentaDTO;
-import com.saludsystem.mantenimiento.application.dto.put.ActualizarCuentaDTO;
-import com.saludsystem.shared.application.service.GenericService;
+import com.saludsystem.domain.mantenimiento.model.Cuenta;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface CuentaService extends GenericService<
-        CuentaDTO,
-        CrearCuentaDTO,
-        ActualizarCuentaDTO,
-        UUID> {
+public interface CuentaService {
+    Cuenta save(Cuenta cuenta);
+    Cuenta update(UUID uuid, Cuenta cuenta);
+    void delete(UUID uuid);
+    Cuenta getById(UUID uuid);
+    List<Cuenta> getAll(UUID hospitalId, int page, int rows);
 }

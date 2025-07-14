@@ -1,6 +1,6 @@
 package com.saludsystem.application.movimiento.dtos.get;
 
-import com.saludsystem.application.dto.post.CrearInventarioDTO;
+import com.saludsystem.application.movimiento.dtos.post.CrearInventarioDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

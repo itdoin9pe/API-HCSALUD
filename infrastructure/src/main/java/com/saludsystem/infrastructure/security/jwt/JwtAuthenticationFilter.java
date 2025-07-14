@@ -1,6 +1,6 @@
 package com.saludsystem.infrastructure.security.jwt;
 
-import com.configuracion.application.services.UserService;
+import com.saludsystem.infrastructure.security.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

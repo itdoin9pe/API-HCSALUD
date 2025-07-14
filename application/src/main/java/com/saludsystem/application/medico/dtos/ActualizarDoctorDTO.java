@@ -1,6 +1,6 @@
 package com.saludsystem.application.medico.dtos;
 
-import com.saludsystem.shared.application.dto.BaseDTO;
+import com.saludsystem.application.BaseDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

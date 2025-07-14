@@ -3,10 +3,12 @@ package com.saludsystem.application.catalogo.dtos.put;
 import com.saludsystem.application.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.UUID;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class ActualizarAlergiaDTO extends BaseDTO {
 
     private UUID alergiaId;

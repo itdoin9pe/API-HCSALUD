@@ -1,15 +1,14 @@
 package com.saludsystem.domain.movimiento.port.in.service;
 
-import com.saludsystem.movimientos.application.dto.post.CrearAlmacenDTO;
-import com.saludsystem.movimientos.application.dto.get.AlmacenDTO;
-import com.saludsystem.movimientos.application.dto.put.ActualizarAlmacenDTO;
-import com.saludsystem.shared.application.service.GenericService;
+import com.saludsystem.domain.movimiento.model.Almacen;
 
+import java.util.List;
 import java.util.UUID;
 
-public interface AlmacenService extends GenericService<
-        AlmacenDTO,
-        CrearAlmacenDTO,
-        ActualizarAlmacenDTO,
-        UUID> {
+public interface AlmacenService {
+    Almacen save(Almacen tipoCitado);
+    Almacen update(UUID uuid, Almacen tipoCitado);
+    void delete(UUID uuid);
+    Almacen getById(UUID uuid);
+    List<Almacen> getAll(UUID hospitalId, int page, int rows);
 }

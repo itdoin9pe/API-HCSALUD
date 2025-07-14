@@ -1,13 +1,5 @@
 package com.saludsystem.infrastructure.rest.controller.movimiento;
 
-import com.saludsystem.movimientos.application.dto.post.CrearInventarioDTO;
-import com.saludsystem.movimientos.application.dto.get.InventarioDTO;
-import com.saludsystem.movimientos.application.dto.put.ActualizarInventarioDTO;
-import com.saludsystem.movimientos.application.service.InventarioExportService;
-import com.saludsystem.movimientos.application.service.InventarioService;
-import com.saludsystem.movimientos.infrastructure.adapters.in.response.InventarioListResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ApiResponse;
-import com.saludsystem.shared.infrastructure.adapters.in.response.ListResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -26,6 +18,7 @@ import java.util.UUID;
 @RequestMapping("/api/Inventarios")
 public class InventarioController {
 
+    /*
     private final InventarioService inventarioService;
     private final InventarioExportService inventarioExportService;
 
@@ -102,5 +95,5 @@ public class InventarioController {
                         "attachment; filename=inventario.pdf")
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdfBytes);
-    }
+    }*/
 }

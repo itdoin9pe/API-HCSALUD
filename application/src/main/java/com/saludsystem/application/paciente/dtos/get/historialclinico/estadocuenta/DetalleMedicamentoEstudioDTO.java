@@ -1,6 +1,6 @@
 package com.saludsystem.application.paciente.dtos.get.historialclinico.estadocuenta;
 
-import com.saludsystem.application.dto.put.historialclinico.estadocuenta.ActualizarDetalleMedicamentoEstudioDTO;
+import com.saludsystem.application.paciente.dtos.put.historialclinico.estadocuenta.ActualizarDetalleMedicamentoEstudioDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
