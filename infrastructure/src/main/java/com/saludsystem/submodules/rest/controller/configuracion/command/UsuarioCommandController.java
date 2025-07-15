@@ -53,17 +53,44 @@ public class UsuarioCommandController {
   @PutMapping(value = "/update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<UserDto> updateUser(
           @PathVariable("id") UUID userId,
-          @ModelAttribute UserEditCommand command,
-          @RequestParam(value = "photo", required = false) MultipartFile photo) throws IOException {
+          @RequestParam(required = false) String firstName,
+          @RequestParam(required = false) String lastName,
+          @RequestParam(required = false) String email,
+          @RequestParam(required = false) String username,
+          @RequestParam(required = false) String password,
+          @RequestParam(required = false) String phoneNumber,
+          @RequestParam(required = false) String address,
+          @RequestParam(required = false) String documentType,
+          @RequestParam(required = false) String documentNumber,
+          @RequestParam(required = false) UUID rolId,
+          @RequestParam(required = false) UUID hospitalId,
+          @RequestParam(required = false) Integer estado,
+          @RequestParam(value = "photo", required = false) MultipartFile photoFile) throws IOException {
 
-    if (photo != null && !photo.isEmpty()) {
+    UserEditCommand command = new UserEditCommand();
+    command.setFirstName(firstName);
+    command.setLastName(lastName);
+    command.setEmail(email);
+    command.setUsername(username);
+    command.setPassword(password);
+    command.setPhoneNumber(phoneNumber);
+    command.setAddress(address);
+    command.setDocumentType(documentType);
+    command.setDocumentNumber(documentNumber);
+    command.setRolId(rolId);
+    command.setHospitalId(hospitalId);
+    command.setEstado(estado);
+
+    if (photoFile != null && !photoFile.isEmpty()) {
       UserEntity existingUser = userJpaRepository.findById(userId)
               .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
       if (existingUser.getPhoto() != null) {
         fileStorageService.deleteFile(existingUser.getPhoto());
       }
-      String newPhotoPath = fileStorageService.storeFile(photo);
-      command.setPhoto(newPhotoPath);
+
+      String photoPath = fileStorageService.storeFile(photoFile);
+      command.setPhoto(photoPath);
     }
 
     return ResponseEntity.ok(editHandler.execute(command, userId));

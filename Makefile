@@ -27,9 +27,10 @@ down:
 test:
 	mvn test
 
-# Limpiar artefactos generados
-clean:
+# Limpiar artefactos generados - comando que ejecuta clean y luego clean install
+clean-install:
 	mvn clean
+	mvn clean install
 
 # Verificar formato del código (si usas formatter o checkstyle)
 verify:

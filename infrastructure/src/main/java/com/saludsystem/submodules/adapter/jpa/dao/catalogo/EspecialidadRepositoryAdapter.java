@@ -5,6 +5,7 @@ import com.saludsystem.submodules.catalogo.port.out.repository.EspecialidadRepos
 import com.saludsystem.submodules.adapter.entity.catalogo.EspecialidadEntity;
 import com.saludsystem.submodules.adapter.jpa.interfaces.catalogo.EspecialidadJpaRepository;
 import com.saludsystem.submodules.adapter.mapper.catalogo.EspecialidadDboMapper;
+import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
@@ -15,21 +16,30 @@ import java.util.UUID;
 public class EspecialidadRepositoryAdapter implements EspecialidadRepositoryPort {
 
     private final EspecialidadJpaRepository especialidadJpaRepository;
+    private final AuthenticateUserPort authenticateUserPort;
 
-    public EspecialidadRepositoryAdapter(EspecialidadJpaRepository especialidadJpaRepository) {
+    public EspecialidadRepositoryAdapter(EspecialidadJpaRepository especialidadJpaRepository, AuthenticateUserPort authenticateUserPort) {
         this.especialidadJpaRepository = especialidadJpaRepository;
+        this.authenticateUserPort = authenticateUserPort;
     }
 
     @Override
     public Especialidad save(Especialidad especialidad) {
-        EspecialidadEntity entity = EspecialidadDboMapper.toEntity(especialidad);
+        UUID userId = authenticateUserPort.getUserId();
+        UUID hospitalId = authenticateUserPort.getHospitalId();
+
+        EspecialidadEntity entity = EspecialidadDboMapper.toEntity(especialidad, userId, hospitalId);
         return EspecialidadDboMapper.toDomain(especialidadJpaRepository.save(entity));
     }
 
     @Override
     public Especialidad update(UUID uuid, Especialidad especialidad) {
-        EspecialidadEntity entity = EspecialidadDboMapper.toEntity(especialidad);
-        return EspecialidadDboMapper.toDomain(especialidadJpaRepository.save(entity));    }
+        UUID userId = authenticateUserPort.getUserId();
+        UUID hospitalId = authenticateUserPort.getHospitalId();
+
+        EspecialidadEntity entity = EspecialidadDboMapper.toEntity(especialidad, userId, hospitalId);
+        return EspecialidadDboMapper.toDomain(especialidadJpaRepository.save(entity));
+    }
 
     @Override
     public void delete(UUID uuid) {
@@ -40,6 +50,13 @@ public class EspecialidadRepositoryAdapter implements EspecialidadRepositoryPort
     public Especialidad findById(UUID uuid) {
         return especialidadJpaRepository.findById(uuid).map(EspecialidadDboMapper::toDomain).orElse(null);
     }
+
+    /*
+    @Override
+    public List<Especialidad> findAll() {
+        return especialidadJpaRepository.findAll().stream().map(EspecialidadDboMapper::toDomain).toList();
+    }*/
+
 
     @Override
     public List<Especialidad> findAll(UUID hospitalId, int page, int rows) {

@@ -1,5 +1,6 @@
 package com.saludsystem.submodules.security.jwt;
 
+import com.saludsystem.submodules.adapter.jwt.CustomerUserDetails;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -28,9 +29,10 @@ public class JwtUtil {
     private int refreshExpiration;
 
     public String generateToken(Authentication authentication){
-        UserDetails mainUser = (UserDetails) authentication.getPrincipal();
+        //UserDetails mainUser = (UserDetails) authentication.getPrincipal();
+        CustomerUserDetails mainUser = (CustomerUserDetails) authentication.getPrincipal();
         SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        return Jwts.builder().setSubject(mainUser.getUsername())
+        return Jwts.builder().setSubject(mainUser.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 1000L))
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -38,47 +40,23 @@ public class JwtUtil {
     }
 
     private Key key() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
+        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        //return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
     }
 
     public String generateRefreshToken(UserDetails userDetails) {
+        CustomerUserDetails user = (CustomerUserDetails) userDetails;
         SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         return Jwts.builder()
-                .setSubject(userDetails.getUsername())
+                .setSubject(user.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + refreshExpiration * 1000L))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public boolean validateToken(String token, UserDetails userDetails){
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-    }
-
-    public Boolean isTokenExpired(String token){
-        return extractExpiration(token).before(new Date());
-    }
-
-    public Date extractExpiration(String token) {
-        return extractAllClaims(token).getExpiration();
-    }
-
-    public Claims extractAllClaims(String token){
-        SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        return Jwts.parserBuilder()
-        		.setSigningKey(key)
-        		.build()
-        		.parseClaimsJws(token)
-        		.getBody();
-    }
-
     public int getAccessTokenExpirationInSeconds() {
         return expiration;
-    }
-
-    public String extractUsername(String token){
-        return extractAllClaims(token).getSubject();
     }
 
     public String getUserNameFromJwtToken(String token) {
@@ -92,7 +70,10 @@ public class JwtUtil {
 
     public boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
+            Jwts.parserBuilder()
+                    .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)))
+                    .build()
+                    .parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
             log.error("Invalid JWT signature: {}", e.getMessage());

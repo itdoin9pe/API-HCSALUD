@@ -11,5 +11,6 @@ public interface EspecialidadRepositoryPort {
     void delete(UUID uuid);
     Especialidad findById(UUID uuid);
     List<Especialidad> findAll(UUID hospitalId, int page, int rows);
+    //List<Especialidad> findAll();
     long countByHospitalId(UUID hospitalId);
 }

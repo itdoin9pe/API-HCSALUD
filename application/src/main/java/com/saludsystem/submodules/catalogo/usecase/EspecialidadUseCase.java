@@ -37,6 +37,12 @@ public class EspecialidadUseCase implements EspecialidadService {
         return especialidadRepositoryPort.findById(uuid);
     }
 
+    /*
+    @Override
+    public List<Especialidad> getAll() {
+        return especialidadRepositoryPort.findAll();
+    }*/
+
     @Override
     public List<Especialidad> getAll(UUID hospitalId, int page, int rows) {
         return especialidadRepositoryPort.findAll(hospitalId, page, rows);

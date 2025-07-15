@@ -13,4 +13,17 @@ public class Especialidad {
     private String nombre;
     private String descripcion;
     private Integer estado;
+    private UUID hospitalId;
+    private UUID userId;
+
+    public Especialidad(UUID id, String nombre, String descripcion, Integer estado) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.estado = estado;
+    }
+
+    public Especialidad() {
+
+    }
 }

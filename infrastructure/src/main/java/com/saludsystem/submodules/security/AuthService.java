@@ -1,18 +1,14 @@
 package com.saludsystem.submodules.security;
 
+import com.saludsystem.submodules.adapter.jwt.CustomerUserDetails;
 import com.saludsystem.submodules.configuracion.dtos.LoginRequestDto;
-import com.saludsystem.submodules.configuracion.model.dto.JwtResponse;
+import com.saludsystem.submodules.configuracion.model.dto.command.JwtLoginResponse;
 import com.saludsystem.submodules.security.jwt.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 
 @Service
 public class AuthService {
@@ -25,25 +21,21 @@ public class AuthService {
         this.jwtUtils = jwtUtils;
     }
 
-    public JwtResponse authenticateUser(LoginRequestDto loginRequest) {
+    public JwtLoginResponse authenticateUser(LoginRequestDto loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(),
                         loginRequest.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateToken(authentication);
+        //SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
+        CustomerUserDetails userDetails = (CustomerUserDetails) authentication.getPrincipal();
 
-        return new JwtResponse(
-                jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                loginRequest.getEmail(),
-                roles);
+        String accessToken = jwtUtils.generateToken(authentication);
+        String refreshToken = jwtUtils.generateRefreshToken(userDetails);
+        long expiresIn = jwtUtils.getAccessTokenExpirationInSeconds();
+
+        //return new JwtResponse(jwt, loginRequest.getEmail(), roles);
+        return new JwtLoginResponse(accessToken, refreshToken, expiresIn);
     }
 }

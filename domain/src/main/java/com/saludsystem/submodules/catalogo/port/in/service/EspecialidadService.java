@@ -11,4 +11,5 @@ public interface EspecialidadService {
     void delete(UUID uuid);
     Especialidad getById(UUID uuid);
     List<Especialidad> getAll(UUID hospitalId, int page, int rows);
+    //List<Especialidad> getAll();
 }

@@ -31,7 +31,8 @@ public class CustomerUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        //return user.getUsername();
+        return user.getEmail(); // o user.getUsername();
     }
 
     @Override
@@ -51,12 +52,16 @@ public class CustomerUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getEstado() == 0;
+        return user.getEstado() == 1;
     }
 
     // Métodos específicos si necesitas info
     public UUID getUserId() {
         return user.getUserId();
+    }
+
+    public UUID getHospitalId() {
+        return user.getHospital().getHospitalId();
     }
 
     public String getEmail() {

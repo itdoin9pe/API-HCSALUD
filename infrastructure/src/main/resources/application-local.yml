@@ -22,13 +22,6 @@ server:
   port: 8081
   #address: ${SECRET_IP}
 
-security:
-  #enabled: false
-  user:
-    name: admin
-    password: admin123
-
-
 jwt:
   secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION}

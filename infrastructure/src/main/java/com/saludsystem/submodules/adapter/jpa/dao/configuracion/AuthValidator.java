@@ -7,6 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class AuthValidator {
 
@@ -32,5 +34,10 @@ public class AuthValidator {
         if (!isAdmin(user)) {
             throw new AccessDeniedException("No tienes permisos para realizar esta operación");
         }
+    }
+
+    public UUID getCurrentUserHospitalId() {
+        UserEntity user = getCurrentUser();
+        return user.getHospital().getHospitalId();
     }
 }

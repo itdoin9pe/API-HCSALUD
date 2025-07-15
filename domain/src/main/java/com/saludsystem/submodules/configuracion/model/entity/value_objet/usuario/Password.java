@@ -5,7 +5,7 @@ public record Password(String value) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException("La contraseña no puede estar vacía");
         }
-        if (value.length() < 8) {
+        if (value.length() < 7) {
             throw new IllegalArgumentException("La contraseña debe tener al menos 8 caracteres");
         }
     }

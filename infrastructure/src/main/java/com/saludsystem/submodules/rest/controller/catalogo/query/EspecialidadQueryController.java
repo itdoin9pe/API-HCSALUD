@@ -4,15 +4,19 @@ import com.saludsystem.submodules.catalogo.dtos.get.EspecialidadDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.EspecialidadAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.EspecialidadByIdHandler;
 import com.saludsystem.submodules.catalogo.response.EspecialidadListResponse;
+import com.saludsystem.submodules.response.PaginationRequest;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
+@Tag(name = "Especialidades")
+@RestController
+@RequestMapping("/api/Especialidades")
 public class EspecialidadQueryController {
 
     private final EspecialidadByIdHandler byIdHandler;
@@ -34,7 +38,9 @@ public class EspecialidadQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = EspecialidadListResponse.class)))
     })
-    public List<EspecialidadDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return allHandler.execute(hospitalId, page, rows);
+    public List<EspecialidadDTO> getAllPaginated(
+            @RequestParam UUID hospitalId, @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer rows) {
+        return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 }
