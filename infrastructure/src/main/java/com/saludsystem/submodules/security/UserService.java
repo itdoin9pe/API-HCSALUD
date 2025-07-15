@@ -1,7 +1,8 @@
+/*
 package com.saludsystem.submodules.security;
 
 import com.saludsystem.submodules.adapter.entity.configuracion.UserEntity;
-import com.saludsystem.submodules.adapter.jparepository.configuracion.UserJpaRepository;
+import com.saludsystem.submodules.adapter.jpa.interfaces.configuracion.UserJpaRepository;
 import com.saludsystem.submodules.rest.exception.ResourceNotFoundException;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,3 +63,5 @@ public class UserService implements UserDetailsService {
     }
 
 }
+
+ */

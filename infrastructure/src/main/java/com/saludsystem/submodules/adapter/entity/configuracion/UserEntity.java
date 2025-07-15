@@ -1,5 +1,6 @@
 package com.saludsystem.submodules.adapter.entity.configuracion;
 
+import com.saludsystem.submodules.configuracion.model.entity.value_objet.usuario.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"rol", "hospital"})
 @Entity
 @Table(name = "users")
 public class UserEntity {
@@ -62,7 +64,7 @@ public class UserEntity {
     @Column(name = "estado", nullable = false)
     private Integer estado;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne
     @JoinColumn(name = "rol_id", nullable = false)
     private RoleEntity rol;
 
@@ -70,21 +72,6 @@ public class UserEntity {
     @JoinColumn(name = "hospital_id", nullable = false)
     private SysSaludEntity hospital;
 
-    @Builder
-    public UserEntity(String lastName, String firstName, String phoneNumber, String address, String email, String documentType, String documentNumber, String photo, String username, String password, Integer estado, RoleEntity rol, SysSaludEntity hospital) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.email = email;
-        this.documentType = documentType;
-        this.documentNumber = documentNumber;
-        this.photo = photo;
-        this.username = username;
-        this.password = password;
-        this.estado = estado;
-        this.rol = rol;
-        this.hospital = hospital;
+    public UserEntity(Nombre firstName, Apellido lastName, Username username, Password password, Email email, PhoneNumber phoneNumber, Direccion address, TipoDocumentoUsuario documentType, NumeroDocumento documentNumber, Foto photo, EstadoUsuario estado) {
     }
-
 }

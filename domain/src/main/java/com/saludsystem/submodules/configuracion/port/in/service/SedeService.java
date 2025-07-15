@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.configuracion.port.in.service;
 
-import com.saludsystem.submodules.configuracion.model.Sede;
+import com.saludsystem.submodules.configuracion.model.entity.Sede;
 
 import java.util.List;
 import java.util.UUID;

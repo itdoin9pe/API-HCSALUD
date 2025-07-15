@@ -1,3 +1,4 @@
+/*
 package com.saludsystem.submodules.security.jwt;
 
 import jakarta.servlet.ServletException;
@@ -16,3 +17,5 @@ public class JwtEntryPoint implements AuthenticationEntryPoint {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
     }
 }
+
+ */
