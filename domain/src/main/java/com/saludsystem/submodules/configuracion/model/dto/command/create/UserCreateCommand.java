@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.configuracion.model.dto.command;
+package com.saludsystem.submodules.configuracion.model.dto.command.create;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,6 @@ public class UserCreateCommand {
     private String photo;
     @Schema(description = "Rol ID", format = "uuid")
     private UUID rolId;
-    private UUID hospitalId;
     @Schema(description = "Estado de usuario (activo = 0, inactivo = 1)", example = "0")
     private Integer estado;
 }

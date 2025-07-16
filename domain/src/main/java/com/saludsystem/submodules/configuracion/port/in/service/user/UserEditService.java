@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.configuracion.port.in.service.user;
 
-import com.saludsystem.submodules.configuracion.model.dto.command.UserEditCommand;
+import com.saludsystem.submodules.configuracion.model.dto.command.edit.UserEditCommand;
 import com.saludsystem.submodules.configuracion.model.entity.Usuario;
 import com.saludsystem.submodules.configuracion.port.out.dao.UserDao;
 import com.saludsystem.submodules.configuracion.port.out.repository.UserRepository;

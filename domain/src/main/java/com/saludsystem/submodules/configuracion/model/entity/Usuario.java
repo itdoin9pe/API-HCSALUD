@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.configuracion.model.entity;
 
-import com.saludsystem.submodules.configuracion.model.dto.command.UserCreateCommand;
+import com.saludsystem.submodules.configuracion.model.dto.command.create.UserCreateCommand;
 import com.saludsystem.submodules.configuracion.model.entity.value_objet.usuario.*;
 import com.saludsystem.submodules.configuracion.model.entity.value_objet.usuario.TipoDocumentoUsuario;
 import lombok.Getter;
@@ -78,7 +78,6 @@ public class Usuario {
         this.photo = new Foto(userCreateCommand.getPhoto());
         this.estado = new EstadoUsuario(userCreateCommand.getEstado());
         this.rolId = new UserRole(userCreateCommand.getRolId());
-        this.hospitalId = new UserHospital(userCreateCommand.getHospitalId());
         return this;
     }
 }

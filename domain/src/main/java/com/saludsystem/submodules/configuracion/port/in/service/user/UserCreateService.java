@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.configuracion.port.in.service.user;
 
-import com.saludsystem.submodules.configuracion.model.dto.command.UserCreateCommand;
+import com.saludsystem.submodules.configuracion.model.dto.command.create.UserCreateCommand;
 import com.saludsystem.submodules.configuracion.model.entity.Usuario;
 import com.saludsystem.submodules.configuracion.port.out.repository.UserRepository;
 

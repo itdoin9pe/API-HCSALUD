@@ -2,7 +2,7 @@ package com.saludsystem.submodules.configuracion.command.create;
 
 import com.saludsystem.submodules.configuracion.mapper.UsuarioDtoMapper;
 import com.saludsystem.submodules.configuracion.model.dto.UserDto;
-import com.saludsystem.submodules.configuracion.model.dto.command.UserCreateCommand;
+import com.saludsystem.submodules.configuracion.model.dto.command.create.UserCreateCommand;
 import com.saludsystem.submodules.configuracion.port.in.service.user.UserCreateService;
 import org.springframework.stereotype.Component;
 

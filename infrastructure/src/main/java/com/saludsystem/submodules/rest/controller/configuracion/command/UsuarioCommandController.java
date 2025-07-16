@@ -5,8 +5,8 @@ import com.saludsystem.submodules.configuracion.command.create.UsuarioCreateHand
 import com.saludsystem.submodules.configuracion.command.delete.UsuarioDeleteHandler;
 import com.saludsystem.submodules.configuracion.command.edit.UsuarioEditHandler;
 import com.saludsystem.submodules.configuracion.model.dto.UserDto;
-import com.saludsystem.submodules.configuracion.model.dto.command.UserCreateCommand;
-import com.saludsystem.submodules.configuracion.model.dto.command.UserEditCommand;
+import com.saludsystem.submodules.configuracion.model.dto.command.create.UserCreateCommand;
+import com.saludsystem.submodules.configuracion.model.dto.command.edit.UserEditCommand;
 import com.saludsystem.submodules.adapter.jpa.interfaces.configuracion.UserJpaRepository;
 import com.saludsystem.submodules.response.ApiResponse;
 import com.saludsystem.submodules.security.util.FileStorageService;
@@ -40,14 +40,14 @@ public class UsuarioCommandController {
   }
 
   @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<ApiResponse> createUser(
+  public ResponseEntity<UserDto> createUser(
           @ModelAttribute UserCreateCommand command,
           @RequestParam("photo") MultipartFile photo) throws IOException {
 
     String photoPath = fileStorageService.storeFile(photo);
     command.setPhoto(photoPath);
-    //return ResponseEntity.ok(createHandler.execute(command));
-    return ResponseEntity.ok(new ApiResponse(true, "Usuario creado exitosamente"));
+    return ResponseEntity.ok(createHandler.execute(command));
+    //return ResponseEntity.ok(new ApiResponse(true, "Usuario creado exitosamente"));
   }
 
   @PutMapping(value = "/update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

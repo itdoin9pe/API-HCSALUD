@@ -24,7 +24,7 @@ public interface UsuarioDtoMapper {
     @Mapping(source = "photo", target = "photo")
     @Mapping(source = "estado", target = "estado")
     @Mapping(source = "rolId", target = "rolId")
-    @Mapping(source = "hospitalId", target = "hospitalId")
+    //@Mapping(source = "hospitalId", target = "hospitalId")
     UserDto toDto(Usuario domain);
 
     // Métodos auxiliares para mapear value objects

@@ -2,7 +2,7 @@ package com.saludsystem.submodules.configuracion.command.edit;
 
 import com.saludsystem.submodules.configuracion.mapper.UsuarioDtoMapper;
 import com.saludsystem.submodules.configuracion.model.dto.UserDto;
-import com.saludsystem.submodules.configuracion.model.dto.command.UserEditCommand;
+import com.saludsystem.submodules.configuracion.model.dto.command.edit.UserEditCommand;
 import com.saludsystem.submodules.configuracion.port.in.service.user.UserEditService;
 import org.springframework.stereotype.Component;
 

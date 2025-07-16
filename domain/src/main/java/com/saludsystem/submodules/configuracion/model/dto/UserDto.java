@@ -24,7 +24,6 @@ public class UserDto {
     private String documentNumber;
     private String photo;
     private UUID rolId;
-    private UUID hospitalId;
     @Schema(description = "Estado de usuario (activo = 0, inactivo = 1)", example = "0")
     private Integer estado;
 }
