@@ -1,6 +1,7 @@
 package com.saludsystem.submodules.catalogo.port.in.service;
 
 import com.saludsystem.submodules.catalogo.model.Especialidad;
+import com.saludsystem.submodules.response.ListResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -10,6 +11,6 @@ public interface EspecialidadService {
     Especialidad update(UUID uuid, Especialidad especialidad);
     void delete(UUID uuid);
     Especialidad getById(UUID uuid);
-    List<Especialidad> getAll(UUID hospitalId, int page, int rows);
-    //List<Especialidad> getAll();
+    ListResponse<Especialidad> getAll(UUID hospitalId, int page, int rows);
+    List<Especialidad> getList();
 }

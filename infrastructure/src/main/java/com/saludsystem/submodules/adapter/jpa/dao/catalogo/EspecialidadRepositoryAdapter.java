@@ -6,6 +6,7 @@ import com.saludsystem.submodules.adapter.entity.catalogo.EspecialidadEntity;
 import com.saludsystem.submodules.adapter.jpa.interfaces.catalogo.EspecialidadJpaRepository;
 import com.saludsystem.submodules.adapter.mapper.catalogo.EspecialidadDboMapper;
 import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.response.ListResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
@@ -51,17 +52,20 @@ public class EspecialidadRepositoryAdapter implements EspecialidadRepositoryPort
         return especialidadJpaRepository.findById(uuid).map(EspecialidadDboMapper::toDomain).orElse(null);
     }
 
-    /*
     @Override
-    public List<Especialidad> findAll() {
+    public ListResponse<Especialidad> findAll(UUID hospitalId, int page, int rows) {
+        var pageable = PageRequest.of(page, rows);
+        var pageResult = especialidadJpaRepository.findAllByHospital_HospitalId(hospitalId, pageable);
+        List<Especialidad> data = pageResult.getContent()
+                .stream()
+                .map(EspecialidadDboMapper::toDomain)
+                .toList();
+        return new ListResponse<>(data, pageResult.getTotalElements(), pageResult.getTotalPages(), page + 1);
+    }
+
+    @Override
+    public List<Especialidad> findList() {
         return especialidadJpaRepository.findAll().stream().map(EspecialidadDboMapper::toDomain).toList();
-    }*/
-
-
-    @Override
-    public List<Especialidad> findAll(UUID hospitalId, int page, int rows) {
-        return especialidadJpaRepository.findAllByHospital_HospitalId(hospitalId, PageRequest.of(page, rows))
-                .stream().map(EspecialidadDboMapper::toDomain).toList();
     }
 
     @Override

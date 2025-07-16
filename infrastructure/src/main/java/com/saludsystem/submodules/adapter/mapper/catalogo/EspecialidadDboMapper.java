@@ -15,6 +15,7 @@ public class EspecialidadDboMapper {
         entity.setNombre(model.getNombre());
         entity.setDescripcion(model.getDescripcion());
         entity.setEstado(model.getEstado());
+
         var userEntity = new UserEntity();
         userEntity.setUserId(userId);
         entity.setUser(userEntity);
@@ -22,6 +23,7 @@ public class EspecialidadDboMapper {
         var hospitalEntity = new SysSaludEntity();
         hospitalEntity.setHospitalId(hospitalId);
         entity.setHospital(hospitalEntity);
+
         return entity;
     }
 

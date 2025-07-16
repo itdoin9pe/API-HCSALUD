@@ -3,6 +3,7 @@ package com.saludsystem.submodules.catalogo.usecase;
 import com.saludsystem.submodules.catalogo.model.Especialidad;
 import com.saludsystem.submodules.catalogo.port.in.service.EspecialidadService;
 import com.saludsystem.submodules.catalogo.port.out.repository.EspecialidadRepositoryPort;
+import com.saludsystem.submodules.response.ListResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,14 +38,13 @@ public class EspecialidadUseCase implements EspecialidadService {
         return especialidadRepositoryPort.findById(uuid);
     }
 
-    /*
     @Override
-    public List<Especialidad> getAll() {
-        return especialidadRepositoryPort.findAll();
-    }*/
+    public ListResponse<Especialidad> getAll(UUID hospitalId, int page, int rows) {
+        return especialidadRepositoryPort.findAll(hospitalId, page, rows);
+    }
 
     @Override
-    public List<Especialidad> getAll(UUID hospitalId, int page, int rows) {
-        return especialidadRepositoryPort.findAll(hospitalId, page, rows);
+    public List<Especialidad> getList() {
+        return especialidadRepositoryPort.findList();
     }
 }
