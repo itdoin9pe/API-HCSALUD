@@ -33,8 +33,6 @@ public class EspecialidadDboMapper {
         model.setNombre(entity.getNombre());
         model.setDescripcion(entity.getDescripcion());
         model.setEstado(entity.getEstado());
-        model.setUserId(entity.getUser().getUserId());
-        model.setHospitalId(entity.getHospital().getHospitalId());
         return model;
     }
 }
