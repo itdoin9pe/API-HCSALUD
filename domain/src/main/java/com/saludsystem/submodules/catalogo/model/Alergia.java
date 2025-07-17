@@ -13,6 +13,8 @@ public class Alergia {
         this.estado = estado;
     }
 
+    public Alergia() {}
+
     public UUID getId() {
         return id;
     }

@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.security.util;
 
-import com.saludsystem.submodules.sections.configuracion.adapter.entity.RoleEntity;
+import com.saludsystem.submodules.core.configuracion.adapter.entity.RoleEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

@@ -1,27 +1,23 @@
 package com.saludsystem.submodules.catalogo.query.getAll;
 
 import com.saludsystem.submodules.catalogo.model.dto.AlergiaDTO;
-import com.saludsystem.submodules.catalogo.mapper.AlergiaMapper;
-import com.saludsystem.submodules.catalogo.model.Alergia;
-import com.saludsystem.submodules.catalogo.port.dao.AlergiaDao;
+import com.saludsystem.submodules.catalogo.service.alergia.AlergiaAllService;
+import com.saludsystem.submodules.response.ListResponse;
+import com.saludsystem.submodules.response.PaginationRequest;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component
 public class AlergiaAllHandler {
 
-    private final AlergiaDao service;
+    private final AlergiaAllService alergiaAllService;
 
-    public AlergiaAllHandler(AlergiaDao service) {
-        this.service = service;
+    public AlergiaAllHandler(AlergiaAllService alergiaAllService) {
+        this.alergiaAllService = alergiaAllService;
     }
 
-    public List<AlergiaDTO> execute(UUID hospitalId, int page, int rows) {
-        List<Alergia> models = service.getAll(hospitalId, page, rows);
-        return models.stream()
-                .map(AlergiaMapper::toDto)
-                .toList();
+    public ListResponse<AlergiaDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
+        return alergiaAllService.execute(hospitalId, paginationRequest);
     }
 }

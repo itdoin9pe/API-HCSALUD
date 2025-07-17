@@ -1,9 +1,7 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
 import com.saludsystem.submodules.catalogo.model.dto.AlergiaDTO;
-import com.saludsystem.submodules.catalogo.mapper.AlergiaMapper;
-import com.saludsystem.submodules.catalogo.model.Alergia;
-import com.saludsystem.submodules.catalogo.port.dao.AlergiaDao;
+import com.saludsystem.submodules.catalogo.service.alergia.AlergiaByIdService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -11,14 +9,13 @@ import java.util.UUID;
 @Component
 public class AlergiaByIdHandler {
 
-    private final AlergiaDao service;
+    private final AlergiaByIdService alergiaByIdService;
 
-    public AlergiaByIdHandler(AlergiaDao service) {
-        this.service = service;
+    public AlergiaByIdHandler(AlergiaByIdService alergiaByIdService) {
+        this.alergiaByIdService = alergiaByIdService;
     }
 
     public AlergiaDTO execute(UUID id) {
-        Alergia model = service.getById(id);
-        return AlergiaMapper.toDto(model);
+        return alergiaByIdService.execute(id);
     }
 }

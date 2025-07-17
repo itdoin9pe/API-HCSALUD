@@ -12,7 +12,7 @@ public class AlergiaDTO extends CrearAlergiaDTO {
     private UUID alergiaId;
 
     public AlergiaDTO(UUID id, String nombre, Integer estado) {
-        this.setAlergiaId(id); // el campo viene de CrearAlergiaDTO
+        this.setAlergiaId(id);
         this.setNombre(nombre);
         this.setEstado(estado);
     }

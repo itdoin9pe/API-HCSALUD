@@ -1,8 +1,7 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
 import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarAlergiaDTO;
-import com.saludsystem.submodules.catalogo.mapper.AlergiaMapper;
-import com.saludsystem.submodules.catalogo.port.dao.AlergiaDao;
+import com.saludsystem.submodules.catalogo.service.alergia.AlergiaEditService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -10,13 +9,13 @@ import java.util.UUID;
 @Component
 public class AlergiaEditHandler {
 
-    private final AlergiaDao service;
+    private final AlergiaEditService alergiaEditService;
 
-    public AlergiaEditHandler(AlergiaDao service) {
-        this.service = service;
+    public AlergiaEditHandler(AlergiaEditService alergiaEditService) {
+        this.alergiaEditService = alergiaEditService;
     }
 
-    public void execute(UUID id, ActualizarAlergiaDTO dto) {
-        service.update(id, AlergiaMapper.fromUpdateDto(id, dto));
+    public void execute(UUID uuid, ActualizarAlergiaDTO dto) {
+        alergiaEditService.execute(uuid, dto);
     }
 }
