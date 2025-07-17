@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.config;
+package com.saludsystem.submodules.security.config;
 
 import com.saludsystem.submodules.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
