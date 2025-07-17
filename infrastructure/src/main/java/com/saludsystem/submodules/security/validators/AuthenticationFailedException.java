@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.rest.exception;
+package com.saludsystem.submodules.security.validators;
 
 public class AuthenticationFailedException extends RuntimeException {
   public AuthenticationFailedException(String message) {

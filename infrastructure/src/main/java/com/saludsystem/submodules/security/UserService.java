@@ -1,9 +1,9 @@
 /*
 package com.saludsystem.submodules.security;
 
-import com.saludsystem.submodules.adapter.entity.configuracion.UserEntity;
-import com.saludsystem.submodules.adapter.jpa.interfaces.configuracion.UserJpaRepository;
-import com.saludsystem.submodules.rest.exception.ResourceNotFoundException;
+import com.saludsystem.submodules.configuracion.adapter.entity.UserEntity;
+import com.saludsystem.submodules.configuracion.adapter.jpa.UserJpaRepository;
+import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

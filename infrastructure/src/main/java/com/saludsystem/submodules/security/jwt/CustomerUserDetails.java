@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.security.jwt;
 
-import com.saludsystem.submodules.adapter.entity.configuracion.UserEntity;
+import com.saludsystem.submodules.sections.configuracion.adapter.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

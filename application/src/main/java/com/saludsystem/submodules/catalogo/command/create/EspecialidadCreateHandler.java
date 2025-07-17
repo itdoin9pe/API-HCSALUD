@@ -16,4 +16,5 @@ public class EspecialidadCreateHandler {
     public void execute(CrearEspecialidadDTO dto) {
         especialidadRepository.save(EspecialidadMapper.fromCreateDto(dto));
     }
+
 }

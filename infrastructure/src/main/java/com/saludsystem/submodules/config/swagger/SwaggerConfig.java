@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.security.config.swagger;
+package com.saludsystem.submodules.config.swagger;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.models.OpenAPI;

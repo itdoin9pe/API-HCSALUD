@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.security.config;
+package com.saludsystem.submodules.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.rest.exception;
+package com.saludsystem.submodules.security.validators;
 
 import com.saludsystem.submodules.response.ApiResponse;
 import org.springframework.http.HttpStatus;

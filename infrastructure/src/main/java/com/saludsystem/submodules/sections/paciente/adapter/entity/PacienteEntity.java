@@ -3,7 +3,6 @@ package com.saludsystem.submodules.sections.paciente.adapter.entity;
 import com.saludsystem.submodules.sections.configuracion.adapter.entity.BaseEntity;
 import com.saludsystem.submodules.sections.configuracion.adapter.entity.SedeEntity;
 import com.saludsystem.submodules.sections.principal.adapter.entity.*;
-import com.saludsystem.submodules.principal.adapter.entity.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
