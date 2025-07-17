@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.rest.controller.catalogo.query;
 
-import com.saludsystem.submodules.catalogo.dtos.get.ClienteDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ClienteDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.ClienteAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.ClienteByIdHandler;
 import com.saludsystem.submodules.catalogo.response.ClienteListResponse;

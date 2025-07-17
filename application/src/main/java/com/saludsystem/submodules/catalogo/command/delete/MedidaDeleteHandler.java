@@ -1,19 +1,19 @@
 package com.saludsystem.submodules.catalogo.command.delete;
 
-import com.saludsystem.submodules.catalogo.port.in.service.MedidaService;
+import com.saludsystem.submodules.catalogo.port.dao.MedidaDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 public class MedidaDeleteHandler {
-    private final MedidaService medidaService;
+    private final MedidaDao medidaDao;
 
-    public MedidaDeleteHandler(MedidaService medidaService) {
-        this.medidaService = medidaService;
+    public MedidaDeleteHandler(MedidaDao medidaDao) {
+        this.medidaDao = medidaDao;
     }
 
     public void execute(UUID uuid) {
-        medidaService.delete(uuid);
+        medidaDao.delete(uuid);
     }
 }

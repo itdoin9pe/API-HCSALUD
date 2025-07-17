@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.dtos.get.ConsentimientoDTO;
-import com.saludsystem.submodules.catalogo.dtos.post.CrearConsentimientoDTO;
-import com.saludsystem.submodules.catalogo.dtos.put.ActualizarConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarConsentimientoDTO;
 import com.saludsystem.submodules.catalogo.model.Consentimiento;
 
 import java.util.UUID;

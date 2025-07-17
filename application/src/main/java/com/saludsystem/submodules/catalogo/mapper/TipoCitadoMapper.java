@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.dtos.get.TipoCitadoDTO;
-import com.saludsystem.submodules.catalogo.dtos.post.CrearTipoCitadoDTO;
-import com.saludsystem.submodules.catalogo.dtos.put.ActualizarTipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.TipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearTipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarTipoCitadoDTO;
 import com.saludsystem.submodules.catalogo.model.TipoCitado;
 
 import java.util.UUID;

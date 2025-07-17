@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.adapter.jpa.dao.catalogo;
 
 import com.saludsystem.submodules.catalogo.model.TipoCitado;
-import com.saludsystem.submodules.catalogo.port.out.repository.TipoCitadoRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.repository.TipoCitadoRepository;
 import com.saludsystem.submodules.adapter.entity.catalogo.TipoCitadoEntity;
 import com.saludsystem.submodules.adapter.jpa.interfaces.catalogo.TipoCitadoJpaRepository;
 import com.saludsystem.submodules.adapter.mapper.catalogo.TipoCitadoDboMapper;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class TipoCitadoRepositoryAdapter implements TipoCitadoRepositoryPort {
+public class TipoCitadoRepositoryAdapter implements TipoCitadoRepository {
 
     private final TipoCitadoJpaRepository tipoCitadoJpaRepository;
 

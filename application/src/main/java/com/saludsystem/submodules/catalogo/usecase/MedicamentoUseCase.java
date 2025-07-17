@@ -1,44 +1,44 @@
 package com.saludsystem.submodules.catalogo.usecase;
 
 import com.saludsystem.submodules.catalogo.model.Medicamento;
-import com.saludsystem.submodules.catalogo.port.in.service.MedicamentoService;
-import com.saludsystem.submodules.catalogo.port.out.repository.MedicamentoRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.dao.MedicamentoDao;
+import com.saludsystem.submodules.catalogo.port.repository.MedicamentoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class MedicamentoUseCase implements MedicamentoService {
+public class MedicamentoUseCase implements MedicamentoDao {
 
-    private final MedicamentoRepositoryPort medicamentoRepositoryPort;
+    private final MedicamentoRepository medicamentoRepository;
 
-    public MedicamentoUseCase(MedicamentoRepositoryPort medicamentoRepositoryPort) {
-        this.medicamentoRepositoryPort = medicamentoRepositoryPort;
+    public MedicamentoUseCase(MedicamentoRepository medicamentoRepository) {
+        this.medicamentoRepository = medicamentoRepository;
     }
 
     @Override
     public Medicamento save(Medicamento medicamento) {
-        return medicamentoRepositoryPort.save(medicamento);
+        return medicamentoRepository.save(medicamento);
     }
 
     @Override
     public Medicamento update(UUID uuid, Medicamento medicamento) {
-        return medicamentoRepositoryPort.update(uuid, medicamento);
+        return medicamentoRepository.update(uuid, medicamento);
     }
 
     @Override
     public void delete(UUID uuid) {
-        medicamentoRepositoryPort.delete(uuid);
+        medicamentoRepository.delete(uuid);
     }
 
     @Override
     public Medicamento getById(UUID uuid) {
-        return medicamentoRepositoryPort.findById(uuid);
+        return medicamentoRepository.findById(uuid);
     }
 
     @Override
     public List<Medicamento> getAll(UUID hospitalId, int page, int rows) {
-        return medicamentoRepositoryPort.findAll(hospitalId, page, rows);
+        return medicamentoRepository.findAll(hospitalId, page, rows);
     }
 }

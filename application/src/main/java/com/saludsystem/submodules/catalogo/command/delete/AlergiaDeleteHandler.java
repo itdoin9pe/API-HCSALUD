@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.delete;
 
-import com.saludsystem.submodules.catalogo.port.in.service.AlergiaService;
+import com.saludsystem.submodules.catalogo.port.dao.AlergiaDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -8,9 +8,9 @@ import java.util.UUID;
 @Component
 public class AlergiaDeleteHandler {
 
-    private final AlergiaService service;
+    private final AlergiaDao service;
 
-    public AlergiaDeleteHandler(AlergiaService service) {
+    public AlergiaDeleteHandler(AlergiaDao service) {
         this.service = service;
     }
 

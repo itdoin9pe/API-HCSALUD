@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.dtos.get.AlergiaDTO;
-import com.saludsystem.submodules.catalogo.dtos.post.CrearAlergiaDTO;
-import com.saludsystem.submodules.catalogo.dtos.put.ActualizarAlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.AlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearAlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarAlergiaDTO;
 import com.saludsystem.submodules.catalogo.model.Alergia;
 
 import java.util.UUID;

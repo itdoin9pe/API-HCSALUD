@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.adapter.jpa.dao.catalogo;
 
 import com.saludsystem.submodules.catalogo.model.Cliente;
-import com.saludsystem.submodules.catalogo.port.out.repository.ClienteRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.repository.ClienteRepository;
 import com.saludsystem.submodules.adapter.entity.catalogo.ClienteEntity;
 import com.saludsystem.submodules.adapter.jpa.interfaces.catalogo.ClienteJpaRepository;
 import com.saludsystem.submodules.adapter.mapper.catalogo.ClienteDboMapper;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class ClienteRepositoryAdapter implements ClienteRepositoryPort {
+public class ClienteRepositoryAdapter implements ClienteRepository {
 
     private final ClienteJpaRepository clienteJpaRepository;
 

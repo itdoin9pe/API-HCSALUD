@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.dtos.get.EspecialidadDTO;
-import com.saludsystem.submodules.catalogo.dtos.post.CrearEspecialidadDTO;
-import com.saludsystem.submodules.catalogo.dtos.put.ActualizarEspecialidadDTO;
+import com.saludsystem.submodules.catalogo.model.dto.EspecialidadDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearEspecialidadDTO;
+import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarEspecialidadDTO;
 import com.saludsystem.submodules.catalogo.model.Especialidad;
 
 import java.util.UUID;

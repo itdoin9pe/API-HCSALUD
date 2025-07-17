@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.delete;
 
-import com.saludsystem.submodules.catalogo.port.in.service.ApoderadoService;
+import com.saludsystem.submodules.catalogo.port.dao.ApoderadoDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -8,9 +8,9 @@ import java.util.UUID;
 @Component
 public class ApoderadoDeleteHandler {
 
-    private final ApoderadoService service;
+    private final ApoderadoDao service;
 
-    public ApoderadoDeleteHandler(ApoderadoService service) {
+    public ApoderadoDeleteHandler(ApoderadoDao service) {
         this.service = service;
     }
 

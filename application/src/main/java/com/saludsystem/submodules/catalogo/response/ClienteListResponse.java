@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.response;
 
-import com.saludsystem.submodules.catalogo.dtos.get.ClienteDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ClienteDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

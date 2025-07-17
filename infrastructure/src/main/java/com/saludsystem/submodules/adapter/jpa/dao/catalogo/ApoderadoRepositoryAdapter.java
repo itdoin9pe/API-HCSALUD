@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.adapter.jpa.dao.catalogo;
 
 import com.saludsystem.submodules.catalogo.model.Apoderado;
-import com.saludsystem.submodules.catalogo.port.out.repository.ApoderadoRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.repository.ApoderadoRepository;
 import com.saludsystem.submodules.adapter.entity.catalogo.ApoderadoEntity;
 import com.saludsystem.submodules.adapter.jpa.interfaces.catalogo.ApoderadoJpaRepository;
 import com.saludsystem.submodules.adapter.mapper.catalogo.ApoderadoDboMapper;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class ApoderadoRepositoryAdapter implements ApoderadoRepositoryPort {
+public class ApoderadoRepositoryAdapter implements ApoderadoRepository {
 
     private final ApoderadoJpaRepository apoderadoJpaRepository;
 

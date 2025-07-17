@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.adapter.jpa.dao.catalogo;
 
 import com.saludsystem.submodules.catalogo.model.Consentimiento;
-import com.saludsystem.submodules.catalogo.port.out.repository.ConsentimientoRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.repository.ConsentimientoRepository;
 import com.saludsystem.submodules.adapter.entity.catalogo.ConsentimientoEntity;
 import com.saludsystem.submodules.adapter.jpa.interfaces.catalogo.ConsentimientoJpaRepository;
 import com.saludsystem.submodules.adapter.mapper.catalogo.ConsentimientoDboMapper;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class ConsentimientoRepositoryAdapter implements ConsentimientoRepositoryPort {
+public class ConsentimientoRepositoryAdapter implements ConsentimientoRepository {
 
     private final ConsentimientoJpaRepository consentimientoJpaRepository;
 

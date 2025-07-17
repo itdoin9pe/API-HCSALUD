@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
-import com.saludsystem.submodules.catalogo.dtos.put.ActualizarMedicamentoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarMedicamentoDTO;
 import com.saludsystem.submodules.catalogo.mapper.MedicamentoMapper;
-import com.saludsystem.submodules.catalogo.port.in.service.MedicamentoService;
+import com.saludsystem.submodules.catalogo.port.dao.MedicamentoDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 public class MedicamentoEditHandler {
-    private final MedicamentoService medicamentoService;
+    private final MedicamentoDao medicamentoDao;
 
-    public MedicamentoEditHandler(MedicamentoService medicamentoService) {
-        this.medicamentoService = medicamentoService;
+    public MedicamentoEditHandler(MedicamentoDao medicamentoDao) {
+        this.medicamentoDao = medicamentoDao;
     }
 
     public void execute(UUID uuid, ActualizarMedicamentoDTO dto){
-        medicamentoService.update(uuid, MedicamentoMapper.fromUpdateDto(uuid, dto));
+        medicamentoDao.update(uuid, MedicamentoMapper.fromUpdateDto(uuid, dto));
     }
 }

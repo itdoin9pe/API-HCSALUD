@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
-import com.saludsystem.submodules.catalogo.dtos.put.ActualizarEspecialidadDTO;
+import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarEspecialidadDTO;
 import com.saludsystem.submodules.catalogo.mapper.EspecialidadMapper;
-import com.saludsystem.submodules.catalogo.port.in.service.EspecialidadService;
+import com.saludsystem.submodules.catalogo.port.repository.EspecialidadRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 public class EspecialidadEditHandler {
-    private final EspecialidadService especialidadService;
+    private final EspecialidadRepository especialidadRepository;
 
-    public EspecialidadEditHandler(EspecialidadService especialidadService) {
-        this.especialidadService = especialidadService;
+    public EspecialidadEditHandler(EspecialidadRepository especialidadRepository) {
+        this.especialidadRepository = especialidadRepository;
     }
 
     public void execute(UUID uuid, ActualizarEspecialidadDTO dto) {
-        especialidadService.update(uuid, EspecialidadMapper.fromUpdateDto(uuid, dto));
+        especialidadRepository.update(uuid, EspecialidadMapper.fromUpdateDto(uuid, dto));
     }
 }

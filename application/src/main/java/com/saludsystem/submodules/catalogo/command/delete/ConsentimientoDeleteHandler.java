@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.delete;
 
-import com.saludsystem.submodules.catalogo.port.in.service.ConsentimientoService;
+import com.saludsystem.submodules.catalogo.port.dao.ConsentimientoDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -8,13 +8,13 @@ import java.util.UUID;
 @Component
 public class ConsentimientoDeleteHandler {
 
-    private final ConsentimientoService consentimientoService;
+    private final ConsentimientoDao consentimientoDao;
 
-    public ConsentimientoDeleteHandler(ConsentimientoService consentimientoService) {
-        this.consentimientoService = consentimientoService;
+    public ConsentimientoDeleteHandler(ConsentimientoDao consentimientoDao) {
+        this.consentimientoDao = consentimientoDao;
     }
 
     public void execute(UUID uuid) {
-        consentimientoService.delete(uuid);
+        consentimientoDao.delete(uuid);
     }
 }

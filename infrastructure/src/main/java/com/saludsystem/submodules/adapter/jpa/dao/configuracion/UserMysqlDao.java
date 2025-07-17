@@ -9,7 +9,6 @@ import com.saludsystem.submodules.configuracion.port.out.dao.UserDao;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -35,10 +34,5 @@ public class UserMysqlDao implements UserDao {
     @Override
     public List<Usuario> getAll() {
         return userJpaRepository.findAll().stream().map(userDboMapper::toDomain).toList();
-    }
-
-    @Override
-    public Optional<Usuario> findByEmail(String email) {
-        return Optional.empty();
     }
 }

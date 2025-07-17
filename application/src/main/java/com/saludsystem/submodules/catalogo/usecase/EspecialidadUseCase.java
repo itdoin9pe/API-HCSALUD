@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.usecase;
 
 import com.saludsystem.submodules.catalogo.model.Especialidad;
-import com.saludsystem.submodules.catalogo.port.in.service.EspecialidadService;
-import com.saludsystem.submodules.catalogo.port.out.repository.EspecialidadRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.dao.EspecialidadDao;
+import com.saludsystem.submodules.catalogo.port.repository.EspecialidadRepository;
 import com.saludsystem.submodules.response.ListResponse;
 import org.springframework.stereotype.Service;
 
@@ -10,41 +10,46 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class EspecialidadUseCase implements EspecialidadService {
+public class EspecialidadUseCase {
 
-    private final EspecialidadRepositoryPort especialidadRepositoryPort;
+    /*
+    private final EspecialidadRepository especialidadRepository;
+    private final EspecialidadDao especialidadDao;
 
-    public EspecialidadUseCase(EspecialidadRepositoryPort especialidadRepositoryPort) {
-        this.especialidadRepositoryPort = especialidadRepositoryPort;
+    public EspecialidadUseCase(EspecialidadRepository especialidadRepository, EspecialidadDao especialidadDao) {
+        this.especialidadRepository = especialidadRepository;
+        this.especialidadDao = especialidadDao;
     }
 
     @Override
     public Especialidad save(Especialidad especialidad) {
-        return especialidadRepositoryPort.save(especialidad);
+        return especialidadRepository.save(especialidad);
     }
 
     @Override
     public Especialidad update(UUID uuid, Especialidad especialidad) {
-        return especialidadRepositoryPort.update(uuid, especialidad);
+        return especialidadRepository.update(uuid, especialidad);
     }
 
     @Override
     public void delete(UUID uuid) {
-        especialidadRepositoryPort.delete(uuid);
+        especialidadRepository.delete(uuid);
     }
 
     @Override
     public Especialidad getById(UUID uuid) {
-        return especialidadRepositoryPort.findById(uuid);
+        return especialidadDao.getById(uuid);
     }
 
     @Override
     public ListResponse<Especialidad> getAll(UUID hospitalId, int page, int rows) {
-        return especialidadRepositoryPort.findAll(hospitalId, page, rows);
+        return especialidadDao.getAll(hospitalId, page, rows);
     }
 
     @Override
     public List<Especialidad> getList() {
-        return especialidadRepositoryPort.findList();
+        return especialidadDao.getList();
     }
+
+     */
 }

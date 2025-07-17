@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.rest.controller.catalogo.query;
 
-import com.saludsystem.submodules.catalogo.dtos.get.ApoderadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ApoderadoDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.ApoderadoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.ApoderadoByIdHandler;
 import com.saludsystem.submodules.catalogo.response.ApoderadoListResponse;

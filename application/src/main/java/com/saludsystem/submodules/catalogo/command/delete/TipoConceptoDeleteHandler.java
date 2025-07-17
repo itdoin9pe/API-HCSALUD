@@ -1,19 +1,19 @@
 package com.saludsystem.submodules.catalogo.command.delete;
 
-import com.saludsystem.submodules.catalogo.port.in.service.TipoConceptoService;
+import com.saludsystem.submodules.catalogo.port.dao.TipoConceptoDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 public class TipoConceptoDeleteHandler {
-    private final TipoConceptoService tipoConceptoService;
+    private final TipoConceptoDao tipoConceptoDao;
 
-    public TipoConceptoDeleteHandler(TipoConceptoService tipoConceptoService) {
-        this.tipoConceptoService = tipoConceptoService;
+    public TipoConceptoDeleteHandler(TipoConceptoDao tipoConceptoDao) {
+        this.tipoConceptoDao = tipoConceptoDao;
     }
 
     public void execute(UUID uuid) {
-        tipoConceptoService.delete(uuid);
+        tipoConceptoDao.delete(uuid);
     }
 }

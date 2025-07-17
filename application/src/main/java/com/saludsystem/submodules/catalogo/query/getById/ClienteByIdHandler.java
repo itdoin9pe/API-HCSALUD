@@ -1,18 +1,18 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.dtos.get.ClienteDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ClienteDTO;
 import com.saludsystem.submodules.catalogo.mapper.ClienteMapper;
 import com.saludsystem.submodules.catalogo.model.Cliente;
-import com.saludsystem.submodules.catalogo.port.in.service.ClienteService;
+import com.saludsystem.submodules.catalogo.port.dao.ClienteDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 public class ClienteByIdHandler {
-    private final ClienteService clienteService;
+    private final ClienteDao clienteService;
 
-    public ClienteByIdHandler(ClienteService clienteService) {
+    public ClienteByIdHandler(ClienteDao clienteService) {
         this.clienteService = clienteService;
     }
 

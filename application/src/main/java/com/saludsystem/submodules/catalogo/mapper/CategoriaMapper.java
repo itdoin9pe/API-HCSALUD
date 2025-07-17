@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.dtos.get.CategoriaDTO;
-import com.saludsystem.submodules.catalogo.dtos.post.CrearCategoriaDTO;
-import com.saludsystem.submodules.catalogo.dtos.put.ActualizarCategoriaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.CategoriaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearCategoriaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarCategoriaDTO;
 import com.saludsystem.submodules.catalogo.model.Categoria;
 
 import java.util.UUID;

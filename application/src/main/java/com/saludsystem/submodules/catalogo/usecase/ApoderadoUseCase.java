@@ -1,44 +1,44 @@
 package com.saludsystem.submodules.catalogo.usecase;
 
 import com.saludsystem.submodules.catalogo.model.Apoderado;
-import com.saludsystem.submodules.catalogo.port.in.service.ApoderadoService;
-import com.saludsystem.submodules.catalogo.port.out.repository.ApoderadoRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.dao.ApoderadoDao;
+import com.saludsystem.submodules.catalogo.port.repository.ApoderadoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ApoderadoUseCase implements ApoderadoService {
+public class ApoderadoUseCase implements ApoderadoDao {
 
-    private final ApoderadoRepositoryPort apoderadoRepositoryPort;
+    private final ApoderadoRepository apoderadoRepository;
 
-    public ApoderadoUseCase(ApoderadoRepositoryPort apoderadoRepositoryPort) {
-        this.apoderadoRepositoryPort = apoderadoRepositoryPort;
+    public ApoderadoUseCase(ApoderadoRepository apoderadoRepository) {
+        this.apoderadoRepository = apoderadoRepository;
     }
 
     @Override
     public Apoderado save(Apoderado apoderado) {
-        return apoderadoRepositoryPort.save(apoderado);
+        return apoderadoRepository.save(apoderado);
     }
 
     @Override
     public Apoderado update(UUID uuid, Apoderado apoderado) {
-        return apoderadoRepositoryPort.update(uuid, apoderado);
+        return apoderadoRepository.update(uuid, apoderado);
     }
 
     @Override
     public void delete(UUID uuid) {
-        apoderadoRepositoryPort.delete(uuid);
+        apoderadoRepository.delete(uuid);
     }
 
     @Override
     public Apoderado getById(UUID uuid) {
-        return apoderadoRepositoryPort.findById(uuid);
+        return apoderadoRepository.findById(uuid);
     }
 
     @Override
     public List<Apoderado> getAll(UUID hospitalId, int page, int rows) {
-        return apoderadoRepositoryPort.findAll(hospitalId, page, rows);
+        return apoderadoRepository.findAll(hospitalId, page, rows);
     }
 }

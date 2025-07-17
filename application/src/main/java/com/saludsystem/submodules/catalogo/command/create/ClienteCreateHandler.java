@@ -1,16 +1,16 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.dtos.post.CrearClienteDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearClienteDTO;
 import com.saludsystem.submodules.catalogo.mapper.ClienteMapper;
-import com.saludsystem.submodules.catalogo.port.in.service.ClienteService;
+import com.saludsystem.submodules.catalogo.port.dao.ClienteDao;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ClienteCreateHandler {
 
-    private final ClienteService clienteService;
+    private final ClienteDao clienteService;
 
-    public ClienteCreateHandler(ClienteService clienteService) {
+    public ClienteCreateHandler(ClienteDao clienteService) {
         this.clienteService = clienteService;
     }
 

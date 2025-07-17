@@ -1,13 +1,12 @@
 package com.saludsystem.submodules.security;
 
-import com.saludsystem.submodules.adapter.jwt.CustomerUserDetails;
+import com.saludsystem.submodules.security.jwt.CustomerUserDetails;
 import com.saludsystem.submodules.configuracion.dtos.LoginRequestDto;
 import com.saludsystem.submodules.configuracion.model.dto.command.JwtLoginResponse;
 import com.saludsystem.submodules.security.jwt.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service

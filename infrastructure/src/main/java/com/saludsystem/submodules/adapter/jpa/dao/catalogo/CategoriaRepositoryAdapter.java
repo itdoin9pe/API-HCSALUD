@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.adapter.jpa.dao.catalogo;
 
 import com.saludsystem.submodules.catalogo.model.Categoria;
-import com.saludsystem.submodules.catalogo.port.out.repository.CategoriaRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.repository.CategoriaRepository;
 import com.saludsystem.submodules.adapter.entity.catalogo.CategoriaEntity;
 import com.saludsystem.submodules.adapter.jpa.interfaces.catalogo.CategoriaJpaRepository;
 import com.saludsystem.submodules.adapter.mapper.catalogo.CategoriaDboMapper;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class CategoriaRepositoryAdapter implements CategoriaRepositoryPort {
+public class CategoriaRepositoryAdapter implements CategoriaRepository {
 
     private final CategoriaJpaRepository categoriaJpaRepository;
 

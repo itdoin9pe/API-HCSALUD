@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.rest.controller.catalogo.query;
 
-import com.saludsystem.submodules.catalogo.dtos.get.TipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.TipoCitadoDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.TipoCitadoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.TipoCitadoByIdHandler;
 import com.saludsystem.submodules.catalogo.response.TipoCitadoListResponse;

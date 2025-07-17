@@ -1,19 +1,19 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.dtos.post.CrearMedidaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearMedidaDTO;
 import com.saludsystem.submodules.catalogo.mapper.MedidaMapper;
-import com.saludsystem.submodules.catalogo.port.in.service.MedidaService;
+import com.saludsystem.submodules.catalogo.port.dao.MedidaDao;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MedidaCreateHandler {
-    private final MedidaService medidaService;
+    private final MedidaDao medidaDao;
 
-    public MedidaCreateHandler(MedidaService medidaService) {
-        this.medidaService = medidaService;
+    public MedidaCreateHandler(MedidaDao medidaDao) {
+        this.medidaDao = medidaDao;
     }
 
     public void execute(CrearMedidaDTO dto) {
-        medidaService.save(MedidaMapper.fromCreatDto(dto));
+        medidaDao.save(MedidaMapper.fromCreatDto(dto));
     }
 }

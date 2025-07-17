@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.dtos.get.PlanDTO;
-import com.saludsystem.submodules.catalogo.dtos.post.CrearPlanDTO;
-import com.saludsystem.submodules.catalogo.dtos.put.ActualizarPlanDTO;
+import com.saludsystem.submodules.catalogo.model.dto.PlanDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearPlanDTO;
+import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarPlanDTO;
 import com.saludsystem.submodules.catalogo.model.Plan;
 
 import java.util.UUID;

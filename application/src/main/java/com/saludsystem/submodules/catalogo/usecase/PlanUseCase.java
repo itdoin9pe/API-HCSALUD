@@ -1,44 +1,44 @@
 package com.saludsystem.submodules.catalogo.usecase;
 
 import com.saludsystem.submodules.catalogo.model.Plan;
-import com.saludsystem.submodules.catalogo.port.in.service.PlanService;
-import com.saludsystem.submodules.catalogo.port.out.repository.PlanRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.dao.PlanDao;
+import com.saludsystem.submodules.catalogo.port.repository.PlanRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class PlanUseCase implements PlanService {
+public class PlanUseCase implements PlanDao {
 
-    private final PlanRepositoryPort planRepositoryPort;
+    private final PlanRepository planRepository;
 
-    public PlanUseCase(PlanRepositoryPort planRepositoryPort) {
-        this.planRepositoryPort = planRepositoryPort;
+    public PlanUseCase(PlanRepository planRepository) {
+        this.planRepository = planRepository;
     }
 
     @Override
     public Plan save(Plan plan) {
-        return planRepositoryPort.save(plan);
+        return planRepository.save(plan);
     }
 
     @Override
     public Plan update(UUID uuid, Plan plan) {
-        return planRepositoryPort.update(uuid, plan);
+        return planRepository.update(uuid, plan);
     }
 
     @Override
     public void delete(UUID uuid) {
-        planRepositoryPort.delete(uuid);
+        planRepository.delete(uuid);
     }
 
     @Override
     public Plan getById(UUID uuid) {
-        return planRepositoryPort.findById(uuid);
+        return planRepository.findById(uuid);
     }
 
     @Override
     public List<Plan> getAll(UUID hospitalId, int page, int rows) {
-        return planRepositoryPort.findAll(hospitalId, page, rows);
+        return planRepository.findAll(hospitalId, page, rows);
     }
 }

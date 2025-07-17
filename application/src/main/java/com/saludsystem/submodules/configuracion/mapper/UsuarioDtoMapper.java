@@ -11,7 +11,6 @@ import java.util.UUID;
 @Mapper(componentModel = "spring")
 public interface UsuarioDtoMapper {
 
-    @Mapping(source = "id", target = "id")
     @Mapping(source = "firstName", target = "firstName")
     @Mapping(source = "lastName", target = "lastName")
     @Mapping(source = "email", target = "email")
@@ -24,7 +23,6 @@ public interface UsuarioDtoMapper {
     @Mapping(source = "photo", target = "photo")
     @Mapping(source = "estado", target = "estado")
     @Mapping(source = "rolId", target = "rolId")
-    //@Mapping(source = "hospitalId", target = "hospitalId")
     UserDto toDto(Usuario domain);
 
     // Métodos auxiliares para mapear value objects

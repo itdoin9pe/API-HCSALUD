@@ -1,16 +1,16 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.dtos.post.CrearAlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearAlergiaDTO;
 import com.saludsystem.submodules.catalogo.mapper.AlergiaMapper;
-import com.saludsystem.submodules.catalogo.port.in.service.AlergiaService;
+import com.saludsystem.submodules.catalogo.port.dao.AlergiaDao;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AlergiaCreateHandler {
 
-    private final AlergiaService service;
+    private final AlergiaDao service;
 
-    public AlergiaCreateHandler(AlergiaService service) {
+    public AlergiaCreateHandler(AlergiaDao service) {
         this.service = service;
     }
 

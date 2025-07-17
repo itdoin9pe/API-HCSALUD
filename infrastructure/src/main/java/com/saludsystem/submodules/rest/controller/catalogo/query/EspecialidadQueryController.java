@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.rest.controller.catalogo.query;
 
-import com.saludsystem.submodules.catalogo.dtos.get.EspecialidadDTO;
+import com.saludsystem.submodules.catalogo.model.dto.EspecialidadDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.EspecialidadAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.EspecialidadByIdHandler;
 import com.saludsystem.submodules.catalogo.query.getList.EspecialidadListHandler;

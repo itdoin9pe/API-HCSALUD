@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.dtos.get.CategoriaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.CategoriaDTO;
 import com.saludsystem.submodules.catalogo.mapper.CategoriaMapper;
 import com.saludsystem.submodules.catalogo.model.Categoria;
-import com.saludsystem.submodules.catalogo.port.in.service.CategoriaService;
+import com.saludsystem.submodules.catalogo.port.dao.CategoriaDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -11,14 +11,14 @@ import java.util.UUID;
 @Component
 public class CategoriaByIdHandler {
 
-    private final CategoriaService categoriaService;
+    private final CategoriaDao categoriaDao;
 
-    public CategoriaByIdHandler(CategoriaService categoriaService) {
-        this.categoriaService = categoriaService;
+    public CategoriaByIdHandler(CategoriaDao categoriaDao) {
+        this.categoriaDao = categoriaDao;
     }
 
     public CategoriaDTO execute(UUID uuid){
-        Categoria model = categoriaService.getById(uuid);
+        Categoria model = categoriaDao.getById(uuid);
         return CategoriaMapper.toDto(model);
     }
 }

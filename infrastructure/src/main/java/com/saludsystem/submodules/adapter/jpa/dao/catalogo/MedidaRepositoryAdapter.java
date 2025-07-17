@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.adapter.jpa.dao.catalogo;
 
 import com.saludsystem.submodules.catalogo.model.Medida;
-import com.saludsystem.submodules.catalogo.port.out.repository.MedidaRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.repository.MedidaRepository;
 import com.saludsystem.submodules.adapter.entity.catalogo.MedidaEntity;
 import com.saludsystem.submodules.adapter.jpa.interfaces.catalogo.MedidaJpaRepository;
 import com.saludsystem.submodules.adapter.mapper.catalogo.MedidaDboMapper;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class MedidaRepositoryAdapter implements MedidaRepositoryPort {
+public class MedidaRepositoryAdapter implements MedidaRepository {
 
     private final MedidaJpaRepository medidaJpaRepository;
 

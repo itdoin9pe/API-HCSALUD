@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.dtos.get.MedicamentoDTO;
-import com.saludsystem.submodules.catalogo.dtos.post.CrearMedicamentoDTO;
-import com.saludsystem.submodules.catalogo.dtos.put.ActualizarMedicamentoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.MedicamentoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearMedicamentoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarMedicamentoDTO;
 import com.saludsystem.submodules.catalogo.model.Medicamento;
 
 import java.util.UUID;

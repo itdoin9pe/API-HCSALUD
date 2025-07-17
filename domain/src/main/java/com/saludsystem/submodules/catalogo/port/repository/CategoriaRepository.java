@@ -1,0 +1,15 @@
+package com.saludsystem.submodules.catalogo.port.repository;
+
+import com.saludsystem.submodules.catalogo.model.Categoria;
+
+import java.util.List;
+import java.util.UUID;
+
+public interface CategoriaRepository {
+    Categoria save(Categoria categoria);
+    Categoria update(UUID uuid, Categoria categoria);
+    void delete(UUID uuid);
+    Categoria findById(UUID uuid);
+    List<Categoria> findAll(UUID hospitalId, int page, int rows);
+    long countByHospitalId(UUID hospitalId);
+}

@@ -1,16 +1,16 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.dtos.post.CrearApoderadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearApoderadoDTO;
 import com.saludsystem.submodules.catalogo.mapper.ApoderadoMapper;
-import com.saludsystem.submodules.catalogo.port.in.service.ApoderadoService;
+import com.saludsystem.submodules.catalogo.port.dao.ApoderadoDao;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ApoderadoCreateHandler {
 
-    private final ApoderadoService service;
+    private final ApoderadoDao service;
 
-    public ApoderadoCreateHandler(ApoderadoService service) {
+    public ApoderadoCreateHandler(ApoderadoDao service) {
         this.service = service;
     }
 

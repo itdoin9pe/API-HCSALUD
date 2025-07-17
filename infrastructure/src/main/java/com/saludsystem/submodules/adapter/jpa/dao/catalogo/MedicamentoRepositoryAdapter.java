@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.adapter.jpa.dao.catalogo;
 
 import com.saludsystem.submodules.catalogo.model.Medicamento;
-import com.saludsystem.submodules.catalogo.port.out.repository.MedicamentoRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.repository.MedicamentoRepository;
 import com.saludsystem.submodules.adapter.entity.catalogo.MedicamentoEntity;
 import com.saludsystem.submodules.adapter.jpa.interfaces.catalogo.MedicamentoJpaRepository;
 import com.saludsystem.submodules.adapter.mapper.catalogo.MedicamentoDboMapper;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class MedicamentoRepositoryAdapter implements MedicamentoRepositoryPort {
+public class MedicamentoRepositoryAdapter implements MedicamentoRepository {
 
     private final MedicamentoJpaRepository medicamentoJpaRepository;
 

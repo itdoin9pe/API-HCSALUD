@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.adapter.jpa.dao.catalogo;
 
 import com.saludsystem.submodules.catalogo.model.TipoConcepto;
-import com.saludsystem.submodules.catalogo.port.out.repository.TipoConceptoRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.repository.TipoConceptoRepository;
 import com.saludsystem.submodules.adapter.entity.catalogo.TipoConceptoEntity;
 import com.saludsystem.submodules.adapter.jpa.interfaces.catalogo.TipoConceptoJpaRepository;
 import com.saludsystem.submodules.adapter.mapper.catalogo.TipoConceptoDboMapper;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class TipoConceptoRepositoryAdapter implements TipoConceptoRepositoryPort {
+public class TipoConceptoRepositoryAdapter implements TipoConceptoRepository {
 
     private final TipoConceptoJpaRepository tipoConceptoJpaRepository;
 

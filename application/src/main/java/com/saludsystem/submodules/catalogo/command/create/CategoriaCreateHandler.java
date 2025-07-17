@@ -1,20 +1,20 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.dtos.post.CrearCategoriaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearCategoriaDTO;
 import com.saludsystem.submodules.catalogo.mapper.CategoriaMapper;
-import com.saludsystem.submodules.catalogo.port.in.service.CategoriaService;
+import com.saludsystem.submodules.catalogo.port.dao.CategoriaDao;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CategoriaCreateHandler {
 
-    private final CategoriaService categoriaService;
+    private final CategoriaDao categoriaDao;
 
-    public CategoriaCreateHandler(CategoriaService categoriaService) {
-        this.categoriaService = categoriaService;
+    public CategoriaCreateHandler(CategoriaDao categoriaDao) {
+        this.categoriaDao = categoriaDao;
     }
 
     public void execute(CrearCategoriaDTO dto) {
-        categoriaService.save(CategoriaMapper.fromCreateDto(dto));
+        categoriaDao.save(CategoriaMapper.fromCreateDto(dto));
     }
 }

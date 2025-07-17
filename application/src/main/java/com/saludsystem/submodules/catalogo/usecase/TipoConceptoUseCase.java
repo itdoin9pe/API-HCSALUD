@@ -1,44 +1,44 @@
 package com.saludsystem.submodules.catalogo.usecase;
 
 import com.saludsystem.submodules.catalogo.model.TipoConcepto;
-import com.saludsystem.submodules.catalogo.port.in.service.TipoConceptoService;
-import com.saludsystem.submodules.catalogo.port.out.repository.TipoConceptoRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.dao.TipoConceptoDao;
+import com.saludsystem.submodules.catalogo.port.repository.TipoConceptoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class TipoConceptoUseCase implements TipoConceptoService {
+public class TipoConceptoUseCase implements TipoConceptoDao {
 
-    private final TipoConceptoRepositoryPort tipoConceptoRepositoryPort;
+    private final TipoConceptoRepository tipoConceptoRepository;
 
-    public TipoConceptoUseCase(TipoConceptoRepositoryPort tipoConceptoRepositoryPort) {
-        this.tipoConceptoRepositoryPort = tipoConceptoRepositoryPort;
+    public TipoConceptoUseCase(TipoConceptoRepository tipoConceptoRepository) {
+        this.tipoConceptoRepository = tipoConceptoRepository;
     }
 
     @Override
     public TipoConcepto save(TipoConcepto tipoConcepto) {
-        return tipoConceptoRepositoryPort.save(tipoConcepto);
+        return tipoConceptoRepository.save(tipoConcepto);
     }
 
     @Override
     public TipoConcepto update(UUID uuid, TipoConcepto tipoConcepto) {
-        return tipoConceptoRepositoryPort.update(uuid, tipoConcepto);
+        return tipoConceptoRepository.update(uuid, tipoConcepto);
     }
 
     @Override
     public void delete(UUID uuid) {
-        tipoConceptoRepositoryPort.delete(uuid);
+        tipoConceptoRepository.delete(uuid);
     }
 
     @Override
     public TipoConcepto getById(UUID uuid) {
-        return tipoConceptoRepositoryPort.findById(uuid);
+        return tipoConceptoRepository.findById(uuid);
     }
 
     @Override
     public List<TipoConcepto> getAll(UUID hospitalId, int page, int rows) {
-        return tipoConceptoRepositoryPort.findAll(hospitalId, page, rows);
+        return tipoConceptoRepository.findAll(hospitalId, page, rows);
     }
 }

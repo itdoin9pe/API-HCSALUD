@@ -16,6 +16,6 @@ public class UserDeleteService {
 
     public void execute(UUID uuid) {
         var user = userDao.getById(uuid);
-        userRepository.delete(uuid);
+        userRepository.delete(user.getId().value());
     }
 }

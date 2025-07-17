@@ -3,8 +3,8 @@
     import com.saludsystem.submodules.catalogo.command.create.CategoriaCreateHandler;
     import com.saludsystem.submodules.catalogo.command.delete.CategoriaDeleteHandler;
     import com.saludsystem.submodules.catalogo.command.edit.CategoriaEditHandler;
-    import com.saludsystem.submodules.catalogo.dtos.post.CrearCategoriaDTO;
-    import com.saludsystem.submodules.catalogo.dtos.put.ActualizarCategoriaDTO;
+    import com.saludsystem.submodules.catalogo.model.dto.command.CrearCategoriaDTO;
+    import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarCategoriaDTO;
     import com.saludsystem.submodules.response.ApiResponse;
     import io.swagger.v3.oas.annotations.tags.Tag;
     import org.springframework.web.bind.annotation.*;

@@ -1,23 +1,23 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.dtos.get.TipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.TipoConceptoDTO;
 import com.saludsystem.submodules.catalogo.mapper.TipoConceptoMapper;
 import com.saludsystem.submodules.catalogo.model.TipoConcepto;
-import com.saludsystem.submodules.catalogo.port.in.service.TipoConceptoService;
+import com.saludsystem.submodules.catalogo.port.dao.TipoConceptoDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 public class TipoConceptoByIdHandler {
-    public final TipoConceptoService tipoConceptoService;
+    public final TipoConceptoDao tipoConceptoDao;
 
-    public TipoConceptoByIdHandler(TipoConceptoService tipoConceptoService) {
-        this.tipoConceptoService = tipoConceptoService;
+    public TipoConceptoByIdHandler(TipoConceptoDao tipoConceptoDao) {
+        this.tipoConceptoDao = tipoConceptoDao;
     }
 
     public TipoConceptoDTO execute(UUID uuid) {
-        TipoConcepto model = tipoConceptoService.getById(uuid);
+        TipoConcepto model = tipoConceptoDao.getById(uuid);
         return TipoConceptoMapper.toDto(model);
     }
 }

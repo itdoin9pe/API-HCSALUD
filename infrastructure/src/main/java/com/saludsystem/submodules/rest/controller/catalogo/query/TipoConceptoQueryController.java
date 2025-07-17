@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.rest.controller.catalogo.query;
 
-import com.saludsystem.submodules.catalogo.dtos.get.TipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.TipoConceptoDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.TipoConceptoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.TipoConceptoByIdHandler;
 import com.saludsystem.submodules.catalogo.response.TipoConceptoListResponse;

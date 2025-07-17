@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.rest.controller.catalogo.query;
 
-import com.saludsystem.submodules.catalogo.dtos.get.MedicamentoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.MedicamentoDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.MedicamentoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.MedicamentoByIdHandler;
 import com.saludsystem.submodules.catalogo.response.MedicamentoListResponse;

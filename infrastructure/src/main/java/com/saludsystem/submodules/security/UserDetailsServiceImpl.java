@@ -2,7 +2,7 @@ package com.saludsystem.submodules.security;
 
 import com.saludsystem.submodules.adapter.entity.configuracion.UserEntity;
 import com.saludsystem.submodules.adapter.jpa.interfaces.configuracion.UserJpaRepository;
-import com.saludsystem.submodules.adapter.jwt.CustomerUserDetails;
+import com.saludsystem.submodules.security.jwt.CustomerUserDetails;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

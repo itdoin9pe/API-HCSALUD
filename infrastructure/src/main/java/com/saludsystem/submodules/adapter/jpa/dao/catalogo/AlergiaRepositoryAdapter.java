@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.adapter.jpa.dao.catalogo;
 
 import com.saludsystem.submodules.catalogo.model.Alergia;
-import com.saludsystem.submodules.catalogo.port.out.repository.AlergiaRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.repository.AlergiaRepository;
 import com.saludsystem.submodules.adapter.entity.catalogo.AlergiaEntity;
 import com.saludsystem.submodules.adapter.jpa.interfaces.catalogo.AlergiaJpaRepository;
 import com.saludsystem.submodules.adapter.mapper.catalogo.AlergiaDboMapper;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class AlergiaRepositoryAdapter implements AlergiaRepositoryPort {
+public class AlergiaRepositoryAdapter implements AlergiaRepository {
 
     private final AlergiaJpaRepository alergiaJpaRepository;
 

@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.catalogo.query.getAll;
 
-import com.saludsystem.submodules.catalogo.dtos.get.AlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.AlergiaDTO;
 import com.saludsystem.submodules.catalogo.mapper.AlergiaMapper;
 import com.saludsystem.submodules.catalogo.model.Alergia;
-import com.saludsystem.submodules.catalogo.port.in.service.AlergiaService;
+import com.saludsystem.submodules.catalogo.port.dao.AlergiaDao;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,9 +12,9 @@ import java.util.UUID;
 @Component
 public class AlergiaAllHandler {
 
-    private final AlergiaService service;
+    private final AlergiaDao service;
 
-    public AlergiaAllHandler(AlergiaService service) {
+    public AlergiaAllHandler(AlergiaDao service) {
         this.service = service;
     }
 

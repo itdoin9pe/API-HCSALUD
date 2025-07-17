@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
-import com.saludsystem.submodules.catalogo.dtos.put.ActualizarConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarConsentimientoDTO;
 import com.saludsystem.submodules.catalogo.mapper.ConsentimientoMapper;
-import com.saludsystem.submodules.catalogo.port.in.service.ConsentimientoService;
+import com.saludsystem.submodules.catalogo.port.dao.ConsentimientoDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -10,13 +10,13 @@ import java.util.UUID;
 @Component
 public class ConsentimientoEditHandler {
 
-    private final ConsentimientoService consentimientoService;
+    private final ConsentimientoDao consentimientoDao;
 
-    public ConsentimientoEditHandler(ConsentimientoService consentimientoService) {
-        this.consentimientoService = consentimientoService;
+    public ConsentimientoEditHandler(ConsentimientoDao consentimientoDao) {
+        this.consentimientoDao = consentimientoDao;
     }
 
     public void execute(UUID uuid, ActualizarConsentimientoDTO dto) {
-        consentimientoService.update(uuid, ConsentimientoMapper.fromUpdateDto(uuid, dto));
+        consentimientoDao.update(uuid, ConsentimientoMapper.fromUpdateDto(uuid, dto));
     }
 }

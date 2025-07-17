@@ -8,7 +8,6 @@ import com.saludsystem.submodules.configuracion.model.dto.UserDto;
 import com.saludsystem.submodules.configuracion.model.dto.command.create.UserCreateCommand;
 import com.saludsystem.submodules.configuracion.model.dto.command.edit.UserEditCommand;
 import com.saludsystem.submodules.adapter.jpa.interfaces.configuracion.UserJpaRepository;
-import com.saludsystem.submodules.response.ApiResponse;
 import com.saludsystem.submodules.security.util.FileStorageService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
@@ -24,8 +23,7 @@ import java.util.UUID;
 @RequestMapping("/api/Usuarios")
 public class UsuarioCommandController {
 
-  private final FileStorageService
-          fileStorageService;
+  private final FileStorageService fileStorageService;
   private final UserJpaRepository userJpaRepository;
   private final UsuarioCreateHandler createHandler;
   private final UsuarioEditHandler editHandler;
@@ -47,25 +45,14 @@ public class UsuarioCommandController {
     String photoPath = fileStorageService.storeFile(photo);
     command.setPhoto(photoPath);
     return ResponseEntity.ok(createHandler.execute(command));
-    //return ResponseEntity.ok(new ApiResponse(true, "Usuario creado exitosamente"));
   }
 
   @PutMapping(value = "/update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<UserDto> updateUser(
-          @PathVariable("id") UUID userId,
-          @RequestParam(required = false) String firstName,
-          @RequestParam(required = false) String lastName,
-          @RequestParam(required = false) String email,
-          @RequestParam(required = false) String username,
-          @RequestParam(required = false) String password,
-          @RequestParam(required = false) String phoneNumber,
-          @RequestParam(required = false) String address,
-          @RequestParam(required = false) String documentType,
-          @RequestParam(required = false) String documentNumber,
-          @RequestParam(required = false) UUID rolId,
-          @RequestParam(required = false) UUID hospitalId,
-          @RequestParam(required = false) Integer estado,
-          @RequestParam(value = "photo", required = false) MultipartFile photoFile) throws IOException {
+          @PathVariable("id") UUID userId, String firstName, String lastName, String email,
+          String username, String password, String phoneNumber, String address, String documentType,
+          String documentNumber, UUID rolId, UUID hospitalId, Integer estado, MultipartFile photoFile)
+          throws IOException {
 
     UserEditCommand command = new UserEditCommand();
     command.setFirstName(firstName);
@@ -80,19 +67,15 @@ public class UsuarioCommandController {
     command.setRolId(rolId);
     command.setHospitalId(hospitalId);
     command.setEstado(estado);
-
     if (photoFile != null && !photoFile.isEmpty()) {
       UserEntity existingUser = userJpaRepository.findById(userId)
               .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
       if (existingUser.getPhoto() != null) {
         fileStorageService.deleteFile(existingUser.getPhoto());
       }
-
       String photoPath = fileStorageService.storeFile(photoFile);
       command.setPhoto(photoPath);
     }
-
     return ResponseEntity.ok(editHandler.execute(command, userId));
   }
 

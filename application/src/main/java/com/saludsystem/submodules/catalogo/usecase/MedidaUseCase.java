@@ -1,44 +1,44 @@
 package com.saludsystem.submodules.catalogo.usecase;
 
 import com.saludsystem.submodules.catalogo.model.Medida;
-import com.saludsystem.submodules.catalogo.port.in.service.MedidaService;
-import com.saludsystem.submodules.catalogo.port.out.repository.MedidaRepositoryPort;
+import com.saludsystem.submodules.catalogo.port.dao.MedidaDao;
+import com.saludsystem.submodules.catalogo.port.repository.MedidaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class MedidaUseCase implements MedidaService {
+public class MedidaUseCase implements MedidaDao {
 
-    private final MedidaRepositoryPort medidaRepositoryPort;
+    private final MedidaRepository medidaRepository;
 
-    public MedidaUseCase(MedidaRepositoryPort medidaRepositoryPort) {
-        this.medidaRepositoryPort = medidaRepositoryPort;
+    public MedidaUseCase(MedidaRepository medidaRepository) {
+        this.medidaRepository = medidaRepository;
     }
 
     @Override
     public Medida save(Medida medida) {
-        return medidaRepositoryPort.save(medida);
+        return medidaRepository.save(medida);
     }
 
     @Override
     public Medida update(UUID uuid, Medida medida) {
-        return medidaRepositoryPort.update(uuid, medida);
+        return medidaRepository.update(uuid, medida);
     }
 
     @Override
     public void delete(UUID uuid) {
-        medidaRepositoryPort.delete(uuid);
+        medidaRepository.delete(uuid);
     }
 
     @Override
     public Medida getById(UUID uuid) {
-        return medidaRepositoryPort.findById(uuid);
+        return medidaRepository.findById(uuid);
     }
 
     @Override
     public List<Medida> getAll(UUID hospitalId, int page, int rows) {
-        return medidaRepositoryPort.findAll(hospitalId, page, rows);
+        return medidaRepository.findAll(hospitalId, page, rows);
     }
 }

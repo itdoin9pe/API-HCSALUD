@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.security;
 
-import com.saludsystem.submodules.adapter.jwt.CustomerUserDetails;
+import com.saludsystem.submodules.security.jwt.CustomerUserDetails;
 import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
