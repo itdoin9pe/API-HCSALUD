@@ -1,9 +1,7 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
 import com.saludsystem.submodules.catalogo.model.dto.ApoderadoDTO;
-import com.saludsystem.submodules.catalogo.mapper.ApoderadoMapper;
-import com.saludsystem.submodules.catalogo.model.Apoderado;
-import com.saludsystem.submodules.catalogo.port.dao.ApoderadoDao;
+import com.saludsystem.submodules.catalogo.service.apoderado.ApoderadoByIdService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -11,14 +9,13 @@ import java.util.UUID;
 @Component
 public class ApoderadoByIdHandler {
 
-    private final ApoderadoDao service;
+    private final ApoderadoByIdService apoderadoByIdService;
 
-    public ApoderadoByIdHandler(ApoderadoDao service) {
-        this.service = service;
+    public ApoderadoByIdHandler(ApoderadoByIdService apoderadoByIdService) {
+        this.apoderadoByIdService = apoderadoByIdService;
     }
 
-    public ApoderadoDTO execute(UUID id) {
-        Apoderado model = service.getById(id);
-        return ApoderadoMapper.toDto(model);
+    public ApoderadoDTO execute(UUID uuid) {
+        return apoderadoByIdService.execute(uuid);
     }
 }

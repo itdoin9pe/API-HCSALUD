@@ -1,8 +1,7 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
 import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarApoderadoDTO;
-import com.saludsystem.submodules.catalogo.mapper.ApoderadoMapper;
-import com.saludsystem.submodules.catalogo.port.dao.ApoderadoDao;
+import com.saludsystem.submodules.catalogo.service.apoderado.ApoderadoEditService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -10,13 +9,13 @@ import java.util.UUID;
 @Component
 public class ApoderadoEditHandler {
 
-    private final ApoderadoDao service;
+    private final ApoderadoEditService apoderadoEditService;
 
-    public ApoderadoEditHandler(ApoderadoDao service) {
-        this.service = service;
+    public ApoderadoEditHandler(ApoderadoEditService apoderadoEditService) {
+        this.apoderadoEditService = apoderadoEditService;
     }
 
-    public void execute(UUID id, ActualizarApoderadoDTO dto) {
-        service.update(id, ApoderadoMapper.fromUpdateDto(id, dto));
+    public void execute(UUID uuid, ActualizarApoderadoDTO dto) {
+        apoderadoEditService.execute(uuid, dto);
     }
 }

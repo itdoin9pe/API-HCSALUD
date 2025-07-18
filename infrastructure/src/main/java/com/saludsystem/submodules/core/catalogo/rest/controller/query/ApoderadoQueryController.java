@@ -4,6 +4,8 @@ import com.saludsystem.submodules.catalogo.model.dto.ApoderadoDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.ApoderadoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.ApoderadoByIdHandler;
 import com.saludsystem.submodules.catalogo.response.ApoderadoListResponse;
+import com.saludsystem.submodules.response.ListResponse;
+import com.saludsystem.submodules.response.PaginationRequest;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -37,9 +39,9 @@ public class ApoderadoQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = ApoderadoListResponse.class)))
     })
-    public List<ApoderadoDTO> getAll(
+    public ListResponse<ApoderadoDTO> getAll(
             @RequestParam UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
-        return allHandler.execute(hospitalId, page, rows);
+        return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 }
