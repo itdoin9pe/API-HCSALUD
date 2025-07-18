@@ -1,25 +1,23 @@
 package com.saludsystem.submodules.catalogo.query.getAll;
 
 import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoDTO;
-import com.saludsystem.submodules.catalogo.mapper.ConsentimientoMapper;
-import com.saludsystem.submodules.catalogo.model.Consentimiento;
-import com.saludsystem.submodules.catalogo.port.dao.ConsentimientoDao;
+import com.saludsystem.submodules.catalogo.service.consentimiento.ConsentimientoAllService;
+import com.saludsystem.submodules.response.ListResponse;
+import com.saludsystem.submodules.response.PaginationRequest;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component
 public class ConsentimientoAllHandler {
 
-    private final ConsentimientoDao consentimientoDao;
+    private final ConsentimientoAllService consentimientoAllService;
 
-    public ConsentimientoAllHandler(ConsentimientoDao consentimientoDao) {
-        this.consentimientoDao = consentimientoDao;
+    public ConsentimientoAllHandler(ConsentimientoAllService consentimientoAllService) {
+        this.consentimientoAllService = consentimientoAllService;
     }
 
-    public List<ConsentimientoDTO> execute(UUID hospitalId, int page, int rows) {
-        List<Consentimiento> models = consentimientoDao.getAll(hospitalId, page, rows);
-        return models.stream().map(ConsentimientoMapper::toDto).toList();
+    public ListResponse<ConsentimientoDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
+        return consentimientoAllService.execute(hospitalId, paginationRequest);
     }
 }

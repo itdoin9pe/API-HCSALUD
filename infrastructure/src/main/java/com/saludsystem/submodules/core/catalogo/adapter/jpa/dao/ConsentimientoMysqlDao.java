@@ -1,10 +1,10 @@
 package com.saludsystem.submodules.core.catalogo.adapter.jpa.dao;
 
 import com.saludsystem.submodules.catalogo.model.Consentimiento;
-import com.saludsystem.submodules.catalogo.port.repository.ConsentimientoRepository;
-import com.saludsystem.submodules.core.catalogo.adapter.entity.ConsentimientoEntity;
+import com.saludsystem.submodules.catalogo.port.dao.ConsentimientoDao;
 import com.saludsystem.submodules.core.catalogo.adapter.jpa.ConsentimientoJpaRepository;
 import com.saludsystem.submodules.core.catalogo.adapter.mapper.ConsentimientoDboMapper;
+import com.saludsystem.submodules.response.ListResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class ConsentimientoMysqlDao implements ConsentimientoRepository {
+public class ConsentimientoMysqlDao implements ConsentimientoDao {
 
     private final ConsentimientoJpaRepository consentimientoJpaRepository;
 
@@ -21,36 +21,20 @@ public class ConsentimientoMysqlDao implements ConsentimientoRepository {
     }
 
     @Override
-    public Consentimiento save(Consentimiento consentimiento) {
-        ConsentimientoEntity entity = ConsentimientoDboMapper.toEntity(consentimiento);
-        return ConsentimientoDboMapper.toDomain(consentimientoJpaRepository.save(entity));
-    }
-
-    @Override
-    public Consentimiento update(UUID uuid, Consentimiento consentimiento) {
-        consentimiento.setId(uuid);
-        ConsentimientoEntity entity = ConsentimientoDboMapper.toEntity(consentimiento);
-        return ConsentimientoDboMapper.toDomain(consentimientoJpaRepository.save(entity));
-    }
-
-    @Override
-    public void delete(UUID uuid) {
-        consentimientoJpaRepository.deleteById(uuid);
-    }
-
-    @Override
-    public Consentimiento findById(UUID uuid) {
+    public Consentimiento getById(UUID uuid) {
         return consentimientoJpaRepository.findById(uuid).map(ConsentimientoDboMapper::toDomain).orElse(null);
     }
 
     @Override
-    public List<Consentimiento> findAll(UUID hospitalId, int page, int rows) {
-        return consentimientoJpaRepository.findAllByHospital_HospitalId(hospitalId, PageRequest.of(page, rows))
-                .stream().map(ConsentimientoDboMapper::toDomain).toList();
+    public ListResponse<Consentimiento> getAll(UUID hospitalId, int page, int rows) {
+        var pageable = PageRequest.of(page - 1, rows);
+        var pageResult = consentimientoJpaRepository.findAllByHospital_HospitalId(hospitalId, pageable);
+        List<Consentimiento> data = pageResult.getContent().stream().map(ConsentimientoDboMapper::toDomain).toList();
+        return new ListResponse<>(data, pageResult.getTotalElements(), pageResult.getTotalPages(), page);
     }
 
     @Override
-    public long countByHospitalId(UUID hospitalId) {
-        return consentimientoJpaRepository.countByHospital_HospitalId(hospitalId);
+    public List<Consentimiento> getList() {
+        return consentimientoJpaRepository.findAll().stream().map(ConsentimientoDboMapper::toDomain).toList();
     }
 }

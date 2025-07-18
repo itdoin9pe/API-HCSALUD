@@ -1,20 +1,19 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
 import com.saludsystem.submodules.catalogo.model.dto.command.CrearConsentimientoDTO;
-import com.saludsystem.submodules.catalogo.mapper.ConsentimientoMapper;
-import com.saludsystem.submodules.catalogo.port.dao.ConsentimientoDao;
+import com.saludsystem.submodules.catalogo.service.consentimiento.ConsentimientoCreateService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ConsentimientoCreateHandler {
 
-    private final ConsentimientoDao consentimientoDao;
+    private final ConsentimientoCreateService consentimientoCreateService;
 
-    public ConsentimientoCreateHandler(ConsentimientoDao consentimientoDao) {
-        this.consentimientoDao = consentimientoDao;
+    public ConsentimientoCreateHandler(ConsentimientoCreateService consentimientoCreateService) {
+        this.consentimientoCreateService = consentimientoCreateService;
     }
 
-    public void execute(CrearConsentimientoDTO dto){
-        consentimientoDao.save(ConsentimientoMapper.fromCreateDto(dto));
+    public void execute(CrearConsentimientoDTO dto) {
+        consentimientoCreateService.execute(dto);
     }
 }

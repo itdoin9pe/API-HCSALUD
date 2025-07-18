@@ -1,9 +1,7 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
 import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoDTO;
-import com.saludsystem.submodules.catalogo.mapper.ConsentimientoMapper;
-import com.saludsystem.submodules.catalogo.model.Consentimiento;
-import com.saludsystem.submodules.catalogo.port.dao.ConsentimientoDao;
+import com.saludsystem.submodules.catalogo.service.consentimiento.ConsentimientoByIdService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -11,14 +9,13 @@ import java.util.UUID;
 @Component
 public class ConsentimientoByIdHandler {
 
-    private final ConsentimientoDao consentimientoDao;
+    private final ConsentimientoByIdService consentimientoByIdService;
 
-    public ConsentimientoByIdHandler(ConsentimientoDao consentimientoDao) {
-        this.consentimientoDao = consentimientoDao;
+    public ConsentimientoByIdHandler(ConsentimientoByIdService consentimientoByIdService) {
+        this.consentimientoByIdService = consentimientoByIdService;
     }
 
     public ConsentimientoDTO execute(UUID uuid) {
-        Consentimiento model = consentimientoDao.getById(uuid);
-        return ConsentimientoMapper.toDto(model);
+        return consentimientoByIdService.execute(uuid);
     }
 }

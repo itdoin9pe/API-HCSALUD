@@ -3,7 +3,10 @@ package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.ConsentimientoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.ConsentimientoByIdHandler;
+import com.saludsystem.submodules.catalogo.query.getList.ConsentimientoListHandler;
 import com.saludsystem.submodules.catalogo.response.ConsentimientoListResponse;
+import com.saludsystem.submodules.response.ListResponse;
+import com.saludsystem.submodules.response.PaginationRequest;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,10 +23,17 @@ public class ConsentimientoQueryController {
 
     private final ConsentimientoByIdHandler byIdHandler;
     private final ConsentimientoAllHandler allHandler;
+    private final ConsentimientoListHandler listHandler;
 
-    public ConsentimientoQueryController(ConsentimientoByIdHandler byIdHandler, ConsentimientoAllHandler allHandler) {
+    public ConsentimientoQueryController(ConsentimientoByIdHandler byIdHandler, ConsentimientoAllHandler allHandler, ConsentimientoListHandler listHandler) {
         this.byIdHandler = byIdHandler;
         this.allHandler = allHandler;
+        this.listHandler = listHandler;
+    }
+
+    @GetMapping("/GetList")
+    public List<ConsentimientoDTO> getList() {
+        return listHandler.execute();
     }
 
     @GetMapping("/GetById/{id}")
@@ -37,9 +47,9 @@ public class ConsentimientoQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = ConsentimientoListResponse.class)))
     })
-    public List<ConsentimientoDTO> getAllPaginated(
+    public ListResponse<ConsentimientoDTO> getAllPaginated(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId, @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows) {
-        return allHandler.execute(hospitalId, page, rows);
+        return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 }

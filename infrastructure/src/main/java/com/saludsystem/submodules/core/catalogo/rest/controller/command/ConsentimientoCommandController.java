@@ -3,6 +3,7 @@ package com.saludsystem.submodules.core.catalogo.rest.controller.command;
 import com.saludsystem.submodules.catalogo.command.create.ConsentimientoCreateHandler;
 import com.saludsystem.submodules.catalogo.command.delete.ConsentimientoDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.ConsentimientoEditHandler;
+import com.saludsystem.submodules.catalogo.model.constant.ConsentimientoConstant;
 import com.saludsystem.submodules.catalogo.model.dto.command.CrearConsentimientoDTO;
 import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarConsentimientoDTO;
 import com.saludsystem.submodules.response.ApiResponse;
@@ -29,18 +30,18 @@ public class ConsentimientoCommandController {
     @PostMapping("/Save")
     public ApiResponse save(@RequestBody CrearConsentimientoDTO dto) {
         createHandler.execute(dto);
-        return new ApiResponse(true, "Registro agregado");
+        return new ApiResponse(true, ConsentimientoConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
     public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarConsentimientoDTO dto) {
         editHandler.execute(id, dto);
-        return new ApiResponse(true, "Registro actualizado exitosamente");
+        return new ApiResponse(true, ConsentimientoConstant.UPDATED);
     }
 
     @DeleteMapping("/Delete/{id}")
     public ApiResponse delete(@PathVariable UUID id) {
         deleteHandler.execute(id);
-        return new ApiResponse(true, "Registro eliminado exitosamente");
+        return new ApiResponse(true, ConsentimientoConstant.DELETED);
     }
 }
