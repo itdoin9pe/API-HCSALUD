@@ -1,8 +1,7 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
 import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarCategoriaDTO;
-import com.saludsystem.submodules.catalogo.mapper.CategoriaMapper;
-import com.saludsystem.submodules.catalogo.port.dao.CategoriaDao;
+import com.saludsystem.submodules.catalogo.service.categoria.CategoriaEditService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -10,13 +9,13 @@ import java.util.UUID;
 @Component
 public class CategoriaEditHandler {
 
-    private final CategoriaDao categoriaDao;
+    private final CategoriaEditService categoriaEditService;
 
-    public CategoriaEditHandler(CategoriaDao categoriaDao) {
-        this.categoriaDao = categoriaDao;
+    public CategoriaEditHandler(CategoriaEditService categoriaEditService) {
+        this.categoriaEditService = categoriaEditService;
     }
 
     public void execute(UUID uuid, ActualizarCategoriaDTO dto) {
-        categoriaDao.update(uuid, CategoriaMapper.fromUpdateDto(uuid, dto));
+        categoriaEditService.execute(uuid, dto);
     }
 }

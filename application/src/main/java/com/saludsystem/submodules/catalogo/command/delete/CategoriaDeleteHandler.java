@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.delete;
 
-import com.saludsystem.submodules.catalogo.port.dao.CategoriaDao;
+import com.saludsystem.submodules.catalogo.service.categoria.CategoriaDeleteService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -8,13 +8,13 @@ import java.util.UUID;
 @Component
 public class CategoriaDeleteHandler {
 
-    private final CategoriaDao categoriaDao;
+    private final CategoriaDeleteService categoriaDeleteService;
 
-    public CategoriaDeleteHandler(CategoriaDao categoriaDao) {
-        this.categoriaDao = categoriaDao;
+    public CategoriaDeleteHandler(CategoriaDeleteService categoriaDeleteService) {
+        this.categoriaDeleteService = categoriaDeleteService;
     }
 
-    public void execute(UUID uuid){
-        categoriaDao.delete(uuid);
+    public void execute(UUID uuid) {
+        categoriaDeleteService.execute(uuid);
     }
 }

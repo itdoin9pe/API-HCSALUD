@@ -22,6 +22,7 @@ public class AlergiaAllService {
                 .map(AlergiaMapper::toDto)
                 .toList();
 
-        return new ListResponse<>(data, result.getTotalElements(), result.getTotalPages(), result.getCurrentPage());
+        return new ListResponse<>(data, result.getTotalElements(),
+                result.getTotalPages(), result.getCurrentPage());
     }
 }

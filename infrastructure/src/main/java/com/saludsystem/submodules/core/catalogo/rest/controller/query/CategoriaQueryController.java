@@ -4,6 +4,9 @@ import com.saludsystem.submodules.catalogo.model.dto.CategoriaDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.CategoriaAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.CategoriaByIdHandler;
 import com.saludsystem.submodules.catalogo.response.CategoriaListResponse;
+import com.saludsystem.submodules.catalogo.service.categoria.CategoriaListService;
+import com.saludsystem.submodules.response.ListResponse;
+import com.saludsystem.submodules.response.PaginationRequest;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,10 +26,17 @@ public class CategoriaQueryController {
 
     private final CategoriaByIdHandler byIdHandler;
     private final CategoriaAllHandler allHandler;
+    private final CategoriaListService listService;
 
-    public CategoriaQueryController(CategoriaByIdHandler byIdHandler, CategoriaAllHandler allHandler) {
+    public CategoriaQueryController(CategoriaByIdHandler byIdHandler, CategoriaAllHandler allHandler, CategoriaListService listService) {
         this.byIdHandler = byIdHandler;
         this.allHandler = allHandler;
+        this.listService = listService;
+    }
+
+    @GetMapping("/GetList")
+    public List<CategoriaDTO> getList() {
+        return listService.execute();
     }
 
     @GetMapping("/GetById/{id}")
@@ -40,7 +50,7 @@ public class CategoriaQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = CategoriaListResponse.class)))
     })
-    public List<CategoriaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return allHandler.execute(hospitalId, page, rows);
+    public ListResponse<CategoriaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 }
