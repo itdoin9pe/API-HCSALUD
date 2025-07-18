@@ -3,6 +3,7 @@
     import com.saludsystem.submodules.catalogo.command.create.CategoriaCreateHandler;
     import com.saludsystem.submodules.catalogo.command.delete.CategoriaDeleteHandler;
     import com.saludsystem.submodules.catalogo.command.edit.CategoriaEditHandler;
+    import com.saludsystem.submodules.catalogo.model.constant.CategoriaConstant;
     import com.saludsystem.submodules.catalogo.model.dto.command.CrearCategoriaDTO;
     import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarCategoriaDTO;
     import com.saludsystem.submodules.response.ApiResponse;
@@ -29,18 +30,18 @@
         @PostMapping("/Save")
         public ApiResponse save(@RequestBody CrearCategoriaDTO dto) {
             createHandler.execute(dto);
-            return new ApiResponse(true, "Registro agregado");
+            return new ApiResponse(true, CategoriaConstant.CREATED);
         }
 
         @PutMapping("/Update/{id}")
         public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarCategoriaDTO dto) {
             editHandler.execute(id, dto);
-            return new ApiResponse(true, "Registro actualizado exitosamente");
+            return new ApiResponse(true, CategoriaConstant.UPDATED);
         }
 
         @DeleteMapping("/Delete/{id}")
         public ApiResponse delete(@PathVariable UUID id) {
             deleteHandler.execute(id);
-            return new ApiResponse(true, "Registro eliminado exitosamente");
+            return new ApiResponse(true, CategoriaConstant.DELETED);
         }
     }

@@ -1,19 +1,20 @@
 package com.saludsystem.submodules.catalogo.command.delete;
 
-import com.saludsystem.submodules.catalogo.port.dao.ClienteDao;
+import com.saludsystem.submodules.catalogo.service.cliente.ClienteDeleteService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 public class ClienteDeleteHandler {
-    private final ClienteDao clienteService;
 
-    public ClienteDeleteHandler(ClienteDao clienteService) {
-        this.clienteService = clienteService;
+    private final ClienteDeleteService clienteDeleteService;
+
+    public ClienteDeleteHandler(ClienteDeleteService clienteDeleteService) {
+        this.clienteDeleteService = clienteDeleteService;
     }
 
-    public void execute(UUID uuid){
-        clienteService.delete(uuid);
+    public void execute(UUID uuid) {
+        clienteDeleteService.execute(uuid);
     }
 }

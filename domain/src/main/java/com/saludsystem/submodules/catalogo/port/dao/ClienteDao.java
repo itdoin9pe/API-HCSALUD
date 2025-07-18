@@ -1,14 +1,13 @@
 package com.saludsystem.submodules.catalogo.port.dao;
 
 import com.saludsystem.submodules.catalogo.model.Cliente;
+import com.saludsystem.submodules.response.ListResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface ClienteDao {
-    Cliente save(Cliente cliente);
-    Cliente update(UUID uuid, Cliente cliente);
-    void delete(UUID uuid);
     Cliente getById(UUID uuid);
-    List<Cliente> getAll(UUID hospitalId, int page, int rows);
+    ListResponse<Cliente> getAll(UUID hospitalId, int page, int rows);
+    List<Cliente> getList();
 }
