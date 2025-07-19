@@ -1,23 +1,21 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
 import com.saludsystem.submodules.catalogo.model.dto.EspecialidadDTO;
-import com.saludsystem.submodules.catalogo.mapper.EspecialidadMapper;
-import com.saludsystem.submodules.catalogo.model.Especialidad;
-import com.saludsystem.submodules.catalogo.port.dao.EspecialidadDao;
+import com.saludsystem.submodules.catalogo.service.especialidad.EspecialidadByIdService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 public class EspecialidadByIdHandler {
-    private final EspecialidadDao especialidadDao;
 
-    public EspecialidadByIdHandler(EspecialidadDao especialidadDao) {
-        this.especialidadDao = especialidadDao;
+    private final EspecialidadByIdService especialidadByIdService;
+
+    public EspecialidadByIdHandler(EspecialidadByIdService especialidadByIdService) {
+        this.especialidadByIdService = especialidadByIdService;
     }
 
     public EspecialidadDTO execute(UUID uuid) {
-        Especialidad model = especialidadDao.getById(uuid);
-        return EspecialidadMapper.toDto(model);
+        return especialidadByIdService.execute(uuid);
     }
 }

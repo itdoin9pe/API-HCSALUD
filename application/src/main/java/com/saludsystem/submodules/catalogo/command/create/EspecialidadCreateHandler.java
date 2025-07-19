@@ -1,20 +1,19 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
 import com.saludsystem.submodules.catalogo.model.dto.command.CrearEspecialidadDTO;
-import com.saludsystem.submodules.catalogo.mapper.EspecialidadMapper;
-import com.saludsystem.submodules.catalogo.port.repository.EspecialidadRepository;
+import com.saludsystem.submodules.catalogo.service.especialidad.EspecialidadCreateService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EspecialidadCreateHandler {
-    private final EspecialidadRepository especialidadRepository;
 
-    public EspecialidadCreateHandler(EspecialidadRepository especialidadRepository) {
-        this.especialidadRepository = especialidadRepository;
+    private final EspecialidadCreateService especialidadCreateService;
+
+    public EspecialidadCreateHandler(EspecialidadCreateService especialidadCreateService) {
+        this.especialidadCreateService = especialidadCreateService;
     }
 
     public void execute(CrearEspecialidadDTO dto) {
-        especialidadRepository.save(EspecialidadMapper.fromCreateDto(dto));
+        especialidadCreateService.execute(dto);
     }
-
 }

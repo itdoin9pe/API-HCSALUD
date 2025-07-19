@@ -1,19 +1,20 @@
 package com.saludsystem.submodules.catalogo.command.delete;
 
-import com.saludsystem.submodules.catalogo.port.repository.EspecialidadRepository;
+import com.saludsystem.submodules.catalogo.service.especialidad.EspecialidadDeleteService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 public class EspecialidadDeleteHandler {
-    private final EspecialidadRepository especialidadRepository;
 
-    public EspecialidadDeleteHandler(EspecialidadRepository especialidadRepository) {
-        this.especialidadRepository = especialidadRepository;
+    private final EspecialidadDeleteService especialidadDeleteService;
+
+    public EspecialidadDeleteHandler(EspecialidadDeleteService especialidadDeleteService) {
+        this.especialidadDeleteService = especialidadDeleteService;
     }
 
-    public void execute(UUID uuid){
-        especialidadRepository.delete(uuid);
+    public void execute(UUID uuid) {
+        especialidadDeleteService.execute(uuid);
     }
 }
