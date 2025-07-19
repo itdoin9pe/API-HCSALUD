@@ -3,6 +3,7 @@ package com.saludsystem.submodules.core.catalogo.rest.controller.command;
 import com.saludsystem.submodules.catalogo.command.create.MedicamentoCreateHandler;
 import com.saludsystem.submodules.catalogo.command.delete.MedicamentoDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.MedicamentoEditHandler;
+import com.saludsystem.submodules.catalogo.model.constant.MedicamentoConstant;
 import com.saludsystem.submodules.catalogo.model.dto.command.CrearMedicamentoDTO;
 import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarMedicamentoDTO;
 import com.saludsystem.submodules.response.ApiResponse;
@@ -29,18 +30,18 @@ public class MedicamentoCommandController {
     @PostMapping("/Save")
     public ApiResponse save(@RequestBody CrearMedicamentoDTO dto) {
         createHandler.execute(dto);
-        return new ApiResponse(true, "Registro agregado");
+        return new ApiResponse(true, MedicamentoConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
     public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarMedicamentoDTO dto) {
         editHandler.execute(id, dto);
-        return new ApiResponse(true, "Registro actualizado exitosamente");
+        return new ApiResponse(true, MedicamentoConstant.UPDATED);
     }
 
     @DeleteMapping("/Delete/{id}")
     public ApiResponse delete(@PathVariable UUID id) {
         deleteHandler.execute(id);
-        return new ApiResponse(true, "Registro eliminado exitosamente");
+        return new ApiResponse(true, MedicamentoConstant.DELETED);
     }
 }
