@@ -1,10 +1,10 @@
 package com.saludsystem.submodules.core.catalogo.adapter.jpa.dao;
 
 import com.saludsystem.submodules.catalogo.model.Plan;
-import com.saludsystem.submodules.catalogo.port.repository.PlanRepository;
-import com.saludsystem.submodules.core.catalogo.adapter.entity.PlanEntity;
+import com.saludsystem.submodules.catalogo.port.dao.PlanDao;
 import com.saludsystem.submodules.core.catalogo.adapter.jpa.PlanJpaRepository;
 import com.saludsystem.submodules.core.catalogo.adapter.mapper.PlanDboMapper;
+import com.saludsystem.submodules.response.ListResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class PlanMysqlDao implements PlanRepository {
+public class PlanMysqlDao implements PlanDao {
 
     private final PlanJpaRepository planJpaRepository;
 
@@ -21,36 +21,23 @@ public class PlanMysqlDao implements PlanRepository {
     }
 
     @Override
-    public Plan save(Plan plan) {
-        PlanEntity entity = PlanDboMapper.toEntity(plan);
-        return PlanDboMapper.toDomain(planJpaRepository.save(entity));
-    }
-
-    @Override
-    public Plan update(UUID uuid, Plan plan) {
-        plan.setId(uuid);
-        PlanEntity entity = PlanDboMapper.toEntity(plan);
-        return PlanDboMapper.toDomain(planJpaRepository.save(entity));
-    }
-
-    @Override
-    public void delete(UUID uuid) {
-        planJpaRepository.deleteById(uuid);
-    }
-
-    @Override
-    public Plan findById(UUID uuid) {
+    public Plan getById(UUID uuid) {
         return planJpaRepository.findById(uuid).map(PlanDboMapper::toDomain).orElse(null);
     }
 
     @Override
-    public List<Plan> findAll(UUID hospitalId, int page, int rows) {
-        return planJpaRepository.findAllByHospital_HospitalId(hospitalId, PageRequest.of(page, rows))
-                .stream().map(PlanDboMapper::toDomain).toList();
+    public ListResponse<Plan> getAll(UUID hospitalId, int page, int rows) {
+        var pageable = PageRequest.of(page - 1, rows);
+        var pageResult = planJpaRepository.findAllByHospital_HospitalId(hospitalId, pageable);
+        List<Plan> data = pageResult.getContent()
+                .stream()
+                .map(PlanDboMapper::toDomain)
+                .toList();
+        return new ListResponse<>(data, pageResult.getTotalElements(), pageResult.getTotalPages(), page);
     }
 
     @Override
-    public long countByHospitalId(UUID hospitalId) {
-        return planJpaRepository.countByHospital_HospitalId(hospitalId);
+    public List<Plan> getList() {
+        return planJpaRepository.findAll().stream().map(PlanDboMapper::toDomain).toList();
     }
 }

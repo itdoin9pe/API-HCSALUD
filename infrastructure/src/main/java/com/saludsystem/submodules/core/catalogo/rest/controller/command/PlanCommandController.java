@@ -3,6 +3,7 @@ package com.saludsystem.submodules.core.catalogo.rest.controller.command;
 import com.saludsystem.submodules.catalogo.command.create.PlanCreateHandler;
 import com.saludsystem.submodules.catalogo.command.delete.PlanDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.PlanEditHandler;
+import com.saludsystem.submodules.catalogo.model.constant.PlanConstant;
 import com.saludsystem.submodules.catalogo.model.dto.command.CrearPlanDTO;
 import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarPlanDTO;
 import com.saludsystem.submodules.response.ApiResponse;
@@ -29,18 +30,18 @@ public class PlanCommandController {
     @PostMapping("/Save")
     public ApiResponse save(@RequestBody CrearPlanDTO dto) {
         createHandler.execute(dto);
-        return new ApiResponse(true, "Registro agregado");
+        return new ApiResponse(true, PlanConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
     public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarPlanDTO dto) {
         editHandler.execute(id, dto);
-        return new ApiResponse(true, "Registro actualizado exitosamente");
+        return new ApiResponse(true, PlanConstant.UPDATED);
     }
 
     @DeleteMapping("/Delete/{id}")
     public ApiResponse delete(@PathVariable UUID id) {
         deleteHandler.execute(id);
-        return new ApiResponse(true, "Registro eliminado exitosamente");
+        return new ApiResponse(true, PlanConstant.DELETED);
     }
 }
