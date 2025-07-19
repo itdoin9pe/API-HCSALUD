@@ -1,23 +1,21 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
 import com.saludsystem.submodules.catalogo.model.dto.MedidaDTO;
-import com.saludsystem.submodules.catalogo.mapper.MedidaMapper;
-import com.saludsystem.submodules.catalogo.model.Medida;
-import com.saludsystem.submodules.catalogo.port.dao.MedidaDao;
+import com.saludsystem.submodules.catalogo.service.medida.MedidaByIdService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 public class MedidaByIdHandler {
-    private final MedidaDao medidaDao;
 
-    public MedidaByIdHandler(MedidaDao medidaDao) {
-        this.medidaDao = medidaDao;
+    private final MedidaByIdService medidaByIdService;
+
+    public MedidaByIdHandler(MedidaByIdService medidaByIdService) {
+        this.medidaByIdService = medidaByIdService;
     }
 
     public MedidaDTO execute(UUID uuid) {
-        Medida model = medidaDao.getById(uuid);
-        return MedidaMapper.toDto(model);
+        return medidaByIdService.execute(uuid);
     }
 }

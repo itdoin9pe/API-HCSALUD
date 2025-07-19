@@ -3,6 +3,7 @@ package com.saludsystem.submodules.core.catalogo.rest.controller.command;
 import com.saludsystem.submodules.catalogo.command.create.MedidaCreateHandler;
 import com.saludsystem.submodules.catalogo.command.delete.MedidaDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.MedidaEditHandler;
+import com.saludsystem.submodules.catalogo.model.constant.MedidaConstant;
 import com.saludsystem.submodules.catalogo.model.dto.command.CrearMedidaDTO;
 import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarMedidaDTO;
 import com.saludsystem.submodules.response.ApiResponse;
@@ -29,18 +30,18 @@ public class MedidaCommandController {
     @PostMapping("/Save")
     public ApiResponse save(@RequestBody CrearMedidaDTO dto) {
         createHandler.execute(dto);
-        return new ApiResponse(true, "Registro agregado");
+        return new ApiResponse(true, MedidaConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
     public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarMedidaDTO dto) {
         editHandler.execute(id, dto);
-        return new ApiResponse(true, "Registro actualizado exitosamente");
+        return new ApiResponse(true, MedidaConstant.UPDATED);
     }
 
     @DeleteMapping("/Delete/{id}")
     public ApiResponse delete(@PathVariable UUID id) {
         deleteHandler.execute(id);
-        return new ApiResponse(true, "Registro eliminado exitosamente");
+        return new ApiResponse(true, MedidaConstant.DELETED);
     }
 }

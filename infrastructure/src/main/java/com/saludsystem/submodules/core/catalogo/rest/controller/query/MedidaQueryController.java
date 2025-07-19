@@ -3,15 +3,15 @@ package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 import com.saludsystem.submodules.catalogo.model.dto.MedidaDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.MedidaAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.MedidaByIdHandler;
+import com.saludsystem.submodules.catalogo.query.getList.MedidaListHandler;
 import com.saludsystem.submodules.catalogo.response.MedidaListResponse;
+import com.saludsystem.submodules.response.ListResponse;
+import com.saludsystem.submodules.response.PaginationRequest;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,10 +23,17 @@ public class MedidaQueryController {
 
     private final MedidaAllHandler allHandler;
     private final MedidaByIdHandler byIdHandler;
+    private final MedidaListHandler listHandler;
 
-    public MedidaQueryController(MedidaAllHandler allHandler, MedidaByIdHandler byIdHandler) {
+    public MedidaQueryController(MedidaAllHandler allHandler, MedidaByIdHandler byIdHandler, MedidaListHandler listHandler) {
         this.allHandler = allHandler;
         this.byIdHandler = byIdHandler;
+        this.listHandler = listHandler;
+    }
+
+    @GetMapping("/GetList")
+    public List<MedidaDTO> getList() {
+        return listHandler.execute();
     }
 
     @GetMapping("/GetById/{id}")
@@ -40,7 +47,10 @@ public class MedidaQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = MedidaListResponse.class)))
     })
-    public List<MedidaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return allHandler.execute(hospitalId, page, rows);
+    public ListResponse<MedidaDTO> getAllPaginated(
+            @RequestParam UUID hospitalId,
+            @RequestParam(name = "Page") int page,
+            @RequestParam(name = "Rows") int rows) {
+        return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 }

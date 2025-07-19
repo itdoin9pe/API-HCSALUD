@@ -33,7 +33,8 @@ public class AlergiaMysqlDao implements AlergiaDao {
                 .stream()
                 .map(AlergiaDboMapper::toDomain)
                 .toList();
-        return new ListResponse<>(data, pageResult.getTotalElements(), pageResult.getTotalPages(), page);
+        return new ListResponse<>(data, pageResult.getTotalElements(),
+                pageResult.getTotalPages(), page);
     }
 
     @Override
