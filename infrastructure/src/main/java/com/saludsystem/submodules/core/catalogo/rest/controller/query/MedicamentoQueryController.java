@@ -3,7 +3,10 @@ package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 import com.saludsystem.submodules.catalogo.model.dto.MedicamentoDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.MedicamentoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.MedicamentoByIdHandler;
+import com.saludsystem.submodules.catalogo.query.getList.MedicamentoListHandler;
 import com.saludsystem.submodules.catalogo.response.MedicamentoListResponse;
+import com.saludsystem.submodules.response.ListResponse;
+import com.saludsystem.submodules.response.PaginationRequest;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,10 +26,17 @@ public class MedicamentoQueryController {
 
     private final MedicamentoAllHandler allHandler;
     private final MedicamentoByIdHandler byIdHandler;
+    private final MedicamentoListHandler listHandler;
 
-    public MedicamentoQueryController(MedicamentoAllHandler allHandler, MedicamentoByIdHandler byIdHandler) {
+    public MedicamentoQueryController(MedicamentoAllHandler allHandler, MedicamentoByIdHandler byIdHandler, MedicamentoListHandler listHandler) {
         this.allHandler = allHandler;
         this.byIdHandler = byIdHandler;
+        this.listHandler = listHandler;
+    }
+
+    @GetMapping("/GetList")
+    public List<MedicamentoDTO> getList() {
+        return listHandler.execute();
     }
 
     @GetMapping("/GetById/{id}")
@@ -40,7 +50,7 @@ public class MedicamentoQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = MedicamentoListResponse.class)))
     })
-    public List<MedicamentoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return allHandler.execute(hospitalId, page, rows);
+    public ListResponse<MedicamentoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+        return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 }

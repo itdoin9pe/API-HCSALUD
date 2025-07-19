@@ -2,16 +2,29 @@ package com.saludsystem.submodules.core.catalogo.adapter.mapper;
 
 import com.saludsystem.submodules.catalogo.model.Medicamento;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.MedicamentoEntity;
+import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
+import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
+
+import java.util.UUID;
 
 public class MedicamentoDboMapper {
 
-    public static MedicamentoEntity toEntity(Medicamento model) {
+    public static MedicamentoEntity toEntity(Medicamento model, UUID userId, UUID hospitalId) {
         MedicamentoEntity e = new MedicamentoEntity();
         e.setNombre(model.getNombre());
         e.setFormaFarmaceutica(model.getFormaFarmaceutica());
         e.setConcentracion(model.getConcentracion());
         e.setContenido(model.getContenido());
         e.setEstado(model.getEstado());
+
+        var userEntity = new UserEntity();
+        userEntity.setUserId(userId);
+        e.setUser(userEntity);
+
+        var hospitalEntity = new SysSaludEntity();
+        hospitalEntity.setHospitalId(hospitalId);
+        e.setHospital(hospitalEntity);
+
         return e;
     }
 
