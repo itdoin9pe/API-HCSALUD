@@ -26,7 +26,6 @@ public class TipoConceptoCommandController {
         this.deleteHandler = deleteHandler;
     }
 
-
     @PostMapping("/Save")
     public ApiResponse save(@RequestBody CrearTipoConceptoDTO dto) {
         createHandler.execute(dto);

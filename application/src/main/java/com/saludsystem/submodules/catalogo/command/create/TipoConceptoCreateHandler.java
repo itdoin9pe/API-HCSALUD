@@ -1,20 +1,19 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
 import com.saludsystem.submodules.catalogo.model.dto.command.CrearTipoConceptoDTO;
-import com.saludsystem.submodules.catalogo.mapper.TipoConceptoMapper;
-import com.saludsystem.submodules.catalogo.port.dao.TipoConceptoDao;
+import com.saludsystem.submodules.catalogo.service.tipoconcepto.TipoConceptoCreateService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TipoConceptoCreateHandler {
 
-    private final TipoConceptoDao tipoConceptoDao;
+    private final TipoConceptoCreateService tipoConceptoCreateService;
 
-    public TipoConceptoCreateHandler(TipoConceptoDao tipoConceptoDao) {
-        this.tipoConceptoDao = tipoConceptoDao;
+    public TipoConceptoCreateHandler(TipoConceptoCreateService tipoConceptoCreateService) {
+        this.tipoConceptoCreateService = tipoConceptoCreateService;
     }
 
     public void execute(CrearTipoConceptoDTO dto) {
-        tipoConceptoDao.save(TipoConceptoMapper.fromCreateDto(dto));
+        tipoConceptoCreateService.execute(dto);
     }
 }
