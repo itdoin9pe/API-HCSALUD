@@ -1,24 +1,23 @@
 package com.saludsystem.submodules.catalogo.query.getAll;
 
 import com.saludsystem.submodules.catalogo.model.dto.TipoCitadoDTO;
-import com.saludsystem.submodules.catalogo.mapper.TipoCitadoMapper;
-import com.saludsystem.submodules.catalogo.model.TipoCitado;
-import com.saludsystem.submodules.catalogo.port.dao.TipoCitadoDao;
+import com.saludsystem.submodules.catalogo.service.tipocitado.TipoCitadoAllService;
+import com.saludsystem.submodules.response.ListResponse;
+import com.saludsystem.submodules.response.PaginationRequest;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component
 public class TipoCitadoAllHandler {
-    private final TipoCitadoDao tipoCitadoDao;
 
-    public TipoCitadoAllHandler(TipoCitadoDao tipoCitadoDao) {
-        this.tipoCitadoDao = tipoCitadoDao;
+    private final TipoCitadoAllService tipoCitadoAllService;
+
+    public TipoCitadoAllHandler(TipoCitadoAllService tipoCitadoAllService) {
+        this.tipoCitadoAllService = tipoCitadoAllService;
     }
 
-    public List<TipoCitadoDTO> execute(UUID hospitalId, int page, int rows) {
-        List<TipoCitado> models = tipoCitadoDao.getAll(hospitalId, page, rows);
-        return models.stream().map(TipoCitadoMapper::toDto).toList();
+    public ListResponse<TipoCitadoDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
+        return tipoCitadoAllService.execute(hospitalId, paginationRequest);
     }
 }

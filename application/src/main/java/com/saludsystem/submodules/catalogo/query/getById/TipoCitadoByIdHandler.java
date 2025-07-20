@@ -1,23 +1,22 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
 import com.saludsystem.submodules.catalogo.model.dto.TipoCitadoDTO;
-import com.saludsystem.submodules.catalogo.mapper.TipoCitadoMapper;
-import com.saludsystem.submodules.catalogo.model.TipoCitado;
-import com.saludsystem.submodules.catalogo.port.dao.TipoCitadoDao;
+import com.saludsystem.submodules.catalogo.service.tipocitado.TipoCitadoByIdService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 public class TipoCitadoByIdHandler {
-    private final TipoCitadoDao tipoCitadoDao;
 
-    public TipoCitadoByIdHandler(TipoCitadoDao tipoCitadoDao) {
-        this.tipoCitadoDao = tipoCitadoDao;
+    private final TipoCitadoByIdService tipoCitadoByIdService;
+
+    public TipoCitadoByIdHandler(TipoCitadoByIdService tipoCitadoByIdService) {
+        this.tipoCitadoByIdService = tipoCitadoByIdService;
     }
 
     public TipoCitadoDTO execute(UUID uuid) {
-        TipoCitado model = tipoCitadoDao.getById(uuid);
-        return TipoCitadoMapper.toDto(model);
+        return tipoCitadoByIdService.execute(uuid);
     }
+
 }

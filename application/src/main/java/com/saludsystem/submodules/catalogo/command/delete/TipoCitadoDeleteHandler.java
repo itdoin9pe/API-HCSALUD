@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.delete;
 
-import com.saludsystem.submodules.catalogo.port.dao.TipoCitadoDao;
+import com.saludsystem.submodules.catalogo.service.tipocitado.TipoCitadoDeleteService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -8,13 +8,14 @@ import java.util.UUID;
 @Component
 public class TipoCitadoDeleteHandler {
 
-    public final TipoCitadoDao tipoCitadoDao;
+    public final TipoCitadoDeleteService tipoCitadoDeleteService;
 
-    public TipoCitadoDeleteHandler(TipoCitadoDao tipoCitadoDao) {
-        this.tipoCitadoDao = tipoCitadoDao;
+    public TipoCitadoDeleteHandler(TipoCitadoDeleteService tipoCitadoDeleteService) {
+        this.tipoCitadoDeleteService = tipoCitadoDeleteService;
     }
 
     public void execute(UUID uuid) {
-        tipoCitadoDao.delete(uuid);
+        tipoCitadoDeleteService.execute(uuid);
     }
+
 }

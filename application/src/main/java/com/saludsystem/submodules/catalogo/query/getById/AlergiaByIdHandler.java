@@ -6,15 +6,29 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+/**
+ * The type Alergia by id handler.
+ */
 @Component
 public class AlergiaByIdHandler {
 
     private final AlergiaByIdService alergiaByIdService;
 
+    /**
+     * Instantiates a new Alergia by id handler.
+     *
+     * @param alergiaByIdService the alergia by id service
+     */
     public AlergiaByIdHandler(AlergiaByIdService alergiaByIdService) {
         this.alergiaByIdService = alergiaByIdService;
     }
 
+    /**
+     * Execute alergia dto.
+     *
+     * @param id the id
+     * @return the alergia dto
+     */
     public AlergiaDTO execute(UUID id) {
         return alergiaByIdService.execute(id);
     }

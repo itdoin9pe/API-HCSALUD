@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
 import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarTipoCitadoDTO;
-import com.saludsystem.submodules.catalogo.mapper.TipoCitadoMapper;
-import com.saludsystem.submodules.catalogo.port.dao.TipoCitadoDao;
+import com.saludsystem.submodules.catalogo.service.tipocitado.TipoCitadoEditService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
 public class TipoCitadoEditHandler {
-    private final TipoCitadoDao tipoCitadoDao;
 
-    public TipoCitadoEditHandler(TipoCitadoDao tipoCitadoDao) {
-        this.tipoCitadoDao = tipoCitadoDao;
+    private final TipoCitadoEditService tipoCitadoEditService;
+
+    public TipoCitadoEditHandler(TipoCitadoEditService tipoCitadoEditService) {
+        this.tipoCitadoEditService = tipoCitadoEditService;
     }
 
     public void execute(UUID uuid, ActualizarTipoCitadoDTO dto) {
-        tipoCitadoDao.update(uuid, TipoCitadoMapper.fromUpdateDto(uuid, dto));
+        tipoCitadoEditService.execute(uuid, dto);
     }
 }
