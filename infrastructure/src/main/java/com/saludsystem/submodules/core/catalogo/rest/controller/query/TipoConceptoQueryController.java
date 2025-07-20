@@ -11,10 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -50,7 +47,10 @@ public class TipoConceptoQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = TipoConceptoListResponse.class)))
     })
-    public ListResponse<TipoConceptoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<TipoConceptoDTO> getAllPaginated(
+            @RequestParam UUID hospitalId,
+            @RequestParam(name = "Page") int page,
+            @RequestParam(name = "Rows") int rows) {
         return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 
