@@ -1,16 +1,14 @@
 package com.saludsystem.submodules.core.cita.adapter.jpa;
 
-import com.saludsystem.submodules.catalogo.model.Categoria;
-import com.saludsystem.submodules.cita.model.Cita;
+import com.saludsystem.submodules.core.cita.adapter.entity.CitaEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.UUID;
 
-public interface CitaJpaRepository {
-    Cita save(Cita cita);
-    Cita update(UUID uuid, Cita cita);
-    void delete(UUID uuid);
-    Cita findById(UUID uuid);
-    List<Categoria> findAll(UUID hospitalId, int page, int rows);
-    long countByHospitalId(UUID hospitalId);
+public interface CitaJpaRepository extends JpaRepository<CitaEntity, UUID> {
+
+    Page<CitaEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+
 }

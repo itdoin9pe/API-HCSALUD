@@ -1,18 +1,14 @@
-package com.saludsystem.submodules.cita.dtos.put;
+package com.saludsystem.submodules.cita.model.dtos.post;
 
-import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
-@EqualsAndHashCode(callSuper = false)
 @Data
-public class ActualizarCitaDTO extends BaseDTO {
-    private UUID citadoId;
+public class CrearCitaDTO {
     private UUID tipoCitadoId;
     private UUID especialidadId;
     private UUID doctorId;
