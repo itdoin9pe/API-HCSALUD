@@ -18,6 +18,9 @@ public class AlergiaMapper {
     }
 
     public static AlergiaDTO toDto(Alergia model) {
-        return new AlergiaDTO(model.getId(), model.getNombre(), model.getEstado());
+        return new AlergiaDTO(
+                model.getId(),
+                model.getNombre(),
+                model.getEstado());
     }
 }

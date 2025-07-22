@@ -39,6 +39,9 @@ public class AlergiaMysqlDao implements AlergiaDao {
 
     @Override
     public List<Alergia> getList() {
-        return alergiaJpaRepository.findAll().stream().map(AlergiaDboMapper::toDomain).toList();
+        return alergiaJpaRepository.findAll()
+                .stream()
+                .map(AlergiaDboMapper::toDomain)
+                .toList();
     }
 }

@@ -46,8 +46,9 @@ public class CitaMysqlRepository implements CitaRepository {
 
     @Override
     public void delete(UUID uuid) {
-        CitaEntity entity = citaJpaRepository.findById(uuid)
-                .orElseThrow(() -> new ResourceNotFoundException(CitaConstant.ID_NOT_FOUND));
+        if (!citaJpaRepository.existsById(uuid)) {
+            throw new ResourceNotFoundException(CitaConstant.ID_NOT_FOUND);
+        }
         citaJpaRepository.deleteById(uuid);
     }
 }
