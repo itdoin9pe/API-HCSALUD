@@ -8,6 +8,7 @@ import com.saludsystem.submodules.mantenimiento.model.Cuenta;
 import com.saludsystem.submodules.mantenimiento.model.constant.CuentaConstant;
 import com.saludsystem.submodules.mantenimiento.port.service.CuentaRepository;
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -23,6 +24,7 @@ public class CuentaMysqlRepository implements CuentaRepository {
         this.authenticateUserPort = authenticateUserPort;
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public Cuenta save(Cuenta cuenta) {
         UUID userId = authenticateUserPort.getUserId();
@@ -31,6 +33,7 @@ public class CuentaMysqlRepository implements CuentaRepository {
         return CuentaDboMapper.toDomain(cuentaJpaRepository.save(entity));
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public Cuenta update(UUID uuid, Cuenta cuenta) {
         if (!cuentaJpaRepository.existsById(uuid)) {
@@ -42,6 +45,7 @@ public class CuentaMysqlRepository implements CuentaRepository {
         return CuentaDboMapper.toDomain(cuentaJpaRepository.save(entity));
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     @Override
     public void delete(UUID uuid) {
         if (!cuentaJpaRepository.existsById(uuid)) {
