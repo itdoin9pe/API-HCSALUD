@@ -10,4 +10,10 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 public class BancoDTO extends CrearBancoDTO {
     private UUID bancoId;
+
+    public BancoDTO(UUID id, String descripcion, Integer estado) {
+        this.setBancoId(id);
+        this.setDescripcion(descripcion);
+        this.setEstado(estado);
+    }
 }
