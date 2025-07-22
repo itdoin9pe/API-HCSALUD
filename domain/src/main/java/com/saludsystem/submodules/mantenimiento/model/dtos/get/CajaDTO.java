@@ -10,4 +10,10 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 public class CajaDTO extends CrearCajaDTO {
     private UUID cajaId;
+
+    public CajaDTO(UUID id, String nombre, Integer estado) {
+        this.setCajaId(id);
+        this.setNombre(nombre);
+        this.setEstado(estado);
+    }
 }
