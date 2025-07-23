@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.service.banco;
 
-import com.saludsystem.submodules.mantenimiento.port.service.BancoRepository;
+import com.saludsystem.submodules.mantenimiento.port.repository.BancoRepository;
 
 import java.util.UUID;
 

@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.service.enfermedad;
 
-import com.saludsystem.submodules.mantenimiento.port.service.EnfermedadRepository;
+import com.saludsystem.submodules.mantenimiento.port.repository.EnfermedadRepository;
 
 public class EnfermedadDeleteService {
 

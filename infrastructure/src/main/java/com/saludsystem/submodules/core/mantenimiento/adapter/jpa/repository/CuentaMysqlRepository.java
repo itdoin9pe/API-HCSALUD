@@ -6,7 +6,7 @@ import com.saludsystem.submodules.core.mantenimiento.adapter.jpa.CuentaJpaReposi
 import com.saludsystem.submodules.core.mantenimiento.adapter.mapper.CuentaDboMapper;
 import com.saludsystem.submodules.mantenimiento.model.Cuenta;
 import com.saludsystem.submodules.mantenimiento.model.constant.CuentaConstant;
-import com.saludsystem.submodules.mantenimiento.port.service.CuentaRepository;
+import com.saludsystem.submodules.mantenimiento.port.repository.CuentaRepository;
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;

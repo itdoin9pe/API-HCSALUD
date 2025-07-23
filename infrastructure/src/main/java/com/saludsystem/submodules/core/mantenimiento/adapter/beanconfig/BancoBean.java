@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.core.mantenimiento.adapter.beanconfig;
 
 import com.saludsystem.submodules.mantenimiento.port.dao.BancoDao;
-import com.saludsystem.submodules.mantenimiento.port.service.BancoRepository;
+import com.saludsystem.submodules.mantenimiento.port.repository.BancoRepository;
 import com.saludsystem.submodules.mantenimiento.service.banco.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

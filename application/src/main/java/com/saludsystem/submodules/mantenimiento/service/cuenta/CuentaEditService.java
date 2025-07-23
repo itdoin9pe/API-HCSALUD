@@ -3,7 +3,7 @@ package com.saludsystem.submodules.mantenimiento.service.cuenta;
 import com.saludsystem.submodules.mantenimiento.mapper.CuentaMapper;
 import com.saludsystem.submodules.mantenimiento.model.Cuenta;
 import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarCuentaDTO;
-import com.saludsystem.submodules.mantenimiento.port.service.CuentaRepository;
+import com.saludsystem.submodules.mantenimiento.port.repository.CuentaRepository;
 
 import java.util.UUID;
 

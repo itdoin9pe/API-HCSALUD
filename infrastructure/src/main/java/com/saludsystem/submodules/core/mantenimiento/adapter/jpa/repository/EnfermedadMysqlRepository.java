@@ -5,7 +5,7 @@ import com.saludsystem.submodules.core.mantenimiento.adapter.entity.EnfermedadEn
 import com.saludsystem.submodules.core.mantenimiento.adapter.jpa.EnfermedadJpaRepository;
 import com.saludsystem.submodules.core.mantenimiento.adapter.mapper.EnfermedadDboMapper;
 import com.saludsystem.submodules.mantenimiento.model.Enfermedad;
-import com.saludsystem.submodules.mantenimiento.port.service.EnfermedadRepository;
+import com.saludsystem.submodules.mantenimiento.port.repository.EnfermedadRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

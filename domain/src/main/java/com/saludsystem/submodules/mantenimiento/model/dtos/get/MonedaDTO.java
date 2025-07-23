@@ -12,4 +12,9 @@ public class MonedaDTO extends CrearMonedaDTO {
 
     private UUID monedaId;
 
+    public MonedaDTO(UUID id, String descripcion, Integer estado) {
+        this.setMonedaId(id);
+        this.setDescripcion(descripcion);
+        this.setEstado(estado);
+    }
 }

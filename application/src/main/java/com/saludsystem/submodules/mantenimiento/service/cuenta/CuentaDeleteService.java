@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.service.cuenta;
 
-import com.saludsystem.submodules.mantenimiento.port.service.CuentaRepository;
+import com.saludsystem.submodules.mantenimiento.port.repository.CuentaRepository;
 
 import java.util.UUID;
 

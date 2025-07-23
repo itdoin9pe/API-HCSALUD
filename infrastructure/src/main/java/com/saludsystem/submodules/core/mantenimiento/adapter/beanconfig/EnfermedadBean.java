@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.core.mantenimiento.adapter.beanconfig;
 
 import com.saludsystem.submodules.mantenimiento.port.dao.EnfermedadDao;
-import com.saludsystem.submodules.mantenimiento.port.service.EnfermedadRepository;
+import com.saludsystem.submodules.mantenimiento.port.repository.EnfermedadRepository;
 import com.saludsystem.submodules.mantenimiento.service.enfermedad.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -5,7 +5,7 @@ import com.saludsystem.submodules.core.mantenimiento.adapter.entity.CajaEntity;
 import com.saludsystem.submodules.core.mantenimiento.adapter.jpa.CajaJpaRepository;
 import com.saludsystem.submodules.core.mantenimiento.adapter.mapper.CajaDboMapper;
 import com.saludsystem.submodules.mantenimiento.model.Caja;
-import com.saludsystem.submodules.mantenimiento.port.service.CajaRepository;
+import com.saludsystem.submodules.mantenimiento.port.repository.CajaRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

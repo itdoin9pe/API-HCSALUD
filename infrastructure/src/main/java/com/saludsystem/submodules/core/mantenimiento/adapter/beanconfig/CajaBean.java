@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.core.mantenimiento.adapter.beanconfig;
 
 import com.saludsystem.submodules.mantenimiento.port.dao.CajaDao;
-import com.saludsystem.submodules.mantenimiento.port.service.CajaRepository;
+import com.saludsystem.submodules.mantenimiento.port.repository.CajaRepository;
 import com.saludsystem.submodules.mantenimiento.service.caja.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

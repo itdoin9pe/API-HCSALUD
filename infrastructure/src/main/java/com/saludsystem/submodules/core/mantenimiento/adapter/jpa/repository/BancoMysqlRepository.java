@@ -5,7 +5,7 @@ import com.saludsystem.submodules.core.mantenimiento.adapter.entity.BancoEntity;
 import com.saludsystem.submodules.core.mantenimiento.adapter.jpa.BancoJpaRepository;
 import com.saludsystem.submodules.core.mantenimiento.adapter.mapper.BancoDboMapper;
 import com.saludsystem.submodules.mantenimiento.model.Banco;
-import com.saludsystem.submodules.mantenimiento.port.service.BancoRepository;
+import com.saludsystem.submodules.mantenimiento.port.repository.BancoRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

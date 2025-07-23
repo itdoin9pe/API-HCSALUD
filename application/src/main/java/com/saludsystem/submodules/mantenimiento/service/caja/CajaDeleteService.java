@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.service.caja;
 
-import com.saludsystem.submodules.mantenimiento.port.service.CajaRepository;
+import com.saludsystem.submodules.mantenimiento.port.repository.CajaRepository;
 
 import java.util.UUID;
 
