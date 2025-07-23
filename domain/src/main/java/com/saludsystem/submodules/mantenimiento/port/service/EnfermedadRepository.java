@@ -9,10 +9,7 @@ public interface EnfermedadRepository {
 
     Enfermedad save(Enfermedad enfermedad);
     Enfermedad update(UUID uuid, Enfermedad enfermedad);
-    void delete(UUID uuid);
-    Enfermedad getById(UUID uuid);
-    List<Enfermedad> getAll(UUID hospitalId, int page, int rows);
+    void delete(String id);
 
     //List<EnfermedadDTO> getEnfermedadFiltradosPorRol();
-
 }
