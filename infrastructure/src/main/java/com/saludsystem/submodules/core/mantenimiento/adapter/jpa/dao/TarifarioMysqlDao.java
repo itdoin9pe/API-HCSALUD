@@ -3,8 +3,10 @@ package com.saludsystem.submodules.core.mantenimiento.adapter.jpa.dao;
 import com.saludsystem.submodules.core.mantenimiento.adapter.jpa.TarifarioJpaRepository;
 import com.saludsystem.submodules.core.mantenimiento.adapter.mapper.TarifarioDboMapper;
 import com.saludsystem.submodules.mantenimiento.model.Tarifario;
+import com.saludsystem.submodules.mantenimiento.model.constant.TarifarioConstant;
 import com.saludsystem.submodules.mantenimiento.port.dao.TarifarioDao;
 import com.saludsystem.submodules.response.ListResponse;
+import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +24,8 @@ public class TarifarioMysqlDao implements TarifarioDao {
 
     @Override
     public Tarifario getById(UUID uuid) {
-        return tarifarioJpaRepository.findById(uuid).map(TarifarioDboMapper::toDomain).orElse(null);
+        return tarifarioJpaRepository.findById(uuid).map(TarifarioDboMapper::toDomain)
+                .orElseThrow( () -> new ResourceNotFoundException(TarifarioConstant.ID_NOT_FOUND));
     }
 
     @Override

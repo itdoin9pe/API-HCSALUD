@@ -3,6 +3,8 @@ package com.saludsystem.submodules.core.mantenimiento.adapter.mapper;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.CategoriaEntity;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.MedidaEntity;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.TipoConceptoEntity;
+import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
+import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import com.saludsystem.submodules.core.mantenimiento.adapter.entity.TarifarioEntity;
 import com.saludsystem.submodules.core.operaciones.adapter.entity.UnidadEntity;
 import com.saludsystem.submodules.mantenimiento.model.Tarifario;
@@ -37,7 +39,16 @@ public class TarifarioDboMapper {
         entity.setPrecio(model.getPrecio());
         entity.setEstado(model.getEstado());
 
+        var userEntity = new UserEntity();
+        userEntity.setUserId(userId);
+        entity.setUser(userEntity);
+
+        var hospitalEntity = new SysSaludEntity();
+        hospitalEntity.setHospitalId(hospitalId);
+        entity.setHospital(hospitalEntity);
+
         return entity;
+
     }
 
     public static Tarifario toDomain(TarifarioEntity entity) {

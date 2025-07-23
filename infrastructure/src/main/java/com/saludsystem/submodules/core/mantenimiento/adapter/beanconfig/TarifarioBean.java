@@ -1,5 +1,6 @@
 package com.saludsystem.submodules.core.mantenimiento.adapter.beanconfig;
 
+import com.saludsystem.submodules.mantenimiento.model.validators.TarifarioValidator;
 import com.saludsystem.submodules.mantenimiento.port.dao.TarifarioDao;
 import com.saludsystem.submodules.mantenimiento.port.repository.TarifarioRepository;
 import com.saludsystem.submodules.mantenimiento.service.tarifario.*;
@@ -10,13 +11,13 @@ import org.springframework.context.annotation.Configuration;
 public class TarifarioBean {
 
     @Bean
-    public TarifarioCreateService tarifarioCreateService(TarifarioRepository repository) {
-        return new TarifarioCreateService(repository);
+    public TarifarioCreateService tarifarioCreateService(TarifarioRepository repository, TarifarioValidator validator) {
+        return new TarifarioCreateService(repository, validator);
     }
 
     @Bean
-    public TarifarioEditService tarifarioEditService(TarifarioRepository repository) {
-        return new TarifarioEditService(repository);
+    public TarifarioEditService tarifarioEditService(TarifarioRepository repository, TarifarioValidator validator) {
+        return new TarifarioEditService(repository, validator);
     }
 
     @Bean
