@@ -12,4 +12,9 @@ public class TipoTarjetaDTO extends CrearTipoTarjetaDTO {
 
     private UUID tipoTarjetaId;
 
+    public TipoTarjetaDTO(UUID tipoTarjetaId, String descripcion, Integer estado) {
+        this.setTipoTarjetaId(tipoTarjetaId);
+        this.setDescripcion(descripcion);
+        this.setEstado(estado);
+    }
 }

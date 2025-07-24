@@ -9,6 +9,4 @@ public interface TipoTarjetaRepository {
     TipoTarjeta save(TipoTarjeta tipoTarjeta);
     TipoTarjeta update(UUID uuid, TipoTarjeta tipoTarjeta);
     void delete(UUID uuid);
-    TipoTarjeta getById(UUID uuid);
-    List<TipoTarjeta> getAll(UUID hospitalId, int page, int rows);
 }
