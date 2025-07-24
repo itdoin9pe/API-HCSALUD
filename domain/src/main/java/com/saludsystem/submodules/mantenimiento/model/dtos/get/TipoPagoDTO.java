@@ -12,4 +12,10 @@ public class TipoPagoDTO extends CrearTipoPagoDTO {
 
     private UUID tipoPagoId;
 
+    public TipoPagoDTO(UUID tipoPagoId, String descripcion, String metodoPago, Integer estado) {
+        this.setTipoPagoId(tipoPagoId);
+        this.setDescripcion(descripcion);
+        this.setMetodoPago(metodoPago);
+        this.setEstado(estado);
+    }
 }
