@@ -4,6 +4,8 @@ import com.saludsystem.submodules.cita.model.entity.*;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.EspecialidadEntity;
 import com.saludsystem.submodules.core.cita.adapter.entity.CitaEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SedeEntity;
+import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
+import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import com.saludsystem.submodules.core.medico.adapter.entity.DoctorEntity;
 import com.saludsystem.submodules.core.paciente.adapter.entity.PacienteEntity;
 import org.springframework.stereotype.Component;
@@ -41,6 +43,14 @@ public class CitaDboMapper {
         entity.setEstado(model.getEstado());
         entity.setMotivoConsulta(model.getMotivoConsulta().value());
         entity.setObservacion(model.getObservacion().value());
+
+        var userEntity = new UserEntity();
+        userEntity.setUserId(userId);
+        entity.setUser(userEntity);
+
+        var hospitalEntity = new SysSaludEntity();
+        hospitalEntity.setHospitalId(hospitalId);
+        entity.setHospital(hospitalEntity);
 
         return entity;
     }

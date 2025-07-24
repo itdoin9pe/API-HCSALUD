@@ -1,5 +1,6 @@
 package com.saludsystem.submodules.medico.dtos;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -22,6 +23,7 @@ public class CrearDoctorDTO {
     private UUID especialidadId;
     private String colegiatura;
     private String color;
+    @Schema(example = "0")
     private Integer estado;
     private String fotoDoctor;
     private String fotoFirma;

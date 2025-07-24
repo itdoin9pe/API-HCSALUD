@@ -1,6 +1,7 @@
 package com.saludsystem.submodules.medico.dtos;
 
 import com.saludsystem.submodules.BaseDTO;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 @Data
 public class ActualizarDoctorDTO extends BaseDTO {
 
-    private UUID pacienteId;
+    private UUID doctorId;
     private String tipoDocumento;
     private String numeroDocumento;
     private String apellidos;
@@ -27,6 +28,7 @@ public class ActualizarDoctorDTO extends BaseDTO {
     private UUID especialidadId;
     private String colegiatura;
     private String color;
+    @Schema(example = "0")
     private Integer estado;
     private String fotoDoctor;
     private String fotoFirma;
