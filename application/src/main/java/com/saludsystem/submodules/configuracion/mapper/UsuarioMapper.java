@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 import java.util.UUID;
 
 @Mapper(componentModel = "spring")
-public interface UsuarioDtoMapper {
+public class UsuarioDtoMapper {
 
     @Mapping(source = "firstName", target = "firstName")
     @Mapping(source = "lastName", target = "lastName")
