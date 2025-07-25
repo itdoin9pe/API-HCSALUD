@@ -5,7 +5,7 @@ import com.saludsystem.submodules.principal.model.Estudio;
 import java.util.UUID;
 
 public interface EstudioRepository {
-    Estudio save(Estudio tipoCitado);
-    Estudio update(UUID uuid, Estudio tipoCitado);
+    Estudio save(Estudio estudio);
+    Estudio update(UUID uuid, Estudio estudio);
     void delete(UUID uuid);
 }

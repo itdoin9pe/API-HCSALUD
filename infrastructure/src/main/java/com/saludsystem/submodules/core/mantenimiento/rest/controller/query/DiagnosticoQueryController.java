@@ -52,4 +52,5 @@ public class DiagnosticoQueryController {
     public EnfermedadDTO getById(@PathVariable String enfermedadId) {
         return byIdHandler.execute(enfermedadId);
     }
+
 }

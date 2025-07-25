@@ -12,4 +12,9 @@ public class EstudioDTO extends CrearEstudioDTO {
 
     private UUID estudioId;
 
+    public EstudioDTO(UUID id, String descripcion) {
+        this.setEstudioId(id);
+        this.setDescripcion(descripcion);
+    }
+
 }

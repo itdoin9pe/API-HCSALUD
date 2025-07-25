@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "PacientesDiagnosticos")
 @RestController
 @RequestMapping("/api/Pacientes/Diagnosticos")
-public class DiagnosticoQueryController {
+public class PDignosticoQueryController {
 
     /*
     @GetMapping("/GetAll")
