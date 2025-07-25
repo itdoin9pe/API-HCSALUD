@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.principal.dtos.put;
+package com.saludsystem.submodules.principal.model.dtos.put;
 
 import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,12 +9,13 @@ import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class ActualizarEmpresaDTO extends BaseDTO {
+public class ActualizarInformacionClinicaDTO extends BaseDTO {
 
-    private UUID empresaId;
+    private UUID informacionClinicaId;
 
-    private String descripcion;
+    private String nombre;
 
     @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
     private Integer estado;
+
 }

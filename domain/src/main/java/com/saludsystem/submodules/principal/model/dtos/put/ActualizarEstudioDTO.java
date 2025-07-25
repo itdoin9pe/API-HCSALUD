@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.principal.dtos.put;
+package com.saludsystem.submodules.principal.model.dtos.put;
 
 import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
