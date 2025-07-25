@@ -12,7 +12,7 @@ import java.util.UUID;
 @Repository
 public interface UserJpaRepository extends JpaRepository<UserEntity, UUID> {
 
-    Page<UserEntity> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    Page<UserEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 
     Optional<UserEntity> findByUsername(String username);
 

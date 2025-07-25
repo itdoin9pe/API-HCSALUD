@@ -1,90 +1,58 @@
 package com.saludsystem.submodules.core.configuracion.adapter.mapper;
 
+import com.saludsystem.submodules.configuracion.model.entity.value_objet.usuario.*;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.RoleEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import com.saludsystem.submodules.configuracion.model.entity.Usuario;
-import org.springframework.stereotype.Component;
 
-@Component
+import java.util.UUID;
+
 public class UserDboMapper {
-    public Usuario toDomain(UserEntity entity) {
-        if (entity == null) return null;
 
-        return new Usuario(
-                entity.getUserId(),
-                entity.getFirstName(),
-                entity.getLastName(),
-                entity.getEmail(),
-                entity.getUsername(),
-                entity.getPassword(),
-                entity.getPhoneNumber(),
-                entity.getAddress(),
-                entity.getDocumentType(),
-                entity.getDocumentNumber(),
-                entity.getPhoto(),
-                entity.getEstado(),
-                entity.getRol().getRoleId(),
-                entity.getHospital().getHospitalId()
-        );
-    }
-
-    public Usuario toDomainWithOutRelations(UserEntity entity) {
-        if (entity == null) return null;
-
-        return new Usuario(
-                entity.getUserId(),
-                entity.getFirstName(),
-                entity.getLastName(),
-                entity.getEmail(),
-                entity.getUsername(),
-                entity.getPhoneNumber(),
-                entity.getAddress(),
-                entity.getDocumentType(),
-                entity.getDocumentNumber(),
-                entity.getPhoto(),
-                entity.getEstado(),
-                null,
-                null
-        );
-    }
-
-    public UserEntity toDbo(Usuario usuario, RoleEntity roleEntity, SysSaludEntity hospitalEntity) {
-        if (usuario == null) return null;
-
+    public static UserEntity toEntity(Usuario model, UUID hospitalId) {
         UserEntity entity = new UserEntity();
-        entity.setUserId(usuario.getId().value());
-        entity.setFirstName(usuario.getFirstName().valor());
-        entity.setLastName(usuario.getLastName().valor());
-        entity.setEmail(usuario.getEmail().value());
-        entity.setUsername(usuario.getUsername().value());
-        entity.setPassword(usuario.getPassword().value());
-        entity.setPhoneNumber(usuario.getPhoneNumber().value());
-        entity.setAddress(usuario.getAddress().valor());
-        entity.setDocumentType(usuario.getDocumentType().valor());
-        entity.setDocumentNumber(usuario.getDocumentNumber().value());
-        entity.setPhoto(usuario.getPhoto().url());
-        entity.setEstado(usuario.getEstado().valor());
-        entity.setRol(roleEntity);
+        entity.setLastName(model.getLastName().value());
+        entity.setFirstName(model.getFirstName().value());
+        entity.setEmail(model.getEmail().value());
+        entity.setUsername(model.getUsername().value());
+        entity.setPassword(model.getPassword().value());
+        entity.setPhoneNumber(model.getPhoneNumber().value());
+        entity.setAddress(model.getAddress().value());
+        entity.setDocumentType(model.getDocumentType().value());
+        entity.setDocumentNumber(model.getDocumentNumber().value());
+        entity.setPhoto(model.getPhoto().url());
+
+        RoleEntity role = new RoleEntity();
+        role.setRoleId(model.getRolId().value());
+        entity.setRol(role);
+
+        var hospitalEntity = new SysSaludEntity();
+        hospitalEntity.setHospitalId(hospitalId);
         entity.setHospital(hospitalEntity);
+
+        entity.setEstado(model.getEstado().value());
+
         return entity;
     }
 
-    public UserEntity toDboForCreate(Usuario usuario) {
-        if (usuario == null) return null;
+    public static Usuario toDomain(UserEntity entity) {
 
-        UserEntity entity = new UserEntity();
-        entity.setFirstName(usuario.getFirstName().valor());
-        entity.setLastName(usuario.getLastName().valor());
-        entity.setEmail(usuario.getEmail().value());
-        entity.setUsername(usuario.getUsername().value());
-        entity.setPassword(usuario.getPassword().value());
-        entity.setPhoneNumber(usuario.getPhoneNumber().value());
-        entity.setAddress(usuario.getAddress().valor());
-        entity.setDocumentType(usuario.getDocumentType().valor());
-        entity.setDocumentNumber(usuario.getDocumentNumber().value());
-        entity.setPhoto(usuario.getPhoto().url());
-        entity.setEstado(usuario.getEstado().valor());
-        return entity;
+        return new Usuario(
+                new UserId(entity.getUserId()),
+                new Apellido(entity.getLastName()),
+                new Nombre(entity.getFirstName()),
+                new Email(entity.getEmail()),
+                new Username(entity.getUsername()),
+                new Password(entity.getPassword()),
+                new PhoneNumber(entity.getPhoneNumber()),
+                new Direccion(entity.getAddress()),
+                new TipoDocumentoUsuario(entity.getDocumentType()),
+                new NumeroDocumento(entity.getDocumentNumber()),
+                new Foto(entity.getPhoto()),
+                new UserRole(entity.getRol().getRoleId()),
+                new UserHospital(entity.getHospital().getHospitalId()),
+                new EstadoUsuario(entity.getEstado()));
+
     }
 }

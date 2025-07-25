@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.core.configuracion.adapter.beanconfig;
 
-import com.saludsystem.submodules.configuracion.port.in.service.user.*;
-import com.saludsystem.submodules.configuracion.port.out.dao.UserDao;
-import com.saludsystem.submodules.configuracion.port.out.repository.UserRepository;
+import com.saludsystem.submodules.configuracion.port.dao.UserDao;
+import com.saludsystem.submodules.configuracion.port.repository.UserRepository;
+import com.saludsystem.submodules.configuracion.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,18 +20,23 @@ public class UserBean {
     }
 
     @Bean
+    public UserListService userListService(UserDao userDao) {
+        return new UserListService(userDao);
+    }
+
+    @Bean
     public UserCreateService userCreateService(UserRepository userRepository){
         return new UserCreateService(userRepository);
     }
 
     @Bean
-    public UserDeleteService userDeleteService(UserDao userDao, UserRepository userRepository){
-        return new UserDeleteService(userDao, userRepository);
+    public UserDeleteService userDeleteService(UserRepository userRepository){
+        return new UserDeleteService(userRepository);
     }
 
     @Bean
-    public UserEditService userEditService(UserDao userDao, UserRepository userRepository){
-        return new UserEditService(userDao, userRepository);
+    public UserEditService userEditService(UserRepository userRepository){
+        return new UserEditService(userRepository);
     }
 
 }

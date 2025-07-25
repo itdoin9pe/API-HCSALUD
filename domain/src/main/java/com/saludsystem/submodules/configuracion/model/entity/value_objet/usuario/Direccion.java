@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.configuracion.model.entity.value_objet.usuario;
 
-public record Direccion(String valor) {
+public record Direccion(String value) {
     public Direccion {
-        if (valor == null || valor.trim().isEmpty()) {
+        if (value == null || value.trim().isEmpty()) {
             throw new IllegalArgumentException("La dirección no puede estar vacía.");
         }
     }

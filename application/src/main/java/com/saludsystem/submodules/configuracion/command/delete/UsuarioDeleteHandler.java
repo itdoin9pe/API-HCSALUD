@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.configuracion.command.delete;
 
-import com.saludsystem.submodules.configuracion.port.in.service.user.UserDeleteService;
+import com.saludsystem.submodules.configuracion.service.UserDeleteService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

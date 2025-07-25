@@ -1,5 +1,6 @@
 package com.saludsystem.submodules.core.configuracion.adapter.jpa.repository;
 
+import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.RoleEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
@@ -8,7 +9,7 @@ import com.saludsystem.submodules.core.configuracion.adapter.jpa.SysSaludJpaRepo
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.UserJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.mapper.UserDboMapper;
 import com.saludsystem.submodules.configuracion.model.entity.Usuario;
-import com.saludsystem.submodules.configuracion.port.out.repository.UserRepository;
+import com.saludsystem.submodules.configuracion.port.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
@@ -20,25 +21,26 @@ public class UserMysqlRepository implements UserRepository {
 
     private final UserJpaRepository userJpaRepository;
     private final RoleJpaRepository roleJpaRepository;
+    private final AuthenticateUserPort authenticateUserPort;
     private final SysSaludJpaRepository sysSaludJpaRepository;
-    private final UserDboMapper userDboMapper;
 
-    public UserMysqlRepository(UserJpaRepository userJpaRepository, RoleJpaRepository roleJpaRepository, SysSaludJpaRepository sysSaludJpaRepository, UserDboMapper userDboMapper) {
+    public UserMysqlRepository(UserJpaRepository userJpaRepository, RoleJpaRepository roleJpaRepository, AuthenticateUserPort authenticateUserPort, SysSaludJpaRepository sysSaludJpaRepository) {
         this.userJpaRepository = userJpaRepository;
         this.roleJpaRepository = roleJpaRepository;
+        this.authenticateUserPort = authenticateUserPort;
         this.sysSaludJpaRepository = sysSaludJpaRepository;
-        this.userDboMapper = userDboMapper;
     }
 
     @Override
     public Usuario save(Usuario usuario) {
-        var userToSave = userDboMapper.toDboForCreate(usuario);
-        var userSaved = userJpaRepository.save(userToSave);
-        return userDboMapper.toDomain(userSaved);
+        UUID hospitalId = authenticateUserPort.getHospitalId();
+        UserEntity entity = UserDboMapper.toEntity(usuario, hospitalId);
+        return UserDboMapper.toDomain(userJpaRepository.save(entity));
     }
 
     @Override
     public Usuario update(Usuario usuario) {
+        UUID hospitalId = authenticateUserPort.getHospitalId();
         // 1. Verificar existencia del usuario actual
         UserEntity actual = userJpaRepository.findById(usuario.getId().value())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -51,7 +53,7 @@ public class UserMysqlRepository implements UserRepository {
                 .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
 
         // 3. Convertir dominio a DBO actualizado
-        UserEntity actualizado = userDboMapper.toDbo(usuario, rol, hospital);
+        UserEntity actualizado = UserDboMapper.toEntity(usuario, hospitalId);
 
         // 4. Mantener ID y cualquier otro dato que no cambie (si aplica)
         actualizado.setUserId(actual.getUserId());
@@ -60,7 +62,7 @@ public class UserMysqlRepository implements UserRepository {
         UserEntity saved = userJpaRepository.save(actualizado);
 
         // 6. Devolver dominio actualizado
-        return userDboMapper.toDomain(saved);
+        return UserDboMapper.toDomain(saved);
     }
 
     @Override

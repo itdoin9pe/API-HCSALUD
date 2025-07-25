@@ -1,0 +1,4 @@
+package com.saludsystem.submodules.principal.service.pais;
+
+public class PaisListService {
+}
