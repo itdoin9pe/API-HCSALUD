@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.operaciones.adapter.jpa;
 
-import com.saludsystem.submodules.movimiento.port.in.service.InventarioProjection;
+import com.saludsystem.submodules.movimiento.port.dao.InventarioProjection;
 import com.saludsystem.submodules.core.operaciones.adapter.entity.ProductoEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.movimiento.response;
 
-import com.saludsystem.submodules.movimiento.dtos.get.VentaDTO;
+import com.saludsystem.submodules.movimiento.model.dtos.get.VentaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
