@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TipoPacienteJpaRepository extends JpaRepository<TipoPacienteEntity, Long> {
-    // some methods soon...
+    //Page<TipoPacienteEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 }
