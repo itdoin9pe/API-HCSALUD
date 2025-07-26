@@ -1,6 +1,15 @@
 package com.saludsystem.submodules.core.principal.rest.controller.command;
 
+import com.saludsystem.submodules.catalogo.model.constant.AlergiaConstant;
+import com.saludsystem.submodules.principal.command.create.PaisCreateHandler;
+import com.saludsystem.submodules.principal.command.delete.PaisDeleteHandler;
+import com.saludsystem.submodules.principal.command.edit.PaisEditHandler;
+import com.saludsystem.submodules.principal.model.constant.PaisConstant;
+import com.saludsystem.submodules.principal.model.dtos.post.CrearPaisDTO;
+import com.saludsystem.submodules.principal.model.dtos.put.ActualizarPaisDTO;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Paises")
@@ -8,36 +17,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/Paises")
 public class PaisCommandController {
 
-    /*
-    private final PaisService paisService;
+    private final PaisCreateHandler createHandler;
+    private final PaisEditHandler editHandler;
+    private final PaisDeleteHandler deleteHandler;
 
-    public PaisController(PaisService paisService){
-        this.paisService = paisService;
+    public PaisCommandController(PaisCreateHandler createHandler, PaisEditHandler editHandler, PaisDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
     @PostMapping("/SavePais")
     public ApiResponse store(@Valid @RequestBody CrearPaisDTO crearPaisDTO) {
-        return paisService.savePais(crearPaisDTO);
+        createHandler.execute(crearPaisDTO);
+        return new ApiResponse(true, PaisConstant.CREATED);
     }
 
-    @GetMapping("/GetAllPais")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = PaisListResponse.class)))
-    })
-    public ListResponse<PaisDTO> getAllPage(
-            @RequestParam(name = "hospitalId") UUID hospitalId,
-            @RequestParam(name = "Page") int page,
-            @RequestParam(name = "Rows") int rows) {
-        return paisService.getAllPais(hospitalId, page, rows);
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable Integer id, @RequestBody ActualizarPaisDTO dto) {
+        editHandler.execute(id, dto);
+        return new ApiResponse(true, AlergiaConstant.UPDATED);
     }
 
-    @GetMapping("/GetPaisList")
-    public ResponseEntity<List<PaisDTO>> getAllList() {
-        return ResponseEntity.ok(paisService.getPaisList());
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable Integer id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, AlergiaConstant.DELETED);
     }
-
-     */
 
 }

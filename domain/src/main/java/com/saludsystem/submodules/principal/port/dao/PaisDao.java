@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface PaisDao {
-    Pais getById(UUID uuid);
+    Pais getById(Integer id);
     ListResponse<Pais> getAll(UUID hospitalId, int page, int rows);
     List<Pais> getList();
 }
