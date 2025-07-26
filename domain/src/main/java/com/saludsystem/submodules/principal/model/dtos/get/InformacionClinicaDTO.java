@@ -12,4 +12,10 @@ public class InformacionClinicaDTO extends CrearInformacionClinicaDTO {
 
     private UUID informacionClinicaId;
 
+    public InformacionClinicaDTO(UUID id, String nombre, Integer estado) {
+        this.setInformacionClinicaId(id);
+        this.setNombre(nombre);
+        this.setEstado(estado);
+    }
+
 }

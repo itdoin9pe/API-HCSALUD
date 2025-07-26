@@ -1,24 +1,48 @@
 package com.saludsystem.submodules.core.principal.rest.controller.command;
 
+import com.saludsystem.submodules.principal.command.create.InformacionClinicaCreateHandler;
+import com.saludsystem.submodules.principal.command.delete.InformacionClinicaDeleteHandler;
+import com.saludsystem.submodules.principal.command.edit.InformacionClinicaEditHandler;
+import com.saludsystem.submodules.principal.model.constant.InformacionClinicaConstant;
+import com.saludsystem.submodules.principal.model.dtos.post.CrearInformacionClinicaDTO;
+import com.saludsystem.submodules.principal.model.dtos.put.ActualizarInformacionClinicaDTO;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Tag(name = "InformacionClinicas")
 @RestController
 @RequestMapping("/api/InformacionClinicas")
 public class InformacionClinicaCommandController {
 
+    private final InformacionClinicaCreateHandler createHandler;
+    private final InformacionClinicaEditHandler editHandler;
+    private final InformacionClinicaDeleteHandler deleteHandler;
 
-    /*
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = InformacionClinicaListResponse.class)))
-    })
-    public ListResponse<InformacionClinicaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
+    public InformacionClinicaCommandController(InformacionClinicaCreateHandler createHandler, InformacionClinicaEditHandler editHandler, InformacionClinicaDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-     */
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody CrearInformacionClinicaDTO dto) {
+        createHandler.execute(dto);
+        return new ApiResponse(true, InformacionClinicaConstant.CREATED);
+    }
+
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarInformacionClinicaDTO dto) {
+        editHandler.execute(id, dto);
+        return new ApiResponse(true, InformacionClinicaConstant.UPDATED);
+    }
+
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable UUID id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, InformacionClinicaConstant.DELETED);
+    }
+
 }
