@@ -4,7 +4,7 @@ import com.saludsystem.submodules.configuracion.dtos.get.UsuarioDTO;
 import com.saludsystem.submodules.configuracion.dtos.post.NewUserDto;
 import com.saludsystem.submodules.configuracion.dtos.put.ActualizarUsuarioDTO;
 import com.saludsystem.submodules.configuracion.model.entity.Usuario;
-import com.saludsystem.submodules.configuracion.model.entity.value_objet.usuario.*;
+import com.saludsystem.submodules.configuracion.model.entity.vo.usuario.*;
 
 import java.util.UUID;
 
@@ -48,7 +48,7 @@ public class UsuarioMapper {
 
     public static UsuarioDTO toDto(Usuario model) {
         return new UsuarioDTO(model.getId(), model.getLastName(), model.getFirstName(),
-                model.getEmail(), model.getUsername(), model.getPassword(), model.getPhoneNumber(),
+                model.getEmail(), model.getUsername(), model.getPhoneNumber(),
                 model.getAddress(), model.getDocumentType(), model.getDocumentNumber(), model.getPhoto(),
                 model.getRolId(), model.getHospitalId(), model.getEstado());
     }

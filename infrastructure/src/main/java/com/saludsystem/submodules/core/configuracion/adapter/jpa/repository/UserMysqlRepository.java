@@ -11,11 +11,11 @@ import com.saludsystem.submodules.core.configuracion.adapter.mapper.UserDboMappe
 import com.saludsystem.submodules.configuracion.model.entity.Usuario;
 import com.saludsystem.submodules.configuracion.port.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Repository
+@Component
 @Transactional
 public class UserMysqlRepository implements UserRepository {
 
@@ -32,14 +32,11 @@ public class UserMysqlRepository implements UserRepository {
     }
 
     @Override
-    public Usuario saveSinSeguridad(Usuario usuario) {
-        UserEntity entity = UserDboMapper.toEntityToAuth(usuario);
-       return UserDboMapper.toDomain(userJpaRepository.save(entity));
-    }
-
-    @Override
     public Usuario save(Usuario usuario) {
         UUID hospitalId = authenticateUserPort.getHospitalId();
+        if (hospitalId == null) {
+            throw new RuntimeException("HospitalId no encontrado para el usuario autenticado");
+        }
         UserEntity entity = UserDboMapper.toEntity(usuario, hospitalId);
         return UserDboMapper.toDomain(userJpaRepository.save(entity));
     }
@@ -54,9 +51,6 @@ public class UserMysqlRepository implements UserRepository {
         // 2. Buscar entidades necesarias para relaciones
         RoleEntity rol = roleJpaRepository.findById(usuario.getRolId().value())
                 .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
-
-        SysSaludEntity hospital = sysSaludJpaRepository.findById(usuario.getHospitalId().value())
-                .orElseThrow(() -> new RuntimeException("Hospital no encontrado"));
 
         // 3. Convertir dominio a DBO actualizado
         UserEntity actualizado = UserDboMapper.toEntity(usuario, hospitalId);
@@ -76,8 +70,4 @@ public class UserMysqlRepository implements UserRepository {
         userJpaRepository.deleteById(uuid);
     }
 
-    @Override
-    public long count() {
-        return userJpaRepository.count();
-    }
 }

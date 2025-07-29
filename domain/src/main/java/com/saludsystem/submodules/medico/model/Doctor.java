@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.medico.model;
 
-import com.saludsystem.submodules.configuracion.model.entity.value_objet.usuario.NumeroDocumento;
+import com.saludsystem.submodules.configuracion.model.entity.vo.usuario.NumeroDocumento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

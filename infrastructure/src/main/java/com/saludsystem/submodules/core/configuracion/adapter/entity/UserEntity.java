@@ -1,6 +1,5 @@
 package com.saludsystem.submodules.core.configuracion.adapter.entity;
 
-import com.saludsystem.submodules.configuracion.model.entity.value_objet.usuario.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -57,8 +56,8 @@ public class UserEntity {
     private String username;
 
     @NotBlank(message = "The password field can't be blank")
-    @Size(min = 16, message = "The password must have at least 5 characters")
-    @Column(nullable = false)
+    @Size(min = 8, message = "The password must have at least 5 characters")
+    @Column(nullable = false, unique = true)
     private String password;
 
     @Column(name = "estado", nullable = false)
@@ -72,8 +71,4 @@ public class UserEntity {
     @JoinColumn(name = "hospital_id", nullable = false)
     private SysSaludEntity hospital;
 
-    public UserEntity(Nombre firstName, Apellido lastName, Username username, Password password, Email email,
-                      PhoneNumber phoneNumber, Direccion address, TipoDocumentoUsuario documentType,
-                      NumeroDocumento documentNumber, Foto photo, EstadoUsuario estado) {
-    }
 }

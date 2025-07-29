@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.configuracion.model.entity;
 
-import com.saludsystem.submodules.configuracion.model.entity.value_objet.usuario.*;
-import com.saludsystem.submodules.configuracion.model.entity.value_objet.usuario.TipoDocumentoUsuario;
+import com.saludsystem.submodules.configuracion.model.entity.vo.usuario.*;
+import com.saludsystem.submodules.configuracion.model.entity.vo.usuario.TipoDocumentoUsuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

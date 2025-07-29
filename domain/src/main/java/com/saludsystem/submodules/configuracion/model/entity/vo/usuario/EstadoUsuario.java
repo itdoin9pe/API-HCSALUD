@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.configuracion.model.entity.value_objet.usuario;
+package com.saludsystem.submodules.configuracion.model.entity.vo.usuario;
 
 public record EstadoUsuario(Integer value) {
     public EstadoUsuario {

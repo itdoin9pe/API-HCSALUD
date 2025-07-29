@@ -10,6 +10,7 @@ import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class UsuarioCommandController {
           content = @Content(schema = @Schema(implementation = ApiResponse.class)))
   //@PostMapping(value = "/Save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @PostMapping(value = "/Save")
-  public ApiResponse createUser(@RequestBody NewUserDto dto) {
+  public ApiResponse createUser(@Valid @RequestBody NewUserDto dto) {
     createHandler.execute(dto);
     return new ApiResponse(true, UserConstant.CREATED);
   }
@@ -47,7 +48,7 @@ public class UsuarioCommandController {
     return new ApiResponse(true, UserConstant.UPDATED);
   }
 
-  @DeleteMapping("/delete/{id}")
+  @DeleteMapping("/Delete/{userId}")
   public ApiResponse deleteUser(@PathVariable UUID userId) {
     deleteHandler.execute(userId);
     return new ApiResponse(true, UserConstant.DELETED);

@@ -1,6 +1,7 @@
 package com.saludsystem.submodules.core.configuracion.adapter.beanconfig;
 
 import com.saludsystem.submodules.configuracion.port.dao.UserDao;
+import com.saludsystem.submodules.configuracion.port.out.PasswordEncoderPort;
 import com.saludsystem.submodules.configuracion.port.repository.UserRepository;
 import com.saludsystem.submodules.configuracion.service.*;
 import org.springframework.context.annotation.Bean;
@@ -25,8 +26,8 @@ public class UserBean {
     }
 
     @Bean
-    public UserCreateService userCreateService(UserRepository userRepository){
-        return new UserCreateService(userRepository);
+    public UserCreateService userCreateService(UserRepository userRepository, PasswordEncoderPort encoderPort){
+        return new UserCreateService(userRepository, encoderPort);
     }
 
     @Bean

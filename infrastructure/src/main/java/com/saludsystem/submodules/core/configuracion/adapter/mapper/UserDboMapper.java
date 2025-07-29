@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.configuracion.adapter.mapper;
 
-import com.saludsystem.submodules.configuracion.model.entity.value_objet.usuario.*;
+import com.saludsystem.submodules.configuracion.model.entity.vo.usuario.*;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.RoleEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
@@ -9,32 +9,6 @@ import com.saludsystem.submodules.configuracion.model.entity.Usuario;
 import java.util.UUID;
 
 public class UserDboMapper {
-
-    public static UserEntity toEntityToAuth(Usuario model) {
-        UserEntity entity = new UserEntity();
-        entity.setLastName(model.getLastName().value());
-        entity.setFirstName(model.getFirstName().value());
-        entity.setEmail(model.getEmail().value());
-        entity.setUsername(model.getUsername().value());
-        entity.setPassword(model.getPassword().value());
-        entity.setPhoneNumber(model.getPhoneNumber().value());
-        entity.setAddress(model.getAddress().value());
-        entity.setDocumentType(model.getDocumentType().value());
-        entity.setDocumentNumber(model.getDocumentNumber().value());
-        entity.setPhoto(model.getPhoto().url());
-
-        RoleEntity role = new RoleEntity();
-        role.setRoleId(model.getRolId().value());
-        entity.setRol(role);
-
-        SysSaludEntity hospital = new SysSaludEntity();
-        hospital.setHospitalId(model.getHospitalId().value());
-        entity.setHospital(hospital);
-
-        entity.setEstado(model.getEstado().value());
-
-        return entity;
-    }
 
     public static UserEntity toEntity(Usuario model, UUID hospitalId) {
         UserEntity entity = new UserEntity();
@@ -48,6 +22,7 @@ public class UserDboMapper {
         entity.setDocumentType(model.getDocumentType().value());
         entity.setDocumentNumber(model.getDocumentNumber().value());
         entity.setPhoto(model.getPhoto().url());
+        //entity.setPhoto(model.getPhoto() != null ? model.getPhoto().url() : null);
 
         RoleEntity role = new RoleEntity();
         role.setRoleId(model.getRolId().value());

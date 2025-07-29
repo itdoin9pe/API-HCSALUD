@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.configuracion.model.entity.value_objet;
+package com.saludsystem.submodules.configuracion.model.entity.vo;
 
 public record AuthToken(
         String accessToken,
