@@ -4,7 +4,7 @@ import com.saludsystem.submodules.core.configuracion.adapter.jpa.UserJpaReposito
 import com.saludsystem.submodules.core.configuracion.adapter.mapper.UserDboMapper;
 import com.saludsystem.submodules.configuracion.model.constant.UserConstant;
 import com.saludsystem.submodules.configuracion.model.entity.Usuario;
-import com.saludsystem.submodules.configuracion.port.dao.UserDao;
+import com.saludsystem.submodules.configuracion.port.in.dao.UserDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
 import org.springframework.data.domain.PageRequest;

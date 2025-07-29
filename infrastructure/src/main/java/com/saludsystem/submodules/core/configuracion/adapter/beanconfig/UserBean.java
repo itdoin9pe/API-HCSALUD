@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.core.configuracion.adapter.beanconfig;
 
-import com.saludsystem.submodules.configuracion.port.dao.UserDao;
+import com.saludsystem.submodules.configuracion.port.in.dao.UserDao;
 import com.saludsystem.submodules.configuracion.port.out.PasswordEncoderPort;
-import com.saludsystem.submodules.configuracion.port.repository.UserRepository;
+import com.saludsystem.submodules.configuracion.port.in.repository.UserRepository;
 import com.saludsystem.submodules.configuracion.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

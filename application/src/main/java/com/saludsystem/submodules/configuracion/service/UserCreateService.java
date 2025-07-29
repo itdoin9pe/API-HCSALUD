@@ -4,7 +4,7 @@ import com.saludsystem.submodules.configuracion.dtos.post.NewUserDto;
 import com.saludsystem.submodules.configuracion.mapper.UsuarioMapper;
 import com.saludsystem.submodules.configuracion.model.entity.Usuario;
 import com.saludsystem.submodules.configuracion.port.out.PasswordEncoderPort;
-import com.saludsystem.submodules.configuracion.port.repository.UserRepository;
+import com.saludsystem.submodules.configuracion.port.in.repository.UserRepository;
 
 public class UserCreateService {
 

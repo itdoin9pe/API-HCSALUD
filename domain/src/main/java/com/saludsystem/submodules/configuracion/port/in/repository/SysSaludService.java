@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.configuracion.port.repository;
+package com.saludsystem.submodules.configuracion.port.in.repository;
 
 import com.saludsystem.submodules.configuracion.model.entity.SysSalud;
 
