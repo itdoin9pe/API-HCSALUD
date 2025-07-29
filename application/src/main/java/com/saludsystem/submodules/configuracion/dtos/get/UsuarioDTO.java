@@ -23,6 +23,7 @@ public class UsuarioDTO extends NewUserDto {
         this.setEmail(email.value());
         this.setUsername(username.value());
         this.setPassword(password.value());
+        this.setPhoneNumber(phoneNumber.value());
         this.setAddress(address.value());
         this.setDocumentType(documentType.value());
         this.setDocumentNumber(documentNumber.value());

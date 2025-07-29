@@ -72,6 +72,8 @@ public class UserEntity {
     @JoinColumn(name = "hospital_id", nullable = false)
     private SysSaludEntity hospital;
 
-    public UserEntity(Nombre firstName, Apellido lastName, Username username, Password password, Email email, PhoneNumber phoneNumber, Direccion address, TipoDocumentoUsuario documentType, NumeroDocumento documentNumber, Foto photo, EstadoUsuario estado) {
+    public UserEntity(Nombre firstName, Apellido lastName, Username username, Password password, Email email,
+                      PhoneNumber phoneNumber, Direccion address, TipoDocumentoUsuario documentType,
+                      NumeroDocumento documentNumber, Foto photo, EstadoUsuario estado) {
     }
 }

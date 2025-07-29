@@ -32,6 +32,12 @@ public class UserMysqlRepository implements UserRepository {
     }
 
     @Override
+    public Usuario saveSinSeguridad(Usuario usuario) {
+        UserEntity entity = UserDboMapper.toEntityToAuth(usuario);
+       return UserDboMapper.toDomain(userJpaRepository.save(entity));
+    }
+
+    @Override
     public Usuario save(Usuario usuario) {
         UUID hospitalId = authenticateUserPort.getHospitalId();
         UserEntity entity = UserDboMapper.toEntity(usuario, hospitalId);
@@ -68,5 +74,10 @@ public class UserMysqlRepository implements UserRepository {
     @Override
     public void delete(UUID uuid) {
         userJpaRepository.deleteById(uuid);
+    }
+
+    @Override
+    public long count() {
+        return userJpaRepository.count();
     }
 }

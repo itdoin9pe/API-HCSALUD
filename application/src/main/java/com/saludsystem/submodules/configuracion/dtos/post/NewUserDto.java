@@ -17,6 +17,7 @@ public class NewUserDto {
     private String documentType;
     private String documentNumber;
     private String photo;
+    //private MultipartFile photo;
     private UUID roleId;
     private UUID hospitalId;
     @Schema(example = "0")

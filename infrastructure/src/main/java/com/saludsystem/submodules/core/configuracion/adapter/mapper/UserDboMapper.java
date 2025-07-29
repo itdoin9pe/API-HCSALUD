@@ -10,6 +10,32 @@ import java.util.UUID;
 
 public class UserDboMapper {
 
+    public static UserEntity toEntityToAuth(Usuario model) {
+        UserEntity entity = new UserEntity();
+        entity.setLastName(model.getLastName().value());
+        entity.setFirstName(model.getFirstName().value());
+        entity.setEmail(model.getEmail().value());
+        entity.setUsername(model.getUsername().value());
+        entity.setPassword(model.getPassword().value());
+        entity.setPhoneNumber(model.getPhoneNumber().value());
+        entity.setAddress(model.getAddress().value());
+        entity.setDocumentType(model.getDocumentType().value());
+        entity.setDocumentNumber(model.getDocumentNumber().value());
+        entity.setPhoto(model.getPhoto().url());
+
+        RoleEntity role = new RoleEntity();
+        role.setRoleId(model.getRolId().value());
+        entity.setRol(role);
+
+        SysSaludEntity hospital = new SysSaludEntity();
+        hospital.setHospitalId(model.getHospitalId().value());
+        entity.setHospital(hospital);
+
+        entity.setEstado(model.getEstado().value());
+
+        return entity;
+    }
+
     public static UserEntity toEntity(Usuario model, UUID hospitalId) {
         UserEntity entity = new UserEntity();
         entity.setLastName(model.getLastName().value());

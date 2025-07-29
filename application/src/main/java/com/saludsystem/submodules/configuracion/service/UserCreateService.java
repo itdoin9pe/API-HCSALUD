@@ -14,11 +14,8 @@ public class UserCreateService {
     }
 
     public Usuario execute(NewUserDto dto) {
-
-        var userToCreate = UsuarioMapper.fromCreateDto(dto);
-
-        return userRepository.save(userToCreate);
-
+        var userSaved = UsuarioMapper.fromCreateDto(dto);
+        return userRepository.saveSinSeguridad(userSaved);
     }
 
 }

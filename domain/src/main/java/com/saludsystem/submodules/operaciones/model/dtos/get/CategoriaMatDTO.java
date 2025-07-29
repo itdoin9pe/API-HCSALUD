@@ -12,4 +12,10 @@ public class CategoriaMatDTO extends CrearCategotiaMatDTO {
 
     private UUID categoriaMaterialId;
 
+    public CategoriaMatDTO(UUID categoriaMaterialId, String nombre, String descripcion, Integer estado) {
+        this.setCategoriaMaterialId(categoriaMaterialId);
+        this.setNombre(nombre);
+        this.setDescripcion(descripcion);
+        this.setEstado(estado);
+    }
 }
