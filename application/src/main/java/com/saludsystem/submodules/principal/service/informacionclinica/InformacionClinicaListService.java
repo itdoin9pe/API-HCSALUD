@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.principal.service.informacionclinica;
 
 import com.saludsystem.submodules.principal.mapper.InformacionClinicaMapper;
-import com.saludsystem.submodules.principal.model.dtos.get.InformacionClinicaDTO;
+import com.saludsystem.submodules.principal.dtos.get.InformacionClinicaDTO;
 import com.saludsystem.submodules.principal.port.dao.InformacionClinicaDao;
 
 import java.util.List;

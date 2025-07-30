@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.model.dto.ApoderadoDTO;
+import com.saludsystem.submodules.catalogo.dto.ApoderadoDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.ApoderadoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.ApoderadoByIdHandler;
 import com.saludsystem.submodules.catalogo.response.ApoderadoListResponse;
@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Apoderados")

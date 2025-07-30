@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.Tarifario;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TarifarioDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearTarifarioDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarTarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarTarifarioDTO;
 
 import java.util.UUID;
 

@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.command.create;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearTipoTarjetaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTipoTarjetaDTO;
 import com.saludsystem.submodules.mantenimiento.service.tipotarjeta.TipoTarjetaCreateService;
 import org.springframework.stereotype.Component;
 

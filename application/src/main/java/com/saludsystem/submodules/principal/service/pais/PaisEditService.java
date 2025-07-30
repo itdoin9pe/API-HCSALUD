@@ -2,7 +2,7 @@ package com.saludsystem.submodules.principal.service.pais;
 
 import com.saludsystem.submodules.principal.mapper.PaisMapper;
 import com.saludsystem.submodules.principal.model.Pais;
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarPaisDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarPaisDTO;
 import com.saludsystem.submodules.principal.port.repository.PaisRepository;
 
 public class PaisEditService {

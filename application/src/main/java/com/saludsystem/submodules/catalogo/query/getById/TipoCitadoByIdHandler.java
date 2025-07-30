@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.model.dto.TipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.dto.TipoCitadoDTO;
 import com.saludsystem.submodules.catalogo.service.tipocitado.TipoCitadoByIdService;
 import org.springframework.stereotype.Component;
 

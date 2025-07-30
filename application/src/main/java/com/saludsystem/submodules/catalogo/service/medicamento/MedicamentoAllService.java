@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.medicamento;
 
 import com.saludsystem.submodules.catalogo.mapper.MedicamentoMapper;
-import com.saludsystem.submodules.catalogo.model.dto.MedicamentoDTO;
+import com.saludsystem.submodules.catalogo.dto.MedicamentoDTO;
 import com.saludsystem.submodules.catalogo.port.dao.MedicamentoDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

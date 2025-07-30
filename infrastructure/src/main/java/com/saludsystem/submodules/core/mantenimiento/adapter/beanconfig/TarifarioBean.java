@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.mantenimiento.adapter.beanconfig;
 
-import com.saludsystem.submodules.mantenimiento.model.validators.TarifarioValidator;
+import com.saludsystem.submodules.mantenimiento.validators.TarifarioValidator;
 import com.saludsystem.submodules.mantenimiento.port.dao.TarifarioDao;
 import com.saludsystem.submodules.mantenimiento.port.repository.TarifarioRepository;
 import com.saludsystem.submodules.mantenimiento.service.tarifario.*;

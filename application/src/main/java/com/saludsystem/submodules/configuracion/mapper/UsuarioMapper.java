@@ -3,8 +3,8 @@ package com.saludsystem.submodules.configuracion.mapper;
 import com.saludsystem.submodules.configuracion.dtos.get.UsuarioDTO;
 import com.saludsystem.submodules.configuracion.dtos.post.NewUserDto;
 import com.saludsystem.submodules.configuracion.dtos.put.ActualizarUsuarioDTO;
-import com.saludsystem.submodules.configuracion.model.entity.Usuario;
-import com.saludsystem.submodules.configuracion.model.entity.vo.usuario.*;
+import com.saludsystem.submodules.configuracion.model.Usuario;
+import com.saludsystem.submodules.configuracion.vo.usuario.*;
 
 import java.util.UUID;
 

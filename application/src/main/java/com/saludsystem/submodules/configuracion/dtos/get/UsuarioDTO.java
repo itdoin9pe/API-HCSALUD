@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.configuracion.dtos.get;
 
 import com.saludsystem.submodules.configuracion.dtos.post.NewUserDto;
-import com.saludsystem.submodules.configuracion.model.entity.vo.usuario.*;
+import com.saludsystem.submodules.configuracion.vo.usuario.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

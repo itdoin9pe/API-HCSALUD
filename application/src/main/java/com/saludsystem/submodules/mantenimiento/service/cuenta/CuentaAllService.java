@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.mantenimiento.service.cuenta;
 
 import com.saludsystem.submodules.mantenimiento.mapper.CuentaMapper;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.CuentaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.CuentaDTO;
 import com.saludsystem.submodules.mantenimiento.port.dao.CuentaDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

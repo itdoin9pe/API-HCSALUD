@@ -7,7 +7,7 @@ import com.saludsystem.submodules.core.configuracion.adapter.jpa.RoleJpaReposito
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.SysSaludJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.UserJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.mapper.UserDboMapper;
-import com.saludsystem.submodules.configuracion.model.entity.Usuario;
+import com.saludsystem.submodules.configuracion.model.Usuario;
 import com.saludsystem.submodules.configuracion.port.in.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;

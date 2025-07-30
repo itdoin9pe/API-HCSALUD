@@ -2,7 +2,7 @@ package com.saludsystem.submodules.principal.service.informacionclinica;
 
 import com.saludsystem.submodules.principal.mapper.InformacionClinicaMapper;
 import com.saludsystem.submodules.principal.model.InformacionClinica;
-import com.saludsystem.submodules.principal.model.dtos.post.CrearInformacionClinicaDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearInformacionClinicaDTO;
 import com.saludsystem.submodules.principal.port.repository.InformacionClinicaRepository;
 
 public class InformacionClinicaCreateService {

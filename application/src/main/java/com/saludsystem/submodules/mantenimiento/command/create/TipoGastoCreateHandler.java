@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.command.create;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearTipoGastoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTipoGastoDTO;
 import com.saludsystem.submodules.mantenimiento.service.tipogasto.TipoGastoCreateService;
 import org.springframework.stereotype.Component;
 

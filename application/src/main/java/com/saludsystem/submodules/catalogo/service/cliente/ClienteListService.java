@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.cliente;
 
 import com.saludsystem.submodules.catalogo.mapper.ClienteMapper;
-import com.saludsystem.submodules.catalogo.model.dto.ClienteDTO;
+import com.saludsystem.submodules.catalogo.dto.ClienteDTO;
 import com.saludsystem.submodules.catalogo.port.dao.ClienteDao;
 
 import java.util.List;

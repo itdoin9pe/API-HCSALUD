@@ -4,8 +4,8 @@ import com.saludsystem.submodules.catalogo.command.create.TipoCitadoCreateHandle
 import com.saludsystem.submodules.catalogo.command.delete.TipoCitadoDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.TipoCitadoEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.TipoCitadoConstant;
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearTipoCitadoDTO;
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarTipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.dto.command.CrearTipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarTipoCitadoDTO;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

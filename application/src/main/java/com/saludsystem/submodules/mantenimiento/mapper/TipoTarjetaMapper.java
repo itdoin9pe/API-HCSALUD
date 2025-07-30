@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.TipoTarjeta;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TipoTarjetaDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearTipoTarjetaDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarTipoTarjetaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TipoTarjetaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTipoTarjetaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarTipoTarjetaDTO;
 
 import java.util.UUID;
 

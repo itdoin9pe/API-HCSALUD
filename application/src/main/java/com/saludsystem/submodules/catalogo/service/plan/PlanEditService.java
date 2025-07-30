@@ -2,7 +2,7 @@ package com.saludsystem.submodules.catalogo.service.plan;
 
 import com.saludsystem.submodules.catalogo.mapper.PlanMapper;
 import com.saludsystem.submodules.catalogo.model.Plan;
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarPlanDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarPlanDTO;
 import com.saludsystem.submodules.catalogo.port.repository.PlanRepository;
 
 import java.util.UUID;

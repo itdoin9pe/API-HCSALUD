@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.command.edit;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarMonedaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarMonedaDTO;
 import com.saludsystem.submodules.mantenimiento.service.moneda.MonedaEditService;
 import org.springframework.stereotype.Component;
 

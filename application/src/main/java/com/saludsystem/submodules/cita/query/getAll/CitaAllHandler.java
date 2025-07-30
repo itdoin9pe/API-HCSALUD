@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.cita.query.getAll;
 
-import com.saludsystem.submodules.cita.model.dtos.get.CitaDTO;
+import com.saludsystem.submodules.cita.dtos.get.CitaDTO;
 import com.saludsystem.submodules.cita.service.CitaAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.consentimiento;
 
 import com.saludsystem.submodules.catalogo.mapper.ConsentimientoMapper;
-import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.dto.ConsentimientoDTO;
 import com.saludsystem.submodules.catalogo.port.dao.ConsentimientoDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.model.dto.ClienteDTO;
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearClienteDTO;
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarClienteDTO;
+import com.saludsystem.submodules.catalogo.dto.ClienteDTO;
+import com.saludsystem.submodules.catalogo.dto.command.CrearClienteDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarClienteDTO;
 import com.saludsystem.submodules.catalogo.model.Cliente;
 
 import java.util.UUID;

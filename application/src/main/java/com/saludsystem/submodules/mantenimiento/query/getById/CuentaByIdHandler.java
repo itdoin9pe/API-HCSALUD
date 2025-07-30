@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getById;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.CuentaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.CuentaDTO;
 import com.saludsystem.submodules.mantenimiento.service.cuenta.CuentaByIdService;
 import org.springframework.stereotype.Component;
 

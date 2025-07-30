@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.response;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TarifarioDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

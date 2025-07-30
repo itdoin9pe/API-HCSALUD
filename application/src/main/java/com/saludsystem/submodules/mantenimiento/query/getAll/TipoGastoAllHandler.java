@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getAll;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TipoGastoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TipoGastoDTO;
 import com.saludsystem.submodules.mantenimiento.service.tipogasto.TipoGastoAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

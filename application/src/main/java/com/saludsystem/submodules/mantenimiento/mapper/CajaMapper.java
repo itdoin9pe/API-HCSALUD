@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.Caja;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.CajaDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearCajaDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarCajaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.CajaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearCajaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarCajaDTO;
 
 import java.util.UUID;
 

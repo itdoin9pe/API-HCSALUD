@@ -2,7 +2,7 @@ package com.saludsystem.submodules.mantenimiento.service.moneda;
 
 import com.saludsystem.submodules.mantenimiento.mapper.MonedaMapper;
 import com.saludsystem.submodules.mantenimiento.model.Moneda;
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearMonedaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearMonedaDTO;
 import com.saludsystem.submodules.mantenimiento.port.repository.MonedaRepository;
 
 public class MonedaCreateService {

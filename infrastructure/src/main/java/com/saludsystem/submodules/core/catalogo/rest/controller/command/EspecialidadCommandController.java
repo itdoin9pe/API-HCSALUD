@@ -4,8 +4,8 @@ import com.saludsystem.submodules.catalogo.command.create.EspecialidadCreateHand
 import com.saludsystem.submodules.catalogo.command.delete.EspecialidadDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.EspecialidadEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.EspecialidadConstant;
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearEspecialidadDTO;
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarEspecialidadDTO;
+import com.saludsystem.submodules.catalogo.dto.command.CrearEspecialidadDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarEspecialidadDTO;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

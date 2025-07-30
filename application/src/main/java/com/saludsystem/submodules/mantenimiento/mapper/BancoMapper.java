@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.Banco;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.BancoDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearBancoDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarBancoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.BancoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearBancoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarBancoDTO;
 
 import java.util.UUID;
 

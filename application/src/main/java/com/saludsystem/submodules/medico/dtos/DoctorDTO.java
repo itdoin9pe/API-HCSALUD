@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.medico.dtos;
 
-import com.saludsystem.submodules.configuracion.model.entity.vo.usuario.NumeroDocumento;
-import com.saludsystem.submodules.medico.model.*;
+import com.saludsystem.submodules.configuracion.vo.usuario.NumeroDocumento;
+import com.saludsystem.submodules.medico.vo.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

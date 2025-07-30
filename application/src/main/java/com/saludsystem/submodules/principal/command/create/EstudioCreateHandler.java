@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.command.create;
 
-import com.saludsystem.submodules.principal.model.dtos.post.CrearEstudioDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearEstudioDTO;
 import com.saludsystem.submodules.principal.service.estudio.EstudioCreateService;
 import org.springframework.stereotype.Component;
 

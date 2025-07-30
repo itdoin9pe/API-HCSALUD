@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.apoderado;
 
 import com.saludsystem.submodules.catalogo.mapper.ApoderadoMapper;
-import com.saludsystem.submodules.catalogo.model.dto.ApoderadoDTO;
+import com.saludsystem.submodules.catalogo.dto.ApoderadoDTO;
 import com.saludsystem.submodules.catalogo.port.dao.ApoderadoDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

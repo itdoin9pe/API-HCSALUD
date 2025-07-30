@@ -2,7 +2,7 @@ package com.saludsystem.submodules.principal.service.estudio;
 
 import com.saludsystem.submodules.principal.mapper.EstudioMapper;
 import com.saludsystem.submodules.principal.model.Estudio;
-import com.saludsystem.submodules.principal.model.dtos.post.CrearEstudioDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearEstudioDTO;
 import com.saludsystem.submodules.principal.port.repository.EstudioRepository;
 
 public class EstudioCreateService {

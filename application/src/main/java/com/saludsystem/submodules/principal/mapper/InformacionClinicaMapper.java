@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.principal.mapper;
 
 import com.saludsystem.submodules.principal.model.InformacionClinica;
-import com.saludsystem.submodules.principal.model.dtos.get.InformacionClinicaDTO;
-import com.saludsystem.submodules.principal.model.dtos.post.CrearInformacionClinicaDTO;
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarInformacionClinicaDTO;
+import com.saludsystem.submodules.principal.dtos.get.InformacionClinicaDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearInformacionClinicaDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarInformacionClinicaDTO;
 
 import java.util.UUID;
 

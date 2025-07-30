@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.principal.mapper;
 
-import com.saludsystem.submodules.principal.model.dtos.get.AseguradoraDTO;
-import com.saludsystem.submodules.principal.model.dtos.post.CrearAseguradoraDTO;
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarAseguradoraDTO;
+import com.saludsystem.submodules.principal.dtos.get.AseguradoraDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearAseguradoraDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarAseguradoraDTO;
 import com.saludsystem.submodules.principal.model.Aseguradora;
 
 import java.util.UUID;

@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.mantenimiento.service.banco;
 
 import com.saludsystem.submodules.mantenimiento.mapper.BancoMapper;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.BancoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.BancoDTO;
 import com.saludsystem.submodules.mantenimiento.port.dao.BancoDao;
 
 import java.util.List;

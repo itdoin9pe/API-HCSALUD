@@ -2,7 +2,7 @@ package com.saludsystem.submodules.catalogo.service.tipoconcepto;
 
 import com.saludsystem.submodules.catalogo.mapper.TipoConceptoMapper;
 import com.saludsystem.submodules.catalogo.model.TipoConcepto;
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarTipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarTipoConceptoDTO;
 import com.saludsystem.submodules.catalogo.port.repository.TipoConceptoRepository;
 
 import java.util.UUID;

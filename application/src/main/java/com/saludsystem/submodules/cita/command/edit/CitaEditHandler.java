@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.cita.command.edit;
 
-import com.saludsystem.submodules.cita.model.dtos.put.ActualizarCitaDTO;
+import com.saludsystem.submodules.cita.dtos.put.ActualizarCitaDTO;
 import com.saludsystem.submodules.cita.service.CitaEditService;
 import org.springframework.stereotype.Component;
 

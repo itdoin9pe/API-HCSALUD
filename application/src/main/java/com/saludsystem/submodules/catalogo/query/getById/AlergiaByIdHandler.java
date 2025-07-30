@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.model.dto.AlergiaDTO;
+import com.saludsystem.submodules.catalogo.dto.AlergiaDTO;
 import com.saludsystem.submodules.catalogo.service.alergia.AlergiaByIdService;
 import org.springframework.stereotype.Component;
 

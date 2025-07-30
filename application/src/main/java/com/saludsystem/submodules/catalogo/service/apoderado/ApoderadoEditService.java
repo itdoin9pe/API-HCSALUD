@@ -2,7 +2,7 @@ package com.saludsystem.submodules.catalogo.service.apoderado;
 
 import com.saludsystem.submodules.catalogo.mapper.ApoderadoMapper;
 import com.saludsystem.submodules.catalogo.model.Apoderado;
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarApoderadoDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarApoderadoDTO;
 import com.saludsystem.submodules.catalogo.port.repository.ApoderadoRepository;
 
 import java.util.UUID;

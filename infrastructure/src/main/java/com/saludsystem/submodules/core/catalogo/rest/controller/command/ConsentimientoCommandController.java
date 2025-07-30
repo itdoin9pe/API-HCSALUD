@@ -4,8 +4,8 @@ import com.saludsystem.submodules.catalogo.command.create.ConsentimientoCreateHa
 import com.saludsystem.submodules.catalogo.command.delete.ConsentimientoDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.ConsentimientoEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.ConsentimientoConstant;
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearConsentimientoDTO;
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.dto.command.CrearConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarConsentimientoDTO;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

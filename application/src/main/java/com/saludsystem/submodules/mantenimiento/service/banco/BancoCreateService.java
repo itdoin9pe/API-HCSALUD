@@ -2,7 +2,7 @@ package com.saludsystem.submodules.mantenimiento.service.banco;
 
 import com.saludsystem.submodules.mantenimiento.mapper.BancoMapper;
 import com.saludsystem.submodules.mantenimiento.model.Banco;
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearBancoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearBancoDTO;
 import com.saludsystem.submodules.mantenimiento.port.repository.BancoRepository;
 
 public class BancoCreateService {

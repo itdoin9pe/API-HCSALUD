@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.command.create;
 
-import com.saludsystem.submodules.principal.model.dtos.post.CrearEmpresaDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearEmpresaDTO;
 import com.saludsystem.submodules.principal.service.empresa.EmpresaCreateService;
 import org.springframework.stereotype.Component;
 

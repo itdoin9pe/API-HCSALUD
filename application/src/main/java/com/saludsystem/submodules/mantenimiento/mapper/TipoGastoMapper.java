@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.TipoGasto;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TipoGastoDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearTipoGastoDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarTipoGastoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TipoGastoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTipoGastoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarTipoGastoDTO;
 
 import java.util.UUID;
 

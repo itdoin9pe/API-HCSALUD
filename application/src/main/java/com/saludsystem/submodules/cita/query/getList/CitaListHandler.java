@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.cita.query.getList;
 
-import com.saludsystem.submodules.cita.model.dtos.get.CitaDTO;
+import com.saludsystem.submodules.cita.dtos.get.CitaDTO;
 import com.saludsystem.submodules.cita.service.CitaListService;
 import org.springframework.stereotype.Component;
 

@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.Enfermedad;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.EnfermedadDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearEnfermedadDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarEnfermedadDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.EnfermedadDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearEnfermedadDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarEnfermedadDTO;
 
 public class EnfermedadMapper {
 

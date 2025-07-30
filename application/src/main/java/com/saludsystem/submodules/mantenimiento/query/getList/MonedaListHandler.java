@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getList;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.MonedaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.MonedaDTO;
 import com.saludsystem.submodules.mantenimiento.service.moneda.MonedaListService;
 import org.springframework.stereotype.Component;
 

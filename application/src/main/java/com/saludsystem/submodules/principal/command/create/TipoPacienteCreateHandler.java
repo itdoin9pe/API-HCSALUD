@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.command.create;
 
-import com.saludsystem.submodules.principal.model.dtos.post.CrearTipoPacienteDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearTipoPacienteDTO;
 import com.saludsystem.submodules.principal.service.tipopaciente.TipoPacienteCreateService;
 import org.springframework.stereotype.Component;
 

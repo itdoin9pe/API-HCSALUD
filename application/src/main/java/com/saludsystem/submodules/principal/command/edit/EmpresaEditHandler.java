@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.command.edit;
 
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarEmpresaDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarEmpresaDTO;
 import com.saludsystem.submodules.principal.service.empresa.EmpresaEditService;
 import org.springframework.stereotype.Component;
 

@@ -2,7 +2,7 @@ package com.saludsystem.submodules.mantenimiento.service.caja;
 
 import com.saludsystem.submodules.mantenimiento.mapper.CajaMapper;
 import com.saludsystem.submodules.mantenimiento.model.Caja;
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarCajaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarCajaDTO;
 import com.saludsystem.submodules.mantenimiento.port.repository.CajaRepository;
 
 import java.util.UUID;

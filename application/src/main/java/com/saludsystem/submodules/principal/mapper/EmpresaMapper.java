@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.principal.mapper;
 
 import com.saludsystem.submodules.principal.model.Empresa;
-import com.saludsystem.submodules.principal.model.dtos.get.EmpresaDTO;
-import com.saludsystem.submodules.principal.model.dtos.post.CrearEmpresaDTO;
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarEmpresaDTO;
+import com.saludsystem.submodules.principal.dtos.get.EmpresaDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearEmpresaDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarEmpresaDTO;
 
 import java.util.UUID;
 

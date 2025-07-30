@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getAll;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.BancoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.BancoDTO;
 import com.saludsystem.submodules.mantenimiento.service.banco.BancoAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

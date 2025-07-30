@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getList;
 
-import com.saludsystem.submodules.catalogo.model.dto.EspecialidadDTO;
+import com.saludsystem.submodules.catalogo.dto.EspecialidadDTO;
 import com.saludsystem.submodules.catalogo.mapper.EspecialidadMapper;
 import com.saludsystem.submodules.catalogo.port.dao.EspecialidadDao;
 import org.springframework.stereotype.Component;

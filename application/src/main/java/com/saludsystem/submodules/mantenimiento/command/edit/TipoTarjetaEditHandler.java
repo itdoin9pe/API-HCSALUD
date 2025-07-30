@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.command.edit;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarTipoTarjetaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarTipoTarjetaDTO;
 import com.saludsystem.submodules.mantenimiento.service.tipotarjeta.TipoTarjetaEditService;
 import org.springframework.stereotype.Component;
 

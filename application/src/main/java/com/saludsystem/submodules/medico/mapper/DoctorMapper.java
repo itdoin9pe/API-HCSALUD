@@ -1,10 +1,11 @@
 package com.saludsystem.submodules.medico.mapper;
 
-import com.saludsystem.submodules.configuracion.model.entity.vo.usuario.NumeroDocumento;
+import com.saludsystem.submodules.configuracion.vo.usuario.NumeroDocumento;
 import com.saludsystem.submodules.medico.dtos.ActualizarDoctorDTO;
 import com.saludsystem.submodules.medico.dtos.CrearDoctorDTO;
 import com.saludsystem.submodules.medico.dtos.DoctorDTO;
 import com.saludsystem.submodules.medico.model.*;
+import com.saludsystem.submodules.medico.vo.*;
 
 import java.util.UUID;
 

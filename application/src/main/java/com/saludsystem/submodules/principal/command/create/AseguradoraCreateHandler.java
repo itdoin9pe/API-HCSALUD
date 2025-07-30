@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.command.create;
 
-import com.saludsystem.submodules.principal.model.dtos.post.CrearAseguradoraDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearAseguradoraDTO;
 import com.saludsystem.submodules.principal.service.aseguradora.AseguradoraCreateService;
 import org.springframework.stereotype.Component;
 

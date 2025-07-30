@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getById;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TarifarioDTO;
 import com.saludsystem.submodules.mantenimiento.service.tarifario.TarifarioByIdService;
 import org.springframework.stereotype.Component;
 

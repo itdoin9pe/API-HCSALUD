@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.mantenimiento.service.tarifario;
 
 import com.saludsystem.submodules.mantenimiento.mapper.TarifarioMapper;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TarifarioDTO;
 import com.saludsystem.submodules.mantenimiento.port.dao.TarifarioDao;
 
 import java.util.List;

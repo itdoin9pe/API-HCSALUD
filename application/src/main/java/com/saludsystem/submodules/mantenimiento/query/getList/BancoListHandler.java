@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getList;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.BancoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.BancoDTO;
 import com.saludsystem.submodules.mantenimiento.service.banco.BancoListService;
 import org.springframework.stereotype.Component;
 

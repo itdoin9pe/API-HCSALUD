@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.command.create;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearTarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTarifarioDTO;
 import com.saludsystem.submodules.mantenimiento.service.tarifario.TarifarioCreateService;
 import org.springframework.stereotype.Component;
 

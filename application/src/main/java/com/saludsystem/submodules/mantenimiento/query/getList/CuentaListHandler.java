@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getList;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.CuentaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.CuentaDTO;
 import com.saludsystem.submodules.mantenimiento.service.cuenta.CuentaListService;
 import org.springframework.stereotype.Component;
 

@@ -2,10 +2,10 @@ package com.saludsystem.submodules.mantenimiento.service.tarifario;
 
 import com.saludsystem.submodules.mantenimiento.mapper.TarifarioMapper;
 import com.saludsystem.submodules.mantenimiento.model.Tarifario;
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearTarifarioDTO;
-import com.saludsystem.submodules.mantenimiento.model.exception.business.TarifarioBusinessRuleException;
-import com.saludsystem.submodules.mantenimiento.model.exception.validation.TarifarioValidationException;
-import com.saludsystem.submodules.mantenimiento.model.validators.TarifarioValidator;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.exception.business.TarifarioBusinessRuleException;
+import com.saludsystem.submodules.mantenimiento.exception.validation.TarifarioValidationException;
+import com.saludsystem.submodules.mantenimiento.validators.TarifarioValidator;
 import com.saludsystem.submodules.mantenimiento.port.repository.TarifarioRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

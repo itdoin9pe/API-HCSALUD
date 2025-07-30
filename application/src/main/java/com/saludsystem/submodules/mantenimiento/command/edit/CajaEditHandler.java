@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.command.edit;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarCajaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarCajaDTO;
 import com.saludsystem.submodules.mantenimiento.service.caja.CajaEditService;
 import org.springframework.stereotype.Component;
 

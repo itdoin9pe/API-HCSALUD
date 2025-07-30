@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.query.getList;
 
-import com.saludsystem.submodules.principal.model.dtos.get.TipoPacienteDTO;
+import com.saludsystem.submodules.principal.dtos.get.TipoPacienteDTO;
 import com.saludsystem.submodules.principal.service.tipopaciente.TipoPacienteListService;
 import org.springframework.stereotype.Component;
 

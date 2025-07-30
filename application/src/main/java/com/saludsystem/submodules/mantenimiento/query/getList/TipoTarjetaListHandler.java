@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getList;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TipoTarjetaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TipoTarjetaDTO;
 import com.saludsystem.submodules.mantenimiento.service.tipotarjeta.TipoTarjetaListService;
 import org.springframework.stereotype.Component;
 

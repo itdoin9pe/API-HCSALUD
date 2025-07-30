@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.mantenimiento.service.tipogasto;
 
 import com.saludsystem.submodules.mantenimiento.mapper.TipoGastoMapper;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TipoGastoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TipoGastoDTO;
 import com.saludsystem.submodules.mantenimiento.port.dao.TipoGastoDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

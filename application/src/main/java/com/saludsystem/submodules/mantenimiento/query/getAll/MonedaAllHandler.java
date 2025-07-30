@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getAll;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.MonedaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.MonedaDTO;
 import com.saludsystem.submodules.mantenimiento.service.moneda.MonedaAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

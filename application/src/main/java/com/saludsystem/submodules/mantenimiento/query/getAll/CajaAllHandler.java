@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getAll;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.CajaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.CajaDTO;
 import com.saludsystem.submodules.mantenimiento.service.caja.CajaAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

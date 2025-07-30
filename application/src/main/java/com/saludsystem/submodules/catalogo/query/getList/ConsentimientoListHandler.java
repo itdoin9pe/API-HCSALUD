@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getList;
 
-import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.dto.ConsentimientoDTO;
 import com.saludsystem.submodules.catalogo.service.consentimiento.ConsentimientoListService;
 import org.springframework.stereotype.Component;
 

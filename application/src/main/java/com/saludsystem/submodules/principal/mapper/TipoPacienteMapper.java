@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.principal.mapper;
 
 import com.saludsystem.submodules.principal.model.TipoPaciente;
-import com.saludsystem.submodules.principal.model.dtos.get.TipoPacienteDTO;
-import com.saludsystem.submodules.principal.model.dtos.post.CrearTipoPacienteDTO;
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarTipoPacienteDTO;
+import com.saludsystem.submodules.principal.dtos.get.TipoPacienteDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearTipoPacienteDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarTipoPacienteDTO;
 
 public class TipoPacienteMapper {
 

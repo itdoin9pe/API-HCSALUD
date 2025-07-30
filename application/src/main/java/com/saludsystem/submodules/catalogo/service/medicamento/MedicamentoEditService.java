@@ -2,7 +2,7 @@ package com.saludsystem.submodules.catalogo.service.medicamento;
 
 import com.saludsystem.submodules.catalogo.mapper.MedicamentoMapper;
 import com.saludsystem.submodules.catalogo.model.Medicamento;
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarMedicamentoDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarMedicamentoDTO;
 import com.saludsystem.submodules.catalogo.port.repository.MedicamentoRepository;
 
 import java.util.UUID;

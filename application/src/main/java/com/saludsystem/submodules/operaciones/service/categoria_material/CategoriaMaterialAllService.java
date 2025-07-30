@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.operaciones.service.categoria_material;
 
 import com.saludsystem.submodules.operaciones.mapper.CategoriaMaterialMapper;
-import com.saludsystem.submodules.operaciones.model.dtos.get.CategoriaMatDTO;
+import com.saludsystem.submodules.operaciones.dtos.query.CategoriaMatDTO;
 import com.saludsystem.submodules.operaciones.port.dao.CategoriaMaterialDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

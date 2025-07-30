@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.paciente.response.estadocuenta;
 
-import com.saludsystem.submodules.paciente.model.dtos.get.historialclinico.estadocuenta.PagoDTO;
+import com.saludsystem.submodules.paciente.dtos.get.historialclinico.estadocuenta.PagoDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

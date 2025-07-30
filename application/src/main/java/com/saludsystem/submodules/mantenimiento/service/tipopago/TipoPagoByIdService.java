@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.mantenimiento.service.tipopago;
 
 import com.saludsystem.submodules.mantenimiento.mapper.TipoPagoMapper;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TipoPagoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TipoPagoDTO;
 import com.saludsystem.submodules.mantenimiento.port.dao.TipoPagoDao;
 
 import java.util.UUID;

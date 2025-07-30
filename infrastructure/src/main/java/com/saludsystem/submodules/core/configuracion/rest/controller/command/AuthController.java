@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.core.configuracion.rest.controller.command;
 
 import com.saludsystem.submodules.configuracion.dtos.LoginRequestDto;
-import com.saludsystem.submodules.configuracion.model.dto.command.JwtLoginResponse;
+import com.saludsystem.submodules.configuracion.port.out.JwtLoginResponse;
 import com.saludsystem.submodules.security.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 

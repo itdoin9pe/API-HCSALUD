@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.model.dto.EspecialidadDTO;
+import com.saludsystem.submodules.catalogo.dto.EspecialidadDTO;
 import com.saludsystem.submodules.catalogo.service.especialidad.EspecialidadByIdService;
 import org.springframework.stereotype.Component;
 

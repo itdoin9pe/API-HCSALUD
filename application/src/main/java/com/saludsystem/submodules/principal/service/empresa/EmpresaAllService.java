@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.principal.service.empresa;
 
 import com.saludsystem.submodules.principal.mapper.EmpresaMapper;
-import com.saludsystem.submodules.principal.model.dtos.get.EmpresaDTO;
+import com.saludsystem.submodules.principal.dtos.get.EmpresaDTO;
 import com.saludsystem.submodules.principal.port.dao.EmpresaDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

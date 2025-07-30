@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.command.edit;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarBancoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarBancoDTO;
 import com.saludsystem.submodules.mantenimiento.service.banco.BancoEditService;
 import org.springframework.stereotype.Component;
 

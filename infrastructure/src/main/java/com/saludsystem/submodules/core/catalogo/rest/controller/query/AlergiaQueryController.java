@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.model.dto.AlergiaDTO;
+import com.saludsystem.submodules.catalogo.dto.AlergiaDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.AlergiaAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.AlergiaByIdHandler;
 import com.saludsystem.submodules.catalogo.query.getList.AlergiaListHandler;

@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.principal.service.tipopaciente;
 
 import com.saludsystem.submodules.principal.mapper.TipoPacienteMapper;
-import com.saludsystem.submodules.principal.model.dtos.get.TipoPacienteDTO;
+import com.saludsystem.submodules.principal.dtos.get.TipoPacienteDTO;
 import com.saludsystem.submodules.principal.port.dao.TipoPacienteDao;
 
 public class TipoPacienteByIdService {

@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.Cuenta;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.CuentaDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearCuentaDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarCuentaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.CuentaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearCuentaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarCuentaDTO;
 
 import java.util.UUID;
 

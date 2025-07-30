@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getList;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TipoGastoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TipoGastoDTO;
 import com.saludsystem.submodules.mantenimiento.service.tipogasto.TipoGastoListService;
 import org.springframework.stereotype.Component;
 

@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.operaciones.mapper;
 
 import com.saludsystem.submodules.operaciones.model.CategoriaMaterial;
-import com.saludsystem.submodules.operaciones.model.dtos.get.CategoriaMatDTO;
-import com.saludsystem.submodules.operaciones.model.dtos.post.CrearCategotiaMatDTO;
-import com.saludsystem.submodules.operaciones.model.dtos.put.ActualizarCategoriaMatDTO;
+import com.saludsystem.submodules.operaciones.dtos.query.CategoriaMatDTO;
+import com.saludsystem.submodules.operaciones.dtos.command.CrearCategotiaMatDTO;
+import com.saludsystem.submodules.operaciones.dtos.edit.ActualizarCategoriaMatDTO;
 
 import java.util.UUID;
 

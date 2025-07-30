@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.principal.rest.controller.query;
 
-import com.saludsystem.submodules.principal.model.dtos.get.InformacionClinicaDTO;
+import com.saludsystem.submodules.principal.dtos.get.InformacionClinicaDTO;
 import com.saludsystem.submodules.principal.query.getAll.InformacionClinicaAllHandler;
 import com.saludsystem.submodules.principal.query.getById.InformacionClinicaByIdHandler;
 import com.saludsystem.submodules.principal.query.getList.InformacionClinicaListHandler;

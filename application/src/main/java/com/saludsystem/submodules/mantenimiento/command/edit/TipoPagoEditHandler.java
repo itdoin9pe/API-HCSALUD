@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.command.edit;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarTipoPagoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarTipoPagoDTO;
 import com.saludsystem.submodules.mantenimiento.service.tipopago.TipoPagoEditService;
 import org.springframework.stereotype.Component;
 

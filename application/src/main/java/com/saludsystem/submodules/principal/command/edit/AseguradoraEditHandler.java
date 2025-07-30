@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.command.edit;
 
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarAseguradoraDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarAseguradoraDTO;
 import com.saludsystem.submodules.principal.service.aseguradora.AseguradoraEdiService;
 import org.springframework.stereotype.Component;
 

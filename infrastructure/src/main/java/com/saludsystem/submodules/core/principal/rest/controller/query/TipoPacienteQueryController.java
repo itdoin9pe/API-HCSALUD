@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.principal.rest.controller.query;
 
-import com.saludsystem.submodules.principal.model.dtos.get.TipoPacienteDTO;
+import com.saludsystem.submodules.principal.dtos.get.TipoPacienteDTO;
 import com.saludsystem.submodules.principal.query.getById.TipoPacienteByIdHandler;
 import com.saludsystem.submodules.principal.query.getList.TipoPacienteListHandler;
 import io.swagger.v3.oas.annotations.tags.Tag;

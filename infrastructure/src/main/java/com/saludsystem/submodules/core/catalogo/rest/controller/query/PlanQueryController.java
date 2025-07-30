@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.model.dto.PlanDTO;
+import com.saludsystem.submodules.catalogo.dto.PlanDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.PlanAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.PlanByIdHandler;
 import com.saludsystem.submodules.catalogo.query.getList.PlanListHandler;

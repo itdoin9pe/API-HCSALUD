@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.query.getList;
 
-import com.saludsystem.submodules.principal.model.dtos.get.EstudioDTO;
+import com.saludsystem.submodules.principal.dtos.get.EstudioDTO;
 import com.saludsystem.submodules.principal.service.estudio.EstudioListService;
 import org.springframework.stereotype.Component;
 

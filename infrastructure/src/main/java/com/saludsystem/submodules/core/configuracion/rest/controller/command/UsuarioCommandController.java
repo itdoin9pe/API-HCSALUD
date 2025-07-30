@@ -2,7 +2,7 @@ package com.saludsystem.submodules.core.configuracion.rest.controller.command;
 
 import com.saludsystem.submodules.configuracion.dtos.post.NewUserDto;
 import com.saludsystem.submodules.configuracion.dtos.put.ActualizarUsuarioDTO;
-import com.saludsystem.submodules.configuracion.model.constant.UserConstant;
+import com.saludsystem.submodules.configuracion.constant.UserConstant;
 import com.saludsystem.submodules.configuracion.command.create.UsuarioCreateHandler;
 import com.saludsystem.submodules.configuracion.command.delete.UsuarioDeleteHandler;
 import com.saludsystem.submodules.configuracion.command.edit.UsuarioEditHandler;

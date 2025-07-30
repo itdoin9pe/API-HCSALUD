@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.query.getList;
 
-import com.saludsystem.submodules.principal.model.dtos.get.AseguradoraDTO;
+import com.saludsystem.submodules.principal.dtos.get.AseguradoraDTO;
 import com.saludsystem.submodules.principal.service.aseguradora.AseguradoraListService;
 import org.springframework.stereotype.Component;
 

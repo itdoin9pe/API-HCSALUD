@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.mantenimiento.rest.controller.query;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.CajaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.CajaDTO;
 import com.saludsystem.submodules.mantenimiento.query.getAll.CajaAllHandler;
 import com.saludsystem.submodules.mantenimiento.query.getById.CajaByIdHandler;
 import com.saludsystem.submodules.mantenimiento.query.getList.CajaListHandler;

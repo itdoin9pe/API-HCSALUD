@@ -2,7 +2,7 @@ package com.saludsystem.submodules.mantenimiento.service.tipotarjeta;
 
 import com.saludsystem.submodules.mantenimiento.mapper.TipoTarjetaMapper;
 import com.saludsystem.submodules.mantenimiento.model.TipoTarjeta;
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearTipoTarjetaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTipoTarjetaDTO;
 import com.saludsystem.submodules.mantenimiento.port.repository.TipoTarjetaRepository;
 
 public class TipoTarjetaCreateService {

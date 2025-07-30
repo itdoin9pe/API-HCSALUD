@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.cita.rest.controller.query;
 
-import com.saludsystem.submodules.cita.model.dtos.get.CitaDTO;
+import com.saludsystem.submodules.cita.dtos.get.CitaDTO;
 import com.saludsystem.submodules.cita.query.getAll.CitaAllHandler;
 import com.saludsystem.submodules.cita.query.getById.CitaByIdHandler;
 import com.saludsystem.submodules.cita.query.getList.CitaListHandler;

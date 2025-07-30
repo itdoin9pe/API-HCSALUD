@@ -4,8 +4,8 @@ import com.saludsystem.submodules.principal.command.create.TipoPacienteCreateHan
 import com.saludsystem.submodules.principal.command.delete.TipoPacienteDeleteHandler;
 import com.saludsystem.submodules.principal.command.edit.TipoPacienteEditHandler;
 import com.saludsystem.submodules.principal.model.constant.TipoPacienteConstant;
-import com.saludsystem.submodules.principal.model.dtos.post.CrearTipoPacienteDTO;
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarTipoPacienteDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearTipoPacienteDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarTipoPacienteDTO;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

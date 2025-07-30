@@ -4,8 +4,8 @@ import com.saludsystem.submodules.principal.command.create.InformacionClinicaCre
 import com.saludsystem.submodules.principal.command.delete.InformacionClinicaDeleteHandler;
 import com.saludsystem.submodules.principal.command.edit.InformacionClinicaEditHandler;
 import com.saludsystem.submodules.principal.model.constant.InformacionClinicaConstant;
-import com.saludsystem.submodules.principal.model.dtos.post.CrearInformacionClinicaDTO;
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarInformacionClinicaDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearInformacionClinicaDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarInformacionClinicaDTO;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

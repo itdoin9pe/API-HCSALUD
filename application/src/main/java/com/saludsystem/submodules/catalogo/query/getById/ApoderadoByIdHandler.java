@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.model.dto.ApoderadoDTO;
+import com.saludsystem.submodules.catalogo.dto.ApoderadoDTO;
 import com.saludsystem.submodules.catalogo.service.apoderado.ApoderadoByIdService;
 import org.springframework.stereotype.Component;
 

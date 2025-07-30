@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.query.getAll;
 
-import com.saludsystem.submodules.principal.model.dtos.get.PaisDTO;
+import com.saludsystem.submodules.principal.dtos.get.PaisDTO;
 import com.saludsystem.submodules.principal.service.pais.PaisAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.paciente.response.historialclinico;
 
-import com.saludsystem.submodules.paciente.model.dtos.get.historialclinico.ConsultaDTO;
+import com.saludsystem.submodules.paciente.dtos.get.historialclinico.ConsultaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

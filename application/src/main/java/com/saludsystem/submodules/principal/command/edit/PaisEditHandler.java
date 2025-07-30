@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.command.edit;
 
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarPaisDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarPaisDTO;
 import com.saludsystem.submodules.principal.service.pais.PaisEditService;
 import org.springframework.stereotype.Component;
 

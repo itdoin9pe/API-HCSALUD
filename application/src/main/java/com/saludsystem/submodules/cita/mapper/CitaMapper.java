@@ -1,9 +1,10 @@
 package com.saludsystem.submodules.cita.mapper;
 
-import com.saludsystem.submodules.cita.model.dtos.get.CitaDTO;
-import com.saludsystem.submodules.cita.model.dtos.post.CrearCitaDTO;
-import com.saludsystem.submodules.cita.model.dtos.put.ActualizarCitaDTO;
+import com.saludsystem.submodules.cita.dtos.get.CitaDTO;
+import com.saludsystem.submodules.cita.dtos.post.CrearCitaDTO;
+import com.saludsystem.submodules.cita.dtos.put.ActualizarCitaDTO;
 import com.saludsystem.submodules.cita.model.entity.*;
+import com.saludsystem.submodules.cita.vo.*;
 
 import java.util.UUID;
 

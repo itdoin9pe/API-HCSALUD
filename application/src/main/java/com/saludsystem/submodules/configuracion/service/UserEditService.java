@@ -2,7 +2,7 @@ package com.saludsystem.submodules.configuracion.service;
 
 import com.saludsystem.submodules.configuracion.dtos.put.ActualizarUsuarioDTO;
 import com.saludsystem.submodules.configuracion.mapper.UsuarioMapper;
-import com.saludsystem.submodules.configuracion.model.entity.Usuario;
+import com.saludsystem.submodules.configuracion.model.Usuario;
 import com.saludsystem.submodules.configuracion.port.in.repository.UserRepository;
 
 import java.util.UUID;

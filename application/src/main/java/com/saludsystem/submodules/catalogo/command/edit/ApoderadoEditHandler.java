@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarApoderadoDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarApoderadoDTO;
 import com.saludsystem.submodules.catalogo.service.apoderado.ApoderadoEditService;
 import org.springframework.stereotype.Component;
 

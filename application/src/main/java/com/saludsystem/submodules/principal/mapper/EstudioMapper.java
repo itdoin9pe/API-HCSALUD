@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.principal.mapper;
 
 import com.saludsystem.submodules.principal.model.Estudio;
-import com.saludsystem.submodules.principal.model.dtos.get.EstudioDTO;
-import com.saludsystem.submodules.principal.model.dtos.post.CrearEstudioDTO;
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarEstudioDTO;
+import com.saludsystem.submodules.principal.dtos.get.EstudioDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearEstudioDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarEstudioDTO;
 
 import java.util.UUID;
 

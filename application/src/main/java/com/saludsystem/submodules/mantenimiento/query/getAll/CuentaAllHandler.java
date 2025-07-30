@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getAll;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.CuentaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.CuentaDTO;
 import com.saludsystem.submodules.mantenimiento.service.cuenta.CuentaAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

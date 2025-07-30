@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.principal.rest.controller.query;
 
-import com.saludsystem.submodules.principal.model.dtos.get.EstudioDTO;
+import com.saludsystem.submodules.principal.dtos.get.EstudioDTO;
 import com.saludsystem.submodules.principal.query.getAll.EstudioAllHandler;
 import com.saludsystem.submodules.principal.query.getById.EstudioByIdHandler;
 import com.saludsystem.submodules.principal.query.getList.EstudioListHandler;

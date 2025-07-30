@@ -4,8 +4,8 @@ import com.saludsystem.submodules.catalogo.command.create.ApoderadoCreateHandler
 import com.saludsystem.submodules.catalogo.command.delete.ApoderadoDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.ApoderadoEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.ApoderadoConstant;
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearApoderadoDTO;
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarApoderadoDTO;
+import com.saludsystem.submodules.catalogo.dto.command.CrearApoderadoDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarApoderadoDTO;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

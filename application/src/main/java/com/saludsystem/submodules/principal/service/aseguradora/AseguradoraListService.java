@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.service.aseguradora;
 
-import com.saludsystem.submodules.principal.model.dtos.get.AseguradoraDTO;
+import com.saludsystem.submodules.principal.dtos.get.AseguradoraDTO;
 import com.saludsystem.submodules.principal.mapper.AseguradoraMapper;
 import com.saludsystem.submodules.principal.port.dao.AseguradoraDao;
 

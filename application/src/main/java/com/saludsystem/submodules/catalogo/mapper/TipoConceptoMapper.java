@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.model.dto.TipoConceptoDTO;
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearTipoConceptoDTO;
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarTipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.dto.TipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.dto.command.CrearTipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarTipoConceptoDTO;
 import com.saludsystem.submodules.catalogo.model.TipoConcepto;
 
 import java.util.UUID;

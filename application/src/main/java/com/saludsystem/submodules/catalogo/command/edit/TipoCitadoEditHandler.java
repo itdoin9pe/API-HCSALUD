@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarTipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarTipoCitadoDTO;
 import com.saludsystem.submodules.catalogo.service.tipocitado.TipoCitadoEditService;
 import org.springframework.stereotype.Component;
 

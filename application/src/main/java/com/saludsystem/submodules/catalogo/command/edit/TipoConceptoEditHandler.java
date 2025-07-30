@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarTipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarTipoConceptoDTO;
 import com.saludsystem.submodules.catalogo.service.tipoconcepto.TipoConceptoEditService;
 import org.springframework.stereotype.Component;
 

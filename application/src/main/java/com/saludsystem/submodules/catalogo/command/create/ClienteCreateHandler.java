@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearClienteDTO;
+import com.saludsystem.submodules.catalogo.dto.command.CrearClienteDTO;
 import com.saludsystem.submodules.catalogo.service.cliente.ClienteCreateService;
 import org.springframework.stereotype.Component;
 

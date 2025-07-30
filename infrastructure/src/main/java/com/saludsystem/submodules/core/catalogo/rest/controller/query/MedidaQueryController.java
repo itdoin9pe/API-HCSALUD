@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.model.dto.MedidaDTO;
+import com.saludsystem.submodules.catalogo.dto.MedidaDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.MedidaAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.MedidaByIdHandler;
 import com.saludsystem.submodules.catalogo.query.getList.MedidaListHandler;

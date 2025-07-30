@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.configuracion.port.in.repository;
 
-import com.saludsystem.submodules.configuracion.model.entity.Permiso;
+import com.saludsystem.submodules.configuracion.model.Permiso;
 
 import java.util.List;
 import java.util.UUID;

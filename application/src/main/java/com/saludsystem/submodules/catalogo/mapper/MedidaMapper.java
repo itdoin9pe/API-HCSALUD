@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.model.dto.MedidaDTO;
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearMedidaDTO;
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarMedidaDTO;
+import com.saludsystem.submodules.catalogo.dto.MedidaDTO;
+import com.saludsystem.submodules.catalogo.dto.command.CrearMedidaDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarMedidaDTO;
 import com.saludsystem.submodules.catalogo.model.Medida;
 
 import java.util.UUID;

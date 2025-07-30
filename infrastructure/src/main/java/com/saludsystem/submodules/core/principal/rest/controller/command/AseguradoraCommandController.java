@@ -4,8 +4,8 @@ import com.saludsystem.submodules.principal.command.create.AseguradoraCreateHand
 import com.saludsystem.submodules.principal.command.delete.AseguradoraDeleteHandler;
 import com.saludsystem.submodules.principal.command.edit.AseguradoraEditHandler;
 import com.saludsystem.submodules.principal.model.constant.AseguradoraConstant;
-import com.saludsystem.submodules.principal.model.dtos.post.CrearAseguradoraDTO;
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarAseguradoraDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearAseguradoraDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarAseguradoraDTO;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

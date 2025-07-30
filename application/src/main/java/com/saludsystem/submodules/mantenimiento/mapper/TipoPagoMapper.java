@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.TipoPago;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TipoPagoDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.post.CrearTipoPagoDTO;
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarTipoPagoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TipoPagoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTipoPagoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarTipoPagoDTO;
 
 import java.util.UUID;
 

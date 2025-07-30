@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.mantenimiento.service.moneda;
 
 import com.saludsystem.submodules.mantenimiento.mapper.MonedaMapper;
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.MonedaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.MonedaDTO;
 import com.saludsystem.submodules.mantenimiento.port.dao.MonedaDao;
 
 import java.util.UUID;

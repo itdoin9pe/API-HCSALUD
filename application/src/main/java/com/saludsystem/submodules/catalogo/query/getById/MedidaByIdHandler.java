@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.model.dto.MedidaDTO;
+import com.saludsystem.submodules.catalogo.dto.MedidaDTO;
 import com.saludsystem.submodules.catalogo.service.medida.MedidaByIdService;
 import org.springframework.stereotype.Component;
 

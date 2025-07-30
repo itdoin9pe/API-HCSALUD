@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getAll;
 
-import com.saludsystem.submodules.catalogo.model.dto.MedidaDTO;
+import com.saludsystem.submodules.catalogo.dto.MedidaDTO;
 import com.saludsystem.submodules.catalogo.service.medida.MedidaAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

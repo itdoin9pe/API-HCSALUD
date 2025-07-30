@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.operaciones.query.getById;
 
-import com.saludsystem.submodules.operaciones.model.dtos.get.CategoriaMatDTO;
+import com.saludsystem.submodules.operaciones.dtos.query.CategoriaMatDTO;
 import com.saludsystem.submodules.operaciones.service.categoria_material.CategoriaMaterialByIdService;
 import org.springframework.stereotype.Component;
 

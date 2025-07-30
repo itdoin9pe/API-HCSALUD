@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.mantenimiento.rest.controller.query;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TipoPagoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TipoPagoDTO;
 import com.saludsystem.submodules.mantenimiento.query.getAll.TipoPagoAllHandler;
 import com.saludsystem.submodules.mantenimiento.query.getById.TipoPagoByIdHandler;
 import com.saludsystem.submodules.mantenimiento.query.getList.TipoPagoListHandler;

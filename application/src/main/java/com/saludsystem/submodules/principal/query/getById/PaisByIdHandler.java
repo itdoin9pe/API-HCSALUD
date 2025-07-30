@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.query.getById;
 
-import com.saludsystem.submodules.principal.model.dtos.get.PaisDTO;
+import com.saludsystem.submodules.principal.dtos.get.PaisDTO;
 import com.saludsystem.submodules.principal.service.pais.PaisByIdService;
 import org.springframework.stereotype.Component;
 

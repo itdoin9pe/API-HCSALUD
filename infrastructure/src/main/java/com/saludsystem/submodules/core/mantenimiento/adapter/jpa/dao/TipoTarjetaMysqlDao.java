@@ -3,7 +3,7 @@ package com.saludsystem.submodules.core.mantenimiento.adapter.jpa.dao;
 import com.saludsystem.submodules.core.mantenimiento.adapter.jpa.TipoTarjetaJpaRepository;
 import com.saludsystem.submodules.core.mantenimiento.adapter.mapper.TipoTarjetaDboMapper;
 import com.saludsystem.submodules.mantenimiento.model.TipoTarjeta;
-import com.saludsystem.submodules.mantenimiento.model.constant.TipoTarjetaConstant;
+import com.saludsystem.submodules.mantenimiento.constant.TipoTarjetaConstant;
 import com.saludsystem.submodules.mantenimiento.port.dao.TipoTarjetaDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;

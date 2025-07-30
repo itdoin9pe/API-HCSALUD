@@ -2,7 +2,7 @@ package com.saludsystem.submodules.catalogo.service.consentimiento;
 
 import com.saludsystem.submodules.catalogo.mapper.ConsentimientoMapper;
 import com.saludsystem.submodules.catalogo.model.Consentimiento;
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.dto.command.CrearConsentimientoDTO;
 import com.saludsystem.submodules.catalogo.port.repository.ConsentimientoRepository;
 
 public class ConsentimientoCreateService {

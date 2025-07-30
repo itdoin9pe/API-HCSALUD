@@ -2,7 +2,7 @@ package com.saludsystem.submodules.mantenimiento.service.enfermedad;
 
 import com.saludsystem.submodules.mantenimiento.mapper.EnfermedadMapper;
 import com.saludsystem.submodules.mantenimiento.model.Enfermedad;
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarEnfermedadDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarEnfermedadDTO;
 import com.saludsystem.submodules.mantenimiento.port.repository.EnfermedadRepository;
 
 public class EnfermedadEditService {

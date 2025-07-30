@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.command.edit;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarTarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarTarifarioDTO;
 import com.saludsystem.submodules.mantenimiento.service.tarifario.TarifarioEditService;
 import org.springframework.stereotype.Component;
 

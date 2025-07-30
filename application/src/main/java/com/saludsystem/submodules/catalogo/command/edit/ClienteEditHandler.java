@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarClienteDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarClienteDTO;
 import com.saludsystem.submodules.catalogo.service.cliente.ClienteEditService;
 import org.springframework.stereotype.Component;
 

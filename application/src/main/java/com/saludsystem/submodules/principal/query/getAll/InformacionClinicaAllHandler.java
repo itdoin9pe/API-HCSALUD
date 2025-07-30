@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.query.getAll;
 
-import com.saludsystem.submodules.principal.model.dtos.get.InformacionClinicaDTO;
+import com.saludsystem.submodules.principal.dtos.get.InformacionClinicaDTO;
 import com.saludsystem.submodules.principal.service.informacionclinica.InformacionClinicaAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

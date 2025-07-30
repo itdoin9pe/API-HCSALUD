@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.principal.command.edit;
 
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarInformacionClinicaDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarInformacionClinicaDTO;
 import com.saludsystem.submodules.principal.service.informacionclinica.InformacionClinicaEditService;
 import org.springframework.stereotype.Component;
 

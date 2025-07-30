@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getById;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TipoPagoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TipoPagoDTO;
 import com.saludsystem.submodules.mantenimiento.service.tipopago.TipoPagoByIdService;
 import org.springframework.stereotype.Component;
 

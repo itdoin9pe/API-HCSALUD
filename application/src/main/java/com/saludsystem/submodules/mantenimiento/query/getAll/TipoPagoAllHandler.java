@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.query.getAll;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TipoPagoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TipoPagoDTO;
 import com.saludsystem.submodules.mantenimiento.service.tipopago.TipoPagoAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearCategoriaDTO;
+import com.saludsystem.submodules.catalogo.dto.command.CrearCategoriaDTO;
 import com.saludsystem.submodules.catalogo.service.categoria.CategoriaCreateService;
 import org.springframework.stereotype.Component;
 

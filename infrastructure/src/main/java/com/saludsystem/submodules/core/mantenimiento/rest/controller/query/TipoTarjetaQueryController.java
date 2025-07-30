@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.mantenimiento.rest.controller.query;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.get.TipoTarjetaDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.get.TipoTarjetaDTO;
 import com.saludsystem.submodules.mantenimiento.query.getAll.TipoTarjetaAllHandler;
 import com.saludsystem.submodules.mantenimiento.query.getById.TipoTarjetaByIdHandler;
 import com.saludsystem.submodules.mantenimiento.query.getList.TipoTarjetaListHandler;

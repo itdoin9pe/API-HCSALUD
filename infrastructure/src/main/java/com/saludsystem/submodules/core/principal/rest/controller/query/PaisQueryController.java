@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.principal.rest.controller.query;
 
-import com.saludsystem.submodules.principal.model.dtos.get.PaisDTO;
+import com.saludsystem.submodules.principal.dtos.get.PaisDTO;
 import com.saludsystem.submodules.principal.query.getAll.PaisAllHandler;
 import com.saludsystem.submodules.principal.query.getById.PaisByIdHandler;
 import com.saludsystem.submodules.principal.query.getList.PaisListHandler;

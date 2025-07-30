@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.medida;
 
 import com.saludsystem.submodules.catalogo.mapper.MedidaMapper;
-import com.saludsystem.submodules.catalogo.model.dto.MedidaDTO;
+import com.saludsystem.submodules.catalogo.dto.MedidaDTO;
 import com.saludsystem.submodules.catalogo.port.dao.MedidaDao;
 
 import java.util.List;

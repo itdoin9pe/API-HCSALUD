@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.dto.ConsentimientoDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.ConsentimientoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.ConsentimientoByIdHandler;
 import com.saludsystem.submodules.catalogo.query.getList.ConsentimientoListHandler;

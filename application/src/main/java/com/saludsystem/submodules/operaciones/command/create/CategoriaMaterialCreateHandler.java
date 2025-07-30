@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.operaciones.command.create;
 
-import com.saludsystem.submodules.operaciones.model.dtos.post.CrearCategotiaMatDTO;
+import com.saludsystem.submodules.operaciones.dtos.command.CrearCategotiaMatDTO;
 import com.saludsystem.submodules.operaciones.service.categoria_material.CategoriaMaterialCreateService;
 import org.springframework.stereotype.Component;
 

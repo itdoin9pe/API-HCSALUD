@@ -3,7 +3,7 @@ package com.saludsystem.submodules.core.mantenimiento.adapter.jpa.dao;
 import com.saludsystem.submodules.core.mantenimiento.adapter.jpa.TarifarioJpaRepository;
 import com.saludsystem.submodules.core.mantenimiento.adapter.mapper.TarifarioDboMapper;
 import com.saludsystem.submodules.mantenimiento.model.Tarifario;
-import com.saludsystem.submodules.mantenimiento.model.constant.TarifarioConstant;
+import com.saludsystem.submodules.mantenimiento.constant.TarifarioConstant;
 import com.saludsystem.submodules.mantenimiento.port.dao.TarifarioDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;

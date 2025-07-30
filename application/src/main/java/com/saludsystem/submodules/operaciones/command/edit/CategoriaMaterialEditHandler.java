@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.operaciones.command.edit;
 
-import com.saludsystem.submodules.operaciones.model.dtos.put.ActualizarCategoriaMatDTO;
+import com.saludsystem.submodules.operaciones.dtos.edit.ActualizarCategoriaMatDTO;
 import com.saludsystem.submodules.operaciones.service.categoria_material.CategoriaMaterialEditService;
 import org.springframework.stereotype.Component;
 

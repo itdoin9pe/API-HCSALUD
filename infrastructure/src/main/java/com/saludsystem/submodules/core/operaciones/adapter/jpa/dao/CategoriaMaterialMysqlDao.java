@@ -3,7 +3,7 @@ package com.saludsystem.submodules.core.operaciones.adapter.jpa.dao;
 import com.saludsystem.submodules.core.operaciones.adapter.jpa.CategoriaMatJpaRepository;
 import com.saludsystem.submodules.core.operaciones.adapter.mapper.CategoriaMaterialDboMapper;
 import com.saludsystem.submodules.operaciones.model.CategoriaMaterial;
-import com.saludsystem.submodules.operaciones.model.constant.CategoriaMaterialConstant;
+import com.saludsystem.submodules.operaciones.constant.CategoriaMaterialConstant;
 import com.saludsystem.submodules.operaciones.port.dao.CategoriaMaterialDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;

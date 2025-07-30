@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.principal.mapper;
 
 import com.saludsystem.submodules.principal.model.Pais;
-import com.saludsystem.submodules.principal.model.dtos.get.PaisDTO;
-import com.saludsystem.submodules.principal.model.dtos.post.CrearPaisDTO;
-import com.saludsystem.submodules.principal.model.dtos.put.ActualizarPaisDTO;
+import com.saludsystem.submodules.principal.dtos.get.PaisDTO;
+import com.saludsystem.submodules.principal.dtos.post.CrearPaisDTO;
+import com.saludsystem.submodules.principal.dtos.put.ActualizarPaisDTO;
 
 public class PaisMapper {
 

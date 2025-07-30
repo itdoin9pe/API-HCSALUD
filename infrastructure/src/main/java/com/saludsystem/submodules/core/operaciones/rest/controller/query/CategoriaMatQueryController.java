@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.operaciones.rest.controller.query;
 
-import com.saludsystem.submodules.operaciones.model.dtos.get.CategoriaMatDTO;
+import com.saludsystem.submodules.operaciones.dtos.query.CategoriaMatDTO;
 import com.saludsystem.submodules.operaciones.query.getAll.CategoriaMaterialAllHandler;
 import com.saludsystem.submodules.operaciones.query.getById.CategoriaMaterialByIdHandler;
 import com.saludsystem.submodules.operaciones.query.getList.CategoriaMaterialListHandler;

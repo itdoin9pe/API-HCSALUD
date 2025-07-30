@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.cita.command.create;
 
-import com.saludsystem.submodules.cita.model.dtos.post.CrearCitaDTO;
+import com.saludsystem.submodules.cita.dtos.post.CrearCitaDTO;
 import com.saludsystem.submodules.cita.service.CitaCreateService;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.especialidad;
 
 import com.saludsystem.submodules.catalogo.mapper.EspecialidadMapper;
-import com.saludsystem.submodules.catalogo.model.dto.EspecialidadDTO;
+import com.saludsystem.submodules.catalogo.dto.EspecialidadDTO;
 import com.saludsystem.submodules.catalogo.port.dao.EspecialidadDao;
 
 import java.util.UUID;

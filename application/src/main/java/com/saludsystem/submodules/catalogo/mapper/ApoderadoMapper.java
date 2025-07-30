@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.model.dto.ApoderadoDTO;
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearApoderadoDTO;
-import com.saludsystem.submodules.catalogo.model.dto.edit.ActualizarApoderadoDTO;
+import com.saludsystem.submodules.catalogo.dto.ApoderadoDTO;
+import com.saludsystem.submodules.catalogo.dto.command.CrearApoderadoDTO;
+import com.saludsystem.submodules.catalogo.dto.edit.ActualizarApoderadoDTO;
 import com.saludsystem.submodules.catalogo.model.Apoderado;
 
 import java.util.UUID;

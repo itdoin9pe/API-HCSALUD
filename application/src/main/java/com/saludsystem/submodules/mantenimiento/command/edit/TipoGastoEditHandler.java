@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.command.edit;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.put.ActualizarTipoGastoDTO;
+import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarTipoGastoDTO;
 import com.saludsystem.submodules.mantenimiento.service.tipogasto.TipoGastoEditService;
 import org.springframework.stereotype.Component;
 

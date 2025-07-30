@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.configuracion.port.in.repository;
 
-import com.saludsystem.submodules.configuracion.model.entity.Usuario;
+import com.saludsystem.submodules.configuracion.model.Usuario;
 
 import java.util.UUID;
 

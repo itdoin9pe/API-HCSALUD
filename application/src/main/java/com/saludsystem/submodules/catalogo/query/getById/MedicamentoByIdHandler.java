@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.model.dto.MedicamentoDTO;
+import com.saludsystem.submodules.catalogo.dto.MedicamentoDTO;
 import com.saludsystem.submodules.catalogo.service.medicamento.MedicamentoByIdService;
 import org.springframework.stereotype.Component;
 
