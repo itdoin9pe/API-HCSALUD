@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.dto.command.CrearTipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearTipoConceptoDTO;
 import com.saludsystem.submodules.catalogo.service.tipoconcepto.TipoConceptoCreateService;
 import org.springframework.stereotype.Component;
 

@@ -2,7 +2,7 @@ package com.saludsystem.submodules.catalogo.service.medicamento;
 
 import com.saludsystem.submodules.catalogo.mapper.MedicamentoMapper;
 import com.saludsystem.submodules.catalogo.model.Medicamento;
-import com.saludsystem.submodules.catalogo.dto.command.CrearMedicamentoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.MedicamentoCreateCommand;
 import com.saludsystem.submodules.catalogo.port.repository.MedicamentoRepository;
 
 public class MedicamentoCreateService {
@@ -13,8 +13,8 @@ public class MedicamentoCreateService {
         this.medicamentoRepository = medicamentoRepository;
     }
 
-    public Medicamento execute(CrearMedicamentoDTO crearMedicamentoDTO) {
-        var medicamentoToCreate = MedicamentoMapper.fromCreateDto(crearMedicamentoDTO);
+    public Medicamento execute(MedicamentoCreateCommand medicamentoCreateCommand) {
+        var medicamentoToCreate = MedicamentoMapper.fromCreateDto(medicamentoCreateCommand);
         return medicamentoRepository.save(medicamentoToCreate);
     }
 }

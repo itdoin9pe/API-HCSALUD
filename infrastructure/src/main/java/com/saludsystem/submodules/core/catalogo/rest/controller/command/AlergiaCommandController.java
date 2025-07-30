@@ -4,8 +4,8 @@ import com.saludsystem.submodules.catalogo.command.create.AlergiaCreateHandler;
 import com.saludsystem.submodules.catalogo.command.delete.AlergiaDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.AlergiaEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.AlergiaConstant;
-import com.saludsystem.submodules.catalogo.dto.command.CrearAlergiaDTO;
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarAlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.AlergiaCreateCommand;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarAlergiaDTO;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +28,7 @@ public class AlergiaCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearAlergiaDTO dto) {
+    public ApiResponse save(@RequestBody AlergiaCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, AlergiaConstant.CREATED);
     }

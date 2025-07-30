@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.medida;
 
 import com.saludsystem.submodules.catalogo.mapper.MedidaMapper;
-import com.saludsystem.submodules.catalogo.dto.MedidaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.MedidaCreateCommand;
 import com.saludsystem.submodules.catalogo.port.dao.MedidaDao;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class MedidaListService {
         this.medidaDao = medidaDao;
     }
 
-    public List<MedidaDTO> execute() {
+    public List<MedidaCreateCommand> execute() {
         return medidaDao.getList().stream().map(MedidaMapper::toDto).toList();
     }
 }

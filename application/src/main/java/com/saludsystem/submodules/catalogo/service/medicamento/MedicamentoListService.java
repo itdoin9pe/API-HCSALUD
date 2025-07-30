@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.medicamento;
 
 import com.saludsystem.submodules.catalogo.mapper.MedicamentoMapper;
-import com.saludsystem.submodules.catalogo.dto.MedicamentoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.MedicamentoCreateCommand;
 import com.saludsystem.submodules.catalogo.port.dao.MedicamentoDao;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class MedicamentoListService {
         this.medicamentoDao = medicamentoDao;
     }
 
-    public List<MedicamentoDTO> execute() {
+    public List<MedicamentoCreateCommand> execute() {
         return medicamentoDao.getList().stream().map(MedicamentoMapper::toDto).toList();
     }
 }

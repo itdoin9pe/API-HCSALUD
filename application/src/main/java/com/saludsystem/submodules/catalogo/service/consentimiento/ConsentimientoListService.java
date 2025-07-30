@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.consentimiento;
 
 import com.saludsystem.submodules.catalogo.mapper.ConsentimientoMapper;
-import com.saludsystem.submodules.catalogo.dto.ConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoCreateCommand;
 import com.saludsystem.submodules.catalogo.port.dao.ConsentimientoDao;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class ConsentimientoListService {
         this.consentimientoDao = consentimientoDao;
     }
 
-    public List<ConsentimientoDTO> execute() {
+    public List<ConsentimientoCreateCommand> execute() {
         return consentimientoDao.getList().stream().
                 map(ConsentimientoMapper::toDto).toList();
     }

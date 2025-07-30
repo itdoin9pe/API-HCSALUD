@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.cliente;
 
 import com.saludsystem.submodules.catalogo.mapper.ClienteMapper;
-import com.saludsystem.submodules.catalogo.dto.ClienteDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ClienteCreateCommand;
 import com.saludsystem.submodules.catalogo.port.dao.ClienteDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
@@ -16,7 +16,7 @@ public class ClienteAllService {
         this.dao = dao;
     }
 
-    public ListResponse<ClienteDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
+    public ListResponse<ClienteCreateCommand> execute(UUID hospitalId, PaginationRequest paginationRequest) {
         var result = dao.getAll(hospitalId, paginationRequest.getPage(), paginationRequest.getRows());
         var data = result.getData().stream().map(ClienteMapper::toDto).toList();
         return new ListResponse<>(data, result.getTotalElements(), result.getTotalPages(), result.getCurrentPage());

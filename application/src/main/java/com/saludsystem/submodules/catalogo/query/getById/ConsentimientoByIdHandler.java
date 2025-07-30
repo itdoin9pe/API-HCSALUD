@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.dto.ConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoCreateCommand;
 import com.saludsystem.submodules.catalogo.service.consentimiento.ConsentimientoByIdService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class ConsentimientoByIdHandler {
         this.consentimientoByIdService = consentimientoByIdService;
     }
 
-    public ConsentimientoDTO execute(UUID uuid) {
+    public ConsentimientoCreateCommand execute(UUID uuid) {
         return consentimientoByIdService.execute(uuid);
     }
 }

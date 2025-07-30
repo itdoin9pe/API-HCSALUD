@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarConsentimientoDTO;
 import com.saludsystem.submodules.catalogo.service.consentimiento.ConsentimientoEditService;
 import org.springframework.stereotype.Component;
 

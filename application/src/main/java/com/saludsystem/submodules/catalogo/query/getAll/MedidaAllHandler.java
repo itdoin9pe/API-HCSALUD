@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getAll;
 
-import com.saludsystem.submodules.catalogo.dto.MedidaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.MedidaCreateCommand;
 import com.saludsystem.submodules.catalogo.service.medida.MedidaAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
@@ -17,7 +17,7 @@ public class MedidaAllHandler {
         this.medidaAllService = medidaAllService;
     }
 
-    public ListResponse<MedidaDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
+    public ListResponse<MedidaCreateCommand> execute(UUID hospitalId, PaginationRequest paginationRequest) {
         return medidaAllService.execute(hospitalId, paginationRequest);
     }
 

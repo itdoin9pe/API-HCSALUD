@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.dto.command.CrearConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.ConsentimientoCreateCommand;
 import com.saludsystem.submodules.catalogo.service.consentimiento.ConsentimientoCreateService;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ public class ConsentimientoCreateHandler {
         this.consentimientoCreateService = consentimientoCreateService;
     }
 
-    public void execute(CrearConsentimientoDTO dto) {
+    public void execute(ConsentimientoCreateCommand dto) {
         consentimientoCreateService.execute(dto);
     }
 }

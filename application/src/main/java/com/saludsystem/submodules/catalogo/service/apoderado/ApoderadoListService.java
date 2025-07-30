@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.apoderado;
 
 import com.saludsystem.submodules.catalogo.mapper.ApoderadoMapper;
-import com.saludsystem.submodules.catalogo.dto.ApoderadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ApoderadoCreateCommand;
 import com.saludsystem.submodules.catalogo.port.dao.ApoderadoDao;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class ApoderadoListService {
         this.apoderadoDao = apoderadoDao;
     }
 
-    public List<ApoderadoDTO> execute() {
+    public List<ApoderadoCreateCommand> execute() {
         return apoderadoDao.getList().stream().map(ApoderadoMapper::toDto).toList();
     }
 }

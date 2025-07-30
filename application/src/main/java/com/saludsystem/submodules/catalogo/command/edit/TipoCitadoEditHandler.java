@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarTipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.TipoCitadoEditCommand;
 import com.saludsystem.submodules.catalogo.service.tipocitado.TipoCitadoEditService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class TipoCitadoEditHandler {
         this.tipoCitadoEditService = tipoCitadoEditService;
     }
 
-    public void execute(UUID uuid, ActualizarTipoCitadoDTO dto) {
+    public void execute(UUID uuid, TipoCitadoEditCommand dto) {
         tipoCitadoEditService.execute(uuid, dto);
     }
 }

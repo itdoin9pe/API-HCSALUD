@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.dto.MedidaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.MedidaCreateCommand;
 import com.saludsystem.submodules.catalogo.service.medida.MedidaByIdService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class MedidaByIdHandler {
         this.medidaByIdService = medidaByIdService;
     }
 
-    public MedidaDTO execute(UUID uuid) {
+    public MedidaCreateCommand execute(UUID uuid) {
         return medidaByIdService.execute(uuid);
     }
 }

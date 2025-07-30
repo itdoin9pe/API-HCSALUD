@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.dto.CategoriaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.CategoriaCreateCommand;
 import com.saludsystem.submodules.catalogo.service.categoria.CategoriaByIdService;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ public class CategoriaByIdHandler {
         this.byIdService = byIdService;
     }
 
-    public CategoriaDTO execute(UUID uuid) {
+    public CategoriaCreateCommand execute(UUID uuid) {
         return byIdService.execute(uuid);
     }
 }

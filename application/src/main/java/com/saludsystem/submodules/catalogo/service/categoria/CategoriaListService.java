@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.categoria;
 
 import com.saludsystem.submodules.catalogo.mapper.CategoriaMapper;
-import com.saludsystem.submodules.catalogo.dto.CategoriaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.CategoriaCreateCommand;
 import com.saludsystem.submodules.catalogo.port.dao.CategoriaDao;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class CategoriaListService {
         this.categoriaDao = categoriaDao;
     }
 
-    public List<CategoriaDTO> execute() {
+    public List<CategoriaCreateCommand> execute() {
         return categoriaDao.getList().stream().map(CategoriaMapper::toDto).toList();
     }
 

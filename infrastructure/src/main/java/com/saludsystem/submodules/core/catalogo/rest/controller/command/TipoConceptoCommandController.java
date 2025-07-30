@@ -3,8 +3,8 @@ package com.saludsystem.submodules.core.catalogo.rest.controller.command;
 import com.saludsystem.submodules.catalogo.command.create.TipoConceptoCreateHandler;
 import com.saludsystem.submodules.catalogo.command.delete.TipoConceptoDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.TipoConceptoEditHandler;
-import com.saludsystem.submodules.catalogo.dto.command.CrearTipoConceptoDTO;
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarTipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearTipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.TipoConceptoEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +33,7 @@ public class TipoConceptoCommandController {
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarTipoConceptoDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody TipoConceptoEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, "Registro actualizado exitosamente");
     }

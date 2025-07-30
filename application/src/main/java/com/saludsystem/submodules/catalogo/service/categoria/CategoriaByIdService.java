@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.categoria;
 
 import com.saludsystem.submodules.catalogo.mapper.CategoriaMapper;
-import com.saludsystem.submodules.catalogo.dto.CategoriaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.CategoriaCreateCommand;
 import com.saludsystem.submodules.catalogo.port.dao.CategoriaDao;
 
 import java.util.UUID;
@@ -14,7 +14,7 @@ public class CategoriaByIdService {
         this.categoriaDao = categoriaDao;
     }
 
-    public CategoriaDTO execute(UUID uuid) {
+    public CategoriaCreateCommand execute(UUID uuid) {
         return CategoriaMapper.toDto(categoriaDao.getById(uuid));
     }
 

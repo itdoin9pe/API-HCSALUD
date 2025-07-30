@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.especialidad;
 
 import com.saludsystem.submodules.catalogo.mapper.EspecialidadMapper;
-import com.saludsystem.submodules.catalogo.dto.EspecialidadDTO;
+import com.saludsystem.submodules.catalogo.model.dto.EspecialidadCreateCommand;
 import com.saludsystem.submodules.catalogo.port.dao.EspecialidadDao;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class EspecialidadListService {
         this.especialidadDao = especialidadDao;
     }
 
-    public List<EspecialidadDTO> execute() {
+    public List<EspecialidadCreateCommand> execute() {
         return especialidadDao.getList().stream().map(EspecialidadMapper::toDto).toList();
     }
 }

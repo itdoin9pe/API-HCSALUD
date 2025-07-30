@@ -4,8 +4,8 @@ import com.saludsystem.submodules.catalogo.command.create.PlanCreateHandler;
 import com.saludsystem.submodules.catalogo.command.delete.PlanDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.PlanEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.PlanConstant;
-import com.saludsystem.submodules.catalogo.dto.command.CrearPlanDTO;
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarPlanDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearPlanDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.PlanEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class PlanCommandController {
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarPlanDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody PlanEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, PlanConstant.UPDATED);
     }

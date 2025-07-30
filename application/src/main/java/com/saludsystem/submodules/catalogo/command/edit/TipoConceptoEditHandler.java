@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarTipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.TipoConceptoEditCommand;
 import com.saludsystem.submodules.catalogo.service.tipoconcepto.TipoConceptoEditService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class TipoConceptoEditHandler {
         this.tipoConceptoEditService = tipoConceptoEditService;
     }
 
-    public void execute(UUID uuid, ActualizarTipoConceptoDTO dto) {
+    public void execute(UUID uuid, TipoConceptoEditCommand dto) {
         tipoConceptoEditService.execute(uuid, dto);
     }
 }

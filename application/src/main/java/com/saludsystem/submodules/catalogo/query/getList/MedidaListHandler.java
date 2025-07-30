@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getList;
 
-import com.saludsystem.submodules.catalogo.dto.MedidaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.MedidaCreateCommand;
 import com.saludsystem.submodules.catalogo.service.medida.MedidaListService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class MedidaListHandler {
         this.medidaListService = medidaListService;
     }
 
-    public List<MedidaDTO> execute() {
+    public List<MedidaCreateCommand> execute() {
         return medidaListService.execute();
     }
 }

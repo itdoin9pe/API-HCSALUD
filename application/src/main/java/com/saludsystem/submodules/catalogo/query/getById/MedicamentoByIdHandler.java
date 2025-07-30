@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.dto.MedicamentoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.MedicamentoCreateCommand;
 import com.saludsystem.submodules.catalogo.service.medicamento.MedicamentoByIdService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class MedicamentoByIdHandler {
         this.medicamentoByIdService = medicamentoByIdService;
     }
 
-    public MedicamentoDTO execute(UUID uuid) {
+    public MedicamentoCreateCommand execute(UUID uuid) {
         return medicamentoByIdService.execute(uuid);
     }
 }

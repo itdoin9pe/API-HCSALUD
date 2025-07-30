@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.plan;
 
 import com.saludsystem.submodules.catalogo.mapper.PlanMapper;
-import com.saludsystem.submodules.catalogo.dto.PlanDTO;
+import com.saludsystem.submodules.catalogo.model.dto.PlanDTO;
 import com.saludsystem.submodules.catalogo.port.dao.PlanDao;
 
 import java.util.UUID;

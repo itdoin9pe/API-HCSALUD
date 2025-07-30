@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.tipoconcepto;
 
 import com.saludsystem.submodules.catalogo.mapper.TipoConceptoMapper;
-import com.saludsystem.submodules.catalogo.dto.TipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.TipoConceptoDTO;
 import com.saludsystem.submodules.catalogo.port.dao.TipoConceptoDao;
 
 import java.util.UUID;

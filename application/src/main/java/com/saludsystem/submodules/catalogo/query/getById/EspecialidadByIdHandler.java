@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.dto.EspecialidadDTO;
+import com.saludsystem.submodules.catalogo.model.dto.EspecialidadCreateCommand;
 import com.saludsystem.submodules.catalogo.service.especialidad.EspecialidadByIdService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class EspecialidadByIdHandler {
         this.especialidadByIdService = especialidadByIdService;
     }
 
-    public EspecialidadDTO execute(UUID uuid) {
+    public EspecialidadCreateCommand execute(UUID uuid) {
         return especialidadByIdService.execute(uuid);
     }
 }

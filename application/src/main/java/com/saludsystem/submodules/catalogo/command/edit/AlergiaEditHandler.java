@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarAlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarAlergiaDTO;
 import com.saludsystem.submodules.catalogo.service.alergia.AlergiaEditService;
 import org.springframework.stereotype.Component;
 

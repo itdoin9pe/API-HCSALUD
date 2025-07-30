@@ -2,7 +2,7 @@ package com.saludsystem.submodules.catalogo.service.alergia;
 
 import com.saludsystem.submodules.catalogo.mapper.AlergiaMapper;
 import com.saludsystem.submodules.catalogo.model.Alergia;
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarAlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarAlergiaDTO;
 import com.saludsystem.submodules.catalogo.port.repository.AlergiaRepository;
 
 import java.util.UUID;

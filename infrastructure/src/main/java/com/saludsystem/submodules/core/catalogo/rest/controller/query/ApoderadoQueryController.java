@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.dto.ApoderadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ApoderadoCreateCommand;
 import com.saludsystem.submodules.catalogo.query.getAll.ApoderadoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.ApoderadoByIdHandler;
 import com.saludsystem.submodules.catalogo.response.ApoderadoListResponse;
@@ -28,7 +28,7 @@ public class ApoderadoQueryController {
     }
 
     @GetMapping("/GetById/{id}")
-    public ApoderadoDTO getById(@PathVariable UUID id) {
+    public ApoderadoCreateCommand getById(@PathVariable UUID id) {
         return byIdHandler.execute(id);
     }
 
@@ -38,7 +38,7 @@ public class ApoderadoQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = ApoderadoListResponse.class)))
     })
-    public ListResponse<ApoderadoDTO> getAll(
+    public ListResponse<ApoderadoCreateCommand> getAll(
             @RequestParam UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return allHandler.execute(hospitalId, new PaginationRequest(page, rows));

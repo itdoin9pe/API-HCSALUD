@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getAll;
 
-import com.saludsystem.submodules.catalogo.dto.ConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoCreateCommand;
 import com.saludsystem.submodules.catalogo.service.consentimiento.ConsentimientoAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
@@ -17,7 +17,7 @@ public class ConsentimientoAllHandler {
         this.consentimientoAllService = consentimientoAllService;
     }
 
-    public ListResponse<ConsentimientoDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
+    public ListResponse<ConsentimientoCreateCommand> execute(UUID hospitalId, PaginationRequest paginationRequest) {
         return consentimientoAllService.execute(hospitalId, paginationRequest);
     }
 }

@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.dto.CategoriaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.CategoriaCreateCommand;
 import com.saludsystem.submodules.catalogo.query.getAll.CategoriaAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.CategoriaByIdHandler;
 import com.saludsystem.submodules.catalogo.response.CategoriaListResponse;
@@ -32,12 +32,12 @@ public class CategoriaQueryController {
     }
 
     @GetMapping("/GetList")
-    public List<CategoriaDTO> getList() {
+    public List<CategoriaCreateCommand> getList() {
         return listService.execute();
     }
 
     @GetMapping("/GetById/{id}")
-    public CategoriaDTO getById(@PathVariable UUID id) {
+    public CategoriaCreateCommand getById(@PathVariable UUID id) {
         return byIdHandler.execute(id);
     }
 
@@ -47,7 +47,7 @@ public class CategoriaQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = CategoriaListResponse.class)))
     })
-    public ListResponse<CategoriaDTO> getAllPaginated(
+    public ListResponse<CategoriaCreateCommand> getAllPaginated(
             @RequestParam UUID hospitalId, @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows) {
         return allHandler.execute(hospitalId, new PaginationRequest(page, rows));

@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.dto.AlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.AlergiaCreateCommand;
 import com.saludsystem.submodules.catalogo.service.alergia.AlergiaByIdService;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +29,7 @@ public class AlergiaByIdHandler {
      * @param id the id
      * @return the alergia dto
      */
-    public AlergiaDTO execute(UUID id) {
+    public AlergiaCreateCommand execute(UUID id) {
         return alergiaByIdService.execute(id);
     }
 }

@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.dto.ApoderadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ApoderadoCreateCommand;
 import com.saludsystem.submodules.catalogo.service.apoderado.ApoderadoByIdService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class ApoderadoByIdHandler {
         this.apoderadoByIdService = apoderadoByIdService;
     }
 
-    public ApoderadoDTO execute(UUID uuid) {
+    public ApoderadoCreateCommand execute(UUID uuid) {
         return apoderadoByIdService.execute(uuid);
     }
 }

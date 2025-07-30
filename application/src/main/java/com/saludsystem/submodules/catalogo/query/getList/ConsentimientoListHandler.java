@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getList;
 
-import com.saludsystem.submodules.catalogo.dto.ConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoCreateCommand;
 import com.saludsystem.submodules.catalogo.service.consentimiento.ConsentimientoListService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class ConsentimientoListHandler {
         this.consentimientoListService = consentimientoListService;
     }
 
-    public List<ConsentimientoDTO> execute() {
+    public List<ConsentimientoCreateCommand> execute() {
         return consentimientoListService.execute();
     }
 }

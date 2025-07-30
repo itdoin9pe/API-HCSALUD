@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.dto.command.CrearEspecialidadDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.EspecialidadCreateCommand;
 import com.saludsystem.submodules.catalogo.service.especialidad.EspecialidadCreateService;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ public class EspecialidadCreateHandler {
         this.especialidadCreateService = especialidadCreateService;
     }
 
-    public void execute(CrearEspecialidadDTO dto) {
+    public void execute(EspecialidadCreateCommand dto) {
         especialidadCreateService.execute(dto);
     }
 }

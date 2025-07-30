@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.edit;
 
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarPlanDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.PlanEditCommand;
 import com.saludsystem.submodules.catalogo.service.plan.PlanEditService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class PlanEditHandler {
         this.planEditService = planEditService;
     }
 
-    public void execute(UUID uuid, ActualizarPlanDTO dto) {
+    public void execute(UUID uuid, PlanEditCommand dto) {
         planEditService.execute(uuid, dto);
     }
 }

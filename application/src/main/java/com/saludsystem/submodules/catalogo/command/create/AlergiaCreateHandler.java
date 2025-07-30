@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.dto.command.CrearAlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.AlergiaCreateCommand;
 import com.saludsystem.submodules.catalogo.service.alergia.AlergiaCreateService;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ public class AlergiaCreateHandler {
         this.alergiaCreateService = alergiaCreateService;
     }
 
-    public void execute(CrearAlergiaDTO dto) {
+    public void execute(AlergiaCreateCommand dto) {
         alergiaCreateService.execute(dto);
     }
 }

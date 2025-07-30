@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.dto.command.CrearApoderadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.ApoderadoCreateCommand;
 import com.saludsystem.submodules.catalogo.service.apoderado.ApoderadoCreateService;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ public class ApoderadoCreateHandler {
         this.apoderadoCreateService = apoderadoCreateService;
     }
 
-    public void execute(CrearApoderadoDTO dto) {
+    public void execute(ApoderadoCreateCommand dto) {
         apoderadoCreateService.execute(dto);
     }
 }

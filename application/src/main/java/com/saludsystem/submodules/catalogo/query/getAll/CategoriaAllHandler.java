@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getAll;
 
-import com.saludsystem.submodules.catalogo.dto.CategoriaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.CategoriaCreateCommand;
 import com.saludsystem.submodules.catalogo.service.categoria.CategoriaAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
@@ -17,7 +17,7 @@ public class CategoriaAllHandler {
         this.categoriaAllService = categoriaAllService;
     }
 
-    public ListResponse<CategoriaDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
+    public ListResponse<CategoriaCreateCommand> execute(UUID hospitalId, PaginationRequest paginationRequest) {
         return categoriaAllService.execute(hospitalId, paginationRequest);
     }
 }

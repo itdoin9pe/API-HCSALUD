@@ -2,7 +2,7 @@ package com.saludsystem.submodules.catalogo.service.cliente;
 
 import com.saludsystem.submodules.catalogo.mapper.ClienteMapper;
 import com.saludsystem.submodules.catalogo.model.Cliente;
-import com.saludsystem.submodules.catalogo.dto.command.CrearClienteDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.ClienteCreateCommand;
 import com.saludsystem.submodules.catalogo.port.repository.ClienteRepository;
 
 public class ClienteCreateService {
@@ -13,7 +13,7 @@ public class ClienteCreateService {
         this.clienteRepository = clienteRepository;
     }
 
-    public Cliente execute(CrearClienteDTO dto) {
+    public Cliente execute(ClienteCreateCommand dto) {
         var clienteToCreate = ClienteMapper.fromCreateDTO(dto);
         return clienteRepository.save(clienteToCreate);
     }

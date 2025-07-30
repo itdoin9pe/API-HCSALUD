@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getAll;
 
-import com.saludsystem.submodules.catalogo.dto.TipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.TipoCitadoDTO;
 import com.saludsystem.submodules.catalogo.service.tipocitado.TipoCitadoAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

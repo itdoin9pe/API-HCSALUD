@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.alergia;
 
 import com.saludsystem.submodules.catalogo.mapper.AlergiaMapper;
-import com.saludsystem.submodules.catalogo.dto.AlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.AlergiaCreateCommand;
 import com.saludsystem.submodules.catalogo.port.dao.AlergiaDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
@@ -15,7 +15,7 @@ public class AlergiaAllService {
         this.alergiaDao = alergiaDao;
     }
 
-    public ListResponse<AlergiaDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
+    public ListResponse<AlergiaCreateCommand> execute(UUID hospitalId, PaginationRequest paginationRequest) {
         var result = alergiaDao.getAll(hospitalId, paginationRequest.getPage(), paginationRequest.getRows());
 
         var data = result.getData().stream()

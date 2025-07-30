@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.dto.PlanDTO;
-import com.saludsystem.submodules.catalogo.dto.command.CrearPlanDTO;
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarPlanDTO;
+import com.saludsystem.submodules.catalogo.model.dto.PlanDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearPlanDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.PlanEditCommand;
 import com.saludsystem.submodules.catalogo.model.Plan;
 
 import java.util.UUID;
@@ -14,7 +14,7 @@ public class PlanMapper {
                 dto.getMaxPlan(), dto.getUseMax(), dto.getCostoPlan(), dto.getEstado());
     }
 
-    public static Plan fromUpdateDto(UUID uuid, ActualizarPlanDTO dto) {
+    public static Plan fromUpdateDto(UUID uuid, PlanEditCommand dto) {
         return new Plan(uuid, dto.getNombrePlan(), dto.getFechaInicio(), dto.getFechaFinContrato(),
                 dto.getMaxPlan(), dto.getUseMax(), dto.getCostoPlan(), dto.getEstado());
     }

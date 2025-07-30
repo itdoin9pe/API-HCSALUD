@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.alergia;
 
 import com.saludsystem.submodules.catalogo.mapper.AlergiaMapper;
-import com.saludsystem.submodules.catalogo.dto.AlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.AlergiaCreateCommand;
 import com.saludsystem.submodules.catalogo.port.dao.AlergiaDao;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class AlergiaListService {
         this.alergiaDao = alergiaDao;
     }
 
-    public List<AlergiaDTO> execute() {
+    public List<AlergiaCreateCommand> execute() {
         return alergiaDao.getList()
                 .stream()
                 .map(AlergiaMapper::toDto)

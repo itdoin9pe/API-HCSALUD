@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.dto.AlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.AlergiaCreateCommand;
 import com.saludsystem.submodules.catalogo.query.getAll.AlergiaAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.AlergiaByIdHandler;
 import com.saludsystem.submodules.catalogo.query.getList.AlergiaListHandler;
@@ -35,12 +35,12 @@ public class AlergiaQueryController {
     }
 
     @GetMapping("/GetList")
-    public List<AlergiaDTO> getList() {
+    public List<AlergiaCreateCommand> getList() {
         return listHandler.execute();
     }
 
     @GetMapping("/GetById/{id}")
-    public AlergiaDTO getById(@PathVariable UUID id) {
+    public AlergiaCreateCommand getById(@PathVariable UUID id) {
         return byIdHandler.execute(id);
     }
 
@@ -50,9 +50,9 @@ public class AlergiaQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = AlergiaListResponse.class)))
     })
-    public ListResponse<AlergiaDTO> getAll(@RequestParam UUID hospitalId,
-                                           @RequestParam(name = "Page") int page,
-                                           @RequestParam(name = "Rows") int rows) {
+    public ListResponse<AlergiaCreateCommand> getAll(@RequestParam UUID hospitalId,
+                                                     @RequestParam(name = "Page") int page,
+                                                     @RequestParam(name = "Rows") int rows) {
         return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 

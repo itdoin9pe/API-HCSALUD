@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.medida;
 
 import com.saludsystem.submodules.catalogo.mapper.MedidaMapper;
-import com.saludsystem.submodules.catalogo.dto.MedidaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.MedidaCreateCommand;
 import com.saludsystem.submodules.catalogo.port.dao.MedidaDao;
 
 import java.util.UUID;
@@ -14,7 +14,7 @@ public class MedidaByIdService {
         this.medidaDao = medidaDao;
     }
 
-    public MedidaDTO execute(UUID uuid) {
+    public MedidaCreateCommand execute(UUID uuid) {
         return MedidaMapper.toDto(medidaDao.getById(uuid));
     }
 }

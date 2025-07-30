@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.dto.TipoCitadoDTO;
-import com.saludsystem.submodules.catalogo.dto.command.CrearTipoCitadoDTO;
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarTipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.TipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.CrearTipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.TipoCitadoEditCommand;
 import com.saludsystem.submodules.catalogo.model.TipoCitado;
 
 import java.util.UUID;
@@ -13,7 +13,7 @@ public class TipoCitadoMapper {
         return new TipoCitado(null, dto.getNombre(), dto.getColor(), dto.getEstado());
     }
 
-    public static TipoCitado fromUpdateDto(UUID uuid, ActualizarTipoCitadoDTO dto) {
+    public static TipoCitado fromUpdateDto(UUID uuid, TipoCitadoEditCommand dto) {
         return new TipoCitado(uuid, dto.getNombre(), dto.getColor(), dto.getEstado());
     }
 

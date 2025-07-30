@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getList;
 
-import com.saludsystem.submodules.catalogo.dto.AlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.AlergiaCreateCommand;
 import com.saludsystem.submodules.catalogo.service.alergia.AlergiaListService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class AlergiaListHandler {
         this.alergiaListService = alergiaListService;
     }
 
-    public List<AlergiaDTO> execute() {
+    public List<AlergiaCreateCommand> execute() {
         return alergiaListService.execute();
     }
 }

@@ -4,8 +4,8 @@ import com.saludsystem.submodules.catalogo.command.create.MedicamentoCreateHandl
 import com.saludsystem.submodules.catalogo.command.delete.MedicamentoDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.MedicamentoEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.MedicamentoConstant;
-import com.saludsystem.submodules.catalogo.dto.command.CrearMedicamentoDTO;
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarMedicamentoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.MedicamentoCreateCommand;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarMedicamentoDTO;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +28,7 @@ public class MedicamentoCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearMedicamentoDTO dto) {
+    public ApiResponse save(@RequestBody MedicamentoCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, MedicamentoConstant.CREATED);
     }

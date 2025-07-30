@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getAll;
 
-import com.saludsystem.submodules.catalogo.dto.ApoderadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ApoderadoCreateCommand;
 import com.saludsystem.submodules.catalogo.service.apoderado.ApoderadoAllService;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
@@ -17,7 +17,7 @@ public class ApoderadoAllHandler {
         this.apoderadoAllService = apoderadoAllService;
     }
 
-    public ListResponse<ApoderadoDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
+    public ListResponse<ApoderadoCreateCommand> execute(UUID hospitalId, PaginationRequest paginationRequest) {
         return apoderadoAllService.execute(hospitalId, paginationRequest);
     }
 }

@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getList;
 
-import com.saludsystem.submodules.catalogo.dto.MedicamentoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.MedicamentoCreateCommand;
 import com.saludsystem.submodules.catalogo.service.medicamento.MedicamentoListService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class MedicamentoListHandler {
         this.medicamentoListService = medicamentoListService;
     }
 
-    public List<MedicamentoDTO> execute() {
+    public List<MedicamentoCreateCommand> execute() {
         return medicamentoListService.execute();
     }
 }

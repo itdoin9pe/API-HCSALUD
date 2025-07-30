@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.dto.ClienteDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ClienteCreateCommand;
 import com.saludsystem.submodules.catalogo.service.cliente.ClienteByIdService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class ClienteByIdHandler {
         this.clienteByIdService = clienteByIdService;
     }
 
-    public ClienteDTO execute(UUID uuid) {
+    public ClienteCreateCommand execute(UUID uuid) {
         return clienteByIdService.execute(uuid);
     }
 }

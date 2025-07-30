@@ -1,15 +1,14 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.dto.MedidaDTO;
-import com.saludsystem.submodules.catalogo.dto.command.CrearMedidaDTO;
-import com.saludsystem.submodules.catalogo.dto.edit.ActualizarMedidaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.MedidaCreateCommand;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarMedidaDTO;
 import com.saludsystem.submodules.catalogo.model.Medida;
 
 import java.util.UUID;
 
 public class MedidaMapper {
 
-    public static Medida fromCreatDto(CrearMedidaDTO dto) {
+    public static Medida fromCreatDto(MedidaCreateCommand dto) {
         return new Medida(null, dto.getNombre(), dto.getEstado());
     }
 
@@ -17,8 +16,8 @@ public class MedidaMapper {
         return new Medida(uuid, dto.getNombre(), dto.getEstado());
     }
 
-    public static MedidaDTO toDto(Medida model) {
-        return new MedidaDTO(model.getId(), model.getNombre(), model.getEstado());
+    public static MedidaCreateCommand toDto(Medida model) {
+        return new MedidaCreateCommand(model.getId(), model.getNombre(), model.getEstado());
     }
 
 }

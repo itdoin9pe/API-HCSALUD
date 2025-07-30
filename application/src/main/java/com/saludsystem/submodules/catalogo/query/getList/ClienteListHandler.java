@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.query.getList;
 
-import com.saludsystem.submodules.catalogo.dto.ClienteDTO;
+import com.saludsystem.submodules.catalogo.model.dto.ClienteCreateCommand;
 import com.saludsystem.submodules.catalogo.service.cliente.ClienteListService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class ClienteListHandler {
         this.clienteListService = clienteListService;
     }
 
-    public List<ClienteDTO> execute() {
+    public List<ClienteCreateCommand> execute() {
         return clienteListService.execute();
     }
 }

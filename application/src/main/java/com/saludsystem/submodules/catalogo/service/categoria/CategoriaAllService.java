@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.categoria;
 
 import com.saludsystem.submodules.catalogo.mapper.CategoriaMapper;
-import com.saludsystem.submodules.catalogo.dto.CategoriaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.CategoriaCreateCommand;
 import com.saludsystem.submodules.catalogo.port.dao.CategoriaDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
@@ -16,7 +16,7 @@ public class CategoriaAllService {
         this.categoriaDao = categoriaDao;
     }
 
-    public ListResponse<CategoriaDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
+    public ListResponse<CategoriaCreateCommand> execute(UUID hospitalId, PaginationRequest paginationRequest) {
         var result = categoriaDao.getAll(hospitalId, paginationRequest.getPage(), paginationRequest.getRows());
         var data = result.getData().stream().map(CategoriaMapper::toDto).toList();
         return new ListResponse<>(data, result.getTotalElements(),
