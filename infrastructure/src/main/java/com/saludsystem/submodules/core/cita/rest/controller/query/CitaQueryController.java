@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.core.cita.rest.controller.query;
 
-import com.saludsystem.submodules.cita.dtos.get.CitaDTO;
-import com.saludsystem.submodules.cita.query.getAll.CitaAllHandler;
-import com.saludsystem.submodules.cita.query.getById.CitaByIdHandler;
-import com.saludsystem.submodules.cita.query.getList.CitaListHandler;
+import com.saludsystem.submodules.cita.model.dtos.CitaDTO;
+import com.saludsystem.submodules.cita.query.CitaAllHandler;
+import com.saludsystem.submodules.cita.query.CitaByIdHandler;
+import com.saludsystem.submodules.cita.query.CitaListHandler;
 import com.saludsystem.submodules.cita.response.CitaListResponse;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

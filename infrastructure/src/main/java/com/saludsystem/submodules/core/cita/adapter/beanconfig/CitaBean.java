@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.cita.adapter.beanconfig;
 
+import com.saludsystem.submodules.cita.mapper.CitaMapper;
 import com.saludsystem.submodules.cita.port.dao.CitaDao;
 import com.saludsystem.submodules.cita.port.repository.CitaRepository;
-import com.saludsystem.submodules.cita.service.*;
+import com.saludsystem.submodules.cita.service.CitaCreateService;
+import com.saludsystem.submodules.cita.service.CitaDeleteService;
+import com.saludsystem.submodules.cita.service.CitaEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,32 +13,23 @@ import org.springframework.context.annotation.Configuration;
 public class CitaBean {
 
     @Bean
+    public CitaMapper citaMapper() {
+        return new CitaMapper();
+    }
+
+    @Bean
     public CitaCreateService citaCreateService(CitaRepository repository) {
         return new CitaCreateService(repository);
     }
 
     @Bean
-    public CitaEditService citaEditService(CitaRepository repository) {
-        return new CitaEditService(repository);
+    public CitaEditService citaEditService(CitaDao dao, CitaRepository repository) {
+        return new CitaEditService(dao, repository);
     }
 
     @Bean
-    public CitaDeleteService citaDeleteService(CitaRepository repository) {
-        return new CitaDeleteService(repository);
-    }
-
-    @Bean
-    public CitaByIdService citaByIdService(CitaDao dao) {
-        return new CitaByIdService(dao);
-    }
-
-    @Bean
-    public CitaListService citaListService(CitaDao dao) {
-        return new CitaListService(dao);
-    }
-
-    @Bean CitaAllService citaAllService(CitaDao dao) {
-        return new CitaAllService(dao);
+    public CitaDeleteService citaDeleteService(CitaRepository repository, CitaDao dao) {
+        return new CitaDeleteService(repository, dao);
     }
 
 }

@@ -1,11 +1,11 @@
 package com.saludsystem.submodules.core.cita.rest.controller.command;
 
-import com.saludsystem.submodules.cita.command.create.CitaCreateHandler;
-import com.saludsystem.submodules.cita.command.delete.CitaDeleteHandler;
-import com.saludsystem.submodules.cita.command.edit.CitaEditHandler;
-import com.saludsystem.submodules.cita.constant.CitaConstant;
-import com.saludsystem.submodules.cita.dtos.post.CrearCitaDTO;
-import com.saludsystem.submodules.cita.dtos.put.ActualizarCitaDTO;
+import com.saludsystem.submodules.cita.command.CitaCreateHandler;
+import com.saludsystem.submodules.cita.command.CitaDeleteHandler;
+import com.saludsystem.submodules.cita.command.CitaEditHandler;
+import com.saludsystem.submodules.cita.model.constant.CitaConstant;
+import com.saludsystem.submodules.cita.model.dtos.command.CitaCreateCommand;
+import com.saludsystem.submodules.cita.model.dtos.command.CitaEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class CitaCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearCitaDTO dto) {
+    public ApiResponse save(@RequestBody CitaCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, CitaConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarCitaDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody CitaEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, CitaConstant.UPDATED);
     }

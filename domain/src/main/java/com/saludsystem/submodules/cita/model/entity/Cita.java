@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.cita.model.entity;
 
-import com.saludsystem.submodules.cita.vo.*;
+import com.saludsystem.submodules.cita.model.vo.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

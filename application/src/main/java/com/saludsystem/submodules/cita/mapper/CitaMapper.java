@@ -1,16 +1,16 @@
 package com.saludsystem.submodules.cita.mapper;
 
-import com.saludsystem.submodules.cita.dtos.get.CitaDTO;
-import com.saludsystem.submodules.cita.dtos.post.CrearCitaDTO;
-import com.saludsystem.submodules.cita.dtos.put.ActualizarCitaDTO;
+import com.saludsystem.submodules.cita.model.dtos.CitaDTO;
+import com.saludsystem.submodules.cita.model.dtos.command.CitaCreateCommand;
+import com.saludsystem.submodules.cita.model.dtos.command.CitaEditCommand;
 import com.saludsystem.submodules.cita.model.entity.*;
-import com.saludsystem.submodules.cita.vo.*;
+import com.saludsystem.submodules.cita.model.vo.*;
 
 import java.util.UUID;
 
 public class CitaMapper {
 
-    public static Cita fromCreateDto(CrearCitaDTO dto) {
+    public Cita fromCreateDto(CitaCreateCommand dto) {
 
         return new Cita(
                 null,
@@ -29,7 +29,7 @@ public class CitaMapper {
 
     }
 
-    public static Cita fromUpdateDto(UUID uuid, ActualizarCitaDTO dto) {
+    public Cita fromUpdateDto(UUID uuid, CitaEditCommand dto) {
 
         return new Cita(
                 new CitaId(dto.getCitadoId()),
@@ -48,7 +48,7 @@ public class CitaMapper {
 
     }
 
-    public static CitaDTO toDto(Cita model) {
+    public CitaDTO toDto(Cita model) {
         return new CitaDTO(model.getId(), model.getDoctorId(), model.getFecha(), model.getHoraInicio(),
                 model.getHoraFin(), model.getPacienteId(), model.getSedeId(), model.getTipoCitadoId(),
                 model.getEstado(), model.getMotivoConsulta(), model.getObservacion());
