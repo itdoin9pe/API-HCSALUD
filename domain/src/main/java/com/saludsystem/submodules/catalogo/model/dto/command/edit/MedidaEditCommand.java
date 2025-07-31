@@ -2,14 +2,16 @@ package com.saludsystem.submodules.catalogo.model.dto.command.edit;
 
 import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Data
-public class ActualizarMedidaDTO extends BaseDTO {
+public class MedidaEditCommand extends BaseDTO {
     private UUID medidaId;
     private String nombre;
     @Schema(description = "Estado de la medida (0 = inactivo, 1 = activo)", example = "0")

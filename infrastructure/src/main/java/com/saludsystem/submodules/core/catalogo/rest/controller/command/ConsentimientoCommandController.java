@@ -5,7 +5,7 @@ import com.saludsystem.submodules.catalogo.command.delete.ConsentimientoDeleteHa
 import com.saludsystem.submodules.catalogo.command.edit.ConsentimientoEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.ConsentimientoConstant;
 import com.saludsystem.submodules.catalogo.model.dto.command.ConsentimientoCreateCommand;
-import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarConsentimientoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.ConsentimientoEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class ConsentimientoCommandController {
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarConsentimientoDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody ConsentimientoEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, ConsentimientoConstant.UPDATED);
     }

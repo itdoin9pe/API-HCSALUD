@@ -5,7 +5,7 @@
     import com.saludsystem.submodules.catalogo.command.edit.CategoriaEditHandler;
     import com.saludsystem.submodules.catalogo.model.constant.CategoriaConstant;
     import com.saludsystem.submodules.catalogo.model.dto.command.CategoriaCreateCommand;
-    import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarCategoriaDTO;
+    import com.saludsystem.submodules.catalogo.model.dto.command.edit.CategoriaEditCommand;
     import com.saludsystem.submodules.response.ApiResponse;
     import io.swagger.v3.oas.annotations.tags.Tag;
     import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@
         }
 
         @PutMapping("/Update/{id}")
-        public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarCategoriaDTO dto) {
+        public ApiResponse update(@PathVariable UUID id, @RequestBody CategoriaEditCommand dto) {
             editHandler.execute(id, dto);
             return new ApiResponse(true, CategoriaConstant.UPDATED);
         }

@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.catalogo.adapter.beanconfig;
 
+import com.saludsystem.submodules.catalogo.mapper.ConsentimientoMapper;
 import com.saludsystem.submodules.catalogo.port.dao.ConsentimientoDao;
 import com.saludsystem.submodules.catalogo.port.repository.ConsentimientoRepository;
-import com.saludsystem.submodules.catalogo.service.consentimiento.*;
+import com.saludsystem.submodules.catalogo.service.consentimiento.ConsentimientoCreateService;
+import com.saludsystem.submodules.catalogo.service.consentimiento.ConsentimientoDeleteService;
+import com.saludsystem.submodules.catalogo.service.consentimiento.ConsentimientoEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,18 +13,8 @@ import org.springframework.context.annotation.Configuration;
 public class ConsentimientoBean {
 
     @Bean
-    public ConsentimientoAllService consentimientoAllService(ConsentimientoDao dao) {
-        return new ConsentimientoAllService(dao);
-    }
-
-    @Bean
-    public ConsentimientoByIdService consentimientoByIdService(ConsentimientoDao dao) {
-        return new ConsentimientoByIdService(dao);
-    }
-
-    @Bean
-    public ConsentimientoListService consentimientoListService(ConsentimientoDao dao) {
-        return new ConsentimientoListService(dao);
+    public ConsentimientoMapper consentimientoMapper() {
+        return new ConsentimientoMapper();
     }
 
     @Bean
@@ -30,12 +23,15 @@ public class ConsentimientoBean {
     }
 
     @Bean
-    public ConsentimientoEditService consentimientoEditService(ConsentimientoRepository repository) {
-        return new ConsentimientoEditService(repository);
+    public ConsentimientoEditService consentimientoEditService(
+            ConsentimientoDao dao, ConsentimientoRepository repository) {
+        return new ConsentimientoEditService(dao, repository);
     }
 
     @Bean
-    public ConsentimientoDeleteService consentimientoDeleteService(ConsentimientoRepository repository) {
-        return new ConsentimientoDeleteService(repository);
+    public ConsentimientoDeleteService consentimientoDeleteService(
+            ConsentimientoRepository repository, ConsentimientoDao dao) {
+        return new ConsentimientoDeleteService(repository, dao);
     }
+
 }

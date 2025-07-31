@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.catalogo.adapter.beanconfig;
 
+import com.saludsystem.submodules.catalogo.mapper.CategoriaMapper;
 import com.saludsystem.submodules.catalogo.port.dao.CategoriaDao;
 import com.saludsystem.submodules.catalogo.port.repository.CategoriaRepository;
-import com.saludsystem.submodules.catalogo.service.categoria.*;
+import com.saludsystem.submodules.catalogo.service.categoria.CategoriaCreateService;
+import com.saludsystem.submodules.catalogo.service.categoria.CategoriaDeleteService;
+import com.saludsystem.submodules.catalogo.service.categoria.CategoriaEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,32 +13,23 @@ import org.springframework.context.annotation.Configuration;
 public class CategoriaBean {
 
     @Bean
-    public CategoriaCreateService createService(CategoriaRepository repository) {
+    public CategoriaMapper categoriaMapper() {
+        return new CategoriaMapper();
+    }
+
+    @Bean
+    public CategoriaCreateService categoriaCreateService(CategoriaRepository repository) {
         return new CategoriaCreateService(repository);
     }
 
     @Bean
-    public CategoriaEditService editService(CategoriaRepository repository) {
-        return new CategoriaEditService(repository);
+    public CategoriaEditService categoriaEditService(CategoriaDao dao, CategoriaRepository repository) {
+        return new CategoriaEditService(dao, repository);
     }
 
     @Bean
-    public CategoriaDeleteService deleteService(CategoriaRepository repository) {
-        return new CategoriaDeleteService(repository);
+    public CategoriaDeleteService categoriaDeleteService(CategoriaRepository repository, CategoriaDao dao) {
+        return new CategoriaDeleteService(repository, dao);
     }
 
-    @Bean
-    public CategoriaByIdService byIdService(CategoriaDao dao) {
-        return new CategoriaByIdService(dao);
-    }
-
-    @Bean
-    public CategoriaAllService allService(CategoriaDao dao) {
-        return new CategoriaAllService(dao);
-    }
-
-    @Bean
-    public CategoriaListService listService(CategoriaDao dao) {
-        return new CategoriaListService(dao);
-    }
 }

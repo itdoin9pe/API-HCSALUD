@@ -5,7 +5,7 @@ import com.saludsystem.submodules.catalogo.command.delete.ApoderadoDeleteHandler
 import com.saludsystem.submodules.catalogo.command.edit.ApoderadoEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.ApoderadoConstant;
 import com.saludsystem.submodules.catalogo.model.dto.command.ApoderadoCreateCommand;
-import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarApoderadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.ApoderadoEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class ApoderadoCommandController {
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarApoderadoDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody ApoderadoEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, ApoderadoConstant.UPDATED);
     }

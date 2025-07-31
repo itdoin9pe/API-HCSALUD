@@ -5,7 +5,7 @@ import com.saludsystem.submodules.catalogo.command.delete.ClienteDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.ClienteEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.ClienteConstant;
 import com.saludsystem.submodules.catalogo.model.dto.command.ClienteCreateCommand;
-import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarClienteDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.ClienteEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class ClienteCommandController {
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarClienteDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody ClienteEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, ClienteConstant.UPDATED);
     }

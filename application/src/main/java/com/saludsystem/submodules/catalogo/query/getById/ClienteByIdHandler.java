@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.model.dto.ClienteCreateCommand;
-import com.saludsystem.submodules.catalogo.service.cliente.ClienteByIdService;
+import com.saludsystem.submodules.catalogo.mapper.ClienteMapper;
+import com.saludsystem.submodules.catalogo.model.constant.ClienteConstant;
+import com.saludsystem.submodules.catalogo.model.dto.ClienteDTO;
+import com.saludsystem.submodules.catalogo.port.dao.ClienteDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -9,13 +11,26 @@ import java.util.UUID;
 @Component
 public class ClienteByIdHandler {
 
-    private final ClienteByIdService clienteByIdService;
+    private final ClienteDao clienteDao;
+    private final ClienteMapper clienteMapper;
 
-    public ClienteByIdHandler(ClienteByIdService clienteByIdService) {
-        this.clienteByIdService = clienteByIdService;
+    public ClienteByIdHandler(ClienteDao clienteDao, ClienteMapper clienteMapper) {
+        this.clienteDao = clienteDao;
+        this.clienteMapper = clienteMapper;
     }
 
-    public ClienteCreateCommand execute(UUID uuid) {
-        return clienteByIdService.execute(uuid);
+    public ClienteDTO execute(UUID uuid) {
+
+        var cliente = clienteDao.getById(uuid);
+
+        if (cliente == null) {
+
+            throw new IllegalArgumentException(ClienteConstant.INVALID_ID);
+
+        }
+
+        return clienteMapper.toDto(cliente);
+
     }
+
 }

@@ -1,23 +1,40 @@
 package com.saludsystem.submodules.catalogo.query.getAll;
 
+import com.saludsystem.submodules.catalogo.mapper.TipoConceptoMapper;
 import com.saludsystem.submodules.catalogo.model.dto.TipoConceptoDTO;
-import com.saludsystem.submodules.catalogo.service.tipoconcepto.TipoConceptoAllService;
+import com.saludsystem.submodules.catalogo.port.dao.TipoConceptoDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
 public class TipoConceptoAllHandler {
 
-    private final TipoConceptoAllService tipoConceptoAllService;
+    private final TipoConceptoDao tipoConceptoDao;
+    private final TipoConceptoMapper tipoConceptoMapper;
 
-    public TipoConceptoAllHandler(TipoConceptoAllService tipoConceptoAllService) {
-        this.tipoConceptoAllService = tipoConceptoAllService;
+    public TipoConceptoAllHandler(TipoConceptoDao tipoConceptoDao, TipoConceptoMapper tipoConceptoMapper) {
+        this.tipoConceptoDao = tipoConceptoDao;
+        this.tipoConceptoMapper = tipoConceptoMapper;
     }
 
     public ListResponse<TipoConceptoDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
-        return tipoConceptoAllService.execute(hospitalId, paginationRequest);
+
+        var result = tipoConceptoDao.getAll(hospitalId, paginationRequest.getPage(), paginationRequest.getRows());
+
+        List<TipoConceptoDTO> data = result.getData()
+                .stream()
+                .map(tipoConceptoMapper::toDto)
+                .toList();
+
+        return new ListResponse<>(data,
+                result.getTotalElements(),
+                result.getTotalPages(),
+                result.getCurrentPage());
+
     }
+
 }

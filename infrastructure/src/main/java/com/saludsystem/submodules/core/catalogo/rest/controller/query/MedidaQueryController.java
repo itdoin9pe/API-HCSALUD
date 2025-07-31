@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.model.dto.MedidaCreateCommand;
+import com.saludsystem.submodules.catalogo.model.dto.MedidaDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.MedidaAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.MedidaByIdHandler;
 import com.saludsystem.submodules.catalogo.query.getList.MedidaListHandler;
@@ -32,12 +32,12 @@ public class MedidaQueryController {
     }
 
     @GetMapping("/GetList")
-    public List<MedidaCreateCommand> getList() {
+    public List<MedidaDTO> getList() {
         return listHandler.execute();
     }
 
     @GetMapping("/GetById/{id}")
-    public MedidaCreateCommand getById(@PathVariable UUID id) {
+    public MedidaDTO getById(@PathVariable UUID id) {
         return byIdHandler.execute(id);
     }
 
@@ -47,7 +47,7 @@ public class MedidaQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = MedidaListResponse.class)))
     })
-    public ListResponse<MedidaCreateCommand> getAllPaginated(
+    public ListResponse<MedidaDTO> getAllPaginated(
             @RequestParam UUID hospitalId,
             @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows) {

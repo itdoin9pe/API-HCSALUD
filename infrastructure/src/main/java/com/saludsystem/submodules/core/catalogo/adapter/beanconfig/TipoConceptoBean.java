@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.catalogo.adapter.beanconfig;
 
+import com.saludsystem.submodules.catalogo.mapper.TipoConceptoMapper;
 import com.saludsystem.submodules.catalogo.port.dao.TipoConceptoDao;
 import com.saludsystem.submodules.catalogo.port.repository.TipoConceptoRepository;
-import com.saludsystem.submodules.catalogo.service.tipoconcepto.*;
+import com.saludsystem.submodules.catalogo.service.tipoconcepto.TipoConceptoCreateService;
+import com.saludsystem.submodules.catalogo.service.tipoconcepto.TipoConceptoDeleteService;
+import com.saludsystem.submodules.catalogo.service.tipoconcepto.TipoConceptoEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,32 +13,25 @@ import org.springframework.context.annotation.Configuration;
 public class TipoConceptoBean {
 
     @Bean
+    public TipoConceptoMapper tipoConceptoMapper() {
+        return new TipoConceptoMapper();
+    }
+
+    @Bean
     public TipoConceptoCreateService tipoConceptoCreateService(TipoConceptoRepository repository) {
         return new TipoConceptoCreateService(repository);
     }
 
     @Bean
-    public TipoConceptoEditService tipoConceptoEditService(TipoConceptoRepository repository) {
-        return new TipoConceptoEditService(repository);
+    public TipoConceptoEditService tipoConceptoEditService(
+            TipoConceptoDao dao, TipoConceptoRepository repository) {
+        return new TipoConceptoEditService(dao, repository);
     }
 
     @Bean
-    public TipoConceptoDeleteService tipoConceptoDeleteService(TipoConceptoRepository repository) {
-        return new TipoConceptoDeleteService(repository);
+    public TipoConceptoDeleteService tipoConceptoDeleteService(
+            TipoConceptoRepository repository, TipoConceptoDao dao) {
+        return new TipoConceptoDeleteService(repository, dao);
     }
 
-    @Bean
-    public TipoConceptoListService tipoConceptoListService(TipoConceptoDao dao) {
-        return new TipoConceptoListService(dao);
-    }
-
-    @Bean
-    public TipoConceptoByIdService tipoConceptoByIdService(TipoConceptoDao dao) {
-        return new TipoConceptoByIdService(dao);
-    }
-
-    @Bean
-    public TipoConceptoAllService tipoConceptoAllService(TipoConceptoDao dao) {
-        return new TipoConceptoAllService(dao);
-    }
 }

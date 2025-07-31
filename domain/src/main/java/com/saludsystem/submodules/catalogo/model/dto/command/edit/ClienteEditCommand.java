@@ -2,14 +2,16 @@ package com.saludsystem.submodules.catalogo.model.dto.command.edit;
 
 import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Data
-public class ActualizarClienteDTO extends BaseDTO {
+public class ClienteEditCommand extends BaseDTO {
     private UUID clienteId;
     private String tipoDocumento;
 

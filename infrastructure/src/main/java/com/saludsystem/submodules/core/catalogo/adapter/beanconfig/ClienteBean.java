@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.catalogo.adapter.beanconfig;
 
+import com.saludsystem.submodules.catalogo.mapper.ClienteMapper;
 import com.saludsystem.submodules.catalogo.port.dao.ClienteDao;
 import com.saludsystem.submodules.catalogo.port.repository.ClienteRepository;
-import com.saludsystem.submodules.catalogo.service.cliente.*;
+import com.saludsystem.submodules.catalogo.service.cliente.ClienteCreateService;
+import com.saludsystem.submodules.catalogo.service.cliente.ClienteDeleteService;
+import com.saludsystem.submodules.catalogo.service.cliente.ClienteEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,18 +13,8 @@ import org.springframework.context.annotation.Configuration;
 public class ClienteBean {
 
     @Bean
-    public ClienteAllService clienteAllService(ClienteDao dao) {
-        return new ClienteAllService(dao);
-    }
-
-    @Bean
-    public ClienteByIdService clienteByIdService(ClienteDao dao) {
-        return new ClienteByIdService(dao);
-    }
-
-    @Bean
-    public ClienteListService clienteListService(ClienteDao dao) {
-        return new ClienteListService(dao);
+    public ClienteMapper clienteMapper() {
+        return new ClienteMapper();
     }
 
     @Bean
@@ -30,12 +23,13 @@ public class ClienteBean {
     }
 
     @Bean
-    public ClienteEditService clienteEditService(ClienteRepository repository) {
-        return new ClienteEditService(repository);
+    public ClienteEditService clienteEditService(ClienteDao dao, ClienteRepository repository) {
+        return new ClienteEditService(dao, repository);
     }
 
     @Bean
-    public ClienteDeleteService clienteDeleteService(ClienteRepository repository) {
-        return new ClienteDeleteService(repository);
+    public ClienteDeleteService clienteDeleteService(ClienteRepository repository, ClienteDao dao) {
+        return new ClienteDeleteService(repository, dao);
     }
+
 }

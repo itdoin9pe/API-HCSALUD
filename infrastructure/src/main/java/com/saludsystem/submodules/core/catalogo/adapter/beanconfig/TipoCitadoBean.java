@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.catalogo.adapter.beanconfig;
 
+import com.saludsystem.submodules.catalogo.mapper.TipoCitadoMapper;
 import com.saludsystem.submodules.catalogo.port.dao.TipoCitadoDao;
 import com.saludsystem.submodules.catalogo.port.repository.TipoCitadoRepository;
-import com.saludsystem.submodules.catalogo.service.tipocitado.*;
+import com.saludsystem.submodules.catalogo.service.tipocitado.TipoCitadoCreateService;
+import com.saludsystem.submodules.catalogo.service.tipocitado.TipoCitadoDeleteService;
+import com.saludsystem.submodules.catalogo.service.tipocitado.TipoCitadoEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,33 +13,23 @@ import org.springframework.context.annotation.Configuration;
 public class TipoCitadoBean {
 
     @Bean
+    public TipoCitadoMapper tipoCitadoMapper() {
+        return new TipoCitadoMapper();
+    }
+
+    @Bean
     public TipoCitadoCreateService tipoCitadoCreateService(TipoCitadoRepository repository) {
         return new TipoCitadoCreateService(repository);
     }
 
     @Bean
-    public TipoCitadoEditService tipoCitadoEditService(TipoCitadoRepository repository) {
-        return new TipoCitadoEditService(repository);
+    public TipoCitadoEditService tipoCitadoEditService(TipoCitadoDao dao, TipoCitadoRepository repository) {
+        return new TipoCitadoEditService(dao, repository);
     }
 
     @Bean
-    public TipoCitadoDeleteService tipoCitadoDeleteService(TipoCitadoRepository repository) {
-        return new TipoCitadoDeleteService(repository);
-    }
-
-    @Bean
-    public TipoCitadoAllService tipoCitadoAllService(TipoCitadoDao dao) {
-        return new TipoCitadoAllService(dao);
-    }
-
-    @Bean
-    public TipoCitadoListService tipoCitadoListService(TipoCitadoDao dao) {
-        return new TipoCitadoListService(dao);
-    }
-
-    @Bean
-    public TipoCitadoByIdService tipoCitadoByIdService(TipoCitadoDao dao) {
-        return new TipoCitadoByIdService(dao);
+    public TipoCitadoDeleteService tipoCitadoDeleteService(TipoCitadoRepository repository, TipoCitadoDao dao) {
+        return new TipoCitadoDeleteService(repository, dao);
     }
 
 }

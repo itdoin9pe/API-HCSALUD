@@ -1,6 +1,7 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearPlanDTO;
+import com.saludsystem.submodules.catalogo.mapper.PlanMapper;
+import com.saludsystem.submodules.catalogo.model.dto.command.PlanCreateCommandDTO;
 import com.saludsystem.submodules.catalogo.service.plan.PlanCreateService;
 import org.springframework.stereotype.Component;
 
@@ -8,12 +9,19 @@ import org.springframework.stereotype.Component;
 public class PlanCreateHandler {
 
     private final PlanCreateService planCreateService;
+    private final PlanMapper planMapper;
 
-    public PlanCreateHandler(PlanCreateService planCreateService) {
+    public PlanCreateHandler(PlanCreateService planCreateService, PlanMapper planMapper) {
         this.planCreateService = planCreateService;
+        this.planMapper = planMapper;
     }
 
-    public void execute(CrearPlanDTO dto) {
-        planCreateService.execute(dto);
+    public void execute(PlanCreateCommandDTO createCommandDTO) {
+
+        var plan = planMapper.fromCreateDto(createCommandDTO);
+
+        planCreateService.execute(plan);
+
     }
+
 }

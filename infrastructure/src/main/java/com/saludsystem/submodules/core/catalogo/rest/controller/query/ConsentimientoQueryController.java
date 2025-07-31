@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoCreateCommand;
+import com.saludsystem.submodules.catalogo.model.dto.ConsentimientoDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.ConsentimientoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.ConsentimientoByIdHandler;
 import com.saludsystem.submodules.catalogo.query.getList.ConsentimientoListHandler;
@@ -32,12 +32,12 @@ public class ConsentimientoQueryController {
     }
 
     @GetMapping("/GetList")
-    public List<ConsentimientoCreateCommand> getList() {
+    public List<ConsentimientoDTO> getList() {
         return listHandler.execute();
     }
 
     @GetMapping("/GetById/{id}")
-    public ConsentimientoCreateCommand getById(@PathVariable UUID id) {
+    public ConsentimientoDTO getById(@PathVariable UUID id) {
         return byIdHandler.execute(id);
     }
 
@@ -47,7 +47,7 @@ public class ConsentimientoQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = ConsentimientoListResponse.class)))
     })
-    public ListResponse<ConsentimientoCreateCommand> getAllPaginated(
+    public ListResponse<ConsentimientoDTO> getAllPaginated(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId, @RequestParam(name = "Page") int page,
             @RequestParam(name = "Rows") int rows) {
         return allHandler.execute(hospitalId, new PaginationRequest(page, rows));

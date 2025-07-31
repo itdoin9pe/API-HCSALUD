@@ -5,7 +5,7 @@ import com.saludsystem.submodules.catalogo.command.delete.AlergiaDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.AlergiaEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.AlergiaConstant;
 import com.saludsystem.submodules.catalogo.model.dto.command.AlergiaCreateCommand;
-import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarAlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.AlergiaEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class AlergiaCommandController {
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarAlergiaDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody AlergiaEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, AlergiaConstant.UPDATED);
     }
@@ -44,4 +44,5 @@ public class AlergiaCommandController {
         deleteHandler.execute(id);
         return new ApiResponse(true, AlergiaConstant.DELETED);
     }
+
 }

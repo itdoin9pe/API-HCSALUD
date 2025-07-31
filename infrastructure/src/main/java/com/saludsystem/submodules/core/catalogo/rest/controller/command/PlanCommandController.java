@@ -4,7 +4,7 @@ import com.saludsystem.submodules.catalogo.command.create.PlanCreateHandler;
 import com.saludsystem.submodules.catalogo.command.delete.PlanDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.PlanEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.PlanConstant;
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearPlanDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.PlanCreateCommandDTO;
 import com.saludsystem.submodules.catalogo.model.dto.command.edit.PlanEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,7 +28,7 @@ public class PlanCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearPlanDTO dto) {
+    public ApiResponse save(@RequestBody PlanCreateCommandDTO dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, PlanConstant.CREATED);
     }

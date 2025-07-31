@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.catalogo.adapter.beanconfig;
 
+import com.saludsystem.submodules.catalogo.mapper.EspecialidadMapper;
 import com.saludsystem.submodules.catalogo.port.dao.EspecialidadDao;
 import com.saludsystem.submodules.catalogo.port.repository.EspecialidadRepository;
-import com.saludsystem.submodules.catalogo.service.especialidad.*;
+import com.saludsystem.submodules.catalogo.service.especialidad.EspecialidadCreateService;
+import com.saludsystem.submodules.catalogo.service.especialidad.EspecialidadDeleteService;
+import com.saludsystem.submodules.catalogo.service.especialidad.EspecialidadEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,33 +13,25 @@ import org.springframework.context.annotation.Configuration;
 public class EspecialidadBean {
 
     @Bean
+    public EspecialidadMapper especialidadMapper() {
+        return new EspecialidadMapper();
+    }
+
+    @Bean
     public EspecialidadCreateService especialidadCreateService(EspecialidadRepository repository) {
         return new EspecialidadCreateService(repository);
     }
 
     @Bean
-    public EspecialidadEditService especialidadEditService(EspecialidadRepository repository) {
-        return new EspecialidadEditService(repository);
+    public EspecialidadEditService especialidadEditService(
+            EspecialidadDao dao, EspecialidadRepository repository) {
+        return new EspecialidadEditService(dao, repository);
     }
 
     @Bean
-    public EspecialidadDeleteService especialidadDeleteService(EspecialidadRepository repository) {
-        return new EspecialidadDeleteService(repository);
-    }
-
-    @Bean
-    public EspecialidadListService especialidadListService(EspecialidadDao dao) {
-        return new EspecialidadListService(dao);
-    }
-
-    @Bean
-    public EspecialidadByIdService especialidadByIdService(EspecialidadDao dao) {
-        return new EspecialidadByIdService(dao);
-    }
-
-    @Bean
-    public EspecialidadAllService especialidadAllService(EspecialidadDao dao) {
-        return new EspecialidadAllService(dao);
+    public EspecialidadDeleteService especialidadDeleteService(
+            EspecialidadRepository repository, EspecialidadDao dao) {
+        return new EspecialidadDeleteService(repository, dao);
     }
 
 }

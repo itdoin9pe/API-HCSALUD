@@ -4,7 +4,7 @@ import com.saludsystem.submodules.catalogo.command.create.TipoCitadoCreateHandle
 import com.saludsystem.submodules.catalogo.command.delete.TipoCitadoDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.TipoCitadoEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.TipoCitadoConstant;
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearTipoCitadoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.TipoCitadoCreateCommand;
 import com.saludsystem.submodules.catalogo.model.dto.command.edit.TipoCitadoEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,7 +28,7 @@ public class TipoCitadoCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearTipoCitadoDTO dto) {
+    public ApiResponse save(@RequestBody TipoCitadoCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, TipoCitadoConstant.CREATED);
     }

@@ -17,4 +17,5 @@ public class ApoderadoDeleteHandler {
     public void execute(UUID uuid) {
         apoderadoDeleteService.execute(uuid);
     }
+
 }

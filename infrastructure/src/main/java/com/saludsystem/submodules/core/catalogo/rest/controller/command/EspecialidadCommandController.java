@@ -5,7 +5,7 @@ import com.saludsystem.submodules.catalogo.command.delete.EspecialidadDeleteHand
 import com.saludsystem.submodules.catalogo.command.edit.EspecialidadEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.EspecialidadConstant;
 import com.saludsystem.submodules.catalogo.model.dto.command.EspecialidadCreateCommand;
-import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarEspecialidadDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.EspecialidadEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class EspecialidadCommandController {
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarEspecialidadDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody EspecialidadEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, EspecialidadConstant.UPDATED);
     }

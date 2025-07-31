@@ -1,23 +1,24 @@
 package com.saludsystem.submodules.catalogo.mapper;
 
-import com.saludsystem.submodules.catalogo.model.dto.AlergiaCreateCommand;
-import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarAlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.AlergiaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.AlergiaCreateCommand;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.AlergiaEditCommand;
 import com.saludsystem.submodules.catalogo.model.Alergia;
 
 import java.util.UUID;
 
 public class AlergiaMapper {
 
-    public static Alergia fromCreateDto(AlergiaCreateCommand dto) {
+    public Alergia fromCreateDto(AlergiaCreateCommand dto) {
         return new Alergia(null, dto.getNombre(), dto.getEstado());
     }
 
-    public static Alergia fromUpdateDto(UUID id, ActualizarAlergiaDTO dto) {
+    public Alergia fromUpdateDto(UUID id, AlergiaEditCommand dto) {
         return new Alergia(id, dto.getNombre(), dto.getEstado());
     }
 
-    public static AlergiaCreateCommand toDto(Alergia model) {
-        return new AlergiaCreateCommand(
+    public AlergiaDTO toDto(Alergia model) {
+        return new AlergiaDTO(
                 model.getId(),
                 model.getNombre(),
                 model.getEstado());

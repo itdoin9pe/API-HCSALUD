@@ -1,23 +1,41 @@
 package com.saludsystem.submodules.catalogo.query.getAll;
 
-import com.saludsystem.submodules.catalogo.model.dto.ClienteCreateCommand;
-import com.saludsystem.submodules.catalogo.service.cliente.ClienteAllService;
+import com.saludsystem.submodules.catalogo.mapper.ClienteMapper;
+import com.saludsystem.submodules.catalogo.model.dto.ClienteDTO;
+import com.saludsystem.submodules.catalogo.port.dao.ClienteDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
 public class ClienteAllHandler {
 
-    private final ClienteAllService clienteAllService;
+    private final ClienteDao clienteDao;
+    private final ClienteMapper clienteMapper;
 
-    public ClienteAllHandler(ClienteAllService clienteAllService) {
-        this.clienteAllService = clienteAllService;
+    public ClienteAllHandler(ClienteDao clienteDao, ClienteMapper clienteMapper) {
+        this.clienteDao = clienteDao;
+        this.clienteMapper = clienteMapper;
     }
 
-    public ListResponse<ClienteCreateCommand> execute(UUID hospitalId, PaginationRequest paginationRequest) {
-        return clienteAllService.execute(hospitalId, paginationRequest);
+    public ListResponse<ClienteDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
+
+        var result = clienteDao.getAll(hospitalId, paginationRequest.getPage(), paginationRequest.getRows());
+
+        List<ClienteDTO> data = result.getData()
+                .stream()
+                .map(clienteMapper::toDto)
+                .toList();
+
+        return new ListResponse<>(
+                data,
+                result.getTotalElements(),
+                result.getTotalPages(),
+                result.getCurrentPage());
+
     }
+
 }

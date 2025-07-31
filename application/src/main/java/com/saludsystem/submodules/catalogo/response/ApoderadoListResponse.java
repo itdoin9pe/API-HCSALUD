@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.response;
 
-import com.saludsystem.submodules.catalogo.model.dto.ApoderadoCreateCommand;
+import com.saludsystem.submodules.catalogo.model.dto.ApoderadoDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.util.List;
 public class ApoderadoListResponse {
 
     @Schema(description = "Lista de Apoderados")
-    private List<ApoderadoCreateCommand> data;
+    private List<ApoderadoDTO> data;
 
     @Schema(description = "Número total de Apoderados Registradas", example = "0")
     private long totalData;

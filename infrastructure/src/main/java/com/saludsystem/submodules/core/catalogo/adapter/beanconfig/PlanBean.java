@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.catalogo.adapter.beanconfig;
 
+import com.saludsystem.submodules.catalogo.mapper.PlanMapper;
 import com.saludsystem.submodules.catalogo.port.dao.PlanDao;
 import com.saludsystem.submodules.catalogo.port.repository.PlanRepository;
-import com.saludsystem.submodules.catalogo.service.plan.*;
+import com.saludsystem.submodules.catalogo.service.plan.PlanCreateService;
+import com.saludsystem.submodules.catalogo.service.plan.PlanDeleteService;
+import com.saludsystem.submodules.catalogo.service.plan.PlanEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,33 +13,23 @@ import org.springframework.context.annotation.Configuration;
 public class PlanBean {
 
     @Bean
+    public PlanMapper planMapper() {
+        return new PlanMapper();
+    }
+
+    @Bean
     public PlanCreateService planCreateService(PlanRepository planRepository) {
         return new PlanCreateService(planRepository);
     }
 
     @Bean
-    public PlanEditService planEditService(PlanRepository planRepository) {
-        return new PlanEditService(planRepository);
+    public PlanEditService planEditService(PlanDao dao, PlanRepository planRepository) {
+        return new PlanEditService(dao, planRepository);
     }
 
     @Bean
-    public PlanDeleteService planDeleteService(PlanRepository planRepository) {
-        return new PlanDeleteService(planRepository);
-    }
-
-    @Bean
-    public PlanByIdService planByIdService(PlanDao planDao) {
-        return new PlanByIdService(planDao);
-    }
-
-    @Bean
-    public PlanListService planListService(PlanDao planDao) {
-        return new PlanListService(planDao);
-    }
-
-    @Bean
-    public PlanAllService planAllService(PlanDao planDao) {
-        return new PlanAllService(planDao);
+    public PlanDeleteService planDeleteService(PlanRepository planRepository, PlanDao dao) {
+        return new PlanDeleteService(planRepository, dao);
     }
 
 }

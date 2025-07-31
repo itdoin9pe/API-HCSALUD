@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.model.dto.AlergiaCreateCommand;
-import com.saludsystem.submodules.catalogo.service.alergia.AlergiaByIdService;
+import com.saludsystem.submodules.catalogo.mapper.AlergiaMapper;
+import com.saludsystem.submodules.catalogo.model.constant.AlergiaConstant;
+import com.saludsystem.submodules.catalogo.model.dto.AlergiaDTO;
+import com.saludsystem.submodules.catalogo.port.dao.AlergiaDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -12,24 +14,26 @@ import java.util.UUID;
 @Component
 public class AlergiaByIdHandler {
 
-    private final AlergiaByIdService alergiaByIdService;
+    private final AlergiaDao alergiaDao;
+    private final AlergiaMapper alergiaMapper;
 
-    /**
-     * Instantiates a new Alergia by id handler.
-     *
-     * @param alergiaByIdService the alergia by id service
-     */
-    public AlergiaByIdHandler(AlergiaByIdService alergiaByIdService) {
-        this.alergiaByIdService = alergiaByIdService;
+    public AlergiaByIdHandler(AlergiaDao alergiaDao, AlergiaMapper alergiaMapper) {
+        this.alergiaDao = alergiaDao;
+        this.alergiaMapper = alergiaMapper;
     }
 
-    /**
-     * Execute alergia dto.
-     *
-     * @param id the id
-     * @return the alergia dto
-     */
-    public AlergiaCreateCommand execute(UUID id) {
-        return alergiaByIdService.execute(id);
+    public AlergiaDTO execute(UUID id) {
+
+        var alergia = alergiaDao.getById(id);
+
+        if (alergia == null) {
+
+            throw new IllegalArgumentException(AlergiaConstant.INVALID_ID);
+
+        }
+
+        return alergiaMapper.toDto(alergia);
+
     }
+
 }

@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.catalogo.query.getById;
 
-import com.saludsystem.submodules.catalogo.model.dto.ApoderadoCreateCommand;
-import com.saludsystem.submodules.catalogo.service.apoderado.ApoderadoByIdService;
+import com.saludsystem.submodules.catalogo.mapper.ApoderadoMapper;
+import com.saludsystem.submodules.catalogo.model.constant.ApoderadoConstant;
+import com.saludsystem.submodules.catalogo.model.dto.ApoderadoDTO;
+import com.saludsystem.submodules.catalogo.port.dao.ApoderadoDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -9,13 +11,26 @@ import java.util.UUID;
 @Component
 public class ApoderadoByIdHandler {
 
-    private final ApoderadoByIdService apoderadoByIdService;
+    private final ApoderadoDao apoderadoDao;
+    private final ApoderadoMapper apoderadoMapper;
 
-    public ApoderadoByIdHandler(ApoderadoByIdService apoderadoByIdService) {
-        this.apoderadoByIdService = apoderadoByIdService;
+    public ApoderadoByIdHandler(ApoderadoDao apoderadoDao, ApoderadoMapper apoderadoMapper) {
+        this.apoderadoDao = apoderadoDao;
+        this.apoderadoMapper = apoderadoMapper;
     }
 
-    public ApoderadoCreateCommand execute(UUID uuid) {
-        return apoderadoByIdService.execute(uuid);
+    public ApoderadoDTO execute(UUID uuid) {
+
+        var apoderado = apoderadoDao.getById(uuid);
+
+        if (apoderado == null) {
+
+            throw new IllegalArgumentException(ApoderadoConstant.ID_INVALID);
+
+        }
+
+        return apoderadoMapper.toDto(apoderado);
+
     }
+
 }

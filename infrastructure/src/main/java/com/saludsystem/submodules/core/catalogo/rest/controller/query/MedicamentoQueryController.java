@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.model.dto.MedicamentoCreateCommand;
+import com.saludsystem.submodules.catalogo.model.dto.MedicamentoDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.MedicamentoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.MedicamentoByIdHandler;
 import com.saludsystem.submodules.catalogo.query.getList.MedicamentoListHandler;
@@ -35,12 +35,12 @@ public class MedicamentoQueryController {
     }
 
     @GetMapping("/GetList")
-    public List<MedicamentoCreateCommand> getList() {
+    public List<MedicamentoDTO> getList() {
         return listHandler.execute();
     }
 
     @GetMapping("/GetById/{id}")
-    public MedicamentoCreateCommand getById(@PathVariable UUID id) {
+    public MedicamentoDTO getById(@PathVariable UUID id) {
         return byIdHandler.execute(id);
     }
 
@@ -50,7 +50,7 @@ public class MedicamentoQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = MedicamentoListResponse.class)))
     })
-    public ListResponse<MedicamentoCreateCommand> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<MedicamentoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
         return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 }

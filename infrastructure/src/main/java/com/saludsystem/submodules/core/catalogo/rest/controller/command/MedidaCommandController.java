@@ -5,7 +5,7 @@ import com.saludsystem.submodules.catalogo.command.delete.MedidaDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.MedidaEditHandler;
 import com.saludsystem.submodules.catalogo.model.constant.MedidaConstant;
 import com.saludsystem.submodules.catalogo.model.dto.command.MedidaCreateCommand;
-import com.saludsystem.submodules.catalogo.model.dto.command.edit.ActualizarMedidaDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.edit.MedidaEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class MedidaCommandController {
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarMedidaDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody MedidaEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, MedidaConstant.UPDATED);
     }

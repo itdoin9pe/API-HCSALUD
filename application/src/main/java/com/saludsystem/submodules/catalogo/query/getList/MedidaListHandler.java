@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.catalogo.query.getList;
 
-import com.saludsystem.submodules.catalogo.model.dto.MedidaCreateCommand;
-import com.saludsystem.submodules.catalogo.service.medida.MedidaListService;
+import com.saludsystem.submodules.catalogo.mapper.MedidaMapper;
+import com.saludsystem.submodules.catalogo.model.Medida;
+import com.saludsystem.submodules.catalogo.model.dto.MedidaDTO;
+import com.saludsystem.submodules.catalogo.port.dao.MedidaDao;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,13 +11,22 @@ import java.util.List;
 @Component
 public class MedidaListHandler {
 
-    private final MedidaListService medidaListService;
+    private final MedidaDao medidaDao;
+    private final MedidaMapper medidaMapper;
 
-    public MedidaListHandler(MedidaListService medidaListService) {
-        this.medidaListService = medidaListService;
+    public MedidaListHandler(MedidaDao medidaDao, MedidaMapper medidaMapper) {
+        this.medidaDao = medidaDao;
+        this.medidaMapper = medidaMapper;
     }
 
-    public List<MedidaCreateCommand> execute() {
-        return medidaListService.execute();
+    public List<MedidaDTO> execute() {
+
+        List<Medida> medidaList = medidaDao.getList();
+
+        return medidaList.stream()
+                .map(medidaMapper::toDto)
+                .toList();
+
     }
+
 }

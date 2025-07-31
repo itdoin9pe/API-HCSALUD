@@ -3,7 +3,7 @@ package com.saludsystem.submodules.core.catalogo.rest.controller.command;
 import com.saludsystem.submodules.catalogo.command.create.TipoConceptoCreateHandler;
 import com.saludsystem.submodules.catalogo.command.delete.TipoConceptoDeleteHandler;
 import com.saludsystem.submodules.catalogo.command.edit.TipoConceptoEditHandler;
-import com.saludsystem.submodules.catalogo.model.dto.command.CrearTipoConceptoDTO;
+import com.saludsystem.submodules.catalogo.model.dto.command.TipoConceptoCreateCommand;
 import com.saludsystem.submodules.catalogo.model.dto.command.edit.TipoConceptoEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,7 +27,7 @@ public class TipoConceptoCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearTipoConceptoDTO dto) {
+    public ApiResponse save(@RequestBody TipoConceptoCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, "Registro agregado");
     }
