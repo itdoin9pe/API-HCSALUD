@@ -1,29 +1,29 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.Tarifario;
-import com.saludsystem.submodules.mantenimiento.dtos.get.TarifarioDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTarifarioDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarTarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.TarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.TarifarioCreateCommand;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.TarifarioEditCommand;
 
 import java.util.UUID;
 
 public class TarifarioMapper {
 
-    public static Tarifario fromCreateDto(CrearTarifarioDTO dto) {
+    public Tarifario fromCreateDto(TarifarioCreateCommand createCommand) {
         return new Tarifario(null,
-                dto.getTipoConceptoId(), dto.getCategoriaId(), dto.getMedidaId(),
-                dto.getUnidadId(), dto.getGrupo(), dto.getDescripcion(),
-                dto.getPrecio(), dto.getEstado());
+                createCommand.getTipoConceptoId(), createCommand.getCategoriaId(), createCommand.getMedidaId(),
+                createCommand.getUnidadId(), createCommand.getGrupo(), createCommand.getDescripcion(),
+                createCommand.getPrecio(), createCommand.getEstado());
     }
 
-    public static Tarifario fromUpdateDto(UUID uuid, ActualizarTarifarioDTO dto) {
+    public Tarifario fromUpdateDto(UUID uuid, TarifarioEditCommand editCommand) {
         return new Tarifario(uuid,
-                dto.getTipoConceptoId(), dto.getCategoriaId(), dto.getMedidaId(),
-                dto.getUnidadId(), dto.getGrupo(), dto.getDescripcion(),
-                dto.getPrecio(), dto.getEstado());
+                editCommand.getTipoConceptoId(), editCommand.getCategoriaId(), editCommand.getMedidaId(),
+                editCommand.getUnidadId(), editCommand.getGrupo(), editCommand.getDescripcion(),
+                editCommand.getPrecio(), editCommand.getEstado());
     }
 
-    public static TarifarioDTO toDto(Tarifario model) {
+    public TarifarioDTO toDto(Tarifario model) {
         return new TarifarioDTO(
                 model.getId(),
                 model.getTipoConceptoId(),

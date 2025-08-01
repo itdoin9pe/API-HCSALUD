@@ -1,23 +1,23 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.Caja;
-import com.saludsystem.submodules.mantenimiento.dtos.get.CajaDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.post.CrearCajaDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarCajaDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.CajaDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.CajaCreateCommand;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.CajaEditCommand;
 
 import java.util.UUID;
 
 public class CajaMapper {
 
-    public static Caja fromCreateDto(CrearCajaDTO dto) {
-        return new Caja(null, dto.getNombre(), dto.getEstado());
+    public Caja fromCreateDto(CajaCreateCommand createCommand) {
+        return new Caja(null, createCommand.getNombre(), createCommand.getEstado());
     }
 
-    public static Caja fromUpdateDto(UUID uuid, ActualizarCajaDTO dto) {
-        return new Caja(uuid, dto.getNombre(), dto.getEstado());
+    public Caja fromUpdateDto(UUID uuid, CajaEditCommand editCommand) {
+        return new Caja(uuid, editCommand.getNombre(), editCommand.getEstado());
     }
 
-    public static CajaDTO toDto(Caja model) {
+    public CajaDTO toDto(Caja model) {
         return new CajaDTO(model.getId(), model.getNombre(), model.getEstado());
     }
 }

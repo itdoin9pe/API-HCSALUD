@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.mantenimiento.query.getList;
 
-import com.saludsystem.submodules.mantenimiento.dtos.get.TarifarioDTO;
-import com.saludsystem.submodules.mantenimiento.service.tarifario.TarifarioListService;
+import com.saludsystem.submodules.mantenimiento.mapper.TarifarioMapper;
+import com.saludsystem.submodules.mantenimiento.model.Tarifario;
+import com.saludsystem.submodules.mantenimiento.model.dtos.TarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.port.dao.TarifarioDao;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,13 +11,22 @@ import java.util.List;
 @Component
 public class TarifarioListHandler {
 
-    private final TarifarioListService tarifarioListService;
+    private final TarifarioDao tarifarioDao;
+    private final TarifarioMapper tarifarioMapper;
 
-    public TarifarioListHandler(TarifarioListService tarifarioListService) {
-        this.tarifarioListService = tarifarioListService;
+    public TarifarioListHandler(TarifarioDao tarifarioDao, TarifarioMapper tarifarioMapper) {
+        this.tarifarioDao = tarifarioDao;
+        this.tarifarioMapper = tarifarioMapper;
     }
 
     public List<TarifarioDTO> execute() {
-        return tarifarioListService.execute();
+
+        List<Tarifario> tarifarioList = tarifarioDao.getList();
+
+        return tarifarioList.stream()
+                .map(tarifarioMapper::toDto)
+                .toList();
+
     }
+
 }

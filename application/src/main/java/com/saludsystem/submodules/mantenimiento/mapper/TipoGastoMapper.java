@@ -1,26 +1,27 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.TipoGasto;
-import com.saludsystem.submodules.mantenimiento.dtos.get.TipoGastoDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTipoGastoDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarTipoGastoDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.TipoGastoDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.TipoGastoCreateCommand;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.TipoGastoEditCommand;
 
 import java.util.UUID;
 
 public class TipoGastoMapper {
 
-    public static TipoGasto fromCreateDto(CrearTipoGastoDTO dto) {
-        return new TipoGasto(null, dto.getNombre(), dto.getEstado());
+    public TipoGasto fromCreateDto(TipoGastoCreateCommand createCommand) {
+        return new TipoGasto(null, createCommand.getNombre(), createCommand.getEstado());
     }
 
-    public static TipoGasto fromUpdateDto(UUID uuid, ActualizarTipoGastoDTO dto) {
-        return new TipoGasto(uuid, dto.getNombre(), dto.getEstado());
+    public TipoGasto fromUpdateDto(UUID uuid, TipoGastoEditCommand editCommand) {
+        return new TipoGasto(uuid, editCommand.getNombre(), editCommand.getEstado());
     }
 
-    public static TipoGastoDTO toDto(TipoGasto model) {
+    public TipoGastoDTO toDto(TipoGasto model) {
         return new TipoGastoDTO(
                 model.getConceptoGastoId(),
                 model.getNombre(),
                 model.getEstado());
     }
+
 }

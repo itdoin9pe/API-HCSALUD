@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.mantenimiento.rest.controller.query;
 
-import com.saludsystem.submodules.mantenimiento.dtos.get.MonedaDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.MonedaDTO;
 import com.saludsystem.submodules.mantenimiento.query.getAll.MonedaAllHandler;
 import com.saludsystem.submodules.mantenimiento.query.getById.MonedaByIdHandler;
 import com.saludsystem.submodules.mantenimiento.query.getList.MonedaListHandler;

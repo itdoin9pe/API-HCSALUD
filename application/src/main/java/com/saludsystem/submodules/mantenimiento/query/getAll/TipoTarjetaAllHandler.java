@@ -1,23 +1,41 @@
 package com.saludsystem.submodules.mantenimiento.query.getAll;
 
-import com.saludsystem.submodules.mantenimiento.dtos.get.TipoTarjetaDTO;
-import com.saludsystem.submodules.mantenimiento.service.tipotarjeta.TipoTarjetaAllService;
+import com.saludsystem.submodules.mantenimiento.mapper.TipoTarjetaMapper;
+import com.saludsystem.submodules.mantenimiento.model.dtos.TipoTarjetaDTO;
+import com.saludsystem.submodules.mantenimiento.port.dao.TipoTarjetaDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
 public class TipoTarjetaAllHandler {
 
-    private final TipoTarjetaAllService tipoTarjetaAllService;
+    private final TipoTarjetaDao tipoTarjetaDao;
+    private final TipoTarjetaMapper tipoTarjetaMapper;
 
-    public TipoTarjetaAllHandler(TipoTarjetaAllService tipoTarjetaAllService) {
-        this.tipoTarjetaAllService = tipoTarjetaAllService;
+    public TipoTarjetaAllHandler(TipoTarjetaDao tipoTarjetaDao, TipoTarjetaMapper tipoTarjetaMapper) {
+        this.tipoTarjetaDao = tipoTarjetaDao;
+        this.tipoTarjetaMapper = tipoTarjetaMapper;
     }
 
     public ListResponse<TipoTarjetaDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
-        return tipoTarjetaAllService.execute(hospitalId, paginationRequest);
+
+        var result = tipoTarjetaDao.getAll(hospitalId, paginationRequest.getPage(), paginationRequest.getRows());
+
+        List<TipoTarjetaDTO> data = result.getData()
+                .stream()
+                .map(tipoTarjetaMapper::toDto)
+                .toList();
+
+        return new ListResponse<>(
+                data,
+                result.getTotalElements(),
+                result.getTotalPages(),
+                result.getCurrentPage());
+
     }
+
 }

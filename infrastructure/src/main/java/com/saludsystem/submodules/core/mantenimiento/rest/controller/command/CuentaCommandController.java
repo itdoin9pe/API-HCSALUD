@@ -3,9 +3,9 @@ package com.saludsystem.submodules.core.mantenimiento.rest.controller.command;
 import com.saludsystem.submodules.mantenimiento.command.create.CuentaCreateHandler;
 import com.saludsystem.submodules.mantenimiento.command.delete.CuentaDeleteHandler;
 import com.saludsystem.submodules.mantenimiento.command.edit.CuentaEditHandler;
-import com.saludsystem.submodules.mantenimiento.constant.CuentaConstant;
-import com.saludsystem.submodules.mantenimiento.dtos.post.CrearCuentaDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarCuentaDTO;
+import com.saludsystem.submodules.mantenimiento.model.constant.CuentaConstant;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.CuentaCreateCommand;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.CuentaEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class CuentaCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearCuentaDTO dto) {
+    public ApiResponse save(@RequestBody CuentaCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, CuentaConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarCuentaDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody CuentaEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, CuentaConstant.UPDATED);
     }

@@ -3,7 +3,7 @@ package com.saludsystem.submodules.core.mantenimiento.adapter.jpa.dao;
 import com.saludsystem.submodules.core.mantenimiento.adapter.jpa.TipoPagoJpaRepository;
 import com.saludsystem.submodules.core.mantenimiento.adapter.mapper.TipoPagoDboMapper;
 import com.saludsystem.submodules.mantenimiento.model.TipoPago;
-import com.saludsystem.submodules.mantenimiento.constant.TipoGastoConstant;
+import com.saludsystem.submodules.mantenimiento.model.constant.TipoGastoConstant;
 import com.saludsystem.submodules.mantenimiento.port.dao.TipoPagoDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;

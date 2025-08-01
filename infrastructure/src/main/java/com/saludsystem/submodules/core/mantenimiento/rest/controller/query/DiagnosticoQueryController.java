@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.mantenimiento.rest.controller.query;
 
-import com.saludsystem.submodules.mantenimiento.dtos.get.EnfermedadDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.EnfermedadDTO;
 import com.saludsystem.submodules.mantenimiento.query.getAll.EnfermedadAllHandler;
 import com.saludsystem.submodules.mantenimiento.query.getById.EnfermedadByIdHandler;
 import com.saludsystem.submodules.mantenimiento.query.getList.EnfermedadListHandler;

@@ -30,7 +30,7 @@ public class EnfermedadMysqlRepository implements EnfermedadRepository {
     }
 
     @Override
-    public Enfermedad update(UUID uuid, Enfermedad enfermedad) {
+    public Enfermedad update(String id, Enfermedad enfermedad) {
         UUID userId = authenticateUserPort.getUserId();
         UUID hospitalId = authenticateUserPort.getHospitalId();
         EnfermedadEntity entity = EnfermedadDboMapper.toEntity(enfermedad, userId, hospitalId);

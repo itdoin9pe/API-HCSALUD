@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.mantenimiento.adapter.beanconfig;
 
+import com.saludsystem.submodules.mantenimiento.mapper.CuentaMapper;
 import com.saludsystem.submodules.mantenimiento.port.dao.CuentaDao;
 import com.saludsystem.submodules.mantenimiento.port.repository.CuentaRepository;
-import com.saludsystem.submodules.mantenimiento.service.cuenta.*;
+import com.saludsystem.submodules.mantenimiento.service.cuenta.CuentaCreateService;
+import com.saludsystem.submodules.mantenimiento.service.cuenta.CuentaDeleteService;
+import com.saludsystem.submodules.mantenimiento.service.cuenta.CuentaEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,33 +13,23 @@ import org.springframework.context.annotation.Configuration;
 public class CuentaBean {
 
     @Bean
+    public CuentaMapper cuentaMapper() {
+        return new CuentaMapper();
+    }
+
+    @Bean
     public CuentaCreateService cuentaCreateService(CuentaRepository repository) {
         return new CuentaCreateService(repository);
     }
 
     @Bean
-    public CuentaEditService cuentaEditService(CuentaRepository repository) {
-        return new CuentaEditService(repository);
+    public CuentaEditService cuentaEditService(CuentaDao dao, CuentaRepository repository) {
+        return new CuentaEditService(dao, repository);
     }
 
     @Bean
-    public CuentaDeleteService cuentaDeleteService(CuentaRepository repository) {
-        return new CuentaDeleteService(repository);
-    }
-
-    @Bean
-    public CuentaAllService cuentaAllService(CuentaDao dao) {
-        return new CuentaAllService(dao);
-    }
-
-    @Bean
-    public CuentaListService cuentaListService(CuentaDao dao) {
-        return new CuentaListService(dao);
-    }
-
-    @Bean
-    public CuentaByIdService cuentaByIdService(CuentaDao dao) {
-        return new CuentaByIdService(dao);
+    public CuentaDeleteService cuentaDeleteService(CuentaRepository repository, CuentaDao dao) {
+        return new CuentaDeleteService(repository, dao);
     }
 
 }

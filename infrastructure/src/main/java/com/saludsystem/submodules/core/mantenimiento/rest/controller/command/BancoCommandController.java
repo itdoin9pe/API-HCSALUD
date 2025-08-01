@@ -3,9 +3,9 @@ package com.saludsystem.submodules.core.mantenimiento.rest.controller.command;
 import com.saludsystem.submodules.mantenimiento.command.create.BancoCreateHandler;
 import com.saludsystem.submodules.mantenimiento.command.delete.BancoDeleteHandler;
 import com.saludsystem.submodules.mantenimiento.command.edit.BancoEditHandler;
-import com.saludsystem.submodules.mantenimiento.constant.BancoConstant;
-import com.saludsystem.submodules.mantenimiento.dtos.post.CrearBancoDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarBancoDTO;
+import com.saludsystem.submodules.mantenimiento.model.constant.BancoConstant;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.BancoCreateCommand;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.BancoEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class BancoCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearBancoDTO dto) {
+    public ApiResponse save(@RequestBody BancoCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, BancoConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarBancoDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody BancoEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, BancoConstant.UPDATED);
     }

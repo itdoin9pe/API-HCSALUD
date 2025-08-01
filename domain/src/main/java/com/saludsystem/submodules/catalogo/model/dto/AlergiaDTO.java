@@ -1,5 +1,6 @@
 package com.saludsystem.submodules.catalogo.model.dto;
 
+import com.saludsystem.submodules.catalogo.model.dto.command.AlergiaCreateCommand;
 import lombok.*;
 
 import java.util.UUID;
@@ -9,7 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class AlergiaDTO extends com.saludsystem.submodules.catalogo.model.dto.command.AlergiaCreateCommand {
+public class AlergiaDTO extends AlergiaCreateCommand {
     private UUID alergiaId;
 
     public AlergiaDTO(UUID id, String nombre, Integer estado) {

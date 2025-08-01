@@ -3,9 +3,9 @@ package com.saludsystem.submodules.core.mantenimiento.rest.controller.command;
 import com.saludsystem.submodules.mantenimiento.command.create.CajaCreateHandler;
 import com.saludsystem.submodules.mantenimiento.command.delete.CajaDeleteHandler;
 import com.saludsystem.submodules.mantenimiento.command.edit.CajaEditHandler;
-import com.saludsystem.submodules.mantenimiento.constant.CajaConstant;
-import com.saludsystem.submodules.mantenimiento.dtos.post.CrearCajaDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarCajaDTO;
+import com.saludsystem.submodules.mantenimiento.model.constant.CajaConstant;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.CajaCreateCommand;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.CajaEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class CajaCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearCajaDTO dto) {
+    public ApiResponse save(@RequestBody CajaCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, CajaConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarCajaDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody CajaEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, CajaConstant.UPDATED);
     }

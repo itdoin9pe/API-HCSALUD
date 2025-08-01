@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.mantenimiento.rest.controller.query;
 
-import com.saludsystem.submodules.mantenimiento.dtos.get.TarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.TarifarioDTO;
 import com.saludsystem.submodules.mantenimiento.query.getAll.TarifarioAllHandler;
 import com.saludsystem.submodules.mantenimiento.query.getById.TarifarioByIdHandler;
 import com.saludsystem.submodules.mantenimiento.query.getList.TarifarioListHandler;

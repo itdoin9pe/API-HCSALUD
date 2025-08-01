@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.mantenimiento.rest.controller.query;
 
-import com.saludsystem.submodules.mantenimiento.dtos.get.BancoDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.BancoDTO;
 import com.saludsystem.submodules.mantenimiento.query.getAll.BancoAllHandler;
 import com.saludsystem.submodules.mantenimiento.query.getById.BancoByIdHandler;
 import com.saludsystem.submodules.mantenimiento.query.getList.BancoListHandler;

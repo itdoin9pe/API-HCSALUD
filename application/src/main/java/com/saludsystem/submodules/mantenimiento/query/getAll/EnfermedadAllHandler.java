@@ -1,23 +1,40 @@
 package com.saludsystem.submodules.mantenimiento.query.getAll;
 
-import com.saludsystem.submodules.mantenimiento.dtos.get.EnfermedadDTO;
-import com.saludsystem.submodules.mantenimiento.service.enfermedad.EnfermedadAllService;
+import com.saludsystem.submodules.mantenimiento.mapper.EnfermedadMapper;
+import com.saludsystem.submodules.mantenimiento.model.dtos.EnfermedadDTO;
+import com.saludsystem.submodules.mantenimiento.port.dao.EnfermedadDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
 public class EnfermedadAllHandler {
 
-    private final EnfermedadAllService enfermedadAllService;
+    private final EnfermedadDao enfermedadDao;
+    private final EnfermedadMapper enfermedadMapper;
 
-    public EnfermedadAllHandler(EnfermedadAllService enfermedadAllService) {
-        this.enfermedadAllService = enfermedadAllService;
+    public EnfermedadAllHandler(EnfermedadDao enfermedadDao, EnfermedadMapper enfermedadMapper) {
+        this.enfermedadDao = enfermedadDao;
+        this.enfermedadMapper = enfermedadMapper;
     }
 
     public ListResponse<EnfermedadDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
-        return enfermedadAllService.execute(hospitalId, paginationRequest);
+
+        var result = enfermedadDao.getAll(hospitalId, paginationRequest.getPage(), paginationRequest.getRows());
+
+        List<EnfermedadDTO> data = result.getData()
+                .stream()
+                .map(enfermedadMapper::toDto)
+                .toList();
+
+        return new ListResponse<>(data,
+                result.getTotalElements(),
+                result.getTotalPages(),
+                result.getCurrentPage());
+
     }
+
 }

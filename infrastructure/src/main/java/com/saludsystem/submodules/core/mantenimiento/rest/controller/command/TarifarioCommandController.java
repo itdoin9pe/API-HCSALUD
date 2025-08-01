@@ -3,9 +3,9 @@ package com.saludsystem.submodules.core.mantenimiento.rest.controller.command;
 import com.saludsystem.submodules.mantenimiento.command.create.TarifarioCreateHandler;
 import com.saludsystem.submodules.mantenimiento.command.delete.TarifarioDeleteHandler;
 import com.saludsystem.submodules.mantenimiento.command.edit.TarifarioEditHandler;
-import com.saludsystem.submodules.mantenimiento.constant.TarifarioConstant;
-import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTarifarioDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarTarifarioDTO;
+import com.saludsystem.submodules.mantenimiento.model.constant.TarifarioConstant;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.TarifarioCreateCommand;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.TarifarioEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class TarifarioCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearTarifarioDTO dto) {
+    public ApiResponse save(@RequestBody TarifarioCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, TarifarioConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarTarifarioDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody TarifarioEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, TarifarioConstant.UPDATED);
     }

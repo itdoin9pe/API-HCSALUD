@@ -15,4 +15,5 @@ public class EnfermedadDeleteHandler {
     public void execute(String id) {
         enfermedadDeleteService.execute(id);
     }
+
 }

@@ -1,23 +1,23 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.Banco;
-import com.saludsystem.submodules.mantenimiento.dtos.get.BancoDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.post.CrearBancoDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarBancoDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.BancoDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.BancoCreateCommand;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.BancoEditCommand;
 
 import java.util.UUID;
 
 public class BancoMapper {
 
-    public static Banco fromCreateDto(CrearBancoDTO dto) {
-        return new Banco(null, dto.getDescripcion(), dto.getEstado());
+    public Banco fromCreateDto(BancoCreateCommand createCommand) {
+        return new Banco(null, createCommand.getDescripcion(), createCommand.getEstado());
     }
 
-    public static Banco fromUpdateDto(UUID uuid, ActualizarBancoDTO dto) {
-        return new Banco(uuid, dto.getDescripcion(), dto.getEstado());
+    public Banco fromUpdateDto(UUID uuid, BancoEditCommand editCommand) {
+        return new Banco(uuid, editCommand.getDescripcion(), editCommand.getEstado());
     }
 
-    public static BancoDTO toDto(Banco model) {
+    public BancoDTO toDto(Banco model) {
         return new BancoDTO(model.getId(), model.getDescripcion(), model.getEstado());
     }
 

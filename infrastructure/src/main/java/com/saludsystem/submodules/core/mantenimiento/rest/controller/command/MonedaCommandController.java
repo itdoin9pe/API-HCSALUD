@@ -4,8 +4,8 @@ import com.saludsystem.submodules.catalogo.model.constant.AlergiaConstant;
 import com.saludsystem.submodules.mantenimiento.command.create.MonedaCreateHandler;
 import com.saludsystem.submodules.mantenimiento.command.delete.MonedaDeleteHandler;
 import com.saludsystem.submodules.mantenimiento.command.edit.MonedaEditHandler;
-import com.saludsystem.submodules.mantenimiento.dtos.post.CrearMonedaDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarMonedaDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.MonedaCreateCommand;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.MonedadEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class MonedaCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearMonedaDTO dto) {
+    public ApiResponse save(@RequestBody MonedaCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, AlergiaConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarMonedaDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody MonedadEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, AlergiaConstant.UPDATED);
     }

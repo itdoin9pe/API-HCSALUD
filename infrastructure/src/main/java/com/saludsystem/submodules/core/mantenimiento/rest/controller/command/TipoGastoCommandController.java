@@ -3,9 +3,9 @@ package com.saludsystem.submodules.core.mantenimiento.rest.controller.command;
 import com.saludsystem.submodules.mantenimiento.command.create.TipoGastoCreateHandler;
 import com.saludsystem.submodules.mantenimiento.command.delete.TipoGastoDeleteHandler;
 import com.saludsystem.submodules.mantenimiento.command.edit.TipoGastoEditHandler;
-import com.saludsystem.submodules.mantenimiento.constant.TipoGastoConstant;
-import com.saludsystem.submodules.mantenimiento.dtos.post.CrearTipoGastoDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarTipoGastoDTO;
+import com.saludsystem.submodules.mantenimiento.model.constant.TipoGastoConstant;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.TipoGastoCreateCommand;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.TipoGastoEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class TipoGastoCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearTipoGastoDTO dto) {
+    public ApiResponse save(@RequestBody TipoGastoCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, TipoGastoConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarTipoGastoDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody TipoGastoEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, TipoGastoConstant.UPDATED);
     }

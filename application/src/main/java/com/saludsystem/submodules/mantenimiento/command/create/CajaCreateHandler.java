@@ -1,6 +1,7 @@
 package com.saludsystem.submodules.mantenimiento.command.create;
 
-import com.saludsystem.submodules.mantenimiento.dtos.post.CrearCajaDTO;
+import com.saludsystem.submodules.mantenimiento.mapper.CajaMapper;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.CajaCreateCommand;
 import com.saludsystem.submodules.mantenimiento.service.caja.CajaCreateService;
 import org.springframework.stereotype.Component;
 
@@ -8,12 +9,19 @@ import org.springframework.stereotype.Component;
 public class CajaCreateHandler {
 
     private final CajaCreateService cajaCreateService;
+    private final CajaMapper cajaMapper;
 
-    public CajaCreateHandler(CajaCreateService cajaCreateService) {
+    public CajaCreateHandler(CajaCreateService cajaCreateService, CajaMapper cajaMapper) {
         this.cajaCreateService = cajaCreateService;
+        this.cajaMapper = cajaMapper;
     }
 
-    public void execute(CrearCajaDTO dto) {
-        cajaCreateService.execute(dto);
+    public void execute(CajaCreateCommand createCommand) {
+
+        var caja = cajaMapper.fromCreateDto(createCommand);
+
+        cajaCreateService.execute(caja);
+
     }
+
 }

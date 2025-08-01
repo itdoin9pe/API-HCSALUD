@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.mantenimiento.query.getList;
 
-import com.saludsystem.submodules.mantenimiento.dtos.get.CajaDTO;
-import com.saludsystem.submodules.mantenimiento.service.caja.CajaListService;
+import com.saludsystem.submodules.mantenimiento.mapper.CajaMapper;
+import com.saludsystem.submodules.mantenimiento.model.Caja;
+import com.saludsystem.submodules.mantenimiento.model.dtos.CajaDTO;
+import com.saludsystem.submodules.mantenimiento.port.dao.CajaDao;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,13 +11,22 @@ import java.util.List;
 @Component
 public class CajaListHandler {
 
-    private final CajaListService cajaListService;
+    private final CajaDao cajaDao;
+    private final CajaMapper cajaMapper;
 
-    public CajaListHandler(CajaListService cajaListService) {
-        this.cajaListService = cajaListService;
+    public CajaListHandler(CajaDao cajaDao, CajaMapper cajaMapper) {
+        this.cajaDao = cajaDao;
+        this.cajaMapper = cajaMapper;
     }
 
     public List<CajaDTO> execute() {
-        return cajaListService.execute();
+
+        List<Caja> cajaList = cajaDao.getList();
+
+        return cajaList.stream()
+                .map(cajaMapper::toDto)
+                .toList();
+
     }
+
 }

@@ -1,9 +1,11 @@
 package com.saludsystem.submodules.core.mantenimiento.adapter.beanconfig;
 
-import com.saludsystem.submodules.mantenimiento.validators.TarifarioValidator;
+import com.saludsystem.submodules.mantenimiento.mapper.TarifarioMapper;
 import com.saludsystem.submodules.mantenimiento.port.dao.TarifarioDao;
+import com.saludsystem.submodules.mantenimiento.service.tarifario.TarifarioCreateService;
+import com.saludsystem.submodules.mantenimiento.service.tarifario.TarifarioDeleteService;
+import com.saludsystem.submodules.mantenimiento.service.tarifario.TarifarioEditService;
 import com.saludsystem.submodules.mantenimiento.port.repository.TarifarioRepository;
-import com.saludsystem.submodules.mantenimiento.service.tarifario.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,33 +13,24 @@ import org.springframework.context.annotation.Configuration;
 public class TarifarioBean {
 
     @Bean
-    public TarifarioCreateService tarifarioCreateService(TarifarioRepository repository, TarifarioValidator validator) {
-        return new TarifarioCreateService(repository, validator);
+    public TarifarioMapper tarifarioMapper() {
+        return new TarifarioMapper();
     }
 
     @Bean
-    public TarifarioEditService tarifarioEditService(TarifarioRepository repository, TarifarioValidator validator) {
-        return new TarifarioEditService(repository, validator);
+    public TarifarioCreateService tarifarioCreateService(TarifarioRepository repository) {
+        return new TarifarioCreateService(repository);
     }
 
     @Bean
-    public TarifarioDeleteService tarifarioDeleteService(TarifarioRepository repository) {
-        return new TarifarioDeleteService(repository);
+    public TarifarioEditService tarifarioEditService(
+            TarifarioDao dao, TarifarioRepository repository) {
+        return new TarifarioEditService(dao, repository);
     }
 
     @Bean
-    public TarifarioListService tarifarioListService(TarifarioDao dao) {
-        return new TarifarioListService(dao);
-    }
-
-    @Bean
-    public TarifarioByIdService tarifarioByIdService(TarifarioDao dao) {
-        return new TarifarioByIdService(dao);
-    }
-
-    @Bean
-    public TarifarioAllService tarifarioAllService(TarifarioDao dao) {
-        return new TarifarioAllService(dao);
+    public TarifarioDeleteService tarifarioDeleteService(TarifarioRepository repository, TarifarioDao dao) {
+        return new TarifarioDeleteService(repository, dao);
     }
 
 }

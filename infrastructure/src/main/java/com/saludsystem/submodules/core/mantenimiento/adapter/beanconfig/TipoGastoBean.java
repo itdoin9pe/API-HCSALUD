@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.mantenimiento.adapter.beanconfig;
 
+import com.saludsystem.submodules.mantenimiento.mapper.TipoGastoMapper;
 import com.saludsystem.submodules.mantenimiento.port.dao.TipoGastoDao;
 import com.saludsystem.submodules.mantenimiento.port.repository.TipoGastoRepository;
-import com.saludsystem.submodules.mantenimiento.service.tipogasto.*;
+import com.saludsystem.submodules.mantenimiento.service.tipogasto.TipoGastoCreateService;
+import com.saludsystem.submodules.mantenimiento.service.tipogasto.TipoGastoDeleteService;
+import com.saludsystem.submodules.mantenimiento.service.tipogasto.TipoGastoEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,33 +13,23 @@ import org.springframework.context.annotation.Configuration;
 public class TipoGastoBean {
 
     @Bean
+    public TipoGastoMapper tipoGastoMapper() {
+        return new TipoGastoMapper();
+    }
+
+    @Bean
     public TipoGastoCreateService tipoGastoCreateService(TipoGastoRepository repository) {
         return new TipoGastoCreateService(repository);
     }
 
     @Bean
-    public TipoGastoEditService tipoGastoEditService(TipoGastoRepository repository) {
-        return new TipoGastoEditService(repository);
+    public TipoGastoEditService tipoGastoEditService(TipoGastoDao dao, TipoGastoRepository repository) {
+        return new TipoGastoEditService(dao, repository);
     }
 
     @Bean
-    public TipoGastoDeleteService tipoGastoDeleteService(TipoGastoRepository repository) {
-        return new TipoGastoDeleteService(repository);
-    }
-
-    @Bean
-    public TipoGastoListService tipoGastoListService(TipoGastoDao dao) {
-        return new TipoGastoListService(dao);
-    }
-
-    @Bean
-    public TipoGastoByIdService tipoGastoByIdService(TipoGastoDao dao) {
-        return new TipoGastoByIdService(dao);
-    }
-
-    @Bean
-    public TipoGastoAllService tipoGastoAllService(TipoGastoDao dao) {
-        return new TipoGastoAllService(dao);
+    public TipoGastoDeleteService tipoGastoDeleteService(TipoGastoRepository repository, TipoGastoDao dao) {
+        return new TipoGastoDeleteService(repository, dao);
     }
 
 }

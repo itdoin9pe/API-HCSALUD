@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.mantenimiento.mapper;
 
 import com.saludsystem.submodules.mantenimiento.model.Enfermedad;
-import com.saludsystem.submodules.mantenimiento.dtos.get.EnfermedadDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.post.CrearEnfermedadDTO;
-import com.saludsystem.submodules.mantenimiento.dtos.put.ActualizarEnfermedadDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.EnfermedadDTO;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.EnfermedadCreateCommand;
+import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.EnfermedadEditCommand;
 
 public class EnfermedadMapper {
 
-    public static Enfermedad fromCreateDto(CrearEnfermedadDTO dto) {
-        return new Enfermedad(null, dto.getDescripcion(), dto.getEstado());
+    public Enfermedad fromCreateDto(EnfermedadCreateCommand createCommand) {
+        return new Enfermedad(null, createCommand.getDescripcion(), createCommand.getEstado());
     }
 
-    public static Enfermedad fromUpdateDto(String id, ActualizarEnfermedadDTO dto) {
-        return new Enfermedad(id, dto.getDescripcion(), dto.getEstado());
+    public Enfermedad fromUpdateDto(String id, EnfermedadEditCommand editCommand) {
+        return new Enfermedad(id, editCommand.getDescripcion(), editCommand.getEstado());
     }
 
-    public static EnfermedadDTO toDto(Enfermedad model) {
+    public EnfermedadDTO toDto(Enfermedad model) {
         return new EnfermedadDTO(
                 model.getId(),
                 model.getDescripcion(),

@@ -1,23 +1,41 @@
 package com.saludsystem.submodules.mantenimiento.query.getAll;
 
-import com.saludsystem.submodules.mantenimiento.dtos.get.TipoPagoDTO;
-import com.saludsystem.submodules.mantenimiento.service.tipopago.TipoPagoAllService;
+import com.saludsystem.submodules.mantenimiento.mapper.TipoPagoMapper;
+import com.saludsystem.submodules.mantenimiento.model.dtos.TipoPagoDTO;
+import com.saludsystem.submodules.mantenimiento.port.dao.TipoPagoDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
 public class TipoPagoAllHandler {
 
-    private final TipoPagoAllService tipoPagoAllService;
+    private final TipoPagoDao tipoPagoDao;
+    private final TipoPagoMapper tipoPagoMapper;
 
-    public TipoPagoAllHandler(TipoPagoAllService tipoPagoAllService) {
-        this.tipoPagoAllService = tipoPagoAllService;
+    public TipoPagoAllHandler(TipoPagoDao tipoPagoDao, TipoPagoMapper tipoPagoMapper) {
+        this.tipoPagoDao = tipoPagoDao;
+        this.tipoPagoMapper = tipoPagoMapper;
     }
 
     public ListResponse<TipoPagoDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
-        return tipoPagoAllService.execute(hospitalId, paginationRequest);
+
+        var result = tipoPagoDao.getAll(hospitalId, paginationRequest.getPage(), paginationRequest.getRows());
+
+        List<TipoPagoDTO> data = result.getData()
+                .stream()
+                .map(tipoPagoMapper::toDto)
+                .toList();
+
+        return new ListResponse<>(
+                data,
+                result.getTotalElements(),
+                result.getTotalPages(),
+                result.getCurrentPage());
+
     }
+
 }
