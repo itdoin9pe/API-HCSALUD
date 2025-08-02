@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.medico.response;
 
-import com.saludsystem.submodules.medico.dtos.DoctorDTO;
+import com.saludsystem.submodules.medico.model.dtos.DoctorDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

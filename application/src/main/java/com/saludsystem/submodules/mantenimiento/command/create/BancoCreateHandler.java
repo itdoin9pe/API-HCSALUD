@@ -1,7 +1,6 @@
 package com.saludsystem.submodules.mantenimiento.command.create;
 
 import com.saludsystem.submodules.mantenimiento.mapper.BancoMapper;
-import com.saludsystem.submodules.mantenimiento.model.dtos.BancoDTO;
 import com.saludsystem.submodules.mantenimiento.model.dtos.command.BancoCreateCommand;
 import com.saludsystem.submodules.mantenimiento.service.banco.BancoCreateService;
 import org.springframework.stereotype.Component;

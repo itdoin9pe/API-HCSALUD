@@ -6,7 +6,7 @@ import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEnti
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import com.saludsystem.submodules.core.medico.adapter.entity.DoctorEntity;
 import com.saludsystem.submodules.medico.model.*;
-import com.saludsystem.submodules.medico.vo.*;
+import com.saludsystem.submodules.medico.model.vo.*;
 
 import java.util.UUID;
 

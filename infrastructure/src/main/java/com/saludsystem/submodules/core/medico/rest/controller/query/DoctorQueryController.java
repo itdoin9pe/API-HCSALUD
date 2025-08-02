@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.core.medico.rest.controller.query;
 
-import com.saludsystem.submodules.medico.dtos.DoctorDTO;
-import com.saludsystem.submodules.medico.query.getAll.DoctorAllHandler;
-import com.saludsystem.submodules.medico.query.getById.DoctorByIdHandler;
-import com.saludsystem.submodules.medico.query.getList.DoctorListHandler;
+import com.saludsystem.submodules.medico.model.dtos.DoctorDTO;
+import com.saludsystem.submodules.medico.query.DoctorAllHandler;
+import com.saludsystem.submodules.medico.query.DoctorByIdHandler;
+import com.saludsystem.submodules.medico.query.DoctorListHandler;
 import com.saludsystem.submodules.medico.response.DoctorListResponse;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;

@@ -1,11 +1,11 @@
 package com.saludsystem.submodules.core.medico.rest.controller.command;
 
-import com.saludsystem.submodules.medico.command.create.DoctorCreateHandler;
-import com.saludsystem.submodules.medico.command.delete.DoctorDeleteHandler;
-import com.saludsystem.submodules.medico.command.edit.DoctorEditHandler;
-import com.saludsystem.submodules.medico.constant.DoctorConstant;
-import com.saludsystem.submodules.medico.dtos.ActualizarDoctorDTO;
-import com.saludsystem.submodules.medico.dtos.CrearDoctorDTO;
+import com.saludsystem.submodules.medico.command.DoctorCreateHandler;
+import com.saludsystem.submodules.medico.command.DoctorDeleteHandler;
+import com.saludsystem.submodules.medico.command.DoctorEditHandler;
+import com.saludsystem.submodules.medico.model.constant.DoctorConstant;
+import com.saludsystem.submodules.medico.model.dtos.DoctorEditCommand;
+import com.saludsystem.submodules.medico.model.dtos.DoctorDTO;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,7 +33,7 @@ public class DoctorCommandController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
             content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     @PostMapping(value = "/SaveDoctor", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ApiResponse save(@RequestBody CrearDoctorDTO dto) {
+    public ApiResponse save(@RequestBody DoctorDTO dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, DoctorConstant.CREATED);
     }
@@ -41,7 +41,7 @@ public class DoctorCommandController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
             content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     @PutMapping(value = "/UpdateDoctor/{doctorId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarDoctorDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody DoctorEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, DoctorConstant.UPDATED);
     }

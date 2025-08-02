@@ -2,7 +2,7 @@ package com.saludsystem.submodules.core.medico.adapter.jpa.dao;
 
 import com.saludsystem.submodules.core.medico.adapter.jpa.DoctorJpaRepository;
 import com.saludsystem.submodules.core.medico.adapter.mapper.DoctorDboMapper;
-import com.saludsystem.submodules.medico.constant.DoctorConstant;
+import com.saludsystem.submodules.medico.model.constant.DoctorConstant;
 import com.saludsystem.submodules.medico.model.Doctor;
 import com.saludsystem.submodules.medico.port.dao.DoctorDao;
 import com.saludsystem.submodules.response.ListResponse;

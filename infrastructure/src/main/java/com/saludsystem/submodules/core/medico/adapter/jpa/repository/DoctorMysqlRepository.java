@@ -4,7 +4,7 @@ import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
 import com.saludsystem.submodules.core.medico.adapter.entity.DoctorEntity;
 import com.saludsystem.submodules.core.medico.adapter.jpa.DoctorJpaRepository;
 import com.saludsystem.submodules.core.medico.adapter.mapper.DoctorDboMapper;
-import com.saludsystem.submodules.medico.constant.DoctorConstant;
+import com.saludsystem.submodules.medico.model.constant.DoctorConstant;
 import com.saludsystem.submodules.medico.model.Doctor;
 import com.saludsystem.submodules.medico.port.repository.DoctorRepository;
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
