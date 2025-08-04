@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.operaciones.rest.controller.query;
 
-import com.saludsystem.submodules.operaciones.dtos.query.MarcaDTO;
+import com.saludsystem.submodules.operaciones.model.dtos.MarcaDTO;
 import com.saludsystem.submodules.operaciones.query.getAll.MarcaAllHandler;
 import com.saludsystem.submodules.operaciones.query.getById.MarcaByIdHandler;
 import com.saludsystem.submodules.operaciones.query.getList.MarcaListHandler;

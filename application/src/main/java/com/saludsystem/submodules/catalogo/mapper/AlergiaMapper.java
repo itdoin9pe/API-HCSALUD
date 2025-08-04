@@ -23,4 +23,5 @@ public class AlergiaMapper {
                 model.getNombre(),
                 model.getEstado());
     }
+
 }

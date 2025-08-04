@@ -1,23 +1,23 @@
 package com.saludsystem.submodules.operaciones.mapper;
 
-import com.saludsystem.submodules.operaciones.dtos.command.CrearMarcaDTO;
-import com.saludsystem.submodules.operaciones.dtos.edit.ActualizarMarcaDTO;
-import com.saludsystem.submodules.operaciones.dtos.query.MarcaDTO;
+import com.saludsystem.submodules.operaciones.model.dtos.MarcaDTO;
+import com.saludsystem.submodules.operaciones.model.dtos.command.MarcaCreateCommand;
+import com.saludsystem.submodules.operaciones.model.dtos.command.edit.MarcaEditCommand;
 import com.saludsystem.submodules.operaciones.model.Marca;
 
 import java.util.UUID;
 
 public class MarcaMapper {
 
-    public static Marca fronCreateDto(CrearMarcaDTO dto) {
-        return new Marca(null, dto.getNombre(), dto.getEstado());
+    public Marca fromCreateDto(MarcaCreateCommand createCommand) {
+        return new Marca(null, createCommand.getNombre(), createCommand.getEstado());
     }
 
-    public static Marca fromUpdateDto(UUID uuid, ActualizarMarcaDTO dto) {
-        return new Marca(uuid, dto.getNombre(), dto.getEstado());
+    public Marca fromUpdateDto(UUID uuid, MarcaEditCommand editCommand) {
+        return new Marca(uuid, editCommand.getNombre(), editCommand.getEstado());
     }
 
-    public static MarcaDTO toDto(Marca model) {
+    public MarcaDTO toDto(Marca model) {
         return new MarcaDTO(
                 model.getId(),
                 model.getNombre(),

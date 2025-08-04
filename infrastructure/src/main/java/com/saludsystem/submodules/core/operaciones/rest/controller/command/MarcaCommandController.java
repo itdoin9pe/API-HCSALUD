@@ -3,9 +3,9 @@ package com.saludsystem.submodules.core.operaciones.rest.controller.command;
 import com.saludsystem.submodules.operaciones.command.create.MarcaCreateHandler;
 import com.saludsystem.submodules.operaciones.command.delete.MarcaDeleteHandler;
 import com.saludsystem.submodules.operaciones.command.edit.MarcaEditHandler;
-import com.saludsystem.submodules.operaciones.constant.MarcaConstant;
-import com.saludsystem.submodules.operaciones.dtos.command.CrearMarcaDTO;
-import com.saludsystem.submodules.operaciones.dtos.edit.ActualizarMarcaDTO;
+import com.saludsystem.submodules.operaciones.model.constant.MarcaConstant;
+import com.saludsystem.submodules.operaciones.model.dtos.command.MarcaCreateCommand;
+import com.saludsystem.submodules.operaciones.model.dtos.command.edit.MarcaEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class MarcaCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearMarcaDTO dto) {
+    public ApiResponse save(@RequestBody MarcaCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, MarcaConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarMarcaDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody MarcaEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, MarcaConstant.UPDATED);
     }

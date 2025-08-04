@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.principal.adapter.beanconfig;
 
+import com.saludsystem.submodules.principal.mapper.AseguradoraMapper;
 import com.saludsystem.submodules.principal.port.dao.AseguradoraDao;
 import com.saludsystem.submodules.principal.port.repository.AseguradoraRepository;
-import com.saludsystem.submodules.principal.service.aseguradora.*;
+import com.saludsystem.submodules.principal.service.aseguradora.AseguradoraCreateService;
+import com.saludsystem.submodules.principal.service.aseguradora.AseguradoraDeleteService;
+import com.saludsystem.submodules.principal.service.aseguradora.AseguradoraEdiService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,33 +13,23 @@ import org.springframework.context.annotation.Configuration;
 public class AseguradoraBean {
 
     @Bean
-    public AseguradoraCreateService aseguradoraCreateService(AseguradoraRepository aseguradoraRepository) {
-        return new AseguradoraCreateService(aseguradoraRepository);
+    public AseguradoraMapper aseguradoraMapper() {
+        return new AseguradoraMapper();
     }
 
     @Bean
-    public AseguradoraEdiService aseguradoraEdiService(AseguradoraRepository aseguradoraRepository) {
-        return new AseguradoraEdiService(aseguradoraRepository);
+    public AseguradoraCreateService aseguradoraCreateService(AseguradoraRepository repository) {
+        return new AseguradoraCreateService(repository);
     }
 
     @Bean
-    public AseguradoraDeleteService aseguradoraDeleteService(AseguradoraRepository aseguradoraRepository) {
-        return new AseguradoraDeleteService(aseguradoraRepository);
+    public AseguradoraEdiService aseguradoraEdiService(AseguradoraDao dao, AseguradoraRepository repository) {
+        return new AseguradoraEdiService(dao, repository);
     }
 
     @Bean
-    public AseguradoraListService aseguradoraListService(AseguradoraDao aseguradoraDao) {
-        return new AseguradoraListService(aseguradoraDao);
-    }
-
-    @Bean
-    public AseguradoraByIdService aseguradoraByIdService(AseguradoraDao aseguradoraDao) {
-        return new AseguradoraByIdService(aseguradoraDao);
-    }
-
-    @Bean
-    public AseguradoraAllService aseguradoraAllService(AseguradoraDao aseguradoraDao) {
-        return new AseguradoraAllService(aseguradoraDao);
+    public AseguradoraDeleteService aseguradoraDeleteService(AseguradoraRepository repository, AseguradoraDao dao) {
+        return new AseguradoraDeleteService(repository, dao);
     }
 
 }

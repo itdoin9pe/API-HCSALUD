@@ -1,6 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.alergia;
 
 import com.saludsystem.submodules.catalogo.model.Alergia;
+import com.saludsystem.submodules.catalogo.model.constant.AlergiaConstant;
 import com.saludsystem.submodules.catalogo.port.dao.AlergiaDao;
 import com.saludsystem.submodules.catalogo.port.repository.AlergiaRepository;
 
@@ -19,6 +20,10 @@ public class AlergiaEditService {
     public Alergia execute(UUID uuid, Alergia alergia) {
 
         var currentAlergia = alergiaDao.getById(uuid);
+
+        if (currentAlergia == null) {
+            throw new IllegalArgumentException(AlergiaConstant.ID_NOT_FOUND);
+        }
 
         if (currentAlergia.getEstado() != null && currentAlergia.getEstado() == 0) {
             throw new IllegalStateException("La alergia ya se encuentra desactivada");

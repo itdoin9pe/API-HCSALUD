@@ -4,8 +4,8 @@ import com.saludsystem.submodules.catalogo.model.constant.AlergiaConstant;
 import com.saludsystem.submodules.principal.command.create.EmpresaCreateHandler;
 import com.saludsystem.submodules.principal.command.delete.EmpresaDeleteHandler;
 import com.saludsystem.submodules.principal.command.edit.EmpresaEditHandler;
-import com.saludsystem.submodules.principal.dtos.post.CrearEmpresaDTO;
-import com.saludsystem.submodules.principal.dtos.put.ActualizarEmpresaDTO;
+import com.saludsystem.submodules.principal.model.dtos.command.EmpresaCreateCommand;
+import com.saludsystem.submodules.principal.model.dtos.edit.EmpresaEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class EmpresaCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearEmpresaDTO dto) {
+    public ApiResponse save(@RequestBody EmpresaCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, AlergiaConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarEmpresaDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody EmpresaEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, AlergiaConstant.UPDATED);
     }

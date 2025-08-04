@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.principal.query.getById;
 
-import com.saludsystem.submodules.principal.dtos.get.EmpresaDTO;
-import com.saludsystem.submodules.principal.service.empresa.EmpresaByIdService;
+import com.saludsystem.submodules.principal.mapper.EmpresaMapper;
+import com.saludsystem.submodules.principal.model.constant.EmpresaConstant;
+import com.saludsystem.submodules.principal.model.dtos.EmpresaDTO;
+import com.saludsystem.submodules.principal.port.dao.EmpresaDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -9,13 +11,26 @@ import java.util.UUID;
 @Component
 public class EmpresaByIdHandler {
 
-    private final EmpresaByIdService empresaByIdService;
+    private final EmpresaDao empresaDao;
+    private final EmpresaMapper empresaMapper;
 
-    public EmpresaByIdHandler(EmpresaByIdService empresaByIdService) {
-        this.empresaByIdService = empresaByIdService;
+    public EmpresaByIdHandler(EmpresaDao empresaDao, EmpresaMapper empresaMapper) {
+        this.empresaDao = empresaDao;
+        this.empresaMapper = empresaMapper;
     }
 
     public EmpresaDTO execute(UUID uuid) {
-        return empresaByIdService.execute(uuid);
+
+        var empresa = empresaDao.getById(uuid);
+
+        if (empresa == null) {
+
+            throw new IllegalArgumentException(EmpresaConstant.INVALID_ID);
+
+        }
+
+        return empresaMapper.toDto(empresa);
+
     }
+
 }

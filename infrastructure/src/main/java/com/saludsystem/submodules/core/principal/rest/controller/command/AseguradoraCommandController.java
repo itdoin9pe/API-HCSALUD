@@ -4,8 +4,8 @@ import com.saludsystem.submodules.principal.command.create.AseguradoraCreateHand
 import com.saludsystem.submodules.principal.command.delete.AseguradoraDeleteHandler;
 import com.saludsystem.submodules.principal.command.edit.AseguradoraEditHandler;
 import com.saludsystem.submodules.principal.model.constant.AseguradoraConstant;
-import com.saludsystem.submodules.principal.dtos.post.CrearAseguradoraDTO;
-import com.saludsystem.submodules.principal.dtos.put.ActualizarAseguradoraDTO;
+import com.saludsystem.submodules.principal.model.dtos.command.AseguradoraCreateCommand;
+import com.saludsystem.submodules.principal.model.dtos.edit.AseguradoraEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class AseguradoraCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearAseguradoraDTO dto) {
+    public ApiResponse save(@RequestBody AseguradoraCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, AseguradoraConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarAseguradoraDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody AseguradoraEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, AseguradoraConstant.UPDATED);
     }

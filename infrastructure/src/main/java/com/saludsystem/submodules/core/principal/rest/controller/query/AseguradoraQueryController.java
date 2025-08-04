@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.principal.rest.controller.query;
 
-import com.saludsystem.submodules.principal.dtos.get.AseguradoraDTO;
+import com.saludsystem.submodules.principal.model.dtos.AseguradoraDTO;
 import com.saludsystem.submodules.principal.query.getAll.AseguradoraAllHandler;
 import com.saludsystem.submodules.principal.query.getById.AseguradoraByIdHandler;
 import com.saludsystem.submodules.principal.query.getList.AseguradoraListHandler;

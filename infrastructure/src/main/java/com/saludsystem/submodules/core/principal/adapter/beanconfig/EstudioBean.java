@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.principal.adapter.beanconfig;
 
+import com.saludsystem.submodules.principal.mapper.EstudioMapper;
 import com.saludsystem.submodules.principal.port.dao.EstudioDao;
 import com.saludsystem.submodules.principal.port.repository.EstudioRepository;
-import com.saludsystem.submodules.principal.service.estudio.*;
+import com.saludsystem.submodules.principal.service.estudio.EstudioCreateService;
+import com.saludsystem.submodules.principal.service.estudio.EstudioDeleteService;
+import com.saludsystem.submodules.principal.service.estudio.EstudioEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,33 +13,23 @@ import org.springframework.context.annotation.Configuration;
 public class EstudioBean {
 
     @Bean
+    public EstudioMapper estudioMapper() {
+        return new EstudioMapper();
+    }
+
+    @Bean
     public EstudioCreateService estudioCreateService(EstudioRepository repository) {
         return new EstudioCreateService(repository);
     }
 
     @Bean
-    public EstudioEditService estudioEditService(EstudioRepository repository) {
-        return new EstudioEditService(repository);
+    public EstudioEditService estudioEditService(EstudioDao dao, EstudioRepository repository) {
+        return new EstudioEditService(dao, repository);
     }
 
     @Bean
-    public EstudioDeleteService estudioDeleteService(EstudioRepository repository) {
-        return new EstudioDeleteService(repository);
-    }
-
-    @Bean
-    public EstudioListService estudioListService(EstudioDao dao) {
-        return new EstudioListService(dao);
-    }
-
-    @Bean
-    public EstudioByIdService estudioByIdService(EstudioDao dao) {
-        return new EstudioByIdService(dao);
-    }
-
-    @Bean
-    public EstudioAllService estudioAllService(EstudioDao dao) {
-        return new EstudioAllService(dao);
+    public EstudioDeleteService estudioDeleteService(EstudioRepository repository, EstudioDao dao) {
+        return new EstudioDeleteService(repository, dao);
     }
 
 }

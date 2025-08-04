@@ -5,8 +5,8 @@ import com.saludsystem.submodules.principal.command.create.PaisCreateHandler;
 import com.saludsystem.submodules.principal.command.delete.PaisDeleteHandler;
 import com.saludsystem.submodules.principal.command.edit.PaisEditHandler;
 import com.saludsystem.submodules.principal.model.constant.PaisConstant;
-import com.saludsystem.submodules.principal.dtos.post.CrearPaisDTO;
-import com.saludsystem.submodules.principal.dtos.put.ActualizarPaisDTO;
+import com.saludsystem.submodules.principal.model.dtos.command.PaisCreateCommand;
+import com.saludsystem.submodules.principal.model.dtos.edit.PaisEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -28,13 +28,13 @@ public class PaisCommandController {
     }
 
     @PostMapping("/SavePais")
-    public ApiResponse store(@Valid @RequestBody CrearPaisDTO crearPaisDTO) {
-        createHandler.execute(crearPaisDTO);
+    public ApiResponse store(@Valid @RequestBody PaisCreateCommand paisCreateCommand) {
+        createHandler.execute(paisCreateCommand);
         return new ApiResponse(true, PaisConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable Integer id, @RequestBody ActualizarPaisDTO dto) {
+    public ApiResponse update(@PathVariable Integer id, @RequestBody PaisEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, AlergiaConstant.UPDATED);
     }

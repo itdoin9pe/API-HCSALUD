@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.catalogo.model.dto;
 
-import com.saludsystem.submodules.catalogo.model.dto.command.AlergiaCreateCommand;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
@@ -8,10 +8,14 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class AlergiaDTO extends AlergiaCreateCommand {
+public class AlergiaDTO {
+
     private UUID alergiaId;
+
+    private String nombre;
+
+    @Schema(description = "Estado (0=Inactivo, 1=Activo)", example = "1")
+    private Integer estado;
 
     public AlergiaDTO(UUID id, String nombre, Integer estado) {
         this.setAlergiaId(id);

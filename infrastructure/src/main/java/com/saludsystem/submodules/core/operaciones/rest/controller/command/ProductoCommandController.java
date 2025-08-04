@@ -1,57 +1,50 @@
 package com.saludsystem.submodules.core.operaciones.rest.controller.command;
 
+import com.saludsystem.submodules.operaciones.command.create.ProductoCreateHandler;
+import com.saludsystem.submodules.operaciones.command.delete.ProductoDeleteHandler;
+import com.saludsystem.submodules.operaciones.command.edit.ProductoEditHandler;
+import com.saludsystem.submodules.operaciones.model.constant.ProductoConstant;
+import com.saludsystem.submodules.operaciones.model.dtos.command.ProductoCreateCommand;
+import com.saludsystem.submodules.operaciones.model.dtos.command.edit.ProductoEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Tag(name = "Productos")
 @RestController
 @RequestMapping("/api/Productos")
+@Validated
 public class ProductoCommandController {
 
-    /*
-    private final ProductoService productoService;
+    private final ProductoCreateHandler createHandler;
+    private final ProductoEditHandler editHandler;
+    private final ProductoDeleteHandler deleteHandler;
 
-    public ProductoController(ProductoService productoService) {
-        this.productoService = productoService;
+    public ProductoCommandController(ProductoCreateHandler createHandler, ProductoEditHandler editHandler, ProductoDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-    @PostMapping("/SaveProducto")
-    public ApiResponse store(@Valid @RequestBody CrearProductoDTO crearProductoDTO) {
-        return productoService.saveProducto(crearProductoDTO);
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody ProductoCreateCommand createCommand) {
+        createHandler.execute(createCommand);
+        return new ApiResponse(true, ProductoConstant.CREATED);
     }
 
-    @GetMapping("/GetAllProducto")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ProductoListResponse.class)))
-    })
-    public ListResponse<ProductoDTO> getAllPage(
-            @RequestParam(name = "hospitalId") UUID hospitalId,
-            @RequestParam(name = "Page", defaultValue = "") int page,
-            @RequestParam(name = "Rows", defaultValue = "") int rows) {
-        return productoService.getAllProducto(hospitalId, page, rows);
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody ProductoEditCommand editCommand) {
+        editHandler.execute(id, editCommand);
+        return new ApiResponse(true, ProductoConstant.UPDATED);
     }
 
-    @GetMapping("/GetProductoList")
-    public ResponseEntity<List<ProductoDTO>> getAllPage() {
-        return ResponseEntity.ok(productoService.getProductoList());
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable UUID id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, ProductoConstant.DELETED);
     }
 
-    @GetMapping("/GetProducto/{productoId}")
-    public ProductoDTO getById(@PathVariable UUID productoId) {
-        return productoService.getProductoById(productoId);
-    }
-
-    @PutMapping("/UpdateProducto/{productoId}")
-    public ApiResponse update(@PathVariable UUID productoId, @RequestBody ActualizarProductoDTO actualizarProductoDTO) {
-        return productoService.updateProducto(productoId, actualizarProductoDTO);
-    }
-
-    @DeleteMapping("/DeleteProducto/{productoId}")
-    public ApiResponse destroy(@PathVariable UUID productoId) {
-        return productoService.deleteProducto(productoId);
-    }
-
-     */
 }

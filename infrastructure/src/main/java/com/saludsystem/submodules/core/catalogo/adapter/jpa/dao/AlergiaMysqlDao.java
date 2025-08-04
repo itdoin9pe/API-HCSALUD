@@ -22,7 +22,8 @@ public class AlergiaMysqlDao implements AlergiaDao {
 
     @Override
     public Alergia getById(UUID id) {
-        return alergiaJpaRepository.findById(id).map(AlergiaDboMapper::toDomain).orElse(null);
+        return alergiaJpaRepository.findById(id)
+                .map(AlergiaDboMapper::toDomain).orElse(null);
     }
 
     @Override

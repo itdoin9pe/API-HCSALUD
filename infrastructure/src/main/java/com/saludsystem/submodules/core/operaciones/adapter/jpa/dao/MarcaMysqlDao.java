@@ -2,7 +2,7 @@ package com.saludsystem.submodules.core.operaciones.adapter.jpa.dao;
 
 import com.saludsystem.submodules.core.operaciones.adapter.jpa.MarcaJpaRepository;
 import com.saludsystem.submodules.core.operaciones.adapter.mapper.MarcaDboMapper;
-import com.saludsystem.submodules.operaciones.constant.MarcaConstant;
+import com.saludsystem.submodules.operaciones.model.constant.MarcaConstant;
 import com.saludsystem.submodules.operaciones.model.Marca;
 import com.saludsystem.submodules.operaciones.port.dao.MarcaDao;
 import com.saludsystem.submodules.response.ListResponse;

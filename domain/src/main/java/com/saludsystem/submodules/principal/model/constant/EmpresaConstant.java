@@ -6,5 +6,6 @@ public class EmpresaConstant {
     public static final String UPDATED = "Empresa actualizada correctamente";
     public static final String DELETED = "Empresa eliminada correctamente";
     public static final String ID_NOT_FOUND = "Id del registro de Empresa no encontrado correctamente";
+    public static final String INVALID_ID = "Id del registro de Empresa no puede ser null";
 
 }

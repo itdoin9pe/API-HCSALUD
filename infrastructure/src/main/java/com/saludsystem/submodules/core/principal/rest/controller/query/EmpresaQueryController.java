@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.principal.rest.controller.query;
 
-import com.saludsystem.submodules.principal.dtos.get.EmpresaDTO;
+import com.saludsystem.submodules.principal.model.dtos.EmpresaDTO;
 import com.saludsystem.submodules.principal.query.getAll.EmpresaAllHandler;
 import com.saludsystem.submodules.principal.query.getById.EmpresaByIdHandler;
 import com.saludsystem.submodules.principal.query.getList.EmpresaListHandler;

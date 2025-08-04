@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.operaciones.query.getList;
 
-import com.saludsystem.submodules.operaciones.dtos.query.CategoriaMatDTO;
-import com.saludsystem.submodules.operaciones.service.categoria_material.CategoriaMaterialListService;
+import com.saludsystem.submodules.operaciones.mapper.CategoriaMaterialMapper;
+import com.saludsystem.submodules.operaciones.model.CategoriaMaterial;
+import com.saludsystem.submodules.operaciones.model.dtos.CategoriaMatDTO;
+import com.saludsystem.submodules.operaciones.port.dao.CategoriaMaterialDao;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,14 +11,23 @@ import java.util.List;
 @Component
 public class CategoriaMaterialListHandler {
 
-    private final CategoriaMaterialListService categoriaMaterialListService;
+    private final CategoriaMaterialDao categoriaMaterialDao;
+    private final CategoriaMaterialMapper categoriaMaterialMapper;
 
-    public CategoriaMaterialListHandler(CategoriaMaterialListService categoriaMaterialListService) {
-        this.categoriaMaterialListService = categoriaMaterialListService;
+    public CategoriaMaterialListHandler(CategoriaMaterialDao categoriaMaterialDao, CategoriaMaterialMapper categoriaMaterialMapper) {
+        this.categoriaMaterialDao = categoriaMaterialDao;
+        this.categoriaMaterialMapper = categoriaMaterialMapper;
     }
 
     public List<CategoriaMatDTO> execute(){
-        return categoriaMaterialListService.execute();
+
+        List<CategoriaMaterial> categoriaMaterialList = categoriaMaterialDao.getList();
+
+        return categoriaMaterialList
+                .stream()
+                .map(categoriaMaterialMapper::toDto)
+                .toList();
+
     }
 
 }

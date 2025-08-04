@@ -1,20 +1,34 @@
 package com.saludsystem.submodules.principal.query.getById;
 
-import com.saludsystem.submodules.principal.dtos.get.PaisDTO;
-import com.saludsystem.submodules.principal.service.pais.PaisByIdService;
+import com.saludsystem.submodules.principal.mapper.PaisMapper;
+import com.saludsystem.submodules.principal.model.constant.PaisConstant;
+import com.saludsystem.submodules.principal.model.dtos.PaisDTO;
+import com.saludsystem.submodules.principal.port.dao.PaisDao;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PaisByIdHandler {
 
-    private final PaisByIdService paisByIdService;
+    private final PaisDao paisDao;
+    private final PaisMapper paisMapper;
 
-    public PaisByIdHandler(PaisByIdService paisByIdService) {
-        this.paisByIdService = paisByIdService;
+    public PaisByIdHandler(PaisDao paisDao, PaisMapper paisMapper) {
+        this.paisDao = paisDao;
+        this.paisMapper = paisMapper;
     }
 
     public PaisDTO execute(Integer id) {
-        return paisByIdService.execute(id);
+
+        var pais = paisDao.getById(id);
+
+        if (pais == null) {
+
+            throw new IllegalArgumentException(PaisConstant.INVALID_ID);
+
+        }
+
+        return paisMapper.toDto(pais);
+
     }
 
 }

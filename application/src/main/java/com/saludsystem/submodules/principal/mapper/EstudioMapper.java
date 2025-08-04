@@ -1,23 +1,23 @@
 package com.saludsystem.submodules.principal.mapper;
 
 import com.saludsystem.submodules.principal.model.Estudio;
-import com.saludsystem.submodules.principal.dtos.get.EstudioDTO;
-import com.saludsystem.submodules.principal.dtos.post.CrearEstudioDTO;
-import com.saludsystem.submodules.principal.dtos.put.ActualizarEstudioDTO;
+import com.saludsystem.submodules.principal.model.dtos.EstudioDTO;
+import com.saludsystem.submodules.principal.model.dtos.command.EstudioCreateCommand;
+import com.saludsystem.submodules.principal.model.dtos.edit.EstudioEditCommand;
 
 import java.util.UUID;
 
 public class EstudioMapper {
 
-    public static Estudio fromCreateDto(CrearEstudioDTO dto) {
+    public Estudio fromCreateDto(EstudioCreateCommand dto) {
         return new Estudio(null, dto.getDescripcion());
     }
 
-    public static Estudio fromUpdateDto(UUID uuid, ActualizarEstudioDTO dto) {
+    public Estudio fromUpdateDto(UUID uuid, EstudioEditCommand dto) {
         return new Estudio(uuid, dto.getDescripcion());
     }
 
-    public static EstudioDTO toDto(Estudio model) {
+    public EstudioDTO toDto(Estudio model) {
         return new EstudioDTO(
                 model.getId(),
                 model.getDescripcion());

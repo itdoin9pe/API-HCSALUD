@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.principal.query.getById;
 
-import com.saludsystem.submodules.principal.dtos.get.InformacionClinicaDTO;
-import com.saludsystem.submodules.principal.service.informacionclinica.InformacionClinicaByIdService;
+import com.saludsystem.submodules.principal.mapper.InformacionClinicaMapper;
+import com.saludsystem.submodules.principal.model.constant.InformacionClinicaConstant;
+import com.saludsystem.submodules.principal.model.dtos.InformacionClinicaDTO;
+import com.saludsystem.submodules.principal.port.dao.InformacionClinicaDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -9,14 +11,26 @@ import java.util.UUID;
 @Component
 public class InformacionClinicaByIdHandler {
 
-    private final InformacionClinicaByIdService informacionClinicaByIdService;
+    private final InformacionClinicaDao informacionClinicaDao;
+    private final InformacionClinicaMapper informacionClinicaMapper;
 
-    public InformacionClinicaByIdHandler(InformacionClinicaByIdService informacionClinicaByIdService) {
-        this.informacionClinicaByIdService = informacionClinicaByIdService;
+    public InformacionClinicaByIdHandler(InformacionClinicaDao informacionClinicaDao, InformacionClinicaMapper informacionClinicaMapper) {
+        this.informacionClinicaDao = informacionClinicaDao;
+        this.informacionClinicaMapper = informacionClinicaMapper;
     }
 
     public InformacionClinicaDTO execute(UUID uuid) {
-        return informacionClinicaByIdService.execute(uuid);
+
+        var infoClinica = informacionClinicaDao.getById(uuid);
+
+        if (infoClinica == null) {
+
+            throw new IllegalArgumentException(InformacionClinicaConstant.INVALID_ID);
+
+        }
+
+        return informacionClinicaMapper.toDto(infoClinica);
+
     }
 
 }

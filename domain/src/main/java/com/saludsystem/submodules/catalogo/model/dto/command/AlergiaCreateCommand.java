@@ -8,8 +8,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AlergiaCreateCommand {
+
     private String nombre;
 
     @Schema(description = "Estado (0=Inactivo, 1=Activo)", example = "1")
     private Integer estado;
+
 }

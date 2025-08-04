@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.principal.query.getById;
 
-import com.saludsystem.submodules.principal.dtos.get.EstudioDTO;
-import com.saludsystem.submodules.principal.service.estudio.EstudioByIdService;
+import com.saludsystem.submodules.principal.mapper.EstudioMapper;
+import com.saludsystem.submodules.principal.model.constant.EstudioConstant;
+import com.saludsystem.submodules.principal.model.dtos.EstudioDTO;
+import com.saludsystem.submodules.principal.port.dao.EstudioDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -9,14 +11,26 @@ import java.util.UUID;
 @Component
 public class EstudioByIdHandler {
 
-    private final EstudioByIdService estudioByIdService;
+    private final EstudioDao estudioDao;
+    private final EstudioMapper estudioMapper;
 
-    public EstudioByIdHandler(EstudioByIdService estudioByIdService) {
-        this.estudioByIdService = estudioByIdService;
+    public EstudioByIdHandler(EstudioDao estudioDao, EstudioMapper estudioMapper) {
+        this.estudioDao = estudioDao;
+        this.estudioMapper = estudioMapper;
     }
 
     public EstudioDTO execute(UUID uuid) {
-        return estudioByIdService.execute(uuid);
+
+        var estudio = estudioDao.getById(uuid);
+
+        if (estudio == null) {
+
+            throw new IllegalArgumentException(EstudioConstant.INVALID_ID);
+
+        }
+
+        return estudioMapper.toDto(estudio);
+
     }
 
 }

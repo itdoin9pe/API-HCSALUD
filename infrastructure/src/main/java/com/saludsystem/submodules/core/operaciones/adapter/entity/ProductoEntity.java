@@ -76,5 +76,5 @@ public class ProductoEntity extends BaseEntity {
 
     @Column(name = "estado_producto", nullable = false)
     private Integer estadoProducto;
-
+    
 }

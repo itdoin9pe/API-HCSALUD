@@ -1,6 +1,7 @@
 package com.saludsystem.submodules.principal.command.create;
 
-import com.saludsystem.submodules.principal.dtos.post.CrearEmpresaDTO;
+import com.saludsystem.submodules.principal.mapper.EmpresaMapper;
+import com.saludsystem.submodules.principal.model.dtos.command.EmpresaCreateCommand;
 import com.saludsystem.submodules.principal.service.empresa.EmpresaCreateService;
 import org.springframework.stereotype.Component;
 
@@ -8,13 +9,19 @@ import org.springframework.stereotype.Component;
 public class EmpresaCreateHandler {
 
     private final EmpresaCreateService empresaCreateService;
+    private final EmpresaMapper empresaMapper;
 
-    public EmpresaCreateHandler(EmpresaCreateService empresaCreateService) {
+    public EmpresaCreateHandler(EmpresaCreateService empresaCreateService, EmpresaMapper empresaMapper) {
         this.empresaCreateService = empresaCreateService;
+        this.empresaMapper = empresaMapper;
     }
 
-    public void execute(CrearEmpresaDTO dto) {
-        empresaCreateService.execute(dto);
+    public void execute(EmpresaCreateCommand createCommand) {
+
+        var empresaSaved = empresaMapper.fromCreateDto(createCommand);
+
+        empresaCreateService.execute(empresaSaved);
+
     }
 
 }

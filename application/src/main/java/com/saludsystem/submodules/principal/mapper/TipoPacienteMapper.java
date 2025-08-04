@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.principal.mapper;
 
 import com.saludsystem.submodules.principal.model.TipoPaciente;
-import com.saludsystem.submodules.principal.dtos.get.TipoPacienteDTO;
-import com.saludsystem.submodules.principal.dtos.post.CrearTipoPacienteDTO;
-import com.saludsystem.submodules.principal.dtos.put.ActualizarTipoPacienteDTO;
+import com.saludsystem.submodules.principal.model.dtos.TipoPacienteDTO;
+import com.saludsystem.submodules.principal.model.dtos.command.TipoPacienteCreateCommand;
+import com.saludsystem.submodules.principal.model.dtos.edit.TipoPacienteEditCommand;
 
 public class TipoPacienteMapper {
 
-    public static TipoPaciente fromCreateDto(CrearTipoPacienteDTO dto){
+    public TipoPaciente fromCreateDto(TipoPacienteCreateCommand dto){
         return new TipoPaciente(null, dto.getNombre());
     }
 
-    public static TipoPaciente fromUpdateDto(Long id, ActualizarTipoPacienteDTO dto){
+    public TipoPaciente fromUpdateDto(Long id, TipoPacienteEditCommand dto){
         return new TipoPaciente(id, dto.getNombre());
     }
 
-    public static TipoPacienteDTO toDto(TipoPaciente model) {
+    public TipoPacienteDTO toDto(TipoPaciente model) {
         return new TipoPacienteDTO(
                 model.getId(),
                 model.getNombre());

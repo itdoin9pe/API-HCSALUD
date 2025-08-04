@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.principal.query.getList;
 
-import com.saludsystem.submodules.principal.dtos.get.EstudioDTO;
-import com.saludsystem.submodules.principal.service.estudio.EstudioListService;
+import com.saludsystem.submodules.principal.mapper.EstudioMapper;
+import com.saludsystem.submodules.principal.model.Estudio;
+import com.saludsystem.submodules.principal.model.dtos.EstudioDTO;
+import com.saludsystem.submodules.principal.port.dao.EstudioDao;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,14 +11,22 @@ import java.util.List;
 @Component
 public class EstudioListHandler {
 
-    private final EstudioListService estudioListService;
+    private final EstudioDao estudioDao;
+    private final EstudioMapper estudioMapper;
 
-    public EstudioListHandler(EstudioListService estudioListService) {
-        this.estudioListService = estudioListService;
+    public EstudioListHandler(EstudioDao estudioDao, EstudioMapper estudioMapper) {
+        this.estudioDao = estudioDao;
+        this.estudioMapper = estudioMapper;
     }
 
     public List<EstudioDTO> execute() {
-        return estudioListService.execute();
+
+        List<Estudio> estudioList = estudioDao.getList();
+
+        return estudioList.stream()
+                .map(estudioMapper::toDto)
+                .toList();
+
     }
 
 }

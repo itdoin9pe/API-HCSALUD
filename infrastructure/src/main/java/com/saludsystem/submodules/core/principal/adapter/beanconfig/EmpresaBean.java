@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.principal.adapter.beanconfig;
 
+import com.saludsystem.submodules.principal.mapper.EmpresaMapper;
 import com.saludsystem.submodules.principal.port.dao.EmpresaDao;
 import com.saludsystem.submodules.principal.port.repository.EmpresaRepository;
-import com.saludsystem.submodules.principal.service.empresa.*;
+import com.saludsystem.submodules.principal.service.empresa.EmpresaCreateService;
+import com.saludsystem.submodules.principal.service.empresa.EmpresaDeleteService;
+import com.saludsystem.submodules.principal.service.empresa.EmpresaEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,33 +13,23 @@ import org.springframework.context.annotation.Configuration;
 public class EmpresaBean {
 
     @Bean
-    public EmpresaCreateService empresaCreateService(EmpresaRepository empresaRepository) {
-        return new EmpresaCreateService(empresaRepository);
+    public EmpresaMapper empresaMapper() {
+        return new EmpresaMapper();
     }
 
     @Bean
-    public EmpresaDeleteService empresaDeleteService(EmpresaRepository empresaRepository) {
-        return new EmpresaDeleteService(empresaRepository);
+    public EmpresaCreateService empresaCreateService(EmpresaRepository repository) {
+        return new EmpresaCreateService(repository);
     }
 
     @Bean
-    public EmpresaEditService empresaEditService(EmpresaRepository empresaRepository) {
-        return new EmpresaEditService(empresaRepository);
+    public EmpresaEditService empresaEditService(EmpresaDao dao, EmpresaRepository repository) {
+        return new EmpresaEditService(dao, repository);
     }
 
     @Bean
-    public EmpresaListService empresaListService(EmpresaDao empresaDao) {
-        return new EmpresaListService(empresaDao);
-    }
-
-    @Bean
-    public EmpresaByIdService empresaByIdService(EmpresaDao empresaDao) {
-        return new EmpresaByIdService(empresaDao);
-    }
-
-    @Bean
-    public EmpresaAllService empresaAllService(EmpresaDao empresaDao) {
-        return new EmpresaAllService(empresaDao);
+    public EmpresaDeleteService empresaDeleteService(EmpresaRepository repository, EmpresaDao dao) {
+        return new EmpresaDeleteService(repository, dao);
     }
 
 }

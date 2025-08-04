@@ -4,8 +4,8 @@ import com.saludsystem.submodules.principal.command.create.EstudioCreateHandler;
 import com.saludsystem.submodules.principal.command.delete.EstudioDeleteHandler;
 import com.saludsystem.submodules.principal.command.edit.EstudioEditHandler;
 import com.saludsystem.submodules.principal.model.constant.EstudioConstant;
-import com.saludsystem.submodules.principal.dtos.post.CrearEstudioDTO;
-import com.saludsystem.submodules.principal.dtos.put.ActualizarEstudioDTO;
+import com.saludsystem.submodules.principal.model.dtos.command.EstudioCreateCommand;
+import com.saludsystem.submodules.principal.model.dtos.edit.EstudioEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class EstudioCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearEstudioDTO dto) {
+    public ApiResponse save(@RequestBody EstudioCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, EstudioConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarEstudioDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody EstudioEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, EstudioConstant.UPDATED);
     }

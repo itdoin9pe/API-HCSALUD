@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.operaciones.response;
 
-import com.saludsystem.submodules.operaciones.dtos.query.TipoMaterialDTO;
+import com.saludsystem.submodules.operaciones.model.dtos.TipoMaterialDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

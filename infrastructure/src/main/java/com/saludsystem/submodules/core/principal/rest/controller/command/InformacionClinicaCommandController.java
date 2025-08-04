@@ -4,8 +4,8 @@ import com.saludsystem.submodules.principal.command.create.InformacionClinicaCre
 import com.saludsystem.submodules.principal.command.delete.InformacionClinicaDeleteHandler;
 import com.saludsystem.submodules.principal.command.edit.InformacionClinicaEditHandler;
 import com.saludsystem.submodules.principal.model.constant.InformacionClinicaConstant;
-import com.saludsystem.submodules.principal.dtos.post.CrearInformacionClinicaDTO;
-import com.saludsystem.submodules.principal.dtos.put.ActualizarInformacionClinicaDTO;
+import com.saludsystem.submodules.principal.model.dtos.command.InformacionClinicaCreateCommand;
+import com.saludsystem.submodules.principal.model.dtos.edit.InformacionClinicaEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class InformacionClinicaCommandController {
     }
 
     @PostMapping("/Save")
-    public ApiResponse save(@RequestBody CrearInformacionClinicaDTO dto) {
+    public ApiResponse save(@RequestBody InformacionClinicaCreateCommand dto) {
         createHandler.execute(dto);
         return new ApiResponse(true, InformacionClinicaConstant.CREATED);
     }
 
     @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ActualizarInformacionClinicaDTO dto) {
+    public ApiResponse update(@PathVariable UUID id, @RequestBody InformacionClinicaEditCommand dto) {
         editHandler.execute(id, dto);
         return new ApiResponse(true, InformacionClinicaConstant.UPDATED);
     }

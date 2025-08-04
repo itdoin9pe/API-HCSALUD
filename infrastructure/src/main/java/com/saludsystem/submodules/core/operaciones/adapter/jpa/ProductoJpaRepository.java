@@ -14,7 +14,7 @@ import java.util.UUID;
 @Repository
 public interface ProductoJpaRepository extends JpaRepository<ProductoEntity, UUID> {
 
-    Page<ProductoEntity> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    Page<ProductoEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 
     @Query(value = """
         SELECT 

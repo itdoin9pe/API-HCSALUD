@@ -1,8 +1,11 @@
 package com.saludsystem.submodules.core.principal.adapter.beanconfig;
 
+import com.saludsystem.submodules.principal.mapper.PaisMapper;
 import com.saludsystem.submodules.principal.port.dao.PaisDao;
 import com.saludsystem.submodules.principal.port.repository.PaisRepository;
-import com.saludsystem.submodules.principal.service.pais.*;
+import com.saludsystem.submodules.principal.service.pais.PaisCreateService;
+import com.saludsystem.submodules.principal.service.pais.PaisDeleteService;
+import com.saludsystem.submodules.principal.service.pais.PaisEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,33 +13,23 @@ import org.springframework.context.annotation.Configuration;
 public class PaisBean {
 
     @Bean
+    public PaisMapper paisMapper() {
+        return new PaisMapper();
+    }
+
+    @Bean
     public PaisCreateService paisCreateService(PaisRepository paisRepository) {
         return new PaisCreateService(paisRepository);
     }
 
     @Bean
-    public PaisEditService paisEditService(PaisRepository paisRepository) {
-        return new PaisEditService(paisRepository);
+    public PaisEditService paisEditService(PaisDao paisDao, PaisRepository paisRepository) {
+        return new PaisEditService(paisDao, paisRepository);
     }
 
     @Bean
-    public PaisDeleteService paisDeleteService(PaisRepository paisRepository) {
-        return new PaisDeleteService(paisRepository);
-    }
-
-    @Bean
-    public PaisListService paisListService(PaisDao paisDao) {
-        return new PaisListService(paisDao);
-    }
-
-    @Bean
-    public PaisByIdService paisByIdService(PaisDao paisDao) {
-        return new PaisByIdService(paisDao);
-    }
-
-    @Bean
-    public PaisAllService paisAllService(PaisDao paisDao) {
-        return new PaisAllService(paisDao);
+    public PaisDeleteService paisDeleteService(PaisRepository paisRepository, PaisDao paisDao) {
+        return new PaisDeleteService(paisRepository, paisDao);
     }
 
 }

@@ -19,24 +19,24 @@ public class Alergia {
         return id;
     }
 
-    public UUID setId(UUID id) {
-        return this.id = id;
+    public void setId(UUID id) {
+       this.id = id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public String setNombre(String nombre) {
-        return this.nombre = nombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Integer getEstado() {
         return estado;
     }
 
-    public Integer setEstado(Integer estado) {
-        return this.estado = estado;
+    public void setEstado(Integer estado) {
+        this.estado = estado;
     }
 
 }

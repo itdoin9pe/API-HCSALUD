@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.operaciones.query.getById;
 
-import com.saludsystem.submodules.operaciones.dtos.query.CategoriaMatDTO;
-import com.saludsystem.submodules.operaciones.service.categoria_material.CategoriaMaterialByIdService;
+import com.saludsystem.submodules.operaciones.mapper.CategoriaMaterialMapper;
+import com.saludsystem.submodules.operaciones.model.constant.CategoriaMaterialConstant;
+import com.saludsystem.submodules.operaciones.model.dtos.CategoriaMatDTO;
+import com.saludsystem.submodules.operaciones.port.dao.CategoriaMaterialDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -9,14 +11,26 @@ import java.util.UUID;
 @Component
 public class CategoriaMaterialByIdHandler {
 
-    private final CategoriaMaterialByIdService categoriaMaterialByIdService;
+    private final CategoriaMaterialDao categoriaMaterialDao;
+    private final CategoriaMaterialMapper categoriaMaterialMapper;
 
-    public CategoriaMaterialByIdHandler(CategoriaMaterialByIdService categoriaMaterialByIdService) {
-        this.categoriaMaterialByIdService = categoriaMaterialByIdService;
+    public CategoriaMaterialByIdHandler(CategoriaMaterialDao categoriaMaterialDao, CategoriaMaterialMapper categoriaMaterialMapper) {
+        this.categoriaMaterialDao = categoriaMaterialDao;
+        this.categoriaMaterialMapper = categoriaMaterialMapper;
     }
 
     public CategoriaMatDTO execute(UUID uuid) {
-        return categoriaMaterialByIdService.execute(uuid);
+
+        var catMaterial = categoriaMaterialDao.getById(uuid);
+
+        if (catMaterial == null)  {
+
+            throw new IllegalArgumentException(CategoriaMaterialConstant.INVALID_ID);
+
+        }
+
+        return categoriaMaterialMapper.toDto(catMaterial);
+
     }
 
 }
