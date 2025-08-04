@@ -1,7 +1,6 @@
-package com.saludsystem.submodules.core.configuracion.adapter.jpa.dao;
+package com.saludsystem.submodules.core.configuracion.adapter.jpa;
 
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
-import com.saludsystem.submodules.core.configuracion.adapter.jpa.UserJpaRepository;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

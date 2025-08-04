@@ -40,16 +40,16 @@ public class PermisoDboMapper {
 
     }
 
-    public static Permiso toDomain(Permiso model) {
+    public static Permiso toDomain(PermisoEntity model) {
 
         return new Permiso(
-                model.getId(),
+                model.getPermisoId(),
                 model.getInsert(),
                 model.getRead(),
                 model.getUpdate(),
                 model.getDelete(),
-                model.getRolId(),
-                model.getMenuId());
+                model.getRol().getRoleId(),
+                model.getMenuEntity().getMenuId());
 
     }
 
