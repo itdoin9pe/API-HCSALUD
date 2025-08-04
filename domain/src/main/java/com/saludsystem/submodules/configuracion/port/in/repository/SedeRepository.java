@@ -5,7 +5,7 @@ import com.saludsystem.submodules.configuracion.model.Sede;
 import java.util.List;
 import java.util.UUID;
 
-public interface SedeService {
+public interface SedeRepository {
     Sede save(Sede sede);
     Sede update(UUID uuid, Sede sede);
     void delete(UUID uuid);

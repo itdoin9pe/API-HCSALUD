@@ -5,7 +5,7 @@ import com.saludsystem.submodules.configuracion.model.Rol;
 import java.util.List;
 import java.util.UUID;
 
-public interface RolService {
+public interface RolRepository {
     Rol save(Rol rol);
     Rol update(UUID uuid, Rol rol);
     void delete(UUID uuid);
