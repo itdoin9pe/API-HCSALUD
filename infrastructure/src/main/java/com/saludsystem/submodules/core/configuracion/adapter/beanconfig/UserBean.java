@@ -1,9 +1,11 @@
 package com.saludsystem.submodules.core.configuracion.adapter.beanconfig;
 
+import com.saludsystem.submodules.configuracion.mapper.UsuarioMapper;
 import com.saludsystem.submodules.configuracion.port.in.dao.UserDao;
-import com.saludsystem.submodules.configuracion.port.out.PasswordEncoderPort;
 import com.saludsystem.submodules.configuracion.port.in.repository.UserRepository;
-import com.saludsystem.submodules.configuracion.service.*;
+import com.saludsystem.submodules.configuracion.service.user.UserCreateService;
+import com.saludsystem.submodules.configuracion.service.user.UserDeleteService;
+import com.saludsystem.submodules.configuracion.service.user.UserEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,33 +13,23 @@ import org.springframework.context.annotation.Configuration;
 public class UserBean {
 
     @Bean
-    public UserAllService userAllService(UserDao userDao){
-        return new UserAllService(userDao);
+    public UsuarioMapper usuarioMapper() {
+        return new UsuarioMapper();
     }
 
     @Bean
-    public UserByIdService userByIdService(UserDao userDao){
-        return new UserByIdService(userDao);
+    public UserCreateService userCreateService(UserRepository userRepository) {
+        return new UserCreateService(userRepository);
     }
 
     @Bean
-    public UserListService userListService(UserDao userDao) {
-        return new UserListService(userDao);
+    public UserEditService userEditService(UserDao userDao, UserRepository userRepository) {
+        return new UserEditService(userDao, userRepository);
     }
 
     @Bean
-    public UserCreateService userCreateService(UserRepository userRepository, PasswordEncoderPort encoderPort){
-        return new UserCreateService(userRepository, encoderPort);
-    }
-
-    @Bean
-    public UserDeleteService userDeleteService(UserRepository userRepository){
-        return new UserDeleteService(userRepository);
-    }
-
-    @Bean
-    public UserEditService userEditService(UserRepository userRepository){
-        return new UserEditService(userRepository);
+    public UserDeleteService userDeleteService(UserRepository userRepository, UserDao userDao) {
+        return new UserDeleteService(userRepository, userDao);
     }
 
 }

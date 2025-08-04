@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.configuracion.model;
 
-import com.saludsystem.submodules.configuracion.vo.usuario.*;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

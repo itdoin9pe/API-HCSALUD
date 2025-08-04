@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.configuracion.adapter.mapper;
 
-import com.saludsystem.submodules.configuracion.vo.usuario.*;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.*;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.RoleEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;

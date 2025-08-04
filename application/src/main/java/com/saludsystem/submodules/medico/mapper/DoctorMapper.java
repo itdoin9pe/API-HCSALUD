@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.medico.mapper;
 
-import com.saludsystem.submodules.configuracion.vo.usuario.NumeroDocumento;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.NumeroDocumento;
 import com.saludsystem.submodules.medico.model.dtos.DoctorCreateCommand;
 import com.saludsystem.submodules.medico.model.dtos.DoctorEditCommand;
 import com.saludsystem.submodules.medico.model.dtos.DoctorDTO;

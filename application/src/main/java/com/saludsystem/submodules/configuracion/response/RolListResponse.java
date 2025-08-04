@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.configuracion.response;
 
-import com.saludsystem.submodules.configuracion.dtos.get.RolDTO;
+import com.saludsystem.submodules.configuracion.model.dtos.RolDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

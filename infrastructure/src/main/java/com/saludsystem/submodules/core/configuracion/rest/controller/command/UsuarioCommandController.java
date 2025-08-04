@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.core.configuracion.rest.controller.command;
 
-import com.saludsystem.submodules.configuracion.dtos.post.NewUserDto;
-import com.saludsystem.submodules.configuracion.dtos.put.ActualizarUsuarioDTO;
-import com.saludsystem.submodules.configuracion.constant.UserConstant;
+import com.saludsystem.submodules.configuracion.model.dtos.auth.NewUserDto;
+import com.saludsystem.submodules.configuracion.model.dtos.edit.UsuarioEditCommand;
+import com.saludsystem.submodules.configuracion.model.constant.UserConstant;
 import com.saludsystem.submodules.configuracion.command.create.UsuarioCreateHandler;
 import com.saludsystem.submodules.configuracion.command.delete.UsuarioDeleteHandler;
 import com.saludsystem.submodules.configuracion.command.edit.UsuarioEditHandler;
@@ -43,7 +43,7 @@ public class UsuarioCommandController {
   @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
           content = @Content(schema = @Schema(implementation = ApiResponse.class)))
   @PutMapping(value = "/Update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ApiResponse updateUser(@PathVariable UUID uuid, @RequestBody ActualizarUsuarioDTO dto) {
+  public ApiResponse updateUser(@PathVariable UUID uuid, @RequestBody UsuarioEditCommand dto) {
     editHandler.execute(uuid, dto);
     return new ApiResponse(true, UserConstant.UPDATED);
   }

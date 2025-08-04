@@ -1,7 +1,8 @@
 package com.saludsystem.submodules.configuracion.command.edit;
 
-import com.saludsystem.submodules.configuracion.dtos.put.ActualizarUsuarioDTO;
-import com.saludsystem.submodules.configuracion.service.UserEditService;
+import com.saludsystem.submodules.configuracion.mapper.UsuarioMapper;
+import com.saludsystem.submodules.configuracion.model.dtos.edit.UsuarioEditCommand;
+import com.saludsystem.submodules.configuracion.service.user.UserEditService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -10,13 +11,19 @@ import java.util.UUID;
 public class UsuarioEditHandler {
 
     private final UserEditService usuarioService;
+    private final UsuarioMapper usuarioMapper;
 
-    public UsuarioEditHandler(UserEditService usuarioService) {
+    public UsuarioEditHandler(UserEditService usuarioService, UsuarioMapper usuarioMapper) {
         this.usuarioService = usuarioService;
+        this.usuarioMapper = usuarioMapper;
     }
 
-    public void execute(UUID uuid, ActualizarUsuarioDTO dto) {
-        usuarioService.execute(uuid, dto);
+    public void execute(UUID uuid, UsuarioEditCommand dto) {
+
+        var userUpdated = usuarioMapper.fromUpdateDto(uuid, dto);
+
+        usuarioService.execute(uuid, userUpdated);
+
     }
 
 }

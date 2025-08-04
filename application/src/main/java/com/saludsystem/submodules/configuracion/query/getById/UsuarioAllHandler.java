@@ -1,24 +1,40 @@
 package com.saludsystem.submodules.configuracion.query.getById;
 
-import com.saludsystem.submodules.configuracion.dtos.get.UsuarioDTO;
-import com.saludsystem.submodules.configuracion.service.UserAllService;
+import com.saludsystem.submodules.configuracion.mapper.UsuarioMapper;
+import com.saludsystem.submodules.configuracion.model.dtos.UsuarioDTO;
+import com.saludsystem.submodules.configuracion.port.in.dao.UserDao;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
 public class UsuarioAllHandler {
 
-    private final UserAllService userAllService;
+    private final UserDao userDao;
+    private final UsuarioMapper usuarioMapper;
 
-    public UsuarioAllHandler(UserAllService userAllService) {
-        this.userAllService = userAllService;
+    public UsuarioAllHandler(UserDao userDao, UsuarioMapper usuarioMapper) {
+        this.userDao = userDao;
+        this.usuarioMapper = usuarioMapper;
     }
 
     public ListResponse<UsuarioDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
-        return userAllService.execute(hospitalId, paginationRequest);
+
+        var result = userDao.getAll(hospitalId, paginationRequest.getPage(), paginationRequest.getRows());
+
+        List<UsuarioDTO> data = result.getData()
+                .stream()
+                .map(usuarioMapper::toDto)
+                .toList();
+
+        return new ListResponse<>(data,
+                result.getTotalElements(),
+                result.getTotalPages(),
+                result.getCurrentPage());
+
     }
 
 }

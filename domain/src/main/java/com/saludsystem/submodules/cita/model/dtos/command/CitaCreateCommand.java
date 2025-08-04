@@ -1,13 +1,16 @@
 package com.saludsystem.submodules.cita.model.dtos.command;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CitaCreateCommand {
     private UUID tipoCitadoId;
     private UUID especialidadId;

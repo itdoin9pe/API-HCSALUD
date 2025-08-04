@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.tratamiento;
 
-import com.saludsystem.submodules.paciente.dtos.TipoProcedimiento;
+import com.saludsystem.submodules.paciente.model.dtos.TipoProcedimiento;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.BaseEntity;
 import com.saludsystem.submodules.core.medico.adapter.entity.DoctorEntity;
 import com.saludsystem.submodules.core.paciente.adapter.entity.PacienteEntity;

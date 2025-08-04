@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.medico.model.dtos;
 
-import com.saludsystem.submodules.configuracion.vo.usuario.NumeroDocumento;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.NumeroDocumento;
 import com.saludsystem.submodules.medico.model.vo.*;
 import lombok.*;
 

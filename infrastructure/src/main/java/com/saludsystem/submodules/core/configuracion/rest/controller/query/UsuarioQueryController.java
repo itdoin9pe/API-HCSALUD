@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.configuracion.rest.controller.query;
 
-import com.saludsystem.submodules.configuracion.dtos.get.UsuarioDTO;
+import com.saludsystem.submodules.configuracion.model.dtos.UsuarioDTO;
 import com.saludsystem.submodules.configuracion.query.getAll.UsuarioByIdHandler;
 import com.saludsystem.submodules.configuracion.query.getById.UsuarioAllHandler;
 import com.saludsystem.submodules.configuracion.query.getList.UsuarioListHandler;

@@ -2,7 +2,7 @@ package com.saludsystem.submodules.core.configuracion.adapter.jpa.dao;
 
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.UserJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.mapper.UserDboMapper;
-import com.saludsystem.submodules.configuracion.constant.UserConstant;
+import com.saludsystem.submodules.configuracion.model.constant.UserConstant;
 import com.saludsystem.submodules.configuracion.model.Usuario;
 import com.saludsystem.submodules.configuracion.port.in.dao.UserDao;
 import com.saludsystem.submodules.response.ListResponse;

@@ -1,16 +1,16 @@
 package com.saludsystem.submodules.configuracion.mapper;
 
-import com.saludsystem.submodules.configuracion.dtos.get.UsuarioDTO;
-import com.saludsystem.submodules.configuracion.dtos.post.NewUserDto;
-import com.saludsystem.submodules.configuracion.dtos.put.ActualizarUsuarioDTO;
+import com.saludsystem.submodules.configuracion.model.dtos.UsuarioDTO;
+import com.saludsystem.submodules.configuracion.model.dtos.auth.NewUserDto;
+import com.saludsystem.submodules.configuracion.model.dtos.edit.UsuarioEditCommand;
 import com.saludsystem.submodules.configuracion.model.Usuario;
-import com.saludsystem.submodules.configuracion.vo.usuario.*;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.*;
 
 import java.util.UUID;
 
 public class UsuarioMapper {
 
-    public static Usuario fromCreateDto(NewUserDto dto) {
+    public Usuario fromCreateDto(NewUserDto dto) {
         return new Usuario(
                 null,
                 new Apellido(dto.getLastName()),
@@ -28,7 +28,7 @@ public class UsuarioMapper {
                 new EstadoUsuario(dto.getEstado()));
     }
 
-    public static Usuario fromUpdateDto(UUID uuid, ActualizarUsuarioDTO dto) {
+    public Usuario fromUpdateDto(UUID uuid, UsuarioEditCommand dto) {
         return new Usuario(
                 new UserId(dto.getUserId()),
                 new Apellido(dto.getLastName()),
@@ -46,7 +46,7 @@ public class UsuarioMapper {
                 new EstadoUsuario(dto.getEstado()));
     }
 
-    public static UsuarioDTO toDto(Usuario model) {
+    public UsuarioDTO toDto(Usuario model) {
         return new UsuarioDTO(model.getId(), model.getLastName(), model.getFirstName(),
                 model.getEmail(), model.getUsername(), model.getPhoneNumber(),
                 model.getAddress(), model.getDocumentType(), model.getDocumentNumber(), model.getPhoto(),

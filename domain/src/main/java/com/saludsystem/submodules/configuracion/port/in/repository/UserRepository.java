@@ -6,6 +6,6 @@ import java.util.UUID;
 
 public interface UserRepository {
     Usuario save(Usuario usuario);
-    Usuario update(Usuario usuario);
+    Usuario update(UUID uuid, Usuario usuario);
     void delete(UUID uuid);
 }

@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.medico.adapter.mapper;
 
-import com.saludsystem.submodules.configuracion.vo.usuario.NumeroDocumento;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.NumeroDocumento;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.EspecialidadEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;

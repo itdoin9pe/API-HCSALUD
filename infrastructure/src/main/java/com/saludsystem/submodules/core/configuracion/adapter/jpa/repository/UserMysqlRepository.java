@@ -41,7 +41,7 @@ public class UserMysqlRepository implements UserRepository {
     }
 
     @Override
-    public Usuario update(Usuario usuario) {
+    public Usuario update(UUID uuid, Usuario usuario) {
         UUID hospitalId = authenticateUserPort.getHospitalId();
         // 1. Verificar existencia del usuario actual
         UserEntity actual = userJpaRepository.findById(usuario.getId().value())

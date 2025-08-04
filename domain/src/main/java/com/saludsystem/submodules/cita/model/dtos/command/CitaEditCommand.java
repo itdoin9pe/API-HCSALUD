@@ -2,15 +2,17 @@ package com.saludsystem.submodules.cita.model.dtos.command;
 
 import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Data
 public class CitaEditCommand extends BaseDTO {
 
     private UUID citadoId;

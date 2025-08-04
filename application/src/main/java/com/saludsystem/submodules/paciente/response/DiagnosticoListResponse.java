@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.paciente.response;
 
-import com.saludsystem.submodules.paciente.dtos.get.DiagnosticoDTO;
+import com.saludsystem.submodules.paciente.model.dtos.get.DiagnosticoDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

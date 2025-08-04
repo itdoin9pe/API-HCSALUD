@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.configuracion.query.getAll;
 
-import com.saludsystem.submodules.configuracion.dtos.get.UsuarioDTO;
-import com.saludsystem.submodules.configuracion.service.UserByIdService;
+import com.saludsystem.submodules.configuracion.mapper.UsuarioMapper;
+import com.saludsystem.submodules.configuracion.model.constant.UserConstant;
+import com.saludsystem.submodules.configuracion.model.dtos.UsuarioDTO;
+import com.saludsystem.submodules.configuracion.port.in.dao.UserDao;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -9,13 +11,26 @@ import java.util.UUID;
 @Component
 public class UsuarioByIdHandler {
 
-    private final UserByIdService byIdService;
+    private final UserDao userDao;
+    private final UsuarioMapper usuarioMapper;
 
-    public UsuarioByIdHandler(UserByIdService byIdService) {
-        this.byIdService = byIdService;
+    public UsuarioByIdHandler(UserDao userDao, UsuarioMapper usuarioMapper) {
+        this.userDao = userDao;
+        this.usuarioMapper = usuarioMapper;
     }
 
     public UsuarioDTO execute(UUID uuid) {
-        return byIdService.execute(uuid);
+
+        var usuario = userDao.getById(uuid);
+
+        if (usuario == null) {
+
+            throw new IllegalArgumentException(UserConstant.ID_NOT_FOUND);
+
+        }
+
+        return usuarioMapper.toDto(usuario);
+
     }
+
 }

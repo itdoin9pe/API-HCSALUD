@@ -1,7 +1,9 @@
 package com.saludsystem.submodules.configuracion.query.getList;
 
-import com.saludsystem.submodules.configuracion.dtos.get.UsuarioDTO;
-import com.saludsystem.submodules.configuracion.service.UserListService;
+import com.saludsystem.submodules.configuracion.mapper.UsuarioMapper;
+import com.saludsystem.submodules.configuracion.model.Usuario;
+import com.saludsystem.submodules.configuracion.model.dtos.UsuarioDTO;
+import com.saludsystem.submodules.configuracion.port.in.dao.UserDao;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,14 +11,22 @@ import java.util.List;
 @Component
 public class UsuarioListHandler {
 
-    private final UserListService userListService;
+    private final UserDao userDao;
+    private final UsuarioMapper usuarioMapper;
 
-    public UsuarioListHandler(UserListService userListService) {
-        this.userListService = userListService;
+    public UsuarioListHandler(UserDao userDao, UsuarioMapper usuarioMapper) {
+        this.userDao = userDao;
+        this.usuarioMapper = usuarioMapper;
     }
 
     public List<UsuarioDTO> execute() {
-        return userListService.execute();
+
+        List<Usuario> usuarioList = userDao.getList();
+
+        return usuarioList.stream()
+                .map(usuarioMapper::toDto)
+                .toList();
+
     }
 
 }
