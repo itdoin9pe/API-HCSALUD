@@ -14,6 +14,6 @@ public interface RoleJpaRepository extends JpaRepository<RoleEntity, UUID> {
 
     Optional<RoleEntity> findByRoleId(UUID roleId);
 
-    Page<RoleEntity> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    Page<RoleEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 
 }

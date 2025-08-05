@@ -1,21 +1,48 @@
 package com.saludsystem.submodules.core.configuracion.rest.controller.command;
 
+import com.saludsystem.submodules.configuracion.command.create.SedeCreateHandler;
+import com.saludsystem.submodules.configuracion.command.delete.SedeDeleteHandler;
+import com.saludsystem.submodules.configuracion.command.edit.SedeEditHandler;
+import com.saludsystem.submodules.configuracion.model.constant.SedeConstant;
+import com.saludsystem.submodules.configuracion.model.dtos.command.SedeCreateCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.edit.SedeEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Tag(name = "Sedes")
 @RestController
 @RequestMapping("/api/Sedes")
 public class SedeCommandController {
 
-    /*
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = SedeListResponse.class)))
-    })
-    public ListResponse<SedeDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
-    }*/
+    private final SedeCreateHandler createHandler;
+    private final SedeEditHandler editHandler;
+    private final SedeDeleteHandler deleteHandler;
+
+    public SedeCommandController(SedeCreateHandler createHandler, SedeEditHandler editHandler, SedeDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
+    }
+
+    @PostMapping( "/Save")
+    public ApiResponse save(@RequestBody SedeCreateCommand createCommand) {
+        createHandler.execute(createCommand);
+        return new ApiResponse(true, SedeConstant.CREATED);
+    }
+
+    @PutMapping("/Update/{Id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody SedeEditCommand editCommand) {
+        editHandler.execute(id, editCommand);
+        return new ApiResponse(true, SedeConstant.UPDATED);
+    }
+
+    @DeleteMapping("/Delete/{Id}")
+    public ApiResponse destroy(@PathVariable UUID doctorId) {
+        deleteHandler.execute(doctorId);
+        return new ApiResponse(true, SedeConstant.DELETED);
+    }
+
 }

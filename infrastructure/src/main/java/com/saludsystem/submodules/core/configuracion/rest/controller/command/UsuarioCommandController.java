@@ -33,8 +33,7 @@ public class UsuarioCommandController {
 
   @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
           content = @Content(schema = @Schema(implementation = ApiResponse.class)))
-  //@PostMapping(value = "/Save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  @PostMapping(value = "/Save")
+  @PostMapping(value = "/Save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ApiResponse createUser(@Valid @RequestBody NewUserDto dto) {
     createHandler.execute(dto);
     return new ApiResponse(true, UserConstant.CREATED);

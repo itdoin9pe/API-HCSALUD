@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.configuracion.response;
 
-import com.saludsystem.submodules.configuracion.model.dtos.SysSaludDTO;
+import com.saludsystem.submodules.configuracion.model.dtos.ClinicaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.util.List;
 public class ClinicaListResponse {
 
     @Schema(description = "Lista de Sedes")
-    private List<SysSaludDTO> data;
+    private List<ClinicaDTO> data;
 
     @Schema(description = "Número total de Sedes", example = "0")
     private long totalData;

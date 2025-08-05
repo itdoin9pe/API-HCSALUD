@@ -20,4 +20,16 @@ public class TipoDocumentoDTO {
     private Integer correlativoActual;
     @Schema(description = "Estado del tipo de Documento", example = "0" )
     private Integer estado;
+
+    public TipoDocumentoDTO(UUID id, String tipoComprobante, String serie, Integer inicio, Integer fin,
+                            Integer correlativoActual, Integer estado) {
+        this.setTDocumentoId(id);
+        this.setTipoComprobante(tipoComprobante);
+        this.setSerie(serie);
+        this.setInicio(inicio);
+        this.setFin(fin);
+        this.setCorrelativoActual(correlativoActual);
+        this.setEstado(estado);
+    }
+
 }

@@ -1,56 +1,48 @@
 package com.saludsystem.submodules.core.configuracion.rest.controller.command;
 
+import com.saludsystem.submodules.configuracion.command.create.RolCreateHandler;
+import com.saludsystem.submodules.configuracion.command.delete.RolDeleteHandler;
+import com.saludsystem.submodules.configuracion.command.edit.RolEditHandler;
+import com.saludsystem.submodules.configuracion.model.constant.RolConstant;
+import com.saludsystem.submodules.configuracion.model.dtos.command.RolCreateCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.edit.RolEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Tag(name = "Roles")
 @RestController
 @RequestMapping("/api/Roles")
 public class RoleCommandController {
 
-    /*
-    private final RolService rolService;
+    private final RolCreateHandler createHandler;
+    private final RolEditHandler editHandler;
+    private final RolDeleteHandler deleteHandler;
 
-    public RoleController(RolService rolService) {
-        this.rolService = rolService;
+    public RoleCommandController(RolCreateHandler createHandler, RolEditHandler editHandler, RolDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-    @PostMapping("/SaveRol")
-    public ApiResponse stored(@Valid @RequestBody CrearRolDTO crearRolDTO) {
-        return rolService.saveRole(crearRolDTO);
+    @PostMapping( "/Save")
+    public ApiResponse save(@RequestBody RolCreateCommand createCommand) {
+        createHandler.execute(createCommand);
+        return new ApiResponse(true, RolConstant.CREATED);
     }
 
-    @GetMapping("/GetAllRol")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = RolListResponse.class)))
-    })
-
-    public ListResponse<RolDTO> getAllPage(
-            @RequestParam(name = "hospitalId") UUID hospitalId,
-            @RequestParam(name = "Page", defaultValue = "") int page,
-            @RequestParam(name = "Rows", defaultValue = "") int rows) {
-        return rolService.getAllRole(hospitalId, page, rows);
+    @PutMapping("/Update/{Id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody RolEditCommand editCommand) {
+        editHandler.execute(id, editCommand);
+        return new ApiResponse(true, RolConstant.UPDATED);
     }
 
-    @GetMapping("/GetRol/{roleId}")
-    public RolDTO getById(@PathVariable UUID roleId) {
-        return rolService.getRoleById(roleId);
+    @DeleteMapping("/Delete/{Id}")
+    public ApiResponse destroy(@PathVariable UUID doctorId) {
+        deleteHandler.execute(doctorId);
+        return new ApiResponse(true, RolConstant.DELETED);
     }
 
-    @PutMapping("/UpdateRol/{roleId}")
-    public ApiResponse update(@PathVariable UUID roleId, @RequestBody ActualizarRolDTO actualizarRolDTO) {
-        return rolService.updateRole(roleId, actualizarRolDTO);
-    }
-
-    @DeleteMapping("/DeleteRol/{roleId}")
-    public ApiResponse destroy(@PathVariable UUID roleId) {
-        return rolService.deleteRole(roleId);
-    }
-
-    @GetMapping("/GetRoleList")
-    public ResponseEntity<List<RolDTO>> getAllList() {
-        return ResponseEntity.ok(rolService.getRoleList());
-    }*/
 }

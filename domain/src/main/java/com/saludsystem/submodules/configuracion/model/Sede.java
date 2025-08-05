@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter @Setter
+@Getter
 @AllArgsConstructor
 public class Sede {
     private UUID id;
@@ -15,5 +15,4 @@ public class Sede {
     private String direccion;
     private String ubigeo;
     private Integer estado;
-    private UUID sucursalId;
 }

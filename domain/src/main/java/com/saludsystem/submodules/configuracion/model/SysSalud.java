@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter @Setter
@@ -16,7 +16,7 @@ public class SysSalud {
     private String celular;
     private String email;
     private String ruc;
-    private LocalDate fecha;
+    private Date fecha;
     private String foto;
     private Integer estado;
     private UUID planId;

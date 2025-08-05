@@ -15,4 +15,11 @@ public class RolDTO  {
     @Schema(description = "Estado del rol (0 = inactivo, 1 = activo)", example = "0")
     private Integer estado;
     private String nombre;
+
+    public RolDTO(UUID roleId, String nombre, Integer estado) {
+        this.setRoleId(roleId);
+        this.setNombre(nombre);
+        this.setEstado(estado);
+    }
+
 }

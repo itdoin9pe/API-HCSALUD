@@ -1,37 +1,58 @@
 package com.saludsystem.submodules.core.configuracion.rest.controller.query;
 
+import com.saludsystem.submodules.configuracion.model.dtos.ClinicaDTO;
+import com.saludsystem.submodules.configuracion.query.getAll.ClinicaByIdHandler;
+import com.saludsystem.submodules.configuracion.query.getById.ClinicaAllHandler;
+import com.saludsystem.submodules.configuracion.query.getList.ClinicaListHandler;
+import com.saludsystem.submodules.configuracion.response.ClinicaListResponse;
+import com.saludsystem.submodules.response.ListResponse;
+import com.saludsystem.submodules.response.PaginationRequest;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+@Tag(name = "Hospitales")
+@RestController
+@RequestMapping("/api/Hospitales")
 public class ClinicaQueryController {
 
-    /*
-    private final ClinicaCreateHandler createHandler;
-    private final ClinicaEditHandler editHandler;
-    private final ClinicaDeleteHandler deleteHandler;
+    private final ClinicaAllHandler allHandler;
+    private final ClinicaListHandler listHandler;
+    private final ClinicaByIdHandler byIdHandler;
 
-    public ClinicaQueryController(ClinicaCreateHandler createHandler, ClinicaEditHandler editHandler, ClinicaDeleteHandler deleteHandler) {
-        this.createHandler = createHandler;
-        this.editHandler = editHandler;
-        this.deleteHandler = deleteHandler;
+    public ClinicaQueryController(ClinicaAllHandler allHandler, ClinicaListHandler listHandler, ClinicaByIdHandler byIdHandler) {
+        this.allHandler = allHandler;
+        this.listHandler = listHandler;
+        this.byIdHandler = byIdHandler;
     }
 
-    @PostMapping(value = "/SaveHospital", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ApiResponse> store(
-            String nombre, String direccion, String celular, String email, String ruc,
-            @DateTimeFormat(pattern = "dd-MM-yyyy") Date fecha, MultipartFile foto, UUID planId, Integer estado)
-        throws IOException {
-        createHandler.execute(nombre, direccion, celular, email, ruc, fecha, foto, planId, estado);
-        return ResponseEntity.ok(new ApiResponse(true, "Hospital creado correctamente"));
+    @GetMapping("/GetList")
+    public List<ClinicaDTO> getList() {
+        return listHandler.execute();
     }
 
-    @PutMapping(value = "/UpdateHospital/{hospitalId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ApiResponse> update(@PathVariable UUID hospitalId,
-                                          MultipartFile foto,
-                                          String nombre, String direccion, String celular,
-                                          String email, String ruc,
-                                          @DateTimeFormat(pattern = "dd-MM-yyyy") Date fecha,
-                                          UUID planId, Integer estado) throws IOException {
-        editHandler.execute(hospitalId, nombre, direccion, celular, email, ruc, fecha, foto, planId, estado);
-        return ResponseEntity.ok(new ApiResponse(true, "Hospital actualizado correctamente"));
+    @GetMapping("/GetById/{id}")
+    public ClinicaDTO getById(@PathVariable UUID id) {
+        return byIdHandler.execute(id);
     }
 
-     */
+    @GetMapping("/GetAll")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ClinicaListResponse.class)))
+    })
+
+    public ListResponse<ClinicaDTO> getAllPage(
+            @RequestParam(name = "hospitalId") UUID hospitalId,
+            @RequestParam(name = "Page", defaultValue = "") int page,
+            @RequestParam(name = "Rows", defaultValue = "") int rows) {
+        return allHandler.execute(hospitalId, new PaginationRequest(page,rows));
+    }
+
 }
