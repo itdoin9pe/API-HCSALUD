@@ -1,14 +1,13 @@
-package com.saludsystem.submodules.paciente.port.dao.historialclinico.estadocuenta;
+package com.saludsystem.submodules.paciente.port.dao.estadocuenta;
 
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.Pago;
+import com.saludsystem.submodules.response.ListResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface PagoDao {
-    Pago save(Pago tipoTarjeta);
-    Pago update(UUID uuid, Pago tipoTarjeta);
-    void delete(UUID uuid);
     Pago getById(UUID uuid);
-    List<Pago> getAll(UUID hospitalId, int page, int rows);
+    ListResponse<Pago> getAll(UUID hospitalId, int page, int rows);
+    List<Pago> getList();
 }

@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.command.delete.evolucion;
 
-public class CambioCondicionDeleteCommand {
+public class CambioCondicionDeleteHandler {
 }

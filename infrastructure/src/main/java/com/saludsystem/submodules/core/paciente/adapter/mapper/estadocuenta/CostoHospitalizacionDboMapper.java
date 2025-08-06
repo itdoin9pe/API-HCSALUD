@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.core.paciente.adapter.mapper.estadocuenta;
 
-public class CostoHospitalizacionCreateHandler {
+public class CostoHospitalizacionDboMapper {
 }

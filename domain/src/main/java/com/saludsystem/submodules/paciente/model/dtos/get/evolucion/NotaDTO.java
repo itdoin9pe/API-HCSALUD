@@ -1,13 +1,25 @@
-package com.saludsystem.submodules.paciente.model.dtos.get.historialclinico.evolucion;
+package com.saludsystem.submodules.paciente.model.dtos.get.evolucion;
 
-import com.saludsystem.submodules.paciente.model.dtos.command.evolucion.CrearNotaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class NotaDTO extends CrearNotaDTO {
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class NotaDTO {
+
     @Schema(description = "ID de la evolucion del paciente", example = "Integer")
     private Long pacienteEvolucionNotaId;
+
+    private LocalDateTime fecha;
+
+    private String tipo;
+
+    private String contenido;
+
+    private UUID pacienteEvolucionId;
+
 }

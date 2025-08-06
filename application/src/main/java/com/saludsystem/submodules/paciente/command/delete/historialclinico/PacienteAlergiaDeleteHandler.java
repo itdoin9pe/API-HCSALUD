@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.command.delete.historialclinico;
 
-public class PacienteAlergiaDeleteCommand {
+public class PacienteAlergiaDeleteHandler {
 }

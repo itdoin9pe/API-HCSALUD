@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.query.getById.estadocuenta;
+package com.saludsystem.submodules.paciente.query.getList.estadocuenta;
 
-public class CostoHospitalizacionByIdHandler {
+public class CostoHospitalizacionListHandler {
 }

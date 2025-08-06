@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.model.dtos.command.historialclinico;
+package com.saludsystem.submodules.paciente.model.dtos.command.create.historialclinico;
 
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.adapter.jpa.inter.historialclinico.evolucion;
+package com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.historialclinico.evolucion;
 
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.evolucion.CambioCondicionEntity;
 import org.springframework.data.domain.Page;

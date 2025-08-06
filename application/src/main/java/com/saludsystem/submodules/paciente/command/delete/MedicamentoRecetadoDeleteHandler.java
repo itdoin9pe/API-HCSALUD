@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.command.delete;
 
-public class MedicamentoRecetadoDeleteCommand {
+public class MedicamentoRecetadoDeleteHandler {
 }

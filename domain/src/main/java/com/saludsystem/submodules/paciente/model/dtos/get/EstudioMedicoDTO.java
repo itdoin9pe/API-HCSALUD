@@ -1,15 +1,36 @@
 package com.saludsystem.submodules.paciente.model.dtos.get;
 
-import com.saludsystem.submodules.paciente.model.dtos.post.CrearEstudioMedicoDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class EstudioMedicoDTO extends CrearEstudioMedicoDTO {
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class EstudioMedicoDTO  {
 
     @Schema(example = "Integer")
     private Long pacienteEstudioMedicoId;
+
+    private String tipo;
+
+    private String descripcion;
+
+    private LocalDateTime requestAt;
+
+    private LocalDateTime performedAt;
+
+    private String estado;
+
+    private UUID pacienteId;
+
+    private UUID doctorId;
+
+    @Schema(example = "Integer")
+    private Long pacienteEstudioResultadoId;
 
 }

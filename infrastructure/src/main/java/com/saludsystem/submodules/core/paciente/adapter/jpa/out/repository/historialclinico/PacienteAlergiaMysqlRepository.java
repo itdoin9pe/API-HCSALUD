@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository.historialclinico;
 
-public class PacienteAlergiaCreateHandler {
+public class PacienteAlergiaMysqlRepository {
 }

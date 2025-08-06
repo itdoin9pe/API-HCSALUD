@@ -1,13 +1,23 @@
-package com.saludsystem.submodules.paciente.model.dtos.get.historialclinico.evolucion;
+package com.saludsystem.submodules.paciente.model.dtos.get.evolucion;
 
-import com.saludsystem.submodules.paciente.model.dtos.command.evolucion.CrearCambioCondicionDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class CambioCondicionDTO extends CrearCambioCondicionDTO {
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class CambioCondicionDTO {
+
     @Schema(example = "Integer")
     private Long evolucionCambioCondicionId;
+
+    private LocalDateTime fecha;
+
+    private String descripcion;
+
+    private UUID pacienteEvolucionId;
+
 }

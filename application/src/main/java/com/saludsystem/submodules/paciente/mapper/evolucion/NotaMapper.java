@@ -1,17 +1,5 @@
-package com.saludsystem.submodules.paciente.mapper.historialclinico.evolucion;
+package com.saludsystem.submodules.paciente.mapper.evolucion;
 
-import lombok.Data;
+public class NotaMapper {
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-@Data
-public class CrearNotaDTO {
-    private LocalDateTime fecha;
-
-    private String tipo;
-
-    private String contenido;
-
-    private UUID pacienteEvolucionId;
 }

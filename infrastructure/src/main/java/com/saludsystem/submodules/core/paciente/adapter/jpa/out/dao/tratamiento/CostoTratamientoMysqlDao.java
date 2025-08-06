@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository.tratamiento;
+package com.saludsystem.submodules.core.paciente.adapter.jpa.out.dao.tratamiento;
 
-public class CostoTratamientoMysqlRepository {
+public class CostoTratamientoMysqlDao {
 }

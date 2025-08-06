@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.movimiento.model.constant.historialclinico;
+package com.saludsystem.submodules.paciente.model.constant.historialclinico;
 
 public class AntecedenteConstant {
 }

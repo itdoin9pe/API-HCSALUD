@@ -1,5 +1,5 @@
 package com.saludsystem.submodules.core.paciente.adapter.beanconfig.tratamiento;
 
-public class CostoTratamientoMapper {
+public class CostoTratamientoBean {
 
 }

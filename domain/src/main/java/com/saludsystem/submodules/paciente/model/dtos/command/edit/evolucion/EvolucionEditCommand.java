@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.model.dtos.edit.evolucion;
+package com.saludsystem.submodules.paciente.model.dtos.command.edit.evolucion;
 
 import com.saludsystem.submodules.BaseDTO;
 import com.saludsystem.submodules.paciente.model.dtos.get.evolucion.CambioCondicionDTO;

@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.command.create.estadocuenta;
+package com.saludsystem.submodules.paciente.query.getAll.estadocuenta;
 
-public class DetalleMedicamentoEstudioCreateHandler {
+public class DetalleMedicamentoEstudioAllHandler {
 }

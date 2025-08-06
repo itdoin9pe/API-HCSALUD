@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.query.getById.historialclinico;
 
-public class PacienteAlergiaAllHandler {
+public class PacienteAlergiaByIdHandler {
 }

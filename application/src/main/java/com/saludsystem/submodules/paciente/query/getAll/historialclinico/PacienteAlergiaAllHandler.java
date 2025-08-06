@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.command.create.historialclinico;
+package com.saludsystem.submodules.paciente.query.getAll.historialclinico;
 
-public class PacienteAlergiaCreateHandler {
+public class PacienteAlergiaAllHandler {
 }

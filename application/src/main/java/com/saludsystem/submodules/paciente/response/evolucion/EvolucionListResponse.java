@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.paciente.response.evolucion;
 
-import com.saludsystem.submodules.paciente.model.dtos.get.historialclinico.evolucion.EvolucionDTO;
+import com.saludsystem.submodules.paciente.model.dtos.get.evolucion.EvolucionDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

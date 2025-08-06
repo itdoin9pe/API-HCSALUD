@@ -1,13 +1,28 @@
-package com.saludsystem.submodules.paciente.model.dtos.get.historialclinico.evolucion;
+package com.saludsystem.submodules.paciente.model.dtos.get.evolucion;
 
-import com.saludsystem.submodules.paciente.model.dtos.command.evolucion.CrearEvolucionDTO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class EvolucionDTO extends CrearEvolucionDTO {
+@Getter
+@Setter
+@NoArgsConstructor
+public class EvolucionDTO {
+
     private UUID pacienteEvolucionId;
+
+    private UUID pacienteId;
+
+    private LocalDateTime fechaInicio;
+
+    private Boolean finalizada = false;
+
+    private List<NotaDTO> notas;
+
+    private List<CambioCondicionDTO> cambios;
+
+    private UUID pacienteAltaMedicaId;
+
 }

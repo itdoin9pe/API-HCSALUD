@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.command.create.estadocuenta;
 
-public class EstadoCuentaDeleteHandler {
+public class EstadoCuentaCreateHandler {
 }

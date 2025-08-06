@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.model.dtos.edit.evolucion;
+package com.saludsystem.submodules.paciente.model.dtos.command.edit.evolucion;
 
 import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;

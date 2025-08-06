@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.command.create;
+package com.saludsystem.submodules.paciente.query.getAll;
 
-public class EstudioMedicoCreateHandler {
+public class EstudioMedicoAllHandler {
 }

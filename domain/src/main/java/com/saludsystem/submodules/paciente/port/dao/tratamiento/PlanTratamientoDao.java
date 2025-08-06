@@ -1,14 +1,13 @@
-package com.saludsystem.submodules.paciente.port.dao.historialclinico.tratamiento;
+package com.saludsystem.submodules.paciente.port.dao.tratamiento;
 
 import com.saludsystem.submodules.paciente.model.entity.tratamiento.PlanTratamiento;
+import com.saludsystem.submodules.response.ListResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface PlanTratamientoDao {
-    PlanTratamiento save(PlanTratamiento planTratamiento);
-    PlanTratamiento update(UUID uuid, PlanTratamiento planTratamiento);
-    void delete(UUID uuid);
     PlanTratamiento getById(UUID uuid);
-    List<PlanTratamiento> getAll(UUID hospitalId, int page, int rows);
+    ListResponse<PlanTratamiento> getAll(UUID hospitalId, int page, int rows);
+    List<PlanTratamiento> getList();
 }

@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.command.edit.tratamiento;
 
-public class PlanTratamientoEditCommand {
+public class PlanTratamientoEditHandler {
 }

@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.query.getById.historialclinico;
+package com.saludsystem.submodules.paciente.query.getList.historialclinico;
 
-public class ConsultaByIdHandler {
+public class ConsultaListHandler {
 }

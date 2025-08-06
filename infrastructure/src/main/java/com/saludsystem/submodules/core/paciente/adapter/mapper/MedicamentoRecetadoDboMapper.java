@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.core.paciente.adapter.mapper;
 
-public class MedicamentoRecetadoCreateHandler {
+public class MedicamentoRecetadoDboMapper {
 }

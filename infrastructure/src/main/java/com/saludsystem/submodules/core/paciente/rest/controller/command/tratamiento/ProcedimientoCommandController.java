@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.rest.controller.command.historialclinico.tratamiento;
+package com.saludsystem.submodules.core.paciente.rest.controller.command.tratamiento;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

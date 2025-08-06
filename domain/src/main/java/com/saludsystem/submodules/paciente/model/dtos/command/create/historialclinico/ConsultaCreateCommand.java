@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.model.dtos.command.historialclinico;
+package com.saludsystem.submodules.paciente.model.dtos.command.create.historialclinico;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;

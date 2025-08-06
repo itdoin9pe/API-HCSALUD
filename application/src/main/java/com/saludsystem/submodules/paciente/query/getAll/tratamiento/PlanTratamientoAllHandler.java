@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.command.create.tratamiento;
+package com.saludsystem.submodules.paciente.query.getAll.tratamiento;
 
-public class PlanTratamientoCreateHandler {
+public class PlanTratamientoAllHandler {
 }

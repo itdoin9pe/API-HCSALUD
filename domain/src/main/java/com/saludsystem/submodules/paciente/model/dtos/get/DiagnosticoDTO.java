@@ -1,15 +1,25 @@
 package com.saludsystem.submodules.paciente.model.dtos.get;
 
-import com.saludsystem.submodules.paciente.model.dtos.post.CrearDiagnosticoDTO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class DiagnosticoDTO extends CrearDiagnosticoDTO {
+@Getter
+@Setter
+@NoArgsConstructor
+public class DiagnosticoDTO {
 
     private UUID pacienteDiagnosticoId;
+
+    private UUID pacienteId;
+
+    private String enfermedadId;
+
+    private LocalDate fecha;
+
+    private String descripcion;
 
 }

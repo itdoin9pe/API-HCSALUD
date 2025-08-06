@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.model.dtos.command.tratamiento;
+package com.saludsystem.submodules.paciente.model.dtos.command.create.tratamiento;
 
 import lombok.*;
 

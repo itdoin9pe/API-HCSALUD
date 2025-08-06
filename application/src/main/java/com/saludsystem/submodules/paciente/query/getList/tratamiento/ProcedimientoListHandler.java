@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.query.getById.tratamiento;
+package com.saludsystem.submodules.paciente.query.getList.tratamiento;
 
-public class ProcedimientoByIdHandler {
+public class ProcedimientoListHandler {
 }

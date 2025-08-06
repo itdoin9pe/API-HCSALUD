@@ -1,20 +1,6 @@
-package com.saludsystem.submodules.paciente.model.dtos.command;
+package com.saludsystem.submodules.paciente.mapper;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+public class EstudioResultadoMapper {
 
-import java.time.LocalDateTime;
-
-@Data
-public class CrearEstudioResultadoDTO {
-
-    private String reporteTexto;
-
-    private String urlImg;
-
-    @Schema(example = "Integer")
-    private Long pacienteEstudioMedicoId;
-
-    private LocalDateTime createdAt;
 
 }

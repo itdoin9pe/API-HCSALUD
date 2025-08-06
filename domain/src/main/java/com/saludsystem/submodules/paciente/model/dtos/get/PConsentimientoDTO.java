@@ -1,15 +1,39 @@
 package com.saludsystem.submodules.paciente.model.dtos.get;
 
-import com.saludsystem.submodules.paciente.model.dtos.post.CrearPConsentimientoDTO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class PConsentimientoDTO extends CrearPConsentimientoDTO {
+@Getter
+@Setter
+@NoArgsConstructor
+public class PConsentimientoDTO {
 
     private UUID pacienteConsentimientoId;
+
+    private UUID pacienteId;
+
+    private UUID consentimientoId;
+
+    private String cuerpo;
+
+    private LocalDate fecha;
+
+    private HoraDTO hora;
+
+    private String apoderadoNombre;
+
+    private String apoderadoDocumento;
+
+    private String apoderadoDireccion;
+
+    private UUID doctorId;
+
+    @Schema(example = "0")
+    private Integer estado;
+
+    private byte[] firma;
 
 }

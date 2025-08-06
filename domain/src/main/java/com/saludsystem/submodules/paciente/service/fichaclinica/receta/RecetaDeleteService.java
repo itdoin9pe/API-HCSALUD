@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.service.section.receta;
+package com.saludsystem.submodules.paciente.service.fichaclinica.receta;
 
 public class RecetaDeleteService {
 }

@@ -1,15 +1,40 @@
 package com.saludsystem.submodules.paciente.model.dtos.get.historialclinico;
 
-import com.saludsystem.submodules.paciente.model.dtos.post.historialclinico.CrearAntecedenteDTO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class AntecedenteDTO extends CrearAntecedenteDTO {
+@Getter
+@Setter
+@NoArgsConstructor
+public class AntecedenteDTO {
 
     private UUID pacEnfermedadActualId;
+
+    protected UUID pacienteId;
+
+    protected String motivo;
+
+    protected String enfermedad;
+
+    protected String tiempoEnfermedad;
+
+    protected String signo;
+
+    protected String relato;
+
+    protected String funciones;
+
+    protected String antecedentesPersonales;
+
+    protected String antecedentesFamiliares;
+
+    protected String medicamento;
+
+    protected String nombreMedicamento;
+
+    protected String motivoMedicamento;
+
+    protected String dosis;
 
 }

@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.movimiento.model.constant.evolucion;
+package com.saludsystem.submodules.paciente.model.constant.evolucion;
 
 public class NotaConstant {
 }

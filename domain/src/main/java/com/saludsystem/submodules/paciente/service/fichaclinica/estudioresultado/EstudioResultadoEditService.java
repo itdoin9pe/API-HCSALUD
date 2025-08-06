@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.service.section.estudioresultado;
+package com.saludsystem.submodules.paciente.service.fichaclinica.estudioresultado;
 
 public class EstudioResultadoEditService {
 }

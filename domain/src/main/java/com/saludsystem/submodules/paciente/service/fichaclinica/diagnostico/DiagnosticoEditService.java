@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.service.section.diagnostico;
+package com.saludsystem.submodules.paciente.service.fichaclinica.diagnostico;
 
 public class DiagnosticoEditService {
 }

@@ -1,14 +1,13 @@
-package com.saludsystem.submodules.paciente.port.dao.historialclinico.estadocuenta;
+package com.saludsystem.submodules.paciente.port.dao.estadocuenta;
 
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.DetalleMedicamentoEstudio;
+import com.saludsystem.submodules.response.ListResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface DetalleMedicamentoEstudioDao {
-    DetalleMedicamentoEstudio save(DetalleMedicamentoEstudio detalleMedicamentoEstudio);
-    DetalleMedicamentoEstudio update(UUID uuid, DetalleMedicamentoEstudio detalleMedicamentoEstudio);
-    void delete(UUID uuid);
     DetalleMedicamentoEstudio getById(UUID uuid);
-    List<DetalleMedicamentoEstudio> getAll(UUID hospitalId, int page, int rows);
+    ListResponse<DetalleMedicamentoEstudio> getAll(UUID hospitalId, int page, int rows);
+    List<DetalleMedicamentoEstudio> getList();
 }

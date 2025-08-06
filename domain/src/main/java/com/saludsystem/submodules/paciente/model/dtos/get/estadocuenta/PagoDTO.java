@@ -1,15 +1,27 @@
-package com.saludsystem.submodules.paciente.model.dtos.get.historialclinico.estadocuenta;
+package com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta;
 
-import com.saludsystem.submodules.paciente.model.dtos.command.estadocuenta.CrearPagoDTO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class PagoDTO extends CrearPagoDTO {
+@Getter
+@Setter
+@NoArgsConstructor
+public class PagoDTO {
 
     private UUID pecPagoId;
+
+    private UUID pacEstadoCuentaId;
+
+    private LocalDate fechaPago;
+
+    @Schema(example = "0")
+    private Double monto;
+
+    private String metodoPago;
+
+    private String referenciaPago;
 
 }

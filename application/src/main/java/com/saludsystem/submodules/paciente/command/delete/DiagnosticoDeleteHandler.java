@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.command.delete;
 
-public class DiagnosticoDeleteCommand {
+public class DiagnosticoDeleteHandler {
 }

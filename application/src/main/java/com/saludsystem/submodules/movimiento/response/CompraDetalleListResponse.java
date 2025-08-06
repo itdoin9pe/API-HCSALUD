@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.movimiento.response;
 
-import com.saludsystem.submodules.movimiento.dtos.post.CrearCompraDetalleDTO;
+import com.saludsystem.submodules.movimiento.model.dtos.command.CompraDetalleCreateCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import java.util.List;
 public class CompraDetalleListResponse {
 
     @Schema(description = "Lista de registros - detalles de la compra")
-    private List<CrearCompraDetalleDTO> data;
+    private List<CompraDetalleCreateCommand> data;
 
     @Schema(description = "Total de registro - detalles de la compra", example = "0")
     private long totalData;

@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.rest.controller.query.historialclinico.estadocuenta;
+package com.saludsystem.submodules.core.paciente.rest.controller.query.estadocuenta;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;

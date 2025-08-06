@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.command.edit.evolucion;
 
-public class CambioCondicionEditCommand {
+public class CambioCondicionEditHandler {
 }

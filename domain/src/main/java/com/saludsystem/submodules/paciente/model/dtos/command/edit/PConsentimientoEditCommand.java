@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.model.dtos.edit;
+package com.saludsystem.submodules.paciente.model.dtos.command.edit;
 
 import com.saludsystem.submodules.BaseDTO;
 import com.saludsystem.submodules.paciente.model.dtos.get.HoraDTO;

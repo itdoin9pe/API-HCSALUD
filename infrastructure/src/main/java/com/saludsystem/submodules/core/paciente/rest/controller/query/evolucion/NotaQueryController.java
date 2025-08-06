@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.rest.controller.query.historialclinico.evolucion;
+package com.saludsystem.submodules.core.paciente.rest.controller.query.evolucion;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;

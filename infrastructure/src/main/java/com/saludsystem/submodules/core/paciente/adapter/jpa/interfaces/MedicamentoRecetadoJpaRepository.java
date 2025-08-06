@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.adapter.jpa.inter;
+package com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces;
 
 import com.saludsystem.submodules.core.paciente.adapter.entity.MedicamentoRecetadoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

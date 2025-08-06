@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.command.edit.estadocuenta;
 
-public class DetalleMedicamentoEstudioEditCommand {
+public class DetalleMedicamentoEstudioEditHandler {
 }

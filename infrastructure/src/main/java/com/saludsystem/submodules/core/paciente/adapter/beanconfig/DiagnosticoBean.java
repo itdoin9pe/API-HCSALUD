@@ -1,6 +1,6 @@
-package com.saludsystem.submodules.paciente.mapper;
+package com.saludsystem.submodules.core.paciente.adapter.beanconfig;
 
-public class DiagnosticoMapper {
+public class DiagnosticoBean {
 
 
 }

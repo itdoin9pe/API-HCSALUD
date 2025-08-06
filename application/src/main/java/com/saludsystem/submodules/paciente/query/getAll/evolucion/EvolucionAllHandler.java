@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.command.create.evolucion;
+package com.saludsystem.submodules.paciente.query.getAll.evolucion;
 
-public class EvolucionCreateHandler {
+public class EvolucionAllHandler {
 }

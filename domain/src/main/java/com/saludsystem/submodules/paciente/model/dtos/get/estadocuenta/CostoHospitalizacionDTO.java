@@ -1,15 +1,35 @@
-package com.saludsystem.submodules.paciente.model.dtos.get.historialclinico.estadocuenta;
+package com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta;
 
-import com.saludsystem.submodules.paciente.model.dtos.command.estadocuenta.CrearCostoHospitalizacionDTO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class CostoHospitalizacionDTO extends CrearCostoHospitalizacionDTO {
+@Getter
+@Setter
+@NoArgsConstructor
+public class CostoHospitalizacionDTO {
 
     private UUID pecCostoHospitalizacionId;
+
+    private UUID pacEstadoCuentaId;
+
+    private UUID pacienteId;
+
+    private LocalDate fechaIngreso;
+
+    private LocalDate fechaAlta;
+
+    private String tipoHabitacion;
+
+    @Schema(example = "0")
+    private Double costoPorDia;
+
+    @Schema(example = "Integer")
+    private Integer cantidadDias;
+
+    @Schema(example = "0")
+    private Double totalCosto;
 
 }

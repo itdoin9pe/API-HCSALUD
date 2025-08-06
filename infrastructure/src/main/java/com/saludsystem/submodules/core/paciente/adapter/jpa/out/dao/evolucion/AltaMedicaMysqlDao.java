@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository.evolucion;
+package com.saludsystem.submodules.core.paciente.adapter.jpa.out.dao.evolucion;
 
-public class AltaMedicaMysqlRepository {
+public class AltaMedicaMysqlDao {
 }

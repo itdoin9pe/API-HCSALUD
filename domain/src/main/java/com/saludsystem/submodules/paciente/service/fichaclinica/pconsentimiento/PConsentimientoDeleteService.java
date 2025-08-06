@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.service.section.pconsentimiento;
+package com.saludsystem.submodules.paciente.service.fichaclinica.pconsentimiento;
 
 public class PConsentimientoDeleteService {
 }

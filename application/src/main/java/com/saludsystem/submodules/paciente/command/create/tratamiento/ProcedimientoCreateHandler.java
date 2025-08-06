@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.command.create.tratamiento;
 
-public class ProcedimientoDeleteHandler {
+public class ProcedimientoCreateHandler {
 }

@@ -1,15 +1,5 @@
-package com.saludsystem.submodules.paciente.mapper.historialclinico.evolucion;
+package com.saludsystem.submodules.paciente.mapper.evolucion;
 
-import lombok.Data;
+public class CambioCondicionMapper {
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-@Data
-public class CrearCambioCondicionDTO {
-    private LocalDateTime fecha;
-
-    private String descripcion;
-
-    private UUID pacienteEvolucionId;
 }

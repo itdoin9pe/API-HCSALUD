@@ -1,14 +1,32 @@
-package com.saludsystem.submodules.paciente.model.dtos.get.historialclinico.estadocuenta;
+package com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta;
 
-import com.saludsystem.submodules.paciente.model.dtos.edit.estadocuenta.ActualizarDetalleMedicamentoEstudioDTO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class DetalleMedicamentoEstudioDTO extends ActualizarDetalleMedicamentoEstudioDTO {
-    private UUID hospitalId;
-    private UUID userId;
+@Getter
+@Setter
+@NoArgsConstructor
+public class DetalleMedicamentoEstudioDTO {
+
+    private UUID detalleMedicamentoEstudioId;
+
+    private UUID pacienteId;
+
+    private UUID estadoCuentaId;
+
+    private String tipo;
+
+    private String descripcion;
+
+    @Schema(example = "0")
+    private Integer cantidad;
+
+    @Schema(example = "0")
+    private Double costoUnitario;
+
+    @Schema(example = "0")
+    private Double totalCosto;
+
 }

@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.model.dtos.command;
+package com.saludsystem.submodules.paciente.model.dtos.command.create;
 
 import com.saludsystem.submodules.paciente.model.dtos.get.MedicamentoRecetadoDTO;
 import io.swagger.v3.oas.annotations.media.Schema;

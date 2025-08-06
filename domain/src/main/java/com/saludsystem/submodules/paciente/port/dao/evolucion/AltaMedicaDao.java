@@ -1,14 +1,13 @@
-package com.saludsystem.submodules.paciente.port.dao.historialclinico.evolucion;
+package com.saludsystem.submodules.paciente.port.dao.evolucion;
 
 import com.saludsystem.submodules.paciente.model.entity.evolucion.AltaMedica;
+import com.saludsystem.submodules.response.ListResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface AltaMedicaDao {
-    AltaMedica save(AltaMedica altaMedica);
-    AltaMedica update(Long id, AltaMedica altaMedica);
-    void delete(Long id);
     AltaMedica getById(Long uuid);
-    List<AltaMedica> getAll(UUID hospitalId, int page, int rows);
+    ListResponse<AltaMedica> getAll(UUID hospitalId, int page, int rows);
+    List<AltaMedica> getList();
 }

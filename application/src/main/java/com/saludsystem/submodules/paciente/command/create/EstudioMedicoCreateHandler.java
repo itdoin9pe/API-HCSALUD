@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.command.delete;
+package com.saludsystem.submodules.paciente.command.create;
 
-public class EstudioMedicoDeleteHandler {
+public class EstudioMedicoCreateHandler {
 }

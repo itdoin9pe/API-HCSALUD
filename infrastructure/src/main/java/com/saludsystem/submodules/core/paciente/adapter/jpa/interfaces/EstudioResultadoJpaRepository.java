@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.adapter.jpa.inter;
+package com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces;
 
 import com.saludsystem.submodules.core.paciente.adapter.entity.EstudioResultadoEntity;
 import org.springframework.data.domain.Page;

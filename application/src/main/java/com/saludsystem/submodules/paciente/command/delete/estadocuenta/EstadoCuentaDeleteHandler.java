@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.command.delete.estadocuenta;
 
-public class EstadoCuentaDeleteCommand {
+public class EstadoCuentaDeleteHandler {
 }

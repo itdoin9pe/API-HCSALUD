@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.movimiento.model.constant.tratamiento;
+package com.saludsystem.submodules.paciente.model.constant.tratamiento;
 
-public class PlanTratamientoDeleteCommand {
+public class PlanTratamientoConstant {
 }

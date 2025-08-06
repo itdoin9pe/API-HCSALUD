@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.model.entity.historialclinico.tratamiento;
+package com.saludsystem.submodules.paciente.model.entity.tratamiento;
 
 public class CostoTratamiento {
 }

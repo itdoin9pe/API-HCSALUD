@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.model.dtos.command.evolucion;
+package com.saludsystem.submodules.paciente.model.dtos.command.create.evolucion;
 
 import lombok.*;
 

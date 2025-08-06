@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.model.entity.historialclinico.estadocuenta;
+package com.saludsystem.submodules.paciente.model.entity.estadocuenta;
 
 public class CostoHospitalizacion {
 }

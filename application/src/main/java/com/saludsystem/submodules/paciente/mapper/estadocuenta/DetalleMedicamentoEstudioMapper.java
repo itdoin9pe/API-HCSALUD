@@ -1,28 +1,6 @@
-package com.saludsystem.submodules.paciente.mapper.historialclinico.estadocuenta;
+package com.saludsystem.submodules.paciente.mapper.estadocuenta;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+public class DetalleMedicamentoEstudioMapper {
 
-import java.util.UUID;
-
-@Data
-public class CrearDetalleMedicamentoEstudioDTO{
-
-    private UUID pacienteId;
-
-    private UUID estadoCuentaId;
-
-    private String tipo;
-
-    private String descripcion;
-
-    @Schema(example = "0")
-    private Integer cantidad;
-
-    @Schema(example = "0")
-    private Double costoUnitario;
-
-    @Schema(example = "0")
-    private Double totalCosto;
 
 }

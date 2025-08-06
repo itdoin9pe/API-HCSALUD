@@ -1,13 +1,23 @@
 package com.saludsystem.submodules.paciente.model.dtos.get.historialclinico;
 
-import com.saludsystem.submodules.paciente.model.dtos.post.historialclinico.CrearExploracionFisicaDTO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class ExploracionFisicaDTO extends CrearExploracionFisicaDTO {
+@Getter
+@Setter
+@NoArgsConstructor
+public class ExploracionFisicaDTO {
     private UUID pacienteExploracionId;
+    private UUID pacienteId;
+    private String presionArterial;
+    private String pulso;
+    private String temperatura;
+    private String frecuenciaCardiaca;
+    private String frecuenciaRespiratoria;
+    private String peso;
+    private String talla;
+    private String masa;
+    private String examenClinico;
+    private String complementoExamen;
 }

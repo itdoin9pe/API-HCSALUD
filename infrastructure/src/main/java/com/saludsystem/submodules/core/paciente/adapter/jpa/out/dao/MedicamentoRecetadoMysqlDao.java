@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository;
+package com.saludsystem.submodules.core.paciente.adapter.jpa.out.dao;
 
-public class MedicamentoRecetadoMysqlRepository {
+public class MedicamentoRecetadoMysqlDao {
 }

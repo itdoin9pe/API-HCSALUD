@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.query.getById;
 
-public class EstudioMedicoAllHandler {
+public class EstudioMedicoByIdHandler {
 }

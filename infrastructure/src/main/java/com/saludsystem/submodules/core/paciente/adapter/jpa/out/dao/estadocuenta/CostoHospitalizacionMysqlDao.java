@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository.estadocuenta;
+package com.saludsystem.submodules.core.paciente.adapter.jpa.out.dao.estadocuenta;
 
-public class CostoHospitalizacionMysqlRepository {
+public class CostoHospitalizacionMysqlDao {
 }

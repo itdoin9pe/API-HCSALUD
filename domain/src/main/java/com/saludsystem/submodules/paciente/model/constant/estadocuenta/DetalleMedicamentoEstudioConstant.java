@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.movimiento.model.constant.estadocuenta;
+package com.saludsystem.submodules.paciente.model.constant.estadocuenta;
 
 public class DetalleMedicamentoEstudioConstant {
 }

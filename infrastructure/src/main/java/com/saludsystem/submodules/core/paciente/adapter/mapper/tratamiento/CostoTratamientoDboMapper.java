@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.core.paciente.adapter.mapper.tratamiento;
 
-public class CostoTratamientoCreateHandler {
+public class CostoTratamientoDboMapper {
 }

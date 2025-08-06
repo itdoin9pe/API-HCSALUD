@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.query.getById.evolucion;
+package com.saludsystem.submodules.paciente.query.getList.evolucion;
 
-public class CambioCondicionByIdHandler {
+public class CambioCondicionListHandler {
 }

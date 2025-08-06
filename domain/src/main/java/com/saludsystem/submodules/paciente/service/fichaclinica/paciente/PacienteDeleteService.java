@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.service.section.paciente;
+package com.saludsystem.submodules.paciente.service.fichaclinica.paciente;
 
 public class PacienteDeleteService {
 }

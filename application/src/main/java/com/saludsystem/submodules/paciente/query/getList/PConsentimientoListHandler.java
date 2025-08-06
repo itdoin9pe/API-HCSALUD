@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.query.getById;
+package com.saludsystem.submodules.paciente.query.getList;
 
-public class PConsentimientoByIdHandler {
+public class PConsentimientoListHandler {
 }

@@ -1,22 +1,5 @@
-package com.saludsystem.submodules.paciente.mapper.historialclinico.estadocuenta;
+package com.saludsystem.submodules.paciente.mapper.estadocuenta;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+public class EPagoMapper {
 
-import java.time.LocalDate;
-import java.util.UUID;
-
-@Data
-public class CrearPagoDTO {
-
-    private UUID pacEstadoCuentaId;
-
-    private LocalDate fechaPago;
-
-    @Schema(example = "0")
-    private Double monto;
-
-    private String metodoPago;
-
-    private String referenciaPago;
 }

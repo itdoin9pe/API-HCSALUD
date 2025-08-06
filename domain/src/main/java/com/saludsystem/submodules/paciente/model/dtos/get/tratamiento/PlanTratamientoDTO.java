@@ -1,13 +1,27 @@
-package com.saludsystem.submodules.paciente.model.dtos.get.historialclinico.tratamiento;
+package com.saludsystem.submodules.paciente.model.dtos.get.tratamiento;
 
-import com.saludsystem.submodules.paciente.model.dtos.command.tratamiento.CrearPlanTratamientoDTO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class PlanTratamientoDTO extends CrearPlanTratamientoDTO {
+@Getter
+@Setter
+@NoArgsConstructor
+public class PlanTratamientoDTO {
+
     private UUID pacientePlanTratamientoId;
+
+    private UUID pacienteId;
+
+    private UUID doctorId;
+
+    private UUID especialidadId;
+
+    private UUID medidaId;
+
+    private LocalDate fechaInicio;
+
+    private LocalDate fechaFin;
+
 }

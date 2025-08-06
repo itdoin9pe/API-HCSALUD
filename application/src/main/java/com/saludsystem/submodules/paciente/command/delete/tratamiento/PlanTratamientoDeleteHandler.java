@@ -1,4 +1,4 @@
 package com.saludsystem.submodules.paciente.command.delete.tratamiento;
 
-public class PlanTratamientoDeleteCommand {
+public class PlanTratamientoDeleteHandler {
 }

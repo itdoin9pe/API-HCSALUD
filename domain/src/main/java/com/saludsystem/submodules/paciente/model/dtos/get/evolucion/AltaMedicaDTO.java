@@ -1,15 +1,23 @@
-package com.saludsystem.submodules.paciente.model.dtos.get.historialclinico.evolucion;
+package com.saludsystem.submodules.paciente.model.dtos.get.evolucion;
 
-import com.saludsystem.submodules.paciente.model.dtos.command.evolucion.CrearAltaMedicaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class AltaMedicaDTO extends CrearAltaMedicaDTO {
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class AltaMedicaDTO {
 
     @Schema(example = "Integer")
     private Long evolucionAltaMedicaId;
+
+    private LocalDateTime fecha;
+
+    private String resumenFinal;
+
+    private UUID pacienteEvolucionId;
 
 }

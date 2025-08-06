@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository.historialclinico;
+package com.saludsystem.submodules.core.paciente.adapter.jpa.out.dao.historialclinico;
 
-public class ConsultaMysqlRepository {
+public class ConsultaMysqlDao {
 }

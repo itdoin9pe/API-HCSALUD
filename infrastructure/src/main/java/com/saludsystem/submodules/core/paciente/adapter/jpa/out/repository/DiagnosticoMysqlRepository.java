@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.command.create;
+package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository;
 
-public class DiagnosticoCreateHandler {
+public class DiagnosticoMysqlRepository {
 }
