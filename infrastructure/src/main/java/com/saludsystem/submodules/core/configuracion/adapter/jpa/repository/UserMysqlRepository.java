@@ -4,7 +4,6 @@ import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.RoleEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.RoleJpaRepository;
-import com.saludsystem.submodules.core.configuracion.adapter.jpa.SysSaludJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.UserJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.mapper.UserDboMapper;
 import com.saludsystem.submodules.configuracion.model.Usuario;
@@ -21,13 +20,12 @@ public class UserMysqlRepository implements UserRepository {
     private final UserJpaRepository userJpaRepository;
     private final RoleJpaRepository roleJpaRepository;
     private final AuthenticateUserPort authenticateUserPort;
-    private final SysSaludJpaRepository sysSaludJpaRepository;
 
-    public UserMysqlRepository(UserJpaRepository userJpaRepository, RoleJpaRepository roleJpaRepository, AuthenticateUserPort authenticateUserPort, SysSaludJpaRepository sysSaludJpaRepository) {
+    public UserMysqlRepository(UserJpaRepository userJpaRepository, 
+    		RoleJpaRepository roleJpaRepository, AuthenticateUserPort authenticateUserPort) {
         this.userJpaRepository = userJpaRepository;
         this.roleJpaRepository = roleJpaRepository;
         this.authenticateUserPort = authenticateUserPort;
-        this.sysSaludJpaRepository = sysSaludJpaRepository;
     }
 
     @Override

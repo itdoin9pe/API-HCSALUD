@@ -17,20 +17,18 @@ public class CitaMysqlRepository implements CitaRepository {
 
     private final CitaJpaRepository citaJpaRepository;
     private final AuthenticateUserPort authenticateUserPort;
-    private final CitaDboMapper citaDboMapper;
 
-    public CitaMysqlRepository(CitaJpaRepository citaJpaRepository, AuthenticateUserPort authenticateUserPort, CitaDboMapper citaDboMapper) {
+    public CitaMysqlRepository(CitaJpaRepository citaJpaRepository, AuthenticateUserPort authenticateUserPort) {
         this.citaJpaRepository = citaJpaRepository;
         this.authenticateUserPort = authenticateUserPort;
-        this.citaDboMapper = citaDboMapper;
     }
 
     @Override
     public Cita save(Cita cita) {
         UUID userId = authenticateUserPort.getUserId();
         UUID hospitalId = authenticateUserPort.getHospitalId();
-        CitaEntity entity = citaDboMapper.toEntity(cita, userId, hospitalId);
-        return citaDboMapper.toDomain(citaJpaRepository.save(entity));
+        CitaEntity entity = CitaDboMapper.toEntity(cita, userId, hospitalId);
+        return CitaDboMapper.toDomain(citaJpaRepository.save(entity));
     }
 
     @Override
@@ -40,8 +38,8 @@ public class CitaMysqlRepository implements CitaRepository {
         }
         UUID userId = authenticateUserPort.getUserId();
         UUID hospitalId = authenticateUserPort.getHospitalId();
-        CitaEntity entity = citaDboMapper.toEntity(cita, userId, hospitalId);
-        return citaDboMapper.toDomain(citaJpaRepository.save(entity));
+        CitaEntity entity = CitaDboMapper.toEntity(cita, userId, hospitalId);
+        return CitaDboMapper.toDomain(citaJpaRepository.save(entity));
     }
 
     @Override

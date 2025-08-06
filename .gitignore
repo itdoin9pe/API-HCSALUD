@@ -44,3 +44,4 @@ sonar-project.properties
 
 ### Spring profiles ###
 infrastructure/src/main/resources/application-prod.yml
+/.metadata/

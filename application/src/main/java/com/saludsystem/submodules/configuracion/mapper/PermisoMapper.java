@@ -25,7 +25,6 @@ public class PermisoMapper {
 
     }
 
-
     public PermisoDTO toDto(Permiso model) {
 
         return new PermisoDTO(

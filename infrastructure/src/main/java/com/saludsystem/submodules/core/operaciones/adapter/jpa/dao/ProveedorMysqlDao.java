@@ -1,7 +1,5 @@
 package com.saludsystem.submodules.core.operaciones.adapter.jpa.dao;
 
-import com.saludsystem.submodules.catalogo.model.Alergia;
-import com.saludsystem.submodules.core.catalogo.adapter.mapper.AlergiaDboMapper;
 import com.saludsystem.submodules.core.operaciones.adapter.jpa.ProveedorJpaRepository;
 import com.saludsystem.submodules.core.operaciones.adapter.mapper.ProveedorDboMapper;
 import com.saludsystem.submodules.operaciones.model.Proveedor;

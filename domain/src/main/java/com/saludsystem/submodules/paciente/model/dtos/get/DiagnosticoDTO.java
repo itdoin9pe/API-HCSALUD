@@ -12,7 +12,16 @@ import java.util.UUID;
 @NoArgsConstructor
 public class DiagnosticoDTO {
 
-    private UUID pacienteDiagnosticoId;
+	public DiagnosticoDTO(UUID id, UUID pacienteId, String enfermedadId, LocalDate fecha, String descripcion) {
+		// TODO Auto-generated constructor stub
+		this.setPacienteDiagnosticoId(id);
+		this.setPacienteId(pacienteId);
+		this.setEnfermedadId(enfermedadId);
+		this.setFecha(fecha);
+		this.setDescripcion(descripcion);
+	}
+
+	private UUID pacienteDiagnosticoId;
 
     private UUID pacienteId;
 
@@ -22,4 +31,5 @@ public class DiagnosticoDTO {
 
     private String descripcion;
 
+    
 }

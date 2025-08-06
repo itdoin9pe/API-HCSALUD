@@ -1,7 +1,6 @@
 package com.saludsystem.submodules.operaciones.query.getAll;
 
 import com.saludsystem.submodules.operaciones.mapper.ProveedorMapper;
-import com.saludsystem.submodules.operaciones.model.Proveedor;
 import com.saludsystem.submodules.operaciones.model.dtos.ProveedorDTO;
 import com.saludsystem.submodules.operaciones.port.dao.ProveedorDao;
 import com.saludsystem.submodules.response.ListResponse;

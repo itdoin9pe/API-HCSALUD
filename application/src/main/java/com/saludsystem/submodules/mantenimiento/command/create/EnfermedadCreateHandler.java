@@ -2,7 +2,6 @@ package com.saludsystem.submodules.mantenimiento.command.create;
 
 import com.saludsystem.submodules.mantenimiento.mapper.EnfermedadMapper;
 import com.saludsystem.submodules.mantenimiento.model.dtos.command.EnfermedadCreateCommand;
-import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.EnfermedadEditCommand;
 import com.saludsystem.submodules.mantenimiento.service.enfermedad.EnfermedadCreateService;
 import org.springframework.stereotype.Component;
 

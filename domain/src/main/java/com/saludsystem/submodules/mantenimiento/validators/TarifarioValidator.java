@@ -4,7 +4,6 @@ import com.saludsystem.submodules.mantenimiento.model.dtos.command.TarifarioCrea
 import com.saludsystem.submodules.mantenimiento.model.dtos.command.edit.TarifarioEditCommand;
 import com.saludsystem.submodules.mantenimiento.model.exception.business.TarifarioBusinessRuleException;
 import com.saludsystem.submodules.mantenimiento.model.exception.validation.TarifarioValidationException;
-import com.saludsystem.submodules.mantenimiento.port.repository.TarifarioRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,12 +11,6 @@ import java.util.UUID;
 
 @Component
 public class TarifarioValidator {
-
-    private final TarifarioRepository tarifarioRepository;
-
-    public TarifarioValidator(TarifarioRepository tarifarioRepository) {
-        this.tarifarioRepository = tarifarioRepository;
-    }
 
     public void validateForCreation(TarifarioCreateCommand dto) {
         validateNotNull(dto);

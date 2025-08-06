@@ -2,7 +2,6 @@ package com.saludsystem.submodules.mantenimiento.port.repository;
 
 import com.saludsystem.submodules.mantenimiento.model.TipoTarjeta;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface TipoTarjetaRepository {
