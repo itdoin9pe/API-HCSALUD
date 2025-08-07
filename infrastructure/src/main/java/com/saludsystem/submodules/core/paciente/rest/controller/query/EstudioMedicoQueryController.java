@@ -1,27 +1,48 @@
 package com.saludsystem.submodules.core.paciente.rest.controller.query;
 
+import com.saludsystem.submodules.catalogo.model.dto.AlergiaDTO;
+import com.saludsystem.submodules.paciente.model.dtos.get.EstudioMedicoDTO;
+import com.saludsystem.submodules.paciente.query.getAll.EstudioMedicoAllHandler;
+import com.saludsystem.submodules.paciente.query.getById.EstudioMedicoByIdHandler;
+import com.saludsystem.submodules.paciente.query.getList.EstudioMedicoListHandler;
+import com.saludsystem.submodules.paciente.response.EstudioMedicoListResponse;
+import com.saludsystem.submodules.response.ListResponse;
+import com.saludsystem.submodules.response.PaginationRequest;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @Tag(name = "PacientesEstudiosMedicos")
 @RestController
 @RequestMapping("/api/PacientesEstudiosMedicos")
 public class EstudioMedicoQueryController {
 
-    /*
-    private final EstudioMedicoService estudioMedicoService;
+    private final EstudioMedicoAllHandler allHandler;
+    private final EstudioMedicoByIdHandler byIdHandler;
+    private final EstudioMedicoListHandler listHandler;
 
-    public EstudioMedicoController(EstudioMedicoService estudioMedicoService) {
-        this.estudioMedicoService = estudioMedicoService;
+    public EstudioMedicoQueryController(EstudioMedicoAllHandler allHandler, EstudioMedicoByIdHandler byIdHandler, EstudioMedicoListHandler listHandler) {
+        this.allHandler = allHandler;
+        this.byIdHandler = byIdHandler;
+        this.listHandler = listHandler;
     }
 
-    @PostMapping("/SavePacienteEstudioMedico")
-    public ApiResponse stored(@Valid @RequestBody CrearEstudioMedicoDTO crearEstudioMedicoDTO) {
-        return estudioMedicoService.saveEstudioMedico(crearEstudioMedicoDTO);
+    @GetMapping("/GetList")
+    public List<EstudioMedicoDTO> getList() {
+        return listHandler.execute();
     }
 
-    @GetMapping("/GetAllPacienteEstudioMedico")
+    @GetMapping("/GetById/{id}")
+    public EstudioMedicoDTO getById(@PathVariable Long id) {
+        return byIdHandler.execute(id);
+    }
+
+    @GetMapping("/GetAll")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
@@ -30,22 +51,7 @@ public class EstudioMedicoQueryController {
     public ListResponse<EstudioMedicoDTO> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
-        return estudioMedicoService.getAllEstudioMedico(hospitalId, page, rows);
+        return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 
-    @GetMapping("/GetPacienteEstudioMedico/{pacienteEstudioMedicoId}")
-    public EstudioMedicoDTO getById(@PathVariable Long pacienteEstudioMedicoId) {
-        return estudioMedicoService.getEstudioMedicoById(pacienteEstudioMedicoId);
-    }
-
-    @PutMapping("/UpdatePacienteEstudioMedico/{pacienteEstudioMedicoId}")
-    public ApiResponse update(@PathVariable Long pacienteEstudioMedicoId,
-                              @RequestBody ActualizarEstudioMedicoDTO actualizarEstudioMedicoDTO) {
-        return estudioMedicoService.updateEstudioMedico(pacienteEstudioMedicoId, actualizarEstudioMedicoDTO);
-    }
-
-    @DeleteMapping("/DeletePacienteEstudioMedico/{pacienteEstudioMedicoId}")
-    public ApiResponse destroy(@PathVariable Long pacienteEstudioMedicoId) {
-        return estudioMedicoService.deleteEstudioMedico(pacienteEstudioMedicoId);
-    }*/
 }

@@ -13,7 +13,7 @@ public class PermisoMapper {
 
         return new Permiso(null, createCommand.getInsert(), createCommand.getRead(),
                 createCommand.getUpdate(), createCommand.getDelete(),
-                createCommand.getRolId(), createCommand.getRolId());
+                createCommand.getRolId(), createCommand.getRolId());   
 
     }
 

@@ -33,4 +33,13 @@ public class EstudioMedicoDTO  {
     @Schema(example = "Integer")
     private Long pacienteEstudioResultadoId;
 
+    public EstudioMedicoDTO(Long id, String descripcion, String estado, UUID pacienteId,
+                            UUID doctorId, Long estudioResultadoId) {
+        this.setPacienteEstudioMedicoId(id);
+        this.setDescripcion(descripcion);
+        this.setEstado(estado);
+        this.setPacienteId(pacienteId);
+        this.setDoctorId(doctorId);
+        this.setPacienteEstudioResultadoId(estudioResultadoId);
+    }
 }

@@ -16,10 +16,6 @@ public class EstudioMedicoCreateCommand {
 
     private String descripcion;
 
-    private LocalDateTime requestAt;
-
-    private LocalDateTime performedAt;
-
     private String estado;
 
     private UUID pacienteId;

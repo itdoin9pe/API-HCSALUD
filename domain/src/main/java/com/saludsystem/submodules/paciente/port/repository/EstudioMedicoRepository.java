@@ -6,8 +6,8 @@ import java.util.UUID;
 
 public interface EstudioMedicoRepository {
 
-    EstudioMedico save(EstudioMedico tipoTarjeta);
-    EstudioMedico update(UUID uuid, EstudioMedico tipoTarjeta);
-    void delete(UUID uuid);
+    EstudioMedico save(EstudioMedico estudioMedico);
+    EstudioMedico update(Long id, EstudioMedico estudioMedico);
+    void delete(Long uuid);
 
 }
