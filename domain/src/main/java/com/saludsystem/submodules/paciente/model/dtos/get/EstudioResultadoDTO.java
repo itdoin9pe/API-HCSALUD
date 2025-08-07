@@ -22,4 +22,11 @@ public class EstudioResultadoDTO {
 
     private LocalDateTime createdAt;
 
+    public EstudioResultadoDTO(Long id, String reporteTexto, String urlImg, Long estudioMedicoId) {
+        this.setPacienteEstudioResultadoId(id);
+        this.setReporteTexto(reporteTexto);
+        this.setUrlImg(urlImg);
+        this.setPacienteEstudioMedicoId(estudioMedicoId);
+    }
+
 }

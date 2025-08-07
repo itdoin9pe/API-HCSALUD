@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface EstudioResultadoDao {
 
-    EstudioResultado getById(UUID uuid);
+    EstudioResultado getById(Long id);
     ListResponse<EstudioResultado> getAll(UUID hospitalId, int page, int rows);
     List<EstudioResultado> getList();
 

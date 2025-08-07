@@ -1,5 +1,12 @@
 package com.saludsystem.submodules.core.paciente.rest.controller.command;
 
+import com.saludsystem.submodules.paciente.command.create.EstudioResultadoCreateHandler;
+import com.saludsystem.submodules.paciente.command.delete.EstudioResultadoDeleteHandler;
+import com.saludsystem.submodules.paciente.command.edit.EstudioResultadoEditHandler;
+import com.saludsystem.submodules.paciente.model.constant.EstudioResultadoConstant;
+import com.saludsystem.submodules.paciente.model.dtos.command.create.EstudioResultadoCreateCommand;
+import com.saludsystem.submodules.paciente.model.dtos.command.edit.EstudioResultadoEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,46 +15,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/PacientesEstudiosResultados")
 public class EstudioResultadoCommandController {
 
-    /*
-    private final EstudioResultadoService estudioResultadoService;
+    private final EstudioResultadoCreateHandler createHandler;
+    private final EstudioResultadoEditHandler editHandler;
+    private final EstudioResultadoDeleteHandler deleteHandler;
 
-    public EstudioResultadoController(EstudioResultadoService estudioResultadoService) {
-        this.estudioResultadoService = estudioResultadoService;
+    public EstudioResultadoCommandController(EstudioResultadoCreateHandler createHandler, EstudioResultadoEditHandler editHandler, EstudioResultadoDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-    @PostMapping("/SavePacienteEstudioResultado")
-    public ApiResponse stored(@Valid @RequestBody CrearEstudioResultadoDTO crearEstudioResultadoDTO) {
-        return estudioResultadoService.saveEstudioResultado(crearEstudioResultadoDTO);
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody EstudioResultadoCreateCommand createCommand) {
+        createHandler.execute(createCommand);
+        return new ApiResponse(true, EstudioResultadoConstant.CREATED);
     }
 
-    @GetMapping("/GetAllPacienteEstudioResultado")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EstudioResultadoListResponse.class)))
-    })
-    public ListResponse<EstudioResultadoDTO> getAllPage(
-            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
-        return estudioResultadoService.getAllEstudioResultado(hospitalId, page, rows);
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable Long id, @RequestBody EstudioResultadoEditCommand editCommand) {
+        editHandler.execute(id, editCommand);
+        return new ApiResponse(true, EstudioResultadoConstant.UPDATED);
     }
 
-    @GetMapping("/GetPacienteEstudioResultado/{pacienteEstudioResultadoId}")
-    public EstudioResultadoDTO getById(@PathVariable Long pacienteEstudioResultadoId) {
-        return estudioResultadoService.getEstudioResultadoById(pacienteEstudioResultadoId);
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable Long id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, EstudioResultadoConstant.DELETED);
     }
-
-    @PutMapping("/UpdatePacienteEstudioResultado/{pacienteEstudioResultadoId}")
-    public ApiResponse update(@PathVariable Long pacienteEstudioResultadoId,
-                              @RequestBody ActualizarEstudioResultadoDTO actualizarEstudioResultadoDTO) {
-        return estudioResultadoService.updateEstudioResultado(pacienteEstudioResultadoId, actualizarEstudioResultadoDTO);
-    }
-
-    @DeleteMapping("/DeletePacienteEstudioResultado/{pacienteEstudioResultadoId}")
-    public ApiResponse destroy(@PathVariable Long pacienteEstudioResultadoId) {
-        return estudioResultadoService.deleteEstudioResultado(pacienteEstudioResultadoId);
-    }
-
-     */
 
 }

@@ -3,8 +3,6 @@ package com.saludsystem.submodules.paciente.model.dtos.command.create;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +15,5 @@ public class EstudioResultadoCreateCommand {
 
     @Schema(example = "Integer")
     private Long pacienteEstudioMedicoId;
-
-    private LocalDateTime createdAt;
 
 }
