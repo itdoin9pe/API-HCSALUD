@@ -1,6 +1,5 @@
 package com.saludsystem.submodules.core.paciente.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.model.dto.AlergiaDTO;
 import com.saludsystem.submodules.paciente.model.dtos.get.EstudioMedicoDTO;
 import com.saludsystem.submodules.paciente.query.getAll.EstudioMedicoAllHandler;
 import com.saludsystem.submodules.paciente.query.getById.EstudioMedicoByIdHandler;
