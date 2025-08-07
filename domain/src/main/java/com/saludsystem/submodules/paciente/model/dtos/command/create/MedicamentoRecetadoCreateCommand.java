@@ -12,6 +12,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class MedicamentoRecetadoCreateCommand {
 
+    private UUID pacienteRecetaId;
+
     private UUID medicamentoId;
 
     private String dosis;

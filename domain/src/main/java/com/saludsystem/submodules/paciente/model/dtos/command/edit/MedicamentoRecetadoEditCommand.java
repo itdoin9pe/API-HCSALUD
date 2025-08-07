@@ -12,7 +12,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MedicamentoRecetadoEditCommand extends BaseDTO {
+
     private UUID medicamentoRecetadoId;
+
+    private UUID pacienteRecetaId;
 
     private UUID medicamentoId;
 

@@ -12,6 +12,8 @@ public class MedicamentoRecetadoDTO {
 
     private UUID medicamentoRecetadoId;
 
+    private UUID pacienteRecetaId;
+
     private UUID medicamentoId;
 
     private String dosis;
@@ -23,4 +25,14 @@ public class MedicamentoRecetadoDTO {
 
     private String indicaciones;
 
+    public MedicamentoRecetadoDTO(UUID id, UUID pacienteRecetaId, UUID medicamentoId, String dosis,
+                                  String frecuencia, Integer duracionDias, String indicaciones) {
+        this.setMedicamentoId(id);
+        this.setPacienteRecetaId(pacienteRecetaId);
+        this.setMedicamentoId(medicamentoId);
+        this.setDosis(dosis);
+        this.setFrecuencia(frecuencia);
+        this.setDuracionDias(duracionDias);
+        this.setIndicaciones(indicaciones);
+    }
 }
