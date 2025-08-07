@@ -1,14 +1,11 @@
 package com.saludsystem.submodules.core.paciente.adapter.beanconfig;
 
 import com.saludsystem.submodules.paciente.mapper.EstudioMedicoMapper;
-import com.saludsystem.submodules.paciente.model.entity.EstudioMedico;
 import com.saludsystem.submodules.paciente.port.dao.EstudioMedicoDao;
 import com.saludsystem.submodules.paciente.port.repository.EstudioMedicoRepository;
 import com.saludsystem.submodules.paciente.service.fichaclinica.estudiomedico.EstudioMedicoCreateService;
 import com.saludsystem.submodules.paciente.service.fichaclinica.estudiomedico.EstudioMedicoDeleteService;
 import com.saludsystem.submodules.paciente.service.fichaclinica.estudiomedico.EstudioMedicoEditService;
-import com.saludsystem.submodules.principal.mapper.EstudioMapper;
-import com.saludsystem.submodules.principal.service.estudio.EstudioEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -1,8 +1,5 @@
 package com.saludsystem.submodules.core.paciente.rest.controller.command;
 
-import com.saludsystem.submodules.catalogo.model.constant.AlergiaConstant;
-import com.saludsystem.submodules.catalogo.model.dto.command.AlergiaCreateCommand;
-import com.saludsystem.submodules.catalogo.model.dto.command.edit.AlergiaEditCommand;
 import com.saludsystem.submodules.paciente.command.create.EstudioMedicoCreateHandler;
 import com.saludsystem.submodules.paciente.command.delete.EstudioMedicoDeleteHandler;
 import com.saludsystem.submodules.paciente.command.edit.EstudioMedicoEditHandler;
@@ -12,8 +9,6 @@ import com.saludsystem.submodules.paciente.model.dtos.command.edit.EstudioMedico
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @Tag(name = "PacientesEstudiosMedicos")
 @RestController

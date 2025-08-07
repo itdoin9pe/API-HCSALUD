@@ -21,7 +21,7 @@ public class DiagnosticoDboMapper {
 		entity.setPacienteEntity(paciente);
 		
 		EnfermedadEntity enfermedad = new EnfermedadEntity();
-		enfermedad.setEnfermedadId(model.getEnfermedadId().toString());
+		enfermedad.setEnfermedadId(model.getEnfermedadId());
 		entity.setEnfermedadEntity(enfermedad);
 		
 		entity.setFecha(model.getFecha());
@@ -47,7 +47,7 @@ public class DiagnosticoDboMapper {
 				entity.getEnfermedadEntity().getEnfermedadId(), 
 				entity.getFecha(), 
 				entity.getDescripcion());
-		
+
 	}
 
 }
