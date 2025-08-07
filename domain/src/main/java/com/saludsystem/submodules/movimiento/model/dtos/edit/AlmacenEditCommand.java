@@ -17,4 +17,7 @@ public class AlmacenEditCommand extends BaseDTO {
 
     @Schema(description = "Estado de almacen", example = "0")
     private Integer estado;
+    
+    private UUID sucursalId;
+    
 }

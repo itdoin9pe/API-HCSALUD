@@ -11,18 +11,14 @@ public class Almacen {
     private UUID sedeId;
     private UUID sucursalId;
 
-    private UUID hospitalId;
-    private UUID userId;
 
     public Almacen(UUID almacenId, String nombre, Integer estado,
-                   UUID sedeId, UUID sucursalId, UUID hospitalId, UUID userId) {
+                   UUID sedeId, UUID sucursalId) {
         this.almacenId = almacenId;
         this.nombre = nombre;
         this.estado = estado;
         this.sedeId = sedeId;
         this.sucursalId = sucursalId;
-        this.hospitalId = hospitalId;
-        this.userId = userId;
     }
 
     public UUID getAlmacenId() {
@@ -44,13 +40,5 @@ public class Almacen {
     public UUID getSucursalId() {
         return sucursalId;
     }
-
-    public UUID getHospitalId() {
-        return hospitalId;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
+    
 }

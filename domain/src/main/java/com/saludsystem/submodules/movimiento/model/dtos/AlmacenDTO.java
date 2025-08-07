@@ -10,11 +10,24 @@ import java.util.UUID;
 @NoArgsConstructor
 public class AlmacenDTO {
 
-    private UUID sedeId;
+    public AlmacenDTO(UUID almacenId, String nombre, Integer estado, UUID sedeId, UUID sucursalId) {
+		// TODO Auto-generated constructor stub
+    	this.setAlmacenId(almacenId);
+    	this.setNombre(nombre);
+    	this.setEstado(estado);
+    	this.setSedeId(sedeId);
+    	this.setSucursalId(sucursalId);
+	}
 
+    private UUID almacenId;
+    
     private String nombre;
 
     @Schema(description = "Estado de almacen", example = "0")
     private Integer estado;
 
+	private UUID sedeId;
+
+	private UUID sucursalId;
+    
 }
