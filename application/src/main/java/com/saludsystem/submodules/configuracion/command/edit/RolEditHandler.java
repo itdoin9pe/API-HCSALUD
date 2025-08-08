@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.configuracion.command.edit;
 
 import com.saludsystem.submodules.configuracion.mapper.RolMapper;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.RolEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.RolEditCommand;
 import com.saludsystem.submodules.configuracion.service.rol.RolEditService;
 import org.springframework.stereotype.Component;
 

@@ -3,7 +3,7 @@ package com.saludsystem.submodules.configuracion.mapper;
 import com.saludsystem.submodules.configuracion.model.SysSalud;
 import com.saludsystem.submodules.configuracion.model.dtos.ClinicaDTO;
 import com.saludsystem.submodules.configuracion.model.dtos.command.ClinicaCreateCommand;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.ClinicaEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.ClinicaEditCommand;
 
 import java.util.UUID;
 
@@ -38,8 +38,8 @@ public class ClinicaMapper {
                 model.getRuc(),
                 model.getFecha(),
                 model.getFoto(),
-                model.getEstado(),
-                model.getPlanId());
+                model.getPlanId(),
+                model.getEstado());
 
     }
 

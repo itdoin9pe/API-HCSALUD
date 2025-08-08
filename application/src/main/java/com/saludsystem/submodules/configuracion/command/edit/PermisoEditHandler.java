@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.configuracion.command.edit;
 
 import com.saludsystem.submodules.configuracion.mapper.PermisoMapper;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.PermisoEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.PermisoEditCommand;
 import com.saludsystem.submodules.configuracion.service.permiso.PermisoEditService;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.configuracion.model.dtos.edit;
+package com.saludsystem.submodules.configuracion.model.dtos.command.edit;
 
 import com.saludsystem.submodules.BaseDTO;
 import lombok.*;
@@ -6,10 +6,10 @@ import lombok.*;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PermisoEditCommand extends BaseDTO {
     private UUID permisoId;
     private UUID menuId;

@@ -5,7 +5,7 @@ import com.saludsystem.submodules.configuracion.command.delete.RolDeleteHandler;
 import com.saludsystem.submodules.configuracion.command.edit.RolEditHandler;
 import com.saludsystem.submodules.configuracion.model.constant.RolConstant;
 import com.saludsystem.submodules.configuracion.model.dtos.command.RolCreateCommand;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.RolEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.RolEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

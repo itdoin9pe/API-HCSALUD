@@ -5,7 +5,7 @@ import com.saludsystem.submodules.configuracion.command.delete.SedeDeleteHandler
 import com.saludsystem.submodules.configuracion.command.edit.SedeEditHandler;
 import com.saludsystem.submodules.configuracion.model.constant.SedeConstant;
 import com.saludsystem.submodules.configuracion.model.dtos.command.SedeCreateCommand;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.SedeEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.SedeEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

@@ -8,10 +8,10 @@ import lombok.*;
 import java.util.Date;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ClinicaCreateCommand {
     private String nombre;
     private String direccion;

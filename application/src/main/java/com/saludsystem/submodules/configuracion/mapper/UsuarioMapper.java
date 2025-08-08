@@ -2,7 +2,7 @@ package com.saludsystem.submodules.configuracion.mapper;
 
 import com.saludsystem.submodules.configuracion.model.dtos.UsuarioDTO;
 import com.saludsystem.submodules.configuracion.model.dtos.auth.NewUserDto;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.UsuarioEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.UsuarioEditCommand;
 import com.saludsystem.submodules.configuracion.model.Usuario;
 import com.saludsystem.submodules.configuracion.model.vo.usuario.*;
 
@@ -47,10 +47,11 @@ public class UsuarioMapper {
     }
 
     public UsuarioDTO toDto(Usuario model) {
-        return new UsuarioDTO(model.getId(), model.getLastName(), model.getFirstName(),
-                model.getEmail(), model.getUsername(), model.getPhoneNumber(),
-                model.getAddress(), model.getDocumentType(), model.getDocumentNumber(), model.getPhoto(),
-                model.getRolId(), model.getHospitalId(), model.getEstado());
+        return new UsuarioDTO(model.getId().value(), model.getLastName().value(), model.getFirstName().value(),
+                model.getEmail().value(), model.getUsername().value(), model.getPhoneNumber().value(),
+                model.getAddress().value(), model.getDocumentType().value(), model.getDocumentNumber().value(),
+                model.getPhoto().url(), model.getRolId().value(), model.getHospitalId().value(),
+                model.getEstado().value());
     }
 
 }

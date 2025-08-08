@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.configuracion.command.edit;
 
 import com.saludsystem.submodules.configuracion.mapper.SedeMapper;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.SedeEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.SedeEditCommand;
 import com.saludsystem.submodules.configuracion.service.sede.SedeEditService;
 import org.springframework.stereotype.Component;
 

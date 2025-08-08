@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.core.configuracion.rest.controller.command;
 
 import com.saludsystem.submodules.configuracion.model.dtos.auth.NewUserDto;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.UsuarioEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.UsuarioEditCommand;
 import com.saludsystem.submodules.configuracion.model.constant.UserConstant;
 import com.saludsystem.submodules.configuracion.command.create.UsuarioCreateHandler;
 import com.saludsystem.submodules.configuracion.command.delete.UsuarioDeleteHandler;

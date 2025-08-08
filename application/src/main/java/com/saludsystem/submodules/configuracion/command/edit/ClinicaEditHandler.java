@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.configuracion.command.edit;
 
 import com.saludsystem.submodules.configuracion.mapper.ClinicaMapper;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.ClinicaEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.ClinicaEditCommand;
 import com.saludsystem.submodules.configuracion.service.clinica.ClinicaEditService;
 import org.springframework.stereotype.Component;
 

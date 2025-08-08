@@ -4,10 +4,10 @@ import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PermisoCreateCommand {
     private UUID menuId;
     private UUID rolId;

@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.configuracion.command.edit;
 
 import com.saludsystem.submodules.configuracion.mapper.TipoDocumentoMapper;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.TipoDocumentoEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.TipoDocumentoEditCommand;
 import com.saludsystem.submodules.configuracion.service.tipodocumento.TipoDocumentoEditService;
 import org.springframework.stereotype.Component;
 

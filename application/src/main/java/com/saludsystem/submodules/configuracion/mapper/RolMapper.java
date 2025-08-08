@@ -3,7 +3,7 @@ package com.saludsystem.submodules.configuracion.mapper;
 import com.saludsystem.submodules.configuracion.model.Rol;
 import com.saludsystem.submodules.configuracion.model.dtos.RolDTO;
 import com.saludsystem.submodules.configuracion.model.dtos.command.RolCreateCommand;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.RolEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.RolEditCommand;
 
 import java.util.UUID;
 
@@ -25,8 +25,8 @@ public class RolMapper {
 
         return new RolDTO(
                 model.getRoleId(),
-                model.getNombre(),
-                model.getEstado());
+                model.getEstado(),
+                model.getNombre());
 
     }
 

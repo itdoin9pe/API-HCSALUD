@@ -1,9 +1,12 @@
 package com.saludsystem.submodules.configuracion.model.dtos.command;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class SedeCreateCommand {
     private String codigo;
     private String nombre;

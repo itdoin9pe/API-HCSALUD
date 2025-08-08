@@ -3,6 +3,7 @@ package com.saludsystem.submodules.configuracion.model.dtos;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,9 +11,10 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class ClinicaDTO {
 
     private UUID hospitalId;
@@ -30,21 +32,5 @@ public class ClinicaDTO {
 
     @Schema(example = "0")
     private Integer estado;
-
-    public ClinicaDTO(UUID id, String nombre, String direccion, String celular, String email,
-                      String ruc, Date fecha, String foto, Integer estado, UUID planId) {
-
-        this.setHospitalId(id);
-        this.setNombre(nombre);
-        this.setDireccion(direccion);
-        this.setCelular(celular);
-        this.setEmail(email);
-        this.setRuc(ruc);
-        this.setFecha(fecha);
-        this.setFoto(foto);
-        this.setEstado(estado);
-        this.setPlanId(planId);
-
-    }
 
 }

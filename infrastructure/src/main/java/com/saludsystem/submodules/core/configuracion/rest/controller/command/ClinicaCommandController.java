@@ -5,7 +5,7 @@ import com.saludsystem.submodules.configuracion.command.delete.ClinicaDeleteHand
 import com.saludsystem.submodules.configuracion.command.edit.ClinicaEditHandler;
 import com.saludsystem.submodules.configuracion.model.constant.ClinicaConstant;
 import com.saludsystem.submodules.configuracion.model.dtos.command.ClinicaCreateCommand;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.ClinicaEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.ClinicaEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

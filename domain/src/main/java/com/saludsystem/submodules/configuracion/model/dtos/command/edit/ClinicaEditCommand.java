@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.configuracion.model.dtos.edit;
+package com.saludsystem.submodules.configuracion.model.dtos.command.edit;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
@@ -7,10 +7,10 @@ import lombok.*;
 import java.util.Date;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ClinicaEditCommand {
 
     private UUID hospitalId;

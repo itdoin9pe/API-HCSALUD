@@ -3,11 +3,14 @@ package com.saludsystem.submodules.configuracion.model.dtos.auth;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class NewUserDto {
     private String lastName;
     private String firstName;

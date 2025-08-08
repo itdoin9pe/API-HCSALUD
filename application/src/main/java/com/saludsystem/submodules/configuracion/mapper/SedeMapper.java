@@ -3,7 +3,7 @@ package com.saludsystem.submodules.configuracion.mapper;
 import com.saludsystem.submodules.configuracion.model.Sede;
 import com.saludsystem.submodules.configuracion.model.dtos.SedeDTO;
 import com.saludsystem.submodules.configuracion.model.dtos.command.SedeCreateCommand;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.SedeEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.SedeEditCommand;
 
 import java.util.UUID;
 
@@ -26,6 +26,7 @@ public class SedeMapper {
     public SedeDTO toDto(Sede model) {
 
         return new SedeDTO(
+                model.getId(),
                 model.getCodigo(),
                 model.getNombre(),
                 model.getDireccion(),

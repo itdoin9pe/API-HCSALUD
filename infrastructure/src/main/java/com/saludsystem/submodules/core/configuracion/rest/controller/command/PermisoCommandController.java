@@ -5,7 +5,7 @@ import com.saludsystem.submodules.configuracion.command.delete.PermisoDeleteHand
 import com.saludsystem.submodules.configuracion.command.edit.PermisoEditHandler;
 import com.saludsystem.submodules.configuracion.model.constant.PermisoConstant;
 import com.saludsystem.submodules.configuracion.model.dtos.command.PermisoCreateCommand;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.PermisoEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.PermisoEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

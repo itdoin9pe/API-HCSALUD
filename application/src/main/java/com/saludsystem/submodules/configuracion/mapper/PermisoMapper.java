@@ -3,7 +3,7 @@ package com.saludsystem.submodules.configuracion.mapper;
 import com.saludsystem.submodules.configuracion.model.Permiso;
 import com.saludsystem.submodules.configuracion.model.dtos.PermisoDTO;
 import com.saludsystem.submodules.configuracion.model.dtos.command.PermisoCreateCommand;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.PermisoEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.PermisoEditCommand;
 
 import java.util.UUID;
 
@@ -29,12 +29,12 @@ public class PermisoMapper {
 
         return new PermisoDTO(
                 model.getId(),
+                model.getMenuId(),
+                model.getRolId(),
                 model.getInsert(),
                 model.getRead(),
                 model.getUpdate(),
-                model.getDelete(),
-                model.getRolId(),
-                model.getMenuId());
+                model.getDelete());
 
     }
 

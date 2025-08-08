@@ -5,7 +5,7 @@ import com.saludsystem.submodules.configuracion.command.delete.TipoDocumentoDele
 import com.saludsystem.submodules.configuracion.command.edit.TipoDocumentoEditHandler;
 import com.saludsystem.submodules.configuracion.model.constant.TipoDocumentoConstant;
 import com.saludsystem.submodules.configuracion.model.dtos.command.TipoDocumentoCreateCommand;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.TipoDocumentoEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.TipoDocumentoEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

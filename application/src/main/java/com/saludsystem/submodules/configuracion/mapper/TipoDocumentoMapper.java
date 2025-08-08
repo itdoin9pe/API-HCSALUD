@@ -3,7 +3,7 @@ package com.saludsystem.submodules.configuracion.mapper;
 import com.saludsystem.submodules.configuracion.model.TipoDocumento;
 import com.saludsystem.submodules.configuracion.model.dtos.TipoDocumentoDTO;
 import com.saludsystem.submodules.configuracion.model.dtos.command.TipoDocumentoCreateCommand;
-import com.saludsystem.submodules.configuracion.model.dtos.edit.TipoDocumentoEditCommand;
+import com.saludsystem.submodules.configuracion.model.dtos.command.edit.TipoDocumentoEditCommand;
 
 import java.util.UUID;
 
