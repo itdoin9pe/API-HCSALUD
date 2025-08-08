@@ -1,6 +1,5 @@
 package com.saludsystem.submodules.paciente.model.entity.estadocuenta;
 
-import com.saludsystem.submodules.paciente.model.entity.Paciente;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,7 +12,7 @@ import java.util.UUID;
 public class EstadoCuenta {
 
     private UUID estadoCuentaId;
-    private Paciente paciente;
+    private UUID pacienteId;
     private Date fechaApertura;
     private String estado; // Ej: ABIERTA, CERRADA, PAGADA
     private Double totalHospitalizacion;

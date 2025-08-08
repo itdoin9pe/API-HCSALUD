@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -31,5 +32,9 @@ public class EstadoCuentaDTO {
 
     @Schema(example = "0")
     private Double saldoPendiente;
+
+    private List<CostoHospitalizacionDTO> costosHospitalizacion;
+    private List<DetalleMedicamentoEstudioDTO> detallesMedicamentosEstudios;
+    private List<PagoDTO> pagos;
 
 }
