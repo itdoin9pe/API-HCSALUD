@@ -49,8 +49,12 @@ public class CitaMapper {
     }
 
     public CitaDTO toDto(Cita model) {
-        return new CitaDTO(model.getId(), model.getDoctorId(), model.getFecha(), model.getHoraInicio(),
-                model.getHoraFin(), model.getPacienteId(), model.getSedeId(), model.getTipoCitadoId(),
-                model.getEstado(), model.getMotivoConsulta(), model.getObservacion());
+
+        return new CitaDTO(model.getId().value(), model.getEspecialidadId().value(), model.getDoctorId().value(),
+                model.getFecha(), model.getHoraInicio(), model.getHoraFin(), model.getPacienteId().value(),
+                model.getSedeId().value(), model.getTipoCitadoId().value(), model.getEstado(),
+                model.getMotivoConsulta().value(), model.getObservacion().value());
+
     }
+
 }

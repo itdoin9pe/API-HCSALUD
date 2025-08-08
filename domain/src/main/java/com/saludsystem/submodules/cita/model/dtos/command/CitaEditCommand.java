@@ -8,15 +8,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 public class CitaEditCommand extends BaseDTO {
 
     private UUID citadoId;
-    private UUID tipoCitadoId;
     private UUID especialidadId;
     private UUID doctorId;
     private LocalDate fecha;
@@ -26,6 +25,7 @@ public class CitaEditCommand extends BaseDTO {
     private LocalTime horaFin;
     private UUID pacienteId;
     private UUID sedeId;
+    private UUID tipoCitadoId;
     private String estado;
     private String motivoConsulta;
     private String observacion;

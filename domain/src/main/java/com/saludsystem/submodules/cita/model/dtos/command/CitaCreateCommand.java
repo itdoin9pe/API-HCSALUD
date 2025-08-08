@@ -7,12 +7,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class CitaCreateCommand {
-    private UUID tipoCitadoId;
+
     private UUID especialidadId;
     private UUID doctorId;
     private LocalDate fecha;
@@ -22,7 +22,9 @@ public class CitaCreateCommand {
     private LocalTime horaFin;
     private UUID pacienteId;
     private UUID sedeId;
+    private UUID tipoCitadoId;
     private String estado;
     private String motivoConsulta;
     private String observacion;
+
 }
