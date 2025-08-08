@@ -6,11 +6,11 @@ import lombok.*;
 
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 public class EspecialidadEditCommand extends BaseDTO {
     private UUID especialidadId;
     private String nombre;

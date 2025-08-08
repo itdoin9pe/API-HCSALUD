@@ -6,11 +6,11 @@ import lombok.*;
 
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 public class TipoCitadoEditCommand extends BaseDTO {
     private UUID tipoCitadoId;
     private String nombre;

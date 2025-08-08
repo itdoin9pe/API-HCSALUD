@@ -1,20 +1,21 @@
 package com.saludsystem.submodules.catalogo.model.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class MedidaDTO extends com.saludsystem.submodules.catalogo.model.dto.command.MedidaCreateCommand {
+public class MedidaDTO {
+
     private UUID medidaId;
 
-    public MedidaDTO(UUID id, String nombre, Integer estado) {
-        this.setMedidaId(id);
-        this.setNombre(nombre);
-        this.setEstado(estado);
-    }
+    private String nombre;
+
+    @Schema(description = "Estado de la medida (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

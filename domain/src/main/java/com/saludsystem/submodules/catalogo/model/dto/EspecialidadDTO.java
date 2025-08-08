@@ -1,21 +1,23 @@
 package com.saludsystem.submodules.catalogo.model.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class EspecialidadDTO extends com.saludsystem.submodules.catalogo.model.dto.command.EspecialidadCreateCommand {
+public class EspecialidadDTO {
+
     private UUID especialidadId;
 
-    public EspecialidadDTO(UUID id, String descripcion, String nombre, Integer estado) {
-        this.setEspecialidadId(id);
-        this.setDescripcion(descripcion);
-        this.setNombre(nombre);
-        this.setEstado(estado);
-    }
+    private String nombre;
+
+    private String descripcion;
+
+    @Schema(description = "Estado de Especialidades (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

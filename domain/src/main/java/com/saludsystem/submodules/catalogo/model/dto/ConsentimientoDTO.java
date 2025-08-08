@@ -1,22 +1,25 @@
 package com.saludsystem.submodules.catalogo.model.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class ConsentimientoDTO extends com.saludsystem.submodules.catalogo.model.dto.command.ConsentimientoCreateCommand {
+public class ConsentimientoDTO {
+
     private UUID consentimientoId;
 
-    public ConsentimientoDTO(UUID id, String texto, String nombre, String observacion, Integer estado) {
-        this.setConsentimientoId(id);
-        this.setTexto(texto);
-        this.setNombre(nombre);
-        this.setObservacion(observacion);
-        this.setEstado(estado);
-    }
+    private String nombre;
+
+    private String observacion;
+
+    private String texto;
+
+    @Schema(description = "estado del consentimiento", example = "0")
+    private Integer estado;
+
 }

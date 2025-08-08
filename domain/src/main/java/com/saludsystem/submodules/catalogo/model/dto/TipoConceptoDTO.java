@@ -1,20 +1,21 @@
 package com.saludsystem.submodules.catalogo.model.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class TipoConceptoDTO extends com.saludsystem.submodules.catalogo.model.dto.command.TipoConceptoCreateCommand {
+public class TipoConceptoDTO {
+
     private UUID tipoConceptoId;
 
-    public TipoConceptoDTO(UUID id, String nombre, Integer estado) {
-        this.setTipoConceptoId(id);
-        this.setNombre(nombre);
-        this.setEstado(estado);
-    }
+    private String nombre;
+
+    @Schema(description = "Estado del Tipo Concepto (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

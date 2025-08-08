@@ -7,11 +7,11 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 public class PlanEditCommand extends BaseDTO {
     private UUID planId;
     private String nombrePlan;

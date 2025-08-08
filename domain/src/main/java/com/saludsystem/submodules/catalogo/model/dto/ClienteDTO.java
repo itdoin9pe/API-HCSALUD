@@ -1,27 +1,33 @@
 package com.saludsystem.submodules.catalogo.model.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class ClienteDTO extends com.saludsystem.submodules.catalogo.model.dto.command.ClienteCreateCommand {
+public class ClienteDTO {
+
     private UUID clienteId;
 
-    public ClienteDTO(
-            UUID id, String tipoDocumento, String nombre,
-            String direccion, String contacto, String email, String tipoDocumento1, Integer estado) {
-        this.setClienteId(id);
-        this.setTipoDocumento(tipoDocumento);
-        this.setNombre(nombre);
-        this.setDireccion(direccion);
-        this.setContacto(contacto);
-        this.setEmail(email);
-        this.setTipoDocumento(tipoDocumento);
-        this.setEstado(estado);
-    }
+    private String tipoDocumento;
+
+    private String nombre;
+
+    private String direccion;
+
+    private String contacto;
+
+    @Schema(example = "999-888-555")
+    private String telefono;
+
+    @Schema(example = "user@gmail.com")
+    private String email;
+
+    @Schema(description = "Estado del Cliente (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

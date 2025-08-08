@@ -5,10 +5,10 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PlanCreateCommandDTO {
     private String nombrePlan;
     private LocalDate fechaInicio;

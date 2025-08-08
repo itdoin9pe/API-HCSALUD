@@ -1,20 +1,21 @@
 package com.saludsystem.submodules.catalogo.model.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class CategoriaDTO extends com.saludsystem.submodules.catalogo.model.dto.command.CategoriaCreateCommand {
+public class CategoriaDTO {
+
     private UUID categoriaId;
 
-    public CategoriaDTO(UUID id, String nombre, Integer estado) {
-        this.setCategoriaId(id);
-        this.setNombre(nombre);
-        this.setEstado(estado);
-    }
+    private String nombre;
+
+    @Schema(description = "Estado de la Categoria (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

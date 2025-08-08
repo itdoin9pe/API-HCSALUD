@@ -1,24 +1,24 @@
 package com.saludsystem.submodules.catalogo.model.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class MedicamentoDTO extends com.saludsystem.submodules.catalogo.model.dto.command.MedicamentoCreateCommand {
+public class MedicamentoDTO {
+
     private UUID medicamentoId;
 
-    public MedicamentoDTO(
-            UUID id, String nombre, String formaFarmaceutica,
-            String concentracion, String contenido, Integer estado) {
-        this.setMedicamentoId(id);
-        this.setNombre(nombre);
-        this.setConcentracion(concentracion);
-        this.setContenido(contenido);
-        this.setEstado(estado);
-    }
+    private String nombre;
+    private String formaFarmaceutica;
+    private String concentracion;
+    private String contenido;
+
+    @Schema(example = "0")
+    private Integer estado;
+
 }
