@@ -5,7 +5,7 @@ import com.saludsystem.submodules.paciente.model.dtos.command.edit.estadocuenta.
 import com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta.CostoHospitalizacionDTO;
 import com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta.DetalleMedicamentoEstudioDTO;
 import com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta.EstadoCuentaDTO;
-import com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta.PagoDTO;
+import com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta.EPagoDTO;
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.CostoHospitalizacion;
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.DetalleMedicamentoEstudio;
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.EstadoCuenta;
@@ -98,10 +98,10 @@ public class EstadoCuentaMapper {
                 .toList();
     }
 
-    private List<PagoDTO> mapPagos(List<EPago> list) {
+    private List<EPagoDTO> mapPagos(List<EPago> list) {
         if (list == null) return Collections.emptyList();
         return list.stream()
-                .map(p -> new PagoDTO(
+                .map(p -> new EPagoDTO(
                         p.getPecPagoId(),
                         p.getPacEstadoCuentaId(),
                         p.getFechaPago(),

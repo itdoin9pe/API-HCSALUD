@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.paciente.response.estadocuenta;
 
-import com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta.PagoDTO;
+import com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta.EPagoDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import java.util.List;
 public class EPagoListResponse {
 
     @Schema(description = "Lista de pagos registrado en el historial del paciente")
-    private List<PagoDTO> data;
+    private List<EPagoDTO> data;
 
     @Schema(description = "Numero total de registros de pagos en el historial del paciente", example = "0")
     private long totalData;
