@@ -5,7 +5,7 @@ import java.util.UUID;
 import com.saludsystem.submodules.movimiento.model.Almacen;
 import com.saludsystem.submodules.movimiento.model.dtos.AlmacenDTO;
 import com.saludsystem.submodules.movimiento.model.dtos.command.AlmacenCreateCommand;
-import com.saludsystem.submodules.movimiento.model.dtos.edit.AlmacenEditCommand;
+import com.saludsystem.submodules.movimiento.model.dtos.command.edit.AlmacenEditCommand;
 
 public class AlmacenMapper {
 

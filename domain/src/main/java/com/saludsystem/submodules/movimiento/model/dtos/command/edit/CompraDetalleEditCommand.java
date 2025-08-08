@@ -1,15 +1,17 @@
-package com.saludsystem.submodules.movimiento.model.dtos.edit;
+package com.saludsystem.submodules.movimiento.model.dtos.command.edit;
 
 import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = false)
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class CompraDetalleEditCommand extends BaseDTO {
 
     private UUID compraDetalleId;

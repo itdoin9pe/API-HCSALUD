@@ -5,10 +5,10 @@ import java.util.UUID;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class AlmacenCreateCommand {
 
     private String nombre;

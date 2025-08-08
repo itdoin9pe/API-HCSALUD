@@ -5,10 +5,10 @@ import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class VentaDetalleCreateCommand {
 
     private UUID productoId;

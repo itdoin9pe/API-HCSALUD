@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 import com.saludsystem.submodules.movimiento.mapper.AlmacenMapper;
-import com.saludsystem.submodules.movimiento.model.dtos.edit.AlmacenEditCommand;
+import com.saludsystem.submodules.movimiento.model.dtos.command.edit.AlmacenEditCommand;
 import com.saludsystem.submodules.movimiento.service.almacen.AlmacenEditService;
 
 @Component

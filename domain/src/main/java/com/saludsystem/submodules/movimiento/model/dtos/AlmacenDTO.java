@@ -5,19 +5,11 @@ import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class AlmacenDTO {
-
-    public AlmacenDTO(UUID almacenId, String nombre, Integer estado, UUID sedeId, UUID sucursalId) {
-		// TODO Auto-generated constructor stub
-    	this.setAlmacenId(almacenId);
-    	this.setNombre(nombre);
-    	this.setEstado(estado);
-    	this.setSedeId(sedeId);
-    	this.setSucursalId(sucursalId);
-	}
 
     private UUID almacenId;
     

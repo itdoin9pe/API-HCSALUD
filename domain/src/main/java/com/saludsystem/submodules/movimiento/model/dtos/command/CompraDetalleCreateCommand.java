@@ -6,10 +6,10 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class CompraDetalleCreateCommand {
 
     private UUID compraId;

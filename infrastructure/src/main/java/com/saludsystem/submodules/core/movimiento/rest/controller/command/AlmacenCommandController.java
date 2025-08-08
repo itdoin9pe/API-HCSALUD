@@ -11,7 +11,7 @@ import com.saludsystem.submodules.movimiento.command.delete.AlmacenDeleteHandler
 import com.saludsystem.submodules.movimiento.command.edit.AlmacenEditHandler;
 import com.saludsystem.submodules.movimiento.model.constant.AlmacenConstant;
 import com.saludsystem.submodules.movimiento.model.dtos.command.AlmacenCreateCommand;
-import com.saludsystem.submodules.movimiento.model.dtos.edit.AlmacenEditCommand;
+import com.saludsystem.submodules.movimiento.model.dtos.command.edit.AlmacenEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 
 @Tag(name = "Almacenes")

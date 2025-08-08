@@ -2,6 +2,7 @@ package com.saludsystem.submodules.movimiento.model.dtos;
 
 import com.saludsystem.submodules.movimiento.model.dtos.command.CompraDetalleCreateCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,9 +12,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class CompraDTO {
 
     private UUID compraId;
