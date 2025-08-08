@@ -1,5 +1,6 @@
 package com.saludsystem.submodules.paciente.model.dtos.get;
 
+import com.saludsystem.submodules.paciente.model.vo.paciente.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -47,6 +48,10 @@ public class PacienteDTO {
     @Schema(description = "ID del país (0 = inactivo, 1 = activo)", example = "1", type = "integer")
     private Integer paisId;
 
+    private String departamento;
+    private String provincia;
+    private String distrito;
+
     private String ubigeo;
 
     @NotNull(message = "El tipo de paciente no puede estar vacío")
@@ -82,5 +87,48 @@ public class PacienteDTO {
 
     @NotBlank(message = "El número de celular no puede estar vacío")
     private String celular;
+
+    public PacienteDTO(IdPaciente pacienteId, TipoDocumentoPaciente tipoDocumento, NumeroDocPaciente numeroDocumento,
+                       ApellidoPaciente apellidos, NombrePaciente nombres, FNacimientoPaciente fechaNacimiento,
+                       EdadPaciente edad, EstadoPaciente estado, OcupacionPaciente ocupacion,
+                       DireccionPaciente direccion, IdPaisPaciente paisId, DepartamentoPaciente departamento,
+                       ProvinciaPaciente provincia, DistritoPaciente distrito, UbigeoPaciente ubigeo,
+                       IdTipoPaciente tipoPacienteId, EstadoCivilPaciente estadoCivil, SexoPaciente sexo,
+                       NombreContactoPaciente nombreContacto, TipoHistoriaPaciente tipoHistoria,
+                       IdAseguradoraPaciente aseguradoraId, IdEmpresaPaciente empresaId, EmailPaciente email,
+                       FotoPaciente fotoPaciente, TituloPaciente titulo, ObservacionPaciente observacion,
+                       InformacionClinicaPaciente informacionClinicaId, IdEstudioPaciente estudioId,
+                       IdSedePaciente sedeId, CelularPaciente celular) {
+        this.setPacienteId(pacienteId.value());
+        this.setTipoDocumentoId(tipoDocumento.value());
+        this.setNumeroDocumento(numeroDocumento.value());
+        this.setApellidos(apellidos.value());
+        this.setNombres(nombres.value());
+        this.setFechaNacimiento(fechaNacimiento.value());
+        this.setEdad(edad.value());
+        this.setEstado(estado.value());
+        this.setOcupacion(ocupacion.value());
+        this.setDireccion(direccion.value());
+        this.setPaisId(paisId.value());
+        this.setDepartamento(departamento.value());
+        this.setProvincia(provincia.value());
+        this.setDistrito(distrito.value());
+        this.setUbigeo(ubigeo.value());
+        this.setTipoPacienteId(tipoPacienteId.value());
+        this.setEstadoCivil(estadoCivil.value());
+        this.setSexo(sexo.value());
+        this.setNombreContacto(nombreContacto.value());
+        this.setTipoHistoria(tipoHistoria.value());
+        this.setAseguradoraId(aseguradoraId.value());
+        this.setEmpresaId(empresaId.value());
+        this.setEmail(email.email());
+        this.setFotoPaciente(fotoPaciente.value());
+        this.setTitulo(titulo.value());
+        this.setObservacion(observacion.value());
+        this.setInformacionClinicaId(informacionClinicaId.value());
+        this.setEstudioId(estudioId.value());
+        this.setSedeId(sedeId.value());
+        this.setCelular(celular.value());
+    }
 
 }

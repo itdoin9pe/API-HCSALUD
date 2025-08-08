@@ -3,8 +3,6 @@ package com.saludsystem.submodules.paciente.model.dtos.command.edit;
 import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,40 +18,37 @@ public class PacienteEditCommand extends BaseDTO {
 
     private UUID pacienteId;
 
-    @NotBlank(message = "El tipo documento no puede estar vacío")
     private String tipoDocumentoId;
 
-    @NotBlank(message = "El número de documento no puede estar vacío")
     private String numeroDocumento;
 
-    @NotBlank(message = "Los apellidos del paciente no pueden estar vacíos")
     private String apellidos;
 
-    @NotBlank(message = "Los nombres del paciente no pueden estar vacíos")
     private String nombres;
 
-    @NotNull(message = "La fecha de nacimiento no puede estar vacía")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fechaNacimiento;
 
-    @Schema(description = "Edad (0 = inactivo, 1 = activo)", example = "1", type = "integer")
+    @Schema(example = "1", type = "integer")
     private Integer edad;
 
-    @NotNull(message = "El estado no puede estar vacío")
-    @Schema(description = "Estado del paciente (0 = inactivo, 1 = activo)", example = "1", type = "integer")
+    @Schema(example = "0", type = "integer")
     private Integer estado;
 
     private String ocupacion;
 
     private String direccion;
 
-    @Schema(description = "ID del país (0 = inactivo, 1 = activo)", example = "1", type = "integer")
+    @Schema(example = "1", type = "integer")
     private Integer paisId;
+
+    private String departamento;
+    private String provincia;
+    private String distrito;
 
     private String ubigeo;
 
-    @NotNull(message = "El tipo de paciente no puede estar vacío")
-    @Schema(description = "tipo paciente (0 = inactivo, 1 = activo)", example = "1", type = "integer")
+    @Schema(example = "1", type = "integer")
     private Long tipoPacienteId;
 
     private String estadoCivil;
@@ -83,7 +78,6 @@ public class PacienteEditCommand extends BaseDTO {
 
     private UUID sedeId;
 
-    @NotBlank(message = "El número de celular no puede estar vacío")
     private String celular;
 
 }
