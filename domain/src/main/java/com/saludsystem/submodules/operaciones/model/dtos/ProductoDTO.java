@@ -7,9 +7,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class ProductoDTO {
 
     private UUID productoId;

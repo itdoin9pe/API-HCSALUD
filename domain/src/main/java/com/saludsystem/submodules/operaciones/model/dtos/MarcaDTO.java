@@ -1,19 +1,21 @@
 package com.saludsystem.submodules.operaciones.model.dtos;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class MarcaDTO extends com.saludsystem.submodules.operaciones.model.dtos.command.MarcaCreateCommand {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class MarcaDTO {
 
     private UUID marcaId;
 
-    public MarcaDTO(UUID id, String nombre, Integer estado) {
-        this.setMarcaId(id);
-        this.setNombre(nombre);
-        this.setEstado(estado);
-    }
+    private String nombre;
+
+    @Schema(description = "Estado de marca", example = "0")
+    private Integer estado;
+
 }

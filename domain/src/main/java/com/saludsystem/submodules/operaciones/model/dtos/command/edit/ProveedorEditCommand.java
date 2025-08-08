@@ -1,13 +1,15 @@
 package com.saludsystem.submodules.operaciones.model.dtos.command.edit;
 
 import com.saludsystem.submodules.BaseDTO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = false)
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class ProveedorEditCommand extends BaseDTO {
 
     private UUID proveedorId;

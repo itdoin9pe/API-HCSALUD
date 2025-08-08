@@ -1,25 +1,25 @@
 package com.saludsystem.submodules.operaciones.model.dtos;
 
-import com.saludsystem.submodules.operaciones.model.dtos.command.UnidadCreateCommand;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class UnidadDTO extends UnidadCreateCommand {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class UnidadDTO {
 
     private UUID unidadId;
 
-    public UnidadDTO(UUID unidadId, String nombre, String siglas, String descripcion, Integer estado) {
+    private String nombre;
 
-        this.setUnidadId(unidadId);
-        this.setNombre(nombre);
-        this.setSiglas(siglas);
-        this.setDescripcion(descripcion);
-        this.setEstado(estado);
+    private String siglas;
 
-    }
+    private String descripcion;
+
+    @Schema(description = "Estado de la unidad", example = "0")
+    private Integer estado;
 
 }

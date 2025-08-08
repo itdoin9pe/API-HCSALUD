@@ -2,15 +2,17 @@ package com.saludsystem.submodules.operaciones.model.dtos.command.edit;
 
 import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = false)
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class ProductoEditCommand extends BaseDTO {
 
     private UUID productoId;

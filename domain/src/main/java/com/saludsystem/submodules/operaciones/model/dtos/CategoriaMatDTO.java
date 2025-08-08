@@ -1,21 +1,23 @@
 package com.saludsystem.submodules.operaciones.model.dtos;
 
-import com.saludsystem.submodules.operaciones.model.dtos.command.CategotiaMatCreateCommand;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class CategoriaMatDTO extends CategotiaMatCreateCommand {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class CategoriaMatDTO {
 
     private UUID categoriaMaterialId;
 
-    public CategoriaMatDTO(UUID categoriaMaterialId, String nombre, String descripcion, Integer estado) {
-        this.setCategoriaMaterialId(categoriaMaterialId);
-        this.setNombre(nombre);
-        this.setDescripcion(descripcion);
-        this.setEstado(estado);
-    }
+    private String nombre;
+
+    private String descripcion;
+
+    @Schema(description = "Estado de categorias materiales", example = "0")
+    private Integer estado;
+
 }

@@ -2,11 +2,13 @@ package com.saludsystem.submodules.operaciones.model.dtos.command.edit;
 
 import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 @EqualsAndHashCode(callSuper = false)
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class TipoMaterialEditCommand extends BaseDTO {
 
     private String nombre;

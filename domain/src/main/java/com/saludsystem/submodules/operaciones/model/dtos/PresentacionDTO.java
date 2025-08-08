@@ -1,20 +1,21 @@
 package com.saludsystem.submodules.operaciones.model.dtos;
 
-import com.saludsystem.submodules.operaciones.model.dtos.command.PresentacionCreateCommand;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class PresentacionDTO extends PresentacionCreateCommand {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class PresentacionDTO {
 
     private UUID presentacionId;
 
-    public PresentacionDTO(UUID id, String nombre, Integer estado) {
-        this.setPresentacionId(id);
-        this.setNombre(nombre);
-        this.setEstado(estado);
-    }
+    private String nombre;
+
+    @Schema(description = "Estado de presentacion", example = "0")
+    private Integer estado;
+
 }

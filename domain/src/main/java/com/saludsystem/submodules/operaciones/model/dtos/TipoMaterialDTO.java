@@ -1,24 +1,23 @@
 package com.saludsystem.submodules.operaciones.model.dtos;
 
-import com.saludsystem.submodules.operaciones.model.dtos.command.TipoMaterialCreateCommand;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class TipoMaterialDTO extends TipoMaterialCreateCommand {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class TipoMaterialDTO {
 
     private UUID tipoMaterialId;
 
-    public TipoMaterialDTO(UUID tipoMaterialId, String nombre, String descripcion, Integer estado) {
+    private String nombre;
 
-        this.setTipoMaterialId(tipoMaterialId);
-        this.setNombre(nombre);
-        this.setDescripcion(descripcion);
-        this.setEstado(estado);
+    private String descripcion;
 
-    }
+    @Schema(description = "Estado del tipo de material", example = "0")
+    private Integer estado;
 
 }

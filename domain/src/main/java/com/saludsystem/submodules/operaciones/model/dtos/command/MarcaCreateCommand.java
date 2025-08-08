@@ -1,9 +1,12 @@
 package com.saludsystem.submodules.operaciones.model.dtos.command;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class MarcaCreateCommand {
 
     private String nombre;

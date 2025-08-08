@@ -1,13 +1,16 @@
 package com.saludsystem.submodules.operaciones.model.dtos.command;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class ProductoCreateCommand {
 
     private UUID marcaMaterialesId;
