@@ -2,7 +2,7 @@ package com.saludsystem.submodules.paciente.command.create.estadocuenta;
 
 import com.saludsystem.submodules.paciente.mapper.estadocuenta.EPagoMapper;
 import com.saludsystem.submodules.paciente.model.dtos.command.create.estadocuenta.EPagoCreateCommand;
-import com.saludsystem.submodules.paciente.service.historia.estadocuenta.epago.EPagoCreateService;
+import com.saludsystem.submodules.paciente.service.historia.estadocuenta.estadopago.EPagoCreateService;
 import org.springframework.stereotype.Component;
 
 @Component

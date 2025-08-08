@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.paciente.service.historia.estadocuenta.epago;
+package com.saludsystem.submodules.paciente.service.historia.estadocuenta.estadopago;
 
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.EPago;
 import com.saludsystem.submodules.paciente.port.repository.estadocuenta.EPagoRepository;

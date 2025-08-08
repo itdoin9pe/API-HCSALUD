@@ -2,7 +2,7 @@ package com.saludsystem.submodules.paciente.command.edit.estadocuenta;
 
 import com.saludsystem.submodules.paciente.mapper.estadocuenta.EPagoMapper;
 import com.saludsystem.submodules.paciente.model.dtos.command.edit.estadocuenta.EPagoEditCommand;
-import com.saludsystem.submodules.paciente.service.historia.estadocuenta.epago.EPagoEditService;
+import com.saludsystem.submodules.paciente.service.historia.estadocuenta.estadopago.EPagoEditService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

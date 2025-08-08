@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.paciente.command.delete.estadocuenta;
 
-import com.saludsystem.submodules.paciente.service.historia.estadocuenta.epago.EPagoDeleteService;
+import com.saludsystem.submodules.paciente.service.historia.estadocuenta.estadopago.EPagoDeleteService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

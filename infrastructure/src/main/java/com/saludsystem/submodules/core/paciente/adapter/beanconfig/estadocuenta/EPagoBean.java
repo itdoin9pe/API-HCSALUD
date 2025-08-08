@@ -3,9 +3,9 @@ package com.saludsystem.submodules.core.paciente.adapter.beanconfig.estadocuenta
 import com.saludsystem.submodules.paciente.mapper.estadocuenta.EPagoMapper;
 import com.saludsystem.submodules.paciente.port.dao.estadocuenta.EPagoDao;
 import com.saludsystem.submodules.paciente.port.repository.estadocuenta.EPagoRepository;
-import com.saludsystem.submodules.paciente.service.historia.estadocuenta.epago.EPagoCreateService;
-import com.saludsystem.submodules.paciente.service.historia.estadocuenta.epago.EPagoDeleteService;
-import com.saludsystem.submodules.paciente.service.historia.estadocuenta.epago.EPagoEditService;
+import com.saludsystem.submodules.paciente.service.historia.estadocuenta.estadopago.EPagoCreateService;
+import com.saludsystem.submodules.paciente.service.historia.estadocuenta.estadopago.EPagoDeleteService;
+import com.saludsystem.submodules.paciente.service.historia.estadocuenta.estadopago.EPagoEditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
