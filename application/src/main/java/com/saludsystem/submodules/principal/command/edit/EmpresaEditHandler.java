@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.principal.command.edit;
 
 import com.saludsystem.submodules.principal.mapper.EmpresaMapper;
-import com.saludsystem.submodules.principal.model.dtos.edit.EmpresaEditCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.EmpresaEditCommand;
 import com.saludsystem.submodules.principal.service.empresa.EmpresaEditService;
 import org.springframework.stereotype.Component;
 

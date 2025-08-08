@@ -1,13 +1,13 @@
-package com.saludsystem.submodules.principal.model.dtos.edit;
+package com.saludsystem.submodules.principal.model.dtos.command.edit;
 
 import com.saludsystem.submodules.BaseDTO;
 import lombok.*;
 
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 public class TipoPacienteEditCommand extends BaseDTO {
 
     private Long tipoPacienteId;

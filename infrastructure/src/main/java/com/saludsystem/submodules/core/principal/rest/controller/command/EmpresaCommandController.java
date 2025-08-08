@@ -5,7 +5,7 @@ import com.saludsystem.submodules.principal.command.create.EmpresaCreateHandler;
 import com.saludsystem.submodules.principal.command.delete.EmpresaDeleteHandler;
 import com.saludsystem.submodules.principal.command.edit.EmpresaEditHandler;
 import com.saludsystem.submodules.principal.model.dtos.command.EmpresaCreateCommand;
-import com.saludsystem.submodules.principal.model.dtos.edit.EmpresaEditCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.EmpresaEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

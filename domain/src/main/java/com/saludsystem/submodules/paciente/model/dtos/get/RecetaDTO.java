@@ -7,9 +7,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class RecetaDTO {
 
     private UUID pacienteRecetaId;
@@ -27,14 +28,4 @@ public class RecetaDTO {
 
     private List<MedicamentoRecetadoDTO> medicamentos;
 
-    public RecetaDTO(UUID pacienteRecetaId, LocalDate fecha, UUID doctorId, UUID pacienteId,
-                     String observaciones, Integer estado, List<MedicamentoRecetadoDTO> dtoList) {
-        this.setPacienteRecetaId(pacienteRecetaId);
-        this.setFecha(fecha);
-        this.setDoctorId(doctorId);
-        this.setPacienteId(pacienteId);
-        this.setObservaciones(observaciones);
-        this.setEstado(estado);
-        this.setMedicamentos(dtoList);
-    }
 }

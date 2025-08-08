@@ -4,9 +4,10 @@ import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class AntecedenteDTO {
 
     private UUID pacEnfermedadActualId;

@@ -5,9 +5,10 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class PlanTratamientoDTO {
 
     private UUID pacientePlanTratamientoId;

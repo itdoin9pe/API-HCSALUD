@@ -5,9 +5,10 @@ import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class AlergiaDTO {
 
     private UUID alergiaId;
@@ -17,9 +18,5 @@ public class AlergiaDTO {
     @Schema(description = "Estado (0=Inactivo, 1=Activo)", example = "1")
     private Integer estado;
 
-    public AlergiaDTO(UUID id, String nombre, Integer estado) {
-        this.setAlergiaId(id);
-        this.setNombre(nombre);
-        this.setEstado(estado);
-    }
+
 }

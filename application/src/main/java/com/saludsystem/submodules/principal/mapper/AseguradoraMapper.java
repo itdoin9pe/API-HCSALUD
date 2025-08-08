@@ -2,7 +2,7 @@ package com.saludsystem.submodules.principal.mapper;
 
 import com.saludsystem.submodules.principal.model.dtos.AseguradoraDTO;
 import com.saludsystem.submodules.principal.model.dtos.command.AseguradoraCreateCommand;
-import com.saludsystem.submodules.principal.model.dtos.edit.AseguradoraEditCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.AseguradoraEditCommand;
 import com.saludsystem.submodules.principal.model.Aseguradora;
 
 import java.util.UUID;

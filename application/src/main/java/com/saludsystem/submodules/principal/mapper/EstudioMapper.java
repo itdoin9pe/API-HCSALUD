@@ -3,7 +3,7 @@ package com.saludsystem.submodules.principal.mapper;
 import com.saludsystem.submodules.principal.model.Estudio;
 import com.saludsystem.submodules.principal.model.dtos.EstudioDTO;
 import com.saludsystem.submodules.principal.model.dtos.command.EstudioCreateCommand;
-import com.saludsystem.submodules.principal.model.dtos.edit.EstudioEditCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.EstudioEditCommand;
 
 import java.util.UUID;
 

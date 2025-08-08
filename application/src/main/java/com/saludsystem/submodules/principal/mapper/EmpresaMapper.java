@@ -3,7 +3,7 @@ package com.saludsystem.submodules.principal.mapper;
 import com.saludsystem.submodules.principal.model.Empresa;
 import com.saludsystem.submodules.principal.model.dtos.EmpresaDTO;
 import com.saludsystem.submodules.principal.model.dtos.command.EmpresaCreateCommand;
-import com.saludsystem.submodules.principal.model.dtos.edit.EmpresaEditCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.EmpresaEditCommand;
 
 import java.util.UUID;
 

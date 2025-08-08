@@ -3,7 +3,7 @@ package com.saludsystem.submodules.principal.mapper;
 import com.saludsystem.submodules.principal.model.TipoPaciente;
 import com.saludsystem.submodules.principal.model.dtos.TipoPacienteDTO;
 import com.saludsystem.submodules.principal.model.dtos.command.TipoPacienteCreateCommand;
-import com.saludsystem.submodules.principal.model.dtos.edit.TipoPacienteEditCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.TipoPacienteEditCommand;
 
 public class TipoPacienteMapper {
 

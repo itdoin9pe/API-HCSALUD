@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.principal.command.edit;
 
 import com.saludsystem.submodules.principal.mapper.TipoPacienteMapper;
-import com.saludsystem.submodules.principal.model.dtos.edit.TipoPacienteEditCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.TipoPacienteEditCommand;
 import com.saludsystem.submodules.principal.service.tipopaciente.TipoPacienteEditService;
 import org.springframework.stereotype.Component;
 

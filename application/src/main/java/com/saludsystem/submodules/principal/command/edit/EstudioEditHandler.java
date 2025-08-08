@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.principal.command.edit;
 
 import com.saludsystem.submodules.principal.mapper.EstudioMapper;
-import com.saludsystem.submodules.principal.model.dtos.edit.EstudioEditCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.EstudioEditCommand;
 import com.saludsystem.submodules.principal.service.estudio.EstudioEditService;
 import org.springframework.stereotype.Component;
 

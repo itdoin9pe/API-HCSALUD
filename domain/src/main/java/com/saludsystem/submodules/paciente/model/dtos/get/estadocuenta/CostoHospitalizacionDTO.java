@@ -6,9 +6,10 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class CostoHospitalizacionDTO {
 
     private UUID pecCostoHospitalizacionId;
@@ -31,19 +32,5 @@ public class CostoHospitalizacionDTO {
 
     @Schema(example = "0")
     private Double totalCosto;
-
-    public CostoHospitalizacionDTO(UUID pecCostoHospitalizacionId, UUID estadoCuentaId, UUID pacienteId,
-                                   LocalDate fechaIngreso, LocalDate fechaAlta, String tipoHabitacion,
-                                   Double costoPorDia, Integer cantidadDias, Double totalCosto) {
-        this.setPecCostoHospitalizacionId(pecCostoHospitalizacionId);
-        this.setPacEstadoCuentaId(estadoCuentaId);
-        this.setPacienteId(pacienteId);
-        this.setFechaIngreso(fechaIngreso);
-        this.setFechaAlta(fechaAlta);
-        this.setTipoHabitacion(tipoHabitacion);
-        this.setCostoPorDia(costoPorDia);
-        this.setCantidadDias(cantidadDias);
-        this.setTotalCosto(totalCosto);
-    }
 
 }

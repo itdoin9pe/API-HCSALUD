@@ -6,9 +6,10 @@ import lombok.*;
 import java.util.Date;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class EstadoCuentaDTO {
 
     private UUID pacEstadoCuentaId;

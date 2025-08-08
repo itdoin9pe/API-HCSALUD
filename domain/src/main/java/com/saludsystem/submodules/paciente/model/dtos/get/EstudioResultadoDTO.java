@@ -3,11 +3,10 @@ package com.saludsystem.submodules.paciente.model.dtos.get;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class EstudioResultadoDTO {
 
     @Schema(example = "Integer")
@@ -19,14 +18,5 @@ public class EstudioResultadoDTO {
 
     @Schema(example = "Integer")
     private Long pacienteEstudioMedicoId;
-
-    private LocalDateTime createdAt;
-
-    public EstudioResultadoDTO(Long id, String reporteTexto, String urlImg, Long estudioMedicoId) {
-        this.setPacienteEstudioResultadoId(id);
-        this.setReporteTexto(reporteTexto);
-        this.setUrlImg(urlImg);
-        this.setPacienteEstudioMedicoId(estudioMedicoId);
-    }
 
 }

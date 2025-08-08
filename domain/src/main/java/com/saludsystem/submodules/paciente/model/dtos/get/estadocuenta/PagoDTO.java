@@ -6,9 +6,10 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class PagoDTO {
 
     private UUID pecPagoId;

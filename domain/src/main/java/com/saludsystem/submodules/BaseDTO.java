@@ -1,10 +1,13 @@
 package com.saludsystem.submodules;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public abstract class BaseDTO {
     private UUID hospitalId;
     private UUID userId;

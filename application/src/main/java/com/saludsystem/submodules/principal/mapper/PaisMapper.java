@@ -3,7 +3,7 @@ package com.saludsystem.submodules.principal.mapper;
 import com.saludsystem.submodules.principal.model.Pais;
 import com.saludsystem.submodules.principal.model.dtos.PaisDTO;
 import com.saludsystem.submodules.principal.model.dtos.command.PaisCreateCommand;
-import com.saludsystem.submodules.principal.model.dtos.edit.PaisEditCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.PaisEditCommand;
 
 public class PaisMapper {
 

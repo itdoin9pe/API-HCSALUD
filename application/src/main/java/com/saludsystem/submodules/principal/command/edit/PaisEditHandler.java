@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.principal.command.edit;
 
 import com.saludsystem.submodules.principal.mapper.PaisMapper;
-import com.saludsystem.submodules.principal.model.dtos.edit.PaisEditCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.PaisEditCommand;
 import com.saludsystem.submodules.principal.service.pais.PaisEditService;
 import org.springframework.stereotype.Component;
 

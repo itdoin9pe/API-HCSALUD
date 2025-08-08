@@ -5,9 +5,10 @@ import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class AseguradoraDTO {
 
     private UUID aseguradoraId;
@@ -16,11 +17,5 @@ public class AseguradoraDTO {
 
     @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
     private Integer estado;
-
-    public AseguradoraDTO(UUID aseguradoraId, String descripcion, Integer estado) {
-        this.setAseguradoraId(aseguradoraId);
-        this.setDescripcion(descripcion);
-        this.setEstado(estado);
-    }
 
 }

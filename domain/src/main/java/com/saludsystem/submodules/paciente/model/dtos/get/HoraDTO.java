@@ -1,9 +1,12 @@
 package com.saludsystem.submodules.paciente.model.dtos.get;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class HoraDTO {
 
     @Schema(example = "0")

@@ -38,9 +38,9 @@ public class RecetaMapper {
     public RecetaDTO toDto(Receta model) {
         return new RecetaDTO(
                 model.getPacienteRecetaId(),
-                model.getFecha(),
                 model.getDoctorId(),
                 model.getPacienteId(),
+                model.getFecha(),
                 model.getObservaciones(),
                 model.getEstado(),
                 medicamentoMapper.toDtoList(model.getMedicamentosRecetados())

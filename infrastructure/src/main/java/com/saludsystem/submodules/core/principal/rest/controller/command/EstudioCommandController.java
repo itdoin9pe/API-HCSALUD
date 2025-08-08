@@ -5,7 +5,7 @@ import com.saludsystem.submodules.principal.command.delete.EstudioDeleteHandler;
 import com.saludsystem.submodules.principal.command.edit.EstudioEditHandler;
 import com.saludsystem.submodules.principal.model.constant.EstudioConstant;
 import com.saludsystem.submodules.principal.model.dtos.command.EstudioCreateCommand;
-import com.saludsystem.submodules.principal.model.dtos.edit.EstudioEditCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.EstudioEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

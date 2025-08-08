@@ -2,10 +2,10 @@ package com.saludsystem.submodules.principal.model.dtos.command;
 
 import lombok.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class TipoPacienteCreateCommand {
     private String nombre;
 }

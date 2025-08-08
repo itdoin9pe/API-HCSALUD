@@ -16,9 +16,9 @@ public class RecetaCreateCommand {
 
     private UUID pacienteId;
 
-    private UUID doctorId;
-
     private LocalDate fecha;
+
+    private UUID doctorId;
 
     private String observaciones;
 

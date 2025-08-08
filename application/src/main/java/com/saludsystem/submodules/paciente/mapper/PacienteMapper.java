@@ -82,15 +82,17 @@ public class PacienteMapper {
     }
 
     public PacienteDTO toDto(Paciente model) {
-        return new PacienteDTO(model.getPacienteId(), model.getTipoDocumento(), model.getNumeroDocumento(),
-                model.getApellidos(), model.getNombres(), model.getFechaNacimiento(),
-                model.getEdad(), model.getEstado(), model.getOcupacion(), model.getDireccion(),
-                model.getPaisId(), model.getDepartamento(), model.getProvincia(), model.getDistrito(),
-                model.getUbigeo(), model.getTipoPacienteId(), model.getEstadoCivil(), model.getSexo(),
-                model.getNombreContacto(), model.getTipoHistoria(), model.getAseguradoraId(),
-                model.getEmpresaId(), model.getEmail(), model.getFotoPaciente(), model.getTitulo(),
-                model.getObservacion(), model.getInformacionClinicaId(), model.getEstudioId(),
-                model.getSedeId(), model.getCelular());
+        return new PacienteDTO(model.getPacienteId().value(), model.getTipoDocumento().value(),
+                model.getNumeroDocumento().value(), model.getApellidos().value(), model.getNombres().value(),
+                model.getFechaNacimiento().value(), model.getEdad().value(), model.getEstado().value(),
+                model.getOcupacion().value(), model.getDireccion().value(), model.getPaisId().value(),
+                model.getDepartamento().value(), model.getProvincia().value(), model.getDistrito().value(),
+                model.getUbigeo().value(), model.getTipoPacienteId().value(), model.getEstadoCivil().value(),
+                model.getSexo().value(), model.getNombreContacto().value(), model.getTipoHistoria().value(),
+                model.getAseguradoraId().value(), model.getEmpresaId().value(), model.getEmail().email(),
+                model.getFotoPaciente().value(), model.getTitulo().value(), model.getObservacion().value(),
+                model.getInformacionClinicaId().value(), model.getEstudioId().value(), model.getSedeId().value(),
+                model.getCelular().value());
     }
 
 }

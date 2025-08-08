@@ -6,7 +6,7 @@ import com.saludsystem.submodules.principal.command.delete.PaisDeleteHandler;
 import com.saludsystem.submodules.principal.command.edit.PaisEditHandler;
 import com.saludsystem.submodules.principal.model.constant.PaisConstant;
 import com.saludsystem.submodules.principal.model.dtos.command.PaisCreateCommand;
-import com.saludsystem.submodules.principal.model.dtos.edit.PaisEditCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.PaisEditCommand;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

@@ -6,9 +6,10 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class NotaDTO {
 
     @Schema(description = "ID de la evolucion del paciente", example = "Integer")

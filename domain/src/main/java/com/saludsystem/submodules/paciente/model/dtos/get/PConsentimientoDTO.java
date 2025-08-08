@@ -6,9 +6,10 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class PConsentimientoDTO {
 
     private UUID pacienteConsentimientoId;
@@ -36,6 +37,7 @@ public class PConsentimientoDTO {
 
     private byte[] firma;
 
+    /*
     public PConsentimientoDTO(UUID pacienteConsentimientoId, UUID pacienteId, UUID consentimientoId, String cuerpo,
                               LocalDate fecha, HoraDTO horaDTO, String apoderadoNombre, String apoderadoDocumento,
                               String apoderadoDireccion, UUID doctorId, Integer estado, byte[] firma) {
@@ -51,6 +53,6 @@ public class PConsentimientoDTO {
         this.doctorId = doctorId;
         this.estado = estado;
         this.firma = firma;
-    }
+    }*/
 
 }

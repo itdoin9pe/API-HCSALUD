@@ -5,8 +5,6 @@ import com.saludsystem.submodules.paciente.model.dtos.command.edit.EstudioMedico
 import com.saludsystem.submodules.paciente.model.dtos.get.EstudioMedicoDTO;
 import com.saludsystem.submodules.paciente.model.entity.EstudioMedico;
 
-import java.util.UUID;
-
 public class EstudioMedicoMapper {
 
     public EstudioMedico fromCreateDto(EstudioMedicoCreateCommand createCommand) {
@@ -29,6 +27,7 @@ public class EstudioMedicoMapper {
 
         return new EstudioMedicoDTO(
                 model.getId(),
+                model.getTipo(),
                 model.getDescripcion(),
                 model.getEstado(),
                 model.getPacienteId(),
