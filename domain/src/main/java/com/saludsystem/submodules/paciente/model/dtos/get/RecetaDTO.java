@@ -27,4 +27,14 @@ public class RecetaDTO {
 
     private List<MedicamentoRecetadoDTO> medicamentos;
 
+    public RecetaDTO(UUID pacienteRecetaId, LocalDate fecha, UUID doctorId, UUID pacienteId,
+                     String observaciones, Integer estado, List<MedicamentoRecetadoDTO> dtoList) {
+        this.setPacienteRecetaId(pacienteRecetaId);
+        this.setFecha(fecha);
+        this.setDoctorId(doctorId);
+        this.setPacienteId(pacienteId);
+        this.setObservaciones(observaciones);
+        this.setEstado(estado);
+        this.setMedicamentos(dtoList);
+    }
 }

@@ -5,7 +5,9 @@ import com.saludsystem.submodules.paciente.model.dtos.command.edit.MedicamentoRe
 import com.saludsystem.submodules.paciente.model.dtos.get.MedicamentoRecetadoDTO;
 import com.saludsystem.submodules.paciente.model.entity.MedicamentoRecetado;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class MedicamentoRecetadoMapper {
 
@@ -21,6 +23,18 @@ public class MedicamentoRecetadoMapper {
                 editCommand.getFrecuencia(), editCommand.getDuracionDias(), editCommand.getIndicaciones());
     }
 
+    public MedicamentoRecetado fromDto(MedicamentoRecetadoDTO dto) {
+        return new MedicamentoRecetado(
+                dto.getMedicamentoRecetadoId(),
+                dto.getPacienteRecetaId(),
+                dto.getMedicamentoId(),
+                dto.getDosis(),
+                dto.getFrecuencia(),
+                dto.getDuracionDias(),
+                dto.getIndicaciones()
+        );
+    }
+
     public MedicamentoRecetadoDTO toDto(MedicamentoRecetado model) {
         return new MedicamentoRecetadoDTO(
                 model.getId(),
@@ -32,5 +46,14 @@ public class MedicamentoRecetadoMapper {
                 model.getIndicaciones());
     }
 
+    public List<MedicamentoRecetado> fromDtoList(List<MedicamentoRecetadoDTO> dtos) {
+        return dtos == null ? null :
+                dtos.stream().map(this::fromDto).collect(Collectors.toList());
+    }
+
+    public List<MedicamentoRecetadoDTO> toDtoList(List<MedicamentoRecetado> entities) {
+        return entities == null ? null :
+                entities.stream().map(this::toDto).collect(Collectors.toList());
+    }
 
 }
