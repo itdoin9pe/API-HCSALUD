@@ -7,7 +7,7 @@ import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.CostoHospitalizacion;
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.DetalleMedicamentoEstudio;
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.EstadoCuenta;
-import com.saludsystem.submodules.paciente.model.entity.estadocuenta.Pago;
+import com.saludsystem.submodules.paciente.model.entity.estadocuenta.EPago;
 
 import java.util.Collections;
 import java.util.List;
@@ -79,7 +79,7 @@ public class EstadoCuentaDboMapper {
         return Collections.emptyList();
     }
 
-    private static List<Pago> mapPagos(List<?> list) {
+    private static List<EPago> mapPagos(List<?> list) {
         // TODO: implementar usando PagoDboMapper
         return Collections.emptyList();
     }

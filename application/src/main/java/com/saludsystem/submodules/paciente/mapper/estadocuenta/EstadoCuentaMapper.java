@@ -6,11 +6,10 @@ import com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta.CostoHosp
 import com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta.DetalleMedicamentoEstudioDTO;
 import com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta.EstadoCuentaDTO;
 import com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta.PagoDTO;
-import com.saludsystem.submodules.paciente.model.entity.Paciente;
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.CostoHospitalizacion;
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.DetalleMedicamentoEstudio;
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.EstadoCuenta;
-import com.saludsystem.submodules.paciente.model.entity.estadocuenta.Pago;
+import com.saludsystem.submodules.paciente.model.entity.estadocuenta.EPago;
 
 import java.util.Collections;
 import java.util.List;
@@ -62,7 +61,7 @@ public class EstadoCuentaMapper {
                 model.getSaldoPendiente(),
                 mapCostosHospitalizacion(model.getCostosHospitalizacion()),
                 mapDetallesMedicamentosEstudios(model.getDetallesMedicamentosEstudios()),
-                mapPagos(model.getPagos())
+                mapPagos(model.getEPagos())
         );
     }
 
@@ -99,7 +98,7 @@ public class EstadoCuentaMapper {
                 .toList();
     }
 
-    private List<PagoDTO> mapPagos(List<Pago> list) {
+    private List<PagoDTO> mapPagos(List<EPago> list) {
         if (list == null) return Collections.emptyList();
         return list.stream()
                 .map(p -> new PagoDTO(

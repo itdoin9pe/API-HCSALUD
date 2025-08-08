@@ -22,6 +22,6 @@ public class EstadoCuenta {
 
     private List<CostoHospitalizacion> costosHospitalizacion;
     private List<DetalleMedicamentoEstudio> detallesMedicamentosEstudios;
-    private List<Pago> pagos;
+    private List<EPago> EPagos;
 
 }

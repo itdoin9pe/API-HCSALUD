@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class Pago {
+public class EPago {
 
     private UUID pecPagoId;
     private UUID pacEstadoCuentaId;
