@@ -37,8 +37,9 @@ public class DoctorQueryController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = DoctorListResponse.class)))
     })
-    public ListResponse<DoctorDTO> getAllDoctor(@RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-                                                @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
+    public ListResponse<DoctorDTO> getAllDoctor(
+            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
+            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
         return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 

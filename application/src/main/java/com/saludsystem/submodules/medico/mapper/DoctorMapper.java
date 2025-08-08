@@ -58,12 +58,12 @@ public class DoctorMapper {
     }
 
     public DoctorDTO toDto(Doctor model) {
-        return new DoctorDTO(model.getId(), model.getTipoDocumento(), model.getNumeroDocumento(),
-                model.getApellidos(), model.getNombres(), model.getDireccion(), model.getCorreo(),
-                model.getAbreviatura(), model.getRne(), model.getFechaNacimiento(), model.getCelular(),
-                model.getTelefono(), model.getSexo(), model.getEspecialidadId(), model.getColegiatura(),
-                model.getColor(), model.getEstado(), model.getFotoDoctor(),
-                model.getFotoFirma());
+        return new DoctorDTO(model.getId().value(), model.getTipoDocumento().value(),
+                model.getNumeroDocumento().value(), model.getApellidos().value(), model.getNombres().value(),
+                model.getDireccion().value(), model.getCorreo().value(), model.getAbreviatura(), model.getRne().value(),
+                model.getFechaNacimiento(), model.getCelular().value(), model.getTelefono().value(), model.getSexo(),
+                model.getEspecialidadId().value(), model.getColegiatura().value(), model.getColor(), model.getEstado(),
+                model.getFotoDoctor(), model.getFotoFirma());
     }
 
 }

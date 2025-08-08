@@ -2,14 +2,16 @@ package com.saludsystem.submodules.medico.model.dtos;
 
 import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = false)
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class DoctorEditCommand extends BaseDTO {
 
     private UUID doctorId;

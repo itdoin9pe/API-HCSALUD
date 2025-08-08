@@ -1,11 +1,15 @@
 package com.saludsystem.submodules.medico.model.dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.*;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class DoctorCreateCommand {
 
     private String tipoDocumento;
