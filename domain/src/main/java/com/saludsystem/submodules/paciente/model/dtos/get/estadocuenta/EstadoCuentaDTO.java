@@ -35,6 +35,6 @@ public class EstadoCuentaDTO {
 
     private List<CostoHospitalizacionDTO> costosHospitalizacion;
     private List<DetalleMedicamentoEstudioDTO> detallesMedicamentosEstudios;
-    private List<PagoDTO> pagos;
+    private List<EPagoDTO> pagos;
 
 }
