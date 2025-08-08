@@ -32,4 +32,18 @@ public class CostoHospitalizacionDTO {
     @Schema(example = "0")
     private Double totalCosto;
 
+    public CostoHospitalizacionDTO(UUID pecCostoHospitalizacionId, UUID estadoCuentaId, UUID pacienteId,
+                                   LocalDate fechaIngreso, LocalDate fechaAlta, String tipoHabitacion,
+                                   Double costoPorDia, Integer cantidadDias, Double totalCosto) {
+        this.setPecCostoHospitalizacionId(pecCostoHospitalizacionId);
+        this.setPacEstadoCuentaId(estadoCuentaId);
+        this.setPacienteId(pacienteId);
+        this.setFechaIngreso(fechaIngreso);
+        this.setFechaAlta(fechaAlta);
+        this.setTipoHabitacion(tipoHabitacion);
+        this.setCostoPorDia(costoPorDia);
+        this.setCantidadDias(cantidadDias);
+        this.setTotalCosto(totalCosto);
+    }
+
 }
