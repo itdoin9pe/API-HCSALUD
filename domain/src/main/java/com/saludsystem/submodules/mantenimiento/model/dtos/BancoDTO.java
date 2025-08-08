@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.mantenimiento.model.dtos;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.command.BancoCreateCommand;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class BancoDTO extends BancoCreateCommand {
+@Getter
+@Setter
+public class BancoDTO {
+
     private UUID bancoId;
 
-    public BancoDTO(UUID id, String descripcion, Integer estado) {
-        this.setBancoId(id);
-        this.setDescripcion(descripcion);
-        this.setEstado(estado);
-    }
+    private String descripcion;
+
+    @Schema(description = "Estado de Banco (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

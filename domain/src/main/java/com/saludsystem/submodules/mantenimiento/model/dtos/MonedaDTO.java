@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.mantenimiento.model.dtos;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.command.MonedaCreateCommand;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor@EqualsAndHashCode(callSuper = false)
-public class MonedaDTO extends MonedaCreateCommand {
+public class MonedaDTO {
 
     private UUID monedaId;
 
-    public MonedaDTO(UUID id, String descripcion, Integer estado) {
-        this.setMonedaId(id);
-        this.setDescripcion(descripcion);
-        this.setEstado(estado);
-    }
+    private String descripcion;
+
+    @Schema(description = "Estado del tipo de moneda (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

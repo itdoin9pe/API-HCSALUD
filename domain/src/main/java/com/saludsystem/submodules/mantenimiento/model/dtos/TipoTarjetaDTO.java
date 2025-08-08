@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.mantenimiento.model.dtos;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.command.TipoTarjetaCreateCommand;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor@EqualsAndHashCode(callSuper = false)
-public class TipoTarjetaDTO extends TipoTarjetaCreateCommand {
+public class TipoTarjetaDTO {
 
     private UUID tipoTarjetaId;
 
-    public TipoTarjetaDTO(UUID tipoTarjetaId, String descripcion, Integer estado) {
-        this.setTipoTarjetaId(tipoTarjetaId);
-        this.setDescripcion(descripcion);
-        this.setEstado(estado);
-    }
+    private String descripcion;
+
+    @Schema(description = "Estado de Tipo de tarjeta (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

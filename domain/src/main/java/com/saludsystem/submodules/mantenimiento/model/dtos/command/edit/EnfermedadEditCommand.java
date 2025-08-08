@@ -4,11 +4,11 @@ import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 public class EnfermedadEditCommand extends BaseDTO {
     private String enfermedadId;
     private String descripcion;

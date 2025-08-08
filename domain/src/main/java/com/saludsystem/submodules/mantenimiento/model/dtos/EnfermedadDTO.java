@@ -1,19 +1,19 @@
 package com.saludsystem.submodules.mantenimiento.model.dtos;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.command.EnfermedadCreateCommand;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class EnfermedadDTO extends EnfermedadCreateCommand {
+@Getter
+@Setter
+public class EnfermedadDTO {
+
     private String enfermedadId;
 
-    public EnfermedadDTO(String id, String descripcion, Integer estado) {
-        this.setEnfermedadId(id);
-        this.setDescripcion(descripcion);
-        this.setEstado(estado);
-    }
+    private String descripcion;
+
+    @Schema(description = "Estado de Diagnostico (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

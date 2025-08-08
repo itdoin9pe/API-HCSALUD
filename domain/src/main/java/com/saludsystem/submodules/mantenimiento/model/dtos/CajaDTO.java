@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.mantenimiento.model.dtos;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.command.CajaCreateCommand;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class CajaDTO extends CajaCreateCommand {
+@Getter
+@Setter
+public class CajaDTO {
+
     private UUID cajaId;
 
-    public CajaDTO(UUID id, String nombre, Integer estado) {
-        this.setCajaId(id);
-        this.setNombre(nombre);
-        this.setEstado(estado);
-    }
+    private String nombre;
+
+    @Schema(description = "Estado de Cajas (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

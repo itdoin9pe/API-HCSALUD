@@ -1,29 +1,34 @@
 package com.saludsystem.submodules.mantenimiento.model.dtos;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.command.TarifarioCreateCommand;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor@EqualsAndHashCode(callSuper = false)
-public class TarifarioDTO extends TarifarioCreateCommand {
+public class TarifarioDTO {
 
     private UUID tarifarioId;
 
-    public TarifarioDTO(UUID id, UUID tipoConceptoId, UUID categoriaId, UUID medidaId,
-                        UUID unidadId, String grupo, String descripcion, Double precio,
-                        Integer estado) {
-        this.setTarifarioId(id);
-        this.setTipoConceptoId(tipoConceptoId);
-        this.setCategoriaId(categoriaId);
-        this.setMedidaId(medidaId);
-        this.setUnidadId(unidadId);
-        this.setGrupo(grupo);
-        this.setDescripcion(descripcion);
-        this.setPrecio(precio);
-        this.setEstado(estado);
-    }
+    private UUID tipoConceptoId;
+
+    private UUID medidaId;
+
+    private UUID categoriaId;
+
+    private UUID unidadId;
+
+    private String grupo;
+
+    private String descripcion;
+
+    @Schema(description = "Precio del tarifario", example = "0")
+    private Double precio;
+
+    @Schema(description = "Estado del tarifario (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

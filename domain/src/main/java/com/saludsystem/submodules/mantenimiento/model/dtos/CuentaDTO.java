@@ -1,22 +1,24 @@
 package com.saludsystem.submodules.mantenimiento.model.dtos;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.command.CuentaCreateCommand;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class CuentaDTO extends CuentaCreateCommand {
+@Getter
+@Setter
+public class CuentaDTO {
+
     private UUID cuentaPagarId;
 
-    public CuentaDTO(UUID id, String nombre, Integer total, Integer estado) {
-        this.setCuentaPagarId(id);
-        this.setNombre(nombre);
-        this.setTotal(total);
-        this.setEstado(estado);
-    }
+    private String nombre;
+
+    @Schema(description = "Total de cuentas a pagar", example = "0")
+    private Integer total;
+
+    @Schema(description = "Estado de cuentas a pagar (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

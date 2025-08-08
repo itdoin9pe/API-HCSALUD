@@ -1,22 +1,23 @@
 package com.saludsystem.submodules.mantenimiento.model.dtos;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.command.TipoPagoCreateCommand;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor@EqualsAndHashCode(callSuper = false)
-public class TipoPagoDTO extends TipoPagoCreateCommand {
+public class TipoPagoDTO {
 
     private UUID tipoPagoId;
 
-    public TipoPagoDTO(UUID tipoPagoId, String descripcion, String metodoPago, Integer estado) {
-        this.setTipoPagoId(tipoPagoId);
-        this.setDescripcion(descripcion);
-        this.setMetodoPago(metodoPago);
-        this.setEstado(estado);
-    }
+    private String metodoPago;
+
+    private String descripcion;
+
+    @Schema(description = "Estado de Tipo de pago (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

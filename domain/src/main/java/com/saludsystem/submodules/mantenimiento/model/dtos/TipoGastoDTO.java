@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.mantenimiento.model.dtos;
 
-import com.saludsystem.submodules.mantenimiento.model.dtos.command.TipoGastoCreateCommand;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor@EqualsAndHashCode(callSuper = false)
-public class TipoGastoDTO extends TipoGastoCreateCommand {
+public class TipoGastoDTO {
 
     private UUID conceptoGastoId;
 
-    public TipoGastoDTO(UUID conceptoGastoId, String nombre, Integer estado) {
-        this.setConceptoGastoId(conceptoGastoId);
-        this.setNombre(nombre);
-        this.setEstado(estado);
-    }
+    private String nombre;
+
+    @Schema(description = "Estado de Tipos de gastos (0 = inactivo, 1 = activo)", example = "0")
+    private Integer estado;
+
 }

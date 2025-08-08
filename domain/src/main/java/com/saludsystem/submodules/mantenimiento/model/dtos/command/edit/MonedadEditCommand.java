@@ -6,11 +6,11 @@ import lombok.*;
 
 import java.util.UUID;
 
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 public class MonedadEditCommand extends BaseDTO {
 
     private UUID monedaId;
