@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.historialclinico.estadocuenta;
+package com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.estadocuenta;
 
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.estadocuenta.PagoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

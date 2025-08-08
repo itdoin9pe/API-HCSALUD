@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.paciente.adapter.jpa.out.dao.estadocuenta;
 
-import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.historialclinico.estadocuenta.CostoHospitalizacionJpaRepository;
+import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.estadocuenta.CostoHospitalizacionJpaRepository;
 import com.saludsystem.submodules.core.paciente.adapter.mapper.estadocuenta.CostoHospitalizacionDboMapper;
 import com.saludsystem.submodules.paciente.model.constant.estadocuenta.CostoHospitalizacionConstant;
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.CostoHospitalizacion;

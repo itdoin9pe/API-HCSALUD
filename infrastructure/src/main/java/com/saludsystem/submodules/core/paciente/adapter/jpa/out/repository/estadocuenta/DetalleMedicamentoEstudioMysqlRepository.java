@@ -2,7 +2,7 @@ package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository.esta
 
 import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.estadocuenta.DetalleMedicamentosEstudiosEntity;
-import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.historialclinico.estadocuenta.DetalleMedicamentoEstudioJpaRepository;
+import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.estadocuenta.DetalleMedicamentoEstudioJpaRepository;
 import com.saludsystem.submodules.core.paciente.adapter.mapper.estadocuenta.DetalleMedicamentoEstudioDboMapper;
 import com.saludsystem.submodules.paciente.model.constant.estadocuenta.DetalleMedicamentoEstudioConstant;
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.DetalleMedicamentoEstudio;

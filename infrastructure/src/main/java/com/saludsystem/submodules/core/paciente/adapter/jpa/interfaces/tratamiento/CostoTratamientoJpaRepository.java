@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.historialclinico.tratamiento;
+package com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.tratamiento;
 
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.tratamiento.CostoTratamientoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

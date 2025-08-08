@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.historialclinico.evolucion;
+package com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.evolucion;
 
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.evolucion.NotaEntity;
 import org.springframework.data.domain.Page;
