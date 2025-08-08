@@ -13,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter @Setter
 @EqualsAndHashCode(callSuper = true)
-public class PagoEntity extends BaseEntity {
+public class EPagoEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

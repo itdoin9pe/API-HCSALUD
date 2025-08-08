@@ -53,6 +53,6 @@ public class EstadoCuentaEntity extends BaseEntity {
     private List<DetalleMedicamentosEstudiosEntity> detallesMedicamentosEstudios;
 
     @OneToMany(mappedBy = "estadoCuentaEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PagoEntity> pagos;
+    private List<EPagoEntity> pagos;
 
 }
