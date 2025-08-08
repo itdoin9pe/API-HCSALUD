@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface PagoJpaRepository extends JpaRepository<EPagoEntity, UUID> {
+public interface EPagoJpaRepository extends JpaRepository<EPagoEntity, UUID> {
 
     Page<EPagoEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 

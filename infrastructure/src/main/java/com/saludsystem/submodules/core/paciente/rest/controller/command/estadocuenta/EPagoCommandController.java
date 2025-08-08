@@ -1,23 +1,48 @@
 package com.saludsystem.submodules.core.paciente.rest.controller.command.estadocuenta;
 
+import com.saludsystem.submodules.paciente.command.create.estadocuenta.EPagoCreateHandler;
+import com.saludsystem.submodules.paciente.command.delete.estadocuenta.EPagoDeleteHandler;
+import com.saludsystem.submodules.paciente.command.edit.estadocuenta.EPagoEditHandler;
+import com.saludsystem.submodules.paciente.model.constant.estadocuenta.EPagoConstant;
+import com.saludsystem.submodules.paciente.model.dtos.command.create.estadocuenta.EPagoCreateCommand;
+import com.saludsystem.submodules.paciente.model.dtos.command.edit.estadocuenta.EPagoEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Tag(name = "PacientesEstadosCuentasPagos")
 @RestController
 @RequestMapping("/api/Pacientes/EstadosCuentas/Pagos")
-public class PagoCommandController {
+public class EPagoCommandController {
 
-    /*
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = PagoListResponse.class)))
-    })
-    public ListResponse<PagoDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
+    private final EPagoCreateHandler createHandler;
+    private final EPagoEditHandler editHandler;
+    private final EPagoDeleteHandler deleteHandler;
+
+    public EPagoCommandController(EPagoCreateHandler createHandler, EPagoEditHandler editHandler, EPagoDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-     */
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody EPagoCreateCommand createCommand) {
+        createHandler.execute(createCommand);
+        return new ApiResponse(true, EPagoConstant.CREATED);
+    }
+
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody EPagoEditCommand editCommand) {
+        editHandler.execute(id, editCommand);
+        return new ApiResponse(true, EPagoConstant.UPDATED);
+    }
+
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable UUID id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, EPagoConstant.DELETED);
+    }
+
 }
