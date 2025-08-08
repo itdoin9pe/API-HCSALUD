@@ -10,8 +10,8 @@ import java.util.UUID;
 public class DetalleMedicamentoEstudio {
 
     private UUID pec_detalleMedicamentoId;
-    private UUID pacienteEntity;
-    private UUID estadoCuentaEntity;
+    private UUID pacienteId;
+    private UUID estadoCuentaId;
     private String tipo;
     private String descripcion;
     private Integer cantidad;
