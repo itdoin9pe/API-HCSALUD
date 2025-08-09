@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AltaMedicaDao {
-    AltaMedica getById(Long uuid);
+    AltaMedica getById(Long id);
     ListResponse<AltaMedica> getAll(UUID hospitalId, int page, int rows);
     List<AltaMedica> getList();
 }
