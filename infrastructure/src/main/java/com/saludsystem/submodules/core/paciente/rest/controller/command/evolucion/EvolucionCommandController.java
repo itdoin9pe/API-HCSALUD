@@ -1,52 +1,48 @@
 package com.saludsystem.submodules.core.paciente.rest.controller.command.evolucion;
 
+import com.saludsystem.submodules.paciente.command.create.evolucion.EvolucionCreateHandler;
+import com.saludsystem.submodules.paciente.command.delete.evolucion.EvolucionDeleteHandler;
+import com.saludsystem.submodules.paciente.command.edit.evolucion.EvolucionEditHandler;
+import com.saludsystem.submodules.paciente.model.constant.evolucion.EvolucionConstant;
+import com.saludsystem.submodules.paciente.model.dtos.command.create.evolucion.EvolucionCreateCommand;
+import com.saludsystem.submodules.paciente.model.dtos.command.edit.evolucion.EvolucionEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Tag(name = "PacientesEvoluciones")
 @RestController
 @RequestMapping("/api/Pacientes/Evoluciones")
 public class EvolucionCommandController {
 
-    /*
-    private final EvolucionService evolucionService;
+    private final EvolucionCreateHandler createHandler;
+    private final EvolucionEditHandler editHandler;
+    private final EvolucionDeleteHandler deleteHandler;
 
-    public EvolucionController(EvolucionService evolucionService) {
-        this.evolucionService = evolucionService;
+    public EvolucionCommandController(EvolucionCreateHandler createHandler, EvolucionEditHandler editHandler, EvolucionDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
     @PostMapping("/Save")
-    public ApiResponse stored(@Valid @RequestBody CrearEvolucionDTO crearEvolucionDTO) {
-        return evolucionService.saveEvolucion(crearEvolucionDTO);
+    public ApiResponse save(@RequestBody EvolucionCreateCommand createCommand) {
+        createHandler.execute(createCommand);
+        return new ApiResponse(true, EvolucionConstant.CREATED);
     }
 
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EvolucionListResponse.class)))
-    })
-    public ListResponse<EvolucionDTO> getAllPage(
-            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
-        return evolucionService.getAllEvolucion(hospitalId, page, rows);
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody EvolucionEditCommand editCommand) {
+        editHandler.execute(id, editCommand);
+        return new ApiResponse(true, EvolucionConstant.UPDATED);
     }
 
-    @GetMapping("/GetById/{notaEvolucionId}")
-    public EvolucionDTO getById(@PathVariable("notaEvolucionId") UUID pacienteEvolucionId) {
-        return evolucionService.getEvolucionById(pacienteEvolucionId);
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable UUID id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, EvolucionConstant.DELETED);
     }
 
-    @PutMapping("/Update/{notaEvolucionId}")
-    public ApiResponse update(@PathVariable("notaEvolucionId") UUID pacienteEvolucionId,
-                              @RequestBody ActualizarEvolucionDTO actualizarEvolucionDTO) {
-        return evolucionService.updateEvolucion(pacienteEvolucionId, actualizarEvolucionDTO);
-    }
-
-    @DeleteMapping("/Delete/{notaEvolucionId}")
-    public ApiResponse destroy(@PathVariable("notaEvolucionId") UUID pacienteEvolucionId) {
-        return evolucionService.deleteEvolucion(pacienteEvolucionId);
-    }
-
-     */
 }

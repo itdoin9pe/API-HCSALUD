@@ -1,5 +1,12 @@
 package com.saludsystem.submodules.core.paciente.rest.controller.command.evolucion;
 
+import com.saludsystem.submodules.paciente.command.create.evolucion.NotaCreateHandler;
+import com.saludsystem.submodules.paciente.command.delete.evolucion.NotaDeleteHandler;
+import com.saludsystem.submodules.paciente.command.edit.evolucion.NotaEditHandler;
+import com.saludsystem.submodules.paciente.model.constant.evolucion.NotaConstant;
+import com.saludsystem.submodules.paciente.model.dtos.command.create.evolucion.NotaCreateCommand;
+import com.saludsystem.submodules.paciente.model.dtos.command.edit.evolucion.NotaEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,45 +15,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/Pacientes/Evololuciones/Notas")
 public class NotaCommandController {
 
-    /*
-    private final NotaService notaService;
+    private final NotaCreateHandler createHandler;
+    private final NotaEditHandler editHandler;
+    private final NotaDeleteHandler deleteHandler;
 
-    public NotaController(NotaService notaService) {
-        this.notaService = notaService;
+    public NotaCommandController(NotaCreateHandler createHandler, NotaEditHandler editHandler, NotaDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
     @PostMapping("/Save")
-    public ApiResponse stored(@Valid @RequestBody CrearNotaDTO crearNotaDTO) {
-        return notaService.saveNota(crearNotaDTO);
+    public ApiResponse save(@RequestBody NotaCreateCommand createCommand) {
+        createHandler.execute(createCommand);
+        return new ApiResponse(true, NotaConstant.CREATED);
     }
 
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = NotaListResponse.class)))
-    })
-    public ListResponse<NotaDTO> getAllPage(
-            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
-        return notaService.getAllNota(hospitalId, page, rows);
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable Long id, @RequestBody NotaEditCommand editCommand) {
+        editHandler.execute(id, editCommand);
+        return new ApiResponse(true, NotaConstant.UPDATED);
     }
 
-    @GetMapping("/GetById/{pacienteNotaId}")
-    public NotaDTO getById(@PathVariable("pacienteNotaId") Long pacienteEvolucionNotaId) {
-        return notaService.getNotaById(pacienteEvolucionNotaId);
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable Long id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, NotaConstant.DELETED);
     }
 
-    @PutMapping("/Update/{pacienteNotaId}")
-    public ApiResponse update(@PathVariable("pacienteNotaId") Long pacienteEvolucionNotaId,
-                              @RequestBody ActualizarNotaDTO actualizarNotaDTO) {
-        return notaService.updateNota(pacienteEvolucionNotaId, actualizarNotaDTO);
-    }
-
-    @DeleteMapping("/Delete/{pacienteNotaId}")
-    public ApiResponse destroy(@PathVariable("pacienteNotaId") Long pacienteEvolucionNotaId) {
-        return notaService.deleteNota(pacienteEvolucionNotaId);
-    }
-
-     */
 }

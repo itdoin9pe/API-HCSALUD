@@ -1,5 +1,12 @@
 package com.saludsystem.submodules.core.paciente.rest.controller.command.evolucion;
 
+import com.saludsystem.submodules.paciente.command.create.evolucion.CambioCondicionCreateHandler;
+import com.saludsystem.submodules.paciente.command.delete.evolucion.CambioCondicionDeleteHandler;
+import com.saludsystem.submodules.paciente.command.edit.evolucion.CambioCondicionEditHandler;
+import com.saludsystem.submodules.paciente.model.constant.evolucion.CambioCondicionConstant;
+import com.saludsystem.submodules.paciente.model.dtos.command.create.evolucion.CambioCondicionCreateCommand;
+import com.saludsystem.submodules.paciente.model.dtos.command.edit.evolucion.CambioCondicionEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,45 +15,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/Pacientes/Evoluciones/CambiosCondiciones")
 public class CambioCondicionCommandController {
 
-    /*
-    private final CambioCondicionService cambioCondicionService;
+    private final CambioCondicionCreateHandler createHandler;
+    private final CambioCondicionEditHandler editHandler;
+    private final CambioCondicionDeleteHandler deleteHandler;
 
-    public CambioCondicionController(CambioCondicionService cambioCondicionService) {
-        this.cambioCondicionService = cambioCondicionService;
+    public CambioCondicionCommandController(CambioCondicionCreateHandler createHandler, CambioCondicionEditHandler editHandler, CambioCondicionDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
     @PostMapping("/Save")
-    public ApiResponse stored(@Valid @RequestBody CrearCambioCondicionDTO crearCambioCondicionDTO) {
-        return cambioCondicionService.saveCambioCondicion(crearCambioCondicionDTO);
+    public ApiResponse save(@RequestBody CambioCondicionCreateCommand createCommand) {
+        createHandler.execute(createCommand);
+        return new ApiResponse(true, CambioCondicionConstant.CREATED);
     }
 
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CambioCondicionListResponse.class)))
-    })
-    public ListResponse<CambioCondicionDTO> getAllPage(
-            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
-            @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
-        return cambioCondicionService.getAllCambioCondicion(hospitalId, page, rows);
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable Long id, @RequestBody CambioCondicionEditCommand editCommand) {
+        editHandler.execute(id, editCommand);
+        return new ApiResponse(true, CambioCondicionConstant.UPDATED);
     }
 
-    @GetMapping("/GetById/{cambioCondicionId}")
-    public CambioCondicionDTO getById(@PathVariable("cambioCondicionId") Long evolucionCambioCondicionId) {
-        return cambioCondicionService.getCambioCondicionById(evolucionCambioCondicionId);
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable Long id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, CambioCondicionConstant.DELETED);
     }
 
-    @PutMapping("/Update/{cambioCondicionId}")
-    public ApiResponse update(@PathVariable("cambioCondicionId") Long evolucionCambioCondicionId,
-                              @RequestBody ActualizarCambioCondicionDTO actualizarCambioCondicionDTO) {
-        return cambioCondicionService.updateCambioCondicion(evolucionCambioCondicionId, actualizarCambioCondicionDTO);
-    }
-
-    @DeleteMapping("/Delete/{cambioCondicionId}")
-    public ApiResponse destroy(@PathVariable("cambioCondicionId") Long evolucionCambioCondicionId) {
-        return cambioCondicionService.deleteCambioCondicion(evolucionCambioCondicionId);
-    }
-
-     */
 }

@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface NotaJpaRepository extends JpaRepository<NotaEntity, Long> {
-    Page<NotaEntity> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    Page<NotaEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 }

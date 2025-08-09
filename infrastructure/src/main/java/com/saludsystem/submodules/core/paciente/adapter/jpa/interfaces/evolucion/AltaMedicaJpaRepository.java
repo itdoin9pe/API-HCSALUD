@@ -10,5 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface AltaMedicaJpaRepository extends JpaRepository<AltaMedicaEntity, Long> {
-    Page<AltaMedicaEntity> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    Page<AltaMedicaEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 }

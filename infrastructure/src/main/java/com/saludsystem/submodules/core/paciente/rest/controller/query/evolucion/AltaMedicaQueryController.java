@@ -1,24 +1,44 @@
 package com.saludsystem.submodules.core.paciente.rest.controller.query.evolucion;
 
+import com.saludsystem.submodules.paciente.model.dtos.get.evolucion.AltaMedicaDTO;
+import com.saludsystem.submodules.paciente.query.getAll.evolucion.AltaMedicaAllHandler;
+import com.saludsystem.submodules.paciente.query.getById.evolucion.AltaMedicaByIdHandler;
+import com.saludsystem.submodules.paciente.query.getList.evolucion.AltaMedicaListHandler;
+import com.saludsystem.submodules.paciente.response.evolucion.AltaMedicaListResponse;
+import com.saludsystem.submodules.response.ListResponse;
+import com.saludsystem.submodules.response.PaginationRequest;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @Tag(name = "PacientesEvolucionesAltasMedicas")
 @RestController 
 @RequestMapping("/api/Pacientes/Evoluciones/AltasMedicas")
 public class AltaMedicaQueryController {
 
-    /*
-    private final AltaMedicaService altaMedicaService;
+    private final AltaMedicaListHandler listHandler;
+    private final AltaMedicaByIdHandler byIdHandler;
+    private final AltaMedicaAllHandler allHandler;
 
-    public AltaMedicaController(AltaMedicaService altaMedicaService) {
-        this.altaMedicaService = altaMedicaService;
+    public AltaMedicaQueryController(AltaMedicaListHandler listHandler, AltaMedicaByIdHandler byIdHandler, AltaMedicaAllHandler allHandler) {
+        this.listHandler = listHandler;
+        this.byIdHandler = byIdHandler;
+        this.allHandler = allHandler;
     }
 
-    @PostMapping("/Save")
-    public ApiResponse stored(@Valid @RequestBody CrearAltaMedicaDTO crearAltaMedicaDTO) {
-        return altaMedicaService.saveAltaMedica(crearAltaMedicaDTO);
+    @GetMapping("/GetList")
+    public List<AltaMedicaDTO> getList() {
+        return listHandler.execute();
+    }
+
+    @GetMapping("/GetById/{id}")
+    public AltaMedicaDTO getById(@PathVariable Long id) {
+        return byIdHandler.execute(id);
     }
 
     @GetMapping("/GetAll")
@@ -30,24 +50,7 @@ public class AltaMedicaQueryController {
     public ListResponse<AltaMedicaDTO> getAllPage(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
-        return altaMedicaService.getAllAltaMedica(hospitalId, page, rows);
+        return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 
-    @GetMapping("/GetById/{altaMedicaId}")
-    public AltaMedicaDTO getById(@PathVariable("altaMedicaId") Long evolucionAltaMedicaId) {
-        return altaMedicaService.getAltaMedicaById(evolucionAltaMedicaId);
-    }
-
-    @PutMapping("/Update/{altaMedicaId}")
-    public ApiResponse update(@PathVariable("altaMedicaId") Long evolucionAltaMedicaId,
-                              @RequestBody ActualizarAltaMedicaDTO actualizarAltaMedicaDTO) {
-        return altaMedicaService.updateAltaMedica(evolucionAltaMedicaId, actualizarAltaMedicaDTO);
-    }
-
-    @DeleteMapping("/Delete/{altaMedicaId}")
-    public ApiResponse destroy(@PathVariable("altaMedicaId") Long evolucionAltaMedicaId) {
-        return altaMedicaService.deleteAltaMedica(evolucionAltaMedicaId);
-    }
-
-     */
 }

@@ -10,5 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface EvolucionJpaRepository extends JpaRepository<EvolucionEntity, UUID> {
-    Page<EvolucionEntity> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    Page<EvolucionEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 }
