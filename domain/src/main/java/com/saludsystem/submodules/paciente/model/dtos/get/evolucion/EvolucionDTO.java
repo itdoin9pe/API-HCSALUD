@@ -24,6 +24,6 @@ public class EvolucionDTO {
 
     private List<CambioCondicionDTO> cambios;
 
-    private UUID pacienteAltaMedicaId;
+    private Long pacienteAltaMedicaId;
 
 }

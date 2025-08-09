@@ -24,6 +24,6 @@ public class EvolucionCreateCommand {
 
     private List<CambioCondicionDTO> cambios;
 
-    private UUID pacienteAltaMedicaId;
+    private Long pacienteAltaMedicaId;
 
 }

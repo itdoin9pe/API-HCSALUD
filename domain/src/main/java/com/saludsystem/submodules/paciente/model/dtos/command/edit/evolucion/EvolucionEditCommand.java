@@ -28,6 +28,6 @@ public class EvolucionEditCommand extends BaseDTO {
 
     private List<CambioCondicionDTO> cambios;
 
-    private UUID pacienteAltaMedicaId;
+    private Long pacienteAltaMedicaId;
 
 }

@@ -17,6 +17,6 @@ public class Evolucion {
     private Boolean finalizada = false;
     private List<Nota> notas;
     private List<CambioCondicion> cambios;
-    private Long altaMedicaId;
+    private Long pacienteAltaMedicaId;
 
 }
