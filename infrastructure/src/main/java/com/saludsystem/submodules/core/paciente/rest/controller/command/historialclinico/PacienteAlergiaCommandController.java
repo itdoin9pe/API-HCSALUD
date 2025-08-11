@@ -1,23 +1,48 @@
 package com.saludsystem.submodules.core.paciente.rest.controller.command.historialclinico;
 
+import com.saludsystem.submodules.paciente.command.create.historialclinico.PacienteAlergiaCreateHandler;
+import com.saludsystem.submodules.paciente.command.delete.historialclinico.PacienteAlergiaDeleteHandler;
+import com.saludsystem.submodules.paciente.command.edit.historialclinico.PacienteAlergiaEditHandler;
+import com.saludsystem.submodules.paciente.model.constant.historialclinico.PacienteAlergiaConstant;
+import com.saludsystem.submodules.paciente.model.dtos.command.create.historialclinico.PacienteAlergiaCreateCommand;
+import com.saludsystem.submodules.paciente.model.dtos.command.edit.historialclinico.PacienteAlergiaEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Tag(name = "PacientesAlergias")
 @RestController
 @RequestMapping("/api/Pacientes/Alergias")
 public class PacienteAlergiaCommandController {
 
-    /*
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = PacienteAlergiaListResponse.class)))
-    })
-    public ListResponse<PacienteAlergiaDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
-        return super.getAllPaginated(hospitalId, page, rows);
+    private final PacienteAlergiaCreateHandler createHandler;
+    private final PacienteAlergiaEditHandler editHandler;
+    private final PacienteAlergiaDeleteHandler deleteHandler;
+
+    public PacienteAlergiaCommandController(PacienteAlergiaCreateHandler createHandler, PacienteAlergiaEditHandler editHandler, PacienteAlergiaDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-     */
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody PacienteAlergiaCreateCommand createCommand) {
+        createHandler.execute(createCommand);
+        return new ApiResponse(true, PacienteAlergiaConstant.CREATED);
+    }
+
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable UUID id, @RequestBody PacienteAlergiaEditCommand editCommand) {
+        editHandler.execute(id, editCommand);
+        return new ApiResponse(true, PacienteAlergiaConstant.UPDATED);
+    }
+
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable UUID id) {
+        deleteHandler.execute(id);
+        return new ApiResponse(true, PacienteAlergiaConstant.DELETED);
+    }
+
 }
