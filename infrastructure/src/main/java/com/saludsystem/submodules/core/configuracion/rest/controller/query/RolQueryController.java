@@ -41,17 +41,16 @@ public class RolQueryController {
         return byIdHandler.execute(id);
     }
 
-    @GetMapping("/GetAll")
+    @GetMapping("/GetAllRol")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = RolListResponse.class)))
     })
-
     public ListResponse<RolDTO> getAllPage(
-            @RequestParam(name = "hospitalId") UUID hospitalId,
-            @RequestParam(name = "Page", defaultValue = "") int page,
-            @RequestParam(name = "Rows", defaultValue = "") int rows) {
+            @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
+            @RequestParam(name = "Page") int page,
+            @RequestParam(name = "Rows") int rows) {
         return allHandler.execute(hospitalId, new PaginationRequest(page,rows));
     }
 

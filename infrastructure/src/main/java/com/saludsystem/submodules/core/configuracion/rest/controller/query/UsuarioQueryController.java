@@ -46,7 +46,7 @@ public class UsuarioQueryController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = UsuarioListResponse.class)))
     })
-    @GetMapping("/getAll")
+    @GetMapping("/GetAllUsuario")
     public ListResponse<UsuarioDTO> getAll(
             @RequestParam(name = "hospitalId", required = true) UUID hospitalId,
             @RequestParam(name = "Page") int page, @RequestParam(name = "Rows") int rows) {
