@@ -4,6 +4,7 @@ import com.saludsystem.submodules.configuracion.model.Sede;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SedeEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
+import com.saludsystem.submodules.core.principal.adapter.entity.SucursalEntity;
 
 import java.util.UUID;
 
@@ -18,6 +19,12 @@ public class SedeDboMapper {
         entity.setDireccion(model.getDireccion());
         entity.setUbigeo(model.getUbigeo());
         entity.setEstado(model.getEstado());
+
+        if (model.getSucursalId() != null) { // ✅ Si viene del frontend
+            var sucursalEntity = new SucursalEntity();
+            sucursalEntity.setSucursalId(model.getSucursalId());
+            entity.setSucursalEntity(sucursalEntity);
+        }
 
         var userEntity = new UserEntity();
         userEntity.setUserId(userId);
@@ -34,7 +41,7 @@ public class SedeDboMapper {
     public static Sede toDomain(SedeEntity entity) {
 
         return new Sede(entity.getSedeId(), entity.getCodigo(), entity.getNombre(), entity.getDireccion(),
-                entity.getUbigeo(), entity.getEstado());
+                entity.getUbigeo(), entity.getEstado(), entity.getSucursalEntity().getSucursalId());
 
     }
 

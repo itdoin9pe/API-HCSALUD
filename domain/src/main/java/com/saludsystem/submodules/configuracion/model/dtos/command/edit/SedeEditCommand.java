@@ -19,4 +19,5 @@ public class SedeEditCommand extends BaseDTO {
     private String ubigeo;
     @Schema(description = "Estado de la Sede (0 = inactivo, 1 = activo)", example = "0")
     private Integer estado;
+    private UUID sucursalId;
 }

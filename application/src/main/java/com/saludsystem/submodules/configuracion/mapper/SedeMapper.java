@@ -12,14 +12,14 @@ public class SedeMapper {
     public Sede fromCreateDto(SedeCreateCommand createCommand) {
 
         return new Sede(null, createCommand.getCodigo(), createCommand.getNombre(), createCommand.getDireccion(),
-                createCommand.getUbigeo(), createCommand.getEstado());
+                createCommand.getUbigeo(), createCommand.getEstado(), createCommand.getSucursalId());
 
     }
 
     public Sede fromUpdateDto(UUID uuid, SedeEditCommand editCommand) {
 
         return new Sede(null, editCommand.getCodigo(), editCommand.getNombre(), editCommand.getDireccion(),
-                editCommand.getUbigeo(), editCommand.getEstado());
+                editCommand.getUbigeo(), editCommand.getEstado(), editCommand.getSucursalId());
 
     }
 

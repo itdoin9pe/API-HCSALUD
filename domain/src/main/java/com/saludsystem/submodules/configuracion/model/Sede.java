@@ -14,4 +14,5 @@ public class Sede {
     private String direccion;
     private String ubigeo;
     private Integer estado;
+    private UUID sucursalId;
 }

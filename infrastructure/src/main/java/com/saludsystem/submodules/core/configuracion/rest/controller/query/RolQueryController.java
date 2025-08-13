@@ -36,9 +36,9 @@ public class RolQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public RolDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetRoleById/{roleId}")
+    public RolDTO getById(@PathVariable UUID roleId) {
+        return byIdHandler.execute(roleId);
     }
 
     @GetMapping("/GetAllRol")

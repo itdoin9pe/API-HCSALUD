@@ -33,15 +33,15 @@ public class RoleCommandController {
         return new ApiResponse(true, RolConstant.CREATED);
     }
 
-    @PutMapping("/Update/{Id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody RolEditCommand editCommand) {
-        editHandler.execute(id, editCommand);
+    @PutMapping("/UpdateRol/{roleId}")
+    public ApiResponse update(@PathVariable UUID roleId, @RequestBody RolEditCommand editCommand) {
+        editHandler.execute(roleId, editCommand);
         return new ApiResponse(true, RolConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{Id}")
-    public ApiResponse destroy(@PathVariable UUID doctorId) {
-        deleteHandler.execute(doctorId);
+    @DeleteMapping("/DeleteRol/{roleId}")
+    public ApiResponse destroy(@PathVariable UUID roleId) {
+        deleteHandler.execute(roleId);
         return new ApiResponse(true, RolConstant.DELETED);
     }
 
