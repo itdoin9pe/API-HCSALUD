@@ -33,15 +33,15 @@ public class SedeCommandController {
         return new ApiResponse(true, SedeConstant.CREATED);
     }
 
-    @PutMapping("/Update/{Id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody SedeEditCommand editCommand) {
-        editHandler.execute(id, editCommand);
+    @PutMapping("/Update/{sedeId}")
+    public ApiResponse update(@PathVariable UUID sedeId, @RequestBody SedeEditCommand editCommand) {
+        editHandler.execute(sedeId, editCommand);
         return new ApiResponse(true, SedeConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{Id}")
-    public ApiResponse destroy(@PathVariable UUID doctorId) {
-        deleteHandler.execute(doctorId);
+    @DeleteMapping("/Delete/{sedeId}")
+    public ApiResponse destroy(@PathVariable UUID sedeId) {
+        deleteHandler.execute(sedeId);
         return new ApiResponse(true, SedeConstant.DELETED);
     }
 

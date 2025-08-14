@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class SedeDboMapper {
 
-    public static SedeEntity toEntity(Sede model, UUID userId, UUID hospitalId) {
+    public static SedeEntity toEntity(Sede model, UUID hospitalId, UUID userId) {
 
         SedeEntity entity = new SedeEntity();
         entity.setSedeId(model.getId());
@@ -20,19 +20,17 @@ public class SedeDboMapper {
         entity.setUbigeo(model.getUbigeo());
         entity.setEstado(model.getEstado());
 
-        if (model.getSucursalId() != null) { // ✅ Si viene del frontend
-            var sucursalEntity = new SucursalEntity();
-            sucursalEntity.setSucursalId(model.getSucursalId());
-            entity.setSucursalEntity(sucursalEntity);
-        }
-
-        var userEntity = new UserEntity();
-        userEntity.setUserId(userId);
-        entity.setUser(userEntity);
+        SucursalEntity sucursal = new SucursalEntity();
+        sucursal.setSucursalId(model.getSucursalId());
+        entity.setSucursalEntity(sucursal);
 
         var hospitalEntity = new SysSaludEntity();
         hospitalEntity.setHospitalId(hospitalId);
         entity.setHospital(hospitalEntity);
+
+        var userEntity = new UserEntity();
+        userEntity.setUserId(userId);
+        entity.setUser(userEntity);
 
         return entity;
 

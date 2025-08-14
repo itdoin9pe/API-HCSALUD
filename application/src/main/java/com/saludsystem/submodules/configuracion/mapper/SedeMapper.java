@@ -18,7 +18,7 @@ public class SedeMapper {
 
     public Sede fromUpdateDto(UUID uuid, SedeEditCommand editCommand) {
 
-        return new Sede(null, editCommand.getCodigo(), editCommand.getNombre(), editCommand.getDireccion(),
+        return new Sede(uuid, editCommand.getCodigo(), editCommand.getNombre(), editCommand.getDireccion(),
                 editCommand.getUbigeo(), editCommand.getEstado(), editCommand.getSucursalId());
 
     }

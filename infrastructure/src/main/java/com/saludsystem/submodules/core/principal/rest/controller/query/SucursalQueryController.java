@@ -6,6 +6,7 @@ import com.saludsystem.submodules.principal.model.dtos.SucursalDTO;
 import com.saludsystem.submodules.principal.query.getAll.SucursalAllHandler;
 import com.saludsystem.submodules.principal.query.getById.SucursalByIdHandler;
 import com.saludsystem.submodules.principal.query.getList.SucursalListHandler;
+import com.saludsystem.submodules.principal.response.SucursalListResponse;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -46,7 +47,7 @@ public class SucursalQueryController {
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = AlergiaListResponse.class)))
+                    schema = @Schema(implementation = SucursalListResponse.class)))
     })
     public ListResponse<SucursalDTO> getAll(@RequestParam UUID hospitalId,
                                            @RequestParam(name = "Page") int page,
