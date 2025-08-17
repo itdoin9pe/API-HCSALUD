@@ -21,7 +21,7 @@ public class InformeInterDeleteService {
 
         if (informeInter.getDiagnostico() != null && informeInter.getDiagnostico().equals(" ")) {
 
-            throw new IllegalStateException("No se puede eliminar un informe sin diagnostico");
+            throw new IllegalStateException("No se puede eliminar un informe sin diagnostico registrado");
 
         }
 

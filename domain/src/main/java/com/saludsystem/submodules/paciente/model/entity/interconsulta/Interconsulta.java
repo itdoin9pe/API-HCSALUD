@@ -11,14 +11,23 @@ import java.util.UUID;
 public class Interconsulta {
 
     private UUID pacienteInterconsultaId;
+
     private UUID pacienteEntity;
+
     private UUID medicoSolicitante;
+
     private UUID especialidadDestino;
+
     private String motivo;
+
     private LocalDateTime fechaSolicitud;
+
     private String estado;
+
     private String prioridad;
+
     private String observaciones;
+
     private LocalDateTime fechaAtencion;
 
 }

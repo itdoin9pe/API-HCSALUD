@@ -29,7 +29,7 @@ public class InformeInterEditService {
 
         if (currenInformInterm.getDiagnostico() != null && currenInformInterm.getDiagnostico().equals(" ")) {
 
-            throw new IllegalStateException("Diagnostico sin detallar");
+            throw new IllegalStateException("Diagnostico sin detallar o vacio");
 
         }
 

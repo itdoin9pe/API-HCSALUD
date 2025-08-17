@@ -29,7 +29,7 @@ public class InterconsultaEditService {
 
         if (currentInterconsulta.getEstado() != null && currentInterconsulta.getEstado().equals(" ")) {
 
-            throw new IllegalStateException("No se puede actualizar, la interconsulta esta desactivada");
+            throw new IllegalStateException("No se puede actualizar, la interconsulta ya se encuentra desactivada");
 
         }
 
