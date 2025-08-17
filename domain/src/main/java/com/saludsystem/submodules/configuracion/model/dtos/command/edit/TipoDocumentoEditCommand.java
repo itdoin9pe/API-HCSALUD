@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class TipoDocumentoEditCommand extends BaseDTO {
-    private UUID tDocumentoId;
+    private UUID tipoDocumentoId;
     private String tipoComprobante;
     private String serie;
     @Schema(description = "Valor Inicio", example = "0")

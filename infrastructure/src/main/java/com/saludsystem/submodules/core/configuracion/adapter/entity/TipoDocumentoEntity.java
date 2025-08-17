@@ -23,7 +23,7 @@ public class TipoDocumentoEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_tipoDocumento", nullable = false, unique = true)
-    private UUID tDocumentoId;
+    private UUID tipoDocumentoId;
 
     @NotBlank(message = "El tipo de comprobante no puede estar vacío")
     @Column(name = "tipo_comprobante_id", nullable = false)

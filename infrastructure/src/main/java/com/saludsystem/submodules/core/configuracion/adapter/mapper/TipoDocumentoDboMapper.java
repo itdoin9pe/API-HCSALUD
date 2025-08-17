@@ -12,7 +12,7 @@ public class TipoDocumentoDboMapper {
     public static TipoDocumentoEntity toEntity(TipoDocumento model, UUID userId, UUID hospitalId) {
 
         TipoDocumentoEntity entity = new TipoDocumentoEntity();
-        entity.setTDocumentoId(model.getId());
+        entity.setTipoDocumentoId(model.getId());
         entity.setTipoComprobante(model.getTipoComprobante());
         entity.setSerie(model.getSerie());
         entity.setInicio(model.getInicio());
@@ -34,7 +34,7 @@ public class TipoDocumentoDboMapper {
 
     public static TipoDocumento toDomain(TipoDocumentoEntity entity) {
 
-        return new TipoDocumento(entity.getTDocumentoId(), entity.getTipoComprobante(), entity.getSerie(),
+        return new TipoDocumento(entity.getTipoDocumentoId(), entity.getTipoComprobante(), entity.getSerie(),
                 entity.getInicio(), entity.getFin(), entity.getCorrelativoActual(), entity.getEstado());
 
     }

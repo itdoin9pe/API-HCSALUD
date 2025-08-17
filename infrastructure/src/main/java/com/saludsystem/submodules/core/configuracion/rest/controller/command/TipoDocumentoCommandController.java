@@ -33,15 +33,15 @@ public class TipoDocumentoCommandController {
         return new ApiResponse(true, TipoDocumentoConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody TipoDocumentoEditCommand editCommand) {
-        editHandler.execute(id, editCommand);
+    @PutMapping("/Update/{tipoDocumentoId}")
+    public ApiResponse update(@PathVariable UUID tipoDocumentoId, @RequestBody TipoDocumentoEditCommand editCommand) {
+        editHandler.execute(tipoDocumentoId, editCommand);
         return new ApiResponse(true, TipoDocumentoConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{tipoDocumentoId}")
+    public ApiResponse delete(@PathVariable UUID tipoDocumentoId) {
+        deleteHandler.execute(tipoDocumentoId);
         return new ApiResponse(true, TipoDocumentoConstant.DELETED);
     }
 

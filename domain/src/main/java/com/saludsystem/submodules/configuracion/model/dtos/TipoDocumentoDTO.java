@@ -10,7 +10,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class TipoDocumentoDTO {
-    private UUID tDocumentoId;
+    private UUID tipoDocumentoId;
     private String tipoComprobante;
     private String serie;
     @Schema(description = "Valor Inicio", example = "0")

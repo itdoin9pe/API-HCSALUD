@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class AuthController {
 
-  private final AuthService authService;
-  private final AuthenticationManager authenticationManager;
+    private final AuthService authService;
+    private final AuthenticationManager authenticationManager;
 
     public AuthController(AuthService authService, AuthenticationManager authenticationManager) {
         this.authService = authService;

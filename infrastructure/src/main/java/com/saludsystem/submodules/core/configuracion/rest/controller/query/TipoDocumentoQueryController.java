@@ -36,9 +36,9 @@ public class TipoDocumentoQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public TipoDocumentoDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{tipoDocumentoId}")
+    public TipoDocumentoDTO getById(@PathVariable UUID tipoDocumentoId) {
+        return byIdHandler.execute(tipoDocumentoId);
     }
 
     @GetMapping("/GetAll")
