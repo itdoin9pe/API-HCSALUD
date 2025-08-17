@@ -1,14 +1,18 @@
-package com.saludsystem.submodules.paciente.model.entity.interconsulta;
+package com.saludsystem.submodules.paciente.model.dtos.get.interconsulta;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
 @AllArgsConstructor
-public class InformeInterconsulta {
+@NoArgsConstructor
+@Getter
+@Setter
+public class InformeInterconsultaDTO {
 
     private UUID pacienteInformeInterconsultaId;
 

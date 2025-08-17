@@ -1,14 +1,17 @@
-package com.saludsystem.submodules.paciente.model.entity.interconsulta;
+package com.saludsystem.submodules.paciente.model.dtos.command.edit.interconsulta;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.saludsystem.submodules.BaseDTO;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
-public class Interconsulta {
+@NoArgsConstructor
+@Getter
+@Setter
+public class InterconsultaEditCommand extends BaseDTO {
 
     private UUID pacienteInterconsultaId;
 
