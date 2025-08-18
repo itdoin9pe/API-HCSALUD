@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.paciente.mapper.interconsulta;
 
 import com.saludsystem.submodules.paciente.model.dtos.command.create.interconsulta.InformeInterconsultaCreateCommand;
-import com.saludsystem.submodules.paciente.model.dtos.command.edit.interconsulta.InformeInterconsutlaEditCommand;
+import com.saludsystem.submodules.paciente.model.dtos.command.edit.interconsulta.InformeInterconsultaEditCommand;
 import com.saludsystem.submodules.paciente.model.dtos.get.interconsulta.InformeInterconsultaDTO;
 import com.saludsystem.submodules.paciente.model.entity.interconsulta.InformeInterconsulta;
 
@@ -18,7 +18,7 @@ public class InformeInterconsultaMapper {
 
     }
 
-    public InformeInterconsulta fromUpdateDto(UUID uuid, InformeInterconsutlaEditCommand editCommand) {
+    public InformeInterconsulta fromUpdateDto(UUID uuid, InformeInterconsultaEditCommand editCommand) {
 
         return new InformeInterconsulta(uuid, editCommand.getPacienteInterconsultaId(),
                 editCommand.getMedicoResponsable(), editCommand.getFecha(), editCommand.getResumenClinico(),

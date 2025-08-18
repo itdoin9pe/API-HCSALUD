@@ -11,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-public class InformeInterconsutlaEditCommand extends BaseDTO {
+public class InformeInterconsultaEditCommand extends BaseDTO {
 
     private UUID pacienteInformeInterconsultaId;
 

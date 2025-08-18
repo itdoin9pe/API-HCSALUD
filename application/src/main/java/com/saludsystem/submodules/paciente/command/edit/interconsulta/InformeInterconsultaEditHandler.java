@@ -1,7 +1,7 @@
 package com.saludsystem.submodules.paciente.command.edit.interconsulta;
 
 import com.saludsystem.submodules.paciente.mapper.interconsulta.InformeInterconsultaMapper;
-import com.saludsystem.submodules.paciente.model.dtos.command.edit.interconsulta.InformeInterconsutlaEditCommand;
+import com.saludsystem.submodules.paciente.model.dtos.command.edit.interconsulta.InformeInterconsultaEditCommand;
 import com.saludsystem.submodules.paciente.service.historia.interconsulta.informeinterconsulta.InformeInterEditService;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ public class InformeInterconsultaEditHandler {
         this.informeInterconsultaMapper = informeInterconsultaMapper;
     }
 
-    public void execute(UUID uuid, InformeInterconsutlaEditCommand editCommand) {
+    public void execute(UUID uuid, InformeInterconsultaEditCommand editCommand) {
 
         var informeInterUpdated = informeInterconsultaMapper.fromUpdateDto(uuid, editCommand);
 
