@@ -1,11 +1,13 @@
 package com.saludsystem.submodules.movimiento.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
+@AllArgsConstructor
 public class CompraDetalle {
 
     private UUID compraDetalleId;
@@ -16,20 +18,5 @@ public class CompraDetalle {
     private BigDecimal igv;
     private BigDecimal precioVenta;
     private BigDecimal subtotal;
-
-    public CompraDetalle() {}
-
-    public CompraDetalle(UUID compraDetalleId, UUID compraId, UUID productoId,
-                         Integer cantidad, BigDecimal precioUnitario, BigDecimal igv,
-                         BigDecimal precioVenta, BigDecimal subtotal) {
-        this.compraDetalleId = compraDetalleId;
-        this.compraId = compraId;
-        this.productoId = productoId;
-        this.cantidad = cantidad;
-        this.precioUnitario = precioUnitario;
-        this.igv = igv;
-        this.precioVenta = precioVenta;
-        this.subtotal = subtotal;
-    }
 
 }
