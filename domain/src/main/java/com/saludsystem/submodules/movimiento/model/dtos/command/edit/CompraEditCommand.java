@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = false)
@@ -31,5 +32,7 @@ public class CompraEditCommand extends BaseDTO {
 
     @Schema(example = "0")
     private Integer estado;
+
+    private List<CompraDetalleEditCommand> detalles; // ✅
 
 }

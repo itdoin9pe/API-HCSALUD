@@ -1,6 +1,5 @@
 package com.saludsystem.submodules.movimiento.model.dtos;
 
-import com.saludsystem.submodules.movimiento.model.dtos.command.CompraDetalleCreateCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +34,6 @@ public class CompraDTO {
     @Schema(example = "0")
     private Integer estado;
 
-    private List<CompraDetalleCreateCommand> detalles;
+    private List<CompraDetalleDTO> detalles;
 
 }
