@@ -22,15 +22,11 @@ public class CompraEditService {
         var currentCompra = compraDao.getById(uuid);
 
         if (currentCompra == null) {
-
             throw new IllegalArgumentException(CompraConstant.INVALID_ID);
-
         }
 
         if (currentCompra.getEstado() != null && currentCompra.getEstado() == 0) {
-
             throw new IllegalStateException("La compra ya se encuentra desactivada");
-
         }
 
         return compraRepository.update(uuid, compra);

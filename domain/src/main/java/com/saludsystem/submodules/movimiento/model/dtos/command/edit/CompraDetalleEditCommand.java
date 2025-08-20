@@ -7,11 +7,11 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = false)
 public class CompraDetalleEditCommand extends BaseDTO {
 
     private UUID compraDetalleId;

@@ -20,9 +20,7 @@ public class CompraDeleteService {
         var compra = compraDao.getById(uuid);
 
         if (compra.getEstado() != null && compra.getEstado() == 0) {
-
             throw new IllegalStateException("No se puede eliminar una compra desactivada");
-
         }
 
         compraRepository.delete(uuid);

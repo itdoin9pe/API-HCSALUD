@@ -12,9 +12,7 @@ public class CompraCreateService {
     }
 
     public Compra execute(Compra compra) {
-
         return compraRepository.save(compra);
-
     }
 
 }

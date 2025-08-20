@@ -29,6 +29,7 @@ public class CompraCreateCommand {
 
     @Schema(example = "0")
     private Integer estado;
+
     private List<CompraDetalleCreateCommand> detalles;
 
 }
