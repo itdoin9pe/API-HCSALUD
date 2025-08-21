@@ -15,7 +15,8 @@ import java.util.UUID;
 @Table(name = "compras")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 public class CompraEntity extends BaseEntity {
 

@@ -11,6 +11,6 @@ import java.util.UUID;
 @Repository
 public interface CompraJpaRepository extends JpaRepository<CompraEntity, UUID> {
 
-    Page<CompraEntity> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    Page<CompraEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 
 }
