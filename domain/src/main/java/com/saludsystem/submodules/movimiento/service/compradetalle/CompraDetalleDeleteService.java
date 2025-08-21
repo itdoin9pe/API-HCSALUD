@@ -16,17 +16,11 @@ public class CompraDetalleDeleteService {
     }
 
     public void execute(UUID uuid) {
-
         var compraDetalle = compraDetalleDao.getById(uuid);
-
         if (compraDetalle.getCantidad() != null && compraDetalle.getCantidad().equals(0)) {
-
             throw new IllegalStateException("No se puede eliminar un detalle ");
-
         }
-
         compraDetalleRepository.delete(uuid);
-
     }
 
 }

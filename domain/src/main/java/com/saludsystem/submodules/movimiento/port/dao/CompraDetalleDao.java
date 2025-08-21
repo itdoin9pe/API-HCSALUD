@@ -9,7 +9,9 @@ import java.util.UUID;
 public interface CompraDetalleDao {
 
     CompraDetalle getById(UUID uuid);
+
     ListResponse<CompraDetalle> getAll(UUID hospitalId, int page, int rows);
+
     List<CompraDetalle> getList();
 
 }

@@ -2,7 +2,6 @@ package com.saludsystem.submodules.movimiento.model.dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -15,6 +14,7 @@ public class CompraDetalleDTO {
     private UUID compraDetalleId;
 
     private UUID compraId;
+
     private UUID productoId;
 
     @Schema(example = "0")

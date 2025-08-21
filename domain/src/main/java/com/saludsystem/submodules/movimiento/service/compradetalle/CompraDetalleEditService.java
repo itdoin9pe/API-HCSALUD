@@ -18,23 +18,14 @@ public class CompraDetalleEditService {
     }
 
     public CompraDetalle execute(UUID uuid, CompraDetalle compraDetalle) {
-
         var currentCompraDetalle = compraDetalleDao.getById(uuid);
-
         if (currentCompraDetalle == null) {
-
             throw new IllegalArgumentException(CompraDetalleConstant.INVALID_ID);
-
         }
-
         if (compraDetalle.getCantidad() != null && compraDetalle.getCantidad().equals(0)) {
-
             throw new IllegalStateException("La cantidad del detalle de la compra esta vacia");
-
         }
-
         return compraDetalleRepository.update(uuid, compraDetalle);
-
     }
 
 }

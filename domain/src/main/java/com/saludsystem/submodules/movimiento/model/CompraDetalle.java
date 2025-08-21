@@ -11,12 +11,19 @@ import java.util.UUID;
 public class CompraDetalle {
 
     private UUID compraDetalleId;
+
     private UUID compraId;
+
     private UUID productoId;
+
     private Integer cantidad;
+
     private BigDecimal precioUnitario;
+
     private BigDecimal igv;
+
     private BigDecimal precioVenta;
+
     private BigDecimal subtotal;
 
 }
