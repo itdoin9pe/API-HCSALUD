@@ -41,7 +41,7 @@ public class CompraDboMapper {
         entity.setEstado(model.getEstado());
 
         List<CompraDetalleEntity> detalleEntities = model.getDetalles().stream()
-                .map(det -> CompraDetalleDboMapper.toEntity(det, entity))
+                .map(det -> CompraDetalleDboMapper.toEntity(det, entity, hospitalId, userId))
                 .collect(Collectors.toList());
         entity.setDetalle(detalleEntities);
 

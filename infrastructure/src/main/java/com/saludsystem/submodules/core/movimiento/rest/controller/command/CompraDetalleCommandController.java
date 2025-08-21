@@ -1,52 +1,48 @@
 package com.saludsystem.submodules.core.movimiento.rest.controller.command;
 
+import com.saludsystem.submodules.movimiento.command.create.CompraDetalleCreateHandler;
+import com.saludsystem.submodules.movimiento.command.delete.CompraDetalleDeleteHandler;
+import com.saludsystem.submodules.movimiento.command.edit.CompraDetalleEditHandler;
+import com.saludsystem.submodules.movimiento.model.constant.CompraDetalleConstant;
+import com.saludsystem.submodules.movimiento.model.dtos.command.CompraDetalleCreateCommand;
+import com.saludsystem.submodules.movimiento.model.dtos.command.edit.CompraDetalleEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Tag(name = "ComprasDetalles")
 @RestController
 @RequestMapping("/api/ComprasDetalles")
-public class CompraDetalleController {
+public class CompraDetalleCommandController {
 
-    /*
-    private final CompraDetalleService compraDetalleService;
+    private final CompraDetalleCreateHandler createHandler;
+    private final CompraDetalleEditHandler editHandler;
+    private final CompraDetalleDeleteHandler deleteHandler;
 
-    public CompraDetalleController(CompraDetalleService compraDetalleService) {
-        this.compraDetalleService = compraDetalleService;
+    public CompraDetalleCommandController(CompraDetalleCreateHandler createHandler, CompraDetalleEditHandler editHandler, CompraDetalleDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-    @PostMapping("/SaveCompraDetalle")
-    public ApiResponse store(@Valid @RequestBody CompraDetalleDTO compraDetalleDTO) {
-        return compraDetalleService.saveCompraDetalle(compraDetalleDTO);
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody CompraDetalleCreateCommand createCommand) {
+        createHandler.execute(createCommand);
+        return new ApiResponse(true, CompraDetalleConstant.CREATED);
     }
 
-    @GetMapping("/GetAllCompraDetalle")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CompraDetalleListResponse.class)))
-    })
-    public ListResponse<CrearCompraDetalleDTO> getAllPage(
-            @RequestParam(name = "hospitalId") UUID hospitalId,
-            @RequestParam(name = "Page", defaultValue = "") int page,
-            @RequestParam(name = "Rows", defaultValue = "") int rows) {
-        return compraDetalleService.getAllCompraDetalle(hospitalId, page, rows);
+    @PutMapping("/Update/{id}")
+    public ApiResponse update(@PathVariable UUID uuid, @RequestBody CompraDetalleEditCommand editCommand) {
+        editHandler.execute(uuid, editCommand);
+        return new ApiResponse(true, CompraDetalleConstant.UPDATED);
     }
 
-    @GetMapping("/GetCompraDetalle/{compraDetalleId}")
-    public CrearCompraDetalleDTO getById(@PathVariable UUID compraDetalleId) {
-        return compraDetalleService.getCompraDetalleById(compraDetalleId);
+    @DeleteMapping("/Delete/{id}")
+    public ApiResponse delete(@PathVariable UUID uuid) {
+        deleteHandler.execute(uuid);
+        return new ApiResponse(true, CompraDetalleConstant.DELETED);
     }
 
-    @PutMapping("/UpdateCompraDetalle/{compraDetalleId}")
-    public ApiResponse update(
-            @PathVariable UUID compraDetalleId,
-            @RequestBody ActualizarCompraDetalleDTO actualizarCompraDetalleDTO) {
-        return compraDetalleService.updateCompraDetalle(compraDetalleId, actualizarCompraDetalleDTO);
-    }
-
-    @DeleteMapping("/DeleteCompraDetalle/{compraDetalleId}")
-    public ApiResponse destroy(@PathVariable UUID compraDetalleId) {
-        return compraDetalleService.deleteCompraDetalle(compraDetalleId);
-    }*/
 }
