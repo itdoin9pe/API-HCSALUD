@@ -16,7 +16,7 @@ public class CompraMapper {
 
     public Compra fromCreateDto(CompraCreateCommand createCommand) {
         List<CompraDetalle> detalles = createCommand.getDetalles().stream()
-                .map(d -> detalleMapper.fromCreateDto(null, d)) // el compraId aún no existe
+                .map(d -> detalleMapper.fromCreateDto(null)) // el compraId aún no existe
                 .collect(Collectors.toList());
 
         return new Compra(
@@ -37,7 +37,7 @@ public class CompraMapper {
 
     public Compra fromUpdateDto(UUID id, CompraEditCommand editCommand) {
         List<CompraDetalle> detalles = editCommand.getDetalles().stream()
-                .map(d -> detalleMapper.fromUpdateDto(d.getCompraDetalleId(), id, d))
+                .map(d -> detalleMapper.fromUpdateDto(d.getCompraDetalleId(), d))
                 .collect(Collectors.toList());
 
         return new Compra(

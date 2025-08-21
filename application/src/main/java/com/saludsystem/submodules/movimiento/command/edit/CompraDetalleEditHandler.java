@@ -1,8 +1,7 @@
 package com.saludsystem.submodules.movimiento.command.edit;
 
-import com.saludsystem.submodules.movimiento.model.CompraDetalle;
-import com.saludsystem.submodules.movimiento.model.constant.CompraDetalleConstant;
-import com.saludsystem.submodules.movimiento.port.dao.CompraDetalleDao;
+import com.saludsystem.submodules.movimiento.mapper.CompraDetalleMapper;
+import com.saludsystem.submodules.movimiento.model.dtos.command.edit.CompraDetalleEditCommand;
 import com.saludsystem.submodules.movimiento.port.repository.CompraDetalleRepository;
 import org.springframework.stereotype.Component;
 
@@ -11,27 +10,19 @@ import java.util.UUID;
 @Component
 public class CompraDetalleEditHandler {
 
-    private final CompraDetalleDao compraDetalleDao;
     private final CompraDetalleRepository compraDetalleRepository;
+    private final CompraDetalleMapper compraDetalleMapper;
 
-    public CompraDetalleEditHandler(CompraDetalleDao compraDetalleDao, CompraDetalleRepository compraDetalleRepository) {
-        this.compraDetalleDao = compraDetalleDao;
+    public CompraDetalleEditHandler(CompraDetalleRepository compraDetalleRepository, CompraDetalleMapper compraDetalleMapper) {
         this.compraDetalleRepository = compraDetalleRepository;
+        this.compraDetalleMapper = compraDetalleMapper;
     }
 
-    public CompraDetalle execute(UUID uuid, CompraDetalle compraDetalle) {
+    public void execute(UUID uuid, CompraDetalleEditCommand editCommand) {
 
-        var currentCompraDetalle = compraDetalleDao.getById(uuid);
+        var compraDetalleUpdated = compraDetalleMapper.fromUpdateDto(uuid, editCommand);
 
-        if (currentCompraDetalle == null) {
-            throw new IllegalArgumentException(CompraDetalleConstant.INVALID_ID);
-        }
-
-        if (currentCompraDetalle.getCantidad() != null && currentCompraDetalle.getCantidad() == 0) {
-            throw new IllegalStateException("La cantidad no es valida");
-        }
-
-        return compraDetalleRepository.update(uuid, compraDetalle);
+        compraDetalleRepository.update(uuid, compraDetalleUpdated);
 
     }
 

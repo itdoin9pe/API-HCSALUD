@@ -18,15 +18,7 @@ public class CompraDetalleDeleteHandler {
     }
 
     public void execute(UUID uuid) {
-
-        var compraDetalle = compraDetalleDao.getById(uuid);
-
-        if (compraDetalle.getCantidad() != null && compraDetalle.getCantidad() == 0) {
-            throw new IllegalStateException("No se puede eliminar un detalle de la compra sin cantidad ingresada");
-        }
-
         compraDetalleRepository.delete(uuid);
-
     }
 
 }
