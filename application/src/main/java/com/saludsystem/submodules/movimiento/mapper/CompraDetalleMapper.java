@@ -10,9 +10,7 @@ import java.util.UUID;
 public class CompraDetalleMapper {
 
     public CompraDetalle fromCreateDto(UUID compraId, CompraDetalleCreateCommand createCommand) {
-        return new CompraDetalle(
-                null,
-                compraId,
+        return new CompraDetalle(null, compraId,
                 createCommand.getProductoId(),
                 createCommand.getCantidad(),
                 createCommand.getPrecioUnitario(),
@@ -23,9 +21,7 @@ public class CompraDetalleMapper {
     }
 
     public CompraDetalle fromUpdateDto(UUID id, UUID compraId, CompraDetalleEditCommand editCommand) {
-        return new CompraDetalle(
-                id,
-                compraId,
+        return new CompraDetalle(id, compraId,
                 editCommand.getProductoId(),
                 editCommand.getCantidad(),
                 editCommand.getPrecioUnitario(),
