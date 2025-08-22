@@ -15,6 +15,8 @@ import java.util.UUID;
 @Setter
 public class InventarioEditCommand extends BaseDTO {
 
+    private UUID inventarioId;
+
     private UUID productoId;
 
     private UUID almacenId;

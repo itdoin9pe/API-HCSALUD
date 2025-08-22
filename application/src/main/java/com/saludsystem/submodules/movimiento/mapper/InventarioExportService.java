@@ -1,4 +1,4 @@
-package com.saludsystem.submodules.movimiento.port.dao;
+package com.saludsystem.submodules.movimiento.mapper;
 
 import java.util.UUID;
 

@@ -7,7 +7,9 @@ import java.util.UUID;
 public interface InventarioRepository {
 
     Inventario save(Inventario inventario);
+
     Inventario update(UUID uuid, Inventario inventario);
+
     void delete(UUID uuid);
 
 }

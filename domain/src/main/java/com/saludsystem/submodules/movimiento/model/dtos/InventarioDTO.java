@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,21 +16,32 @@ import java.math.BigDecimal;
 @Setter
 public class InventarioDTO {
 
-    private String nombreAlmacen;
+    private UUID inventarioId;
 
-    private String nombreProducto;
+    private UUID almacenId;
+    @Schema(example = "0")
+    private int tipoInventarioId;
 
-    private String nombreMarca;
+    private UUID productoId;
 
-    private String nombreCategoria;
+    private UUID marcaMaterialId;
+
+    private UUID categoriaMatId;
+
+    private UUID unidadId;
 
     @Schema(example = "0")
     private BigDecimal precioEntrada;
 
-    @Schema(example = "string")
-    private String unidad;
+    @Schema(example = "0")
+    private BigDecimal precioSalida;
 
     @Schema(example = "0")
     private Integer stock;
+
+    private LocalDate fecha;
+
+    @Schema(example = "0")
+    private Integer estado;
 
 }

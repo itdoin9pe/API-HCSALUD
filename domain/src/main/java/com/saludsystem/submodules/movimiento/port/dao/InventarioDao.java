@@ -9,7 +9,9 @@ import java.util.UUID;
 public interface InventarioDao {
 
     Inventario getById(UUID uuid);
+
     ListResponse<Inventario> getAll(UUID hospitalId, int page, int rows);
+
     List<Inventario> getList();
 
 }

@@ -18,23 +18,14 @@ public class InventarioEditService {
     }
 
     public Inventario execute(UUID uuid, Inventario inventario) {
-
         var currentInventario = inventarioDao.getById(uuid);
-
         if (currentInventario == null) {
-
             throw new IllegalArgumentException(InventarioConstant.INVALID_ID);
-
         }
-
         if (inventario.getEstado() != null && inventario.getEstado() == 0) {
-
             throw new IllegalStateException("El inventario esta desactivado");
-
         }
-
         return inventarioRepository.update(uuid, inventario);
-
     }
 
 }

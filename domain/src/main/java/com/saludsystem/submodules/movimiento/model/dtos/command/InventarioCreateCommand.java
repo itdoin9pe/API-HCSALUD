@@ -39,4 +39,5 @@ public class InventarioCreateCommand {
 
     @Schema(description = "Estado de registro de inventario (active = 1 / inactive = 0)", example = "0")
     private Integer estado;
+
 }
