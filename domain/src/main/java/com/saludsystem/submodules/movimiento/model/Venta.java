@@ -31,6 +31,7 @@ public class Venta {
     private UUID tipoTarjetaId;
     private UUID tipoMonedaId;
     private Integer estado;
+
     private List<VentaDetalle> detalles;
 
 }

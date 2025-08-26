@@ -16,17 +16,11 @@ public class VentaDeleteService {
     }
 
     public void execute(UUID uuid) {
-
         var venta = ventaDao.getById(uuid);
-
         if (venta.getEstado() != null && venta.getEstado() == 0) {
-
             throw new IllegalStateException("No se puede eliminar una venta desactivada");
-
         }
-
         ventaRepository.delete(uuid);
-
     }
 
 }

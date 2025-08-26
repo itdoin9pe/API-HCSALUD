@@ -18,23 +18,14 @@ public class VentaEditService {
     }
 
     public Venta execute(UUID uuid, Venta venta) {
-
         var currentVenta = ventaDao.getById(uuid);
-
         if (currentVenta == null) {
-
             throw new IllegalArgumentException(VentaConstant.INVALID_ID);
-
         }
-
         if (currentVenta.getEstado() != null && currentVenta.getEstado() == 0) {
-
             throw new IllegalStateException("La venta se encuentra desactivada");
-
         }
-
         return ventaRepository.update(uuid, venta);
-
     }
 
 }
