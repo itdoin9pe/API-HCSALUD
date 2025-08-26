@@ -12,7 +12,8 @@ import java.util.UUID;
 public class VentaDetalle {
 
     private UUID ventaDetalleId;
-    private Producto producto;
+    private UUID ventaId;
+    private UUID productoId;
     private String codigoProducto;
     private Integer cantidad;
     private BigDecimal precio;

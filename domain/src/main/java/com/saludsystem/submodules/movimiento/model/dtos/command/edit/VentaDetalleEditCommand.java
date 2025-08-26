@@ -4,6 +4,7 @@ import com.saludsystem.submodules.BaseDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = false)
@@ -25,9 +26,9 @@ public class VentaDetalleEditCommand extends BaseDTO {
     private Integer cantidad;
 
     @Schema(example = "0")
-    private Double precioUnitario;
+    private BigDecimal precioUnitario;
 
     @Schema(example = "0")
-    private Double subtotal;
+    private BigDecimal subtotal;
 
 }

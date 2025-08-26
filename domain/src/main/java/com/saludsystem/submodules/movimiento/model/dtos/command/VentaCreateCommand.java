@@ -14,11 +14,6 @@ import java.util.UUID;
 @Setter
 public class VentaCreateCommand {
 
-    private UUID tdocumentoId;
-    private UUID almacenId;
-    private UUID beneficiarioId;
-    private UUID tipoTarjetaId;
-    private UUID tipoMonedaId;
     private String serie;
     private String secuencia;
     private LocalDate fecha;
@@ -38,9 +33,15 @@ public class VentaCreateCommand {
     @Schema(example = "0")
     private BigDecimal total;
 
+    private UUID tipoDocumentoId;
+    private UUID almacenId;
+    private UUID beneficiarioId;
+    private UUID tipoTarjetaId;
+    private UUID tipoMonedaId;
+
     @Schema(description = "Estado de la venta (inactive = 0 / active = 1)", example = "0")
     private Integer estado;
 
-    private List<VentaDetalleCreateCommand> detalle;
+    private List<VentaDetalleCreateCommand> detalles;
 
 }

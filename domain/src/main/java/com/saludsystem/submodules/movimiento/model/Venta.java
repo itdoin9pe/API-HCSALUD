@@ -1,10 +1,5 @@
 package com.saludsystem.submodules.movimiento.model;
 
-import com.saludsystem.submodules.mantenimiento.model.Moneda;
-import com.saludsystem.submodules.mantenimiento.model.TipoPago;
-import com.saludsystem.submodules.mantenimiento.model.TipoTarjeta;
-import com.saludsystem.submodules.medico.model.vo.TipoDocumento;
-import com.saludsystem.submodules.paciente.model.entity.Paciente;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -24,18 +19,18 @@ public class Venta {
     private String tipoBeneficiario;
     private String beneficiarioDocumento;
     private String beneficiarioDireccion;
-    private TipoPago tipoPago;
+    private UUID tipoPagoId;
     private String observacion;
     private String metodoPago;
     private BigDecimal montoRecibido;
     private BigDecimal vuelto;
     private BigDecimal total;
-    private TipoDocumento tipoDocumento;
-    private Almacen almacen;
-    private Paciente beneficiario;
-    private TipoTarjeta tipoTarjeta;
-    private Moneda tipoMoneda;
-    private List<VentaDetalle> detalle;
+    private UUID tipoDocumentoId;
+    private UUID almacenId;
+    private UUID beneficiarioId;
+    private UUID tipoTarjetaId;
+    private UUID tipoMonedaId;
     private Integer estado;
+    private List<VentaDetalle> detalles;
 
 }
