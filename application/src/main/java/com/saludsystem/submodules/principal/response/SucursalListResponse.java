@@ -1,6 +1,5 @@
 package com.saludsystem.submodules.principal.response;
 
-import com.saludsystem.submodules.principal.model.dtos.PaisDTO;
 import com.saludsystem.submodules.principal.model.dtos.SucursalDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

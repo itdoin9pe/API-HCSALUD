@@ -1,6 +1,5 @@
 package com.saludsystem.submodules.core.paciente.rest.controller.query;
 
-import com.saludsystem.submodules.paciente.model.dtos.get.EstudioMedicoDTO;
 import com.saludsystem.submodules.paciente.model.dtos.get.RecetaDTO;
 import com.saludsystem.submodules.paciente.query.getAll.RecetaAllHandler;
 import com.saludsystem.submodules.paciente.query.getById.RecetaByIdHandler;

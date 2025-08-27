@@ -1,7 +1,5 @@
 package com.saludsystem.submodules.core.principal.rest.controller.query;
 
-import com.saludsystem.submodules.catalogo.model.dto.AlergiaDTO;
-import com.saludsystem.submodules.catalogo.response.AlergiaListResponse;
 import com.saludsystem.submodules.principal.model.dtos.SucursalDTO;
 import com.saludsystem.submodules.principal.query.getAll.SucursalAllHandler;
 import com.saludsystem.submodules.principal.query.getById.SucursalByIdHandler;

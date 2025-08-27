@@ -1,7 +1,5 @@
 package com.saludsystem.submodules.core.paciente.adapter.jpa.out.dao;
 
-import com.saludsystem.submodules.catalogo.model.Alergia;
-import com.saludsystem.submodules.core.catalogo.adapter.mapper.AlergiaDboMapper;
 import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.EstudioMedicoJpaRepository;
 import com.saludsystem.submodules.core.paciente.adapter.mapper.EstudioMedicoDboMapper;
 import com.saludsystem.submodules.paciente.model.constant.EstudioMedicoConstant;

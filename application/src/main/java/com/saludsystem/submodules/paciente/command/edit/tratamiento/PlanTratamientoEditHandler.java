@@ -2,7 +2,6 @@ package com.saludsystem.submodules.paciente.command.edit.tratamiento;
 
 import com.saludsystem.submodules.paciente.mapper.tratamiento.PlanTratamientoMapper;
 import com.saludsystem.submodules.paciente.model.dtos.command.edit.tratamiento.PlanTratamientoEditCommand;
-import com.saludsystem.submodules.paciente.model.entity.tratamiento.PlanTratamiento;
 import com.saludsystem.submodules.paciente.service.historia.tratamiento.PlanTratamientoEdtiService;
 import org.springframework.stereotype.Component;
 

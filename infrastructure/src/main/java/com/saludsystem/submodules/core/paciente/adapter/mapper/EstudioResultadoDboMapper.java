@@ -5,7 +5,6 @@ import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import com.saludsystem.submodules.core.paciente.adapter.entity.EstudioMedicoEntity;
 import com.saludsystem.submodules.core.paciente.adapter.entity.EstudioResultadoEntity;
 import com.saludsystem.submodules.paciente.model.entity.EstudioResultado;
-import com.saludsystem.submodules.principal.model.Estudio;
 
 import java.util.UUID;
 

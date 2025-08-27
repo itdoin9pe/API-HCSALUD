@@ -1,9 +1,7 @@
 package com.saludsystem.submodules.core.paciente.adapter.jpa.out.dao;
 
-import com.saludsystem.submodules.core.medico.adapter.mapper.DoctorDboMapper;
 import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.PacienteJpaRepository;
 import com.saludsystem.submodules.core.paciente.adapter.mapper.PacienteDboMapper;
-import com.saludsystem.submodules.medico.model.Doctor;
 import com.saludsystem.submodules.paciente.model.constant.PacienteConstant;
 import com.saludsystem.submodules.paciente.model.entity.Paciente;
 import com.saludsystem.submodules.paciente.port.dao.PacienteDao;

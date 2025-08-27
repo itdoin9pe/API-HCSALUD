@@ -1,6 +1,5 @@
 package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository;
 
-import com.saludsystem.submodules.cita.model.constant.CitaConstant;
 import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
 import com.saludsystem.submodules.core.paciente.adapter.entity.EstudioMedicoEntity;
 import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.EstudioMedicoJpaRepository;

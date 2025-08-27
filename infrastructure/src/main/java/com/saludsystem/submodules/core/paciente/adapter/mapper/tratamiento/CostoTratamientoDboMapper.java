@@ -5,7 +5,6 @@ import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import com.saludsystem.submodules.core.paciente.adapter.entity.PacienteEntity;
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.tratamiento.CostoTratamientoEntity;
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.tratamiento.PlanTratamientoEntity;
-import com.saludsystem.submodules.paciente.model.dtos.get.tratamiento.CostoTratamientoDTO;
 import com.saludsystem.submodules.paciente.model.entity.tratamiento.CostoTratamiento;
 
 import java.util.UUID;

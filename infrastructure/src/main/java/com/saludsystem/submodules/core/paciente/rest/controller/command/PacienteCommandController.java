@@ -6,7 +6,6 @@ import com.saludsystem.submodules.paciente.command.edit.PacienteEditHandler;
 import com.saludsystem.submodules.paciente.model.constant.PacienteConstant;
 import com.saludsystem.submodules.paciente.model.dtos.command.create.PacienteCreateCommand;
 import com.saludsystem.submodules.paciente.model.dtos.command.edit.PacienteEditCommand;
-import com.saludsystem.submodules.paciente.response.PacienteListResponse;
 import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
