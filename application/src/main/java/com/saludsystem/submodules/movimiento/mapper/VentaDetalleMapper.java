@@ -8,7 +8,7 @@ import com.saludsystem.submodules.movimiento.model.dtos.command.edit.VentaDetall
 import java.util.UUID;
 
 public class VentaDetalleMapper {
-
+	
     public VentaDetalle fromCreateDto(VentaDetalleCreateCommand createCommand) {
         return new VentaDetalle(null,
                 createCommand.getProductoId(),
@@ -20,7 +20,6 @@ public class VentaDetalleMapper {
     }
 
     public VentaDetalle fromUpdateDto(UUID uuid, VentaDetalleEditCommand editCommand) {
-
         return new VentaDetalle(null,
                 editCommand.getProductoId(),
                 editCommand.getVentaId(),
@@ -28,11 +27,9 @@ public class VentaDetalleMapper {
                 editCommand.getCantidad(),
                 editCommand.getPrecioUnitario(),
                 editCommand.getSubtotal());
-
     }
 
     public VentaDetalleDTO toDto(VentaDetalle model) {
-
         return new VentaDetalleDTO(model.getVentaDetalleId(),
                 model.getVentaId(),
                 model.getProductoId(),
@@ -40,7 +37,6 @@ public class VentaDetalleMapper {
                 model.getCantidad(),
                 model.getPrecio().doubleValue(),
                 model.getSubtotal().doubleValue());
-
     }
-
+    
 }

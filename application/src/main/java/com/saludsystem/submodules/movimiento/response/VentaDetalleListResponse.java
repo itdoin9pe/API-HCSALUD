@@ -7,9 +7,10 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Getter @Setter
+@Getter 
+@Setter
 public class VentaDetalleListResponse {
-
+	
     @Schema(description = "Lista de registro para detalles de venta")
     private List<VentaDetalleCreateCommand> data;
 
