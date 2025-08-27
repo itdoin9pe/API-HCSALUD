@@ -14,5 +14,5 @@ public class InventarioCreateService {
     public Inventario execute(Inventario inventario) {
         return inventarioRepository.save(inventario);
     }
-
+    
 }

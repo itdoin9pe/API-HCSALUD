@@ -16,18 +16,14 @@ import java.util.UUID;
 public class InventarioEditCommand extends BaseDTO {
 
     private UUID inventarioId;
-
     private UUID productoId;
-
     private UUID almacenId;
 
     @Schema(example = "0")
     private int tipoInventarioId;
 
     private UUID marcaMaterialId;
-
     private UUID categoriaMaterialId;
-
     private UUID unidadId;
 
     @Schema(example = "0")

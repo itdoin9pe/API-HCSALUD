@@ -18,7 +18,7 @@ public class InventarioDeleteService {
     public void execute(UUID uuid) {
         var inventario = inventarioDao.getById(uuid);
         if (inventario.getEstado() != null && inventario.getEstado() == 0) {
-            throw new IllegalStateException("No se puede eliminar un inventario desactivado");
+            throw new IllegalStateException("No se puede eliminar el inventario desactivado");
         }
         inventarioRepository.delete(uuid);
     }
