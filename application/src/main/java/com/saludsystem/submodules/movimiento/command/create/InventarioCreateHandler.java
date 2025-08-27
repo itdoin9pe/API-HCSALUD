@@ -1,6 +1,7 @@
 package com.saludsystem.submodules.movimiento.command.create;
 
 import com.saludsystem.submodules.movimiento.mapper.InventarioMapper;
+import com.saludsystem.submodules.movimiento.model.dtos.command.InventarioCreateCommand;
 import com.saludsystem.submodules.movimiento.service.inventario.InventarioCreateService;
 import org.springframework.stereotype.Component;
 
@@ -15,5 +16,12 @@ public class InventarioCreateHandler {
         this.inventarioMapper = inventarioMapper;
     }
 
+    public void execute(InventarioCreateCommand createCommand) {
+
+        var inventarioCreated = inventarioMapper.fromCreateDto(createCommand);
+
+        inventarioCreateService.execute(inventarioCreated);
+
+    }
 
 }

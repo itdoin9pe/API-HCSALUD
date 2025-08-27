@@ -1,6 +1,5 @@
 package com.saludsystem.submodules.movimiento.service.inventario;
 
-import com.saludsystem.submodules.movimiento.model.constant.InventarioConstant;
 import com.saludsystem.submodules.movimiento.port.dao.InventarioDao;
 import com.saludsystem.submodules.movimiento.port.repository.InventarioRepository;
 
