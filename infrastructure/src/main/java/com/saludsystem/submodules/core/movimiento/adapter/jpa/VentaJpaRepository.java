@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface VentaJpaRepository extends JpaRepository<VentaEntity, UUID> {
 
-    Page<VentaEntity> findByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+    Page<VentaEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 
 }

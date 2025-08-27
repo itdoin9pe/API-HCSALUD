@@ -1,50 +1,48 @@
 package com.saludsystem.submodules.core.movimiento.rest.controller.command;
 
+import com.saludsystem.submodules.movimiento.command.create.VentaCreateHandler;
+import com.saludsystem.submodules.movimiento.command.delete.VentaDeleteHandler;
+import com.saludsystem.submodules.movimiento.command.edit.VentaEditHandler;
+import com.saludsystem.submodules.movimiento.model.constant.VentaConstant;
+import com.saludsystem.submodules.movimiento.model.dtos.command.VentaCreateCommand;
+import com.saludsystem.submodules.movimiento.model.dtos.command.edit.VentaEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Tag(name = "Ventas")
 @RestController
 @RequestMapping("/api/Ventas")
-public class VentaController {
+public class VentaCommandController {
 
-    /*
-    private final VentaService ventaService;
+    private final VentaCreateHandler createHandler;
+    private final VentaEditHandler editHandler;
+    private final VentaDeleteHandler deleteHandler;
 
-    public VentaController(VentaService ventaService) {
-        this.ventaService = ventaService;
+    public VentaCommandController(VentaCreateHandler createHandler, VentaEditHandler editHandler, VentaDeleteHandler deleteHandler) {
+        this.createHandler = createHandler;
+        this.editHandler = editHandler;
+        this.deleteHandler = deleteHandler;
     }
 
-    @PostMapping("/SaveVenta")
-    public ApiResponse store(@Valid @RequestBody CrearVentaDTO crearVentaDTO) {
-        return ventaService.saveVenta(crearVentaDTO);
+    @PostMapping("/Save")
+    public ApiResponse save(@RequestBody VentaCreateCommand createCommand) {
+        createHandler.execute(createCommand);
+        return new ApiResponse(true, VentaConstant.CREATED);
     }
 
-    @GetMapping("/GetAllVenta")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = VentaListResponse.class)))
-    })
-    public ListResponse<VentaDTO> getAllPage(
-            @RequestParam(name = "hospitalId") UUID hospitalId,
-            @RequestParam(name = "Page", defaultValue = "") int page,
-            @RequestParam(name = "Rows", defaultValue = "") int rows) {
-        return ventaService.getAllVenta(hospitalId, page, rows);
+    @PutMapping("/Update/{ventaId}")
+    public ApiResponse update(@PathVariable UUID ventaId, @RequestBody VentaEditCommand editCommand) {
+        editHandler.execute(ventaId, editCommand);
+        return new ApiResponse(true, VentaConstant.UPDATED);
     }
 
-    @GetMapping("/GetVentaList")
-    public ResponseEntity<List<VentaDTO>> getAllList() {
-        return ResponseEntity.ok(ventaService.getVentaList());
+    @DeleteMapping("/Delete/{ventaId}")
+    public ApiResponse delete(@PathVariable UUID ventaId) {
+        deleteHandler.execute(ventaId);
+        return new ApiResponse(true, VentaConstant.DELETED);
     }
 
-    @GetMapping("/GetVenta/{ventaId}")
-    public VentaDTO getById(@PathVariable UUID ventaId) {
-        return ventaService.getVentaById(ventaId);
-    }
-
-    @DeleteMapping("/DeleteVenta/{ventaId}")
-    public ApiResponse destroy(@PathVariable UUID ventaId) {
-        return ventaService.deleteVenta(ventaId);
-    }*/
 }
