@@ -1,11 +1,18 @@
 package com.saludsystem.submodules.security.validators;
 
-public class AuthenticationFailedException extends RuntimeException {
-  public AuthenticationFailedException(String message) {
-    super(message);
-  }
+import java.io.Serial;
 
-  public AuthenticationFailedException(String message, Throwable cause) {
-    super(message, cause);
-  }
+public class AuthenticationFailedException extends RuntimeException {
+	
+    @Serial
+    private static final long serialVersionUID = 1L;
+	
+    public AuthenticationFailedException(String message) {
+    	super(message);
+    }
+
+    public AuthenticationFailedException(String message, Throwable cause) {
+    	super(message, cause);
+    }
+    
 }

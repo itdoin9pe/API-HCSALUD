@@ -1,7 +1,5 @@
 package com.saludsystem.submodules.movimiento.command.delete;
 
-import com.saludsystem.submodules.movimiento.port.dao.CompraDetalleDao;
-import com.saludsystem.submodules.movimiento.port.repository.CompraDetalleRepository;
 import com.saludsystem.submodules.movimiento.service.compradetalle.CompraDetalleDeleteService;
 
 import org.springframework.stereotype.Component;

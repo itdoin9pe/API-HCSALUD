@@ -2,7 +2,6 @@ package com.saludsystem.submodules.movimiento.command.edit;
 
 import com.saludsystem.submodules.movimiento.mapper.CompraDetalleMapper;
 import com.saludsystem.submodules.movimiento.model.dtos.command.edit.CompraDetalleEditCommand;
-import com.saludsystem.submodules.movimiento.port.repository.CompraDetalleRepository;
 import com.saludsystem.submodules.movimiento.service.compradetalle.CompraDetalleEditService;
 
 import org.springframework.stereotype.Component;

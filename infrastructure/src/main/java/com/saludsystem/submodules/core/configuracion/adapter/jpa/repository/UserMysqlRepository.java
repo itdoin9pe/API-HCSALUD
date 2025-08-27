@@ -54,6 +54,7 @@ public class UserMysqlRepository implements UserRepository {
 
         // 4. Mantener ID y cualquier otro dato que no cambie (si aplica)
         actualizado.setUserId(actual.getUserId());
+        actualizado.setRol(rol);
 
         // 5. Guardar
         UserEntity saved = userJpaRepository.save(actualizado);

@@ -1,6 +1,7 @@
 package com.saludsystem.submodules.core.configuracion.rest.controller.command;
 
 import com.saludsystem.submodules.configuracion.model.dtos.auth.LoginRequestDto;
+import com.saludsystem.submodules.configuracion.model.dtos.auth.RefreshTokenRequest;
 import com.saludsystem.submodules.configuracion.port.out.JwtLoginResponse;
 import com.saludsystem.submodules.security.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,4 +28,10 @@ public class AuthController {
     public ResponseEntity<JwtLoginResponse> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequest) {
         return ResponseEntity.ok(authService.authenticateUser(loginRequest));
     }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<JwtLoginResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
+        return ResponseEntity.ok(authService.refreshToken(request.getRefreshToken()));
+    }
+
 }
