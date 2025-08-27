@@ -1,50 +1,56 @@
 package com.saludsystem.submodules.core.movimiento.rest.controller.command;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.util.UUID;
+
 import org.springframework.web.bind.annotation.*;
+
+import com.saludsystem.submodules.movimiento.command.create.VentaDetalleCreateHandler;
+import com.saludsystem.submodules.movimiento.command.delete.VentaDetalleDeleteHandler;
+import com.saludsystem.submodules.movimiento.command.edit.VentaDetalleEditHandler;
+import com.saludsystem.submodules.movimiento.model.constant.VentaDetalleConstant;
+import com.saludsystem.submodules.movimiento.model.dtos.command.VentaDetalleCreateCommand;
+import com.saludsystem.submodules.movimiento.model.dtos.command.edit.VentaDetalleEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
 
 @Tag(name = "VentasDetalles")
 @RestController
 @RequestMapping("/api/VentasDetalles")
-public class VentaDetalleContoller {
+public class VentaDetalleCommandContoller {
 
-    /*
-    private final VentaDetalleService ventaDetalleService;
-
-    public VentaDetalleContoller(VentaDetalleService ventaDetalleService) {
-        this.ventaDetalleService = ventaDetalleService;
+    private final VentaDetalleCreateHandler createHandler;
+    private final VentaDetalleEditHandler editHandler;
+	private final VentaDetalleDeleteHandler deleteHandler;
+	
+	/**
+	 * @param createHandler
+	 * @param editHandler
+	 * @param deleteHandler
+	 */
+	public VentaDetalleCommandContoller(VentaDetalleCreateHandler createHandler, VentaDetalleEditHandler editHandler,
+			VentaDetalleDeleteHandler deleteHandler) {
+		this.createHandler = createHandler;
+		this.editHandler = editHandler;
+		this.deleteHandler = deleteHandler;
+	}
+	
+	@PostMapping("/Save")
+    public ApiResponse save(@RequestBody VentaDetalleCreateCommand createCommand) {
+        createHandler.execute(createCommand);
+        return new ApiResponse(true, VentaDetalleConstant.CREATED);
     }
 
-    @PostMapping("/SaveVentaDetalle")
-    public ApiResponse store(@Valid @RequestBody VentaDetalleDTO crearVentaDetalleDTO) {
-        return ventaDetalleService.saveVentaDetalle(crearVentaDetalleDTO);
+    @PutMapping("/Update/{ventaDetalleId}")
+    public ApiResponse update(@PathVariable UUID ventaDetalleId, @RequestBody VentaDetalleEditCommand editCommand) {
+        editHandler.execute(ventaDetalleId, editCommand);
+        return new ApiResponse(true, VentaDetalleConstant.UPDATED);
     }
 
-    @GetMapping("/GetAllVentaDetalle")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = VentaDetalleListResponse.class)))
-    })
-    public ListResponse<CrearVentaDetalleDTO> getAllPage(
-            @RequestParam(name = "hospitalId") UUID hospitalId,
-            @RequestParam(name = "Page", defaultValue = "") int page,
-            @RequestParam(name = "Rows", defaultValue = "") int rows) {
-        return ventaDetalleService.getAllVentaDetalle(hospitalId, page, rows);
+    @DeleteMapping("/Delete/{ventaDetalleId}")
+    public ApiResponse delete(@PathVariable UUID ventaDetalleId) {
+        deleteHandler.execute(ventaDetalleId);
+        return new ApiResponse(true, VentaDetalleConstant.DELETED);
     }
-
-    @GetMapping("/GetVentaDetalle/{ventaDetalleId}")
-    public CrearVentaDetalleDTO getById(@PathVariable UUID ventaDetalleId) {
-        return ventaDetalleService.getVentaDetalleById(ventaDetalleId);
-    }
-
-    @PutMapping("/UpdateVentaDetalle/{ventaDetalleId}")
-    public ApiResponse update(@PathVariable UUID ventaDetalleId, @RequestBody ActualizarVentaDetalleDTO actualizarVentaDetalleDTO) {
-        return ventaDetalleService.updateVentaDetalle(ventaDetalleId, actualizarVentaDetalleDTO);
-    }
-
-    @DeleteMapping("/DeleteVentaDetalle/{ventaDetalleId}")
-    public ApiResponse destroy(@PathVariable UUID ventaDetalleId) {
-        return ventaDetalleService.deleteVentaDetalle(ventaDetalleId);
-    }*/
+    
 }
