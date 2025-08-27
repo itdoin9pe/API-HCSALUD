@@ -15,9 +15,7 @@ public class VentaDetalleCreateService {
     }
 
     public VentaDetalle execute(VentaDetalle ventaDetalle) {
-
         return ventaDetalleRepository.save(ventaDetalle);
-
     }
 
 }

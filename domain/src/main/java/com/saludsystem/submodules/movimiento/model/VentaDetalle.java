@@ -1,6 +1,5 @@
 package com.saludsystem.submodules.movimiento.model;
 
-import com.saludsystem.submodules.operaciones.model.Producto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +9,6 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 public class VentaDetalle {
-
     private UUID ventaDetalleId;
     private UUID ventaId;
     private UUID productoId;
@@ -18,5 +16,4 @@ public class VentaDetalle {
     private Integer cantidad;
     private BigDecimal precio;
     private BigDecimal subtotal;
-
 }

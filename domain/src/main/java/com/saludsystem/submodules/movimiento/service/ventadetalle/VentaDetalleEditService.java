@@ -18,23 +18,14 @@ public class VentaDetalleEditService {
     }
 
     public VentaDetalle execute(UUID uuid, VentaDetalle ventaDetalle) {
-
         var currentVentaDetalle = ventaDetalleDao.getById(uuid);
-
         if (currentVentaDetalle == null) {
-
             throw new IllegalArgumentException(VentaDetalleConstant.INVALID_ID);
-
         }
-
         if (currentVentaDetalle.getCantidad() != null && currentVentaDetalle.getCantidad() == 0) {
-
             throw new IllegalArgumentException("El detalle de venta no tiene cantidad validad");
-
         }
-
         return ventaDetalleRepository.update(uuid, ventaDetalle);
-
     }
 
 }

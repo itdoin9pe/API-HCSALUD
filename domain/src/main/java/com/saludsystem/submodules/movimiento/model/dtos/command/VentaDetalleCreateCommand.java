@@ -11,7 +11,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class VentaDetalleCreateCommand {
-
     private UUID productoId;
 
     private UUID ventaId;
@@ -26,5 +25,4 @@ public class VentaDetalleCreateCommand {
 
     @Schema(example = "0")
     private BigDecimal subtotal;
-
 }

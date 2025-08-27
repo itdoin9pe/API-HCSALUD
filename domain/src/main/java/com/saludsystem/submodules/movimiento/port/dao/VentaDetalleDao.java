@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface VentaDetalleDao {
-
     VentaDetalle getById(UUID uuid);
     ListResponse<VentaDetalle> getAll(UUID hospitalId, int page, int rows);
     List<VentaDetalle> getList();
-
 }

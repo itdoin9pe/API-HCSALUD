@@ -16,17 +16,11 @@ public class VentaDetalleDeleteService {
     }
 
     public void execute(UUID uuid) {
-
         var ventaDetalle = ventaDetalleDao.getById(uuid);
-
         if (ventaDetalle.getCantidad() != null && ventaDetalle.getCantidad() == 0) {
-
             throw new IllegalArgumentException("No se puede eliminar una venta sin cantidad registrada");
-
         }
-
         ventaDetalleRepository.delete(uuid);
-
     }
 
 }

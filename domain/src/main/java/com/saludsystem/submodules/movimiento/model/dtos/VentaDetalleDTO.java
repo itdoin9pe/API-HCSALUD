@@ -13,7 +13,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class VentaDetalleDTO {
-
     private UUID ventaDetalleId;
 
     private UUID productoId;
@@ -30,5 +29,4 @@ public class VentaDetalleDTO {
 
     @Schema(example = "0")
     private Double subtotal;
-
 }

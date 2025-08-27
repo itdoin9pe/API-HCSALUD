@@ -15,7 +15,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class VentaEditCommand extends BaseDTO {
-
     private UUID ventaId;
     private String serie;
     private String secuencia;
@@ -46,5 +45,4 @@ public class VentaEditCommand extends BaseDTO {
     private Integer estado;
 
     private List<VentaDetalleEditCommand> detalles;
-
 }
