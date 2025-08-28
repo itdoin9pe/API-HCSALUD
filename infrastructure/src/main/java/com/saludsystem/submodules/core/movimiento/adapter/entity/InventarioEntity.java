@@ -15,7 +15,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "inventario")
 @NoArgsConstructor @AllArgsConstructor
-@Getter @Setter
+@Getter 
+@Setter
 @EqualsAndHashCode(callSuper = true)
 public class InventarioEntity extends BaseEntity {
 

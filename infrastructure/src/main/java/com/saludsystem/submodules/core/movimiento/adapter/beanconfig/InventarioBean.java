@@ -14,30 +14,22 @@ public class InventarioBean {
 
     @Bean
     public InventarioMapper inventarioMapper() {
-
         return new InventarioMapper();
-
     }
 
     @Bean
     public InventarioCreateService inventarioCreateService(InventarioRepository repository) {
-
         return new InventarioCreateService(repository);
-
     }
 
     @Bean
     public InventarioEditService inventarioEditService(InventarioDao dao, InventarioRepository repository) {
-
         return new InventarioEditService(dao, repository);
-
     }
 
     @Bean
     public InventarioDeleteService inventarioDeleteService(InventarioRepository repository, InventarioDao dao) {
-
         return new InventarioDeleteService(repository, dao);
-
     }
 
 }
