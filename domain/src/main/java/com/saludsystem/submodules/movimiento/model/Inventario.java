@@ -12,9 +12,9 @@ import java.util.UUID;
 public class Inventario {
 
     private UUID id;
-    private UUID productoId;
     private UUID almacenId;
     private int tipoInventarioId;
+    private UUID productoId;
     private UUID marcaId;
     private UUID categoriaId;
     private UUID unidadId;

@@ -13,11 +13,12 @@ import java.util.UUID;
 @Setter
 public class InventarioCreateCommand {
 
-    private UUID productoId;
     private UUID almacenId;
-
+    
     @Schema(example = "0")
     private int tipoInventarioId;
+    
+    private UUID productoId;
 
     private UUID marcaMaterialId;
     private UUID categoriaMaterialId;

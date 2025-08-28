@@ -10,16 +10,16 @@ import java.util.UUID;
 public class InventarioMapper {
 
     public Inventario fromCreateDto(InventarioCreateCommand createCommand) {
-        return new Inventario(null, createCommand.getProductoId(), createCommand.getAlmacenId(),
-                createCommand.getTipoInventarioId(), createCommand.getMarcaMaterialId(),
+        return new Inventario(null, createCommand.getAlmacenId(), createCommand.getTipoInventarioId(), 
+        		createCommand.getProductoId(), createCommand.getMarcaMaterialId(),
                 createCommand.getCategoriaMaterialId(), createCommand.getUnidadId(),
                 createCommand.getPrecioEntrada(), createCommand.getPrecioSalida(), createCommand.getStock(),
                 createCommand.getFecha(), createCommand.getEstado());
     }
 
     public Inventario fromUpdateDto(UUID uuid, InventarioEditCommand editCommand) {
-        return new Inventario(uuid, editCommand.getProductoId(), editCommand.getAlmacenId(),
-                editCommand.getTipoInventarioId(), editCommand.getMarcaMaterialId(),
+        return new Inventario(uuid, editCommand.getAlmacenId(), editCommand.getTipoInventarioId(), 
+        		editCommand.getProductoId(), editCommand.getMarcaMaterialId(),
                 editCommand.getCategoriaMaterialId(), editCommand.getUnidadId(), editCommand.getPrecioEntrada(),
                 editCommand.getPrecioSalida(), editCommand.getStock(), editCommand.getFecha(),
                 editCommand.getEstado());
