@@ -18,23 +18,19 @@ public class InventarioMapper {
     }
 
     public Inventario fromUpdateDto(UUID uuid, InventarioEditCommand editCommand) {
-
         return new Inventario(uuid, editCommand.getProductoId(), editCommand.getAlmacenId(),
                 editCommand.getTipoInventarioId(), editCommand.getMarcaMaterialId(),
                 editCommand.getCategoriaMaterialId(), editCommand.getUnidadId(), editCommand.getPrecioEntrada(),
                 editCommand.getPrecioSalida(), editCommand.getStock(), editCommand.getFecha(),
                 editCommand.getEstado());
-
     }
 
     public InventarioDTO toDto(Inventario model) {
-
         return new InventarioDTO(model.getId(), model.getProductoId(), model.getAlmacenId(),
                 model.getTipoInventarioId(), model.getMarcaId(),
                 model.getCategoriaId(), model.getUnidadId(), model.getPrecioEntrada(),
                 model.getPrecioSalida(), model.getStock(), model.getFecha(),
                 model.getEstado());
-
     }
 
 }

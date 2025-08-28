@@ -17,11 +17,8 @@ public class InventarioCreateHandler {
     }
 
     public void execute(InventarioCreateCommand createCommand) {
-
         var inventarioCreated = inventarioMapper.fromCreateDto(createCommand);
-
         inventarioCreateService.execute(inventarioCreated);
-
     }
 
 }

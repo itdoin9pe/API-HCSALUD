@@ -7,7 +7,8 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Getter @Setter
+@Getter 
+@Setter
 public class InventarioListResponse {
 
     @Schema(description = "Lista de registros para Inventario")
