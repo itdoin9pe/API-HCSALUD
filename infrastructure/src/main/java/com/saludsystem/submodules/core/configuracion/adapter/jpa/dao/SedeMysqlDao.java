@@ -7,6 +7,7 @@ import com.saludsystem.submodules.core.configuracion.adapter.jpa.SedeJpaReposito
 import com.saludsystem.submodules.core.configuracion.adapter.mapper.SedeDboMapper;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
