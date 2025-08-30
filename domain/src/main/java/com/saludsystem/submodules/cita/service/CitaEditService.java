@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.cita.service;
 
-import com.saludsystem.submodules.cita.model.entity.Cita;
+import com.saludsystem.submodules.cita.model.Cita;
 import com.saludsystem.submodules.cita.port.dao.CitaDao;
 import com.saludsystem.submodules.cita.port.repository.CitaRepository;
 

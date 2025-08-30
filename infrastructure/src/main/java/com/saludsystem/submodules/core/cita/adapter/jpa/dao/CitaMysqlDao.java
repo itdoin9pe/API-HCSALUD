@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.cita.adapter.jpa.dao;
 
-import com.saludsystem.submodules.cita.model.entity.Cita;
+import com.saludsystem.submodules.cita.model.Cita;
 import com.saludsystem.submodules.cita.port.dao.CitaDao;
 import com.saludsystem.submodules.core.cita.adapter.jpa.CitaJpaRepository;
 import com.saludsystem.submodules.core.cita.adapter.mapper.CitaDboMapper;

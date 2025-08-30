@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.cita.mapper;
 
+import com.saludsystem.submodules.cita.model.Cita;
 import com.saludsystem.submodules.cita.model.dtos.CitaDTO;
 import com.saludsystem.submodules.cita.model.dtos.command.CitaCreateCommand;
 import com.saludsystem.submodules.cita.model.dtos.command.CitaEditCommand;
-import com.saludsystem.submodules.cita.model.entity.*;
 import com.saludsystem.submodules.cita.model.vo.*;
 
 import java.util.UUID;

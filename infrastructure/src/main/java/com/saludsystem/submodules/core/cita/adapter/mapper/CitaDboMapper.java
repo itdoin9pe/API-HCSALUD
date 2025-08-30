@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.cita.adapter.mapper;
 
-import com.saludsystem.submodules.cita.model.entity.*;
+import com.saludsystem.submodules.cita.model.Cita;
 import com.saludsystem.submodules.cita.model.vo.*;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.EspecialidadEntity;
 import com.saludsystem.submodules.core.cita.adapter.entity.CitaEntity;
