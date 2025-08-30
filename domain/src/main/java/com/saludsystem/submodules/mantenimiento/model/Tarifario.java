@@ -1,10 +1,12 @@
 package com.saludsystem.submodules.mantenimiento.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Getter
+@NoArgsConstructor
 public class Tarifario {
     private UUID id;
     private UUID tipoConceptoId;

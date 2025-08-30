@@ -1,12 +1,13 @@
 package com.saludsystem.submodules.mantenimiento.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Getter
+@NoArgsConstructor
 public class Cuenta {
-
     private UUID id;
     private String nombre;
     private Integer total;

@@ -1,12 +1,13 @@
 package com.saludsystem.submodules.mantenimiento.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Getter
+@NoArgsConstructor
 public class TipoGasto {
-
     private UUID conceptoGastoId;
     private String nombre;
     private Integer estado;
@@ -16,5 +17,4 @@ public class TipoGasto {
         this.nombre = nombre;
         this.estado = estado;
     }
-
 }

@@ -1,10 +1,12 @@
 package com.saludsystem.submodules.mantenimiento.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Getter
+@NoArgsConstructor
 public class TipoTarjeta {
     private UUID tipoTarjetaId;
     private String descripcion;

@@ -1,12 +1,13 @@
 package com.saludsystem.submodules.mantenimiento.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Getter
+@NoArgsConstructor
 public class Moneda {
-
     private UUID id;
     private String descripcion;
     private Integer estado;

@@ -1,10 +1,11 @@
 package com.saludsystem.submodules.mantenimiento.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class Enfermedad {
-
     private String id;
     private String descripcion;
     private Integer estado;
