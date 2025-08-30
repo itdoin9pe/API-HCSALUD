@@ -1,10 +1,12 @@
 package com.saludsystem.submodules.catalogo.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Getter
+@NoArgsConstructor
 public class TipoCitado {
     private UUID id;
     private String nombre;

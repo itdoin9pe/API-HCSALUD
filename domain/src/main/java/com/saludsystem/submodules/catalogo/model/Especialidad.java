@@ -1,11 +1,12 @@
 package com.saludsystem.submodules.catalogo.model;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Getter @Setter
+@Getter
+@NoArgsConstructor
 public class Especialidad {
     private UUID id;
     private String nombre;
@@ -17,9 +18,5 @@ public class Especialidad {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.estado = estado;
-    }
-
-    public Especialidad() {
-
     }
 }

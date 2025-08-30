@@ -1,12 +1,12 @@
 package com.saludsystem.submodules.catalogo.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor
 public class Apoderado {
 
     private UUID id;
@@ -15,5 +15,13 @@ public class Apoderado {
     private String direccion;
     private String telefono;
     private Integer estado;
-
+    
+    public Apoderado(UUID id, String nombre, String nroDocumento, String direccion, String telefono, Integer estado) {
+    	this.id = id;
+    	this.nombre = nombre;
+    	this.nroDocumento = nroDocumento;
+    	this.direccion = direccion;
+    	this.telefono = telefono;
+    	this.estado = estado;
+    }
 }

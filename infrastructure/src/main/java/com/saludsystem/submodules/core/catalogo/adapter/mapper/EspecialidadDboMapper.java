@@ -28,11 +28,7 @@ public class EspecialidadDboMapper {
     }
 
     public static Especialidad toDomain(EspecialidadEntity entity) {
-        Especialidad model = new Especialidad();
-        model.setId(entity.getEspecialidadId());
-        model.setNombre(entity.getNombre());
-        model.setDescripcion(entity.getDescripcion());
-        model.setEstado(entity.getEstado());
-        return model;
+        return new Especialidad(entity.getEspecialidadId(), entity.getNombre(),
+        		entity.getDescripcion(), entity.getEstado());
     }
 }

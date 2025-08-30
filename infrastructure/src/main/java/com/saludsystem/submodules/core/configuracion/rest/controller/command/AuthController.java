@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Auth")
@@ -17,11 +16,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
-    private final AuthenticationManager authenticationManager;
 
-    public AuthController(AuthService authService, AuthenticationManager authenticationManager) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
-        this.authenticationManager = authenticationManager;
     }
 
     @PostMapping("/login")
