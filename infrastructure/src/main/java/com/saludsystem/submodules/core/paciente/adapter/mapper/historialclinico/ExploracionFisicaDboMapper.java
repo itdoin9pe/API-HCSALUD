@@ -12,14 +12,11 @@ public class ExploracionFisicaDboMapper {
 
     public static ExploracionFisicaEntity toEntity(ExploracionFisica model, UUID userId, UUID hospitalId) {
         ExploracionFisicaEntity entity = new ExploracionFisicaEntity();
-
         entity.setPacienteExploracionId(model.getPacienteExploracionId());
-
         // Paciente
         var pacienteEntity = new PacienteEntity();
-        pacienteEntity.setPacienteId(model.getPacienteEntity());
+        pacienteEntity.setPacienteId(model.getPacienteId());
         entity.setPacienteEntity(pacienteEntity);
-
         // Campos simples
         entity.setPresionArterial(model.getPresionArterial());
         entity.setPulso(model.getPulso());
@@ -31,17 +28,14 @@ public class ExploracionFisicaDboMapper {
         entity.setMasa(model.getMasa());
         entity.setExamenClinico(model.getExamenClinico());
         entity.setComplementoExamen(model.getComplementoExamen());
-
         // Usuario
         var userEntity = new UserEntity();
         userEntity.setUserId(userId);
         entity.setUser(userEntity);
-
         // Hospital
         var hospitalEntity = new SysSaludEntity();
         hospitalEntity.setHospitalId(hospitalId);
         entity.setHospital(hospitalEntity);
-
         return entity;
     }
 
@@ -61,5 +55,4 @@ public class ExploracionFisicaDboMapper {
                 entity.getComplementoExamen()
         );
     }
-
 }

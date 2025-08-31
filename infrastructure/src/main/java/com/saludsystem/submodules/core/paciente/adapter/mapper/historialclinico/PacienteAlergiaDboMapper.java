@@ -13,33 +13,26 @@ public class PacienteAlergiaDboMapper {
 
     public static PacienteAlergiaEntity toEntity(PacienteAlergia model, UUID userId, UUID hospitalId) {
         PacienteAlergiaEntity entity = new PacienteAlergiaEntity();
-
         entity.setPacienteAlergiaId(model.getPacienteAlergiaId());
-
         // Paciente
         var pacienteEntity = new PacienteEntity();
-        pacienteEntity.setPacienteId(model.getPacienteEntity());
+        pacienteEntity.setPacienteId(model.getPacienteId());
         entity.setPacienteEntity(pacienteEntity);
-
         // Alergia
         var alergiaEntity = new AlergiaEntity();
-        alergiaEntity.setAlergiaId(model.getAlergiaEntity());
+        alergiaEntity.setAlergiaId(model.getAlergiaId());
         entity.setAlergiaEntity(alergiaEntity);
-
         // Campos simples
         entity.setObservacion(model.getObservacion());
         entity.setEstado(model.getEstado());
-
         // Usuario
         var userEntity = new UserEntity();
         userEntity.setUserId(userId);
         entity.setUser(userEntity);
-
         // Hospital
         var hospitalEntity = new SysSaludEntity();
         hospitalEntity.setHospitalId(hospitalId);
         entity.setHospital(hospitalEntity);
-
         return entity;
     }
 
@@ -52,5 +45,4 @@ public class PacienteAlergiaDboMapper {
                 entity.getEstado()
         );
     }
-
 }

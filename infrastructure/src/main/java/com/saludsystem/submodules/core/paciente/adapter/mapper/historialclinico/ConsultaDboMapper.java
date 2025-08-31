@@ -13,19 +13,15 @@ public class ConsultaDboMapper {
 
     public static ConsultaEntity toEntity(Consulta model, UUID userId, UUID hospitalId) {
         ConsultaEntity entity = new ConsultaEntity();
-
         entity.setPacienteConsultaId(model.getPacienteConsultaId());
-
         // Paciente
         var pacienteEntity = new PacienteEntity();
-        pacienteEntity.setPacienteId(model.getPacienteEntity());
+        pacienteEntity.setPacienteId(model.getPacienteId());
         entity.setPacienteEntity(pacienteEntity);
-
         // Especialidad
         var especialidadEntity = new EspecialidadEntity();
-        especialidadEntity.setEspecialidadId(model.getEspecialidadEntity());
+        especialidadEntity.setEspecialidadId(model.getEspecialidadId());
         entity.setEspecialidadEntity(especialidadEntity);
-
         // Campos simples
         entity.setMotivoConsulta(model.getMotivoConsulta());
         entity.setDiagnosticoPresuntivo(model.getDiagnosticoPresuntivo());
@@ -43,17 +39,14 @@ public class ConsultaDboMapper {
         entity.setActividadFisica(model.getActividadFisica());
         entity.setEmbarazada(model.isEmbarazada());
         entity.setUltimaMenstruacion(model.getUltimaMenstruacion());
-
         // Usuario
         var userEntity = new UserEntity();
         userEntity.setUserId(userId);
         entity.setUser(userEntity);
-
         // Hospital
         var hospitalEntity = new SysSaludEntity();
         hospitalEntity.setHospitalId(hospitalId);
         entity.setHospital(hospitalEntity);
-
         return entity;
     }
 
@@ -80,5 +73,4 @@ public class ConsultaDboMapper {
                 entity.getUltimaMenstruacion()
         );
     }
-
 }

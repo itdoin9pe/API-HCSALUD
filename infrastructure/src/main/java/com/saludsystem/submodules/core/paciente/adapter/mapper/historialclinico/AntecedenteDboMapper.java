@@ -12,14 +12,11 @@ public class AntecedenteDboMapper {
 
     public static AntecedentesEntity toEntity(Antecedente model, UUID userId, UUID hospitalId) {
         AntecedentesEntity entity = new AntecedentesEntity();
-
         entity.setPacienteEnfermedadActualId(model.getPacienteEnfermedadActualId());
-
         // Paciente
         var pacienteEntity = new PacienteEntity();
-        pacienteEntity.setPacienteId(model.getPacienteEntity());
+        pacienteEntity.setPacienteId(model.getPacienteId());
         entity.setPacienteEntity(pacienteEntity);
-
         // Campos simples
         entity.setMotivo(model.getMotivo());
         entity.setEnfermedad(model.getEnfermedad());
@@ -33,17 +30,14 @@ public class AntecedenteDboMapper {
         entity.setNombreMedicamento(model.getNombreMedicamento());
         entity.setMotivoMedicamento(model.getMotivoMedicamento());
         entity.setDosis(model.getDosis());
-
         // Usuario
         var userEntity = new UserEntity();
         userEntity.setUserId(userId);
         entity.setUser(userEntity);
-
         // Hospital
         var hospitalEntity = new SysSaludEntity();
         hospitalEntity.setHospitalId(hospitalId);
         entity.setHospital(hospitalEntity);
-
         return entity;
     }
 
@@ -65,5 +59,4 @@ public class AntecedenteDboMapper {
                 entity.getDosis()
         );
     }
-
 }

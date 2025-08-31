@@ -10,25 +10,18 @@ import java.util.UUID;
 public class PacienteAlergiaMapper {
 
     public PacienteAlergia fromCreateDto(PacienteAlergiaCreateCommand createCommand) {
-
         return new PacienteAlergia(null, createCommand.getPacienteId(), createCommand.getAlergiaId(),
                 createCommand.getObservacion(), createCommand.getEstado());
-
     }
 
     public PacienteAlergia fromUpdateDto(UUID uuid, PacienteAlergiaEditCommand editCommand) {
-
         return new PacienteAlergia(uuid, editCommand.getPacienteId(), editCommand.getAlergiaId(),
                 editCommand.getObservacion(), editCommand.getEstado());
-
     }
 
     public PacienteAlergiaDTO toDto(PacienteAlergia model) {
-
         return new PacienteAlergiaDTO(model.getPacienteAlergiaId(),
-                model.getPacienteEntity(), model.getAlergiaEntity(),
+                model.getPacienteAlergiaId(), model.getAlergiaId(),
                 model.getObservacion(), model.getEstado());
-
     }
-
 }

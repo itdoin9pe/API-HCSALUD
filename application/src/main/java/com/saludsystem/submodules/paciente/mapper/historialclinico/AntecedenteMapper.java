@@ -34,7 +34,7 @@ public class AntecedenteMapper {
         return new AntecedenteDTO(
 
                 model.getPacienteEnfermedadActualId(),
-                model.getPacienteEntity(),
+                model.getPacienteId(),
                 model.getMotivo(),
                 model.getEnfermedad(),
                 model.getTiempoEnfermedad(),
