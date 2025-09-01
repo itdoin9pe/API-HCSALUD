@@ -12,7 +12,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class ProductoCreateCommand {
-
     private UUID marcaMaterialesId;
     private UUID tipoMaterialId;
     private UUID unidadId;
@@ -20,23 +19,28 @@ public class ProductoCreateCommand {
     private UUID categoriaMaterialId;
     private String codigo;
     private String codigoBarras;
+    private String nombre;
     private String descripcion;
     private String lote;
-    @Schema(example = "GzDSDmMeTlm xyYplI GZvAawakdKTmxrfavKQHeNKiPzv iKEwIMWSMQQ fglOJCDHZWCQBqCcXYNcI")
-    private String nombre;
-    @Schema(example = "2025-04-03T20:45:54.117Z")
-    private LocalDate fecha;
-    @Schema(description = "Estado de la venta del Producto", example = "0")
-    private Integer stock;
-    @Schema(description = "Estado de la venta del Producto", example = "0")
-    private BigDecimal precioCompra;
-    @Schema(description = "Estado de la venta del Producto", example = "0")
-    private BigDecimal precioVenta;
-    @Schema(description = "Estado del Producto (ACTIVO = 1 / INACTIVO = 0)", example = "0")
-    private Integer estadoProducto;
-    @Schema(description = "Estado de la venta del Producto (SI / NO)")
-    private String estadoVenta;
-    @Schema(description = "Estado de la compra del Producto (SI / NO)")
-    private String estadoCompra;
 
+    @Schema(description = "Fecha de registro o caducidad del producto", example = "2025-04-03")
+    private LocalDate fecha;
+    
+    @Schema(description = "Stock disponible del producto", example = "0")
+    private Integer stock;
+
+    @Schema(description = "Precio de compra del producto", example = "0.0")
+    private BigDecimal precioCompra;
+
+    @Schema(description = "Precio de venta del producto", example = "0.0")
+    private BigDecimal precioVenta;
+    // Estados
+    @Schema(description = "Estado del Producto (ACTIVO = 1 / INACTIVO = 0)", example = "1")
+    private Integer estadoProducto;
+
+    @Schema(description = "Estado de la venta del producto (SI / NO)", example = "SI")
+    private String estadoVenta;
+
+    @Schema(description = "Estado de la compra del producto (SI / NO)", example = "NO")
+    private String estadoCompra;
 }

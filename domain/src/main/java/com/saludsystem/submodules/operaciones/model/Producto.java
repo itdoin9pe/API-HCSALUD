@@ -10,27 +10,32 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 public class Producto {
-	private UUID id;
-	private UUID marcaId;
-	private UUID tipoMaterialId;
-	private UUID unidadId;
-	private UUID presentacionId;
-	private UUID categoriaMatId;
-	private String codigo;
-	private String nombre;
-	private String descripcion;
-	private BigDecimal precioCompra;
-	private BigDecimal precioVenta;
-	private Integer stock;
-	private String lote;
-	private LocalDate fecha;
-	private String estadoVenta;
-	private String estadoCompra;
-	private Integer estadoProducto;
+	 // Identificadores
+    private UUID id;
+    private UUID marcaId;
+    private UUID tipoMaterialId;
+    private UUID unidadId;
+    private UUID presentacionId;
+    private UUID categoriaMatId;
+    // Datos principales
+    private String codigo;
+    private String codigoBarras;
+    private String nombre;
+    private String descripcion;
+    private String lote;
+    private LocalDate fecha;
+    // Inventario y precios
+    private Integer stock;
+    private BigDecimal precioCompra;
+    private BigDecimal precioVenta;
+    // Estados
+    private String estadoVenta;
+    private String estadoCompra;
+    private Integer estadoProducto;
 
 	public Producto(UUID id, UUID marcaId, UUID tipoMaterialId, UUID unidadId, UUID presentacionId, UUID categoriaMatId,
-			String codigo, String nombre, String descripcion, BigDecimal precioCompra, BigDecimal precioVenta,
-			Integer stock, String lote, LocalDate fecha, String estadoVenta, String estadoCompra,
+			String codigo, String codigoBarras, String nombre, String descripcion, BigDecimal precioCompra, 
+			BigDecimal precioVenta,Integer stock, String lote, LocalDate fecha, String estadoVenta, String estadoCompra,
 			Integer estadoProducto) {
 		this.id = id;
 		this.marcaId = marcaId;
@@ -39,6 +44,7 @@ public class Producto {
 		this.presentacionId = presentacionId;
 		this.categoriaMatId = categoriaMatId;
 		this.codigo = codigo;
+		this.codigoBarras = codigoBarras;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precioCompra = precioCompra;
