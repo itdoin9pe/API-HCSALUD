@@ -17,7 +17,7 @@ public class VentaMapper {
     public Venta fromCreateDto(VentaCreateCommand createCommand) {
 
         List<VentaDetalle> detalles = createCommand.getDetalles().stream()
-                .map(d -> detalleMapper.fromCreateDto(null))
+                .map(detalleMapper::fromCreateDto)
                 .collect(Collectors.toList());
 
         return new Venta(null, createCommand.getSerie(), createCommand.getSecuencia(), createCommand.getFecha(),

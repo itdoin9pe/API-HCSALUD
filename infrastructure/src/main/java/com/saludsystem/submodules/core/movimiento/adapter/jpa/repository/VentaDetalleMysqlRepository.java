@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
 import com.saludsystem.submodules.core.movimiento.adapter.entity.VentaDetalleEntity;
-import com.saludsystem.submodules.core.movimiento.adapter.entity.VentaEntity;
 import com.saludsystem.submodules.core.movimiento.adapter.jpa.VentaDetalleJpaRepository;
 import com.saludsystem.submodules.core.movimiento.adapter.mapper.VentaDetalleDboMapper;
 import com.saludsystem.submodules.movimiento.model.VentaDetalle;
@@ -35,9 +34,7 @@ public class VentaDetalleMysqlRepository implements VentaDetalleRepository {
 		// TODO Auto-generated method stub
 		UUID hospitalId = authenticateUserPort.getHospitalId();
 		UUID userId = authenticateUserPort.getUserId();
-		VentaEntity ventaEntity = new VentaEntity();
-		ventaEntity.setVentaId(ventaDetalle.getVentaId());
-		VentaDetalleEntity entity = VentaDetalleDboMapper.toEntity(ventaDetalle, ventaEntity, hospitalId, userId);
+		VentaDetalleEntity entity = VentaDetalleDboMapper.toEntity(ventaDetalle, hospitalId, userId);
 		return VentaDetalleDboMapper.toDomain(ventaDetalleJpaRepository.save(entity));
 	}
 
@@ -49,9 +46,7 @@ public class VentaDetalleMysqlRepository implements VentaDetalleRepository {
 		}
 		UUID hospitalId = authenticateUserPort.getHospitalId();
 		UUID userId = authenticateUserPort.getUserId();
-		VentaEntity ventaEntity = new VentaEntity();
-		ventaEntity.setVentaId(ventaDetalle.getVentaId());
-		VentaDetalleEntity entity = VentaDetalleDboMapper.toEntity(ventaDetalle, ventaEntity, hospitalId, userId);
+		VentaDetalleEntity entity = VentaDetalleDboMapper.toEntity(ventaDetalle, hospitalId, userId);
 		return VentaDetalleDboMapper.toDomain(ventaDetalleJpaRepository.save(entity));
 	}
 

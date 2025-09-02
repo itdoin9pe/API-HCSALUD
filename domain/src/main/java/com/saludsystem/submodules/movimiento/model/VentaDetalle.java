@@ -10,21 +10,21 @@ import java.util.UUID;
 @NoArgsConstructor
 public class VentaDetalle {
     private UUID ventaDetalleId;
-    private UUID ventaId;
     private UUID productoId;
+    private UUID ventaId;
     private String codigoProducto;
     private Integer cantidad;
-    private BigDecimal precio;
+    private BigDecimal precioUnitario;
     private BigDecimal subtotal;
     
-    public VentaDetalle(UUID ventaDetalleId, UUID ventaId, UUID productoId, String codigoProducto, 
-    		Integer cantidad, BigDecimal precio, BigDecimal subtotal) {
+    public VentaDetalle(UUID ventaDetalleId, UUID productoId, UUID ventaId, String codigoProducto, 
+    		Integer cantidad, BigDecimal precioUnitario, BigDecimal subtotal) {
     	this.ventaDetalleId=ventaDetalleId;
-    	this.ventaId=ventaId;
     	this.productoId=productoId;
+    	this.ventaId=ventaId;
     	this.codigoProducto=codigoProducto;
     	this.cantidad=cantidad;
-    	this.precio=precio;
+    	this.precioUnitario=precioUnitario;
     	this.subtotal=subtotal;
     }
 }

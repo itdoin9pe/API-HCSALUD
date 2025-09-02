@@ -16,7 +16,7 @@ public class VentaDetalleDTO {
     private UUID ventaDetalleId;
 
     private UUID productoId;
-
+    
     private UUID ventaId;
 
     private String codigoProducto;

@@ -3,7 +3,6 @@ package com.saludsystem.submodules.core.movimiento.adapter.mapper;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import com.saludsystem.submodules.core.movimiento.adapter.entity.VentaDetalleEntity;
-import com.saludsystem.submodules.core.movimiento.adapter.entity.VentaEntity;
 import com.saludsystem.submodules.core.operaciones.adapter.entity.ProductoEntity;
 import com.saludsystem.submodules.movimiento.model.VentaDetalle;
 
@@ -11,18 +10,15 @@ import java.util.UUID;
 
 public class VentaDetalleDboMapper {
 
-    public static VentaDetalleEntity toEntity(VentaDetalle model, VentaEntity ventaEntity, UUID hospitalId, UUID userId) {
-
+    public static VentaDetalleEntity toEntity(VentaDetalle model, UUID hospitalId, UUID userId) {
         VentaDetalleEntity entity = new VentaDetalleEntity();
-        VentaEntity venta = new VentaEntity();
-        venta.setVentaId(model.getVentaId());
-        entity.setVentaEntity(venta);
+        // Producto
         ProductoEntity producto = new ProductoEntity();
         producto.setProductoId(model.getProductoId());
         entity.setProductoEntity(producto);
         entity.setCodigoProducto(model.getCodigoProducto());
         entity.setCantidad(model.getCantidad());
-        entity.setPrecio(model.getPrecio());
+        entity.setPrecio(model.getPrecioUnitario());
         entity.setSubtotal(model.getSubtotal());
         var userEntity = new UserEntity();
         userEntity.setUserId(userId);
@@ -31,7 +27,6 @@ public class VentaDetalleDboMapper {
         hospitalEntity.setHospitalId(hospitalId);
         entity.setHospital(hospitalEntity);
         return entity;
-
     }
 
     public static VentaDetalle toDomain(VentaDetalleEntity entity) {
@@ -44,5 +39,4 @@ public class VentaDetalleDboMapper {
                 entity.getPrecio(),
                 entity.getSubtotal());
     }
-
 }

@@ -35,56 +35,50 @@ public class VentaDboMapper {
         entity.setVuelto(model.getVuelto());
         entity.setTotal(model.getTotal());
         entity.setEstado(model.getEstado());
-
         // Relaciones con solo el ID (proxies)
         TipoPagoEntity tipoPago = new TipoPagoEntity();
         tipoPago.setTipoPagoId(model.getTipoPagoId());
         entity.setTipoPagoEntity(tipoPago);
-
+        // tipo de documento
         TipoDocumentoEntity tipoDocumento = new TipoDocumentoEntity();
         tipoDocumento.setTipoDocumentoId(model.getTipoDocumentoId());
         entity.setTipoDocumentoEntity(tipoDocumento);
-
+        // almacen
         AlmacenEntity almacen = new AlmacenEntity();
         almacen.setAlmacenId(model.getAlmacenId());
         entity.setAlmacenEntity(almacen);
-
+        // paciente
         PacienteEntity beneficiario = new PacienteEntity();
         beneficiario.setPacienteId(model.getBeneficiarioId());
         entity.setBeneficiarioId(beneficiario);
-
+        // tipo tarjeta
         TipoTarjetaEntity tarjeta = new TipoTarjetaEntity();
         tarjeta.setTipoTarjetaId(model.getTipoTarjetaId());
         entity.setTipoTarjetaEntity(tarjeta);
-
+        // moneda
         MonedaEntity moneda = new MonedaEntity();
         moneda.setMonedaId(model.getTipoMonedaId());
         entity.setTipoMonedaEntity(moneda);
-
         // Detalles
         List<VentaDetalleEntity> detalleEntities = model.getDetalles().stream()
-                            .map(d -> VentaDetalleDboMapper.toEntity(d, entity, hospitalId, userId))
+                            .map(d -> VentaDetalleDboMapper.toEntity(d, hospitalId, userId))
                             .collect(Collectors.toList());
+        // asignar la venta a cada detalle
+        detalleEntities.forEach(det -> det.setVentaEntity(entity));
         entity.setDetalle(detalleEntities);
-
         var userEntity = new UserEntity();
         userEntity.setUserId(userId);
         entity.setUser(userEntity);
-
         var hospitalEntity = new SysSaludEntity();
         hospitalEntity.setHospitalId(hospitalId);
         entity.setHospital(hospitalEntity);
-
         return entity;
-
     }
 
     public static Venta toDomain(VentaEntity entity) {
-
         List<VentaDetalle> detalles = entity.getDetalle().stream()
                 .map(VentaDetalleDboMapper::toDomain)
                 .collect(Collectors.toList());
-
         return new Venta(entity.getVentaId(),
                 entity.getSerie(), entity.getSecuencia(), entity.getFecha(), entity.getTipoBeneficiario(),
                 entity.getBeneficiarioDocumento(), entity.getBeneficiarioDireccion(),
@@ -93,7 +87,5 @@ public class VentaDboMapper {
                 entity.getTipoDocumentoEntity().getTipoDocumentoId(), entity.getAlmacenEntity().getAlmacenId(),
                 entity.getBeneficiarioId().getPacienteId(), entity.getTipoTarjetaEntity().getTipoTarjetaId(),
                 entity.getTipoMonedaEntity().getMonedaId(), entity.getEstado(), detalles);
-
     }
-
 }

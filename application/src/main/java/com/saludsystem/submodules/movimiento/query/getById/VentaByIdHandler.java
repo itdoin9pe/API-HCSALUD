@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-public class VentaByIdHandler {
+public class VentaByIdHandler { 
 
     private final VentaDao ventaDao;
     private final VentaMapper ventaMapper;

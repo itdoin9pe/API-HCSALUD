@@ -11,9 +11,8 @@ import java.util.UUID;
 public class PacienteMapper {
 
     public Paciente fromCreateDto(PacienteCreateCommand createCommand) {
-
         return new Paciente(
-                null,
+                new IdPaciente(UUID.randomUUID()),
                 new TipoDocumentoPaciente(createCommand.getTipoDocumentoId()),
                 new NumeroDocPaciente(createCommand.getNumeroDocumento()),
                 new ApellidoPaciente(createCommand.getApellidos()),
@@ -46,7 +45,6 @@ public class PacienteMapper {
     }
 
     public Paciente fromUpdateDto(UUID uuid, PacienteEditCommand editCommand) {
-
         return new Paciente(
                 new IdPaciente(editCommand.getPacienteId()),
                 new TipoDocumentoPaciente(editCommand.getTipoDocumentoId()),
@@ -78,7 +76,6 @@ public class PacienteMapper {
                 new IdEstudioPaciente(editCommand.getEstudioId()),
                 new IdSedePaciente(editCommand.getSedeId()),
                 new CelularPaciente(editCommand.getCelular()));
-
     }
 
     public PacienteDTO toDto(Paciente model) {
@@ -94,5 +91,4 @@ public class PacienteMapper {
                 model.getInformacionClinicaId().value(), model.getEstudioId().value(), model.getSedeId().value(),
                 model.getCelular().value());
     }
-
 }

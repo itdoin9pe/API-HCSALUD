@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -50,7 +51,9 @@ public class AseguradoraQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = AseguradoraListResponse.class)))
     })
-    public ListResponse<AseguradoraDTO> getAllPaginated(UUID hospitalId, int page, int rows) {
+    public ListResponse<AseguradoraDTO> getAllPaginated(@RequestParam UUID hospitalId,
+            @RequestParam(name = "Page") int page,
+            @RequestParam(name = "Rows") int rows) {
         return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
 

@@ -9,11 +9,13 @@ import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 @Component
+@Transactional
 public class VentaMysqlDao implements VentaDao {
 
     private final VentaJpaRepository ventaJpaRepository;

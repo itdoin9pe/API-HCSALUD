@@ -13,11 +13,11 @@ import java.util.UUID;
 @Getter
 @Setter
 public class VentaDetalleEditCommand extends BaseDTO {
-
+	
     private UUID productoId;
 
     private UUID ventaId;
-
+    
     private UUID ventaDetalleId;
 
     private String codigoProducto;

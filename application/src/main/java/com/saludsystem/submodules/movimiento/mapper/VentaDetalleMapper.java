@@ -12,7 +12,7 @@ public class VentaDetalleMapper {
     public VentaDetalle fromCreateDto(VentaDetalleCreateCommand createCommand) {
         return new VentaDetalle(null,
                 createCommand.getProductoId(),
-                createCommand.getVentaId(),
+        		createCommand.getVentaId(),
                 createCommand.getCodigoProducto(),
                 createCommand.getCantidad(),
                 createCommand.getPrecioUnitario(),
@@ -22,7 +22,7 @@ public class VentaDetalleMapper {
     public VentaDetalle fromUpdateDto(UUID uuid, VentaDetalleEditCommand editCommand) {
         return new VentaDetalle(null,
                 editCommand.getProductoId(),
-                editCommand.getVentaId(),
+        		editCommand.getVentaId(),
                 editCommand.getCodigoProducto(),
                 editCommand.getCantidad(),
                 editCommand.getPrecioUnitario(),
@@ -31,11 +31,11 @@ public class VentaDetalleMapper {
 
     public VentaDetalleDTO toDto(VentaDetalle model) {
         return new VentaDetalleDTO(model.getVentaDetalleId(),
-                model.getVentaId(),
                 model.getProductoId(),
+        		model.getVentaId(),
                 model.getCodigoProducto(),
                 model.getCantidad(),
-                model.getPrecio().doubleValue(),
+                model.getPrecioUnitario().doubleValue(),
                 model.getSubtotal().doubleValue());
     }
     

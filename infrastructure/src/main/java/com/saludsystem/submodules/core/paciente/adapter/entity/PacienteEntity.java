@@ -27,8 +27,7 @@ import java.util.UUID;
 public class PacienteEntity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_paciente", nullable = false)
+    @Column(name = "id_paciente", nullable = false, updatable = false)
     private UUID pacienteId;
 
     @NotBlank(message = "El tipo documento no puede estar vacio")
@@ -109,7 +108,7 @@ public class PacienteEntity extends BaseEntity {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "foto_paciente", nullable = false)
+    @Column(name = "foto_paciente", nullable = true)
     private String fotoPaciente;
 
     @Column(name = "titulo", nullable = false)

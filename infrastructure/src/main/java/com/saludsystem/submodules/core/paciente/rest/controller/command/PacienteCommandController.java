@@ -10,6 +10,8 @@ import com.saludsystem.submodules.response.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +34,8 @@ public class PacienteCommandController {
 
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
             content = @Content(schema = @Schema(implementation = ApiResponse.class)))
-    @PostMapping(value = "/Save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ApiResponse save(@RequestBody PacienteCreateCommand createCommand) {
+    @PostMapping(value = "/Save")
+    public ApiResponse save(@Valid @RequestBody PacienteCreateCommand createCommand) {
         createHandler.execute(createCommand);
         return new ApiResponse(true, PacienteConstant.CREATED);
     }

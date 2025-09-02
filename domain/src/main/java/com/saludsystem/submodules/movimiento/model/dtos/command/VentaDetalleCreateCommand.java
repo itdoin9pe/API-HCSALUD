@@ -11,9 +11,10 @@ import java.util.UUID;
 @Getter
 @Setter
 public class VentaDetalleCreateCommand {
+		
     private UUID productoId;
 
-    private UUID ventaId;
+	private UUID ventaId;
 
     private String codigoProducto;
 
