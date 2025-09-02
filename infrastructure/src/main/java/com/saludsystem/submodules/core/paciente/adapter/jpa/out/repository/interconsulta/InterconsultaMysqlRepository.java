@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository.interconsulta;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.interconsulta.InterconsultaEntity;
 import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.interconsulta.InterconsultaJpaRepository;
 import com.saludsystem.submodules.core.paciente.adapter.mapper.interconsulta.InterconsultaDboMapper;

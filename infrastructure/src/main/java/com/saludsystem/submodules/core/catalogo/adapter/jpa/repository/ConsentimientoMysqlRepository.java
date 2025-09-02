@@ -2,7 +2,7 @@ package com.saludsystem.submodules.core.catalogo.adapter.jpa.repository;
 
 import com.saludsystem.submodules.catalogo.model.Consentimiento;
 import com.saludsystem.submodules.catalogo.port.repository.ConsentimientoRepository;
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.ConsentimientoEntity;
 import com.saludsystem.submodules.core.catalogo.adapter.jpa.ConsentimientoJpaRepository;
 import com.saludsystem.submodules.core.catalogo.adapter.mapper.ConsentimientoDboMapper;

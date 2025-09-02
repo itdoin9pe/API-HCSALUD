@@ -33,9 +33,9 @@ public class EspecialidadCommandController {
         return new ApiResponse(true, EspecialidadConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody EspecialidadEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{especialidadId}")
+    public ApiResponse update(@PathVariable UUID especialidadId, @RequestBody EspecialidadEditCommand dto) {
+        editHandler.execute(especialidadId, dto);
         return new ApiResponse(true, EspecialidadConstant.UPDATED);
     }
 

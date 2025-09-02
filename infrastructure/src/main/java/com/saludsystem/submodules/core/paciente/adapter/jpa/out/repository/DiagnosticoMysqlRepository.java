@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.paciente.adapter.entity.DiagnosticoEntity;
 import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.DiagnosticoJpaRepository;
 import com.saludsystem.submodules.core.paciente.adapter.mapper.DiagnosticoDboMapper;

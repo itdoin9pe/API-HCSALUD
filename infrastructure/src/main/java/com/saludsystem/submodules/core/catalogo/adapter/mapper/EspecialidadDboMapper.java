@@ -9,20 +9,19 @@ import java.util.UUID;
 
 public class EspecialidadDboMapper {
 
-    public static EspecialidadEntity toEntity(Especialidad model, UUID userId, UUID hospitalId) {
+    public static EspecialidadEntity toEntity(Especialidad model, UUID hospitalId, UUID userId) {
         EspecialidadEntity entity = new EspecialidadEntity();
         entity.setEspecialidadId(model.getId());
         entity.setNombre(model.getNombre());
         entity.setDescripcion(model.getDescripcion());
         entity.setEstado(model.getEstado());
 
-        var userEntity = new UserEntity();
-        userEntity.setUserId(userId);
-        entity.setUser(userEntity);
-
         var hospitalEntity = new SysSaludEntity();
         hospitalEntity.setHospitalId(hospitalId);
         entity.setHospital(hospitalEntity);
+        var userEntity = new UserEntity();
+        userEntity.setUserId(userId);
+        entity.setUser(userEntity);
 
         return entity;
     }

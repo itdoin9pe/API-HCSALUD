@@ -1,6 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.especialidad;
 
 import com.saludsystem.submodules.catalogo.model.Especialidad;
+import com.saludsystem.submodules.catalogo.model.constant.EspecialidadConstant;
 import com.saludsystem.submodules.catalogo.port.dao.EspecialidadDao;
 import com.saludsystem.submodules.catalogo.port.repository.EspecialidadRepository;
 
@@ -16,18 +17,18 @@ public class EspecialidadEditService {
         this.especialidadRepository = especialidadRepository;
     }
 
-    public Especialidad execute(UUID uuid, Especialidad model) {
-
-        var currrentEspecialidad = especialidadDao.getById(uuid);
-
-        if (currrentEspecialidad.getEstado() != null && currrentEspecialidad.getEstado() == 0) {
-
+    public Especialidad execute(UUID uuid, Especialidad especialidad) {
+        var currentEspecialidad = especialidadDao.getById(uuid);
+        if (currentEspecialidad == null) {
+			throw new IllegalArgumentException(EspecialidadConstant.INVALID_ID);
+		}
+        if (currentEspecialidad.getEstado() != null && currentEspecialidad.getEstado() == 0) {
             throw new IllegalStateException("La especialidad ya se encuentra desactivada");
-
         }
-
-        return especialidadRepository.update(uuid, model);
-
+        currentEspecialidad.actualizarNombre(especialidad.getNombre());
+        currentEspecialidad.actualizarDescripcion(especialidad.getDescripcion());
+        currentEspecialidad.actualizarEstado(especialidad.getEstado());
+        return especialidadRepository.update(uuid, currentEspecialidad);
     }
 
 }

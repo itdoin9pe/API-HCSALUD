@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.core.configuracion.adapter.jpa.repository;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
 import com.saludsystem.submodules.configuracion.model.Rol;
 import com.saludsystem.submodules.configuracion.port.in.repository.RolRepository;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.RoleEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.RoleJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.mapper.RolDboMapper;

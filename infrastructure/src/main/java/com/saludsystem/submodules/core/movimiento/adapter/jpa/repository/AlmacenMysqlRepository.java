@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.movimiento.adapter.entity.AlmacenEntity;
 import com.saludsystem.submodules.core.movimiento.adapter.jpa.AlmacenJpaRepository;
 import com.saludsystem.submodules.core.movimiento.adapter.mapper.AlmacenDboMapper;

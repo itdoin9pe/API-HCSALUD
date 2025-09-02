@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.core.configuracion.adapter.jpa.repository;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
 import com.saludsystem.submodules.configuracion.model.TipoDocumento;
 import com.saludsystem.submodules.configuracion.port.in.repository.TipoDocumentoRepository;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.TipoDocumentoEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.TipoDocumentoJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.mapper.TipoDocumentoDboMapper;

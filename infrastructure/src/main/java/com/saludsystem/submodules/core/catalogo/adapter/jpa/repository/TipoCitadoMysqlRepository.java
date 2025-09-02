@@ -2,7 +2,7 @@ package com.saludsystem.submodules.core.catalogo.adapter.jpa.repository;
 
 import com.saludsystem.submodules.catalogo.model.TipoCitado;
 import com.saludsystem.submodules.catalogo.port.repository.TipoCitadoRepository;
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.TipoCitadoEntity;
 import com.saludsystem.submodules.core.catalogo.adapter.jpa.TipoCitadoJpaRepository;
 import com.saludsystem.submodules.core.catalogo.adapter.mapper.TipoCitadoDboMapper;

@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.mantenimiento.adapter.jpa.repository;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.mantenimiento.adapter.entity.TarifarioEntity;
 import com.saludsystem.submodules.core.mantenimiento.adapter.jpa.TarifarioJpaRepository;
 import com.saludsystem.submodules.core.mantenimiento.adapter.mapper.TarifarioDboMapper;

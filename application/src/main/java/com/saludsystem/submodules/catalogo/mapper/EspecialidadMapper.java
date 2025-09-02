@@ -18,7 +18,7 @@ public class EspecialidadMapper {
     }
 
     public EspecialidadDTO toDto(Especialidad model) {
-        return new EspecialidadDTO(model.getId(), model.getDescripcion(), model.getNombre(), model.getEstado());
+        return new EspecialidadDTO(model.getId(), model.getNombre(), model.getDescripcion(), model.getEstado());
     }
 
 }

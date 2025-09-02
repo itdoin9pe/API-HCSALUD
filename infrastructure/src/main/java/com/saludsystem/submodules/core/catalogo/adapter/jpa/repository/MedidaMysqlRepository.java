@@ -2,7 +2,7 @@ package com.saludsystem.submodules.core.catalogo.adapter.jpa.repository;
 
 import com.saludsystem.submodules.catalogo.model.Medida;
 import com.saludsystem.submodules.catalogo.port.repository.MedidaRepository;
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.MedidaEntity;
 import com.saludsystem.submodules.core.catalogo.adapter.jpa.MedidaJpaRepository;
 import com.saludsystem.submodules.core.catalogo.adapter.mapper.MedidaDboMapper;

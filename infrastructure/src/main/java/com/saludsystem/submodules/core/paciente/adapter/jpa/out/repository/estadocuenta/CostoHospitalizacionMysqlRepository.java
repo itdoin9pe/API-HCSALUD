@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository.estadocuenta;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.estadocuenta.CostoHospitalizacionEntity;
 import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.estadocuenta.CostoHospitalizacionJpaRepository;
 import com.saludsystem.submodules.core.paciente.adapter.mapper.estadocuenta.CostoHospitalizacionDboMapper;

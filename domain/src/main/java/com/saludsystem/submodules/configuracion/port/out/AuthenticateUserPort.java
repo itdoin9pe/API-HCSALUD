@@ -1,4 +1,4 @@
-    package com.saludsystem.submodules.configuracion.mapper;
+    package com.saludsystem.submodules.configuracion.port.out;
 
     import java.util.UUID;
 

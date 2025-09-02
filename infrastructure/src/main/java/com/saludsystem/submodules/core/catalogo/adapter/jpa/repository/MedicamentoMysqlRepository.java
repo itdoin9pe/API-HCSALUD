@@ -2,7 +2,7 @@ package com.saludsystem.submodules.core.catalogo.adapter.jpa.repository;
 
 import com.saludsystem.submodules.catalogo.model.Medicamento;
 import com.saludsystem.submodules.catalogo.port.repository.MedicamentoRepository;
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.MedicamentoEntity;
 import com.saludsystem.submodules.core.catalogo.adapter.jpa.MedicamentoJpaRepository;
 import com.saludsystem.submodules.core.catalogo.adapter.mapper.MedicamentoDboMapper;

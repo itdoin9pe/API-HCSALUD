@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.paciente.adapter.entity.RecetaEntity;
 import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.RecetaJpaRepository;
 import com.saludsystem.submodules.core.paciente.adapter.mapper.RecetaDboMapper;

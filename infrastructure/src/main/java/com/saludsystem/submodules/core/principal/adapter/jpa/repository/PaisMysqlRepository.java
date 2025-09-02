@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.principal.adapter.jpa.repository;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.principal.adapter.entity.PaisEntity;
 import com.saludsystem.submodules.core.principal.adapter.jpa.PaisJpaRepository;
 import com.saludsystem.submodules.core.principal.adapter.mapper.PaisDboMapper;

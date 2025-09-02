@@ -2,7 +2,7 @@ package com.saludsystem.submodules.core.catalogo.adapter.jpa.repository;
 
 import com.saludsystem.submodules.catalogo.model.Apoderado;
 import com.saludsystem.submodules.catalogo.port.repository.ApoderadoRepository;
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.ApoderadoEntity;
 import com.saludsystem.submodules.core.catalogo.adapter.jpa.ApoderadoJpaRepository;
 import com.saludsystem.submodules.core.catalogo.adapter.mapper.ApoderadoDboMapper;

@@ -2,7 +2,7 @@ package com.saludsystem.submodules.core.catalogo.adapter.jpa.repository;
 
 import com.saludsystem.submodules.catalogo.model.Alergia;
 import com.saludsystem.submodules.catalogo.port.repository.AlergiaRepository;
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.AlergiaEntity;
 import com.saludsystem.submodules.core.catalogo.adapter.jpa.AlergiaJpaRepository;
 import com.saludsystem.submodules.core.catalogo.adapter.mapper.AlergiaDboMapper;

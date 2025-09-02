@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.movimiento.adapter.jpa.repository;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.movimiento.adapter.entity.CompraEntity;
 import com.saludsystem.submodules.core.movimiento.adapter.jpa.CompraJpaRepository;
 import com.saludsystem.submodules.core.movimiento.adapter.mapper.CompraDboMapper;

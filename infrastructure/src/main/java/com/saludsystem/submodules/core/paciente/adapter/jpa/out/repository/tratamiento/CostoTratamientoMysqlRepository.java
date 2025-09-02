@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository.tratamiento;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.tratamiento.CostoTratamientoEntity;
 import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.tratamiento.CostoTratamientoJpaRepository;
 import com.saludsystem.submodules.core.paciente.adapter.mapper.tratamiento.CostoTratamientoDboMapper;

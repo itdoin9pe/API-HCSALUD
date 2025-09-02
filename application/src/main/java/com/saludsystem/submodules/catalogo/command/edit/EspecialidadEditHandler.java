@@ -20,9 +20,9 @@ public class EspecialidadEditHandler {
 
     public void execute(UUID uuid, EspecialidadEditCommand editCommand) {
 
-        var especialidad = especialidadMapper.fromUpdateDto(uuid, editCommand);
+        var especialidadUpdate = especialidadMapper.fromUpdateDto(uuid, editCommand);
 
-        especialidadEditService.execute(uuid, especialidad);
+        especialidadEditService.execute(uuid, especialidadUpdate);
 
     }
 

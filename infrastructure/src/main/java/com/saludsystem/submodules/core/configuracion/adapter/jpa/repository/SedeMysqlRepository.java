@@ -1,9 +1,9 @@
 package com.saludsystem.submodules.core.configuracion.adapter.jpa.repository;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
 import com.saludsystem.submodules.configuracion.model.Sede;
 import com.saludsystem.submodules.configuracion.model.constant.SedeConstant;
 import com.saludsystem.submodules.configuracion.port.in.repository.SedeRepository;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SedeEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.SedeJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.mapper.SedeDboMapper;

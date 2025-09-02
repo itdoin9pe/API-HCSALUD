@@ -1,6 +1,6 @@
 package com.saludsystem.submodules.core.paciente.adapter.jpa.out.repository.historialclinico;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.PacienteAlergiaEntity;
 import com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.historialclinico.PacienteAlergiaJpaRepository;
 import com.saludsystem.submodules.core.paciente.adapter.mapper.historialclinico.PacienteAlergiaDboMapper;

@@ -1,8 +1,8 @@
 package com.saludsystem.submodules.core.configuracion.adapter.jpa.repository;
 
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
 import com.saludsystem.submodules.configuracion.model.Permiso;
 import com.saludsystem.submodules.configuracion.port.in.repository.PermisoRepository;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.PermisoEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.PermisoJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.mapper.PermisoDboMapper;

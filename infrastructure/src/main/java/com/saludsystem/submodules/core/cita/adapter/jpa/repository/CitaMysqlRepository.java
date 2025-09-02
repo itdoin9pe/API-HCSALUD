@@ -3,7 +3,7 @@ package com.saludsystem.submodules.core.cita.adapter.jpa.repository;
 import com.saludsystem.submodules.cita.model.Cita;
 import com.saludsystem.submodules.cita.model.constant.CitaConstant;
 import com.saludsystem.submodules.cita.port.repository.CitaRepository;
-import com.saludsystem.submodules.configuracion.mapper.AuthenticateUserPort;
+import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.cita.adapter.entity.CitaEntity;
 import com.saludsystem.submodules.core.cita.adapter.jpa.CitaJpaRepository;
 import com.saludsystem.submodules.core.cita.adapter.mapper.CitaDboMapper;
