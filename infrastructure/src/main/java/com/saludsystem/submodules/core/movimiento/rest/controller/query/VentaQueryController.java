@@ -47,10 +47,10 @@ public class VentaQueryController {
                     description = "Operación exitosa", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = AlergiaListResponse.class)))
     })
-    public ListResponse<VentaDTO> getAll(@RequestParam UUID hospitalId,
-                                           @RequestParam(name = "Page") int page,
-                                           @RequestParam(name = "Rows") int rows) {
+    public ListResponse<VentaDTO> getAll(
+    		@RequestParam UUID hospitalId,
+    		@RequestParam(name = "Page") int page,
+    		@RequestParam(name = "Rows") int rows) {
         return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
     }
-
 }
