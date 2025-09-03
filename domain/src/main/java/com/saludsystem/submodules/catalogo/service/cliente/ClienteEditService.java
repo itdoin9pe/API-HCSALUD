@@ -17,15 +17,17 @@ public class ClienteEditService {
     }
 
     public Cliente execute(UUID uuid, Cliente cliente) {
-
         var currentCliente = clienteDao.getById(uuid);
-
         if (currentCliente.getEstado() != null && currentCliente.getEstado() == 0) {
             throw new IllegalStateException("El cliente ya se encuentra desactivado");
         }
-
-        return clienteRepository.update(uuid, cliente);
-
+        currentCliente.actualizarTipoDocumento(cliente.getTipoDocumento());
+        currentCliente.actualizarNombre(cliente.getNombre());
+        currentCliente.actualizarDireccion(cliente.getDireccion());
+        currentCliente.actualizarContacto(cliente.getContacto());
+        currentCliente.actualizarTelefono(cliente.getTelefono());
+        currentCliente.actualizarEmail(cliente.getEmail());
+        currentCliente.actualizarEstado(cliente.getEstado());
+        return clienteRepository.update(uuid, currentCliente);
     }
-
 }

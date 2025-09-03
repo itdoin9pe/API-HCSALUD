@@ -21,4 +21,25 @@ public class Consentimiento {
     	this.estado = estado;
     	this.texto = texto;
     }
+    
+    public void actualizarNombre(String nombre) {
+    	if (nombre != null && !nombre.isBlank()) {
+			this.nombre=nombre;
+		}
+    }
+    public void actualizarObservacion(String observacion) {
+    	if (observacion != null && !observacion.isBlank()) {
+			this.observacion=observacion;
+		}
+    }
+    public void actualizarEstado(Integer estado) {
+    	if (estado != null) {
+			this.estado=estado;
+		}
+    }
+    public void actualizarTexto(String texto) {
+    	if (texto != null && !texto.isBlank()) {
+			this.texto=texto;
+		}
+    }
 }

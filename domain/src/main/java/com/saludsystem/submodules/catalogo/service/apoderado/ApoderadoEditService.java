@@ -17,15 +17,16 @@ public class ApoderadoEditService {
     }
 
     public Apoderado execute(UUID uuid, Apoderado apoderado) {
-
         var currentApoderado = apoderadoDao.getById(uuid);
-
         if (currentApoderado.getEstado() != null && currentApoderado.getEstado() == 0) {
             throw new IllegalStateException("El registro ya se encuentra desactivado");
         }
-
-        return apoderadoRepository.update(uuid, apoderado);
+        currentApoderado.actualizarNombre(apoderado.getNombre());
+        currentApoderado.actualizarNroDocumento(apoderado.getNroDocumento());
+        currentApoderado.actualizarDireccion(apoderado.getDireccion());
+        currentApoderado.actualizarTelefono(apoderado.getTelefono());
+        currentApoderado.actualizarEstado(apoderado.getEstado());
+        return apoderadoRepository.update(uuid, currentApoderado);
 
     }
-
 }

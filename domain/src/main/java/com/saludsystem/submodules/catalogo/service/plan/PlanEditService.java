@@ -1,6 +1,7 @@
 package com.saludsystem.submodules.catalogo.service.plan;
 
 import com.saludsystem.submodules.catalogo.model.Plan;
+import com.saludsystem.submodules.catalogo.model.constant.PlanConstant;
 import com.saludsystem.submodules.catalogo.port.dao.PlanDao;
 import com.saludsystem.submodules.catalogo.port.repository.PlanRepository;
 
@@ -17,17 +18,20 @@ public class PlanEditService {
     }
 
     public Plan execute(UUID uuid, Plan model) {
-
         var currentPlan = planDao.getById(uuid);
-
+        if (currentPlan == null) {
+			throw new IllegalArgumentException(PlanConstant.INVALID_ID);
+		}
         if (currentPlan.getEstado() != null && currentPlan.getEstado() == 0) {
-
             throw new IllegalStateException("El plan ya se encuentra desactivado");
-
         }
-
-        return planRepository.update(uuid, model);
-
+        currentPlan.actualizarNombrePlan(model.getNombrePlan());
+        currentPlan.actualizarFechaInicio(model.getFechaInicio());
+        currentPlan.actualizarFechaFin(model.getFechaFinContrato());
+        currentPlan.actualizarMaxPlan(model.getMaxPlan());
+        currentPlan.actualizarUseMax(model.getUseMax());
+        currentPlan.actualizarCostoPlan(model.getCostoPlan());
+        currentPlan.actualizarEstado(model.getEstado());
+        return planRepository.update(uuid, currentPlan);
     }
-
 }

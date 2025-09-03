@@ -17,4 +17,15 @@ public class Medida {
     	this.nombre = nombre;
     	this.estado = estado;
     }
+    
+    public void actualizarNombre(String nombre) {
+    	if (nombre != null && !nombre.isBlank()) {
+			this.nombre=nombre;
+		}
+    }
+    public void actualizarEstado(Integer estado) {
+    	if (estado != null) {
+			this.estado=estado;
+		}
+    }
 }

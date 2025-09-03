@@ -25,15 +25,12 @@ public class Especialidad {
 			this.nombre = nombre;
 		}
     }
-    
     public void actualizarDescripcion(String descripcion) {
         if (descripcion != null && !descripcion.isBlank()) {
             this.descripcion = descripcion;
         }
     }
-
     public void actualizarEstado(Integer estado) {
         if (estado != null) this.estado = estado;
     }
-
 }

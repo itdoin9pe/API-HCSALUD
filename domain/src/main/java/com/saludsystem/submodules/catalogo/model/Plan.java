@@ -29,4 +29,40 @@ public class Plan {
     	this.costoPlan=costoPlan;
     	this.estado=estado;
     }
+    
+    public void actualizarNombrePlan(String nombrePlan) {
+    	if (nombrePlan != null && !nombrePlan.isBlank()) {
+			this.nombrePlan=nombrePlan;
+		}
+    }
+    public void actualizarFechaInicio(LocalDate fechaInicio) {
+    	if (fechaInicio != null) {
+			this.fechaInicio=fechaInicio;
+		}
+    }
+    public void actualizarFechaFin(LocalDate fechaFinContrato) {
+        if (fechaFinContrato != null && (this.fechaInicio == null || !fechaFinContrato.isBefore(this.fechaInicio))) {
+            this.fechaFinContrato = fechaFinContrato;
+        }
+    }
+    public void actualizarMaxPlan(int maxPlan) {
+        if (maxPlan >= 0) {
+            this.maxPlan = maxPlan;
+        }
+    }
+    public void actualizarUseMax(int useMax) {
+    	if (useMax >= 0) {
+			this.useMax=useMax;
+		}
+    }
+    public void actualizarCostoPlan(Double costoPlan) {
+        if (costoPlan != null && costoPlan >= 0) {
+            this.costoPlan = costoPlan;
+        }
+    }
+    public void actualizarEstado(Integer estado) {
+    	if (estado != null) {
+			this.estado=estado;
+		}
+    }
 }

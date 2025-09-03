@@ -17,15 +17,13 @@ public class TipoCitadoEditService {
     }
 
     public TipoCitado execute(UUID uuid, TipoCitado model) {
-
         var currentTipoCitado = tipoCitadoDao.getById(uuid);
-
         if (currentTipoCitado.getEstado() != null && currentTipoCitado.getEstado() == 0) {
-
             throw new IllegalStateException("El tipo citado ya se encuentra desactivado");
-
         }
-
+        currentTipoCitado.actualizarNombre(model.getNombre());
+        currentTipoCitado.actualizarColor(model.getColor());
+        currentTipoCitado.actualizarEstado(model.getEstado());
         return tipoCitadoRepository.update(uuid, model);
 
     }

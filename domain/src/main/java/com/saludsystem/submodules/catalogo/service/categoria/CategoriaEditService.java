@@ -17,15 +17,12 @@ public class CategoriaEditService {
     }
 
     public Categoria execute(UUID uuid, Categoria categoria) {
-
         var currentCategoria = categoriaDao.getById(uuid);
-
         if (currentCategoria.getEstado() != null && currentCategoria.getEstado() == 0) {
             throw new IllegalStateException("La categoria ya se encuentra desactivada");
         }
-
-        return categoriaRepository.update(uuid, categoria);
-
+        currentCategoria.actualizarNombre(categoria.getNombre());
+        currentCategoria.actualizarEstado(categoria.getEstado());
+        return categoriaRepository.update(uuid, currentCategoria);
     }
-
 }

@@ -17,17 +17,12 @@ public class TipoConceptoEditService {
     }
 
     public TipoConcepto execute(UUID uuid, TipoConcepto model) {
-
         var currentTipoConcepto = tipoConceptoDao.getById(uuid);
-
         if (currentTipoConcepto.getEstado() != null && currentTipoConcepto.getEstado() == 0) {
-
             throw new IllegalStateException("El tipo de concepto ya se encuentra desactivado");
-
         }
-
-        return tipoConceptoRepository.update(uuid, model);
-
+        currentTipoConcepto.actualizarNombre(model.getNombre());
+        currentTipoConcepto.actualizarEstado(model.getEstado());
+        return tipoConceptoRepository.update(uuid, currentTipoConcepto);
     }
-
 }

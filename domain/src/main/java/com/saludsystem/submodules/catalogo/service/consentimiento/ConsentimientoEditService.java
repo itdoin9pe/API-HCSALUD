@@ -17,15 +17,14 @@ public class ConsentimientoEditService {
     }
 
     public Consentimiento execute(UUID uuid, Consentimiento model) {
-
         var currentConsent = consentimientoDao.getById(uuid);
-
         if (currentConsent.getEstado() != null && currentConsent.getEstado() == 0) {
             throw new IllegalStateException("El consentimiento ya se encuentra desactivado");
         }
-
-        return consentimientoRepository.update(uuid, model);
-
+        currentConsent.actualizarNombre(model.getNombre());
+        currentConsent.actualizarObservacion(model.getObservacion());
+        currentConsent.actualizarEstado(model.getEstado());
+        currentConsent.actualizarTexto(model.getTexto());
+        return consentimientoRepository.update(uuid, currentConsent);
     }
-
 }

@@ -18,14 +18,22 @@ public class UserEditService {
     }
 
     public Usuario execute(UUID uuid, Usuario usuario) {
-
         var currentUser = userDao.getById(uuid);
-
         if (currentUser == null) {
             throw new IllegalArgumentException(UserConstant.ID_NOT_FOUND);
         }
-
+        currentUser.actualizarApellido(usuario.getLastName());
+        currentUser.actualizarNombre(usuario.getFirstName());
+        currentUser.actualizarEmail(usuario.getEmail());
+        currentUser.actualizarUsername(usuario.getUsername());
+        currentUser.actualizarPassword(usuario.getPassword());
+        currentUser.actualizarAddress(usuario.getAddress());
+        currentUser.actualizarTipoDocumento(usuario.getDocumentType());
+        currentUser.actualizarNumeroDocumento(usuario.getDocumentNumber());
+        currentUser.actualizarFoto(usuario.getPhoto());
+        currentUser.actualizarRol(usuario.getRolId());
+        currentUser.actualizarHospital(usuario.getHospitalId());
+        currentUser.actualizarEstado(usuario.getEstado());
         return userRepository.update(uuid, usuario);
-
     }
 }

@@ -25,4 +25,40 @@ public class Sede {
     	this.estado=estado;
     	this.sucursalId=sucursalId;
     }
+   
+    public void actualizarCodigo(String codigo) {
+        if (codigo != null && !codigo.isBlank()) {
+            this.codigo = codigo;
+        }
+    }
+
+    public void actualizarNombre(String nombre) {
+        if (nombre != null && !nombre.isBlank()) {
+            this.nombre = nombre;
+        }
+    }
+
+    public void actualizarDireccion(String direccion) {
+        if (direccion != null && !direccion.isBlank()) {
+            this.direccion = direccion;
+        }
+    }
+
+    public void actualizarUbigeo(String ubigeo) {
+        if (ubigeo != null && !ubigeo.isBlank()) {
+            this.ubigeo = ubigeo;
+        }
+    }
+
+    public void actualizarEstado(Integer estado) {
+        if (estado != null) {
+            this.estado = estado;
+        }
+    }
+
+    public void actualizarSucursalId(UUID sucursalId) {
+        if (sucursalId != null) {
+            this.sucursalId = sucursalId;
+        }
+    }
 }

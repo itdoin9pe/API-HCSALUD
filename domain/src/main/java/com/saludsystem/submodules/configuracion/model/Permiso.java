@@ -25,4 +25,29 @@ public class Permiso {
     	this.rolId=rolId;
     	this.menuId=menuId;
     }
+    
+    // Métodos de actualización parcial
+    public void actualizarDelete(Boolean delete) {
+        if (delete != null) this.delete = delete;
+    }
+
+    public void actualizarInsert(Boolean insert) {
+        if (insert != null) this.insert = insert;
+    }
+
+    public void actualizarRead(Boolean read) {
+        if (read != null) this.read = read;
+    }
+
+    public void actualizarUpdate(Boolean update) {
+        if (update != null) this.update = update;
+    }
+
+    public void actualizarRolId(UUID rolId) {
+        if (rolId != null) this.rolId = rolId;
+    }
+
+    public void actualizarMenuId(UUID menuId) {
+        if (menuId != null) this.menuId = menuId;
+    }
 }

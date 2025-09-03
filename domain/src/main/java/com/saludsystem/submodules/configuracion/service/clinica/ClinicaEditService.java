@@ -18,21 +18,22 @@ public class ClinicaEditService {
     }
 
     public SysSalud execute(UUID uuid, SysSalud sysSalud) {
-
         var currentCli = sysSaludDao.getById(uuid);
-
         if (currentCli == null) {
             throw new IllegalArgumentException(ClinicaConstant.ID_NOT_FOUND);
         }
-
         if (currentCli.getEstado() != null && currentCli.getEstado() == 0) {
-
             throw new IllegalStateException("La clinica ya se encuentra desactivada");
-
         }
-
-        return sysSaludRepository.update(uuid, sysSalud);
-
+        currentCli.actualizarNombre(sysSalud.getNombre());
+        currentCli.actualizarDireccion(sysSalud.getDireccion());
+        currentCli.actualizarCelular(sysSalud.getCelular());
+        currentCli.actualizarEmail(sysSalud.getEmail());
+        currentCli.actualizarRuc(sysSalud.getRuc());
+        currentCli.actualizarFecha(sysSalud.getFecha());
+        currentCli.actualizarFoto(sysSalud.getFoto());
+        currentCli.actualizarEstado(sysSalud.getEstado());
+        currentCli.actualizarPlanId(sysSalud.getPlanId());
+        return sysSaludRepository.update(uuid, currentCli);
     }
-
 }

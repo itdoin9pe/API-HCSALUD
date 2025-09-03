@@ -17,16 +17,16 @@ public class MedicamentoEditService {
     }
 
     public Medicamento execute(UUID uuid, Medicamento model) {
-
         var currentMedicamento = medicamentoDao.getById(uuid);
-
         if (currentMedicamento.getEstado() != null && currentMedicamento.getEstado() == 0) {
-
             throw new IllegalStateException("El medicamento ya se encuentra desactivado");
-
         }
-
-        return medicamentoRepository.update(uuid, model);
+        currentMedicamento.actualizarNombre(model.getNombre());
+        currentMedicamento.actualizarFormaFarmaceutica(model.getFormaFarmaceutica());
+        currentMedicamento.actualizarConcentracion(model.getConcentracion());
+        currentMedicamento.actualizarConcentracion(model.getContenido());
+        currentMedicamento.actualizarEstado(model.getEstado());
+        return medicamentoRepository.update(uuid, currentMedicamento);
 
     }
 

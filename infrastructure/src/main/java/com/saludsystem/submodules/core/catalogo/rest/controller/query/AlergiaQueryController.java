@@ -39,9 +39,9 @@ public class AlergiaQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public AlergiaDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{alergiaId}")
+    public AlergiaDTO getById(@PathVariable UUID alergiaId) {
+        return byIdHandler.execute(alergiaId);
     }
 
     @GetMapping("/GetAll")

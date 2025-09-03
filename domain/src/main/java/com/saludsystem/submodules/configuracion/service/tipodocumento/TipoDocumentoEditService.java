@@ -18,21 +18,19 @@ public class TipoDocumentoEditService {
     }
 
     public TipoDocumento execute(UUID uuid, TipoDocumento tipoDocumento) {
-
         var currentTipoDoc = tipoDocumentoDao.getById(uuid);
-
         if (currentTipoDoc == null) {
             throw new IllegalArgumentException(TipoDocumentoConstant.ID_NOT_FOUND);
         }
-
         if (currentTipoDoc.getEstado() != null && currentTipoDoc.getEstado() == 0) {
-
             throw new IllegalStateException("El tipo de documento ya se encuentra desactivado");
-
         }
-
-        return tipoDocumentoRepository.update(uuid, tipoDocumento);
-
+        currentTipoDoc.actualizarTipoComprobante(tipoDocumento.getTipoComprobante());
+        currentTipoDoc.actualizarSerie(tipoDocumento.getSerie());
+        currentTipoDoc.actualizarInicio(tipoDocumento.getInicio());
+        currentTipoDoc.actualizarFin(tipoDocumento.getFin());
+        currentTipoDoc.actualizarCorrelativoActual(tipoDocumento.getCorrelativoActual());
+        currentTipoDoc.actualizarEstado(tipoDocumento.getEstado());
+        return tipoDocumentoRepository.update(uuid, currentTipoDoc);
     }
-
 }

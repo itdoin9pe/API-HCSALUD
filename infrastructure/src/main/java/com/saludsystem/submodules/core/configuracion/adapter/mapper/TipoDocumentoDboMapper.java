@@ -9,8 +9,7 @@ import java.util.UUID;
 
 public class TipoDocumentoDboMapper {
 
-    public static TipoDocumentoEntity toEntity(TipoDocumento model, UUID userId, UUID hospitalId) {
-
+    public static TipoDocumentoEntity toEntity(TipoDocumento model, UUID hospitalId, UUID userId) {
         TipoDocumentoEntity entity = new TipoDocumentoEntity();
         entity.setTipoDocumentoId(model.getId());
         entity.setTipoComprobante(model.getTipoComprobante());
@@ -19,17 +18,13 @@ public class TipoDocumentoDboMapper {
         entity.setFin(model.getFin());
         entity.setCorrelativoActual(model.getCorrelativoActual());
         entity.setEstado(model.getEstado());
-
-        var userEntity = new UserEntity();
-        userEntity.setUserId(userId);
-        entity.setUser(userEntity);
-
         var hospitalEntity = new SysSaludEntity();
         hospitalEntity.setHospitalId(hospitalId);
         entity.setHospital(hospitalEntity);
-
+        var userEntity = new UserEntity();
+        userEntity.setUserId(userId);
+        entity.setUser(userEntity);
         return entity;
-
     }
 
     public static TipoDocumento toDomain(TipoDocumentoEntity entity) {

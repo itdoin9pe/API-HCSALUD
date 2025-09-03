@@ -26,4 +26,35 @@ public class TipoDocumento {
     	this.correlativoActual=correlativoActual;
     	this.estado=estado;
     }
+    
+    public void actualizarTipoComprobante(String tipoComprobante) {
+    	if (tipoComprobante != null && !tipoComprobante.isBlank()) {
+			this.tipoComprobante=tipoComprobante;
+		}
+    }
+    public void actualizarSerie(String serie) {
+    	if (serie != null && !serie.isBlank()) {
+			this.serie=serie;
+		}
+    }
+    public void actualizarInicio(Integer inicio) {
+    	if (inicio != null) {
+			this.inicio=inicio;
+		}
+    }
+    public void actualizarFin(Integer fin) {
+    	if (fin != null) {
+			this.fin=fin;
+		}
+    }
+    public void actualizarCorrelativoActual(Integer correlativoActual) {
+    	if (correlativoActual != null) {
+			this.correlativoActual=correlativoActual;
+		}
+    }
+    public void actualizarEstado(Integer estado) {
+    	if (estado != null) {
+			this.estado=estado;
+		}
+    }
 }

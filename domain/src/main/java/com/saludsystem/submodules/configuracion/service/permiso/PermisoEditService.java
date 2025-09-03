@@ -20,17 +20,16 @@ public class PermisoEditService {
     }
 
     public Permiso execute(UUID uuid, Permiso permiso) {
-
         var currentPermiso = permisoDao.getById(uuid);
-
         if (currentPermiso == null) {
-
             throw new IllegalArgumentException(PermisoConstant.INVALID_ID);
-
         }
-
+        currentPermiso.actualizarDelete(permiso.getDelete());
+        currentPermiso.actualizarInsert(permiso.getInsert());
+        currentPermiso.actualizarRead(permiso.getRead());
+        currentPermiso.actualizarUpdate(permiso.getUpdate());
+        currentPermiso.actualizarRolId(permiso.getRolId());
+        currentPermiso.actualizarMenuId(permiso.getMenuId());
         return permisoRepository.update(uuid, permiso);
-
     }
-
 }

@@ -28,4 +28,39 @@ public class Cliente {
     	this.email = email;
     	this.estado = estado;
     }
+    public void actualizarTipoDocumento(String tipoDocumento) {
+    	if (tipoDocumento != null && !tipoDocumento.isBlank()) {
+			this.tipoDocumento=tipoDocumento;
+		}
+    }
+    public void actualizarNombre(String nombre) {
+    	if (nombre != null && !nombre.isBlank()) {
+			this.nombre=nombre;
+		}
+    }
+    public void actualizarDireccion(String direccion) {
+    	if (direccion != null && !direccion.isBlank()) {
+			this.direccion=direccion;
+		}
+    }
+    public void actualizarContacto(String contacto) {
+    	if (contacto != null && !contacto.isBlank()) {
+			this.contacto=contacto;
+		}
+    }
+    public void actualizarTelefono(String telefono) {
+    	if (telefono != null && !telefono.isBlank()) {
+			this.telefono=telefono;
+		}
+    }
+    public void actualizarEmail(String email) {
+    	if (email != null && email.isBlank()) {
+			this.email=email;
+		}
+    }
+    public void actualizarEstado(Integer estado) {
+    	if (estado != null) {
+			this.estado=estado;
+		}
+    }
 }

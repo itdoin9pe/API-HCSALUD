@@ -1,11 +1,14 @@
 package com.saludsystem.submodules.core.configuracion.adapter.jpa.repository;
 
 import com.saludsystem.submodules.configuracion.model.TipoDocumento;
+import com.saludsystem.submodules.configuracion.model.constant.TipoDocumentoConstant;
 import com.saludsystem.submodules.configuracion.port.in.repository.TipoDocumentoRepository;
 import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.TipoDocumentoEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.TipoDocumentoJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.mapper.TipoDocumentoDboMapper;
+import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
+
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -23,22 +26,29 @@ public class TipoDocumentoMysqlRepository implements TipoDocumentoRepository {
 
     @Override
     public TipoDocumento save(TipoDocumento tipoDocumento) {
-        UUID userId = authenticateUserPort.getUserId();
         UUID hospitalId = authenticateUserPort.getHospitalId();
-        TipoDocumentoEntity entity = TipoDocumentoDboMapper.toEntity(tipoDocumento, userId, hospitalId);
+    	UUID userId = authenticateUserPort.getUserId();
+        TipoDocumentoEntity entity = TipoDocumentoDboMapper.toEntity(tipoDocumento, hospitalId, userId);
         return TipoDocumentoDboMapper.toDomain(tipoDocumentoJpaRepository.save(entity));
     }
 
     @Override
     public TipoDocumento update(UUID uuid, TipoDocumento tipoDocumento) {
-        UUID userId = authenticateUserPort.getUserId();
+    	if (!tipoDocumentoJpaRepository.existsById(uuid)) {
+			throw new ResourceNotFoundException(TipoDocumentoConstant.ID_NOT_FOUND);
+		}
         UUID hospitalId = authenticateUserPort.getHospitalId();
-        TipoDocumentoEntity entity = TipoDocumentoDboMapper.toEntity(tipoDocumento, userId, hospitalId);
+    	UUID userId = authenticateUserPort.getUserId();
+        TipoDocumentoEntity entity = TipoDocumentoDboMapper.toEntity(tipoDocumento, hospitalId, userId);
+        entity.setTipoDocumentoId(uuid);
         return TipoDocumentoDboMapper.toDomain(tipoDocumentoJpaRepository.save(entity));
     }
 
     @Override
     public void delete(UUID uuid) {
+    	if (!tipoDocumentoJpaRepository.existsById(uuid)) {
+			throw new ResourceNotFoundException(TipoDocumentoConstant.ID_NOT_FOUND);
+		}
         tipoDocumentoJpaRepository.deleteById(uuid);
     }
 }

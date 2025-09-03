@@ -17,17 +17,13 @@ public class MedidaEditService {
     }
 
     public Medida execute(UUID uuid, Medida model) {
-
         var currentMedida = medidaDao.getById(uuid);
-
         if (currentMedida.getEstado() != null && currentMedida.getEstado() == 0) {
-
             throw new IllegalStateException("La medida ya se encuentra desactivada");
-
         }
-
-        return medidaRepository.update(uuid, model);
-
+        currentMedida.actualizarNombre(model.getNombre());
+        currentMedida.actualizarEstado(model.getEstado());
+        return medidaRepository.update(uuid, currentMedida);
     }
 
 }

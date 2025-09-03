@@ -18,19 +18,15 @@ public class AlergiaEditService {
     }
 
     public Alergia execute(UUID uuid, Alergia alergia) {
-
         var currentAlergia = alergiaDao.getById(uuid);
-
         if (currentAlergia == null) {
             throw new IllegalArgumentException(AlergiaConstant.ID_NOT_FOUND);
         }
-
         if (currentAlergia.getEstado() != null && currentAlergia.getEstado() == 0) {
             throw new IllegalStateException("La alergia ya se encuentra desactivada");
         }
-
-        return alergiaRepository.update(uuid, alergia);
-
+        currentAlergia.actualizarNombre(alergia.getNombre());
+        currentAlergia.actualizarEstado(alergia.getEstado());
+        return alergiaRepository.update(uuid, currentAlergia);
     }
-
 }

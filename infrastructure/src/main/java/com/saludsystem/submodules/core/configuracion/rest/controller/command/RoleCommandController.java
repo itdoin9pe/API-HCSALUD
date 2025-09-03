@@ -40,7 +40,7 @@ public class RoleCommandController {
     }
 
     @DeleteMapping("/DeleteRol/{roleId}")
-    public ApiResponse destroy(@PathVariable UUID roleId) {
+    public ApiResponse destroy(@PathVariable UUID roleId)	 {
         deleteHandler.execute(roleId);
         return new ApiResponse(true, RolConstant.DELETED);
     }

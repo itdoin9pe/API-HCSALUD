@@ -18,23 +18,15 @@ public class RolEditService {
     }
 
     public Rol execute(UUID uuid, Rol rol) {
-
         var currentRol = rolDao.getById(uuid);
-
         if (currentRol == null) {
-
             throw new IllegalArgumentException(RolConstant.ID_NOT_FOUND);
-
         }
-
         if (currentRol.getEstado() != null && currentRol.getEstado() == 0) {
-
             throw new IllegalStateException("El rol ya se encuentra desactivado");
-
         }
-
-        return rolRepository.update(uuid, rol);
-
+        currentRol.actualizarNombre(rol.getNombre());
+        currentRol.actualizarEstado(rol.getEstado());
+        return rolRepository.update(uuid, currentRol);
     }
-
 }

@@ -18,23 +18,20 @@ public class SedeEditService {
     }
 
     public Sede execute(UUID uuid, Sede sede) {
-
         var currentSede = sedeDao.getById(uuid);
-
         if (currentSede == null) {
-
             throw new IllegalArgumentException(SedeConstant.ID_NOT_FOUND);
-
         }
-
         if (currentSede.getEstado() != null && currentSede.getEstado() == 0) {
-
             throw new IllegalStateException("La sede ya se encuentra desactivada");
-
         }
-
-        return sedeRepository.update(uuid, sede);
-
+        currentSede.actualizarCodigo(sede.getCodigo());
+        currentSede.actualizarNombre(sede.getNombre());
+        currentSede.actualizarDireccion(sede.getDireccion());
+        currentSede.actualizarUbigeo(sede.getUbigeo());
+        currentSede.actualizarEstado(sede.getEstado());
+        currentSede.actualizarSucursalId(sede.getSucursalId());
+        return sedeRepository.update(uuid, currentSede);
     }
 
 }
