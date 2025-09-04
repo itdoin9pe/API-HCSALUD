@@ -33,15 +33,15 @@ public class AlergiaCommandController {
         return new ApiResponse(true, AlergiaConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody AlergiaEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{alergiaId}")
+    public ApiResponse update(@PathVariable UUID alergiaId, @RequestBody AlergiaEditCommand dto) {
+        editHandler.execute(alergiaId, dto);
         return new ApiResponse(true, AlergiaConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{alergiaId}")
+    public ApiResponse delete(@PathVariable UUID alergiaId) {
+        deleteHandler.execute(alergiaId);
         return new ApiResponse(true, AlergiaConstant.DELETED);
     }
 

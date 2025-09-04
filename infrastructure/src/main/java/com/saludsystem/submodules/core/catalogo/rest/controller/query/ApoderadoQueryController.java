@@ -27,9 +27,9 @@ public class ApoderadoQueryController {
         this.byIdHandler = byIdHandler;
     }
 
-    @GetMapping("/GetById/{id}")
-    public ApoderadoDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{apoderadoId}")
+    public ApoderadoDTO getById(@PathVariable UUID apoderadoId) {
+        return byIdHandler.execute(apoderadoId);
     }
 
     @GetMapping("/GetAll")

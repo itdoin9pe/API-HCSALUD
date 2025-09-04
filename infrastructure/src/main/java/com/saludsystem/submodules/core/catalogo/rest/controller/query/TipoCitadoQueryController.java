@@ -39,9 +39,9 @@ public class TipoCitadoQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public TipoCitadoDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{tipoCitadoId}")
+    public TipoCitadoDTO getById(@PathVariable UUID tipoCitadoId) {
+        return byIdHandler.execute(tipoCitadoId);
     }
 
     @GetMapping("/GetAll")

@@ -36,9 +36,9 @@ public class ConsentimientoQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public ConsentimientoDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{consentimientoId}")
+    public ConsentimientoDTO getById(@PathVariable UUID consentimientoId) {
+        return byIdHandler.execute(consentimientoId);
     }
 
     @GetMapping("/GetAll")

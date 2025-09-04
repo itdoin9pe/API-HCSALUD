@@ -36,9 +36,9 @@ public class CategoriaQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public CategoriaDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{categoriaId}")
+    public CategoriaDTO getById(@PathVariable UUID categoriaId) {
+        return byIdHandler.execute(categoriaId);
     }
 
     @GetMapping("/GetAll")

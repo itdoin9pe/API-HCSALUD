@@ -33,15 +33,15 @@ public class MedidaCommandController {
         return new ApiResponse(true, MedidaConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody MedidaEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{medidaId}")
+    public ApiResponse update(@PathVariable UUID medidaId, @RequestBody MedidaEditCommand dto) {
+        editHandler.execute(medidaId, dto);
         return new ApiResponse(true, MedidaConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{medidaId}")
+    public ApiResponse delete(@PathVariable UUID medidaId) {
+        deleteHandler.execute(medidaId);
         return new ApiResponse(true, MedidaConstant.DELETED);
     }
 }

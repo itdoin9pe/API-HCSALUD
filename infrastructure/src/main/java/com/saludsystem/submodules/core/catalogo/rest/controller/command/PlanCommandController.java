@@ -33,15 +33,15 @@ public class PlanCommandController {
         return new ApiResponse(true, PlanConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody PlanEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{planId}")
+    public ApiResponse update(@PathVariable UUID planId, @RequestBody PlanEditCommand dto) {
+        editHandler.execute(planId, dto);
         return new ApiResponse(true, PlanConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{planId}")
+    public ApiResponse delete(@PathVariable UUID planId) {
+        deleteHandler.execute(planId);
         return new ApiResponse(true, PlanConstant.DELETED);
     }
 }

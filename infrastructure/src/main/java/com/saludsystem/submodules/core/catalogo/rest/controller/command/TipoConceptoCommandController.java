@@ -32,15 +32,15 @@ public class TipoConceptoCommandController {
         return new ApiResponse(true, "Registro agregado");
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody TipoConceptoEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{tipoConceptoId}")
+    public ApiResponse update(@PathVariable UUID tipoConceptoId, @RequestBody TipoConceptoEditCommand dto) {
+        editHandler.execute(tipoConceptoId, dto);
         return new ApiResponse(true, "Registro actualizado exitosamente");
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{tipoConcenptoId}")
+    public ApiResponse delete(@PathVariable UUID tipoConceptoId) {
+        deleteHandler.execute(tipoConceptoId);
         return new ApiResponse(true, "Registro eliminado exitosamente");
     }
 

@@ -39,9 +39,9 @@ public class EspecialidadCommandController {
         return new ApiResponse(true, EspecialidadConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{especialidadId}")
+    public ApiResponse delete(@PathVariable UUID especialidadId) {
+        deleteHandler.execute(especialidadId);
         return new ApiResponse(true, EspecialidadConstant.DELETED);
     }
 }

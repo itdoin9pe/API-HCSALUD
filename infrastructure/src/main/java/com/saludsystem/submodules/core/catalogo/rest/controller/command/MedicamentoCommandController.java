@@ -33,15 +33,15 @@ public class MedicamentoCommandController {
         return new ApiResponse(true, MedicamentoConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody MedicamentoEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{medicamentoId}")
+    public ApiResponse update(@PathVariable UUID medicamentoId, @RequestBody MedicamentoEditCommand dto) {
+        editHandler.execute(medicamentoId, dto);
         return new ApiResponse(true, MedicamentoConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{medicamentoId}")
+    public ApiResponse delete(@PathVariable UUID medicamentoId) {
+        deleteHandler.execute(medicamentoId);
         return new ApiResponse(true, MedicamentoConstant.DELETED);
     }
 }

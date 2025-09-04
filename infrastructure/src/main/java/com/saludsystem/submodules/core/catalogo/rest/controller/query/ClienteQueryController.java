@@ -36,9 +36,9 @@ public class ClienteQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public ClienteDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{clienteId}")
+    public ClienteDTO getById(@PathVariable UUID clienteId) {
+        return byIdHandler.execute(clienteId);
     }
 
     @GetMapping("/GetAll")

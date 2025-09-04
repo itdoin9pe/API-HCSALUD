@@ -36,9 +36,9 @@ public class EspecialidadQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetLis/{id}")
-    public EspecialidadDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetLis/{especialidadId}")
+    public EspecialidadDTO getById(@PathVariable UUID especialidadId) {
+        return byIdHandler.execute(especialidadId);
     }
 
     @GetMapping("/GetAll")

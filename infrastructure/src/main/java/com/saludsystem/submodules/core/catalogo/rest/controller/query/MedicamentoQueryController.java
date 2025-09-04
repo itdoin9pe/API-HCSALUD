@@ -39,9 +39,9 @@ public class MedicamentoQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public MedicamentoDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{medicamentoId}")
+    public MedicamentoDTO getById(@PathVariable UUID medicamentoId) {
+        return byIdHandler.execute(medicamentoId);
     }
 
     @GetMapping("/GetAll")

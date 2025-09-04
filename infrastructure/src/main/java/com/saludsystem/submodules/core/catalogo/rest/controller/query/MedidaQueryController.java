@@ -36,9 +36,9 @@ public class MedidaQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public MedidaDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{medidaId}")
+    public MedidaDTO getById(@PathVariable UUID medidaId) {
+        return byIdHandler.execute(medidaId);
     }
 
     @GetMapping("/GetAll")

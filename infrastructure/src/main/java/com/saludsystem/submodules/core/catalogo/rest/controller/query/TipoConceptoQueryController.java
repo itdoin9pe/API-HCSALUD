@@ -36,9 +36,9 @@ public class TipoConceptoQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public TipoConceptoDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{tipoConceptoId}")
+    public TipoConceptoDTO getById(@PathVariable UUID tipoConceptoId) {
+        return byIdHandler.execute(tipoConceptoId);
     }
 
     @GetMapping("/GetAll")

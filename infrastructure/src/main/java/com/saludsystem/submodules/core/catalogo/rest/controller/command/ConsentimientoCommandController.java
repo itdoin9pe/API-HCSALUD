@@ -33,15 +33,15 @@ public class ConsentimientoCommandController {
         return new ApiResponse(true, ConsentimientoConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ConsentimientoEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{consentimientoId}")
+    public ApiResponse update(@PathVariable UUID consentimientoId, @RequestBody ConsentimientoEditCommand dto) {
+        editHandler.execute(consentimientoId, dto);
         return new ApiResponse(true, ConsentimientoConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{consentimientoId}")
+    public ApiResponse delete(@PathVariable UUID consentimientoId) {
+        deleteHandler.execute(consentimientoId);
         return new ApiResponse(true, ConsentimientoConstant.DELETED);
     }
 }

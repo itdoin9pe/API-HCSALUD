@@ -33,16 +33,16 @@ public class ApoderadoCommandController {
         return new ApiResponse(true, ApoderadoConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ApoderadoEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{apoderadId}")
+    public ApiResponse update(@PathVariable UUID apoderadoId, @RequestBody ApoderadoEditCommand dto) {
+        editHandler.execute(apoderadoId, dto);
         return new ApiResponse(true, ApoderadoConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{apoderadoId}")
+    public ApiResponse delete(@PathVariable UUID apoderadoId) {
+        deleteHandler.execute(apoderadoId);
         return new ApiResponse(true, ApoderadoConstant.DELETED);
     }
-
+    
 }

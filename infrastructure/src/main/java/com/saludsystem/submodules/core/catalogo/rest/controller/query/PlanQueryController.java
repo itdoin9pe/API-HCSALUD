@@ -36,9 +36,9 @@ public class PlanQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public PlanDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{planId}")
+    public PlanDTO getById(@PathVariable UUID planId) {
+        return byIdHandler.execute(planId);
     }
 
     @GetMapping("/GetAll")

@@ -33,15 +33,15 @@ public class ClienteCommandController {
         return new ApiResponse(true, ClienteConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ClienteEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{clienteId}")
+    public ApiResponse update(@PathVariable UUID clienteId, @RequestBody ClienteEditCommand dto) {
+        editHandler.execute(clienteId, dto);
         return new ApiResponse(true, ClienteConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{clienteId}")
+    public ApiResponse delete(@PathVariable UUID clienteId) {
+        deleteHandler.execute(clienteId);
         return new ApiResponse(true, ClienteConstant.DELETED);
     }
 }

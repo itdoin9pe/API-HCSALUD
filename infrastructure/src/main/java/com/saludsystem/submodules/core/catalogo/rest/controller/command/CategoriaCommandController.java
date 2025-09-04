@@ -33,15 +33,15 @@
             return new ApiResponse(true, CategoriaConstant.CREATED);
         }
 
-        @PutMapping("/Update/{id}")
-        public ApiResponse update(@PathVariable UUID id, @RequestBody CategoriaEditCommand dto) {
-            editHandler.execute(id, dto);
+        @PutMapping("/Update/{categoriaId}")
+        public ApiResponse update(@PathVariable UUID categoriaId, @RequestBody CategoriaEditCommand dto) {
+            editHandler.execute(categoriaId, dto);
             return new ApiResponse(true, CategoriaConstant.UPDATED);
         }
 
-        @DeleteMapping("/Delete/{id}")
-        public ApiResponse delete(@PathVariable UUID id) {
-            deleteHandler.execute(id);
+        @DeleteMapping("/Delete/{categoriaId}")
+        public ApiResponse delete(@PathVariable UUID categoriaId) {
+            deleteHandler.execute(categoriaId);
             return new ApiResponse(true, CategoriaConstant.DELETED);
         }
     }
