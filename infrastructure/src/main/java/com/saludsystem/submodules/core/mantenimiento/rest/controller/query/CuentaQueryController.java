@@ -36,9 +36,9 @@ public class CuentaQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public CuentaDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{cuentaId}")
+    public CuentaDTO getById(@PathVariable UUID cuentaId) {
+        return byIdHandler.execute(cuentaId);
     }
 
     @GetMapping("/GetAll")

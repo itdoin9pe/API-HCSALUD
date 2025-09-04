@@ -40,9 +40,9 @@ public class AseguradoraQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public AseguradoraDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{aseguradoraId}")
+    public AseguradoraDTO getById(@PathVariable UUID aseguradoraId) {
+        return byIdHandler.execute(aseguradoraId);
     }
 
     @GetMapping("/GetAll")

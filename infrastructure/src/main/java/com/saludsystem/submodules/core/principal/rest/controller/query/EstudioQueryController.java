@@ -36,9 +36,9 @@ public class EstudioQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public EstudioDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{estudioId}")
+    public EstudioDTO getById(@PathVariable UUID estudioId) {
+        return byIdHandler.execute(estudioId);
     }
 
     @GetMapping("/GetAll")

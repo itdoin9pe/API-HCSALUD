@@ -45,12 +45,6 @@ public class DiagnositcoCommandController {
     }
 
     /*
-    private final EnfermedadService enfermedadService;
-
-    public DiagnositcoController(EnfermedadService enfermedadService) {
-        this.enfermedadService = enfermedadService;
-    }
-
     @GetMapping("/GetEnfermedadFiltradosPorRol")
     public ResponseEntity<List<EnfermedadDTO>> getEnfermedadFiltradosPorRol() {
         return ResponseEntity.ok(enfermedadService.getEnfermedadFiltradosPorRol());

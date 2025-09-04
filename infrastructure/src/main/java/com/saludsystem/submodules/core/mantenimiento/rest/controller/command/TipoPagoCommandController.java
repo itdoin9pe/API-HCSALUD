@@ -33,15 +33,15 @@ public class TipoPagoCommandController {
         return new ApiResponse(true, TipoPagoConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody TipoPagoEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{tipoPagoId}")
+    public ApiResponse update(@PathVariable UUID tipoPagoId, @RequestBody TipoPagoEditCommand dto) {
+        editHandler.execute(tipoPagoId, dto);
         return new ApiResponse(true, TipoPagoConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{tipoPagoId}")
+    public ApiResponse delete(@PathVariable UUID tipoPagoId) {
+        deleteHandler.execute(tipoPagoId);
         return new ApiResponse(true, TipoPagoConstant.DELETED);
     }
 

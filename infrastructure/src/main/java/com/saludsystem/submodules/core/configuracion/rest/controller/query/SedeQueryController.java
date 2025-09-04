@@ -36,9 +36,9 @@ public class SedeQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public SedeDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{sedeId}")
+    public SedeDTO getById(@PathVariable UUID sedeId) {
+        return byIdHandler.execute(sedeId);
     }
 
     @GetMapping("/GetAll")

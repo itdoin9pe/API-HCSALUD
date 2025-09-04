@@ -39,9 +39,9 @@ public class EmpresaQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public EmpresaDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{empresaId}")
+    public EmpresaDTO getById(@PathVariable UUID empresaId) {
+        return byIdHandler.execute(empresaId);
     }
 
     @GetMapping("/GetAll")

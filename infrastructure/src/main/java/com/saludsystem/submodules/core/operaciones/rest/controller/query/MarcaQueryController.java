@@ -36,9 +36,9 @@ public class MarcaQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public MarcaDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{marcaId}")
+    public MarcaDTO getById(@PathVariable UUID marcaId) {
+        return byIdHandler.execute(marcaId);
     }
 
     @GetMapping("/GetAll")

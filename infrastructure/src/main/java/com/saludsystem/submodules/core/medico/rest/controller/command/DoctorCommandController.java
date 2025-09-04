@@ -41,8 +41,8 @@ public class DoctorCommandController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
             content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     @PutMapping(value = "/UpdateDoctor/{doctorId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ApiResponse update(@PathVariable UUID id, @RequestBody DoctorEditCommand editCommand) {
-        editHandler.execute(id, editCommand);
+    public ApiResponse update(@PathVariable UUID doctorId, @RequestBody DoctorEditCommand editCommand) {
+        editHandler.execute(doctorId, editCommand);
         return new ApiResponse(true, DoctorConstant.UPDATED);
     }
 

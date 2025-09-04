@@ -41,15 +41,15 @@ public class AlmacenCommandController {
         return new ApiResponse(true, AlmacenConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody AlmacenEditCommand editCommand) {
-        editHandler.execute(id, editCommand);
+    @PutMapping("/Update/{almacenId}")
+    public ApiResponse update(@PathVariable UUID almacenId, @RequestBody AlmacenEditCommand editCommand) {
+        editHandler.execute(almacenId, editCommand);
         return new ApiResponse(true, AlmacenConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{almacenId}")
+    public ApiResponse delete(@PathVariable UUID almacenId) {
+        deleteHandler.execute(almacenId);
         return new ApiResponse(true, AlmacenConstant.DELETED);
     }
 	

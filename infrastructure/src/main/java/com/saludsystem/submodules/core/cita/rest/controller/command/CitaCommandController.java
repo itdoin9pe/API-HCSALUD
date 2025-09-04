@@ -33,15 +33,15 @@ public class CitaCommandController {
         return new ApiResponse(true, CitaConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody CitaEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{citaId}")
+    public ApiResponse update(@PathVariable UUID citaId, @RequestBody CitaEditCommand dto) {
+        editHandler.execute(citaId, dto);
         return new ApiResponse(true, CitaConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{citaId}")
+    public ApiResponse delete(@PathVariable UUID citaId) {
+        deleteHandler.execute(citaId);
         return new ApiResponse(true, CitaConstant.DELETED);
     }
 

@@ -36,9 +36,9 @@ public class TipoTarjetaQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public TipoTarjetaDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{tipoTarjetaId}")
+    public TipoTarjetaDTO getById(@PathVariable UUID tipoTarjetaId) {
+        return byIdHandler.execute(tipoTarjetaId);
     }
 
     @GetMapping("/GetAll")

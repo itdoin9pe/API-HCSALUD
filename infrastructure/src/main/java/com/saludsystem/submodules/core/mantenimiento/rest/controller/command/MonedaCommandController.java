@@ -33,15 +33,15 @@ public class MonedaCommandController {
         return new ApiResponse(true, AlergiaConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody MonedadEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{monedaId}")
+    public ApiResponse update(@PathVariable UUID monedaId, @RequestBody MonedadEditCommand dto) {
+        editHandler.execute(monedaId, dto);
         return new ApiResponse(true, AlergiaConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{monedaId}")
+    public ApiResponse delete(@PathVariable UUID monedaId) {
+        deleteHandler.execute(monedaId);
         return new ApiResponse(true, AlergiaConstant.DELETED);
     }
 

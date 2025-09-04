@@ -36,9 +36,9 @@ public class TipoMaterialQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public TipoMaterialDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{tipoMaterialId}")
+    public TipoMaterialDTO getById(@PathVariable UUID tipoMaterialId) {
+        return byIdHandler.execute(tipoMaterialId);
     }
 
     @GetMapping("/GetAll")

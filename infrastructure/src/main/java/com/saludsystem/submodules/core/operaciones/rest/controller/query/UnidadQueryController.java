@@ -37,9 +37,9 @@ public class UnidadQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public UnidadDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{unidadId}")
+    public UnidadDTO getById(@PathVariable UUID unidadId) {
+        return byIdHandler.execute(unidadId);
     }
 
     @GetMapping("/GetAll")

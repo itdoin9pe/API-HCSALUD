@@ -36,9 +36,9 @@ public class TipoGastoQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public TipoGastoDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{tipoGastoId}")
+    public TipoGastoDTO getById(@PathVariable UUID tipoGastoId) {
+        return byIdHandler.execute(tipoGastoId);
     }
 
     @GetMapping("/GetAll")

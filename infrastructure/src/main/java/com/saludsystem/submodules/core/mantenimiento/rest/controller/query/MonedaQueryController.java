@@ -36,9 +36,9 @@ public class MonedaQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public MonedaDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{monedaId}")
+    public MonedaDTO getById(@PathVariable UUID monedaId) {
+        return byIdHandler.execute(monedaId);
     }
 
     @GetMapping("/GetAll")

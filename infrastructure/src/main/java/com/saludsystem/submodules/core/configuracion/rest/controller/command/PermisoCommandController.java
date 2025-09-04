@@ -33,15 +33,15 @@ public class PermisoCommandController {
         return new ApiResponse(true, PermisoConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody PermisoEditCommand editCommand) {
-        editHandler.execute(id, editCommand);
+    @PutMapping("/Update/{permisoId}")
+    public ApiResponse update(@PathVariable UUID permisoId, @RequestBody PermisoEditCommand editCommand) {
+        editHandler.execute(permisoId, editCommand);
         return new ApiResponse(true, PermisoConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{permisoId}")
+    public ApiResponse delete(@PathVariable UUID permisoId) {
+        deleteHandler.execute(permisoId);
         return new ApiResponse(true, PermisoConstant.DELETED);
     }
 

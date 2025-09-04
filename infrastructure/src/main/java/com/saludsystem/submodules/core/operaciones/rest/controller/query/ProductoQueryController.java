@@ -38,9 +38,9 @@ public class ProductoQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public ProductoDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{productoId}")
+    public ProductoDTO getById(@PathVariable UUID productoId) {
+        return byIdHandler.execute(productoId);
     }
 
     @GetMapping("/GetAllProducto")

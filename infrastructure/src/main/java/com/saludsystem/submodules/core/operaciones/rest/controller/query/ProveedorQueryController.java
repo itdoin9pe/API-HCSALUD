@@ -36,9 +36,9 @@ public class ProveedorQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public ProveedorDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{proveedorId}")
+    public ProveedorDTO getById(@PathVariable UUID proveedorId) {
+        return byIdHandler.execute(proveedorId);
     }
 
     @GetMapping("/GetAll")

@@ -33,15 +33,15 @@ public class PaisCommandController {
         return new ApiResponse(true, PaisConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable Integer id, @RequestBody PaisEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{paisId}")
+    public ApiResponse update(@PathVariable Integer paisId, @RequestBody PaisEditCommand dto) {
+        editHandler.execute(paisId, dto);
         return new ApiResponse(true, AlergiaConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable Integer id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{paisId}")
+    public ApiResponse delete(@PathVariable Integer paisId) {
+        deleteHandler.execute(paisId);
         return new ApiResponse(true, AlergiaConstant.DELETED);
     }
 

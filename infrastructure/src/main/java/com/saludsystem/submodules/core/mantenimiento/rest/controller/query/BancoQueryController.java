@@ -39,9 +39,9 @@ public class BancoQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public BancoDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{bancoId}")
+    public BancoDTO getById(@PathVariable UUID bancoId) {
+        return byIdHandler.execute(bancoId);
     }
 
     @GetMapping("/GetAll")

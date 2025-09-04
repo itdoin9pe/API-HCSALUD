@@ -36,9 +36,9 @@ public class ClinicaQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public ClinicaDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{hospitalId}")
+    public ClinicaDTO getById(@PathVariable UUID hospitalId) {
+        return byIdHandler.execute(hospitalId);
     }
 
     @GetMapping("/GetAll")

@@ -41,15 +41,15 @@ public class ClinicaCommandController {
 
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success",
             content = @Content(schema = @Schema(implementation = ApiResponse.class)))
-    @PutMapping(value = "/Update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ApiResponse update(@PathVariable UUID uuid, @RequestBody ClinicaEditCommand editCommand) {
-        editHandler.execute(uuid, editCommand);
+    @PutMapping(value = "/Update/{hospitalId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResponse update(@PathVariable UUID hospitalId, @RequestBody ClinicaEditCommand editCommand) {
+        editHandler.execute(hospitalId, editCommand);
         return new ApiResponse(true, ClinicaConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{userId}")
-    public ApiResponse delete(@PathVariable UUID userId) {
-        deleteHandler.execute(userId);
+    @DeleteMapping("/Delete/{hospitalId}")
+    public ApiResponse delete(@PathVariable UUID hospitalId) {
+        deleteHandler.execute(hospitalId);
         return new ApiResponse(true, ClinicaConstant.DELETED);
     }
 

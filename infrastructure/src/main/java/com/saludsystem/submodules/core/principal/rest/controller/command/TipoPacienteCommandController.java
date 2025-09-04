@@ -31,15 +31,15 @@ public class TipoPacienteCommandController {
         return new ApiResponse(true, TipoPacienteConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable Long id, @RequestBody TipoPacienteEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{tipoPacienteId}")
+    public ApiResponse update(@PathVariable Long tipoPacienteId, @RequestBody TipoPacienteEditCommand dto) {
+        editHandler.execute(tipoPacienteId, dto);
         return new ApiResponse(true, TipoPacienteConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable Long id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{tipoPacienteId}")
+    public ApiResponse delete(@PathVariable Long tipoPacienteId) {
+        deleteHandler.execute(tipoPacienteId);
         return new ApiResponse(true, TipoPacienteConstant.DELETED);
     }
 

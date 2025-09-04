@@ -36,9 +36,9 @@ public class CitaQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public CitaDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{citaId}")
+    public CitaDTO getById(@PathVariable UUID citaId) {
+        return byIdHandler.execute(citaId);
     }
 
     @GetMapping("/GetAll")

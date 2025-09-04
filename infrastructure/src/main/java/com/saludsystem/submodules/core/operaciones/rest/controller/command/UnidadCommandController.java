@@ -33,15 +33,15 @@ public class UnidadCommandController {
         return new ApiResponse(true, UnidadConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody UnidadEditCommand editCommand) {
-        editHandler.execute(id, editCommand);
+    @PutMapping("/Update/{unidadId}")
+    public ApiResponse update(@PathVariable UUID unidadId, @RequestBody UnidadEditCommand editCommand) {
+        editHandler.execute(unidadId, editCommand);
         return new ApiResponse(true, UnidadConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{unidadId}")
+    public ApiResponse delete(@PathVariable UUID unidadId) {
+        deleteHandler.execute(unidadId);
         return new ApiResponse(true, UnidadConstant.DELETED);
     }
 

@@ -31,9 +31,9 @@ public class PaisQueryController {
         this.allHandler = allHandler;
     }
 
-    @GetMapping("/GetById/{id}")
-    public PaisDTO getById(@PathVariable Integer id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{paisId}")
+    public PaisDTO getById(@PathVariable Integer paisId) {
+        return byIdHandler.execute(paisId);
     }
 
     @GetMapping("/GetAllPais")

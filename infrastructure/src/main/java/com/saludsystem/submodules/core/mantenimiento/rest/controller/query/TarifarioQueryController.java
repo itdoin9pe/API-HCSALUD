@@ -36,9 +36,9 @@ public class TarifarioQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public TarifarioDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{tarifarioId}")
+    public TarifarioDTO getById(@PathVariable UUID tarifarioId) {
+        return byIdHandler.execute(tarifarioId);
     }
 
     @GetMapping("/GetAll")

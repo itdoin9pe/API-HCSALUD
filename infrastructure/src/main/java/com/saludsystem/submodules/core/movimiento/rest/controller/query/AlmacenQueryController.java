@@ -48,9 +48,9 @@ public class AlmacenQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public AlmacenDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{almacenId}")
+    public AlmacenDTO getById(@PathVariable UUID almacenId) {
+        return byIdHandler.execute(almacenId);
     }
 
 	@GetMapping("/GetAll")

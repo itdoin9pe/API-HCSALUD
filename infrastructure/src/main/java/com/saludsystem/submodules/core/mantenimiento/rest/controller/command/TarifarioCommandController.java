@@ -33,15 +33,15 @@ public class TarifarioCommandController {
         return new ApiResponse(true, TarifarioConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody TarifarioEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{tarifarioId}")
+    public ApiResponse update(@PathVariable UUID tarifarioId, @RequestBody TarifarioEditCommand dto) {
+        editHandler.execute(tarifarioId, dto);
         return new ApiResponse(true, TarifarioConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{tarifarioId}")
+    public ApiResponse delete(@PathVariable UUID tarifarioId) {
+        deleteHandler.execute(tarifarioId);
         return new ApiResponse(true, TarifarioConstant.DELETED);
     }
 }

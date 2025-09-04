@@ -33,15 +33,15 @@ public class TipoMaterialCommandController {
         return new ApiResponse(true, TipoMaterialConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody TipoMaterialEditCommand editCommand) {
-        editHandler.execute(id, editCommand);
+    @PutMapping("/Update/{tipoMaterialId}")
+    public ApiResponse update(@PathVariable UUID tipoMaterialId, @RequestBody TipoMaterialEditCommand editCommand) {
+        editHandler.execute(tipoMaterialId, editCommand);
         return new ApiResponse(true, TipoMaterialConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{tipoMaterialId}")
+    public ApiResponse delete(@PathVariable UUID tipoMaterialId) {
+        deleteHandler.execute(tipoMaterialId);
         return new ApiResponse(true, TipoMaterialConstant.DELETED);
     }
 

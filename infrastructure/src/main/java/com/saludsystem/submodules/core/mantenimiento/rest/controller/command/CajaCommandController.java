@@ -33,15 +33,15 @@ public class CajaCommandController {
         return new ApiResponse(true, CajaConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody CajaEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{cajaId}")
+    public ApiResponse update(@PathVariable UUID cajaId, @RequestBody CajaEditCommand dto) {
+        editHandler.execute(cajaId, dto);
         return new ApiResponse(true, CajaConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{cajaId}")
+    public ApiResponse delete(@PathVariable UUID cajaId) {
+        deleteHandler.execute(cajaId);
         return new ApiResponse(true, CajaConstant.DELETED);
     }
 

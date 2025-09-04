@@ -33,15 +33,15 @@ public class BancoCommandController {
         return new ApiResponse(true, BancoConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody BancoEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{bancoId}")
+    public ApiResponse update(@PathVariable UUID bancoId, @RequestBody BancoEditCommand dto) {
+        editHandler.execute(bancoId, dto);
         return new ApiResponse(true, BancoConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{bancoId}")
+    public ApiResponse delete(@PathVariable UUID bancoId) {
+        deleteHandler.execute(bancoId);
         return new ApiResponse(true, BancoConstant.DELETED);
     }
 

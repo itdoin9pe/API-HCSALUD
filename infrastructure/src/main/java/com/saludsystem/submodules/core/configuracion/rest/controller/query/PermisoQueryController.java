@@ -37,9 +37,9 @@ public class PermisoQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public PermisoDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{permisoId}")
+    public PermisoDTO getById(@PathVariable UUID permisoId) {
+        return byIdHandler.execute(permisoId);
     }
 
     @GetMapping("/GetAll")

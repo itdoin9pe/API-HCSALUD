@@ -37,9 +37,9 @@ public class PresentacionQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public PresentacionDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{presentacionId}")
+    public PresentacionDTO getById(@PathVariable UUID presentacionId) {
+        return byIdHandler.execute(presentacionId);
     }
 
 

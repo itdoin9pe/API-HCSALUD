@@ -36,9 +36,9 @@ public class CompraQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public CompraDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{compraId}")
+    public CompraDTO getById(@PathVariable UUID compraId) {
+        return byIdHandler.execute(compraId);
     }
 
     @GetMapping("/GetAll")

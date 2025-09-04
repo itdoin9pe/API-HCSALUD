@@ -33,15 +33,15 @@ public class ProveedorCommandController {
         return new ApiResponse(true, ProveedorConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ProveedorEditCommand editCommand) {
-        editHandler.execute(id, editCommand);
+    @PutMapping("/Update/{proveedorId}")
+    public ApiResponse update(@PathVariable UUID proveedorId, @RequestBody ProveedorEditCommand editCommand) {
+        editHandler.execute(proveedorId, editCommand);
         return new ApiResponse(true, ProveedorConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{proveedorId}")
+    public ApiResponse delete(@PathVariable UUID proveedorId) {
+        deleteHandler.execute(proveedorId);
         return new ApiResponse(true, ProveedorConstant.DELETED);
     }
 

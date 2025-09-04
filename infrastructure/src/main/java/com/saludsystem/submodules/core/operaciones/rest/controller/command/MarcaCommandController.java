@@ -33,15 +33,15 @@ public class MarcaCommandController {
         return new ApiResponse(true, MarcaConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody MarcaEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{marcaId}")
+    public ApiResponse update(@PathVariable UUID marcaId, @RequestBody MarcaEditCommand dto) {
+        editHandler.execute(marcaId, dto);
         return new ApiResponse(true, MarcaConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{marcaId}")
+    public ApiResponse delete(@PathVariable UUID marcaId) {
+        deleteHandler.execute(marcaId);
         return new ApiResponse(true, MarcaConstant.DELETED);
     }
 

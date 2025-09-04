@@ -33,15 +33,15 @@ public class CompraCommandController {
         return new ApiResponse(true, CompraConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody CompraEditCommand editCommand) {
-        editHandler.execute(id, editCommand);
+    @PutMapping("/Update/{compraId}")
+    public ApiResponse update(@PathVariable UUID compraId, @RequestBody CompraEditCommand editCommand) {
+        editHandler.execute(compraId, editCommand);
         return new ApiResponse(true, CompraConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{compraId}")
+    public ApiResponse delete(@PathVariable UUID compraId) {
+        deleteHandler.execute(compraId);
         return new ApiResponse(true, CompraConstant.DELETED);
     }
 

@@ -26,9 +26,9 @@ public class TipoPacienteQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public TipoPacienteDTO getById(@PathVariable Long id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{tipoPacienteId}")
+    public TipoPacienteDTO getById(@PathVariable Long tipoPacienteId) {
+        return byIdHandler.execute(tipoPacienteId);
     }
 
 }

@@ -36,9 +36,9 @@ public class CajaQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{id}")
-    public CajaDTO getById(@PathVariable UUID id) {
-        return byIdHandler.execute(id);
+    @GetMapping("/GetById/{cajId}")
+    public CajaDTO getById(@PathVariable UUID cajaId) {
+        return byIdHandler.execute(cajaId);
     }
 
     @GetMapping("/GetAll")

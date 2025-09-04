@@ -41,4 +41,60 @@ public class Cita {
 		this.motivoConsulta=motivoConsulta;
 		this.observacion=observacion;
 	}
+	// Métodos de actualización controlada
+    public void actualizarEspecialidad(CitaEspecialidadId especialidadId) {
+        if (especialidadId != null) {
+            this.especialidadId = especialidadId;
+        }
+    }
+    public void actualizarDoctor(CitaDoctorId doctorId) {
+        if (doctorId != null) {
+            this.doctorId = doctorId;
+        }
+    }
+    public void actualizarFecha(LocalDate fecha) {
+        if (fecha != null) {
+            this.fecha = fecha;
+        }
+    }
+    public void actualizarHoraInicio(LocalTime horaInicio) {
+        if (horaInicio != null) {
+            this.horaInicio = horaInicio;
+        }
+    }
+    public void actualizarHoraFin(LocalTime horaFin) {
+        if (horaFin != null) {
+            this.horaFin = horaFin;
+        }
+    }
+    public void actualizarPaciente(CitaPacienteId pacienteId) {
+        if (pacienteId != null) {
+            this.pacienteId = pacienteId;
+        }
+    }
+    public void actualizarSede(CitaSedeId sedeId) {
+        if (sedeId != null) {
+            this.sedeId = sedeId;
+        }
+    }
+    public void actualizarTipoCitado(CitaTipoCitadoId tipoCitadoId) {
+        if (tipoCitadoId != null) {
+            this.tipoCitadoId = tipoCitadoId;
+        }
+    }
+    public void actualizarEstado(String estado) {
+        if (estado != null && !estado.isBlank()) {
+            this.estado = estado;
+        }
+    }
+    public void actualizarMotivoConsulta(CitaMotivoConsulta motivoConsulta) {
+        if (motivoConsulta != null) {
+            this.motivoConsulta = motivoConsulta;
+        }
+    }
+    public void actualizarObservacion(CitaObservacion observacion) {
+        if (observacion != null) {
+            this.observacion = observacion;
+        }
+    }
 }

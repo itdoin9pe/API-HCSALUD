@@ -36,9 +36,9 @@ public class UsuarioQueryController {
         return listHandler.execute();
     }
 
-    @GetMapping("/GetById/{Id}")
-    public UsuarioDTO getById(@PathVariable UUID uuid) {
-        return byIdHandler.execute(uuid);
+    @GetMapping("/GetById/{userId}")
+    public UsuarioDTO getById(@PathVariable UUID userId) {
+        return byIdHandler.execute(userId);
     }
 
     @ApiResponses(value = {

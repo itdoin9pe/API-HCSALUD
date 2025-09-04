@@ -33,15 +33,15 @@ public class EstudioCommandController {
         return new ApiResponse(true, EstudioConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody EstudioEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{estudioId}")
+    public ApiResponse update(@PathVariable UUID estudioId, @RequestBody EstudioEditCommand dto) {
+        editHandler.execute(estudioId, dto);
         return new ApiResponse(true, EstudioConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{estudioId}")
+    public ApiResponse delete(@PathVariable UUID estudioId) {
+        deleteHandler.execute(estudioId);
         return new ApiResponse(true, EstudioConstant.DELETED);
     }
 

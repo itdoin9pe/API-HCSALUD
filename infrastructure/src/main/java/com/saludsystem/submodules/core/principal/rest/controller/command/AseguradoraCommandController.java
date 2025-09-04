@@ -33,15 +33,15 @@ public class AseguradoraCommandController {
         return new ApiResponse(true, AseguradoraConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody AseguradoraEditCommand dto) {
-        editHandler.execute(id, dto);
+    @PutMapping("/Update/{aseguradoraId}")
+    public ApiResponse update(@PathVariable UUID aseguradoraId, @RequestBody AseguradoraEditCommand dto) {
+        editHandler.execute(aseguradoraId, dto);
         return new ApiResponse(true, AseguradoraConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{aseguradoraId}")
+    public ApiResponse delete(@PathVariable UUID aseguradoraId) {
+        deleteHandler.execute(aseguradoraId);
         return new ApiResponse(true, AseguradoraConstant.DELETED);
     }
 

@@ -35,15 +35,15 @@ public class ProductoCommandController {
         return new ApiResponse(true, ProductoConstant.CREATED);
     }
 
-    @PutMapping("/Update/{id}")
-    public ApiResponse update(@PathVariable UUID id, @RequestBody ProductoEditCommand editCommand) {
-        editHandler.execute(id, editCommand);
+    @PutMapping("/Update/{productoId}")
+    public ApiResponse update(@PathVariable UUID productoId, @RequestBody ProductoEditCommand editCommand) {
+        editHandler.execute(productoId, editCommand);
         return new ApiResponse(true, ProductoConstant.UPDATED);
     }
 
-    @DeleteMapping("/Delete/{id}")
-    public ApiResponse delete(@PathVariable UUID id) {
-        deleteHandler.execute(id);
+    @DeleteMapping("/Delete/{productoId}")
+    public ApiResponse delete(@PathVariable UUID productoId) {
+        deleteHandler.execute(productoId);
         return new ApiResponse(true, ProductoConstant.DELETED);
     }
 
