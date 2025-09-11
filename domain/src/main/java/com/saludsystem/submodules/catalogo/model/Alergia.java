@@ -1,11 +1,10 @@
 package com.saludsystem.submodules.catalogo.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.util.UUID;
 
-@Getter
+import lombok.NoArgsConstructor;
+
+
 @NoArgsConstructor
 public class Alergia {
     private UUID id;
@@ -28,4 +27,28 @@ public class Alergia {
 			this.estado=estado;
 		}
     }
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Integer getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Integer estado) {
+		this.estado = estado;
+	}
 }

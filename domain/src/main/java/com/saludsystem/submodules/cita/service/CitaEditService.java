@@ -1,11 +1,11 @@
 package com.saludsystem.submodules.cita.service;
 
+import java.util.UUID;
+
 import com.saludsystem.submodules.cita.model.Cita;
 import com.saludsystem.submodules.cita.model.constant.CitaConstant;
 import com.saludsystem.submodules.cita.port.dao.CitaDao;
 import com.saludsystem.submodules.cita.port.repository.CitaRepository;
-
-import java.util.UUID;
 
 public class CitaEditService {
 
@@ -36,6 +36,6 @@ public class CitaEditService {
         currentCita.actualizarEstado(cita.getEstado());
         currentCita.actualizarMotivoConsulta(cita.getMotivoConsulta());
         currentCita.actualizarObservacion(cita.getObservacion());
-        return citaRepository.update(uuid, cita);
+        return citaRepository.update(uuid, currentCita);
     }
 }

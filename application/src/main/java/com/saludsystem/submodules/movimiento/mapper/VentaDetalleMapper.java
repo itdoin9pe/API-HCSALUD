@@ -1,11 +1,11 @@
 package com.saludsystem.submodules.movimiento.mapper;
 
+import java.util.UUID;
+
 import com.saludsystem.submodules.movimiento.model.VentaDetalle;
 import com.saludsystem.submodules.movimiento.model.dtos.VentaDetalleDTO;
 import com.saludsystem.submodules.movimiento.model.dtos.command.VentaDetalleCreateCommand;
 import com.saludsystem.submodules.movimiento.model.dtos.command.edit.VentaDetalleEditCommand;
-
-import java.util.UUID;
 
 public class VentaDetalleMapper {
 	
@@ -31,8 +31,8 @@ public class VentaDetalleMapper {
 
     public VentaDetalleDTO toDto(VentaDetalle model) {
         return new VentaDetalleDTO(model.getVentaDetalleId(),
+         		model.getVentaId(),
                 model.getProductoId(),
-        		model.getVentaId(),
                 model.getCodigoProducto(),
                 model.getCantidad(),
                 model.getPrecioUnitario().doubleValue(),

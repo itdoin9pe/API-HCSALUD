@@ -10,18 +10,18 @@ import java.util.UUID;
 public class ApoderadoMapper {
 
     public Apoderado fromCreateDto(ApoderadoCreateCommand dto) {
-        return new Apoderado(null, dto.getNombre(), dto.getTelefono(),
-                dto.getNroDocumento(), dto.getDireccion(), dto.getEstado());
+        return new Apoderado(null, dto.getNombre(), dto.getDireccion(), dto.getTipoDocumento(), 
+                dto.getNroDocumento(), dto.getTelefono(), dto.getEstado());
     }
 
     public Apoderado fromUpdateDto(UUID id, ApoderadoEditCommand dto) {
-        return new Apoderado(id, dto.getNombre(), dto.getTelefono(),
-                dto.getNroDocumento(), dto.getDireccion(), dto.getEstado());
+        return new Apoderado(id, dto.getNombre(), dto.getDireccion(), dto.getTipoDocumento(), 
+                dto.getNroDocumento(), dto.getTelefono(), dto.getEstado());
     }
 
     public ApoderadoDTO toDto(Apoderado model) {
-        return new ApoderadoDTO(model.getId(), model.getNombre(), model.getNroDocumento(),
-                model.getDireccion(), model.getTelefono(), model.getEstado());
+        return new ApoderadoDTO(model.getId(), model.getNombre(), model.getDireccion(), model.getTipoDocumento(), 
+        		model.getNroDocumento(), model.getTelefono(), model.getEstado());
 
     }
 

@@ -1,11 +1,14 @@
 package com.saludsystem.submodules.core.paciente.adapter.beanconfig;
 
+import com.saludsystem.submodules.core.paciente.adapter.seeder.PacienteSeederService;
 import com.saludsystem.submodules.paciente.mapper.PacienteMapper;
 import com.saludsystem.submodules.paciente.port.dao.PacienteDao;
 import com.saludsystem.submodules.paciente.port.repository.PacienteRepository;
 import com.saludsystem.submodules.paciente.service.fichaclinica.paciente.PacienteCreateService;
 import com.saludsystem.submodules.paciente.service.fichaclinica.paciente.PacienteDeleteService;
 import com.saludsystem.submodules.paciente.service.fichaclinica.paciente.PacienteEditService;
+
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,6 +33,11 @@ public class PacienteBean {
     @Bean
     public PacienteDeleteService pacienteDeleteService(PacienteRepository repository, PacienteDao dao) {
         return new PacienteDeleteService(repository, dao);
+    }
+    
+    @Bean
+    CommandLineRunner pacienteRunner(PacienteSeederService seeder) {
+    	return args -> seeder.insertarMasivo();
     }
 
 }

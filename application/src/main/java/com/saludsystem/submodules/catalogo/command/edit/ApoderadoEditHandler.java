@@ -20,9 +20,9 @@ public class ApoderadoEditHandler {
 
     public void execute(UUID uuid, ApoderadoEditCommand editCommand) {
 
-        var apoderado = apoderadoMapper.fromUpdateDto(uuid, editCommand);
+        var apoderadoUpdated = apoderadoMapper.fromUpdateDto(uuid, editCommand);
 
-        apoderadoEditService.execute(uuid, apoderado);
+        apoderadoEditService.execute(uuid, apoderadoUpdated);
 
     }
 }

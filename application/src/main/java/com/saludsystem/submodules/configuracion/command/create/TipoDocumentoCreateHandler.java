@@ -1,27 +1,29 @@
 package com.saludsystem.submodules.configuracion.command.create;
 
+import org.springframework.stereotype.Component;
+
 import com.saludsystem.submodules.configuracion.mapper.TipoDocumentoMapper;
 import com.saludsystem.submodules.configuracion.model.dtos.command.TipoDocumentoCreateCommand;
 import com.saludsystem.submodules.configuracion.service.tipodocumento.TipoDocumentoCreateService;
-import org.springframework.stereotype.Component;
 
 @Component
 public class TipoDocumentoCreateHandler {
 
-    private final TipoDocumentoCreateService tipoDocumentoCreateService;
-    private final TipoDocumentoMapper tipoDocumentoMapper;
+	private final TipoDocumentoCreateService tipoDocumentoCreateService;
+	private final TipoDocumentoMapper tipoDocumentoMapper;
 
-    public TipoDocumentoCreateHandler(TipoDocumentoCreateService tipoDocumentoCreateService, TipoDocumentoMapper tipoDocumentoMapper) {
-        this.tipoDocumentoCreateService = tipoDocumentoCreateService;
-        this.tipoDocumentoMapper = tipoDocumentoMapper;
-    }
+	public TipoDocumentoCreateHandler(TipoDocumentoCreateService tipoDocumentoCreateService,
+			TipoDocumentoMapper tipoDocumentoMapper) {
+		this.tipoDocumentoCreateService = tipoDocumentoCreateService;
+		this.tipoDocumentoMapper = tipoDocumentoMapper;
+	}
 
-    public void execute(TipoDocumentoCreateCommand createCommand) {
+	public void execute(TipoDocumentoCreateCommand createCommand) {
 
-        var tipoDocSaved = tipoDocumentoMapper.fromCreateDto(createCommand);
+		var tipoDocSaved = tipoDocumentoMapper.fromCreateDto(createCommand);
 
-        tipoDocumentoCreateService.execute(tipoDocSaved);
+		tipoDocumentoCreateService.execute(tipoDocSaved);
 
-    }
+	}
 
 }

@@ -1,11 +1,19 @@
 package com.saludsystem.submodules.cita.model;
 
-import com.saludsystem.submodules.cita.model.vo.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import com.saludsystem.submodules.cita.model.vo.CitaDoctorId;
+import com.saludsystem.submodules.cita.model.vo.CitaEspecialidadId;
+import com.saludsystem.submodules.cita.model.vo.CitaId;
+import com.saludsystem.submodules.cita.model.vo.CitaMotivoConsulta;
+import com.saludsystem.submodules.cita.model.vo.CitaObservacion;
+import com.saludsystem.submodules.cita.model.vo.CitaPacienteId;
+import com.saludsystem.submodules.cita.model.vo.CitaSedeId;
+import com.saludsystem.submodules.cita.model.vo.CitaTipoCitadoId;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
@@ -41,8 +49,8 @@ public class Cita {
 		this.motivoConsulta=motivoConsulta;
 		this.observacion=observacion;
 	}
-	// Métodos de actualización controlada
-    public void actualizarEspecialidad(CitaEspecialidadId especialidadId) {
+
+	public void actualizarEspecialidad(CitaEspecialidadId especialidadId) {
         if (especialidadId != null) {
             this.especialidadId = especialidadId;
         }

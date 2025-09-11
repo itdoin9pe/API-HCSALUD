@@ -6,6 +6,9 @@ import com.saludsystem.submodules.catalogo.port.repository.ApoderadoRepository;
 import com.saludsystem.submodules.catalogo.service.apoderado.ApoderadoCreateService;
 import com.saludsystem.submodules.catalogo.service.apoderado.ApoderadoDeleteService;
 import com.saludsystem.submodules.catalogo.service.apoderado.ApoderadoEditService;
+import com.saludsystem.submodules.core.catalogo.adapter.seeder.ApoderadoSeederService;
+
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -31,5 +34,9 @@ public class ApoderadoBean {
     public ApoderadoDeleteService apoderadoDeleteService(ApoderadoRepository repository, ApoderadoDao dao) {
         return new ApoderadoDeleteService(repository, dao);
     }
-
+    
+    @Bean
+    CommandLineRunner runner(ApoderadoSeederService seeder) {
+        return args -> seeder.insertarMasivo();
+    }
 }

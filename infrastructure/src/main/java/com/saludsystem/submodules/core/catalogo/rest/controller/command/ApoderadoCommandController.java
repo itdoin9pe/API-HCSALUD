@@ -33,7 +33,7 @@ public class ApoderadoCommandController {
         return new ApiResponse(true, ApoderadoConstant.CREATED);
     }
 
-    @PutMapping("/Update/{apoderadId}")
+    @PutMapping("/Update/{apoderadoId}")
     public ApiResponse update(@PathVariable UUID apoderadoId, @RequestBody ApoderadoEditCommand dto) {
         editHandler.execute(apoderadoId, dto);
         return new ApiResponse(true, ApoderadoConstant.UPDATED);

@@ -1,11 +1,14 @@
 package com.saludsystem.submodules.core.catalogo.adapter.jpa.repository;
 
 import com.saludsystem.submodules.catalogo.model.Apoderado;
+import com.saludsystem.submodules.catalogo.model.constant.ApoderadoConstant;
 import com.saludsystem.submodules.catalogo.port.repository.ApoderadoRepository;
 import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.ApoderadoEntity;
 import com.saludsystem.submodules.core.catalogo.adapter.jpa.ApoderadoJpaRepository;
 import com.saludsystem.submodules.core.catalogo.adapter.mapper.ApoderadoDboMapper;
+import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
+
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -23,22 +26,29 @@ public class ApoderadoMysqlRepository implements ApoderadoRepository {
 
     @Override
     public Apoderado save(Apoderado apoderado) {
-        UUID userId = authenticateUserPort.getUserId();
         UUID hospitalId = authenticateUserPort.getHospitalId();
-        ApoderadoEntity entity = ApoderadoDboMapper.toEntity(apoderado, userId, hospitalId);
+    	UUID userId = authenticateUserPort.getUserId();
+        ApoderadoEntity entity = ApoderadoDboMapper.toEntity(apoderado, hospitalId, userId);
         return ApoderadoDboMapper.toDomain(jpaRepository.save(entity));
     }
 
     @Override
     public Apoderado update(UUID uuid, Apoderado apoderado) {
-        UUID userId = authenticateUserPort.getUserId();
+    	if (!jpaRepository.existsById(uuid)) {
+			throw new ResourceNotFoundException(ApoderadoConstant.ID_NOT_FOUND);
+		}
         UUID hospitalId = authenticateUserPort.getHospitalId();
-        ApoderadoEntity entity = ApoderadoDboMapper.toEntity(apoderado, userId, hospitalId);
+    	UUID userId = authenticateUserPort.getUserId();
+        ApoderadoEntity entity = ApoderadoDboMapper.toEntity(apoderado, hospitalId, userId);
+        entity.setApoderadoId(uuid);
         return ApoderadoDboMapper.toDomain(jpaRepository.save(entity));
     }
 
     @Override
     public void delete(UUID uuid) {
+    	if (!jpaRepository.existsById(uuid)) {
+			throw new ResourceNotFoundException(ApoderadoConstant.ID_NOT_FOUND);
+		}
         jpaRepository.deleteById(uuid);
     }
 }

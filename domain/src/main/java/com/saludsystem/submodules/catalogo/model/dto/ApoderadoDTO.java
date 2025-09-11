@@ -10,14 +10,12 @@ import java.util.UUID;
 @Getter
 @Setter
 public class ApoderadoDTO {
-
     private UUID apoderadoId;
-
     private String nombre;
-    private String nroDocumento;
     private String direccion;
+    private String tipoDocumento;
+    private String nroDocumento;
     private String telefono;
     @Schema(description = "Estado de Apoderado (0 = inactivo, 1 = activo)", example = "0")
     private Integer estado;
-
 }

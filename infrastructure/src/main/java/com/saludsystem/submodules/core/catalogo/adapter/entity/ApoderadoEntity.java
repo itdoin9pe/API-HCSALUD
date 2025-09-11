@@ -23,6 +23,9 @@ public class ApoderadoEntity extends BaseEntity {
     @Column(name = "nombre_apoderado", nullable = false)
     private String nombre;
 
+    @Column(name = "tipo_documento", nullable = false)
+    private String tipoDocumento;
+    
     @Column(name = "nroDocumento_apoderado", nullable = false, unique = true)
     private String nroDocumento;
 

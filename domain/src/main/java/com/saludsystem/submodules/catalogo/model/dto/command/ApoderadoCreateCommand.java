@@ -9,6 +9,7 @@ import lombok.*;
 @Setter
 public class ApoderadoCreateCommand {
     private String nombre;
+    private String tipoDocumento;
     private String nroDocumento;
     private String direccion;
     private String telefono;

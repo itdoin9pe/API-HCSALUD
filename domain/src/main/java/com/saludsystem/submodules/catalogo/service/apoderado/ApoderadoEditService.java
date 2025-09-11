@@ -22,8 +22,9 @@ public class ApoderadoEditService {
             throw new IllegalStateException("El registro ya se encuentra desactivado");
         }
         currentApoderado.actualizarNombre(apoderado.getNombre());
-        currentApoderado.actualizarNroDocumento(apoderado.getNroDocumento());
         currentApoderado.actualizarDireccion(apoderado.getDireccion());
+        currentApoderado.actualizarTipoDocumento(apoderado.getTipoDocumento());
+        currentApoderado.actualizarNroDocumento(apoderado.getNroDocumento());
         currentApoderado.actualizarTelefono(apoderado.getTelefono());
         currentApoderado.actualizarEstado(apoderado.getEstado());
         return apoderadoRepository.update(uuid, currentApoderado);

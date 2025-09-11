@@ -1,9 +1,10 @@
 package com.saludsystem.submodules.catalogo.command.create;
 
+import org.springframework.stereotype.Component;
+
 import com.saludsystem.submodules.catalogo.mapper.AlergiaMapper;
 import com.saludsystem.submodules.catalogo.model.dto.command.AlergiaCreateCommand;
 import com.saludsystem.submodules.catalogo.service.alergia.AlergiaCreateService;
-import org.springframework.stereotype.Component;
 
 @Component
 public class AlergiaCreateHandler {
