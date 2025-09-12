@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class Cita {
-
+public class Cita
+{
 	private CitaId id;
 	private CitaEspecialidadId especialidadId;
 	private CitaDoctorId doctorId;
@@ -32,77 +32,119 @@ public class Cita {
 	private CitaMotivoConsulta motivoConsulta;
 	private CitaObservacion observacion;
 
-	public Cita(CitaId id, CitaEspecialidadId especialidadId, CitaDoctorId doctorId, LocalDate fecha,
-			LocalTime horaInicio, LocalTime horaFin, CitaPacienteId pacienteId, CitaSedeId sedeId,
-			CitaTipoCitadoId tipoCitadoId, String estado, CitaMotivoConsulta motivoConsulta,
-			CitaObservacion observacion) {
-		this.id=id;
-		this.especialidadId=especialidadId;
-		this.doctorId=doctorId;
-		this.fecha=fecha;
-		this.horaInicio=horaInicio;
-		this.horaFin=horaFin;
-		this.pacienteId=pacienteId;
-		this.sedeId=sedeId;
-		this.tipoCitadoId=tipoCitadoId;
-		this.estado=estado;
-		this.motivoConsulta=motivoConsulta;
-		this.observacion=observacion;
+	public Cita(
+		CitaId id,
+		CitaEspecialidadId especialidadId,
+		CitaDoctorId doctorId,
+		LocalDate fecha,
+		LocalTime horaInicio,
+		LocalTime horaFin,
+		CitaPacienteId pacienteId,
+		CitaSedeId sedeId,
+		CitaTipoCitadoId tipoCitadoId,
+		String estado,
+		CitaMotivoConsulta motivoConsulta,
+		CitaObservacion observacion)
+	{
+		this.id = id;
+		this.especialidadId = especialidadId;
+		this.doctorId = doctorId;
+		this.fecha = fecha;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
+		this.pacienteId = pacienteId;
+		this.sedeId = sedeId;
+		this.tipoCitadoId = tipoCitadoId;
+		this.estado = estado;
+		this.motivoConsulta = motivoConsulta;
+		this.observacion = observacion;
 	}
 
-	public void actualizarEspecialidad(CitaEspecialidadId especialidadId) {
-        if (especialidadId != null) {
-            this.especialidadId = especialidadId;
-        }
-    }
-    public void actualizarDoctor(CitaDoctorId doctorId) {
-        if (doctorId != null) {
-            this.doctorId = doctorId;
-        }
-    }
-    public void actualizarFecha(LocalDate fecha) {
-        if (fecha != null) {
-            this.fecha = fecha;
-        }
-    }
-    public void actualizarHoraInicio(LocalTime horaInicio) {
-        if (horaInicio != null) {
-            this.horaInicio = horaInicio;
-        }
-    }
-    public void actualizarHoraFin(LocalTime horaFin) {
-        if (horaFin != null) {
-            this.horaFin = horaFin;
-        }
-    }
-    public void actualizarPaciente(CitaPacienteId pacienteId) {
-        if (pacienteId != null) {
-            this.pacienteId = pacienteId;
-        }
-    }
-    public void actualizarSede(CitaSedeId sedeId) {
-        if (sedeId != null) {
-            this.sedeId = sedeId;
-        }
-    }
-    public void actualizarTipoCitado(CitaTipoCitadoId tipoCitadoId) {
-        if (tipoCitadoId != null) {
-            this.tipoCitadoId = tipoCitadoId;
-        }
-    }
-    public void actualizarEstado(String estado) {
-        if (estado != null && !estado.isBlank()) {
-            this.estado = estado;
-        }
-    }
-    public void actualizarMotivoConsulta(CitaMotivoConsulta motivoConsulta) {
-        if (motivoConsulta != null) {
-            this.motivoConsulta = motivoConsulta;
-        }
-    }
-    public void actualizarObservacion(CitaObservacion observacion) {
-        if (observacion != null) {
-            this.observacion = observacion;
-        }
-    }
+	public void actualizarEspecialidad(CitaEspecialidadId especialidadId)
+	{
+		if (especialidadId != null)
+		{
+			this.especialidadId = especialidadId;
+		}
+	}
+
+	public void actualizarDoctor(CitaDoctorId doctorId)
+	{
+		if (doctorId != null)
+		{
+			this.doctorId = doctorId;
+		}
+	}
+
+	public void actualizarFecha(LocalDate fecha)
+	{
+		if (fecha != null)
+		{
+			this.fecha = fecha;
+		}
+	}
+
+	public void actualizarHoraInicio(LocalTime horaInicio)
+	{
+		if (horaInicio != null)
+		{
+			this.horaInicio = horaInicio;
+		}
+	}
+
+	public void actualizarHoraFin(LocalTime horaFin)
+	{
+		if (horaFin != null)
+		{
+			this.horaFin = horaFin;
+		}
+	}
+
+	public void actualizarPaciente(CitaPacienteId pacienteId)
+	{
+		if (pacienteId != null)
+		{
+			this.pacienteId = pacienteId;
+		}
+	}
+
+	public void actualizarSede(CitaSedeId sedeId)
+	{
+		if (sedeId != null)
+		{
+			this.sedeId = sedeId;
+		}
+	}
+
+	public void actualizarTipoCitado(CitaTipoCitadoId tipoCitadoId)
+	{
+		if (tipoCitadoId != null)
+		{
+			this.tipoCitadoId = tipoCitadoId;
+		}
+	}
+
+	public void actualizarEstado(String estado)
+	{
+		if (estado != null && !estado.isBlank())
+		{
+			this.estado = estado;
+		}
+	}
+
+	public void actualizarMotivoConsulta(CitaMotivoConsulta motivoConsulta)
+	{
+		if (motivoConsulta != null)
+		{
+			this.motivoConsulta = motivoConsulta;
+		}
+	}
+
+	public void actualizarObservacion(CitaObservacion observacion)
+	{
+		if (observacion != null)
+		{
+			this.observacion = observacion;
+		}
+	}
 }

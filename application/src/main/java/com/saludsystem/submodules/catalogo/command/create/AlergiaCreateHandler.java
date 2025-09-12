@@ -7,22 +7,24 @@ import com.saludsystem.submodules.catalogo.model.dto.command.AlergiaCreateComman
 import com.saludsystem.submodules.catalogo.service.alergia.AlergiaCreateService;
 
 @Component
-public class AlergiaCreateHandler {
+public class AlergiaCreateHandler
+{
+	private final AlergiaCreateService alergiaCreateService;
+	private final AlergiaMapper alergiaMapper;
 
-    private final AlergiaCreateService alergiaCreateService;
-    private final AlergiaMapper alergiaMapper;
+	public AlergiaCreateHandler(AlergiaCreateService alergiaCreateService, AlergiaMapper alergiaMapper)
+	{
+		this.alergiaCreateService = alergiaCreateService;
+		this.alergiaMapper = alergiaMapper;
+	}
 
-    public AlergiaCreateHandler(AlergiaCreateService alergiaCreateService, AlergiaMapper alergiaMapper) {
-        this.alergiaCreateService = alergiaCreateService;
-        this.alergiaMapper = alergiaMapper;
-    }
+	public void execute(AlergiaCreateCommand createCommand)
+	{
 
-    public void execute(AlergiaCreateCommand createCommand) {
+		var marca = alergiaMapper.fromCreateDto(createCommand);
 
-        var marca = alergiaMapper.fromCreateDto(createCommand);
+		alergiaCreateService.execute(marca);
 
-        alergiaCreateService.execute(marca);
-
-    }
+	}
 
 }
