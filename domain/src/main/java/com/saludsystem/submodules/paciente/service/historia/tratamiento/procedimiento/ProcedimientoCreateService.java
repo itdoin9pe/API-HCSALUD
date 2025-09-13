@@ -3,18 +3,17 @@ package com.saludsystem.submodules.paciente.service.historia.tratamiento.procedi
 import com.saludsystem.submodules.paciente.model.entity.tratamiento.Procedimiento;
 import com.saludsystem.submodules.paciente.port.repository.tratamiento.ProcedimientoRepository;
 
-public class ProcedimientoCreateService {
+public class ProcedimientoCreateService
+{
+	private final ProcedimientoRepository procedimientoRepository;
 
-    private final ProcedimientoRepository procedimientoRepository;
+	public ProcedimientoCreateService(ProcedimientoRepository procedimientoRepository)
+	{
+		this.procedimientoRepository = procedimientoRepository;
+	}
 
-    public ProcedimientoCreateService(ProcedimientoRepository procedimientoRepository) {
-        this.procedimientoRepository = procedimientoRepository;
-    }
-
-    public Procedimiento execute(Procedimiento procedimiento) {
-
-        return procedimientoRepository.save(procedimiento);
-
-    }
-
+	public Procedimiento execute(Procedimiento procedimiento)
+	{
+		return procedimientoRepository.save(procedimiento);
+	}
 }

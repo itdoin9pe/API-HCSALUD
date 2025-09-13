@@ -1,83 +1,72 @@
 package com.saludsystem.submodules.paciente.model.dtos.command.edit;
 
-import com.saludsystem.submodules.BaseDTO;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Email;
-import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
 import java.util.UUID;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.saludsystem.submodules.BaseDTO;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @EqualsAndHashCode(callSuper = false)
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PacienteEditCommand extends BaseDTO {
+public class PacienteEditCommand extends BaseDTO
+{
+	private UUID pacienteId;
+	private String tipoDocumentoId;
+	private String numeroDocumento;
+	private String apellidos;
+	private String nombres;
 
-    private UUID pacienteId;
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private LocalDate fechaNacimiento;
 
-    private String tipoDocumentoId;
+	@Schema(example = "1", type = "integer")
+	private Integer edad;
 
-    private String numeroDocumento;
+	@Schema(example = "0", type = "integer")
+	private Integer estado;
 
-    private String apellidos;
+	private String ocupacion;
+	private String direccion;
 
-    private String nombres;
+	@Schema(example = "1", type = "integer")
+	private Integer paisId;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate fechaNacimiento;
+	private String departamento;
+	private String provincia;
+	private String distrito;
 
-    @Schema(example = "1", type = "integer")
-    private Integer edad;
+	private String ubigeo;
 
-    @Schema(example = "0", type = "integer")
-    private Integer estado;
+	@Schema(example = "1", type = "integer")
+	private Long tipoPacienteId;
 
-    private String ocupacion;
+	private String estadoCivil;
+	private String sexo;
+	private String nombreContacto;
+	private String tipoHistoria;
+	private UUID aseguradoraId;
+	private UUID empresaId;
 
-    private String direccion;
+	@Email(message = "El email debe ser válido")
+	private String email;
 
-    @Schema(example = "1", type = "integer")
-    private Integer paisId;
-
-    private String departamento;
-    private String provincia;
-    private String distrito;
-
-    private String ubigeo;
-
-    @Schema(example = "1", type = "integer")
-    private Long tipoPacienteId;
-
-    private String estadoCivil;
-
-    private String sexo;
-
-    private String nombreContacto;
-
-    private String tipoHistoria;
-
-    private UUID aseguradoraId;
-
-    private UUID empresaId;
-
-    @Email(message = "El email debe ser válido")
-    private String email;
-
-    private String fotoPaciente;
-
-    private String titulo;
-
-    private String observacion;
-
-    private UUID informacionClinicaId;
-
-    private UUID estudioId;
-
-    private UUID sedeId;
-
-    private String celular;
-
+	private String fotoPaciente;
+	private String titulo;
+	private String observacion;
+	private UUID informacionClinicaId;
+	private UUID estudioId;
+	private UUID sedeId;
+	private String celular;
 }

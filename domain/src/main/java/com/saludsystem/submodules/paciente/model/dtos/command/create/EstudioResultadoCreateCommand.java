@@ -1,19 +1,20 @@
 package com.saludsystem.submodules.paciente.model.dtos.command.create;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EstudioResultadoCreateCommand {
+public class EstudioResultadoCreateCommand
+{
+	private String reporteTexto;
+	private String urlImg;
 
-    private String reporteTexto;
-
-    private String urlImg;
-
-    @Schema(example = "Integer")
-    private Long pacienteEstudioMedicoId;
-
+	@Schema(example = "Integer")
+	private Long pacienteEstudioMedicoId;
 }

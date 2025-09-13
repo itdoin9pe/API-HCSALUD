@@ -10,11 +10,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class InformacionClinicaCreateCommand {
+public class InformacionClinicaCreateCommand
+{
+	private String nombre;
 
-    private String nombre;
-
-    @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
-    private Integer estado;
-
+	@Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
+	private Integer estado;
 }

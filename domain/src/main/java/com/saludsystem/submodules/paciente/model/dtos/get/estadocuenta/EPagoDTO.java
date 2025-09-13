@@ -1,28 +1,30 @@
 package com.saludsystem.submodules.paciente.model.dtos.get.estadocuenta;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-
 import java.time.LocalDate;
 import java.util.UUID;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class EPagoDTO {
+public class EPagoDTO
+{
+	private UUID pecPagoId;
 
-    private UUID pecPagoId;
+	private UUID pacEstadoCuentaId;
 
-    private UUID pacEstadoCuentaId;
+	private LocalDate fechaPago;
 
-    private LocalDate fechaPago;
+	@Schema(example = "0")
+	private Double monto;
 
-    @Schema(example = "0")
-    private Double monto;
+	private String metodoPago;
 
-    private String metodoPago;
-
-    private String referenciaPago;
-
+	private String referenciaPago;
 }

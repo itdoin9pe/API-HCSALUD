@@ -60,5 +60,4 @@ public class PacienteEditService
 		currentPac.actualizarCelular(paciente.getCelular());
 		return pacienteRepository.update(uuid, currentPac);
 	}
-
 }

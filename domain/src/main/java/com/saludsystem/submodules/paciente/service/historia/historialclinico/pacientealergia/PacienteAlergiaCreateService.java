@@ -3,18 +3,17 @@ package com.saludsystem.submodules.paciente.service.historia.historialclinico.pa
 import com.saludsystem.submodules.paciente.model.entity.historialclinico.PacienteAlergia;
 import com.saludsystem.submodules.paciente.port.repository.historialclinico.PacienteAlergiaRepository;
 
-public class PacienteAlergiaCreateService {
+public class PacienteAlergiaCreateService
+{
+	private final PacienteAlergiaRepository pacienteAlergiaRepository;
 
-    private final PacienteAlergiaRepository pacienteAlergiaRepository;
+	public PacienteAlergiaCreateService(PacienteAlergiaRepository pacienteAlergiaRepository)
+	{
+		this.pacienteAlergiaRepository = pacienteAlergiaRepository;
+	}
 
-    public PacienteAlergiaCreateService(PacienteAlergiaRepository pacienteAlergiaRepository) {
-        this.pacienteAlergiaRepository = pacienteAlergiaRepository;
-    }
-
-    public PacienteAlergia execute(PacienteAlergia pacienteAlergia) {
-
-        return pacienteAlergiaRepository.save(pacienteAlergia);
-
-    }
-
+	public PacienteAlergia execute(PacienteAlergia pacienteAlergia)
+	{
+		return pacienteAlergiaRepository.save(pacienteAlergia);
+	}
 }

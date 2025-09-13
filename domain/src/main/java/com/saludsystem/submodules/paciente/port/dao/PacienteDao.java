@@ -1,16 +1,16 @@
 package com.saludsystem.submodules.paciente.port.dao;
 
+import java.util.List;
+import java.util.UUID;
+
 import com.saludsystem.submodules.paciente.model.entity.Paciente;
 import com.saludsystem.submodules.response.ListResponse;
 
-import java.util.List;
+public interface PacienteDao
+{
+	Paciente getById(UUID uuid);
 
-import java.util.UUID;
+	ListResponse<Paciente> getAll(UUID hospitalId, int page, int rows);
 
-public interface PacienteDao {
-
-    Paciente getById(UUID uuid);
-    ListResponse<Paciente> getAll(UUID hospitalId, int page, int rows);
-    List<Paciente> getList();
-
+	List<Paciente> getList();
 }

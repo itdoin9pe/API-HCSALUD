@@ -1,31 +1,33 @@
 package com.saludsystem.submodules.paciente.model.dtos.get;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class RecetaDTO {
+public class RecetaDTO
+{
+	private UUID pacienteRecetaId;
 
-    private UUID pacienteRecetaId;
+	private UUID pacienteId;
 
-    private UUID pacienteId;
+	private UUID doctorId;
 
-    private UUID doctorId;
+	private LocalDate fecha;
 
-    private LocalDate fecha;
+	private String observaciones;
 
-    private String observaciones;
+	@Schema(example = "0")
+	private Integer estado;
 
-    @Schema(example = "0")
-    private Integer estado;
-
-    private List<MedicamentoRecetadoDTO> medicamentos;
-
+	private List<MedicamentoRecetadoDTO> medicamentos;
 }

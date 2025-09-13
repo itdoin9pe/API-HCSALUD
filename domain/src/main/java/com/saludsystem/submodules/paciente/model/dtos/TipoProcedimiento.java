@@ -11,7 +11,7 @@ public enum TipoProcedimiento
 	ECOGRAFIA, // Ultrasonido
 	ANALISIS_SANGRE, // Hemograma, bioquímica
 	ELECTROCARDIOGRAMA, // ECG
-
+	
 	// Procedimientos terapéuticos
 	CIRUGIA_MAYOR, // Ej: Apendicectomía, reemplazo de cadera
 	CIRUGIA_MENOR, // Ej: Extracción de lunar

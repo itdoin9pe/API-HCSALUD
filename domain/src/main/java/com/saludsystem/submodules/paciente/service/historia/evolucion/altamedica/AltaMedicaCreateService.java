@@ -3,17 +3,17 @@ package com.saludsystem.submodules.paciente.service.historia.evolucion.altamedic
 import com.saludsystem.submodules.paciente.model.entity.evolucion.AltaMedica;
 import com.saludsystem.submodules.paciente.port.repository.evolucion.AltaMedicaRepository;
 
-public class AltaMedicaCreateService {
+public class AltaMedicaCreateService
+{
+	private final AltaMedicaRepository altaMedicaRepository;
 
-    private final AltaMedicaRepository altaMedicaRepository;
+	public AltaMedicaCreateService(AltaMedicaRepository altaMedicaRepository)
+	{
+		this.altaMedicaRepository = altaMedicaRepository;
+	}
 
-    public AltaMedicaCreateService(AltaMedicaRepository altaMedicaRepository) {
-        this.altaMedicaRepository = altaMedicaRepository;
-    }
-
-    public AltaMedica execute(AltaMedica altaMedica) {
-
-        return altaMedicaRepository.save(altaMedica);
-
-    }
+	public AltaMedica execute(AltaMedica altaMedica)
+	{
+		return altaMedicaRepository.save(altaMedica);
+	}
 }

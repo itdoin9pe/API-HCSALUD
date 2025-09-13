@@ -1,91 +1,94 @@
 package com.saludsystem.submodules.paciente.model.dtos.get;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class PacienteDTO {
+public class PacienteDTO
+{
+	private UUID pacienteId;
 
-    private UUID pacienteId;
+	@NotBlank(message = "El tipo documento no puede estar vacío")
+	private String tipoDocumentoId;
 
-    @NotBlank(message = "El tipo documento no puede estar vacío")
-    private String tipoDocumentoId;
+	@NotBlank(message = "El número de documento no puede estar vacío")
+	private String numeroDocumento;
 
-    @NotBlank(message = "El número de documento no puede estar vacío")
-    private String numeroDocumento;
+	@NotBlank(message = "Los apellidos del paciente no pueden estar vacíos")
+	private String apellidos;
 
-    @NotBlank(message = "Los apellidos del paciente no pueden estar vacíos")
-    private String apellidos;
+	@NotBlank(message = "Los nombres del paciente no pueden estar vacíos")
+	private String nombres;
 
-    @NotBlank(message = "Los nombres del paciente no pueden estar vacíos")
-    private String nombres;
+	@NotNull(message = "La fecha de nacimiento no puede estar vacía")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private LocalDate fechaNacimiento;
 
-    @NotNull(message = "La fecha de nacimiento no puede estar vacía")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate fechaNacimiento;
+	@Schema(description = "Edad (0 = inactivo, 1 = activo)", example = "1", type = "integer")
+	private Integer edad;
 
-    @Schema(description = "Edad (0 = inactivo, 1 = activo)", example = "1", type = "integer")
-    private Integer edad;
+	@NotNull(message = "El estado no puede estar vacío")
+	@Schema(description = "Estado del paciente (0 = inactivo, 1 = activo)", example = "1", type = "integer")
+	private Integer estado;
 
-    @NotNull(message = "El estado no puede estar vacío")
-    @Schema(description = "Estado del paciente (0 = inactivo, 1 = activo)", example = "1", type = "integer")
-    private Integer estado;
+	private String ocupacion;
 
-    private String ocupacion;
+	private String direccion;
 
-    private String direccion;
+	@Schema(description = "ID del país (0 = inactivo, 1 = activo)", example = "1", type = "integer")
+	private Integer paisId;
 
-    @Schema(description = "ID del país (0 = inactivo, 1 = activo)", example = "1", type = "integer")
-    private Integer paisId;
+	private String departamento;
+	private String provincia;
+	private String distrito;
 
-    private String departamento;
-    private String provincia;
-    private String distrito;
+	private String ubigeo;
 
-    private String ubigeo;
+	@NotNull(message = "El tipo de paciente no puede estar vacío")
+	@Schema(description = "tipo paciente (0 = inactivo, 1 = activo)", example = "1", type = "integer")
+	private Long tipoPacienteId;
 
-    @NotNull(message = "El tipo de paciente no puede estar vacío")
-    @Schema(description = "tipo paciente (0 = inactivo, 1 = activo)", example = "1", type = "integer")
-    private Long tipoPacienteId;
+	private String estadoCivil;
 
-    private String estadoCivil;
+	private String sexo;
 
-    private String sexo;
+	private String nombreContacto;
 
-    private String nombreContacto;
+	private String tipoHistoria;
 
-    private String tipoHistoria;
+	private UUID aseguradoraId;
 
-    private UUID aseguradoraId;
+	private UUID empresaId;
 
-    private UUID empresaId;
+	@Email(message = "El email debe ser válido")
+	private String email;
 
-    @Email(message = "El email debe ser válido")
-    private String email;
+	private String fotoPaciente;
 
-    private String fotoPaciente;
+	private String titulo;
 
-    private String titulo;
+	private String observacion;
 
-    private String observacion;
+	private UUID informacionClinicaId;
 
-    private UUID informacionClinicaId;
+	private UUID estudioId;
 
-    private UUID estudioId;
+	private UUID sedeId;
 
-    private UUID sedeId;
-
-    @NotBlank(message = "El número de celular no puede estar vacío")
-    private String celular;
-
+	@NotBlank(message = "El número de celular no puede estar vacío")
+	private String celular;
 }

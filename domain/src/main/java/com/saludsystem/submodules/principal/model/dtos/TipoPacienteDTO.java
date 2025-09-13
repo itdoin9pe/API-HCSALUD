@@ -10,11 +10,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TipoPacienteDTO {
+public class TipoPacienteDTO
+{
+	@Schema(description = "Estado del país (0 = inactivo, 1 = activo)", example = "1", type = "integer", defaultValue = "0")
+	private Long tipoPacienteId;
 
-    @Schema(description = "Estado del país (0 = inactivo, 1 = activo)", example = "1", type = "integer", defaultValue = "0")
-    private Long tipoPacienteId;
-
-    private String nombre;
-
+	private String nombre;
 }

@@ -1,26 +1,30 @@
 package com.saludsystem.submodules.principal.model.dtos.command.edit;
 
 import com.saludsystem.submodules.BaseDTO;
+
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class PaisEditCommand extends BaseDTO {
+public class PaisEditCommand extends BaseDTO
+{
+	@Schema(description = "Estado del país (0 = inactivo, 1 = activo)", example = "1", type = "integer")
+	private Integer paisId;
 
-    @Schema(description = "Estado del país (0 = inactivo, 1 = activo)", example = "1", type = "integer")
-    private Integer paisId;
+	private String iso;
 
-    private String iso;
+	private String nombre;
 
-    private String nombre;
+	private String gentilicio;
 
-    private String gentilicio;
-
-    @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0")
-    private Integer orden;
-
+	@Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0")
+	private Integer orden;
 }

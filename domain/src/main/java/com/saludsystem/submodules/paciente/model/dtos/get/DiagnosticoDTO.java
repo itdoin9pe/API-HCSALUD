@@ -1,28 +1,26 @@
 package com.saludsystem.submodules.paciente.model.dtos.get;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.UUID;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class DiagnosticoDTO {
-
+public class DiagnosticoDTO
+{
 	private UUID pacienteDiagnosticoId;
 
-    private UUID pacienteId;
+	private UUID pacienteId;
 
-    private String enfermedadId;
+	private String enfermedadId;
 
-    private LocalDate fecha;
+	private LocalDate fecha;
 
-    private String descripcion;
-
-    
+	private String descripcion;
 }

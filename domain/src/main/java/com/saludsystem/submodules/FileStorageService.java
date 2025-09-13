@@ -15,7 +15,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Service
 public class FileStorageService implements WebMvcConfigurer
 {
-
 	@Value("${file.upload-dir}")
 	private String uploadDir;
 
@@ -77,5 +76,4 @@ public class FileStorageService implements WebMvcConfigurer
 	{
 		registry.addResourceHandler("/uploads/**").addResourceLocations("file:" + uploadDir);
 	}
-
 }

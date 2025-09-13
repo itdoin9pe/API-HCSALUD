@@ -1,4 +1,5 @@
 package com.saludsystem.submodules.paciente.model.vo.paciente;
 
-public record IdPaisPaciente(Integer value) {
+public record IdPaisPaciente(Integer value)
+{
 }

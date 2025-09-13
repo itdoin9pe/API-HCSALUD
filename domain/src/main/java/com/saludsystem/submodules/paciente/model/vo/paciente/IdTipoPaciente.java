@@ -1,4 +1,5 @@
 package com.saludsystem.submodules.paciente.model.vo.paciente;
 
-public record IdTipoPaciente(Long value) {
+public record IdTipoPaciente(Long value)
+{
 }

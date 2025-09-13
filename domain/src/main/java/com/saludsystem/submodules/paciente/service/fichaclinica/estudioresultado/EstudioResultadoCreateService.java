@@ -3,18 +3,17 @@ package com.saludsystem.submodules.paciente.service.fichaclinica.estudioresultad
 import com.saludsystem.submodules.paciente.model.entity.EstudioResultado;
 import com.saludsystem.submodules.paciente.port.repository.EstudioResultadoRepository;
 
-public class EstudioResultadoCreateService {
+public class EstudioResultadoCreateService
+{
+	private final EstudioResultadoRepository estudioResultadoRepository;
 
-    private final EstudioResultadoRepository estudioResultadoRepository;
+	public EstudioResultadoCreateService(EstudioResultadoRepository estudioResultadoRepository)
+	{
+		this.estudioResultadoRepository = estudioResultadoRepository;
+	}
 
-    public EstudioResultadoCreateService(EstudioResultadoRepository estudioResultadoRepository) {
-        this.estudioResultadoRepository = estudioResultadoRepository;
-    }
-
-    public EstudioResultado execute(EstudioResultado estudioResultado) {
-
-        return estudioResultadoRepository.save(estudioResultado);
-
-    }
-
+	public EstudioResultado execute(EstudioResultado estudioResultado)
+	{
+		return estudioResultadoRepository.save(estudioResultado);
+	}
 }

@@ -1,27 +1,25 @@
 package com.saludsystem.submodules.paciente.model.dtos.command.create;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-
 import java.util.UUID;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EstudioMedicoCreateCommand {
+public class EstudioMedicoCreateCommand
+{
+	private String tipo;
+	private String descripcion;
+	private String estado;
+	private UUID pacienteId;
+	private UUID doctorId;
 
-    private String tipo;
-
-    private String descripcion;
-
-    private String estado;
-
-    private UUID pacienteId;
-
-    private UUID doctorId;
-
-    @Schema(example = "Integer")
-    private Long pacienteEstudioResultadoId;
-
+	@Schema(example = "Integer")
+	private Long pacienteEstudioResultadoId;
 }

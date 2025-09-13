@@ -8,7 +8,6 @@ import com.saludsystem.submodules.paciente.port.repository.PacienteRepository;
 
 public class PacienteDeleteService
 {
-
 	private final PacienteRepository pacienteRepository;
 	private final PacienteDao pacienteDao;
 
@@ -27,5 +26,4 @@ public class PacienteDeleteService
 		}
 		pacienteRepository.delete(uuid);
 	}
-
 }

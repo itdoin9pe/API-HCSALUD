@@ -3,18 +3,18 @@ package com.saludsystem.submodules.paciente.service.historia.estadocuenta.detall
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.DetalleMedicamentoEstudio;
 import com.saludsystem.submodules.paciente.port.repository.estadocuenta.DetalleMedicamentoEstudioRepository;
 
-public class DetalleMedicamentoEstudioCreateService {
+public class DetalleMedicamentoEstudioCreateService
+{
+	private final DetalleMedicamentoEstudioRepository detalleMedicamentoEstudioRepository;
 
-    private final DetalleMedicamentoEstudioRepository detalleMedicamentoEstudioRepository;
+	public DetalleMedicamentoEstudioCreateService(
+		DetalleMedicamentoEstudioRepository detalleMedicamentoEstudioRepository)
+	{
+		this.detalleMedicamentoEstudioRepository = detalleMedicamentoEstudioRepository;
+	}
 
-    public DetalleMedicamentoEstudioCreateService(DetalleMedicamentoEstudioRepository detalleMedicamentoEstudioRepository) {
-        this.detalleMedicamentoEstudioRepository = detalleMedicamentoEstudioRepository;
-    }
-
-    public DetalleMedicamentoEstudio execute(DetalleMedicamentoEstudio detalleMedicamentoEstudio) {
-
-        return detalleMedicamentoEstudioRepository.save(detalleMedicamentoEstudio);
-
-    }
-    
+	public DetalleMedicamentoEstudio execute(DetalleMedicamentoEstudio detalleMedicamentoEstudio)
+	{
+		return detalleMedicamentoEstudioRepository.save(detalleMedicamentoEstudio);
+	}
 }

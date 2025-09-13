@@ -1,23 +1,27 @@
 package com.saludsystem.submodules.principal.model.dtos.command.edit;
 
-import com.saludsystem.submodules.BaseDTO;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-
 import java.util.UUID;
+
+import com.saludsystem.submodules.BaseDTO;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class InformacionClinicaEditCommand extends BaseDTO {
+public class InformacionClinicaEditCommand extends BaseDTO
+{
+	private UUID informacionClinicaId;
 
-    private UUID informacionClinicaId;
+	private String nombre;
 
-    private String nombre;
-
-    @Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
-    private Integer estado;
-
+	@Schema(description = "Estado de la aseguradora (0 = inactivo, 1 = activo)", example = "0", defaultValue = "0")
+	private Integer estado;
 }

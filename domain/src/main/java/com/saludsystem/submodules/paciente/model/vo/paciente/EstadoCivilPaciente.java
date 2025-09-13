@@ -1,4 +1,5 @@
 package com.saludsystem.submodules.paciente.model.vo.paciente;
 
-public record EstadoCivilPaciente(String value) {
+public record EstadoCivilPaciente(String value)
+{
 }
