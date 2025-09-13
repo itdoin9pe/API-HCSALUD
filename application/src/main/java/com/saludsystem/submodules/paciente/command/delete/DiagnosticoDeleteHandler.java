@@ -7,21 +7,17 @@ import org.springframework.stereotype.Component;
 import com.saludsystem.submodules.paciente.service.fichaclinica.diagnostico.DiagnosticoDeleteService;
 
 @Component
-public class DiagnosticoDeleteHandler {
-
+public class DiagnosticoDeleteHandler
+{
 	private final DiagnosticoDeleteService diagnosticoDeleteService;
 
-	/**
-	 * @param diagnosticoDeleteService
-	 */
-	public DiagnosticoDeleteHandler(DiagnosticoDeleteService diagnosticoDeleteService) {
+	public DiagnosticoDeleteHandler(DiagnosticoDeleteService diagnosticoDeleteService)
+	{
 		this.diagnosticoDeleteService = diagnosticoDeleteService;
 	}
-	
-	public void execute(UUID uuid) {
-		
-		diagnosticoDeleteService.execute(uuid);
-		
-	}
 
+	public void execute(UUID uuid)
+	{
+		diagnosticoDeleteService.execute(uuid);
+	}
 }

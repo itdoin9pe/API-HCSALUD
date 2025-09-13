@@ -1,23 +1,23 @@
 package com.saludsystem.submodules.operaciones.command.delete;
 
-import com.saludsystem.submodules.operaciones.service.unidad.UnidadDeleteService;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+import com.saludsystem.submodules.operaciones.service.unidad.UnidadDeleteService;
+
 @Component
-public class UnidadDeleteHandler {
+public class UnidadDeleteHandler
+{
+	private final UnidadDeleteService unidadDeleteService;
 
-    private final UnidadDeleteService unidadDeleteService;
+	public UnidadDeleteHandler(UnidadDeleteService unidadDeleteService)
+	{
+		this.unidadDeleteService = unidadDeleteService;
+	}
 
-    public UnidadDeleteHandler(UnidadDeleteService unidadDeleteService) {
-        this.unidadDeleteService = unidadDeleteService;
-    }
-
-    public void execute(UUID uuid) {
-
-        unidadDeleteService.execute(uuid);
-
-    }
-
+	public void execute(UUID uuid)
+	{
+		unidadDeleteService.execute(uuid);
+	}
 }

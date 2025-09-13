@@ -9,8 +9,8 @@ import com.saludsystem.submodules.movimiento.model.dtos.command.edit.InventarioE
 import com.saludsystem.submodules.movimiento.service.inventario.InventarioEditService;
 
 @Component
-public class InventarioEditHandler {
-
+public class InventarioEditHandler
+{
 	private final InventarioEditService inventarioEditService;
 	private final InventarioMapper inventarioMapper;
 
@@ -18,14 +18,15 @@ public class InventarioEditHandler {
 	 * @param inventarioEditService
 	 * @param inventarioMapper
 	 */
-	public InventarioEditHandler(InventarioEditService inventarioEditService, InventarioMapper inventarioMapper) {
+	public InventarioEditHandler(InventarioEditService inventarioEditService, InventarioMapper inventarioMapper)
+	{
 		this.inventarioEditService = inventarioEditService;
 		this.inventarioMapper = inventarioMapper;
 	}
 
-	public void execute(UUID uuid, InventarioEditCommand editCommand) {
+	public void execute(UUID uuid, InventarioEditCommand editCommand)
+	{
 		var inventarioUpdated = inventarioMapper.fromUpdateDto(uuid, editCommand);
 		inventarioEditService.execute(uuid, inventarioUpdated);
 	}
-	
 }

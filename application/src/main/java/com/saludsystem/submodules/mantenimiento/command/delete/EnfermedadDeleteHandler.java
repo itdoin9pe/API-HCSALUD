@@ -1,19 +1,21 @@
 package com.saludsystem.submodules.mantenimiento.command.delete;
 
-import com.saludsystem.submodules.mantenimiento.service.enfermedad.EnfermedadDeleteService;
 import org.springframework.stereotype.Component;
 
+import com.saludsystem.submodules.mantenimiento.service.enfermedad.EnfermedadDeleteService;
+
 @Component
-public class EnfermedadDeleteHandler {
+public class EnfermedadDeleteHandler
+{
+	private final EnfermedadDeleteService enfermedadDeleteService;
 
-    private final EnfermedadDeleteService enfermedadDeleteService;
+	public EnfermedadDeleteHandler(EnfermedadDeleteService enfermedadDeleteService)
+	{
+		this.enfermedadDeleteService = enfermedadDeleteService;
+	}
 
-    public EnfermedadDeleteHandler(EnfermedadDeleteService enfermedadDeleteService) {
-        this.enfermedadDeleteService = enfermedadDeleteService;
-    }
-
-    public void execute(String id) {
-        enfermedadDeleteService.execute(id);
-    }
-
+	public void execute(String id)
+	{
+		enfermedadDeleteService.execute(id);
+	}
 }

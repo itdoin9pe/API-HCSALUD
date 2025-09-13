@@ -12,30 +12,25 @@ import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
 
 @Component
-public class InventarioAllHandler {
-
+public class InventarioAllHandler
+{
 	private final InventarioDao inventarioDao;
 	private final InventarioMapper inventarioMapper;
-	
+
 	/**
 	 * @param inventarioDao
 	 * @param inventarioMapper
 	 */
-	public InventarioAllHandler(InventarioDao inventarioDao, InventarioMapper inventarioMapper) {
+	public InventarioAllHandler(InventarioDao inventarioDao, InventarioMapper inventarioMapper)
+	{
 		this.inventarioDao = inventarioDao;
 		this.inventarioMapper = inventarioMapper;
 	}
 
-	public ListResponse<InventarioDTO> execute(UUID hospitalId, PaginationRequest paginationRequest) {
+	public ListResponse<InventarioDTO> execute(UUID hospitalId, PaginationRequest paginationRequest)
+	{
 		var result = inventarioDao.getAll(hospitalId, paginationRequest.getPage(), paginationRequest.getRows());
-		List<InventarioDTO> data = result.getData()
-				.stream()
-				.map(inventarioMapper::toDto)
-				.toList();
-		return new ListResponse<>(data, 
-				result.getTotalElements(), 
-				result.getTotalPages(), 
-				result.getCurrentPage());
+		List<InventarioDTO> data = result.getData().stream().map(inventarioMapper::toDto).toList();
+		return new ListResponse<>(data, result.getTotalElements(), result.getTotalPages(), result.getCurrentPage());
 	}
-	
 }

@@ -7,21 +7,20 @@ import org.springframework.stereotype.Component;
 import com.saludsystem.submodules.movimiento.service.almacen.AlmacenDeleteService;
 
 @Component
-public class AlmacenDeleteHandler {
-
+public class AlmacenDeleteHandler
+{
 	private final AlmacenDeleteService almacenDeleteService;
 
 	/**
 	 * @param almacenDeleteService
 	 */
-	public AlmacenDeleteHandler(AlmacenDeleteService almacenDeleteService) {
+	public AlmacenDeleteHandler(AlmacenDeleteService almacenDeleteService)
+	{
 		this.almacenDeleteService = almacenDeleteService;
 	}
-	
-	public void execute(UUID uuid) {
-		
-		almacenDeleteService.execute(uuid);
-		
-	}
 
+	public void execute(UUID uuid)
+	{
+		almacenDeleteService.execute(uuid);
+	}
 }

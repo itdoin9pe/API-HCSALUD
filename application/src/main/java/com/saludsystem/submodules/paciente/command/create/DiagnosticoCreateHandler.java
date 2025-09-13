@@ -7,26 +7,22 @@ import com.saludsystem.submodules.paciente.model.dtos.command.create.Diagnostico
 import com.saludsystem.submodules.paciente.service.fichaclinica.diagnostico.DiagnosticoCreateService;
 
 @Component
-public class DiagnosticoCreateHandler {
-
+public class DiagnosticoCreateHandler
+{
 	private final DiagnosticoCreateService diagnosticoCreateService;
 	private final DiagnosticoMapper diagnosticoMapper;
-	/**
-	 * @param diagnosticoCreateService
-	 * @param diagnosticoMapper
-	 */
-	public DiagnosticoCreateHandler(DiagnosticoCreateService diagnosticoCreateService,
-			DiagnosticoMapper diagnosticoMapper) {
+
+	public DiagnosticoCreateHandler(
+		DiagnosticoCreateService diagnosticoCreateService,
+		DiagnosticoMapper diagnosticoMapper)
+	{
 		this.diagnosticoCreateService = diagnosticoCreateService;
 		this.diagnosticoMapper = diagnosticoMapper;
 	}
-	
-	public void execute(DiagnosticoCreateCommand createCommand) {
-		
-		var diagnosticoSaved = diagnosticoMapper.fromCreateDto(createCommand);
-		
-		diagnosticoCreateService.execute(diagnosticoSaved);
-		
-	}
 
+	public void execute(DiagnosticoCreateCommand createCommand)
+	{
+		var diagnosticoSaved = diagnosticoMapper.fromCreateDto(createCommand);
+		diagnosticoCreateService.execute(diagnosticoSaved);
+	}
 }

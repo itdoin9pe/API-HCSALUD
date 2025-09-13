@@ -1,47 +1,49 @@
 package com.saludsystem.submodules.movimiento.model.dtos.command;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class VentaCreateCommand {
+public class VentaCreateCommand
+{
+	private String serie;
+	private String secuencia;
+	private LocalDate fecha;
+	private String tipoBeneficiario;
+	private String beneficiarioDocumento;
+	private String beneficiarioDireccion;
+	private UUID tipoPagoId;
+	private String observacion;
+	private String metodoPago;
 
-    private String serie;
-    private String secuencia;
-    private LocalDate fecha;
-    private String tipoBeneficiario;
-    private String beneficiarioDocumento;
-    private String beneficiarioDireccion;
-    private UUID tipoPagoId;
-    private String observacion;
-    private String metodoPago;
+	@Schema(example = "0")
+	private BigDecimal montoRecibido;
 
-    @Schema(example = "0")
-    private BigDecimal montoRecibido;
+	@Schema(example = "0")
+	private BigDecimal vuelto;
 
-    @Schema(example = "0")
-    private BigDecimal vuelto;
+	@Schema(example = "0")
+	private BigDecimal total;
 
-    @Schema(example = "0")
-    private BigDecimal total;
+	private UUID tipoDocumentoId;
+	private UUID almacenId;
+	private UUID beneficiarioId;
+	private UUID tipoTarjetaId;
+	private UUID tipoMonedaId;
 
-    private UUID tipoDocumentoId;
-    private UUID almacenId;
-    private UUID beneficiarioId;
-    private UUID tipoTarjetaId;
-    private UUID tipoMonedaId;
+	@Schema(description = "Estado de la venta (inactive = 0 / active = 1)", example = "0")
+	private Integer estado;
 
-    @Schema(description = "Estado de la venta (inactive = 0 / active = 1)", example = "0")
-    private Integer estado;
-
-    private List<VentaDetalleCreateCommand> detalles;
-
+	private List<VentaDetalleCreateCommand> detalles;
 }

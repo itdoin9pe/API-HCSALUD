@@ -24,10 +24,13 @@ public class CitaEditCommand extends BaseDTO
 	private UUID especialidadId;
 	private UUID doctorId;
 	private LocalDate fecha;
+
 	@Schema(example = "10:00:00")
 	private LocalTime horaInicio;
+	
 	@Schema(example = "11:00:00")
 	private LocalTime horaFin;
+	
 	private UUID pacienteId;
 	private UUID sedeId;
 	private UUID tipoCitadoId;

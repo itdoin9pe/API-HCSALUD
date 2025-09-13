@@ -1,21 +1,23 @@
 package com.saludsystem.submodules.mantenimiento.command.delete;
 
-import com.saludsystem.submodules.mantenimiento.service.tarifario.TarifarioDeleteService;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+import com.saludsystem.submodules.mantenimiento.service.tarifario.TarifarioDeleteService;
+
 @Component
-public class TarifarioDeleteHandler {
+public class TarifarioDeleteHandler
+{
+	private final TarifarioDeleteService tarifarioDeleteService;
 
-    private final TarifarioDeleteService tarifarioDeleteService;
+	public TarifarioDeleteHandler(TarifarioDeleteService tarifarioDeleteService)
+	{
+		this.tarifarioDeleteService = tarifarioDeleteService;
+	}
 
-    public TarifarioDeleteHandler(TarifarioDeleteService tarifarioDeleteService) {
-        this.tarifarioDeleteService = tarifarioDeleteService;
-    }
-
-    public void execute(UUID uuid) {
-        tarifarioDeleteService.execute(uuid);
-    }
-
+	public void execute(UUID uuid)
+	{
+		tarifarioDeleteService.execute(uuid);
+	}
 }

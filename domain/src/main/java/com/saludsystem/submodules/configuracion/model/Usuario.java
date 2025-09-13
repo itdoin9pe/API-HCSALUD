@@ -1,12 +1,27 @@
 package com.saludsystem.submodules.configuracion.model;
 
-import com.saludsystem.submodules.configuracion.model.vo.usuario.*;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.Apellido;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.Direccion;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.Email;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.EstadoUsuario;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.Foto;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.Nombre;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.NumeroDocumento;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.Password;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.PhoneNumber;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.TipoDocumentoUsuario;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.UserHospital;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.UserId;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.UserRole;
+import com.saludsystem.submodules.configuracion.model.vo.usuario.Username;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class Usuario {
+public class Usuario
+{
 	private UserId id;
 	private Apellido lastName;
 	private Nombre firstName;
@@ -22,9 +37,22 @@ public class Usuario {
 	private UserHospital hospitalId;
 	private EstadoUsuario estado;
 
-	public Usuario(UserId id, Apellido lastName, Nombre firstName, Email email, Username username, Password password,
-			PhoneNumber phoneNumber, Direccion address, TipoDocumentoUsuario documentType,
-			NumeroDocumento documentNumber, Foto photo, UserRole rolId, UserHospital hospitalId, EstadoUsuario estado) {
+	public Usuario(
+		UserId id,
+		Apellido lastName,
+		Nombre firstName,
+		Email email,
+		Username username,
+		Password password,
+		PhoneNumber phoneNumber,
+		Direccion address,
+		TipoDocumentoUsuario documentType,
+		NumeroDocumento documentNumber,
+		Foto photo,
+		UserRole rolId,
+		UserHospital hospitalId,
+		EstadoUsuario estado)
+	{
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -40,70 +68,108 @@ public class Usuario {
 		this.hospitalId = hospitalId;
 		this.estado = estado;
 	}
-	
-	public void actualizarApellido(Apellido lastName) {
-	    if (lastName != null) {
-	        this.lastName = lastName;
-	    }
+
+	public void actualizarApellido(Apellido lastName)
+	{
+		if (lastName != null)
+		{
+			this.lastName = lastName;
+		}
 	}
-	public void actualizarNombre(Nombre firstName) {
-	    if (firstName != null) {
-	        this.firstName = firstName;
-	    }
+
+	public void actualizarNombre(Nombre firstName)
+	{
+		if (firstName != null)
+		{
+			this.firstName = firstName;
+		}
 	}
-	public void actualizarEmail(Email email) {
-	    if (email != null) {
-	        this.email = email;
-	    }
+
+	public void actualizarEmail(Email email)
+	{
+		if (email != null)
+		{
+			this.email = email;
+		}
 	}
-	public void actualizarUsername(Username username) {
-	    if (username != null) {
-	        this.username = username;
-	    }
+
+	public void actualizarUsername(Username username)
+	{
+		if (username != null)
+		{
+			this.username = username;
+		}
 	}
-	public void actualizarPassword(Password password) {
-	    if (password != null) {
-	        this.password = password;
-	    }
+
+	public void actualizarPassword(Password password)
+	{
+		if (password != null)
+		{
+			this.password = password;
+		}
 	}
-	public void actualizarPhoneNumber(PhoneNumber phoneNumber) {
-	    if (phoneNumber != null) {
-	        this.phoneNumber = phoneNumber;
-	    }
+
+	public void actualizarPhoneNumber(PhoneNumber phoneNumber)
+	{
+		if (phoneNumber != null)
+		{
+			this.phoneNumber = phoneNumber;
+		}
 	}
-	public void actualizarAddress(Direccion address) {
-	    if (address != null) {
-	        this.address = address;
-	    }
+
+	public void actualizarAddress(Direccion address)
+	{
+		if (address != null)
+		{
+			this.address = address;
+		}
 	}
-	public void actualizarTipoDocumento(TipoDocumentoUsuario documentType) {
-	    if (documentType != null) {
-	        this.documentType = documentType;
-	    }
+
+	public void actualizarTipoDocumento(TipoDocumentoUsuario documentType)
+	{
+		if (documentType != null)
+		{
+			this.documentType = documentType;
+		}
 	}
-	public void actualizarNumeroDocumento(NumeroDocumento documentNumber) {
-	    if (documentNumber != null) {
-	        this.documentNumber = documentNumber;
-	    }
+
+	public void actualizarNumeroDocumento(NumeroDocumento documentNumber)
+	{
+		if (documentNumber != null)
+		{
+			this.documentNumber = documentNumber;
+		}
 	}
-	public void actualizarFoto(Foto photo) {
-	    if (photo != null) {
-	        this.photo = photo;
-	    }
+
+	public void actualizarFoto(Foto photo)
+	{
+		if (photo != null)
+		{
+			this.photo = photo;
+		}
 	}
-	public void actualizarRol(UserRole rolId) {
-	    if (rolId != null) {
-	        this.rolId = rolId;
-	    }
+
+	public void actualizarRol(UserRole rolId)
+	{
+		if (rolId != null)
+		{
+			this.rolId = rolId;
+		}
 	}
-	public void actualizarHospital(UserHospital hospitalId) {
-	    if (hospitalId != null) {
-	        this.hospitalId = hospitalId;
-	    }
+
+	public void actualizarHospital(UserHospital hospitalId)
+	{
+		if (hospitalId != null)
+		{
+			this.hospitalId = hospitalId;
+		}
 	}
-	public void actualizarEstado(EstadoUsuario estado) {
-	    if (estado != null) {
-	        this.estado = estado;
-	    }
+
+	public void actualizarEstado(EstadoUsuario estado)
+	{
+		if (estado != null)
+		{
+			this.estado = estado;
+		}
 	}
 }

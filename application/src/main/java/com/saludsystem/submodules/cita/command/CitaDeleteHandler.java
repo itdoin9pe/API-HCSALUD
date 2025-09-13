@@ -1,20 +1,23 @@
 package com.saludsystem.submodules.cita.command;
 
-import com.saludsystem.submodules.cita.service.CitaDeleteService;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+import com.saludsystem.submodules.cita.service.CitaDeleteService;
+
 @Component
-public class CitaDeleteHandler {
+public class CitaDeleteHandler
+{
+	private final CitaDeleteService citaDeleteService;
 
-    private final CitaDeleteService citaDeleteService;
+	public CitaDeleteHandler(CitaDeleteService citaDeleteService)
+	{
+		this.citaDeleteService = citaDeleteService;
+	}
 
-    public CitaDeleteHandler(CitaDeleteService citaDeleteService) {
-        this.citaDeleteService = citaDeleteService;
-    }
-
-    public void execute(UUID uuid) {
-        citaDeleteService.execute(uuid);
-    }
+	public void execute(UUID uuid)
+	{
+		citaDeleteService.execute(uuid);
+	}
 }

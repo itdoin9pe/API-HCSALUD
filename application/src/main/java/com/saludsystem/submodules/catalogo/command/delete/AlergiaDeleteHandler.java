@@ -1,20 +1,23 @@
 package com.saludsystem.submodules.catalogo.command.delete;
 
-import com.saludsystem.submodules.catalogo.service.alergia.AlergiaDeleteService;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+import com.saludsystem.submodules.catalogo.service.alergia.AlergiaDeleteService;
+
 @Component
-public class AlergiaDeleteHandler {
+public class AlergiaDeleteHandler
+{
+	private final AlergiaDeleteService alergiaDeleteService;
 
-    private final AlergiaDeleteService alergiaDeleteService;
+	public AlergiaDeleteHandler(AlergiaDeleteService alergiaDeleteService)
+	{
+		this.alergiaDeleteService = alergiaDeleteService;
+	}
 
-    public AlergiaDeleteHandler(AlergiaDeleteService alergiaDeleteService) {
-        this.alergiaDeleteService = alergiaDeleteService;
-    }
-
-    public void execute(UUID uuid){
-        alergiaDeleteService.execute(uuid);
-    }
+	public void execute(UUID uuid)
+	{
+		alergiaDeleteService.execute(uuid);
+	}
 }

@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.paciente.command.delete.evolucion;
 
-import com.saludsystem.submodules.paciente.service.historia.evolucion.nota.NotaDeleteService;
 import org.springframework.stereotype.Component;
 
+import com.saludsystem.submodules.paciente.service.historia.evolucion.nota.NotaDeleteService;
+
 @Component
-public class NotaDeleteHandler {
+public class NotaDeleteHandler
+{
+	private final NotaDeleteService notaDeleteService;
 
-    private final NotaDeleteService notaDeleteService;
+	public NotaDeleteHandler(NotaDeleteService notaDeleteService)
+	{
+		this.notaDeleteService = notaDeleteService;
+	}
 
-    public NotaDeleteHandler(NotaDeleteService notaDeleteService) {
-        this.notaDeleteService = notaDeleteService;
-    }
-
-    public void execute(Long id) {
-
-        notaDeleteService.execute(id);
-
-    }
-
+	public void execute(Long id)
+	{
+		notaDeleteService.execute(id);
+	}
 }

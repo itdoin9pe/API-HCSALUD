@@ -1,16 +1,17 @@
 package com.saludsystem.submodules.movimiento.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Getter
 @NoArgsConstructor
-public class Venta {
+public class Venta
+{
 	private UUID ventaId;
 	private String serie;
 	private String secuencia;
@@ -32,11 +33,28 @@ public class Venta {
 	private Integer estado;
 	private List<VentaDetalle> detalles;
 
-	public Venta(UUID ventaId, String serie, String secuencia, LocalDate fecha, String tipoBeneficiario,
-			String beneficiarioDocumento, String beneficiarioDireccion, UUID tipoPagoId, String observacion,
-			String metodoPago, BigDecimal montoRecibido, BigDecimal vuelto, BigDecimal total, UUID tipoDocumentoId,
-			UUID almacenId, UUID beneficiarioId, UUID tipoTarjetaId, UUID tipoMonedaId, Integer estado,
-			List<VentaDetalle> detalles) {
+	public Venta(
+		UUID ventaId,
+		String serie,
+		String secuencia,
+		LocalDate fecha,
+		String tipoBeneficiario,
+		String beneficiarioDocumento,
+		String beneficiarioDireccion,
+		UUID tipoPagoId,
+		String observacion,
+		String metodoPago,
+		BigDecimal montoRecibido,
+		BigDecimal vuelto,
+		BigDecimal total,
+		UUID tipoDocumentoId,
+		UUID almacenId,
+		UUID beneficiarioId,
+		UUID tipoTarjetaId,
+		UUID tipoMonedaId,
+		Integer estado,
+		List<VentaDetalle> detalles)
+	{
 		this.ventaId = ventaId;
 		this.serie = serie;
 		this.secuencia = secuencia;

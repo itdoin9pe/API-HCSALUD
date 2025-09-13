@@ -1,15 +1,27 @@
 package com.saludsystem.submodules.medico.model;
 
+import java.time.LocalDate;
+
 import com.saludsystem.submodules.configuracion.model.vo.usuario.NumeroDocumento;
-import com.saludsystem.submodules.medico.model.vo.*;
+import com.saludsystem.submodules.medico.model.vo.Apellido;
+import com.saludsystem.submodules.medico.model.vo.Celular;
+import com.saludsystem.submodules.medico.model.vo.Colegiatura;
+import com.saludsystem.submodules.medico.model.vo.Correo;
+import com.saludsystem.submodules.medico.model.vo.Direccion;
+import com.saludsystem.submodules.medico.model.vo.DoctorId;
+import com.saludsystem.submodules.medico.model.vo.EspecialidadId;
+import com.saludsystem.submodules.medico.model.vo.Nombre;
+import com.saludsystem.submodules.medico.model.vo.Rne;
+import com.saludsystem.submodules.medico.model.vo.Telefono;
+import com.saludsystem.submodules.medico.model.vo.TipoDocumento;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Getter
 @NoArgsConstructor
-public class Doctor {
+public class Doctor
+{
 	private DoctorId id;
 	private TipoDocumento tipoDocumento;
 	private NumeroDocumento numeroDocumento;
@@ -30,10 +42,27 @@ public class Doctor {
 	private String fotoDoctor;
 	private String fotoFirma;
 
-	public Doctor(DoctorId id, TipoDocumento tipoDocumento, NumeroDocumento numeroDocumento, Apellido apellidos,
-			Nombre nombres, Direccion direccion, Correo correo, String abreviatura, Rne rne, LocalDate fechaNacimiento,
-			Celular celular, Telefono telefono, String sexo, EspecialidadId especialidadId, Colegiatura colegiatura,
-			String color, Integer estado, String fotoDoctor, String fotoFirma) {
+	public Doctor(
+		DoctorId id,
+		TipoDocumento tipoDocumento,
+		NumeroDocumento numeroDocumento,
+		Apellido apellidos,
+		Nombre nombres,
+		Direccion direccion,
+		Correo correo,
+		String abreviatura,
+		Rne rne,
+		LocalDate fechaNacimiento,
+		Celular celular,
+		Telefono telefono,
+		String sexo,
+		EspecialidadId especialidadId,
+		Colegiatura colegiatura,
+		String color,
+		Integer estado,
+		String fotoDoctor,
+		String fotoFirma)
+	{
 		this.id = id;
 		this.tipoDocumento = tipoDocumento;
 		this.numeroDocumento = numeroDocumento;

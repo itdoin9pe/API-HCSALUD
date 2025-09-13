@@ -9,25 +9,20 @@ import com.saludsystem.submodules.paciente.model.dtos.command.edit.DiagnosticoEd
 import com.saludsystem.submodules.paciente.service.fichaclinica.diagnostico.DiagnosticoEditService;
 
 @Component
-public class DiagnosticoEditHandler {
-	
+public class DiagnosticoEditHandler
+{
 	private final DiagnosticoEditService diagnosticoEditService;
 	private final DiagnosticoMapper diagnosticoMapper;
-	/**
-	 * @param diagnosticoEditService
-	 * @param diagnosticoMapper
-	 */
-	public DiagnosticoEditHandler(DiagnosticoEditService diagnosticoEditService, DiagnosticoMapper diagnosticoMapper) {
+
+	public DiagnosticoEditHandler(DiagnosticoEditService diagnosticoEditService, DiagnosticoMapper diagnosticoMapper)
+	{
 		this.diagnosticoEditService = diagnosticoEditService;
 		this.diagnosticoMapper = diagnosticoMapper;
 	}
-	
-	public void execute(UUID uuid, DiagnosticoEditCommand editCommand) {
-		
+
+	public void execute(UUID uuid, DiagnosticoEditCommand editCommand)
+	{
 		var diagosticoUpdated = diagnosticoMapper.fromUpdateDto(uuid, editCommand);
-		
 		diagnosticoEditService.execute(uuid, diagosticoUpdated);
-		
 	}
-	
 }

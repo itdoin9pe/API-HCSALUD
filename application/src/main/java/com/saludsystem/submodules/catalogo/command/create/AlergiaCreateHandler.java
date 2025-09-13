@@ -26,5 +26,4 @@ public class AlergiaCreateHandler
 		alergiaCreateService.execute(marca);
 
 	}
-
 }

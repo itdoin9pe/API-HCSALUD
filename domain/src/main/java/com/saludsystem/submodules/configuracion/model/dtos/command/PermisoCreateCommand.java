@@ -1,18 +1,22 @@
 package com.saludsystem.submodules.configuracion.model.dtos.command;
 
-import lombok.*;
-
 import java.util.UUID;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class PermisoCreateCommand {
-    private UUID menuId;
-    private UUID rolId;
-    private Boolean read;
-    private Boolean insert;
-    private Boolean update;
-    private Boolean delete;
+public class PermisoCreateCommand
+{
+	private UUID menuId;
+	private UUID rolId;
+	private Boolean read;
+	private Boolean insert;
+	private Boolean update;
+	private Boolean delete;
 }

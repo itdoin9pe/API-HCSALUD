@@ -1,4 +1,5 @@
 package com.saludsystem.submodules.medico.model.vo;
 
-public record Nombre(String value) {
+public record Nombre(String value)
+{
 }

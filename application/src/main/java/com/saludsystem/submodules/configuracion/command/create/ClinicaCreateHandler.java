@@ -7,22 +7,20 @@ import com.saludsystem.submodules.configuracion.model.dtos.command.ClinicaCreate
 import com.saludsystem.submodules.configuracion.service.clinica.ClinicaCreateService;
 
 @Component
-public class ClinicaCreateHandler {
-
+public class ClinicaCreateHandler
+{
 	private final ClinicaCreateService clinicaCreateService;
 	private final ClinicaMapper clinicaMapper;
 
-	public ClinicaCreateHandler(ClinicaCreateService clinicaCreateService, ClinicaMapper clinicaMapper) {
+	public ClinicaCreateHandler(ClinicaCreateService clinicaCreateService, ClinicaMapper clinicaMapper)
+	{
 		this.clinicaCreateService = clinicaCreateService;
 		this.clinicaMapper = clinicaMapper;
 	}
 
-	public void execute(ClinicaCreateCommand createCommand) {
-
+	public void execute(ClinicaCreateCommand createCommand)
+	{
 		var cliSaved = clinicaMapper.fromCreateDto(createCommand);
-
 		clinicaCreateService.execute(cliSaved);
-
 	}
-
 }

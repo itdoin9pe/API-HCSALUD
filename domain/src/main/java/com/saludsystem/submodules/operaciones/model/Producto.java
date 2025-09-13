@@ -1,42 +1,59 @@
 package com.saludsystem.submodules.operaciones.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Getter
 @NoArgsConstructor
-public class Producto {
-	 // Identificadores
-    private UUID id;
-    private UUID marcaId;
-    private UUID tipoMaterialId;
-    private UUID unidadId;
-    private UUID presentacionId;
-    private UUID categoriaMatId;
-    // Datos principales
-    private String codigo;
-    private String codigoBarras;
-    private String nombre;
-    private String descripcion;
-    private String lote;
-    private LocalDate fecha;
-    // Inventario y precios
-    private Integer stock;
-    private BigDecimal precioCompra;
-    private BigDecimal precioVenta;
-    // Estados
-    private String estadoVenta;
-    private String estadoCompra;
-    private Integer estadoProducto;
+public class Producto
+{
+	// Identificadores
+	private UUID id;
+	private UUID marcaId;
+	private UUID tipoMaterialId;
+	private UUID unidadId;
+	private UUID presentacionId;
+	private UUID categoriaMatId;
+	// Datos principales
+	private String codigo;
+	private String codigoBarras;
+	private String nombre;
+	private String descripcion;
+	private String lote;
+	private LocalDate fecha;
+	// Inventario y precios
+	private Integer stock;
+	private BigDecimal precioCompra;
+	private BigDecimal precioVenta;
+	// Estados
+	private String estadoVenta;
+	private String estadoCompra;
+	private Integer estadoProducto;
 
-	public Producto(UUID id, UUID marcaId, UUID tipoMaterialId, UUID unidadId, UUID presentacionId, UUID categoriaMatId,
-			String codigo, String codigoBarras, String nombre, String descripcion, BigDecimal precioCompra, 
-			BigDecimal precioVenta,Integer stock, String lote, LocalDate fecha, String estadoVenta, String estadoCompra,
-			Integer estadoProducto) {
+	public Producto(
+		UUID id,
+		UUID marcaId,
+		UUID tipoMaterialId,
+		UUID unidadId,
+		UUID presentacionId,
+		UUID categoriaMatId,
+		String codigo,
+		String codigoBarras,
+		String nombre,
+		String descripcion,
+		BigDecimal precioCompra,
+		BigDecimal precioVenta,
+		Integer stock,
+		String lote,
+		LocalDate fecha,
+		String estadoVenta,
+		String estadoCompra,
+		Integer estadoProducto)
+	{
 		this.id = id;
 		this.marcaId = marcaId;
 		this.tipoMaterialId = tipoMaterialId;

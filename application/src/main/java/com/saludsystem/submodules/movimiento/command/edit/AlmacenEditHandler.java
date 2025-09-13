@@ -9,26 +9,24 @@ import com.saludsystem.submodules.movimiento.model.dtos.command.edit.AlmacenEdit
 import com.saludsystem.submodules.movimiento.service.almacen.AlmacenEditService;
 
 @Component
-public class AlmacenEditHandler {
-	
+public class AlmacenEditHandler
+{
 	private final AlmacenEditService almacenEditService;
 	private final AlmacenMapper almacenMapper;
-	
+
 	/**
 	 * @param almacenEditService
 	 * @param almacenMapper
 	 */
-	public AlmacenEditHandler(AlmacenEditService almacenEditService, AlmacenMapper almacenMapper) {
+	public AlmacenEditHandler(AlmacenEditService almacenEditService, AlmacenMapper almacenMapper)
+	{
 		this.almacenEditService = almacenEditService;
 		this.almacenMapper = almacenMapper;
 	}
 
-	public void execute(UUID uuid, AlmacenEditCommand editCommand) {
-		
+	public void execute(UUID uuid, AlmacenEditCommand editCommand)
+	{
 		var almacenUpdated = almacenMapper.fromUpdateDto(uuid, editCommand);
-		
 		almacenEditService.execute(uuid, almacenUpdated);
-		
 	}
-	
 }

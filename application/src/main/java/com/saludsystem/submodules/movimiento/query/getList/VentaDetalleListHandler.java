@@ -10,26 +10,24 @@ import com.saludsystem.submodules.movimiento.model.dtos.VentaDetalleDTO;
 import com.saludsystem.submodules.movimiento.port.dao.VentaDetalleDao;
 
 @Component
-public class VentaDetalleListHandler {
-
+public class VentaDetalleListHandler
+{
 	private final VentaDetalleDao ventaDetalleDao;
 	private final VentaDetalleMapper ventaDetalleMapper;
-	
+
 	/**
 	 * @param ventaDetalleDao
 	 * @param ventaDetalleMapper
 	 */
-	public VentaDetalleListHandler(VentaDetalleDao ventaDetalleDao, VentaDetalleMapper ventaDetalleMapper) {
+	public VentaDetalleListHandler(VentaDetalleDao ventaDetalleDao, VentaDetalleMapper ventaDetalleMapper)
+	{
 		this.ventaDetalleDao = ventaDetalleDao;
 		this.ventaDetalleMapper = ventaDetalleMapper;
 	}
-	
-	public List<VentaDetalleDTO> execute() {
+
+	public List<VentaDetalleDTO> execute()
+	{
 		List<VentaDetalle> ventaDList = ventaDetalleDao.getList();
-		return ventaDList
-				.stream()
-				.map(ventaDetalleMapper::toDto)
-				.toList();
+		return ventaDList.stream().map(ventaDetalleMapper::toDto).toList();
 	}
-	
 }

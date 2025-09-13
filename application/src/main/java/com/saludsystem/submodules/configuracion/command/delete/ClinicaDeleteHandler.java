@@ -1,23 +1,23 @@
 package com.saludsystem.submodules.configuracion.command.delete;
 
-import com.saludsystem.submodules.configuracion.service.clinica.ClinicaDeleteService;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+import com.saludsystem.submodules.configuracion.service.clinica.ClinicaDeleteService;
+
 @Component
-public class ClinicaDeleteHandler {
+public class ClinicaDeleteHandler
+{
+	private final ClinicaDeleteService clinicaDeleteService;
 
-    private final ClinicaDeleteService clinicaDeleteService;
+	public ClinicaDeleteHandler(ClinicaDeleteService clinicaDeleteService)
+	{
+		this.clinicaDeleteService = clinicaDeleteService;
+	}
 
-    public ClinicaDeleteHandler(ClinicaDeleteService clinicaDeleteService) {
-        this.clinicaDeleteService = clinicaDeleteService;
-    }
-
-    public void execute(UUID uuid) {
-
-        clinicaDeleteService.execute(uuid);
-
-    }
-
+	public void execute(UUID uuid)
+	{
+		clinicaDeleteService.execute(uuid);
+	}
 }

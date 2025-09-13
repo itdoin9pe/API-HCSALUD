@@ -9,24 +9,26 @@ import com.saludsystem.submodules.movimiento.model.dtos.command.edit.VentaDetall
 import com.saludsystem.submodules.movimiento.service.ventadetalle.VentaDetalleEditService;
 
 @Component
-public class VentaDetalleEditHandler {
-
+public class VentaDetalleEditHandler
+{
 	private final VentaDetalleEditService ventaDetalleEditService;
 	private final VentaDetalleMapper ventaDetalleMapper;
-	
+
 	/**
 	 * @param ventaDetalleEditService
 	 * @param ventaDetalleMapper
 	 */
-	public VentaDetalleEditHandler(VentaDetalleEditService ventaDetalleEditService,
-			VentaDetalleMapper ventaDetalleMapper) {
+	public VentaDetalleEditHandler(
+		VentaDetalleEditService ventaDetalleEditService,
+		VentaDetalleMapper ventaDetalleMapper)
+	{
 		this.ventaDetalleEditService = ventaDetalleEditService;
 		this.ventaDetalleMapper = ventaDetalleMapper;
 	}
 
-	public void execute(UUID uuid, VentaDetalleEditCommand editCommand) {
+	public void execute(UUID uuid, VentaDetalleEditCommand editCommand)
+	{
 		var ventaDetUpdated = ventaDetalleMapper.fromUpdateDto(uuid, editCommand);
 		ventaDetalleEditService.execute(uuid, ventaDetUpdated);
 	}
-	
 }

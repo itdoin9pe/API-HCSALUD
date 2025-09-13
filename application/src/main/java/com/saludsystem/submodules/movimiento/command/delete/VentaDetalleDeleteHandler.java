@@ -7,19 +7,20 @@ import org.springframework.stereotype.Component;
 import com.saludsystem.submodules.movimiento.service.ventadetalle.VentaDetalleDeleteService;
 
 @Component
-public class VentaDetalleDeleteHandler {
-
+public class VentaDetalleDeleteHandler
+{
 	private final VentaDetalleDeleteService ventaDetalleDeleteService;
 
 	/**
 	 * @param ventaDetalleDeleteService
 	 */
-	public VentaDetalleDeleteHandler(VentaDetalleDeleteService ventaDetalleDeleteService) {
+	public VentaDetalleDeleteHandler(VentaDetalleDeleteService ventaDetalleDeleteService)
+	{
 		this.ventaDetalleDeleteService = ventaDetalleDeleteService;
 	}
-	
-	public void execute(UUID uuid) {
+
+	public void execute(UUID uuid)
+	{
 		ventaDetalleDeleteService.execute(uuid);
 	}
-
 }

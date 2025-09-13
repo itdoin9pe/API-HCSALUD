@@ -1,17 +1,16 @@
 package com.saludsystem.submodules.movimiento.port.dao;
 
-import com.saludsystem.submodules.movimiento.model.Inventario;
-import com.saludsystem.submodules.response.ListResponse;
-
 import java.util.List;
 import java.util.UUID;
 
-public interface InventarioDao {
+import com.saludsystem.submodules.movimiento.model.Inventario;
+import com.saludsystem.submodules.response.ListResponse;
 
-    Inventario getById(UUID uuid);
+public interface InventarioDao
+{
+	Inventario getById(UUID uuid);
 
-    ListResponse<Inventario> getAll(UUID hospitalId, int page, int rows);
+	ListResponse<Inventario> getAll(UUID hospitalId, int page, int rows);
 
-    List<Inventario> getList();
-
+	List<Inventario> getList();
 }

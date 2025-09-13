@@ -1,18 +1,18 @@
 package com.saludsystem.submodules.configuracion.response;
 
+import java.util.List;
+
 import com.saludsystem.submodules.configuracion.model.dtos.UsuarioDTO;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class UsuarioListResponse {
+public class UsuarioListResponse
+{
+	@Schema(description = "Lista de Usuarios")
+	private List<UsuarioDTO> data;
 
-    @Schema(description = "Lista de Usuarios")
-    private List<UsuarioDTO> data;
-
-    @Schema(description = "Número total de Usuarios", example = "0")
-    private long totalData;
-
+	@Schema(description = "Número total de Usuarios", example = "0")
+	private long totalData;
 }

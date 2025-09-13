@@ -1,11 +1,14 @@
 package com.saludsystem.submodules.configuracion.port.in.repository;
 
-import com.saludsystem.submodules.configuracion.model.Rol;
-
 import java.util.UUID;
 
-public interface RolRepository {
-    Rol save(Rol rol);
-    Rol update(UUID uuid, Rol rol);
-    void delete(UUID uuid);
+import com.saludsystem.submodules.configuracion.model.Rol;
+
+public interface RolRepository
+{
+	Rol save(Rol rol);
+
+	Rol update(UUID uuid, Rol rol);
+
+	void delete(UUID uuid);
 }

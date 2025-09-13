@@ -1,23 +1,23 @@
 package com.saludsystem.submodules.movimiento.command.delete;
 
-import com.saludsystem.submodules.movimiento.service.compra.CompraDeleteService;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+import com.saludsystem.submodules.movimiento.service.compra.CompraDeleteService;
+
 @Component
-public class CompraDeleteHandler {
+public class CompraDeleteHandler
+{
+	private final CompraDeleteService compraDeleteService;
 
-    private final CompraDeleteService compraDeleteService;
+	public CompraDeleteHandler(CompraDeleteService compraDeleteService)
+	{
+		this.compraDeleteService = compraDeleteService;
+	}
 
-    public CompraDeleteHandler(CompraDeleteService compraDeleteService) {
-        this.compraDeleteService = compraDeleteService;
-    }
-
-    public void execute(UUID uuid) {
-
-        compraDeleteService.execute(uuid);
-
-    }
-
+	public void execute(UUID uuid)
+	{
+		compraDeleteService.execute(uuid);
+	}
 }

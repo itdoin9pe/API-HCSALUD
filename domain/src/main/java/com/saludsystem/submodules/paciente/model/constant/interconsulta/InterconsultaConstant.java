@@ -1,15 +1,14 @@
 package com.saludsystem.submodules.paciente.model.constant.interconsulta;
 
-public class InterconsultaConstant {
+public class InterconsultaConstant
+{
+	public static final String CREATED = "Interconsulta creada correctamente";
 
-    public static final String CREATED = "Interconsulta creada correctamente";
+	public static final String UPDATED = "Interconsulta actualizada correctamente";
 
-    public static final String UPDATED = "Interconsulta actualizada correctamente";
+	public static final String DELETED = "Interconsulta eliminada correctamente";
 
-    public static final String DELETED = "Interconsulta eliminada correctamente";
+	public static final String ID_NOT_FOUND = "Registro de Id de Interconsulta no encontrada";
 
-    public static final String ID_NOT_FOUND = "Registro de Id de Interconsulta no encontrada";
-
-    public static final String INVALID_ID = "Registro del Id de Interconsulta no puede ser NULL";
-
+	public static final String INVALID_ID = "Registro del Id de Interconsulta no puede ser NULL";
 }

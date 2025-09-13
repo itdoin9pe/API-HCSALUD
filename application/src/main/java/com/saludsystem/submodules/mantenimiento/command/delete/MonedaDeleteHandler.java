@@ -1,20 +1,23 @@
 package com.saludsystem.submodules.mantenimiento.command.delete;
 
-import com.saludsystem.submodules.mantenimiento.service.moneda.MonedaDeleteService;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+import com.saludsystem.submodules.mantenimiento.service.moneda.MonedaDeleteService;
+
 @Component
-public class MonedaDeleteHandler {
+public class MonedaDeleteHandler
+{
+	private final MonedaDeleteService monedaDeleteService;
 
-    private final MonedaDeleteService monedaDeleteService;
+	public MonedaDeleteHandler(MonedaDeleteService monedaDeleteService)
+	{
+		this.monedaDeleteService = monedaDeleteService;
+	}
 
-    public MonedaDeleteHandler(MonedaDeleteService monedaDeleteService) {
-        this.monedaDeleteService = monedaDeleteService;
-    }
-
-    public void execute(UUID uuid) {
-        monedaDeleteService.execute(uuid);
-    }
+	public void execute(UUID uuid)
+	{
+		monedaDeleteService.execute(uuid);
+	}
 }

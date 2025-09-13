@@ -1,22 +1,27 @@
 package com.saludsystem.submodules.configuracion.model.exception;
 
-public class UserException extends RuntimeException {
-    private static final long serialVersionUID = 2L;
+public class UserException extends RuntimeException
+{
+	private static final long serialVersionUID = 2L;
 
-    private String errorMessage;
+	private String errorMessage;
 
-    public UserException(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
+	public UserException(String errorMessage)
+	{
+		this.errorMessage = errorMessage;
+	}
 
-    public UserException() {
-    }
+	public UserException()
+	{
+	}
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
+	public String getErrorMessage()
+	{
+		return errorMessage;
+	}
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
+	public void setErrorMessage(String errorMessage)
+	{
+		this.errorMessage = errorMessage;
+	}
 }

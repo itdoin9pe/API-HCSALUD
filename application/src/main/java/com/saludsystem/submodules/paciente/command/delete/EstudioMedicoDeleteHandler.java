@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.paciente.command.delete;
 
-import com.saludsystem.submodules.paciente.service.fichaclinica.estudiomedico.EstudioMedicoDeleteService;
 import org.springframework.stereotype.Component;
 
+import com.saludsystem.submodules.paciente.service.fichaclinica.estudiomedico.EstudioMedicoDeleteService;
+
 @Component
-public class EstudioMedicoDeleteHandler {
+public class EstudioMedicoDeleteHandler
+{
+	private final EstudioMedicoDeleteService estudioMedicoDeleteService;
 
-    private final EstudioMedicoDeleteService estudioMedicoDeleteService;
+	public EstudioMedicoDeleteHandler(EstudioMedicoDeleteService estudioMedicoDeleteService)
+	{
+		this.estudioMedicoDeleteService = estudioMedicoDeleteService;
+	}
 
-    public EstudioMedicoDeleteHandler(EstudioMedicoDeleteService estudioMedicoDeleteService) {
-        this.estudioMedicoDeleteService = estudioMedicoDeleteService;
-    }
-
-    public void execute(Long id) {
-
-        estudioMedicoDeleteService.execute(id);
-
-    }
-
+	public void execute(Long id)
+	{
+		estudioMedicoDeleteService.execute(id);
+	}
 }

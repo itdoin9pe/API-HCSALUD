@@ -1,21 +1,23 @@
 package com.saludsystem.submodules.operaciones.model.dtos.command;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UnidadCreateCommand {
+public class UnidadCreateCommand
+{
+	private String nombre;
 
-    private String nombre;
+	private String siglas;
 
-    private String siglas;
+	private String descripcion;
 
-    private String descripcion;
-
-    @Schema(description = "Estado de la unidad", example = "0")
-    private Integer estado;
-
+	@Schema(description = "Estado de la unidad", example = "0")
+	private Integer estado;
 }

@@ -1,23 +1,23 @@
 package com.saludsystem.submodules.configuracion.command.delete;
 
-import com.saludsystem.submodules.configuracion.service.sede.SedeDeleteService;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+import com.saludsystem.submodules.configuracion.service.sede.SedeDeleteService;
+
 @Component
-public class SedeDeleteHandler {
+public class SedeDeleteHandler
+{
+	private final SedeDeleteService sedeDeleteService;
 
-    private final SedeDeleteService sedeDeleteService;
+	public SedeDeleteHandler(SedeDeleteService sedeDeleteService)
+	{
+		this.sedeDeleteService = sedeDeleteService;
+	}
 
-    public SedeDeleteHandler(SedeDeleteService sedeDeleteService) {
-        this.sedeDeleteService = sedeDeleteService;
-    }
-
-    public void execute(UUID uuid) {
-
-        sedeDeleteService.execute(uuid);
-
-    }
-
+	public void execute(UUID uuid)
+	{
+		sedeDeleteService.execute(uuid);
+	}
 }

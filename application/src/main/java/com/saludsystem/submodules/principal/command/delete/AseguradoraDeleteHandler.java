@@ -1,21 +1,23 @@
 package com.saludsystem.submodules.principal.command.delete;
 
-import com.saludsystem.submodules.principal.service.aseguradora.AseguradoraDeleteService;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+import com.saludsystem.submodules.principal.service.aseguradora.AseguradoraDeleteService;
+
 @Component
-public class AseguradoraDeleteHandler {
+public class AseguradoraDeleteHandler
+{
+	private final AseguradoraDeleteService aseguradoraDeleteService;
 
-    private final AseguradoraDeleteService aseguradoraDeleteService;
+	public AseguradoraDeleteHandler(AseguradoraDeleteService aseguradoraDeleteService)
+	{
+		this.aseguradoraDeleteService = aseguradoraDeleteService;
+	}
 
-    public AseguradoraDeleteHandler(AseguradoraDeleteService aseguradoraDeleteService) {
-        this.aseguradoraDeleteService = aseguradoraDeleteService;
-    }
-
-    public void execute(UUID uuid) {
-        aseguradoraDeleteService.execute(uuid);
-    }
-
+	public void execute(UUID uuid)
+	{
+		aseguradoraDeleteService.execute(uuid);
+	}
 }

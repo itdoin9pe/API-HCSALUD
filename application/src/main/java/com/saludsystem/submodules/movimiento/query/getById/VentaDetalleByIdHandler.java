@@ -10,26 +10,28 @@ import com.saludsystem.submodules.movimiento.model.dtos.VentaDetalleDTO;
 import com.saludsystem.submodules.movimiento.port.dao.VentaDetalleDao;
 
 @Component
-public class VentaDetalleByIdHandler {
-
+public class VentaDetalleByIdHandler
+{
 	private final VentaDetalleDao ventaDetalleDao;
 	private final VentaDetalleMapper ventaDetalleMapper;
-	
+
 	/**
 	 * @param ventaDetalleDao
 	 * @param ventaDetalleMapper
 	 */
-	public VentaDetalleByIdHandler(VentaDetalleDao ventaDetalleDao, VentaDetalleMapper ventaDetalleMapper) {
+	public VentaDetalleByIdHandler(VentaDetalleDao ventaDetalleDao, VentaDetalleMapper ventaDetalleMapper)
+	{
 		this.ventaDetalleDao = ventaDetalleDao;
 		this.ventaDetalleMapper = ventaDetalleMapper;
 	}
-	
-	public VentaDetalleDTO execute(UUID uuid) {
+
+	public VentaDetalleDTO execute(UUID uuid)
+	{
 		var ventaDet = ventaDetalleDao.getById(uuid);
-		if (ventaDet == null) {
+		if (ventaDet == null)
+		{
 			throw new IllegalArgumentException(VentaDetalleConstant.INVALID_ID);
 		}
 		return ventaDetalleMapper.toDto(ventaDet);
 	}
-
 }

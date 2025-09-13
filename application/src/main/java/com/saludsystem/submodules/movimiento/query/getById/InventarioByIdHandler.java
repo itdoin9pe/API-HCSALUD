@@ -10,26 +10,28 @@ import com.saludsystem.submodules.movimiento.model.dtos.InventarioDTO;
 import com.saludsystem.submodules.movimiento.port.dao.InventarioDao;
 
 @Component
-public class InventarioByIdHandler {
-
+public class InventarioByIdHandler
+{
 	private final InventarioDao inventarioDao;
 	private final InventarioMapper inventarioMapper;
-	
+
 	/**
 	 * @param inventarioDao
 	 * @param inventarioMapper
 	 */
-	public InventarioByIdHandler(InventarioDao inventarioDao, InventarioMapper inventarioMapper) {
+	public InventarioByIdHandler(InventarioDao inventarioDao, InventarioMapper inventarioMapper)
+	{
 		this.inventarioDao = inventarioDao;
 		this.inventarioMapper = inventarioMapper;
 	}
 
-	public InventarioDTO execute(UUID uuid) {
+	public InventarioDTO execute(UUID uuid)
+	{
 		var inventario = inventarioDao.getById(uuid);
-		if (inventario == null) {
+		if (inventario == null)
+		{
 			throw new IllegalArgumentException(InventarioConstant.INVALID_ID);
 		}
 		return inventarioMapper.toDto(inventario);
 	}
-	
 }

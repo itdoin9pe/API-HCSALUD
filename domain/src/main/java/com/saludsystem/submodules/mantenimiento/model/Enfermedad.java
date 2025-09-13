@@ -5,14 +5,16 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class Enfermedad {
-    private String id;
-    private String descripcion;
-    private Integer estado;
+public class Enfermedad
+{
+	private String id;
+	private String descripcion;
+	private Integer estado;
 
-    public Enfermedad(String id, String descripcion, Integer estado) {
-        this.id = id;
-        this.descripcion = descripcion;
-        this.estado = estado;
-    }
+	public Enfermedad(String id, String descripcion, Integer estado)
+	{
+		this.id = id;
+		this.descripcion = descripcion;
+		this.estado = estado;
+	}
 }

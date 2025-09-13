@@ -7,22 +7,20 @@ import com.saludsystem.submodules.configuracion.model.dtos.command.SedeCreateCom
 import com.saludsystem.submodules.configuracion.service.sede.SedeCreateService;
 
 @Component
-public class SedeCreateHandler {
-
+public class SedeCreateHandler
+{
 	private final SedeCreateService sedeCreateService;
 	private final SedeMapper sedeMapper;
 
-	public SedeCreateHandler(SedeCreateService sedeCreateService, SedeMapper sedeMapper) {
+	public SedeCreateHandler(SedeCreateService sedeCreateService, SedeMapper sedeMapper)
+	{
 		this.sedeCreateService = sedeCreateService;
 		this.sedeMapper = sedeMapper;
 	}
 
-	public void execute(SedeCreateCommand createCommand) {
-
+	public void execute(SedeCreateCommand createCommand)
+	{
 		var sedeSaved = sedeMapper.fromCreateDto(createCommand);
-
 		sedeCreateService.execute(sedeSaved);
-
 	}
-
 }

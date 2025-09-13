@@ -1,37 +1,41 @@
 package com.saludsystem.submodules.medico.model.dtos;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-
 import java.time.LocalDate;
 import java.util.UUID;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class DoctorDTO {
+public class DoctorDTO
+{
+	private UUID doctorId;
 
-    private UUID doctorId;
-
-    private String tipoDocumento;
-    private String numeroDocumento;
-    private String apellidos;
-    private String nombres;
-    private String direccion;
-    private String correo;
-    private String abreviatura;
-    private String rne;
-    private LocalDate fechaNacimiento;
-    private String celular;
-    private String telefono;
-    private String sexo;
-    private UUID especialidadId;
-    private String colegiatura;
-    private String color;
-    @Schema(example = "0")
-    private Integer estado;
-    private String fotoDoctor;
-    private String fotoFirma;
-
+	private String tipoDocumento;
+	private String numeroDocumento;
+	private String apellidos;
+	private String nombres;
+	private String direccion;
+	private String correo;
+	private String abreviatura;
+	private String rne;
+	private LocalDate fechaNacimiento;
+	private String celular;
+	private String telefono;
+	private String sexo;
+	private UUID especialidadId;
+	private String colegiatura;
+	private String color;
+	
+	@Schema(example = "0")
+	private Integer estado;
+	
+	private String fotoDoctor;
+	private String fotoFirma;
 }

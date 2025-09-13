@@ -7,24 +7,26 @@ import com.saludsystem.submodules.movimiento.model.dtos.command.VentaDetalleCrea
 import com.saludsystem.submodules.movimiento.service.ventadetalle.VentaDetalleCreateService;
 
 @Component
-public class VentaDetalleCreateHandler {
-
+public class VentaDetalleCreateHandler
+{
 	private final VentaDetalleCreateService ventaDetalleCreateService;
 	private final VentaDetalleMapper ventaDetalleMapper;
-	
+
 	/**
 	 * @param ventaDetalleCreateService
 	 * @param ventaDetalleMapper
 	 */
-	public VentaDetalleCreateHandler(VentaDetalleCreateService ventaDetalleCreateService,
-			VentaDetalleMapper ventaDetalleMapper) {
+	public VentaDetalleCreateHandler(
+		VentaDetalleCreateService ventaDetalleCreateService,
+		VentaDetalleMapper ventaDetalleMapper)
+	{
 		this.ventaDetalleCreateService = ventaDetalleCreateService;
 		this.ventaDetalleMapper = ventaDetalleMapper;
 	}
 
-	public void execute(VentaDetalleCreateCommand createCommand) {
+	public void execute(VentaDetalleCreateCommand createCommand)
+	{
 		var ventaDetSaved = ventaDetalleMapper.fromCreateDto(createCommand);
 		ventaDetalleCreateService.execute(ventaDetSaved);
 	}
-	
 }

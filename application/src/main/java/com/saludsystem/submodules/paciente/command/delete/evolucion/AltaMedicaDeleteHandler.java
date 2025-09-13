@@ -1,21 +1,21 @@
 package com.saludsystem.submodules.paciente.command.delete.evolucion;
 
-import com.saludsystem.submodules.paciente.service.historia.evolucion.altamedica.AltaMedicaDeleteService;
 import org.springframework.stereotype.Component;
 
+import com.saludsystem.submodules.paciente.service.historia.evolucion.altamedica.AltaMedicaDeleteService;
+
 @Component
-public class AltaMedicaDeleteHandler {
+public class AltaMedicaDeleteHandler
+{
+	private final AltaMedicaDeleteService altaMedicaDeleteService;
 
-    private final AltaMedicaDeleteService altaMedicaDeleteService;
+	public AltaMedicaDeleteHandler(AltaMedicaDeleteService altaMedicaDeleteService)
+	{
+		this.altaMedicaDeleteService = altaMedicaDeleteService;
+	}
 
-    public AltaMedicaDeleteHandler(AltaMedicaDeleteService altaMedicaDeleteService) {
-        this.altaMedicaDeleteService = altaMedicaDeleteService;
-    }
-
-    public void execute(Long id) {
-
-        altaMedicaDeleteService.execute(id);
-
-    }
-
+	public void execute(Long id)
+	{
+		altaMedicaDeleteService.execute(id);
+	}
 }

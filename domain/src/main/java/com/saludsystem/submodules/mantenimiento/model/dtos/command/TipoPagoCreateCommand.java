@@ -1,19 +1,21 @@
 package com.saludsystem.submodules.mantenimiento.model.dtos.command;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class TipoPagoCreateCommand {
+public class TipoPagoCreateCommand
+{
+	private String metodoPago;
 
-    private String metodoPago;
+	private String descripcion;
 
-    private String descripcion;
-
-    @Schema(description = "Estado de Tipo de pago (0 = inactivo, 1 = activo)", example = "0")
-    private Integer estado;
-
+	@Schema(description = "Estado de Tipo de pago (0 = inactivo, 1 = activo)", example = "0")
+	private Integer estado;
 }

@@ -7,22 +7,20 @@ import com.saludsystem.submodules.configuracion.model.dtos.command.PermisoCreate
 import com.saludsystem.submodules.configuracion.service.permiso.PermisoCreateService;
 
 @Component
-public class PermisoCreateHandler {
-
+public class PermisoCreateHandler
+{
 	private final PermisoCreateService permisoCreateService;
 	private final PermisoMapper permisoMapper;
 
-	public PermisoCreateHandler(PermisoCreateService permisoCreateService, PermisoMapper permisoMapper) {
+	public PermisoCreateHandler(PermisoCreateService permisoCreateService, PermisoMapper permisoMapper)
+	{
 		this.permisoCreateService = permisoCreateService;
 		this.permisoMapper = permisoMapper;
 	}
 
-	public void execute(PermisoCreateCommand createCommand) {
-
+	public void execute(PermisoCreateCommand createCommand)
+	{
 		var permisoSaved = permisoMapper.fromCreateDto(createCommand);
-
 		permisoCreateService.execute(permisoSaved);
-
 	}
-
 }

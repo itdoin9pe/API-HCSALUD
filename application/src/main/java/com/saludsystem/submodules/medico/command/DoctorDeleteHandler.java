@@ -1,20 +1,23 @@
 package com.saludsystem.submodules.medico.command;
 
-import com.saludsystem.submodules.medico.service.DoctorDeleteService;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+import com.saludsystem.submodules.medico.service.DoctorDeleteService;
+
 @Component
-public class DoctorDeleteHandler {
+public class DoctorDeleteHandler
+{
+	private final DoctorDeleteService doctorDeleteService;
 
-    private final DoctorDeleteService doctorDeleteService;
+	public DoctorDeleteHandler(DoctorDeleteService doctorDeleteService)
+	{
+		this.doctorDeleteService = doctorDeleteService;
+	}
 
-    public DoctorDeleteHandler(DoctorDeleteService doctorDeleteService) {
-        this.doctorDeleteService = doctorDeleteService;
-    }
-
-    public void execute(UUID uuid) {
-        doctorDeleteService.execute(uuid);
-    }
+	public void execute(UUID uuid)
+	{
+		doctorDeleteService.execute(uuid);
+	}
 }

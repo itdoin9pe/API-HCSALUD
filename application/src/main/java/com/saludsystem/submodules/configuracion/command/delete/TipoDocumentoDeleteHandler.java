@@ -1,23 +1,23 @@
 package com.saludsystem.submodules.configuracion.command.delete;
 
-import com.saludsystem.submodules.configuracion.service.tipodocumento.TipoDocumentoDeleteService;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+import com.saludsystem.submodules.configuracion.service.tipodocumento.TipoDocumentoDeleteService;
+
 @Component
-public class TipoDocumentoDeleteHandler {
+public class TipoDocumentoDeleteHandler
+{
+	private final TipoDocumentoDeleteService tipoDocumentoDeleteService;
 
-    private final TipoDocumentoDeleteService tipoDocumentoDeleteService;
+	public TipoDocumentoDeleteHandler(TipoDocumentoDeleteService tipoDocumentoDeleteService)
+	{
+		this.tipoDocumentoDeleteService = tipoDocumentoDeleteService;
+	}
 
-    public TipoDocumentoDeleteHandler(TipoDocumentoDeleteService tipoDocumentoDeleteService) {
-        this.tipoDocumentoDeleteService = tipoDocumentoDeleteService;
-    }
-
-    public void execute(UUID uuid) {
-
-        tipoDocumentoDeleteService.execute(uuid);
-
-    }
-
+	public void execute(UUID uuid)
+	{
+		tipoDocumentoDeleteService.execute(uuid);
+	}
 }

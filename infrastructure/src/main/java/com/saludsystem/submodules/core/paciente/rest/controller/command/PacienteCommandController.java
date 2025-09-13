@@ -39,13 +39,6 @@ public class PacienteCommandController
 	private final FileStorageService fileStorageService;
 	private final ObjectMapper objectMapper;
 
-	/**
-	 * @param createHandler
-	 * @param editHandler
-	 * @param deleteHandler
-	 * @param fileStorageService
-	 * @param objectMapper
-	 */
 	public PacienteCommandController(
 		PacienteCreateHandler createHandler,
 		PacienteEditHandler editHandler,
@@ -60,34 +53,23 @@ public class PacienteCommandController
 		this.objectMapper = objectMapper;
 	}
 
-	/*
-	 * @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-	 * description = "Success", content = @Content(schema = @Schema(implementation =
-	 * ApiResponse.class)))
-	 * 
-	 * @PostMapping(value = "/Save") public ApiResponse save(@Valid @RequestBody
-	 * PacienteCreateCommand createCommand) { createHandler.execute(createCommand);
-	 * return new ApiResponse(true, PacienteConstant.CREATED); }
-	 */
-
 	@PostMapping(value = "/Save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ApiResponse save(
-	    @RequestPart("paciente") String pacienteJson,
-	    @RequestPart(value = "foto", required = false) MultipartFile foto) throws IOException
+		@RequestPart("paciente") String pacienteJson,
+		@RequestPart(value = "foto", required = false) MultipartFile foto) throws IOException
 	{
-	    // Usa el ObjectMapper inyectado, no uno nuevo
-	    PacienteCreateCommand createCommand = objectMapper.readValue(pacienteJson, PacienteCreateCommand.class);
-
-	    if (foto != null && !foto.isEmpty()) {
-	        String url = fileStorageService.storeFileInSubfolder(foto, "pacientes");
-	        createCommand.setFotoPaciente(url);
-	    }
-	    createHandler.execute(createCommand);
-	    return new ApiResponse(true, PacienteConstant.CREATED);
+		PacienteCreateCommand createCommand = objectMapper.readValue(pacienteJson, PacienteCreateCommand.class);
+		if (foto != null && !foto.isEmpty())
+		{
+			String url = fileStorageService.storeFileInSubfolder(foto, "pacientes");
+			createCommand.setFotoPaciente(url);
+		}
+		createHandler.execute(createCommand);
+		return new ApiResponse(true, PacienteConstant.CREATED);
 	}
 
-	@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", 
-			description = "Success", 
+	@io.swagger.v3.oas.annotations.responses.ApiResponse(
+			responseCode = "200", description = "Success", 
 			content = @Content(schema = @Schema(implementation = ApiResponse.class)))
 	@PutMapping(value = "/Update/{pacienteId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ApiResponse update(@PathVariable UUID pacienteId, @RequestBody PacienteEditCommand editCommand)
