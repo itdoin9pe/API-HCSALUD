@@ -25,44 +25,42 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Inventarios")
 @RestController
 @RequestMapping("/api/Inventarios")
-public class InventarioQueryController {
-
+public class InventarioQueryController
+{
 	private final InventarioListHandler listHandler;
 	private final InventarioByIdHandler byIdHandler;
 	private final InventarioAllHandler allHandler;
-	
-	/**
-	 * @param listHandler
-	 * @param byIdHandler
-	 * @param allHandler
-	 */
-	public InventarioQueryController(InventarioListHandler listHandler, InventarioByIdHandler byIdHandler,
-			InventarioAllHandler allHandler) {
+
+	public InventarioQueryController(
+		InventarioListHandler listHandler,
+		InventarioByIdHandler byIdHandler,
+		InventarioAllHandler allHandler)
+	{
 		this.listHandler = listHandler;
 		this.byIdHandler = byIdHandler;
 		this.allHandler = allHandler;
 	}
 
 	@GetMapping("/GetList")
-	public List<InventarioDTO> getList() {
+	public List<InventarioDTO> getList()
+	{
 		return listHandler.execute();
 	}
 
 	@GetMapping("/GetById/{inventarioId}")
-	public InventarioDTO getById(@PathVariable UUID inventarioId) {
+	public InventarioDTO getById(@PathVariable UUID inventarioId)
+	{
 		return byIdHandler.execute(inventarioId);
 	}
 
 	@GetMapping("/GetAll")
-	@ApiResponses(value = {
-			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", 
-					description = "Operación exitosa", 
-					content = @Content(mediaType = "application/json", 
-					schema = @Schema(implementation = CitaListResponse.class))) })
+	@ApiResponses(value =
+	{ @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CitaListResponse.class))) })
 	public ListResponse<InventarioDTO> getAllPaginated(
-			@RequestParam UUID hospitalId, 
-			@RequestParam(name = "Page") int page,
-			@RequestParam(name = "Rows") int rows) {
+		@RequestParam UUID hospitalId,
+		@RequestParam(name = "Page") int page,
+		@RequestParam(name = "Rows") int rows)
+	{
 		return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
 	}
 }

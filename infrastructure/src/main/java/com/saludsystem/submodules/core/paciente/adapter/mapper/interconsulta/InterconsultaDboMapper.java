@@ -1,5 +1,7 @@
 package com.saludsystem.submodules.core.paciente.adapter.mapper.interconsulta;
 
+import java.util.UUID;
+
 import com.saludsystem.submodules.core.catalogo.adapter.entity.EspecialidadEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
@@ -10,60 +12,47 @@ import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.interconsulta.PrioridadInterconsulta;
 import com.saludsystem.submodules.paciente.model.entity.interconsulta.Interconsulta;
 
-import java.util.UUID;
+public class InterconsultaDboMapper
+{
+	public static InterconsultaEntity toEntity(Interconsulta model, UUID hospitalId, UUID userId)
+	{
+		InterconsultaEntity entity = new InterconsultaEntity();
+		entity.setPacienteInterconsultaId(model.getPacienteInterconsultaId());
 
-public class InterconsultaDboMapper {
+		PacienteEntity paciente = new PacienteEntity();
+		paciente.setPacienteId(model.getPacienteInterconsultaId());
+		entity.setPacienteEntity(paciente);
 
-    public static InterconsultaEntity toEntity(Interconsulta model, UUID hospitalId, UUID userId) {
+		DoctorEntity doctor = new DoctorEntity();
+		doctor.setDoctorId(model.getMedicoSolicitante());
+		entity.setMedicoSolicitante(doctor);
 
-        InterconsultaEntity entity = new InterconsultaEntity();
-        entity.setPacienteInterconsultaId(model.getPacienteInterconsultaId());
+		EspecialidadEntity especialidad = new EspecialidadEntity();
+		especialidad.setEspecialidadId(model.getEspecialidadDestino());
+		entity.setEspecialidadDestino(especialidad);
+		entity.setMotivo(model.getMotivo());
+		entity.setFechaSolicitud(model.getFechaSolicitud());
+		entity.setEstado(EstadoInterconsulta.valueOf(model.getEstado()));
+		entity.setPrioridad(PrioridadInterconsulta.valueOf(model.getPrioridad()));
+		entity.setObservaciones(model.getObservaciones());
+		entity.setFechaAtencion(model.getFechaAtencion());
 
-        PacienteEntity paciente = new PacienteEntity();
-        paciente.setPacienteId(model.getPacienteInterconsultaId());
-        entity.setPacienteEntity(paciente);
+		var userEntity = new UserEntity();
+		userEntity.setUserId(userId);
+		entity.setUser(userEntity);
 
-        DoctorEntity doctor = new DoctorEntity();
-        doctor.setDoctorId(model.getMedicoSolicitante());
-        entity.setMedicoSolicitante(doctor);
+		var hospitalEntity = new SysSaludEntity();
+		hospitalEntity.setHospitalId(hospitalId);
+		entity.setHospital(hospitalEntity);
 
-        EspecialidadEntity especialidad = new EspecialidadEntity();
-        especialidad.setEspecialidadId(model.getEspecialidadDestino());
-        entity.setEspecialidadDestino(especialidad);
-        entity.setMotivo(model.getMotivo());
-        entity.setFechaSolicitud(model.getFechaSolicitud());
-        entity.setEstado(EstadoInterconsulta.valueOf(model.getEstado()));
-        entity.setPrioridad(PrioridadInterconsulta.valueOf(model.getPrioridad()));
-        entity.setObservaciones(model.getObservaciones());
-        entity.setFechaAtencion(model.getFechaAtencion());
+		return entity;
+	}
 
-        var userEntity = new UserEntity();
-        userEntity.setUserId(userId);
-        entity.setUser(userEntity);
-
-        var hospitalEntity = new SysSaludEntity();
-        hospitalEntity.setHospitalId(hospitalId);
-        entity.setHospital(hospitalEntity);
-
-        return entity;
-
-    }
-
-    public static Interconsulta toDomain(InterconsultaEntity entity) {
-
-        return new Interconsulta(
-                entity.getPacienteInterconsultaId(),
-                entity.getPacienteEntity().getPacienteId(),
-                entity.getMedicoSolicitante().getDoctorId(),
-                entity.getEspecialidadDestino().getEspecialidadId(),
-                entity.getMotivo(),
-                entity.getFechaSolicitud(),
-                entity.getEstado().name(),
-                entity.getPrioridad().name(),
-                entity.getObservaciones(),
-                entity.getFechaAtencion()
-        );
-
-    }
-
+	public static Interconsulta toDomain(InterconsultaEntity entity)
+	{
+		return new Interconsulta(entity.getPacienteInterconsultaId(), entity.getPacienteEntity().getPacienteId(),
+				entity.getMedicoSolicitante().getDoctorId(), entity.getEspecialidadDestino().getEspecialidadId(),
+				entity.getMotivo(), entity.getFechaSolicitud(), entity.getEstado().name(), entity.getPrioridad().name(),
+				entity.getObservaciones(), entity.getFechaAtencion());
+	}
 }

@@ -12,24 +12,20 @@ import com.saludsystem.submodules.movimiento.model.Almacen;
 import com.saludsystem.submodules.movimiento.port.repository.AlmacenRepository;
 
 @Component
-public class AlmacenMysqlRepository implements AlmacenRepository {
-
+public class AlmacenMysqlRepository implements AlmacenRepository
+{
 	private final AlmacenJpaRepository almacenJpaRepository;
 	private final AuthenticateUserPort authenticateUserPort;
-	
-	/**
-	 * @param almacenJpaRepository
-	 * @param authenticateUserPort
-	 */
-	public AlmacenMysqlRepository(AlmacenJpaRepository almacenJpaRepository,
-			AuthenticateUserPort authenticateUserPort) {
+
+	public AlmacenMysqlRepository(AlmacenJpaRepository almacenJpaRepository, AuthenticateUserPort authenticateUserPort)
+	{
 		this.almacenJpaRepository = almacenJpaRepository;
 		this.authenticateUserPort = authenticateUserPort;
 	}
 
 	@Override
-	public Almacen save(Almacen almacen) {
-		// TODO Auto-generated method stub
+	public Almacen save(Almacen almacen)
+	{
 		UUID userId = authenticateUserPort.getUserId();
 		UUID hospitalId = authenticateUserPort.getHospitalId();
 		AlmacenEntity entity = AlmacenDboMapper.toEntity(almacen, userId, hospitalId);
@@ -37,8 +33,8 @@ public class AlmacenMysqlRepository implements AlmacenRepository {
 	}
 
 	@Override
-	public Almacen update(UUID uuid, Almacen almacen) {
-		// TODO Auto-generated method stub
+	public Almacen update(UUID uuid, Almacen almacen)
+	{
 		UUID userId = authenticateUserPort.getUserId();
 		UUID hospitalId = authenticateUserPort.getHospitalId();
 		AlmacenEntity entity = AlmacenDboMapper.toEntity(almacen, userId, hospitalId);
@@ -46,11 +42,8 @@ public class AlmacenMysqlRepository implements AlmacenRepository {
 	}
 
 	@Override
-	public void delete(UUID uuid) {
-		// TODO Auto-generated method stub
+	public void delete(UUID uuid)
+	{
 		almacenJpaRepository.deleteById(uuid);
 	}
-	
-	
-	
 }

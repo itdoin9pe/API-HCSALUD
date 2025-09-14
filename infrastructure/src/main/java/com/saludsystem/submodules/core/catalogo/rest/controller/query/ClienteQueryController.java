@@ -1,5 +1,14 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.saludsystem.submodules.catalogo.model.dto.ClienteDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.ClienteAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.ClienteByIdHandler;
@@ -7,49 +16,51 @@ import com.saludsystem.submodules.catalogo.query.getList.ClienteListHandler;
 import com.saludsystem.submodules.catalogo.response.ClienteListResponse;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
+
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Clientes")
 @RestController
 @RequestMapping("/api/Clientes")
-public class ClienteQueryController {
+public class ClienteQueryController
+{
+	private final ClienteByIdHandler byIdHandler;
+	private final ClienteAllHandler allHandler;
+	private final ClienteListHandler listHandler;
 
-    private final ClienteByIdHandler byIdHandler;
-    private final ClienteAllHandler allHandler;
-    private final ClienteListHandler listHandler;
+	public ClienteQueryController(
+		ClienteByIdHandler byIdHandler,
+		ClienteAllHandler allHandler,
+		ClienteListHandler listHandler)
+	{
+		this.byIdHandler = byIdHandler;
+		this.allHandler = allHandler;
+		this.listHandler = listHandler;
+	}
 
-    public ClienteQueryController(ClienteByIdHandler byIdHandler, ClienteAllHandler allHandler, ClienteListHandler listHandler) {
-        this.byIdHandler = byIdHandler;
-        this.allHandler = allHandler;
-        this.listHandler = listHandler;
-    }
+	@GetMapping("/GetList")
+	public List<ClienteDTO> getList()
+	{
+		return listHandler.execute();
+	}
 
-    @GetMapping("/GetList")
-    public List<ClienteDTO> getList() {
-        return listHandler.execute();
-    }
+	@GetMapping("/GetById/{clienteId}")
+	public ClienteDTO getById(@PathVariable UUID clienteId)
+	{
+		return byIdHandler.execute(clienteId);
+	}
 
-    @GetMapping("/GetById/{clienteId}")
-    public ClienteDTO getById(@PathVariable UUID clienteId) {
-        return byIdHandler.execute(clienteId);
-    }
-
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = ClienteListResponse.class)))
-    })
-    public ListResponse<ClienteDTO> getAllPaginated(
-            @RequestParam UUID hospitalId, @RequestParam(name = "Page") int page,
-            @RequestParam(name = "Rows") int rows) {
-        return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
-    }
+	@GetMapping("/GetAll")
+	@ApiResponses(value =
+	{ @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ClienteListResponse.class))) })
+	public ListResponse<ClienteDTO> getAllPaginated(
+		@RequestParam UUID hospitalId,
+		@RequestParam(name = "Page") int page,
+		@RequestParam(name = "Rows") int rows)
+	{
+		return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
+	}
 }

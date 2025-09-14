@@ -1,5 +1,7 @@
 package com.saludsystem.submodules.core.paciente.adapter.mapper;
 
+import java.util.UUID;
+
 import com.saludsystem.submodules.core.catalogo.adapter.entity.MedicamentoEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
@@ -7,51 +9,41 @@ import com.saludsystem.submodules.core.paciente.adapter.entity.MedicamentoReceta
 import com.saludsystem.submodules.core.paciente.adapter.entity.RecetaEntity;
 import com.saludsystem.submodules.paciente.model.entity.MedicamentoRecetado;
 
-import java.util.UUID;
+public class MedicamentoRecetadoDboMapper
+{
+	public static MedicamentoRecetadoEntity toEntity(MedicamentoRecetado model, UUID userId, UUID hospitalId)
+	{
+		MedicamentoRecetadoEntity entity = new MedicamentoRecetadoEntity();
+		entity.setId(model.getId());
 
-public class MedicamentoRecetadoDboMapper {
+		RecetaEntity receta = new RecetaEntity();
+		receta.setPacienteRecetaId(model.getPacienteRecetaId());
+		entity.setRecetaEntity(receta);
 
-    public static MedicamentoRecetadoEntity toEntity(MedicamentoRecetado model, UUID userId, UUID hospitalId) {
+		MedicamentoEntity medicamento = new MedicamentoEntity();
+		medicamento.setMedicamentoId(model.getMedicamentoId());
+		entity.setMedicamentoEntity(medicamento);
 
-        MedicamentoRecetadoEntity entity = new MedicamentoRecetadoEntity();
-        entity.setId(model.getId());
+		entity.setDosis(model.getDosis());
+		entity.setFrecuencia(model.getFrecuencia());
+		entity.setDuracionDias(model.getDuracionDias());
+		entity.setIndicaciones(model.getIndicaciones());
 
-        RecetaEntity receta = new RecetaEntity();
-        receta.setPacienteRecetaId(model.getPacienteRecetaId());
-        entity.setRecetaEntity(receta);
+		var userEntity = new UserEntity();
+		userEntity.setUserId(userId);
+		entity.setUser(userEntity);
 
-        MedicamentoEntity medicamento = new MedicamentoEntity();
-        medicamento.setMedicamentoId(model.getMedicamentoId());
-        entity.setMedicamentoEntity(medicamento);
+		var hospitalEntity = new SysSaludEntity();
+		hospitalEntity.setHospitalId(hospitalId);
+		entity.setHospital(hospitalEntity);
 
-        entity.setDosis(model.getDosis());
-        entity.setFrecuencia(model.getFrecuencia());
-        entity.setDuracionDias(model.getDuracionDias());
-        entity.setIndicaciones(model.getIndicaciones());
+		return entity;
+	}
 
-        var userEntity = new UserEntity();
-        userEntity.setUserId(userId);
-        entity.setUser(userEntity);
-
-        var hospitalEntity = new SysSaludEntity();
-        hospitalEntity.setHospitalId(hospitalId);
-        entity.setHospital(hospitalEntity);
-
-        return entity;
-
-    }
-
-    public static MedicamentoRecetado toDomain(MedicamentoRecetadoEntity entity) {
-
-        return new MedicamentoRecetado(
-                entity.getId(),
-                entity.getRecetaEntity().getPacienteRecetaId(),
-                entity.getMedicamentoEntity().getMedicamentoId(),
-                entity.getDosis(),
-                entity.getFrecuencia(),
-                entity.getDuracionDias(),
-                entity.getDosis());
-
-    }
-
+	public static MedicamentoRecetado toDomain(MedicamentoRecetadoEntity entity)
+	{
+		return new MedicamentoRecetado(entity.getId(), entity.getRecetaEntity().getPacienteRecetaId(),
+				entity.getMedicamentoEntity().getMedicamentoId(), entity.getDosis(), entity.getFrecuencia(),
+				entity.getDuracionDias(), entity.getDosis());
+	}
 }

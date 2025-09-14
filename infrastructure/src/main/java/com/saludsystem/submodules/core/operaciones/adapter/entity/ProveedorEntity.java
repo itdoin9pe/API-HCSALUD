@@ -1,40 +1,50 @@
 package com.saludsystem.submodules.core.operaciones.adapter.entity;
 
-import com.saludsystem.submodules.core.configuracion.adapter.entity.BaseEntity;
-import jakarta.persistence.*;
-import lombok.*;
-
 import java.util.UUID;
+
+import com.saludsystem.submodules.core.configuracion.adapter.entity.BaseEntity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "proveedores")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
-public class ProveedorEntity extends BaseEntity {
+public class ProveedorEntity extends BaseEntity
+{
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "proveedor_id", nullable = false)
+	private UUID proveedorId;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "proveedor_id", nullable = false)
-    private UUID proveedorId;
+	@Column(name = "ruc_proveedor", nullable = false, unique = true)
+	private String ruc;
 
-    @Column(name = "ruc_proveedor", nullable = false, unique = true)
-    private String ruc;
+	@Column(name = "nombre_proveedor", nullable = false)
+	private String nombre;
 
-    @Column(name = "nombre_proveedor", nullable = false)
-    private String nombre;
+	@Column(name = "direccion_proveedor", nullable = false)
+	private String direccion;
 
-    @Column(name = "direccion_proveedor", nullable = false)
-    private String direccion;
+	@Column(name = "telefono_proveedor", nullable = false, unique = true)
+	private String telefono;
 
-    @Column(name = "telefono_proveedor", nullable = false, unique = true)
-    private String telefono;
+	@Column(name = "correo_proveedor", nullable = false, unique = true)
+	private String correo;
 
-    @Column(name = "correo_proveedor", nullable = false, unique = true)
-    private String correo;
-
-    @Column(name = "contacto_proveedor", nullable = false)
-    private String contacto;
-
+	@Column(name = "contacto_proveedor", nullable = false)
+	private String contacto;
 }

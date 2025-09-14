@@ -1,5 +1,14 @@
 package com.saludsystem.submodules.core.configuracion.rest.controller.query;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.saludsystem.submodules.configuracion.model.dtos.TipoDocumentoDTO;
 import com.saludsystem.submodules.configuracion.query.getAll.TipoDocumentoByIdHandler;
 import com.saludsystem.submodules.configuracion.query.getById.TipoDocumentoAllHandler;
@@ -7,50 +16,51 @@ import com.saludsystem.submodules.configuracion.query.getList.TipoDocumentoListH
 import com.saludsystem.submodules.configuracion.response.TipoDocumentoListResponse;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
+
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "TipoDocumentos")
 @RestController
 @RequestMapping("/api/TipoDocumentos")
-public class TipoDocumentoQueryController {
+public class TipoDocumentoQueryController
+{
+	private final TipoDocumentoAllHandler allHandler;
+	private final TipoDocumentoByIdHandler byIdHandler;
+	private final TipoDocumentoListHandler listHandler;
 
-    private final TipoDocumentoAllHandler allHandler;
-    private final TipoDocumentoByIdHandler byIdHandler;
-    private final TipoDocumentoListHandler listHandler;
+	public TipoDocumentoQueryController(
+		TipoDocumentoAllHandler allHandler,
+		TipoDocumentoByIdHandler byIdHandler,
+		TipoDocumentoListHandler listHandler)
+	{
+		this.allHandler = allHandler;
+		this.byIdHandler = byIdHandler;
+		this.listHandler = listHandler;
+	}
 
-    public TipoDocumentoQueryController(TipoDocumentoAllHandler allHandler, TipoDocumentoByIdHandler byIdHandler, TipoDocumentoListHandler listHandler) {
-        this.allHandler = allHandler;
-        this.byIdHandler = byIdHandler;
-        this.listHandler = listHandler;
-    }
+	@GetMapping("/GetList")
+	public List<TipoDocumentoDTO> getList()
+	{
+		return listHandler.execute();
+	}
 
-    @GetMapping("/GetList")
-    public List<TipoDocumentoDTO> getList() {
-        return listHandler.execute();
-    }
+	@GetMapping("/GetById/{tipoDocumentoId}")
+	public TipoDocumentoDTO getById(@PathVariable UUID tipoDocumentoId)
+	{
+		return byIdHandler.execute(tipoDocumentoId);
+	}
 
-    @GetMapping("/GetById/{tipoDocumentoId}")
-    public TipoDocumentoDTO getById(@PathVariable UUID tipoDocumentoId) {
-        return byIdHandler.execute(tipoDocumentoId);
-    }
-
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = TipoDocumentoListResponse.class)))
-    })
-    public ListResponse<TipoDocumentoDTO> getAllPaginated(@RequestParam UUID hospitalId,
-                                                          @RequestParam(name = "Page") int page,
-                                                          @RequestParam(name = "Rows") int rows) {
-        return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
-    }
-
+	@GetMapping("/GetAll")
+	@ApiResponses(value =
+	{ @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TipoDocumentoListResponse.class))) })
+	public ListResponse<TipoDocumentoDTO> getAllPaginated(
+		@RequestParam UUID hospitalId,
+		@RequestParam(name = "Page") int page,
+		@RequestParam(name = "Rows") int rows)
+	{
+		return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
+	}
 }

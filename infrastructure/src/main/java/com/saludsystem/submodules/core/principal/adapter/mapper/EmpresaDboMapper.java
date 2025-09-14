@@ -1,33 +1,34 @@
 package com.saludsystem.submodules.core.principal.adapter.mapper;
 
+import java.util.UUID;
+
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import com.saludsystem.submodules.core.principal.adapter.entity.EmpresaEntity;
 import com.saludsystem.submodules.principal.model.Empresa;
 
-import java.util.UUID;
+public class EmpresaDboMapper
+{
+	public static EmpresaEntity toEntity(Empresa model, UUID userId, UUID hospitalId)
+	{
+		EmpresaEntity entity = new EmpresaEntity();
+		entity.setEmpresaId(model.getEmpresaId());
+		entity.setDescripcion(model.getDescripcion());
+		entity.setEstado(model.getEstado());
 
-public class EmpresaDboMapper {
+		var userEntity = new UserEntity();
+		userEntity.setUserId(userId);
+		entity.setUser(userEntity);
 
-    public static EmpresaEntity toEntity(Empresa model, UUID userId, UUID hospitalId) {
-        EmpresaEntity entity = new EmpresaEntity();
-        entity.setEmpresaId(model.getEmpresaId());
-        entity.setDescripcion(model.getDescripcion());
-        entity.setEstado(model.getEstado());
+		var hospitalEntity = new SysSaludEntity();
+		hospitalEntity.setHospitalId(hospitalId);
+		entity.setHospital(hospitalEntity);
 
-        var userEntity = new UserEntity();
-        userEntity.setUserId(userId);
-        entity.setUser(userEntity);
+		return entity;
+	}
 
-        var hospitalEntity = new SysSaludEntity();
-        hospitalEntity.setHospitalId(hospitalId);
-        entity.setHospital(hospitalEntity);
-
-        return entity;
-    }
-
-    public static Empresa toDomain(EmpresaEntity entity) {
-        return new Empresa(entity.getEmpresaId(), entity.getDescripcion(), entity.getEstado());
-    }
-
+	public static Empresa toDomain(EmpresaEntity entity)
+	{
+		return new Empresa(entity.getEmpresaId(), entity.getDescripcion(), entity.getEstado());
+	}
 }

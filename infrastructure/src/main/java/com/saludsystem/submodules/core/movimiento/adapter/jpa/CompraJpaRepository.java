@@ -1,16 +1,16 @@
 package com.saludsystem.submodules.core.movimiento.adapter.jpa;
 
-import com.saludsystem.submodules.core.movimiento.adapter.entity.CompraEntity;
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
+import com.saludsystem.submodules.core.movimiento.adapter.entity.CompraEntity;
 
 @Repository
-public interface CompraJpaRepository extends JpaRepository<CompraEntity, UUID> {
-
-    Page<CompraEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
-
+public interface CompraJpaRepository extends JpaRepository<CompraEntity, UUID>
+{
+	Page<CompraEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 }

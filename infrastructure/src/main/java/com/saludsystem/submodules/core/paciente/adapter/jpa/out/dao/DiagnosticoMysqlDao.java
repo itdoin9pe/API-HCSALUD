@@ -15,42 +15,34 @@ import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
 
 @Component
-public class DiagnosticoMysqlDao implements DiagnosticoDao {
-	
+public class DiagnosticoMysqlDao implements DiagnosticoDao
+{
 	private final DiagnosticoJpaRepository diagnosticoJpaRepository;
-	
 
-	public DiagnosticoMysqlDao(DiagnosticoJpaRepository diagnosticoJpaRepository) {
+	public DiagnosticoMysqlDao(DiagnosticoJpaRepository diagnosticoJpaRepository)
+	{
 		this.diagnosticoJpaRepository = diagnosticoJpaRepository;
 	}
 
 	@Override
-	public Diagnostico getById(UUID uuid) {
-		// TODO Auto-generated method stub
-		return diagnosticoJpaRepository.findById(uuid)
-				.map(DiagnosticoDboMapper::toDomain)
-				.orElseThrow( () -> new ResourceNotFoundException(DiagnosticoConstant.ID_NOT_FOUND) );
+	public Diagnostico getById(UUID uuid)
+	{
+		return diagnosticoJpaRepository.findById(uuid).map(DiagnosticoDboMapper::toDomain)
+				.orElseThrow(() -> new ResourceNotFoundException(DiagnosticoConstant.ID_NOT_FOUND));
 	}
 
 	@Override
-	public ListResponse<Diagnostico> getAll(UUID hospitalId, int page, int rows) {
-		// TODO Auto-generated method stub
-	      var pageable = PageRequest.of(page - 1, rows);
-	        var pageResult = diagnosticoJpaRepository.findAllByHospital_HospitalId(hospitalId, pageable);
-	        List<Diagnostico> data = pageResult.getContent()
-	                .stream()
-	                .map(DiagnosticoDboMapper::toDomain)
-	                .toList();
-	        return new ListResponse<>(data, pageResult.getTotalElements(),
-	                pageResult.getTotalPages(), page);
+	public ListResponse<Diagnostico> getAll(UUID hospitalId, int page, int rows)
+	{
+		var pageable = PageRequest.of(page - 1, rows);
+		var pageResult = diagnosticoJpaRepository.findAllByHospital_HospitalId(hospitalId, pageable);
+		List<Diagnostico> data = pageResult.getContent().stream().map(DiagnosticoDboMapper::toDomain).toList();
+		return new ListResponse<>(data, pageResult.getTotalElements(), pageResult.getTotalPages(), page);
 	}
 
 	@Override
-	public List<Diagnostico> getList() {
-		// TODO Auto-generated method stub
-		return diagnosticoJpaRepository.findAll()
-				.stream()
-				.map(DiagnosticoDboMapper::toDomain)
-				.toList();
+	public List<Diagnostico> getList()
+	{
+		return diagnosticoJpaRepository.findAll().stream().map(DiagnosticoDboMapper::toDomain).toList();
 	}
 }

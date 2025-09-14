@@ -14,7 +14,6 @@ import com.saludsystem.submodules.core.catalogo.adapter.mapper.AlergiaDboMapper;
 @Component
 public class AlergiaMysqlRepository implements AlergiaRepository
 {
-
 	private final AlergiaJpaRepository alergiaJpaRepository;
 	private final AuthenticateUserPort authenticateUserPort;
 

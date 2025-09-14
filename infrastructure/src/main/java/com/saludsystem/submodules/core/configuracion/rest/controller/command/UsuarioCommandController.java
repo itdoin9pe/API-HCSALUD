@@ -43,10 +43,7 @@ public class UsuarioCommandController
 		this.deleteHandler = deleteHandler;
 	}
 
-	@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", 
-			description = "Success", 
-			content = @Content(
-					schema = @Schema(implementation = ApiResponse.class)))
+	@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
 	@PostMapping(value = "/Save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ApiResponse createUser(@Valid @RequestBody NewUserDto dto)
 	{
@@ -54,9 +51,7 @@ public class UsuarioCommandController
 		return new ApiResponse(true, UserConstant.CREATED);
 	}
 
-	@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", 
-			description = "Success", content = @Content(
-					schema = @Schema(implementation = ApiResponse.class)))
+	@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
 	@PutMapping(value = "/Update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ApiResponse updateUser(@PathVariable UUID uuid, @RequestBody UsuarioEditCommand dto)
 	{

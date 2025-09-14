@@ -2,20 +2,13 @@ package com.saludsystem.submodules.core.movimiento.adapter.mapper;
 
 import java.math.BigDecimal;
 
-public interface InventarioProjection {
-
-    String getNombreAlmacen();
-
-    String getNombreProducto();
-
-    String getNombreMarca();
-
-    String getNombreCategoria();
-
-    BigDecimal getPrecioEntrada();
-
-    String getUnidad();
-
-    Integer getStock();
-
+public interface InventarioProjection
+{
+	String getNombreAlmacen();
+	String getNombreProducto();
+	String getNombreMarca();
+	String getNombreCategoria();
+	BigDecimal getPrecioEntrada();
+	String getUnidad();
+	Integer getStock();
 }

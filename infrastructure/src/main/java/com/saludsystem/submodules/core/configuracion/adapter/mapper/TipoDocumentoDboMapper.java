@@ -1,37 +1,36 @@
 package com.saludsystem.submodules.core.configuracion.adapter.mapper;
 
+import java.util.UUID;
+
 import com.saludsystem.submodules.configuracion.model.TipoDocumento;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.TipoDocumentoEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 
-import java.util.UUID;
+public class TipoDocumentoDboMapper
+{
+	public static TipoDocumentoEntity toEntity(TipoDocumento model, UUID hospitalId, UUID userId)
+	{
+		TipoDocumentoEntity entity = new TipoDocumentoEntity();
+		entity.setTipoDocumentoId(model.getId());
+		entity.setTipoComprobante(model.getTipoComprobante());
+		entity.setSerie(model.getSerie());
+		entity.setInicio(model.getInicio());
+		entity.setFin(model.getFin());
+		entity.setCorrelativoActual(model.getCorrelativoActual());
+		entity.setEstado(model.getEstado());
+		var hospitalEntity = new SysSaludEntity();
+		hospitalEntity.setHospitalId(hospitalId);
+		entity.setHospital(hospitalEntity);
+		var userEntity = new UserEntity();
+		userEntity.setUserId(userId);
+		entity.setUser(userEntity);
+		return entity;
+	}
 
-public class TipoDocumentoDboMapper {
-
-    public static TipoDocumentoEntity toEntity(TipoDocumento model, UUID hospitalId, UUID userId) {
-        TipoDocumentoEntity entity = new TipoDocumentoEntity();
-        entity.setTipoDocumentoId(model.getId());
-        entity.setTipoComprobante(model.getTipoComprobante());
-        entity.setSerie(model.getSerie());
-        entity.setInicio(model.getInicio());
-        entity.setFin(model.getFin());
-        entity.setCorrelativoActual(model.getCorrelativoActual());
-        entity.setEstado(model.getEstado());
-        var hospitalEntity = new SysSaludEntity();
-        hospitalEntity.setHospitalId(hospitalId);
-        entity.setHospital(hospitalEntity);
-        var userEntity = new UserEntity();
-        userEntity.setUserId(userId);
-        entity.setUser(userEntity);
-        return entity;
-    }
-
-    public static TipoDocumento toDomain(TipoDocumentoEntity entity) {
-
-        return new TipoDocumento(entity.getTipoDocumentoId(), entity.getTipoComprobante(), entity.getSerie(),
-                entity.getInicio(), entity.getFin(), entity.getCorrelativoActual(), entity.getEstado());
-
-    }
-
+	public static TipoDocumento toDomain(TipoDocumentoEntity entity)
+	{
+		return new TipoDocumento(entity.getTipoDocumentoId(), entity.getTipoComprobante(), entity.getSerie(),
+				entity.getInicio(), entity.getFin(), entity.getCorrelativoActual(), entity.getEstado());
+	}
 }

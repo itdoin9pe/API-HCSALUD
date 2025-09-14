@@ -1,5 +1,7 @@
 package com.saludsystem.submodules.core.mantenimiento.adapter.mapper;
 
+import java.util.UUID;
+
 import com.saludsystem.submodules.core.catalogo.adapter.entity.CategoriaEntity;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.MedidaEntity;
 import com.saludsystem.submodules.core.catalogo.adapter.entity.TipoConceptoEntity;
@@ -9,53 +11,50 @@ import com.saludsystem.submodules.core.mantenimiento.adapter.entity.TarifarioEnt
 import com.saludsystem.submodules.core.operaciones.adapter.entity.UnidadEntity;
 import com.saludsystem.submodules.mantenimiento.model.Tarifario;
 
-import java.util.UUID;
+public class TarifarioDboMapper
+{
+	public static TarifarioEntity toEntity(Tarifario model, UUID userId, UUID hospitalId)
+	{
+		TarifarioEntity entity = new TarifarioEntity();
+		entity.setTarifarioId(model.getId());
 
-public class TarifarioDboMapper {
+		TipoConceptoEntity tipoConcepto = new TipoConceptoEntity();
+		tipoConcepto.setTipoConceptoId(model.getTipoConceptoId());
+		entity.setTipoConceptoEntity(tipoConcepto);
 
-    public static TarifarioEntity toEntity(Tarifario model, UUID userId, UUID hospitalId) {
+		MedidaEntity medida = new MedidaEntity();
+		medida.setMedidaId(model.getMedidaId());
+		entity.setMedidaEntity(medida);
 
-        TarifarioEntity entity = new TarifarioEntity();
-        entity.setTarifarioId(model.getId());
+		CategoriaEntity categoria = new CategoriaEntity();
+		categoria.setCategoriaId(model.getCategoriaId());
+		entity.setCategoriaEntity(categoria);
 
-        TipoConceptoEntity tipoConcepto = new TipoConceptoEntity();
-        tipoConcepto.setTipoConceptoId(model.getTipoConceptoId());
-        entity.setTipoConceptoEntity(tipoConcepto);
+		UnidadEntity unidad = new UnidadEntity();
+		unidad.setUnidadId(model.getUnidadId());
+		entity.setUnidadEntity(unidad);
 
-        MedidaEntity medida = new MedidaEntity();
-        medida.setMedidaId(model.getMedidaId());
-        entity.setMedidaEntity(medida);
+		entity.setGrupo(model.getGrupo());
+		entity.setDescripcion(model.getDescripcion());
+		entity.setPrecio(model.getPrecio());
+		entity.setEstado(model.getEstado());
 
-        CategoriaEntity categoria = new CategoriaEntity();
-        categoria.setCategoriaId(model.getCategoriaId());
-        entity.setCategoriaEntity(categoria);
+		var userEntity = new UserEntity();
+		userEntity.setUserId(userId);
+		entity.setUser(userEntity);
 
-        UnidadEntity unidad = new UnidadEntity();
-        unidad.setUnidadId(model.getUnidadId());
-        entity.setUnidadEntity(unidad);
+		var hospitalEntity = new SysSaludEntity();
+		hospitalEntity.setHospitalId(hospitalId);
+		entity.setHospital(hospitalEntity);
 
-        entity.setGrupo(model.getGrupo());
-        entity.setDescripcion(model.getDescripcion());
-        entity.setPrecio(model.getPrecio());
-        entity.setEstado(model.getEstado());
+		return entity;
+	}
 
-        var userEntity = new UserEntity();
-        userEntity.setUserId(userId);
-        entity.setUser(userEntity);
-
-        var hospitalEntity = new SysSaludEntity();
-        hospitalEntity.setHospitalId(hospitalId);
-        entity.setHospital(hospitalEntity);
-
-        return entity;
-
-    }
-
-    public static Tarifario toDomain(TarifarioEntity entity) {
-
-        return new Tarifario(entity.getTarifarioId(), entity.getTipoConceptoEntity().getTipoConceptoId(),
-                entity.getMedidaEntity().getMedidaId(), entity.getCategoriaEntity().getCategoriaId(),
-                entity.getUnidadEntity().getUnidadId(), entity.getGrupo(), entity.getDescripcion(),
-                entity.getPrecio(), entity.getEstado());
-    }
+	public static Tarifario toDomain(TarifarioEntity entity)
+	{
+		return new Tarifario(entity.getTarifarioId(), entity.getTipoConceptoEntity().getTipoConceptoId(),
+				entity.getMedidaEntity().getMedidaId(), entity.getCategoriaEntity().getCategoriaId(),
+				entity.getUnidadEntity().getUnidadId(), entity.getGrupo(), entity.getDescripcion(), entity.getPrecio(),
+				entity.getEstado());
+	}
 }

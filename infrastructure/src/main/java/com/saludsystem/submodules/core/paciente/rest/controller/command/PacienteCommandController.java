@@ -68,9 +68,7 @@ public class PacienteCommandController
 		return new ApiResponse(true, PacienteConstant.CREATED);
 	}
 
-	@io.swagger.v3.oas.annotations.responses.ApiResponse(
-			responseCode = "200", description = "Success", 
-			content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+	@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Success", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
 	@PutMapping(value = "/Update/{pacienteId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ApiResponse update(@PathVariable UUID pacienteId, @RequestBody PacienteEditCommand editCommand)
 	{
@@ -84,5 +82,4 @@ public class PacienteCommandController
 		deleteHandler.execute(pacienteId);
 		return new ApiResponse(true, PacienteConstant.DELETED);
 	}
-
 }

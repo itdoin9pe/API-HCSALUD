@@ -11,26 +11,29 @@ import com.saludsystem.submodules.movimiento.service.ventadetalle.VentaDetalleDe
 import com.saludsystem.submodules.movimiento.service.ventadetalle.VentaDetalleEditService;
 
 @Configuration
-public class VentaDetalleBean {
-
+public class VentaDetalleBean
+{
 	@Bean
-	public VentaDetalleMapper ventaDetalleMapper() {
+	public VentaDetalleMapper ventaDetalleMapper()
+	{
 		return new VentaDetalleMapper();
 	}
-	
+
 	@Bean
-	public VentaDetalleCreateService ventaDetalleCreateService(VentaDetalleRepository repository) {
+	public VentaDetalleCreateService ventaDetalleCreateService(VentaDetalleRepository repository)
+	{
 		return new VentaDetalleCreateService(repository);
 	}
-	
+
 	@Bean
-	public VentaDetalleEditService ventaDetalleEditService(VentaDetalleDao dao, VentaDetalleRepository repository) {
+	public VentaDetalleEditService ventaDetalleEditService(VentaDetalleDao dao, VentaDetalleRepository repository)
+	{
 		return new VentaDetalleEditService(dao, repository);
 	}
-	
+
 	@Bean
-	public VentaDetalleDeleteService ventaDetalleDeleteService(VentaDetalleRepository repository, VentaDetalleDao dao) {
+	public VentaDetalleDeleteService ventaDetalleDeleteService(VentaDetalleRepository repository, VentaDetalleDao dao)
+	{
 		return new VentaDetalleDeleteService(repository, dao);
 	}
-	
 }

@@ -58,5 +58,4 @@ public class PacienteMysqlRepository implements PacienteRepository
 		}
 		pacienteJpaRepository.deleteById(uuid);
 	}
-
 }

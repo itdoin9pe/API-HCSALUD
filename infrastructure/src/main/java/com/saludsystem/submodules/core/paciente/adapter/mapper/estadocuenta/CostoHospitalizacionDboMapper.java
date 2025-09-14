@@ -1,5 +1,7 @@
 package com.saludsystem.submodules.core.paciente.adapter.mapper.estadocuenta;
 
+import java.util.UUID;
+
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import com.saludsystem.submodules.core.paciente.adapter.entity.PacienteEntity;
@@ -7,56 +9,44 @@ import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.estadocuenta.EstadoCuentaEntity;
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.CostoHospitalizacion;
 
-import java.util.UUID;
+public class CostoHospitalizacionDboMapper
+{
+	public static CostoHospitalizacionEntity toEntity(CostoHospitalizacion model, UUID hospitalId, UUID userId)
+	{
+		CostoHospitalizacionEntity entity = new CostoHospitalizacionEntity();
+		entity.setPec_costoHospitalizacionId(model.getPec_costoHospitalizacionId());
 
-public class CostoHospitalizacionDboMapper {
+		EstadoCuentaEntity estadoCuenta = new EstadoCuentaEntity();
+		estadoCuenta.setPec_estadoCuentaId(model.getEstadoCuentaId());
+		entity.setEstadoCuentaEntity(estadoCuenta);
 
-    public static CostoHospitalizacionEntity toEntity(CostoHospitalizacion model, UUID hospitalId, UUID userId) {
+		PacienteEntity paciente = new PacienteEntity();
+		paciente.setPacienteId(model.getPacienteId());
+		entity.setPacienteEntity(paciente);
 
-        CostoHospitalizacionEntity entity = new CostoHospitalizacionEntity();
-        entity.setPec_costoHospitalizacionId(model.getPec_costoHospitalizacionId());
+		entity.setFechaIngreso(model.getFechaIngreso());
+		entity.setFechaAlta(model.getFechaAlta());
+		entity.setTipoHabitacion(model.getTipoHabitacion());
+		entity.setCostoPorDia(model.getCostoPorDia());
+		entity.setCantidadDias(model.getCantidadDias());
+		entity.setTotalCosto(model.getTotalCosto());
 
-        EstadoCuentaEntity estadoCuenta = new EstadoCuentaEntity();
-        estadoCuenta.setPec_estadoCuentaId(model.getEstadoCuentaId());
-        entity.setEstadoCuentaEntity(estadoCuenta);
+		var userEntity = new UserEntity();
+		userEntity.setUserId(userId);
+		entity.setUser(userEntity);
 
-        PacienteEntity paciente = new PacienteEntity();
-        paciente.setPacienteId(model.getPacienteId());
-        entity.setPacienteEntity(paciente);
+		var hospitalEntity = new SysSaludEntity();
+		hospitalEntity.setHospitalId(hospitalId);
+		entity.setHospital(hospitalEntity);
 
-        entity.setFechaIngreso(model.getFechaIngreso());
-        entity.setFechaAlta(model.getFechaAlta());
-        entity.setTipoHabitacion(model.getTipoHabitacion());
-        entity.setCostoPorDia(model.getCostoPorDia());
-        entity.setCantidadDias(model.getCantidadDias());
-        entity.setTotalCosto(model.getTotalCosto());
+		return entity;
+	}
 
-        var userEntity = new UserEntity();
-        userEntity.setUserId(userId);
-        entity.setUser(userEntity);
-
-        var hospitalEntity = new SysSaludEntity();
-        hospitalEntity.setHospitalId(hospitalId);
-        entity.setHospital(hospitalEntity);
-
-        return entity;
-
-    }
-
-    public static CostoHospitalizacion toDomain(CostoHospitalizacionEntity entity) {
-
-        return new CostoHospitalizacion(
-                entity.getPec_costoHospitalizacionId(),
-                entity.getEstadoCuentaEntity().getPec_estadoCuentaId(),
-                entity.getPacienteEntity().getPacienteId(),
-                entity.getFechaIngreso(),
-                entity.getFechaAlta(),
-                entity.getTipoHabitacion(),
-                entity.getCostoPorDia(),
-                entity.getCantidadDias(),
-                entity.getTotalCosto());
-
-    }
-
-
+	public static CostoHospitalizacion toDomain(CostoHospitalizacionEntity entity)
+	{
+		return new CostoHospitalizacion(entity.getPec_costoHospitalizacionId(),
+				entity.getEstadoCuentaEntity().getPec_estadoCuentaId(), entity.getPacienteEntity().getPacienteId(),
+				entity.getFechaIngreso(), entity.getFechaAlta(), entity.getTipoHabitacion(), entity.getCostoPorDia(),
+				entity.getCantidadDias(), entity.getTotalCosto());
+	}
 }

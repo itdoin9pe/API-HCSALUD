@@ -22,24 +22,26 @@ import com.saludsystem.submodules.core.principal.adapter.entity.TipoPacienteEnti
 import jakarta.transaction.Transactional;
 
 @Service
-public class PacienteSeederService {
-
+public class PacienteSeederService
+{
 	private final PacienteJpaRepository pacienteJpaRepository;
 
 	/**
 	 * @param pacienteJpaRepository
 	 */
-	public PacienteSeederService(PacienteJpaRepository pacienteJpaRepository) {
+	public PacienteSeederService(PacienteJpaRepository pacienteJpaRepository)
+	{
 		this.pacienteJpaRepository = pacienteJpaRepository;
 	}
 
 	@Transactional
-	public void insertarMasivo() {
-		if (pacienteJpaRepository.count() > 0) {
+	public void insertarMasivo()
+	{
+		if (pacienteJpaRepository.count() > 0)
+		{
 			System.out.println("⚠️ Pacientes ya existen, no se insertan más.");
 			return;
 		}
-
 		UUID hospitalId = UUID.fromString("d7ca061a-ba19-4d63-90cf-28ac5046a590");
 		UUID userId = UUID.fromString("d0917a53-51a4-42ea-b947-324724bffdc1");
 		// IDs de entidades que ya deben existir en tu BD
@@ -53,7 +55,8 @@ public class PacienteSeederService {
 
 		List<PacienteEntity> lista = new ArrayList<>();
 
-		for (int i = 1; i <= 50; i++) {
+		for (int i = 1; i <= 50; i++)
+		{
 			PacienteEntity p = new PacienteEntity();
 			p.setPacienteId(UUID.randomUUID());
 			p.setTipoDocumentoId("DNI");
@@ -107,7 +110,7 @@ public class PacienteSeederService {
 			SedeEntity sede = new SedeEntity();
 			sede.setSedeId(sedeId);
 			p.setSedeId(sede);
-			
+
 			SysSaludEntity hospitalEntity = new SysSaludEntity();
 			hospitalEntity.setHospitalId(hospitalId);
 			p.setHospital(hospitalEntity);
@@ -118,9 +121,7 @@ public class PacienteSeederService {
 
 			lista.add(p);
 		}
-
 		pacienteJpaRepository.saveAll(lista);
 		System.out.println("✅ 50 Pacientes insertados correctamente.");
 	}
-
 }

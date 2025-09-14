@@ -1,38 +1,50 @@
 package com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico;
 
+import java.util.UUID;
+
 import com.saludsystem.submodules.core.catalogo.adapter.entity.AlergiaEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.BaseEntity;
 import com.saludsystem.submodules.core.paciente.adapter.entity.PacienteEntity;
-import jakarta.persistence.*;
-import lombok.*;
 
-import java.util.UUID;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "pacientes_alergias")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
-public class PacienteAlergiaEntity extends BaseEntity {
+public class PacienteAlergiaEntity extends BaseEntity
+{
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "paciente_alergia_id", nullable = false)
+	private UUID pacienteAlergiaId;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "paciente_alergia_id", nullable = false)
-    private UUID pacienteAlergiaId;
+	@ManyToOne
+	@JoinColumn(name = "id_paciente", nullable = false)
+	private PacienteEntity pacienteEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "id_paciente", nullable = false)
-    private PacienteEntity pacienteEntity;
+	@ManyToOne
+	@JoinColumn(name = "alergia_id", nullable = false)
+	private AlergiaEntity alergiaEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "alergia_id", nullable = false)
-    private AlergiaEntity alergiaEntity;
+	@Column(name = "paciente_alergia_observacion", nullable = false)
+	private String observacion;
 
-    @Column(name = "paciente_alergia_observacion", nullable = false)
-    private String observacion;
-
-    @Column(name = "paciente_alergia_estado", nullable = false)
-    private Integer estado;
-
+	@Column(name = "paciente_alergia_estado", nullable = false)
+	private Integer estado;
 }

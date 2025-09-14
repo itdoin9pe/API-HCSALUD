@@ -7,14 +7,13 @@ import lombok.Data;
 
 @MappedSuperclass
 @Data
-public class BaseEntity {
+public class BaseEntity
+{
+	@ManyToOne
+	@JoinColumn(name = "hospital_id", referencedColumnName = "hospital_id", nullable = false)
+	private SysSaludEntity hospital;
 
-    @ManyToOne
-    @JoinColumn(name = "hospital_id", referencedColumnName = "hospital_id", nullable = false)
-    private SysSaludEntity hospital;
-
-    @ManyToOne
-    @JoinColumn(name = "id_user", nullable = false)
-    private UserEntity user;
-
+	@ManyToOne
+	@JoinColumn(name = "id_user", nullable = false)
+	private UserEntity user;
 }

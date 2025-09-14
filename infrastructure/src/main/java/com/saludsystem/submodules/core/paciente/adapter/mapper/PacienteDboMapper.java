@@ -85,7 +85,7 @@ public class PacienteDboMapper
 		var empresaEntity = new EmpresaEntity();
 		empresaEntity.setEmpresaId(model.getEmpresaId().value());
 		entity.setEmpresaId(empresaEntity);
-		// other patient 
+		// other patient
 		entity.setEmail(model.getEmail().email());
 		entity.setFotoPaciente(model.getFotoPaciente().value());
 		entity.setTitulo(model.getTitulo().value());
@@ -94,7 +94,7 @@ public class PacienteDboMapper
 		var infoClinicaEntity = new InformacionClinicaEntity();
 		infoClinicaEntity.setInformacionClinicaId(model.getInformacionClinicaId().value());
 		entity.setInformacionClinicaId(infoClinicaEntity);
-		// Estudio 
+		// Estudio
 		var estudioEntity = new EstudioEntity();
 		estudioEntity.setEstudioId(model.getEstudioId().value());
 		entity.setEstudioId(estudioEntity);
@@ -137,5 +137,4 @@ public class PacienteDboMapper
 				new IdEstudioPaciente(entity.getEstudioId().getEstudioId()),
 				new IdSedePaciente(entity.getSedeId().getSedeId()), new CelularPaciente(entity.getCelular()));
 	}
-
 }

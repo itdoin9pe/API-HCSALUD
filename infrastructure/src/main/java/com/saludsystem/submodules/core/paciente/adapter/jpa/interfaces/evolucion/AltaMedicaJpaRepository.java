@@ -1,14 +1,16 @@
 package com.saludsystem.submodules.core.paciente.adapter.jpa.interfaces.evolucion;
 
-import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.evolucion.AltaMedicaEntity;
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
+import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.evolucion.AltaMedicaEntity;
 
 @Repository
-public interface AltaMedicaJpaRepository extends JpaRepository<AltaMedicaEntity, Long> {
-    Page<AltaMedicaEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
+public interface AltaMedicaJpaRepository extends JpaRepository<AltaMedicaEntity, Long>
+{
+	Page<AltaMedicaEntity> findAllByHospital_HospitalId(UUID hospitalId, Pageable pageable);
 }

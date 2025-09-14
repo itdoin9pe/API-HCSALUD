@@ -15,45 +15,34 @@ import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
 
 @Component
-public class AlmacenMysqlDao implements AlmacenDao {
-
+public class AlmacenMysqlDao implements AlmacenDao
+{
 	private final AlmacenJpaRepository almacenJpaRepository;
-	
-	/**
-	 * @param almacenJpaRepository
-	 */
-	public AlmacenMysqlDao(AlmacenJpaRepository almacenJpaRepository) {
+
+	public AlmacenMysqlDao(AlmacenJpaRepository almacenJpaRepository)
+	{
 		this.almacenJpaRepository = almacenJpaRepository;
 	}
 
 	@Override
-	public Almacen getById(UUID uuid) {
-		// TODO Auto-generated method stub
-		return almacenJpaRepository.findById(uuid)
-				.map(AlmacenDboMapper::toDomain)
-				.orElseThrow( () -> new ResourceNotFoundException(AlmacenConstant.ID_NOT_FOUND));
+	public Almacen getById(UUID uuid)
+	{
+		return almacenJpaRepository.findById(uuid).map(AlmacenDboMapper::toDomain)
+				.orElseThrow(() -> new ResourceNotFoundException(AlmacenConstant.ID_NOT_FOUND));
 	}
 
 	@Override
-	public ListResponse<Almacen> getAll(UUID hospitalId, int page, int rows) {
-		// TODO Auto-generated method stub
-        var pageable = PageRequest.of(page - 1, rows);
-        var pageResult = almacenJpaRepository.findAllByHospital_HospitalId(hospitalId, pageable);
-        List<Almacen> data = pageResult.getContent()
-                .stream()
-                .map(AlmacenDboMapper::toDomain)
-                .toList();
-        return new ListResponse<>(data, pageResult.getTotalElements(),
-                pageResult.getTotalPages(), page);
+	public ListResponse<Almacen> getAll(UUID hospitalId, int page, int rows)
+	{
+		var pageable = PageRequest.of(page - 1, rows);
+		var pageResult = almacenJpaRepository.findAllByHospital_HospitalId(hospitalId, pageable);
+		List<Almacen> data = pageResult.getContent().stream().map(AlmacenDboMapper::toDomain).toList();
+		return new ListResponse<>(data, pageResult.getTotalElements(), pageResult.getTotalPages(), page);
 	}
 
 	@Override
-	public List<Almacen> getList() {
-		// TODO Auto-generated method stub
-		return almacenJpaRepository.findAll()
-				.stream()
-				.map(AlmacenDboMapper::toDomain)
-				.toList();
+	public List<Almacen> getList()
+	{
+		return almacenJpaRepository.findAll().stream().map(AlmacenDboMapper::toDomain).toList();
 	}
-
 }

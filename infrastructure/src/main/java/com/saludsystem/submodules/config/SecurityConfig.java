@@ -21,7 +21,6 @@ import com.saludsystem.submodules.security.jwt.JwtAuthenticationFilter;
 @EnableWebSecurity
 public class SecurityConfig
 {
-
 	private final UserDetailsService userDetailsService;
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -34,15 +33,11 @@ public class SecurityConfig
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
 	{
-		http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth
-				.requestMatchers("/v3/api-docs/**", 
-						"/swagger-ui/**", 
-						"/api/login", 
-						"/uploads/**",
-						"/api/Pacientes/GetImage",
-						"/api/refresh-token", 
-						"/saludo")
-				.permitAll().anyRequest().authenticated())
+		http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/api/login", "/uploads/**",
+								"/api/Pacientes/GetImage", "/api/refresh-token", "/saludo")
+						.permitAll().anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -65,5 +60,4 @@ public class SecurityConfig
 
 		return authenticationManagerBuilder.build();
 	}
-
 }

@@ -11,32 +11,29 @@ import com.saludsystem.submodules.paciente.service.fichaclinica.diagnostico.Diag
 import com.saludsystem.submodules.paciente.service.fichaclinica.diagnostico.DiagnosticoEditService;
 
 @Configuration
-public class DiagnosticoBean {
-
+public class DiagnosticoBean
+{
 	@Bean
-	public DiagnosticoMapper diagnosticoMapper() {
+	public DiagnosticoMapper diagnosticoMapper()
+	{
 		return new DiagnosticoMapper();
 	}
-	
+
 	@Bean
-	public DiagnosticoCreateService diagnosticoCreateService(DiagnosticoRepository repository) {
-		
+	public DiagnosticoCreateService diagnosticoCreateService(DiagnosticoRepository repository)
+	{
 		return new DiagnosticoCreateService(repository);
-		
-	}
-	
-	@Bean
-	public DiagnosticoEditService diagnosticoEditService(DiagnosticoDao dao, DiagnosticoRepository repository) {
-		
-		return new DiagnosticoEditService(dao, repository);
-		
-	}
-	
-	@Bean
-	public DiagnosticoDeleteService diagnosticoDeleteService(DiagnosticoRepository repository, DiagnosticoDao dao) {
-		
-		return new DiagnosticoDeleteService(repository, dao);
-		
 	}
 
+	@Bean
+	public DiagnosticoEditService diagnosticoEditService(DiagnosticoDao dao, DiagnosticoRepository repository)
+	{
+		return new DiagnosticoEditService(dao, repository);
+	}
+
+	@Bean
+	public DiagnosticoDeleteService diagnosticoDeleteService(DiagnosticoRepository repository, DiagnosticoDao dao)
+	{
+		return new DiagnosticoDeleteService(repository, dao);
+	}
 }

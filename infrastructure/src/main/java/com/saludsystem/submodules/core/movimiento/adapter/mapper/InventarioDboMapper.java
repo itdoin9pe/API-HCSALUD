@@ -11,9 +11,10 @@ import com.saludsystem.submodules.core.operaciones.adapter.entity.ProductoEntity
 import com.saludsystem.submodules.core.operaciones.adapter.entity.UnidadEntity;
 import com.saludsystem.submodules.movimiento.model.Inventario;
 
-public class InventarioDboMapper {
-
-	public static InventarioEntity toEntity(Inventario model, UUID hospitalId, UUID userId) {
+public class InventarioDboMapper
+{
+	public static InventarioEntity toEntity(Inventario model, UUID hospitalId, UUID userId)
+	{
 		InventarioEntity entity = new InventarioEntity();
 		entity.setInventarioId(model.getId());
 		AlmacenEntity almacen = new AlmacenEntity();
@@ -42,21 +43,14 @@ public class InventarioDboMapper {
 		entity.setHospital(hospitalEntity);
 		return entity;
 	}
-	
-	public static Inventario toDomain(InventarioEntity entity) {
-		return new Inventario(
-				entity.getInventarioId(), 
-				entity.getAlmacenEntity().getAlmacenId(), 
-				entity.getTipoInventarioId(), 
-				entity.getProductoEntity().getProductoId(),
+
+	public static Inventario toDomain(InventarioEntity entity)
+	{
+		return new Inventario(entity.getInventarioId(), entity.getAlmacenEntity().getAlmacenId(),
+				entity.getTipoInventarioId(), entity.getProductoEntity().getProductoId(),
 				entity.getMarcaMaterialEntity().getMarcaMaterialesId(),
-				entity.getCategoriaMatEntity().getCategoriaMaterialId(),
-				entity.getUnidadEntity().getUnidadId(),
-				entity.getPrecioEntrada(),
-				entity.getPrecioSalida(),
-				entity.getStock(),
-				entity.getFecha(),
+				entity.getCategoriaMatEntity().getCategoriaMaterialId(), entity.getUnidadEntity().getUnidadId(),
+				entity.getPrecioEntrada(), entity.getPrecioSalida(), entity.getStock(), entity.getFecha(),
 				entity.getEstado());
 	}
-	
 }

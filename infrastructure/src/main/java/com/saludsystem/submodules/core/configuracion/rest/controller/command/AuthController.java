@@ -1,34 +1,40 @@
 package com.saludsystem.submodules.core.configuracion.rest.controller.command;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.saludsystem.submodules.configuracion.model.dtos.auth.LoginRequestDto;
 import com.saludsystem.submodules.configuracion.model.dtos.auth.RefreshTokenRequest;
 import com.saludsystem.submodules.configuracion.port.out.JwtLoginResponse;
 import com.saludsystem.submodules.security.AuthService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Auth")
 @RestController
 @RequestMapping("/api")
-public class AuthController {
+public class AuthController
+{
+	private final AuthService authService;
 
-    private final AuthService authService;
+	public AuthController(AuthService authService)
+	{
+		this.authService = authService;
+	}
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
+	@PostMapping("/login")
+	public ResponseEntity<JwtLoginResponse> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequest)
+	{
+		return ResponseEntity.ok(authService.authenticateUser(loginRequest));
+	}
 
-    @PostMapping("/login")
-    public ResponseEntity<JwtLoginResponse> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequest) {
-        return ResponseEntity.ok(authService.authenticateUser(loginRequest));
-    }
-
-    @PostMapping("/refresh-token")
-    public ResponseEntity<JwtLoginResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
-        return ResponseEntity.ok(authService.refreshToken(request.getRefreshToken()));
-    }
-
+	@PostMapping("/refresh-token")
+	public ResponseEntity<JwtLoginResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request)
+	{
+		return ResponseEntity.ok(authService.refreshToken(request.getRefreshToken()));
+	}
 }

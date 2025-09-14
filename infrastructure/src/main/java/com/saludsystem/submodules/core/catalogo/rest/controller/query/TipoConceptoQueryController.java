@@ -1,5 +1,14 @@
 package com.saludsystem.submodules.core.catalogo.rest.controller.query;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.saludsystem.submodules.catalogo.model.dto.TipoConceptoDTO;
 import com.saludsystem.submodules.catalogo.query.getAll.TipoConceptoAllHandler;
 import com.saludsystem.submodules.catalogo.query.getById.TipoConceptoByIdHandler;
@@ -7,51 +16,51 @@ import com.saludsystem.submodules.catalogo.query.getList.TipoConceptoListHandler
 import com.saludsystem.submodules.catalogo.response.TipoConceptoListResponse;
 import com.saludsystem.submodules.response.ListResponse;
 import com.saludsystem.submodules.response.PaginationRequest;
+
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "TiposConceptos")
 @RestController
 @RequestMapping("/api/TiposConceptos")
-public class TipoConceptoQueryController {
+public class TipoConceptoQueryController
+{
+	private final TipoConceptoByIdHandler byIdHandler;
+	private final TipoConceptoAllHandler allHandler;
+	private final TipoConceptoListHandler listHandler;
 
-    private final TipoConceptoByIdHandler byIdHandler;
-    private final TipoConceptoAllHandler allHandler;
-    private final TipoConceptoListHandler listHandler;
+	public TipoConceptoQueryController(
+		TipoConceptoByIdHandler byIdHandler,
+		TipoConceptoAllHandler allHandler,
+		TipoConceptoListHandler listHandler)
+	{
+		this.byIdHandler = byIdHandler;
+		this.allHandler = allHandler;
+		this.listHandler = listHandler;
+	}
 
-    public TipoConceptoQueryController(TipoConceptoByIdHandler byIdHandler, TipoConceptoAllHandler allHandler, TipoConceptoListHandler listHandler) {
-        this.byIdHandler = byIdHandler;
-        this.allHandler = allHandler;
-        this.listHandler = listHandler;
-    }
+	@GetMapping("/GetList")
+	public List<TipoConceptoDTO> getList()
+	{
+		return listHandler.execute();
+	}
 
-    @GetMapping("/GetList")
-    public List<TipoConceptoDTO> getList() {
-        return listHandler.execute();
-    }
+	@GetMapping("/GetById/{tipoConceptoId}")
+	public TipoConceptoDTO getById(@PathVariable UUID tipoConceptoId)
+	{
+		return byIdHandler.execute(tipoConceptoId);
+	}
 
-    @GetMapping("/GetById/{tipoConceptoId}")
-    public TipoConceptoDTO getById(@PathVariable UUID tipoConceptoId) {
-        return byIdHandler.execute(tipoConceptoId);
-    }
-
-    @GetMapping("/GetAll")
-    @ApiResponses(value = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
-                    description = "Operación exitosa", content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = TipoConceptoListResponse.class)))
-    })
-    public ListResponse<TipoConceptoDTO> getAllPaginated(
-            @RequestParam UUID hospitalId,
-            @RequestParam(name = "Page") int page,
-            @RequestParam(name = "Rows") int rows) {
-        return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
-    }
-
+	@GetMapping("/GetAll")
+	@ApiResponses(value =
+	{ @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TipoConceptoListResponse.class))) })
+	public ListResponse<TipoConceptoDTO> getAllPaginated(
+		@RequestParam UUID hospitalId,
+		@RequestParam(name = "Page") int page,
+		@RequestParam(name = "Rows") int rows)
+	{
+		return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
+	}
 }

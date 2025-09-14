@@ -14,26 +14,28 @@ import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import jakarta.transaction.Transactional;
 
 @Service
-public class ApoderadoSeederService {
-
+public class ApoderadoSeederService
+{
 	private final ApoderadoJpaRepository apoderadoJpaRepository;
 
-	public ApoderadoSeederService(ApoderadoJpaRepository apoderadoJpaRepository) {
+	public ApoderadoSeederService(ApoderadoJpaRepository apoderadoJpaRepository)
+	{
 		this.apoderadoJpaRepository = apoderadoJpaRepository;
 	}
 
 	@Transactional
-	public void insertarMasivo() {
-	    if (apoderadoJpaRepository.count() > 0) {
-	        System.out.println("⚠️ Apoderados ya existen, no se insertan más.");
-	        return;
-	    }
-
+	public void insertarMasivo()
+	{
+		if (apoderadoJpaRepository.count() > 0)
+		{
+			System.out.println("⚠️ Apoderados ya existen, no se insertan más.");
+			return;
+		}
 		UUID hospitalId = UUID.fromString("d7ca061a-ba19-4d63-90cf-28ac5046a590");
 		UUID userId = UUID.fromString("d0917a53-51a4-42ea-b947-324724bffdc1");
-
 		List<ApoderadoEntity> lista = new ArrayList<>();
-		for (int i = 1; i <= 200; i++) {
+		for (int i = 1; i <= 200; i++)
+		{
 			ApoderadoEntity a = new ApoderadoEntity();
 			a.setNombre("Apoderado " + i);
 			a.setDireccion("Calle Falsa " + i);
@@ -52,8 +54,6 @@ public class ApoderadoSeederService {
 
 			lista.add(a);
 		}
-
 		apoderadoJpaRepository.saveAll(lista);
 	}
-
 }

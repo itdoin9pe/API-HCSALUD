@@ -25,39 +25,39 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Roles")
 @RestController
 @RequestMapping("/api/Roles")
-public class RolQueryController {
-
+public class RolQueryController
+{
 	private final RolAllHandler allHandler;
 	private final RolListHandler listHandler;
 	private final RolByIdHandler byIdHandler;
 
-	public RolQueryController(RolAllHandler allHandler, RolListHandler listHandler, RolByIdHandler byIdHandler) {
+	public RolQueryController(RolAllHandler allHandler, RolListHandler listHandler, RolByIdHandler byIdHandler)
+	{
 		this.allHandler = allHandler;
 		this.listHandler = listHandler;
 		this.byIdHandler = byIdHandler;
 	}
 
 	@GetMapping("/GetList")
-	public List<RolDTO> getList() {
+	public List<RolDTO> getList()
+	{
 		return listHandler.execute();
 	}
 
 	@GetMapping("/GetRoleById/{roleId}")
-	public RolDTO getById(@PathVariable UUID roleId) {
+	public RolDTO getById(@PathVariable UUID roleId)
+	{
 		return byIdHandler.execute(roleId);
 	}
 
 	@GetMapping("/GetAllRol")
-	@ApiResponses(value = {
-			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", 
-					description = "Operación exitosa", 
-					content = @Content(mediaType = "application/json", 
-					schema = @Schema(implementation = RolListResponse.class))) })
+	@ApiResponses(value =
+	{ @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Operación exitosa", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolListResponse.class))) })
 	public ListResponse<RolDTO> getAllPage(
 		@RequestParam(name = "hospitalId", required = true) UUID hospitalId,
 		@RequestParam(name = "Page") int page,
-		@RequestParam(name = "Rows") int rows) {
+		@RequestParam(name = "Rows") int rows)
+	{
 		return allHandler.execute(hospitalId, new PaginationRequest(page, rows));
 	}
-
 }

@@ -1,5 +1,7 @@
 package com.saludsystem.submodules.core.paciente.adapter.mapper.estadocuenta;
 
+import java.util.UUID;
+
 import com.saludsystem.submodules.core.configuracion.adapter.entity.SysSaludEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import com.saludsystem.submodules.core.paciente.adapter.entity.PacienteEntity;
@@ -7,54 +9,46 @@ import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.
 import com.saludsystem.submodules.core.paciente.adapter.entity.historialclinico.estadocuenta.EstadoCuentaEntity;
 import com.saludsystem.submodules.paciente.model.entity.estadocuenta.DetalleMedicamentoEstudio;
 
-import java.util.UUID;
+public class DetalleMedicamentoEstudioDboMapper
+{
+	public static DetalleMedicamentosEstudiosEntity toEntity(
+		DetalleMedicamentoEstudio model,
+		UUID userId,
+		UUID hospitalId)
+	{
+		DetalleMedicamentosEstudiosEntity entity = new DetalleMedicamentosEstudiosEntity();
+		entity.setPec_detalleMedicamentoId(model.getPec_detalleMedicamentoId());
 
-public class DetalleMedicamentoEstudioDboMapper {
+		PacienteEntity paciente = new PacienteEntity();
+		paciente.setPacienteId(model.getPacienteId());
+		entity.setPacienteEntity(paciente);
 
-    public static DetalleMedicamentosEstudiosEntity toEntity(
-            DetalleMedicamentoEstudio model, UUID userId, UUID hospitalId) {
+		EstadoCuentaEntity estadoCuenta = new EstadoCuentaEntity();
+		estadoCuenta.setPec_estadoCuentaId(model.getEstadoCuentaId());
+		entity.setEstadoCuentaEntity(estadoCuenta);
 
-        DetalleMedicamentosEstudiosEntity entity = new DetalleMedicamentosEstudiosEntity();
-        entity.setPec_detalleMedicamentoId(model.getPec_detalleMedicamentoId());
+		entity.setTipo(model.getTipo());
+		entity.setDescripcion(model.getDescripcion());
+		entity.setCantidad(model.getCantidad());
+		entity.setCostoUnitario(model.getCostoUnitario());
+		entity.setTotalCosto(model.getTotalCosto());
 
-        PacienteEntity paciente = new PacienteEntity();
-        paciente.setPacienteId(model.getPacienteId());
-        entity.setPacienteEntity(paciente);
+		var userEntity = new UserEntity();
+		userEntity.setUserId(userId);
+		entity.setUser(userEntity);
 
-        EstadoCuentaEntity estadoCuenta = new EstadoCuentaEntity();
-        estadoCuenta.setPec_estadoCuentaId(model.getEstadoCuentaId());
-        entity.setEstadoCuentaEntity(estadoCuenta);
+		var hospitalEntity = new SysSaludEntity();
+		hospitalEntity.setHospitalId(hospitalId);
+		entity.setHospital(hospitalEntity);
 
-        entity.setTipo(model.getTipo());
-        entity.setDescripcion(model.getDescripcion());
-        entity.setCantidad(model.getCantidad());
-        entity.setCostoUnitario(model.getCostoUnitario());
-        entity.setTotalCosto(model.getTotalCosto());
+		return entity;
+	}
 
-        var userEntity = new UserEntity();
-        userEntity.setUserId(userId);
-        entity.setUser(userEntity);
-
-        var hospitalEntity = new SysSaludEntity();
-        hospitalEntity.setHospitalId(hospitalId);
-        entity.setHospital(hospitalEntity);
-
-        return entity;
-
-    }
-
-    public static DetalleMedicamentoEstudio toDomain(DetalleMedicamentosEstudiosEntity entity) {
-
-        return new DetalleMedicamentoEstudio(
-                entity.getPec_detalleMedicamentoId(),
-                entity.getPacienteEntity().getPacienteId(),
-                entity.getEstadoCuentaEntity().getPec_estadoCuentaId(),
-                entity.getTipo(),
-                entity.getDescripcion(),
-                entity.getCantidad(),
-                entity.getCostoUnitario(),
-                entity.getTotalCosto());
-
-    }
-
+	public static DetalleMedicamentoEstudio toDomain(DetalleMedicamentosEstudiosEntity entity)
+	{
+		return new DetalleMedicamentoEstudio(entity.getPec_detalleMedicamentoId(),
+				entity.getPacienteEntity().getPacienteId(), entity.getEstadoCuentaEntity().getPec_estadoCuentaId(),
+				entity.getTipo(), entity.getDescripcion(), entity.getCantidad(), entity.getCostoUnitario(),
+				entity.getTotalCosto());
+	}
 }

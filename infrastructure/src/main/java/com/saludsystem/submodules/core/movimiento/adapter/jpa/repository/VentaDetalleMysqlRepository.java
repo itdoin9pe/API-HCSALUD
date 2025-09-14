@@ -14,24 +14,22 @@ import com.saludsystem.submodules.movimiento.port.repository.VentaDetalleReposit
 import com.saludsystem.submodules.security.validators.ResourceNotFoundException;
 
 @Component
-public class VentaDetalleMysqlRepository implements VentaDetalleRepository {
-
+public class VentaDetalleMysqlRepository implements VentaDetalleRepository
+{
 	private final VentaDetalleJpaRepository ventaDetalleJpaRepository;
 	private final AuthenticateUserPort authenticateUserPort;
-	
-	/**
-	 * @param ventaDetalleJpaRepository
-	 * @param authenticateUserPort
-	 */
-	public VentaDetalleMysqlRepository(VentaDetalleJpaRepository ventaDetalleJpaRepository,
-			AuthenticateUserPort authenticateUserPort) {
+
+	public VentaDetalleMysqlRepository(
+		VentaDetalleJpaRepository ventaDetalleJpaRepository,
+		AuthenticateUserPort authenticateUserPort)
+	{
 		this.ventaDetalleJpaRepository = ventaDetalleJpaRepository;
 		this.authenticateUserPort = authenticateUserPort;
 	}
 
 	@Override
-	public VentaDetalle save(VentaDetalle ventaDetalle) {
-		// TODO Auto-generated method stub
+	public VentaDetalle save(VentaDetalle ventaDetalle)
+	{
 		UUID hospitalId = authenticateUserPort.getHospitalId();
 		UUID userId = authenticateUserPort.getUserId();
 		VentaDetalleEntity entity = VentaDetalleDboMapper.toEntity(ventaDetalle, hospitalId, userId);
@@ -39,9 +37,10 @@ public class VentaDetalleMysqlRepository implements VentaDetalleRepository {
 	}
 
 	@Override
-	public VentaDetalle update(UUID uuid, VentaDetalle ventaDetalle) {
-		// TODO Auto-generated method stub
-		if (ventaDetalleJpaRepository.existsById(uuid)) {
+	public VentaDetalle update(UUID uuid, VentaDetalle ventaDetalle)
+	{
+		if (ventaDetalleJpaRepository.existsById(uuid))
+		{
 			throw new ResourceNotFoundException(VentaDetalleConstant.ID_NOT_FOUND);
 		}
 		UUID hospitalId = authenticateUserPort.getHospitalId();
@@ -51,12 +50,12 @@ public class VentaDetalleMysqlRepository implements VentaDetalleRepository {
 	}
 
 	@Override
-	public void delete(UUID uuid) {
-		// TODO Auto-generated method stub
-		if (ventaDetalleJpaRepository.existsById(uuid)) {
+	public void delete(UUID uuid)
+	{
+		if (ventaDetalleJpaRepository.existsById(uuid))
+		{
 			throw new ResourceNotFoundException(VentaDetalleConstant.ID_NOT_FOUND);
 		}
 		ventaDetalleJpaRepository.deleteById(uuid);
 	}
-
 }

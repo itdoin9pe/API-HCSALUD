@@ -11,26 +11,29 @@ import com.saludsystem.submodules.movimiento.service.almacen.AlmacenDeleteServic
 import com.saludsystem.submodules.movimiento.service.almacen.AlmacenEditService;
 
 @Configuration
-public class AlmacenBean {
-
-	@Bean   
-	public AlmacenMapper almacenMapper() {
+public class AlmacenBean
+{
+	@Bean
+	public AlmacenMapper almacenMapper()
+	{
 		return new AlmacenMapper();
 	}
-	
+
 	@Bean
-	public AlmacenCreateService almacenCreateService(AlmacenRepository repository) {
+	public AlmacenCreateService almacenCreateService(AlmacenRepository repository)
+	{
 		return new AlmacenCreateService(repository);
 	}
-	
+
 	@Bean
-	public AlmacenEditService almacenEditService(AlmacenDao dao, AlmacenRepository repository) {
+	public AlmacenEditService almacenEditService(AlmacenDao dao, AlmacenRepository repository)
+	{
 		return new AlmacenEditService(dao, repository);
 	}
-	
+
 	@Bean
-	public AlmacenDeleteService almacenDeleteService(AlmacenRepository repository, AlmacenDao dao) {
+	public AlmacenDeleteService almacenDeleteService(AlmacenRepository repository, AlmacenDao dao)
+	{
 		return new AlmacenDeleteService(repository, dao);
 	}
-	
 }
