@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import com.saludsystem.submodules.cita.model.Cita;
 import com.saludsystem.submodules.cita.model.constant.CitaConstant;
+import com.saludsystem.submodules.cita.model.enums.EstadoCitaEnum;
 import com.saludsystem.submodules.cita.port.dao.CitaDao;
 import com.saludsystem.submodules.cita.port.repository.CitaRepository;
 
@@ -25,7 +26,7 @@ public class CitaEditService
 		{
 			throw new IllegalArgumentException(CitaConstant.INVALID_ID);
 		}
-		if (currentCita.getEstado() != null && currentCita.getEstado() == "INACTIVE")
+		if (currentCita.getEstado() != null && currentCita.getEstado().value() == EstadoCitaEnum.INACTIVE)
 		{
 			throw new IllegalStateException("La cita ya se encuentra desactivada");
 		}

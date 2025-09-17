@@ -19,7 +19,7 @@ public class CitaDeleteService
 	public void execute(UUID uuid)
 	{
 		var cita = citaDao.getById(uuid);
-		if (cita.getEstado() != null && cita.getEstado() == "INACTIVE")
+		if (cita.getEstado() != null)
 		{
 			throw new IllegalStateException("No se puede eliminar una cita ya desactivada");
 		}

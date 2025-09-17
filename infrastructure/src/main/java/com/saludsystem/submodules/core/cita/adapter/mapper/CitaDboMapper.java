@@ -5,8 +5,10 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 import com.saludsystem.submodules.cita.model.Cita;
+import com.saludsystem.submodules.cita.model.enums.EstadoCitaEnum;
 import com.saludsystem.submodules.cita.model.vo.CitaDoctorId;
 import com.saludsystem.submodules.cita.model.vo.CitaEspecialidadId;
+import com.saludsystem.submodules.cita.model.vo.CitaEstado;
 import com.saludsystem.submodules.cita.model.vo.CitaId;
 import com.saludsystem.submodules.cita.model.vo.CitaMotivoConsulta;
 import com.saludsystem.submodules.cita.model.vo.CitaObservacion;
@@ -49,7 +51,7 @@ public class CitaDboMapper
 		sede.setSedeId(model.getSedeId().value());
 		entity.setSedeEntity(sede);
 
-		entity.setEstado(model.getEstado());
+		entity.setEstado(model.getEstado().value().name());
 		entity.setMotivoConsulta(model.getMotivoConsulta().value());
 		entity.setObservacion(model.getObservacion().value());
 
@@ -71,7 +73,8 @@ public class CitaDboMapper
 				new CitaDoctorId(entity.getDoctorEntity().getDoctorId()), entity.getFecha(), entity.getHoraInicio(),
 				entity.getHoraFin(), new CitaPacienteId(entity.getPacienteEntity().getPacienteId()),
 				new CitaSedeId(entity.getSedeEntity().getSedeId()),
-				new CitaTipoCitadoId(entity.getTipoCitadoEntity().getTipoCitadoId()), entity.getEstado(),
+				new CitaTipoCitadoId(entity.getTipoCitadoEntity().getTipoCitadoId()),
+				new CitaEstado(EstadoCitaEnum.valueOf(entity.getEstado())),
 				new CitaMotivoConsulta(entity.getMotivoConsulta()), new CitaObservacion(entity.getObservacion()));
 	}
 }

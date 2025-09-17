@@ -1,20 +1,24 @@
 package com.saludsystem.submodules.cita.model.vo;
 
-import java.util.Set;
+import com.saludsystem.submodules.cita.model.enums.EstadoCitaEnum;
 
-public record CitaEstado(String value)
+public record CitaEstado(EstadoCitaEnum value)
 {
-	private static final Set<String> VALID_STATES = Set.of("ACTIVA", "CANCELADA", "FINALIZADA", "REPROGRAMADA");
-
 	public CitaEstado
 	{
-		if (value == null || value.isBlank())
+		if (value == null)
 		{
-			throw new IllegalArgumentException("El estado no puede estar vacío.");
+			throw new IllegalArgumentException("El estado no puede ser nulo.");
 		}
-		if (!VALID_STATES.contains(value.toUpperCase()))
-		{
-			throw new IllegalArgumentException("Estado inválido: " + value);
-		}
+	}
+
+	public boolean esCancelable()
+	{
+		return value == EstadoCitaEnum.ACTIVA || value == EstadoCitaEnum.CONFIRMADA;
+	}
+
+	public boolean esFinalizable()
+	{
+		return value == EstadoCitaEnum.CHECKED_IN;
 	}
 }

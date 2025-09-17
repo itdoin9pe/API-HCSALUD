@@ -3,8 +3,10 @@ package com.saludsystem.submodules.cita.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.saludsystem.submodules.cita.model.enums.EstadoCitaEnum;
 import com.saludsystem.submodules.cita.model.vo.CitaDoctorId;
 import com.saludsystem.submodules.cita.model.vo.CitaEspecialidadId;
+import com.saludsystem.submodules.cita.model.vo.CitaEstado;
 import com.saludsystem.submodules.cita.model.vo.CitaId;
 import com.saludsystem.submodules.cita.model.vo.CitaMotivoConsulta;
 import com.saludsystem.submodules.cita.model.vo.CitaObservacion;
@@ -28,7 +30,7 @@ public class Cita
 	private CitaPacienteId pacienteId;
 	private CitaSedeId sedeId;
 	private CitaTipoCitadoId tipoCitadoId;
-	private String estado;
+	private CitaEstado estado;
 	private CitaMotivoConsulta motivoConsulta;
 	private CitaObservacion observacion;
 
@@ -42,7 +44,7 @@ public class Cita
 		CitaPacienteId pacienteId,
 		CitaSedeId sedeId,
 		CitaTipoCitadoId tipoCitadoId,
-		String estado,
+		CitaEstado estado,
 		CitaMotivoConsulta motivoConsulta,
 		CitaObservacion observacion)
 	{
@@ -124,9 +126,9 @@ public class Cita
 		}
 	}
 
-	public void actualizarEstado(String estado)
+	public void actualizarEstado(CitaEstado estado)
 	{
-		if (estado != null && !estado.isBlank())
+		if (estado != null)
 		{
 			this.estado = estado;
 		}
@@ -147,4 +149,32 @@ public class Cita
 			this.observacion = observacion;
 		}
 	}
+
+	public void confirmar()
+	{
+		if (estado.value() != EstadoCitaEnum.ACTIVA)
+		{
+			throw new IllegalStateException("Solo se pueden confirmar citas activas.");
+		}
+		this.estado = new CitaEstado(EstadoCitaEnum.CONFIRMADA);
+	}
+
+	public void checkIn()
+	{
+		if (estado.value() != EstadoCitaEnum.CONFIRMADA)
+		{
+			throw new IllegalStateException("Solo se pueden hacer check-in de citas confirmadas.");
+		}
+		this.estado = new CitaEstado(EstadoCitaEnum.CHECKED_IN);
+	}
+
+	public void finalizar()
+	{
+		if (!estado.esFinalizable())
+		{
+			throw new IllegalStateException("La cita debe estar en check-in para finalizarse.");
+		}
+		this.estado = new CitaEstado(EstadoCitaEnum.FINALIZADA);
+	}
+
 }
