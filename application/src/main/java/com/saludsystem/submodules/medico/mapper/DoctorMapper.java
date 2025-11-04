@@ -1,0 +1,59 @@
+package com.saludsystem.submodules.medico.mapper;
+
+import java.util.UUID;
+
+import com.saludsystem.submodules.configuracion.model.vo.usuario.NumeroDocumento;
+import com.saludsystem.submodules.medico.model.Doctor;
+import com.saludsystem.submodules.medico.model.dtos.DoctorCreateCommand;
+import com.saludsystem.submodules.medico.model.dtos.DoctorDTO;
+import com.saludsystem.submodules.medico.model.dtos.DoctorEditCommand;
+import com.saludsystem.submodules.medico.model.vo.Apellido;
+import com.saludsystem.submodules.medico.model.vo.Celular;
+import com.saludsystem.submodules.medico.model.vo.Colegiatura;
+import com.saludsystem.submodules.medico.model.vo.Correo;
+import com.saludsystem.submodules.medico.model.vo.Direccion;
+import com.saludsystem.submodules.medico.model.vo.DoctorId;
+import com.saludsystem.submodules.medico.model.vo.EspecialidadId;
+import com.saludsystem.submodules.medico.model.vo.Nombre;
+import com.saludsystem.submodules.medico.model.vo.Rne;
+import com.saludsystem.submodules.medico.model.vo.Telefono;
+import com.saludsystem.submodules.medico.model.vo.TipoDocumento;
+
+public class DoctorMapper
+{
+	public Doctor fromCreateDto(DoctorCreateCommand createCommand)
+	{
+		return new Doctor(null, new TipoDocumento(createCommand.getTipoDocumento()),
+				new NumeroDocumento(createCommand.getNumeroDocumento()), new Apellido(createCommand.getApellidos()),
+				new Nombre(createCommand.getNombres()), new Direccion(createCommand.getDireccion()),
+				new Correo(createCommand.getCorreo()), createCommand.getAbreviatura(), new Rne(createCommand.getRne()),
+				createCommand.getFechaNacimiento(), new Celular(createCommand.getCelular()),
+				new Telefono(createCommand.getTelefono()), createCommand.getSexo(),
+				new EspecialidadId(createCommand.getEspecialidadId()), new Colegiatura(createCommand.getColegiatura()),
+				createCommand.getColor(), createCommand.getEstado(), createCommand.getFotoDoctor(),
+				createCommand.getFotoFirma());
+	}
+
+	public Doctor fromUpdateDto(UUID uuid, DoctorEditCommand editCommand)
+	{
+		return new Doctor(new DoctorId(editCommand.getDoctorId()), new TipoDocumento(editCommand.getTipoDocumento()),
+				new NumeroDocumento(editCommand.getNumeroDocumento()), new Apellido(editCommand.getApellidos()),
+				new Nombre(editCommand.getNombres()), new Direccion(editCommand.getDireccion()),
+				new Correo(editCommand.getCorreo()), editCommand.getAbreviatura(), new Rne(editCommand.getRne()),
+				editCommand.getFechaNacimiento(), new Celular(editCommand.getCelular()),
+				new Telefono(editCommand.getTelefono()), editCommand.getSexo(),
+				new EspecialidadId(editCommand.getEspecialidadId()), new Colegiatura(editCommand.getColegiatura()),
+				editCommand.getColor(), editCommand.getEstado(), editCommand.getFotoDoctor(),
+				editCommand.getFotoFirma());
+	}
+
+	public DoctorDTO toDto(Doctor model)
+	{
+		return new DoctorDTO(model.getId().value(), model.getTipoDocumento().value(),
+				model.getNumeroDocumento().value(), model.getApellidos().value(), model.getNombres().value(),
+				model.getDireccion().value(), model.getCorreo().value(), model.getAbreviatura(), model.getRne().value(),
+				model.getFechaNacimiento(), model.getCelular().value(), model.getTelefono().value(), model.getSexo(),
+				model.getEspecialidadId().value(), model.getColegiatura().value(), model.getColor(), model.getEstado(),
+				model.getFotoDoctor(), model.getFotoFirma());
+	}
+}

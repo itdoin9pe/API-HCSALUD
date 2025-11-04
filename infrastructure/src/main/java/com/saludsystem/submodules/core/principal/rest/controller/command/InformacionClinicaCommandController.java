@@ -1,0 +1,62 @@
+package com.saludsystem.submodules.core.principal.rest.controller.command;
+
+import java.util.UUID;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.saludsystem.submodules.principal.command.create.InformacionClinicaCreateHandler;
+import com.saludsystem.submodules.principal.command.delete.InformacionClinicaDeleteHandler;
+import com.saludsystem.submodules.principal.command.edit.InformacionClinicaEditHandler;
+import com.saludsystem.submodules.principal.model.constant.InformacionClinicaConstant;
+import com.saludsystem.submodules.principal.model.dtos.command.InformacionClinicaCreateCommand;
+import com.saludsystem.submodules.principal.model.dtos.command.edit.InformacionClinicaEditCommand;
+import com.saludsystem.submodules.response.ApiResponse;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "InformacionClinicas")
+@RestController
+@RequestMapping("/api/InformacionClinicas")
+public class InformacionClinicaCommandController
+{
+	private final InformacionClinicaCreateHandler createHandler;
+	private final InformacionClinicaEditHandler editHandler;
+	private final InformacionClinicaDeleteHandler deleteHandler;
+
+	public InformacionClinicaCommandController(
+		InformacionClinicaCreateHandler createHandler,
+		InformacionClinicaEditHandler editHandler,
+		InformacionClinicaDeleteHandler deleteHandler)
+	{
+		this.createHandler = createHandler;
+		this.editHandler = editHandler;
+		this.deleteHandler = deleteHandler;
+	}
+
+	@PostMapping("/Save")
+	public ApiResponse save(@RequestBody InformacionClinicaCreateCommand dto)
+	{
+		createHandler.execute(dto);
+		return new ApiResponse(true, InformacionClinicaConstant.CREATED);
+	}
+
+	@PutMapping("/Update/{informacionClinicaId}")
+	public ApiResponse update(@PathVariable UUID informacionClinicaId, @RequestBody InformacionClinicaEditCommand dto)
+	{
+		editHandler.execute(informacionClinicaId, dto);
+		return new ApiResponse(true, InformacionClinicaConstant.UPDATED);
+	}
+
+	@DeleteMapping("/Delete/{informacionClinicaId}")
+	public ApiResponse delete(@PathVariable UUID informacionClinicaId)
+	{
+		deleteHandler.execute(informacionClinicaId);
+		return new ApiResponse(true, InformacionClinicaConstant.DELETED);
+	}
+}

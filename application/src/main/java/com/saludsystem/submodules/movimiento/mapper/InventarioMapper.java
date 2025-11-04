@@ -1,0 +1,36 @@
+package com.saludsystem.submodules.movimiento.mapper;
+
+import java.util.UUID;
+
+import com.saludsystem.submodules.movimiento.model.Inventario;
+import com.saludsystem.submodules.movimiento.model.dtos.InventarioDTO;
+import com.saludsystem.submodules.movimiento.model.dtos.command.InventarioCreateCommand;
+import com.saludsystem.submodules.movimiento.model.dtos.command.edit.InventarioEditCommand;
+
+public class InventarioMapper
+{
+	public Inventario fromCreateDto(InventarioCreateCommand createCommand)
+	{
+		return new Inventario(null, createCommand.getAlmacenId(), createCommand.getTipoInventarioId(),
+				createCommand.getProductoId(), createCommand.getMarcaMaterialId(),
+				createCommand.getCategoriaMaterialId(), createCommand.getUnidadId(), createCommand.getPrecioEntrada(),
+				createCommand.getPrecioSalida(), createCommand.getStock(), createCommand.getFecha(),
+				createCommand.getEstado());
+	}
+
+	public Inventario fromUpdateDto(UUID uuid, InventarioEditCommand editCommand)
+	{
+		return new Inventario(uuid, editCommand.getAlmacenId(), editCommand.getTipoInventarioId(),
+				editCommand.getProductoId(), editCommand.getMarcaMaterialId(), editCommand.getCategoriaMaterialId(),
+				editCommand.getUnidadId(), editCommand.getPrecioEntrada(), editCommand.getPrecioSalida(),
+				editCommand.getStock(), editCommand.getFecha(), editCommand.getEstado());
+	}
+
+	public InventarioDTO toDto(Inventario model)
+	{
+		return new InventarioDTO(model.getId(), model.getProductoId(), model.getAlmacenId(),
+				model.getTipoInventarioId(), model.getMarcaId(), model.getCategoriaId(), model.getUnidadId(),
+				model.getPrecioEntrada(), model.getPrecioSalida(), model.getStock(), model.getFecha(),
+				model.getEstado());
+	}
+}

@@ -1,0 +1,50 @@
+package com.saludsystem.submodules.movimiento.model.dtos;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class VentaDTO
+{
+	private UUID ventaId;
+	private String serie;
+	private String secuencia;
+	private LocalDate fecha;
+	private String tipoBeneficiario;
+	private String beneficiarioDocumento;
+	private String beneficiarioDireccion;
+	private UUID tipoPagoId;
+	private String observacion;
+	private String metodoPago;
+
+	@Schema(example = "0")
+	private BigDecimal montoRecibido;
+
+	@Schema(example = "0")
+	private BigDecimal vuelto;
+
+	@Schema(example = "0")
+	private BigDecimal total;
+
+	private UUID tipoDocumentoId;
+	private UUID almacenId;
+	private UUID beneficiarioId;
+	private UUID tipoTarjetaId;
+	private UUID tipoMonedaId;
+
+	@Schema(description = "Estado de la venta (inactive = 0 / active = 1)", example = "0")
+	private Integer estado;
+
+	private List<VentaDetalleDTO> detalles;
+}

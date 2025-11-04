@@ -1,0 +1,20 @@
+package com.saludsystem.submodules.paciente.response.historialclinico;
+
+import java.util.List;
+
+import com.saludsystem.submodules.paciente.model.dtos.get.historialclinico.AntecedenteDTO;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class AntecedenteListResponse
+{
+	@Schema(description = "Lista de antecedentes")
+	private List<AntecedenteDTO> data;
+
+	@Schema(description = "Total de registros para antecedentes", example = "0")
+	private long totalData;
+}

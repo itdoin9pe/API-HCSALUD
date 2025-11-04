@@ -1,0 +1,23 @@
+package com.saludsystem.submodules.paciente.command.delete;
+
+import java.util.UUID;
+
+import org.springframework.stereotype.Component;
+
+import com.saludsystem.submodules.paciente.service.fichaclinica.pconsentimiento.PConsentimientoDeleteService;
+
+@Component
+public class PConsentimientoDeleteHandler
+{
+	private final PConsentimientoDeleteService pConsentimientoDeleteService;
+
+	public PConsentimientoDeleteHandler(PConsentimientoDeleteService pConsentimientoDeleteService)
+	{
+		this.pConsentimientoDeleteService = pConsentimientoDeleteService;
+	}
+
+	public void execute(UUID uuid)
+	{
+		pConsentimientoDeleteService.execute(uuid);
+	}
+}

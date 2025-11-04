@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### UPLOADS ###
+/uploads/
+
 ### STS ###
 .apt_generated
 .classpath
@@ -28,6 +31,17 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
-
 ### VS Code ###
 .vscode/
+jenkins_home
+
+### environment ###
+application.properties*
+*.bk
+.env.local
+.env.prod
+sonar-project.properties
+
+### Spring profiles ###
+infrastructure/src/main/resources/application-prod.yml
+/.metadata/
