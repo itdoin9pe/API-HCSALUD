@@ -39,9 +39,12 @@ public class PacienteBean
 		return new PacienteDeleteService(repository, dao);
 	}
 
+	/*
 	@Bean
 	CommandLineRunner pacienteRunner(PacienteSeederService seeder)
 	{
 		return args -> seeder.insertarMasivo();
 	}
+
+	 */
 }

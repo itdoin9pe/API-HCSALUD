@@ -39,9 +39,12 @@ public class ApoderadoBean
 		return new ApoderadoDeleteService(repository, dao);
 	}
 
+	/*
 	@Bean
 	CommandLineRunner runner(ApoderadoSeederService seeder)
 	{
 		return args -> seeder.insertarMasivo();
 	}
+
+	 */
 }

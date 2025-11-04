@@ -13,9 +13,10 @@ import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 
 import jakarta.transaction.Transactional;
 
-@Service
+//@Service
 public class ApoderadoSeederService
 {
+	/*
 	private final ApoderadoJpaRepository apoderadoJpaRepository;
 
 	public ApoderadoSeederService(ApoderadoJpaRepository apoderadoJpaRepository)
@@ -56,4 +57,6 @@ public class ApoderadoSeederService
 		}
 		apoderadoJpaRepository.saveAll(lista);
 	}
+
+	 */
 }

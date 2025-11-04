@@ -1,6 +1,7 @@
 package com.saludsystem.submodules.cita.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.saludsystem.submodules.cita.model.enums.EstadoCitaEnum;
@@ -33,6 +34,7 @@ public class Cita
 	private CitaEstado estado;
 	private CitaMotivoConsulta motivoConsulta;
 	private CitaObservacion observacion;
+	private LocalDateTime checkedInAt;
 
 	public Cita(
 		CitaId id,
@@ -159,6 +161,19 @@ public class Cita
 		this.estado = new CitaEstado(EstadoCitaEnum.CONFIRMADA);
 	}
 
+	public boolean seCruzaCon(Cita otra)
+	{
+		if (!this.doctorId.equals(otra.doctorId))
+		{
+			return false;
+		}
+		if (!this.fecha.equals(otra.fecha))
+		{
+			return false;
+		}
+		return this.horaInicio.isBefore(otra.horaFin) && this.horaFin.isAfter(otra.horaInicio);
+	}
+
 	public void checkIn()
 	{
 		if (estado.value() != EstadoCitaEnum.CONFIRMADA)
@@ -166,6 +181,25 @@ public class Cita
 			throw new IllegalStateException("Solo se pueden hacer check-in de citas confirmadas.");
 		}
 		this.estado = new CitaEstado(EstadoCitaEnum.CHECKED_IN);
+	}
+
+	public void doCheckIn()
+	{
+		if (estado.value() != EstadoCitaEnum.RESERVADA)
+		{
+			throw new IllegalStateException("Solo se puede hacer check-in en una cita RESERVADA");
+		}
+		this.estado = new CitaEstado(EstadoCitaEnum.EN_CURSO);
+		this.checkedInAt = LocalDateTime.now();
+	}
+
+	public void cambiarEstado(EstadoCitaEnum nuevoEstado)
+	{
+		if (this.estado.value() == EstadoCitaEnum.CANCELADA)
+		{
+			throw new IllegalStateException("No se puede cambiar el estado de una cita cancelada");
+		}
+		this.estado = new CitaEstado(nuevoEstado);
 	}
 
 	public void finalizar()

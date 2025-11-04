@@ -1,9 +1,5 @@
 package com.saludsystem.submodules.core.configuracion.adapter.jpa.repository;
 
-import java.util.UUID;
-
-import org.springframework.stereotype.Component;
-
 import com.saludsystem.submodules.configuracion.model.Usuario;
 import com.saludsystem.submodules.configuracion.port.in.repository.UserRepository;
 import com.saludsystem.submodules.configuracion.port.out.AuthenticateUserPort;
@@ -12,8 +8,10 @@ import com.saludsystem.submodules.core.configuracion.adapter.entity.UserEntity;
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.RoleJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.jpa.UserJpaRepository;
 import com.saludsystem.submodules.core.configuracion.adapter.mapper.UserDboMapper;
-
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 @Transactional

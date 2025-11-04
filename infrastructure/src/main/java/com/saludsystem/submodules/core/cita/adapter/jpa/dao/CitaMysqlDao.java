@@ -1,5 +1,6 @@
 package com.saludsystem.submodules.core.cita.adapter.jpa.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,14 +13,20 @@ import com.saludsystem.submodules.core.cita.adapter.jpa.CitaJpaRepository;
 import com.saludsystem.submodules.core.cita.adapter.mapper.CitaDboMapper;
 import com.saludsystem.submodules.response.ListResponse;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 /**
  * The type Cita mysql dao.
  */
 @Component
 public class CitaMysqlDao implements CitaDao
-{
-	private final CitaJpaRepository citaJpaRepository;
+{	
+	@PersistenceContext
+	private EntityManager entityManager;
 
+	private final CitaJpaRepository citaJpaRepository;
+	
 	public CitaMysqlDao(CitaJpaRepository citaJpaRepository)
 	{
 		this.citaJpaRepository = citaJpaRepository;
@@ -45,4 +52,13 @@ public class CitaMysqlDao implements CitaDao
 	{
 		return citaJpaRepository.findAll().stream().map(CitaDboMapper::toDomain).toList();
 	}
+
+	@Override
+	public List<Cita> getByDoctorAndFecha(UUID doctorId, LocalDate fecha)
+	{
+		return entityManager
+				.createQuery("SELECT c FROM CitaEntity c WHERE c.doctorId = :doctorId AND c.fecha = :fecha", Cita.class)
+				.setParameter("doctorId", doctorId).setParameter("fecha", fecha).getResultList();
+	}
+
 }

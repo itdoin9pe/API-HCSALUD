@@ -21,14 +21,12 @@ import com.saludsystem.submodules.core.principal.adapter.entity.TipoPacienteEnti
 
 import jakarta.transaction.Transactional;
 
-@Service
+//@Service
 public class PacienteSeederService
 {
+	/*
 	private final PacienteJpaRepository pacienteJpaRepository;
 
-	/**
-	 * @param pacienteJpaRepository
-	 */
 	public PacienteSeederService(PacienteJpaRepository pacienteJpaRepository)
 	{
 		this.pacienteJpaRepository = pacienteJpaRepository;
@@ -123,5 +121,8 @@ public class PacienteSeederService
 		}
 		pacienteJpaRepository.saveAll(lista);
 		System.out.println("✅ 50 Pacientes insertados correctamente.");
+
 	}
+
+	 */
 }

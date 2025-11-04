@@ -28,3 +28,42 @@ public class SpringSecurityUserAdapter implements AuthenticateUserPort {
         throw new IllegalStateException("No authenticated user found");
     }
 }
+
+ /*
+public class SpringSecurityUserAdapter implements AuthenticateUserPort {
+
+    public UUID getUserId() {
+        try {
+            CustomerUserDetails userDetails = getUserDetails();
+            return userDetails != null ? userDetails.getUserId() : null;
+        } catch (Exception e) {
+            return null; // ← Retornar null en caso de cualquier error
+        }
+    }
+
+    public UUID getHospitalId() {
+        try {
+            CustomerUserDetails userDetails = getUserDetails();
+            return userDetails != null ? userDetails.getHospitalId() : null;
+        } catch (Exception e) {
+            return null; // ← Retornar null en caso de cualquier error
+        }
+    }
+
+    private CustomerUserDetails getUserDetails() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null &&
+                    authentication.isAuthenticated() &&
+                    !"anonymousUser".equals(authentication.getPrincipal()) &&
+                    authentication.getPrincipal() instanceof CustomerUserDetails userDetails) {
+                return userDetails;
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+}
+
+ */

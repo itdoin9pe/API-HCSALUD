@@ -26,7 +26,7 @@ public class CitaEditService
 		{
 			throw new IllegalArgumentException(CitaConstant.INVALID_ID);
 		}
-		if (currentCita.getEstado() != null && currentCita.getEstado().value() == EstadoCitaEnum.INACTIVE)
+		if (currentCita.getEstado() != null && currentCita.getEstado().value() == EstadoCitaEnum.INACTIVO)
 		{
 			throw new IllegalStateException("La cita ya se encuentra desactivada");
 		}

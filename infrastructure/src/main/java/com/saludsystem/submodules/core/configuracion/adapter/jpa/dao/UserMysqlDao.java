@@ -36,13 +36,19 @@ public class UserMysqlDao implements UserDao
 	{
 		var pageable = PageRequest.of(page - 1, rows);
 		var pageResult = userJpaRepository.findAllByHospital_HospitalId(hospitalId, pageable);
-		List<Usuario> data = pageResult.getContent().stream().map(UserDboMapper::toDomain).toList();
+		List<Usuario> data = pageResult.getContent()
+				.stream()
+				.map(UserDboMapper::toDomain)
+				.toList();
 		return new ListResponse<>(data, pageResult.getTotalElements(), pageResult.getTotalPages(), page);
 	}
 
 	@Override
 	public List<Usuario> getList()
 	{
-		return userJpaRepository.findAll().stream().map(UserDboMapper::toDomain).toList();
+		return userJpaRepository.findAll()
+				.stream()
+				.map(UserDboMapper::toDomain)
+				.toList();
 	}
 }

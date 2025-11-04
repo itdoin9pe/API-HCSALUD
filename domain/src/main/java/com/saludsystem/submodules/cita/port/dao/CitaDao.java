@@ -1,5 +1,6 @@
 package com.saludsystem.submodules.cita.port.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,4 +14,6 @@ public interface CitaDao
 	ListResponse<Cita> getAll(UUID hospitalId, int page, int rows);
 
 	List<Cita> getList();
+
+	List<Cita> getByDoctorAndFecha(UUID doctorId, LocalDate fecha);
 }

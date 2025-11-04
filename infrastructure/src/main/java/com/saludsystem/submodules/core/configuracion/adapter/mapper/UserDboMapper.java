@@ -55,7 +55,8 @@ public class UserDboMapper
 	{
 		return new Usuario(new UserId(entity.getUserId()), new Apellido(entity.getLastName()),
 				new Nombre(entity.getFirstName()), new Email(entity.getEmail()), new Username(entity.getUsername()),
-				new Password(entity.getPassword()), new PhoneNumber(entity.getPhoneNumber()),
+				new Password(entity.getPassword()),
+				new PhoneNumber(entity.getPhoneNumber()),
 				new Direccion(entity.getAddress()), new TipoDocumentoUsuario(entity.getDocumentType()),
 				new NumeroDocumento(entity.getDocumentNumber()), new Foto(entity.getPhoto()),
 				new UserRole(entity.getRol().getRoleId()), new UserHospital(entity.getHospital().getHospitalId()),
